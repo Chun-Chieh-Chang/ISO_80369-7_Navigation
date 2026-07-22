@@ -31,3 +31,21 @@
 
 ### 結論
 本次優化確立了 `v1.0` 的穩定版本基準，排除所有的編譯錯誤與遺留檔案，提升未來功能疊加的魯棒性與安全性。
+
+---
+
+## 版本：v1.1 GitHub Pages 自動化部署設定 (2026-07-22)
+
+### 需求內容
+1. 於 GitHub Pages 上建立與部署前端操作介面。
+2. 配置自動化工作流，確保推送 `main` 分支時自動執行軟體確效（型別與建置檢驗）並發布。
+
+### 過程紀錄與問題分析 (RCA & CAPA)
+
+#### 1. 資源相對路徑適配 (RCA)
+- **問題描述**：Vite 預設 `base: '/'` 會使產物使用絕對根路徑載入 CSS/JS，在 GitHub Pages 子路徑 (例如 `https://<user>.github.io/<repo>/`) 部署時會遭遇 404 資源載入失敗。
+- **矯正措施 (CAPA)**：在 `vite.config.ts` 設定 `base: './'`，改採相對路徑引用，確保於任何網域或子目錄下皆能順利執行。
+
+#### 2. CI/CD 部署自動化 (CAPA)
+- **矯正措施 (CAPA)**：建立 `.github/workflows/deploy.yml` 自動化工作流腳本。流程包含 `npx tsc --noEmit` 軟體確效防禦、`npx vite build` 產出打包，並自動透過官方 `actions/deploy-pages@v4` 上傳發布。
+
