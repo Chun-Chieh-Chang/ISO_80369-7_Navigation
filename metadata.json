@@ -1,0 +1,6 @@
+{
+  "name": "ISO 80369-7 & ISO 80369-20 Clause Retrieval & Visual Navigation System",
+  "description": "Topic-based visual clause search and retrieval system for ISO 80369-7 and ISO 80369-20 medical connector standards with interactive topic mapping, test parameters, and light theme interface.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
