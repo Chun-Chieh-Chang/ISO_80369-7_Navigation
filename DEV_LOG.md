@@ -42,9 +42,14 @@
 
 ### 過程紀錄與問題分析 (RCA & CAPA)
 
-#### 1. 資源相對路徑適配 (RCA)
-- **問題描述**：Vite 預設 `base: '/'` 會使產物使用絕對根路徑載入 CSS/JS，在 GitHub Pages 子路徑 (例如 `https://<user>.github.io/<repo>/`) 部署時會遭遇 404 資源載入失敗。
-- **矯正措施 (CAPA)**：在 `vite.config.ts` 設定 `base: './'`，改採相對路徑引用，確保於任何網域或子目錄下皆能順利執行。
+#### 1. 資源相對路徑適配與 404 排除 (RCA)
+- **問題描述**：GitHub Pages 存取時出現 `404 Failed to load resource` 錯誤。
+- **原因分析 (RCA)**：
+  1. 使用相對路徑 `base: './'` 時，若存取 URL 結尾缺少斜線 `/`（如 `/ISO_80369-7_Navigation`），瀏覽器會將 `./assets/` 解析至根網域 `https://<user>.github.io/assets/` 導致 404。
+  2. GitHub Pages 預設會使用 Jekyll 引擎處理檔案，可能過濾特定的資產目錄。
+- **矯正措施 (CAPA)**：
+  1. 在 `vite.config.ts` 指定精確的倉庫 base path：`base: '/ISO_80369-7_Navigation/'`。
+  2. 於 `public/` 目錄下建立 `.nojekyll` 檔案，停用 GitHub Pages Jekyll 預設過濾機制。
 
 #### 2. CI/CD 部署自動化 (CAPA)
 - **矯正措施 (CAPA)**：建立 `.github/workflows/deploy.yml` 自動化工作流腳本。流程包含 `npx tsc --noEmit` 軟體確效防禦、`npx vite build` 產出打包，並自動透過官方 `actions/deploy-pages@v4` 上傳發布。
