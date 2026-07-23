@@ -35,7 +35,7 @@ export interface ISOClauseInfo {
 
 export interface AnnexCFigureInfo {
   id: AnnexCFigureId;
-  figureNumber: string; // e.g. "Fig. A.1", "Fig. B.1", "Fig. C.3", "Fig. D.1 (ISO 20)"
+  figureNumber: string; // e.g. "Fig.A.1", "Fig.B.1", "Fig.C.3", "Fig.D.1 (ISO 20)"
   standardOwner?: 'ISO 80369-7' | 'ISO 80369-20' | 'Commercial';
   annexGroup: 'Annex A' | 'Annex B' | 'Annex C' | 'ISO 80369-20' | 'Commercial';
   name: string;

@@ -32,7 +32,7 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
 
   return (
     <div className={`bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xl text-slate-900 ${className}`}>
-      {/* Figure Header Bar */}
+      {/* Fig.Header Bar */}
       <div className="bg-slate-50 border-b border-slate-200 px-4 py-3 flex flex-wrap items-center justify-between gap-2 text-xs">
         <div className="flex items-center space-x-2">
           <span className="bg-blue-100 text-blue-700 border border-blue-200 font-mono font-bold px-2.5 py-0.5 rounded-md">
@@ -146,7 +146,7 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
             <div className="space-y-3 text-xs text-slate-600">
               <div className={`p-3 rounded-xl border ${figureTypeZh.includes('產品') ? 'bg-blue-50 border-blue-200' : 'bg-slate-50 border-slate-200'}`}>
                 <div className="font-bold text-blue-700 flex items-center gap-1.5 mb-1">
-                  📐 1. 產品 CAD 幾何圖 (Annex B / Fig. B.1 ~ Fig. B.6)
+                  📐 1. 產品 CAD 幾何圖 (Annex B / Fig.B.1 ~ Fig.B.6)
                 </div>
                 <p className="leading-relaxed text-slate-600">
                   規範醫療器材製造商量產銷售之<strong>商業產品接頭</strong>（例如：針筒、針頭、輸液管線 connector、三向閥等）所需的 6% Luer 錐度、圓弧 R 角與螺紋幾何公差。
@@ -155,7 +155,7 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
 
               <div className={`p-3 rounded-xl border ${figureTypeZh.includes('夾具') ? 'bg-amber-50 border-amber-200' : 'bg-slate-50 border-slate-200'}`}>
                 <div className="font-bold text-amber-700 flex items-center gap-1.5 mb-1">
-                  🔧 2. 金屬參考夾具件 (Annex C / Fig. C.1 ~ Fig. C.6)
+                  🔧 2. 金屬參考夾具件 (Annex C / Fig.C.1 ~ Fig.C.6)
                 </div>
                 <p className="leading-relaxed text-slate-600">
                   第三方檢驗實驗室進行物理洩漏 (6.1/6.2)、旋鬆扭矩 (6.3) 與拉拔力 (6.4) 等宣告測試時所使用的<strong>硬質不鏽鋼金屬測試規件 (Reference Test Gauges)</strong>，包含標稱件與最壞情況 (Worst-case) 限制件。
@@ -164,7 +164,7 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
 
               <div className={`p-3 rounded-xl border ${figureTypeZh.includes('防誤插') ? 'bg-emerald-50 border-emerald-200' : 'bg-slate-50 border-slate-200'}`}>
                 <div className="font-bold text-emerald-700 flex items-center gap-1.5 mb-1">
-                  📘 3. 防誤插幾何矩陣 (Annex A / Fig. A.1)
+                  📘 3. 防誤插幾何矩陣 (Annex A / Fig.A.1)
                 </div>
                 <p className="leading-relaxed text-slate-600">
                   規範 ISO 80369 跨領域小孔徑接頭（如血管 80369-7 vs 腸道 80369-3 ENFit vs 神經軸 80369-6 NRFit）之間互不相容之<strong>防呆幾何矩陣與物理維度隔離要求</strong>。
@@ -309,10 +309,10 @@ function renderPressureDecayApparatus(showDims: boolean, showVectors: boolean, a
       {/* Pipe 3 */}
       <line x1="420" y1="145" x2="480" y2="145" stroke="url(#pipeBlue)" strokeWidth="6" />
 
-      {/* Reference Connector Metal Fixture (Figure C.1/C.4) */}
+      {/* Reference Connector Metal Fixture (Fig.C.1/C.4) */}
       <rect x="480" y="120" width="60" height="50" rx="4" fill="#64748b" stroke="#e2e8f0" strokeWidth="2" />
       <text x="510" y="142" fill="#ffffff" fontSize="12" textAnchor="middle" fontWeight="bold">金屬夾具</text>
-      <text x="510" y="156" fill="#cbd5e1" fontSize="12" textAnchor="middle">Figure C.1</text>
+      <text x="510" y="156" fill="#cbd5e1" fontSize="12" textAnchor="middle">Fig.C.1</text>
 
       {/* Test Sample (Plastic Luer Connector) */}
       <rect x="540" y="128" width="70" height="34" rx="4" fill="#3b82f6" opacity="0.85" stroke="#60a5fa" strokeWidth="1.5" />
@@ -549,9 +549,9 @@ function renderOverridingTorqueRig(showDims: boolean, showVectors: boolean, acti
       {/* Shaft Connection */}
       <line x1="250" y1="165" x2="310" y2="165" stroke="#cbd5e1" strokeWidth="8" />
 
-      {/* Figure C.3 Metal Fixture (Worst case 2.71mm lug) */}
+      {/* Fig.C.3 Metal Fixture (Worst case 2.71mm lug) */}
       <rect x="310" y="130" width="70" height="70" rx="6" fill="#f59e0b" opacity="0.85" stroke="#ffffff" strokeWidth="2" />
-      <text x="345" y="160" fill="#ffffff" fontSize="12" textAnchor="middle" fontWeight="bold">Figure C.3</text>
+      <text x="345" y="160" fill="#ffffff" fontSize="12" textAnchor="middle" fontWeight="bold">Fig.C.3</text>
       <text x="345" y="176" fill="#fef3c7" fontSize="12" textAnchor="middle">耳翼 2.71 mm</text>
 
       {/* Plastic Test Connector */}
@@ -717,7 +717,7 @@ function renderStressCrackingApparatus(showDims: boolean, showVectors: boolean, 
 }
 
 /* =========================================================================
-   ISO 80369-7 Figure B.1: Male Luer Slip Connector (L1) CAD Drawing
+   ISO 80369-7 Fig.B.1: Male Luer Slip Connector (L1) CAD Drawing
    ========================================================================= */
 function renderFigB1MaleSlipCad(showDims: boolean, showVectors: boolean, activeCallout: string | null) {
   return (
@@ -769,14 +769,14 @@ function renderFigB1MaleSlipCad(showDims: boolean, showVectors: boolean, activeC
         Table B.1 contains the dimensions for this figure.
       </text>
       <text x="350" y="420" fill="#0f172a" fontSize="13" textAnchor="middle" fontFamily="sans-serif" fontWeight="bold">
-        Figure B.1 — Male Luer slip connector (L1)
+        Fig.B.1 — Male Luer slip connector (L1)
       </text>
     </svg>
   );
 }
 
 /* =========================================================================
-   ISO 80369-7 Figure B.2: Female Luer Slip Connector (L1) CAD Drawing
+   ISO 80369-7 Fig.B.2: Female Luer Slip Connector (L1) CAD Drawing
    ========================================================================= */
 function renderFigB2FemaleSlipCad(showDims: boolean, showVectors: boolean, activeCallout: string | null) {
   return (
@@ -883,14 +883,14 @@ function renderFigB2FemaleSlipCad(showDims: boolean, showVectors: boolean, activ
         Table B.2 contains the dimensions for this figure.
       </text>
       <text x="350" y="420" fill="#0f172a" fontSize="13" textAnchor="middle" fontFamily="sans-serif" fontWeight="bold">
-        Figure B.2 — Female Luer slip connector (L1)
+        Fig.B.2 — Female Luer slip connector (L1)
       </text>
     </svg>
   );
 }
 
 /* =========================================================================
-   ISO 80369-7 Figure B.3: Male Luer Lock Connector with Rigid Thread Collar
+   ISO 80369-7 Fig.B.3: Male Luer Lock Connector with Rigid Thread Collar
    ========================================================================= */
 function renderFigB3MaleLockCad(showDims: boolean, showVectors: boolean, activeCallout: string | null) {
   return (
@@ -932,14 +932,14 @@ function renderFigB3MaleLockCad(showDims: boolean, showVectors: boolean, activeC
         Table B.3 contains the dimensions for this figure.
       </text>
       <text x="350" y="420" fill="#0f172a" fontSize="13" textAnchor="middle" fontFamily="sans-serif" fontWeight="bold">
-        Figure B.3 — Male Luer lock connector with rigid thread collar
+        Fig.B.3 — Male Luer lock connector with rigid thread collar
       </text>
     </svg>
   );
 }
 
 /* =========================================================================
-   ISO 80369-7 Figure B.4: Female Luer Lock Connector with Rigid Lugs
+   ISO 80369-7 Fig.B.4: Female Luer Lock Connector with Rigid Lugs
    ========================================================================= */
 function renderFigB4FemaleLockCad(showDims: boolean, showVectors: boolean, activeCallout: string | null) {
   return (
@@ -981,14 +981,14 @@ function renderFigB4FemaleLockCad(showDims: boolean, showVectors: boolean, activ
         Table B.4 contains the dimensions for this figure.
       </text>
       <text x="350" y="420" fill="#0f172a" fontSize="13" textAnchor="middle" fontFamily="sans-serif" fontWeight="bold">
-        Figure B.4 — Female Luer lock connector with rigid lugs
+        Fig.B.4 — Female Luer lock connector with rigid lugs
       </text>
     </svg>
   );
 }
 
 /* =========================================================================
-   ISO 80369-7 Figure B.5: Male Luer Lock Connector with Floating Ring
+   ISO 80369-7 Fig.B.5: Male Luer Lock Connector with Floating Ring
    ========================================================================= */
 function renderFigB5MaleLockFloatingCad(showDims: boolean, showVectors: boolean, activeCallout: string | null) {
   return (
@@ -1011,14 +1011,14 @@ function renderFigB5MaleLockFloatingCad(showDims: boolean, showVectors: boolean,
       </g>
 
       <text x="350" y="420" fill="#0f172a" fontSize="13" textAnchor="middle" fontFamily="sans-serif" fontWeight="bold">
-        Figure B.5 — Male Luer lock connector with floating ring
+        Fig.B.5 — Male Luer lock connector with floating ring
       </text>
     </svg>
   );
 }
 
 /* =========================================================================
-   ISO 80369-7 Figure B.6: Female Luer Lock Dimensional Envelope
+   ISO 80369-7 Fig.B.6: Female Luer Lock Dimensional Envelope
    ========================================================================= */
 function renderFigB6FemaleEnvelopeCad(showDims: boolean, showVectors: boolean, activeCallout: string | null) {
   return (
@@ -1034,7 +1034,7 @@ function renderFigB6FemaleEnvelopeCad(showDims: boolean, showVectors: boolean, a
       </g>
 
       <text x="350" y="420" fill="#0f172a" fontSize="13" textAnchor="middle" fontFamily="sans-serif" fontWeight="bold">
-        Figure B.6 — Female Luer lock connector dimensional envelope
+        Fig.B.6 — Female Luer lock connector dimensional envelope
       </text>
     </svg>
   );
@@ -1048,12 +1048,12 @@ function renderFigC1FemaleRefNominalCad(showDims: boolean, showVectors: boolean,
     <svg viewBox="0 0 700 440" className="w-full max-w-3xl bg-white rounded-xl border border-slate-200 p-4 shadow-xl text-slate-900">
       <g transform="translate(40, 50)">
         <rect x="80" y="60" width="400" height="200" rx="8" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
-        <text x="280" y="140" fill="#38bdf8" fontSize="16" textAnchor="middle" fontWeight="bold">ISO 80369-7 Figure C.1</text>
+        <text x="280" y="140" fill="#38bdf8" fontSize="16" textAnchor="middle" fontWeight="bold">ISO 80369-7 Fig.C.1</text>
         <text x="280" y="170" fill="#cbd5e1" fontSize="13" textAnchor="middle">Female Reference Luer Lock Connector (Nominal)</text>
         <text x="280" y="200" fill="#a7f3d0" fontSize="12" textAnchor="middle">Lug Width = 3.50 mm | Flank Angle = 25°</text>
       </g>
       <text x="350" y="420" fill="#38bdf8" fontSize="13" textAnchor="middle" fontWeight="bold">
-        Figure C.1 — Female reference Luer lock connector (3.50mm Nominal)
+        Fig.C.1 — Female reference Luer lock connector (3.50mm Nominal)
       </text>
     </svg>
   );
@@ -1064,11 +1064,11 @@ function renderFigC2MaleSlipRefCad(showDims: boolean, showVectors: boolean, acti
     <svg viewBox="0 0 700 440" className="w-full max-w-3xl bg-white rounded-xl border border-slate-200 p-4 shadow-xl text-slate-900">
       <g transform="translate(40, 50)">
         <polygon points="100,100 420,80 420,240 100,220" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
-        <text x="260" y="150" fill="#38bdf8" fontSize="16" textAnchor="middle" fontWeight="bold">ISO 80369-7 Figure C.2</text>
+        <text x="260" y="150" fill="#38bdf8" fontSize="16" textAnchor="middle" fontWeight="bold">ISO 80369-7 Fig.C.2</text>
         <text x="260" y="180" fill="#cbd5e1" fontSize="13" textAnchor="middle">Male Reference Luer Slip Connector</text>
       </g>
       <text x="350" y="420" fill="#38bdf8" fontSize="13" textAnchor="middle" fontWeight="bold">
-        Figure C.2 — Male reference Luer slip connector
+        Fig.C.2 — Male reference Luer slip connector
       </text>
     </svg>
   );
@@ -1079,13 +1079,13 @@ function renderFigC3FemaleRefWorstCaseCad(showDims: boolean, showVectors: boolea
     <svg viewBox="0 0 700 440" className="w-full max-w-3xl bg-white rounded-xl border border-rose-200 p-4 shadow-xl text-slate-900">
       <g transform="translate(40, 50)">
         <rect x="80" y="60" width="400" height="200" rx="8" fill="#1e293b" stroke="#f43f5e" strokeWidth="2.5" />
-        <text x="280" y="130" fill="#f43f5e" fontSize="16" textAnchor="middle" fontWeight="bold">ISO 80369-7 Figure C.3 (WORST-CASE)</text>
+        <text x="280" y="130" fill="#f43f5e" fontSize="16" textAnchor="middle" fontWeight="bold">ISO 80369-7 Fig.C.3 (WORST-CASE)</text>
         <text x="280" y="160" fill="#fca5a5" fontSize="13" textAnchor="middle">Narrowed Lug Width = 2.71 mm (縮窄 22%)</text>
         <text x="280" y="190" fill="#fca5a5" fontSize="13" textAnchor="middle">Steeper Flank Angle = 30° (外撐力加大)</text>
         <text x="280" y="220" fill="#ffffff" fontSize="12" textAnchor="middle">專用於 6.4 拉拔與 6.6 抗滑牙/過旋破壞測試</text>
       </g>
       <text x="350" y="420" fill="#f43f5e" fontSize="13" textAnchor="middle" fontWeight="bold">
-        Figure C.3 — Female reference Luer lock connector (2.71mm Worst-Case)
+        Fig.C.3 — Female reference Luer lock connector (2.71mm Worst-Case)
       </text>
     </svg>
   );
@@ -1096,11 +1096,11 @@ function renderFigC4MaleLockRefNominalCad(showDims: boolean, showVectors: boolea
     <svg viewBox="0 0 700 440" className="w-full max-w-3xl bg-white rounded-xl border border-slate-200 p-4 shadow-xl text-slate-900">
       <g transform="translate(40, 50)">
         <rect x="80" y="60" width="400" height="200" rx="8" fill="#1e293b" stroke="#f59e0b" strokeWidth="2" />
-        <text x="280" y="140" fill="#f59e0b" fontSize="16" textAnchor="middle" fontWeight="bold">ISO 80369-7 Figure C.4</text>
+        <text x="280" y="140" fill="#f59e0b" fontSize="16" textAnchor="middle" fontWeight="bold">ISO 80369-7 Fig.C.4</text>
         <text x="280" y="170" fill="#cbd5e1" fontSize="13" textAnchor="middle">Male Reference Luer Lock Connector (Nominal)</text>
       </g>
       <text x="350" y="420" fill="#f59e0b" fontSize="13" textAnchor="middle" fontWeight="bold">
-        Figure C.4 — Male reference Luer lock connector (Nominal)
+        Fig.C.4 — Male reference Luer lock connector (Nominal)
       </text>
     </svg>
   );
@@ -1111,11 +1111,11 @@ function renderFigC5FemaleSlipRefCad(showDims: boolean, showVectors: boolean, ac
     <svg viewBox="0 0 700 440" className="w-full max-w-3xl bg-white rounded-xl border border-slate-200 p-4 shadow-xl text-slate-900">
       <g transform="translate(40, 50)">
         <rect x="80" y="60" width="400" height="200" rx="8" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
-        <text x="280" y="150" fill="#38bdf8" fontSize="16" textAnchor="middle" fontWeight="bold">ISO 80369-7 Figure C.5</text>
+        <text x="280" y="150" fill="#38bdf8" fontSize="16" textAnchor="middle" fontWeight="bold">ISO 80369-7 Fig.C.5</text>
         <text x="280" y="180" fill="#cbd5e1" fontSize="13" textAnchor="middle">Female Reference Luer Slip Connector</text>
       </g>
       <text x="350" y="420" fill="#38bdf8" fontSize="13" textAnchor="middle" fontWeight="bold">
-        Figure C.5 — Female reference Luer slip connector
+        Fig.C.5 — Female reference Luer slip connector
       </text>
     </svg>
   );
@@ -1126,11 +1126,11 @@ function renderFigC6MaleLockRefWorstCaseCad(showDims: boolean, showVectors: bool
     <svg viewBox="0 0 700 440" className="w-full max-w-3xl bg-white rounded-xl border border-rose-200 p-4 shadow-xl text-slate-900">
       <g transform="translate(40, 50)">
         <rect x="80" y="60" width="400" height="200" rx="8" fill="#1e293b" stroke="#f43f5e" strokeWidth="2.5" />
-        <text x="280" y="140" fill="#f43f5e" fontSize="16" textAnchor="middle" fontWeight="bold">ISO 80369-7 Figure C.6 (WORST-CASE)</text>
+        <text x="280" y="140" fill="#f43f5e" fontSize="16" textAnchor="middle" fontWeight="bold">ISO 80369-7 Fig.C.6 (WORST-CASE)</text>
         <text x="280" y="170" fill="#fca5a5" fontSize="13" textAnchor="middle">Male Reference Luer Lock Connector (Worst-Case)</text>
       </g>
       <text x="350" y="420" fill="#f43f5e" fontSize="13" textAnchor="middle" fontWeight="bold">
-        Figure C.6 — Male reference Luer lock connector (Worst-Case)
+        Fig.C.6 — Male reference Luer lock connector (Worst-Case)
       </text>
     </svg>
   );

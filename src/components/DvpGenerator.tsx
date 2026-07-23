@@ -117,7 +117,7 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
                           <span className={`inline-block px-2 py-1 rounded text-xs ${
                             requiredRef?.isWorstCase ? 'bg-rose-100 text-rose-800 font-black border border-rose-300' : 'bg-blue-100 text-blue-900 border border-blue-200'
                           }`}>
-                            Figure {requiredRefId} ({requiredRef?.isWorstCase ? '最壞情況 2.71mm' : '標稱 3.50mm'})
+                            Fig.{requiredRefId} ({requiredRef?.isWorstCase ? '最壞情況 2.71mm' : '標稱 3.50mm'})
                           </span>
                         </td>
                         <td className="p-3 border border-slate-200 text-slate-700 leading-tight text-xs">
@@ -132,8 +132,8 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
 
           <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs text-slate-600 space-y-1">
             <div className="font-bold text-slate-800">📌 DVP 審查注意事項 (Audit Notes):</div>
-            <p>1. 第 6.6 節抗過旋測試與第 6.4 節抗拉拔測試，標準強制規定必須採用 Figure C.3 最壞情況（2.71 mm 耳翼）參考接頭。</p>
-            <p>2. 6.1/6.2 洩漏與 6.3 龜裂測試，採標稱 Figure C.1（3.50 mm 耳翼）接頭，用以隔離密封面變量。</p>
+            <p>1. 第 6.6 節抗過旋測試與第 6.4 節抗拉拔測試，標準強制規定必須採用 Fig.C.3 最壞情況（2.71 mm 耳翼）參考接頭。</p>
+            <p>2. 6.1/6.2 洩漏與 6.3 龜裂測試，採標稱 Fig.C.1（3.50 mm 耳翼）接頭，用以隔離密封面變量。</p>
           </div>
         </div>
     </div>

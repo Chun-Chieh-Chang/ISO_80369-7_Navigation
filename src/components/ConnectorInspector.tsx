@@ -38,7 +38,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
               <span className="bg-blue-100 text-blue-700 text-xs font-semibold px-2.5 py-0.5 rounded-full border border-blue-200">
                 ISO 80369 雙標準全圖號庫
               </span>
-              <h2 className="text-lg font-bold">ISO 80369-7 與 ISO 80369-20 規範附件圖號庫 (Fig. A.1 ~ K.1)</h2>
+              <h2 className="text-lg font-bold">ISO 80369-7 與 ISO 80369-20 規範附件圖號庫 (Fig.A.1 ~ K.1)</h2>
             </div>
             <p className="text-xs text-slate-500 mt-1">
               收錄完整規範圖號：<strong className="text-blue-600">ISO 80369-7 Annex A/B/C</strong> (防誤插矩陣、產品 CAD 尺寸、金屬參考夾具) 與 <strong className="text-purple-600">ISO 80369-20 Annex B~K</strong> (測試方法裝置與機台圖)。
@@ -182,7 +182,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
                   })
                 ) : (
                   <div className="bg-amber-50 text-amber-900 p-3 rounded-xl border border-amber-200 text-xs font-medium leading-relaxed">
-                    ℹ️ 此圖號為全框架基礎幾何規範（如 Fig. A.1 防誤插矩陣或 Fig. B.6 包絡面），不單獨對應單一測試條款，但為全系統設計審查之核心依據。
+                    ℹ️ 此圖號為全框架基礎幾何規範（如 Fig.A.1 防誤插矩陣或 Fig.B.6 包絡面），不單獨對應單一測試條款，但為全系統設計審查之核心依據。
                   </div>
                 )}
               </div>

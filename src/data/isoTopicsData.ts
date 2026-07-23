@@ -31,7 +31,7 @@ export const ISO_TOPICS: ISOTopic[] = [
         standard: 'ISO 80369-20:2024 Annex B',
         figureType: 'apparatus',
         figureTypeZh: '測試裝置示意圖',
-        descriptionZh: '本圖展示 ISO 80369-20 Annex B 氣壓衰減洩漏試驗架構，包含加壓源、精密調壓閥 (±0.3% 精度感測器)、截止閥 S1、金屬參考夾具 (Figure C.1/C.4) 與受測魯爾接頭。加壓至 300~330 kPa 保持 15~20 秒量測壓力衰減量 ΔP。',
+        descriptionZh: '本圖展示 ISO 80369-20 Annex B 氣壓衰減洩漏試驗架構，包含加壓源、精密調壓閥 (±0.3% 精度感測器)、截止閥 S1、金屬參考夾具 (Fig.C.1/C.4) 與受測魯爾接頭。加壓至 300~330 kPa 保持 15~20 秒量測壓力衰減量 ΔP。',
         svgKey: 'ISO20-FIG-B1',
         keyCallouts: [
           { id: 'p_test', labelZh: '測試壓力範圍', valueZh: '300 ~ 330 kPa' },
@@ -76,7 +76,7 @@ export const ISO_TOPICS: ISOTopic[] = [
         id: 'ISO7-FIG-B1-B2',
         titleZh: '6% 魯爾錐面貼合密封 CAD 幾何圖',
         titleEn: '6% Luer Slip Cone & Socket Mating Geometry',
-        standard: 'ISO 80369-7:2021 Figure B.1 & B.2',
+        standard: 'ISO 80369-7:2021 Fig.B.1 & B.2',
         figureType: 'connector_cad',
         figureTypeZh: '接頭幾何 CAD 圖',
         descriptionZh: '詳細呈現 6% 魯爾公錐體與母錐座配合處之 CAD 斷面圖。標記公錐小端直徑 (Ø3.970~4.072 mm)、母錐開口直徑 (Ø4.198~4.298 mm) 及 1:16.667 (雙邊 3.436°) 錐度角，證明防漏取決於微觀錐面靜摩擦緊密過盈配合。',
@@ -156,7 +156,7 @@ export const ISO_TOPICS: ISOTopic[] = [
     keyParameters: [
       { label: '測試扭矩 Test Torque', value: '0.15 - 0.17', unit: 'N·m' },
       { label: '保持時間 Hold Time', value: '5 - 10', unit: '秒' },
-      { label: '極限夾具 Critical Fixture', value: 'Figure C.3 (2.71mm 耳翼)' },
+      { label: '極限夾具 Critical Fixture', value: 'Fig.C.3 (2.71mm 耳翼)' },
       { label: '失敗模式 Failure Mode', value: '環向應力膨脹 (Hoop Expansion) 滑脫' }
     ],
     relatedISO7Clauses: ['6.6'],
@@ -178,7 +178,7 @@ export const ISO_TOPICS: ISOTopic[] = [
         keyCallouts: [
           { id: 'torque', labelZh: '過載破壞扭矩', valueZh: '0.15 ~ 0.17 N·m' },
           { id: 'rpm', labelZh: '伺服馬達轉速', valueZh: '3.0 rpm ± 0.5 rpm' },
-          { id: 'fixture', labelZh: '最壞情況夾具', valueZh: 'Figure C.3 (2.71mm 耳翼)' },
+          { id: 'fixture', labelZh: '最壞情況夾具', valueZh: 'Fig.C.3 (2.71mm 耳翼)' },
           { id: 'mechanic', labelZh: '應力失效模式', valueZh: '環向張應力 σθ > 材料屈服極限' }
         ]
       },
@@ -186,10 +186,10 @@ export const ISO_TOPICS: ISOTopic[] = [
         id: 'ISO7-FIG-B3-B6',
         titleZh: '公鎖定套環螺紋與 2.71mm 最壞情況耳翼幾何圖',
         titleEn: 'Luer Lock Thread Profile & 2.71mm Narrow Lug Geometry',
-        standard: 'ISO 80369-7:2021 Figure B.3 & Figure C.3',
+        standard: 'ISO 80369-7:2021 Fig.B.3 & Fig.C.3',
         figureType: 'connector_cad',
         figureTypeZh: '接頭幾何 CAD 圖',
-        descriptionZh: 'CAD 幾何剖面圖說明 ISO 80369-7 雙頭內螺紋 (Pitch 2.5mm，角度 25°~30°) 與 Figure C.3 縮窄耳翼 (2.71mm) 旋合咬合時之接觸面。解析耳翼寬度縮小 22% 如何極端考驗塑膠套環之幾何公差與剛性。',
+        descriptionZh: 'CAD 幾何剖面圖說明 ISO 80369-7 雙頭內螺紋 (Pitch 2.5mm，角度 25°~30°) 與 Fig.C.3 縮窄耳翼 (2.71mm) 旋合咬合時之接觸面。解析耳翼寬度縮小 22% 如何極端考驗塑膠套環之幾何公差與剛性。',
         svgKey: 'ISO7-FIG-B3-B6',
         keyCallouts: [
           { id: 'pitch', labelZh: '螺紋節距 Pitch', valueZh: '2.5 mm' },
@@ -339,7 +339,7 @@ export const ISO_TOPICS: ISOTopic[] = [
         id: 'ISO7-FIG-B1-B2',
         titleZh: '6% 魯爾公/母錐體斜率與關鍵尺寸 CAD 圖',
         titleEn: '6% Luer Cone & Socket Slope CAD Drawing',
-        standard: 'ISO 80369-7:2021 Figure B.1 & B.2',
+        standard: 'ISO 80369-7:2021 Fig.B.1 & B.2',
         figureType: 'connector_cad',
         figureTypeZh: '接頭幾何 CAD 圖',
         descriptionZh: '展現 6% 圓錐 (1:16.667，單邊 α=1.718°) 幾何尺寸圖。標記 Base 直徑 (3.970~4.072mm)、最小配合長度 7.5mm 與倒角規格。',
@@ -353,7 +353,7 @@ export const ISO_TOPICS: ISOTopic[] = [
         id: 'ISO7-FIG-B3-B6',
         titleZh: '魯爾鎖定螺紋距、投影量與耳翼 CAD 幾何圖',
         titleEn: 'Luer Lock Thread Pitch & Projection Distance CAD',
-        standard: 'ISO 80369-7:2021 Figure B.3 & Figure B.6',
+        standard: 'ISO 80369-7:2021 Fig.B.3 & Fig.B.6',
         figureType: 'connector_cad',
         figureTypeZh: '接頭幾何 CAD 圖',
         descriptionZh: 'CAD 圖面標註公鎖定雙頭螺紋 (Pitch 2.5mm) 與母耳翼 (標稱 3.50mm) 配合，標註核心參數 c ≥ 2.1mm 及 t ≤ 3.2mm。',
@@ -373,7 +373,7 @@ export const ISO_TOPICS: ISOTopic[] = [
     categoryZh: '夾具與金屬件',
     iconName: 'Wrench',
     shortSummaryZh: '定義 ISO 80369-7 附錄 C 的 6 種標準鋼製金屬參考接頭（C.1~C.6），標準化法規測試檢驗條件。',
-    detailedDescriptionZh: '為了排除測試受測物時對手件材質變形的干擾，ISO 80369-7 附錄 C 精確指定了使用不鏽鋼高硬度金屬製作的參考接頭（Figure C.1 至 C.6）。其中 C.1/C.4 用於標準氣密性測試，而 C.3（母耳翼縮窄至 2.71mm）及 C.6 則為專門測試機械極限的最壞情況（Worst-case）夾具。',
+    detailedDescriptionZh: '為了排除測試受測物時對手件材質變形的干擾，ISO 80369-7 附錄 C 精確指定了使用不鏽鋼高硬度金屬製作的參考接頭（Fig.C.1 至 C.6）。其中 C.1/C.4 用於標準氣密性測試，而 C.3（母耳翼縮窄至 2.71mm）及 C.6 則為專門測試機械極限的最壞情況（Worst-case）夾具。',
     keyParameters: [
       { label: '材質要求 Material', value: '不鏽鋼 (Stainless Steel) 硬度 ≥ 45 HRC' },
       { label: '標稱母耳翼 C.1 Tab Width', value: '3.50', unit: 'mm' },
@@ -394,7 +394,7 @@ export const ISO_TOPICS: ISOTopic[] = [
         standard: 'ISO 80369-7:2021 Annex C',
         figureType: 'fixture',
         figureTypeZh: '參考金屬件',
-        descriptionZh: '不鏽鋼 (≥45 HRC) 高精密度法規測試專用金屬參考件 (Figure C.1~C.6)。詳細解析 C.1 標稱件與 C.3 Worst-case 最壞情況件之幾何差異。',
+        descriptionZh: '不鏽鋼 (≥45 HRC) 高精密度法規測試專用金屬參考件 (Fig.C.1~C.6)。詳細解析 C.1 標稱件與 C.3 Worst-case 最壞情況件之幾何差異。',
         svgKey: 'ISO7-FIG-B3-B6',
         keyCallouts: [
           { id: 'material', labelZh: '夾具材質', valueZh: 'Stainless Steel (≥ 45 HRC)' },
@@ -656,17 +656,17 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     standard: 'ISO 80369-7:2021',
     clauseNumber: 'Annex B',
     titleEn: 'Dimensional Drawings for Luer Connectors',
-    titleZh: '附錄 B 魯爾連接器幾何尺寸圖面規範 (Figure B.1 ~ B.6)',
+    titleZh: '附錄 B 魯爾連接器幾何尺寸圖面規範 (Fig.B.1 ~ B.6)',
     type: 'requirement',
     typeZh: '法規要求條文',
-    objectiveZh: '提供 Figure B.1 至 B.6 公母魯爾鎖定與滑動接頭之完整 CAD 尺寸與公差矩陣。',
+    objectiveZh: '提供 Fig.B.1 至 B.6 公母魯爾鎖定與滑動接頭之完整 CAD 尺寸與公差矩陣。',
     appliesToZh: '模具設計與生產品管全尺寸檢驗',
     quantitativeConditions: {
       temperatureC: '20°C - 30°C'
     },
     fixtureRequiredZh: '三次元 CMM 與光學投影儀',
     testProcedureStepsZh: [
-      '按 Figure B.1~B.6 標註量測錐度、螺紋 Pitch、耳翼寬度與投影量。'
+      '按 Fig.B.1~B.6 標註量測錐度、螺紋 Pitch、耳翼寬度與投影量。'
     ],
     acceptanceCriteriaZh: [
       '尺寸數據 100% 落在 Annex B 公差範圍內。'
@@ -861,7 +861,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       temperatureC: '15°C - 30°C',
       media: '水或空氣'
     },
-    fixtureRequiredZh: 'Figure C.1 (母標稱) 或 Figure C.4 (公標稱)',
+    fixtureRequiredZh: 'Fig.C.1 (母標稱) 或 Fig.C.4 (公標稱)',
     testProcedureStepsZh: [
       '使用 0.08–0.12 N·m 扭矩與 26.5–27.5 N 軸向推力將受測物與鋼製參考夾具旋合。',
       '向系統內注滿測試水，排出內部所有氣泡（水滴法）。',
@@ -926,7 +926,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       holdTimeSec: '30 - 35 秒',
       media: '蒸餾水/飲用水 (可添加亞甲藍色素)'
     },
-    fixtureRequiredZh: 'Figure C.1 (母) 或 Figure C.4 (公)',
+    fixtureRequiredZh: 'Fig.C.1 (母) 或 Fig.C.4 (公)',
     testProcedureStepsZh: [
       '以 0.08~0.12 N·m 扭矩與 26.5~27.5 N 推力將受測物與參考夾具旋合。',
       '向系統內注滿水並徹底排出氣泡，保持組裝件軸線水平。',
@@ -956,7 +956,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       testPressureKpa: '80.0 kPa - 88.0 kPa (真空負壓)',
       holdTimeSec: '15 秒 - 20 秒'
     },
-    fixtureRequiredZh: 'Figure C.1 或 Figure C.4',
+    fixtureRequiredZh: 'Fig.C.1 或 Fig.C.4',
     testProcedureStepsZh: [
       '依 Annex J 旋緊裝配受測物與金屬夾具。',
       '連接真空抽氣系統，抽出內部空氣至 80.0~88.0 kPa 負壓。',
@@ -1042,9 +1042,9 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       holdTimeSec: '5 秒 - 10 秒',
       temperatureC: '20°C - 30°C'
     },
-    fixtureRequiredZh: 'Figure C.3 母參考接頭（2.71 mm 窄耳翼最壞情況夾具）',
+    fixtureRequiredZh: 'Fig.C.3 母參考接頭（2.71 mm 窄耳翼最壞情況夾具）',
     testProcedureStepsZh: [
-      '將受測公鎖定接頭對準 Figure C.3 金屬參考夾具。',
+      '將受測公鎖定接頭對準 Fig.C.3 金屬參考夾具。',
       '以不超過 10 rpm 轉速連續旋緊，直至扭矩達到 0.15–0.17 N·m。',
       '在 0.15–0.17 N·m 扭矩下保持 5 至 10 秒。',
       '檢視螺紋是否發生滑脫（Overriding）、耳翼跳牙或套環破裂。'
@@ -1074,7 +1074,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       holdTimeSec: '5 - 10 秒',
       temperatureC: '15°C - 30°C'
     },
-    fixtureRequiredZh: 'ISO 80369-7 Figure C.3 (母鎖定最壞情況金屬件) 或 C.6',
+    fixtureRequiredZh: 'ISO 80369-7 Fig.C.3 (母鎖定最壞情況金屬件) 或 C.6',
     testProcedureStepsZh: [
       '將 C.3 金屬夾具固定於自動扭矩測試儀之伺服馬達夾頭。',
       '設定旋轉轉速為 3.0 rpm ± 0.5 rpm。',
@@ -1106,7 +1106,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       testForceN: '32 N - 35 N (Lock) / 23 N - 25 N (Slip)',
       holdTimeSec: '10 秒 - 15 秒'
     },
-    fixtureRequiredZh: 'Figure C.3 (公受測物) 或 Figure C.6 (母受測物)',
+    fixtureRequiredZh: 'Fig.C.3 (公受測物) 或 Fig.C.6 (母受測物)',
     testProcedureStepsZh: [
       '依標準程序以 0.08–0.12 N·m 裝配受測物與參考夾具。',
       '將組裝件安裝至拉力試驗機上，確保同軸度。',
@@ -1166,7 +1166,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       testTorqueNm: '0.018 N·m - 0.020 N·m (反向)',
       holdTimeSec: '10 秒 - 15 秒'
     },
-    fixtureRequiredZh: 'Figure C.1 (母) 或 Figure C.4 (公)',
+    fixtureRequiredZh: 'Fig.C.1 (母) 或 Fig.C.4 (公)',
     testProcedureStepsZh: [
       '依規定以 0.08~0.12 N·m 裝配接頭與金屬件。',
       '施加 0.018~0.020 N·m 的反向旋鬆扭矩。',
@@ -1194,7 +1194,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       testTorqueNm: '0.018 - 0.020 N·m',
       holdTimeSec: '10 - 15 秒'
     },
-    fixtureRequiredZh: 'Figure C.1 或 Figure C.4',
+    fixtureRequiredZh: 'Fig.C.1 或 Fig.C.4',
     testProcedureStepsZh: [
       '按標準裝配後，施加指定反向扭矩並維持 10~15 秒。',
       '檢查接頭是否分離。'
@@ -1222,7 +1222,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       restTimeMin: '10 - 15 分鐘 (靜置貼合)',
       maxAllowedUnscrewingTorque: '按產品規格上限 (例: ≤ 0.24 N·m)'
     },
-    fixtureRequiredZh: 'Figure C.1 或 Figure C.4',
+    fixtureRequiredZh: 'Fig.C.1 或 Fig.C.4',
     testProcedureStepsZh: [
       '依 0.08~0.12 N·m 裝配接頭，靜置 10~15 分鐘使塑膠應力鬆弛穩定。',
       '以連續漸增扭矩旋鬆接頭，直至錐面分離脫開。',
@@ -1251,7 +1251,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       holdTimeHours: '≥ 48 小時',
       temperatureC: '15°C - 30°C'
     },
-    fixtureRequiredZh: 'Figure C.1 或 Figure C.4',
+    fixtureRequiredZh: 'Fig.C.1 或 Fig.C.4',
     testProcedureStepsZh: [
       '裝配接頭並浸泡或塗佈化學藥劑（如 70% 異丙醇）。',
       '在室溫下靜置保持至少 48 小時。',
@@ -1269,7 +1269,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     id: 'iso7-annex-c',
     standard: 'ISO 80369-7:2021',
     clauseNumber: 'Annex C',
-    titleEn: 'Reference Connectors (Figure C.1 to C.6)',
+    titleEn: 'Reference Connectors (Fig.C.1 to C.6)',
     titleZh: '附錄 C 金屬參考接頭規格總覽',
     type: 'reference_fixture',
     typeZh: '參考金屬件規範',
@@ -1310,7 +1310,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       temperatureC: '20°C - 30°C',
       media: '70% IPA 異丙醇消毒酒精或脂質溶液'
     },
-    fixtureRequiredZh: 'Figure C.1 (母) 或 Figure C.4 (公)',
+    fixtureRequiredZh: 'Fig.C.1 (母) 或 Fig.C.4 (公)',
     testProcedureStepsZh: [
       '以 0.08–0.12 N·m 裝配受測物與參考金屬夾具。',
       '完全浸泡或表面塗佈 70% 異丙醇藥劑。',
@@ -1346,7 +1346,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       '檢測鎖定螺紋牙深、Pitch (2.5mm) 及耳翼厚度。'
     ],
     acceptanceCriteriaZh: [
-      '所有幾何尺寸需 100% 落在 ISO 80369-7 Figure B.1~B.6 公差範圍內。'
+      '所有幾何尺寸需 100% 落在 ISO 80369-7 Fig.B.1~B.6 公差範圍內。'
     ],
     commonNonConformancesZh: [
       '射出成型保壓不足致 6% 錐度角度偏離，產生局部過盈與單點洩漏。'

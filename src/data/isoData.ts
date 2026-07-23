@@ -99,7 +99,7 @@ export const ISO_CLAUSES: Record<string, ISOClauseInfo> = {
 export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
   'A.1': {
     id: 'A.1',
-    figureNumber: 'Fig. A.1',
+    figureNumber: 'Fig.A.1',
     annexGroup: 'Annex A',
     name: 'ISO 80369 Non-Interchangeability Matrix',
     gender: 'male',
@@ -118,7 +118,7 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
   },
   'B.1': {
     id: 'B.1',
-    figureNumber: 'Fig. B.1',
+    figureNumber: 'Fig.B.1',
     annexGroup: 'Annex B',
     name: 'Male Luer Slip Connector',
     gender: 'male',
@@ -137,7 +137,7 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
   },
   'B.2': {
     id: 'B.2',
-    figureNumber: 'Fig. B.2',
+    figureNumber: 'Fig.B.2',
     annexGroup: 'Annex B',
     name: 'Female Luer Slip Connector',
     gender: 'female',
@@ -156,7 +156,7 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
   },
   'B.3': {
     id: 'B.3',
-    figureNumber: 'Fig. B.3',
+    figureNumber: 'Fig.B.3',
     annexGroup: 'Annex B',
     name: 'Male Luer Lock Connector with Rigid Thread Collar',
     gender: 'male',
@@ -175,7 +175,7 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
   },
   'B.4': {
     id: 'B.4',
-    figureNumber: 'Fig. B.4',
+    figureNumber: 'Fig.B.4',
     annexGroup: 'Annex B',
     name: 'Female Luer Lock Connector with Rigid Lugs',
     gender: 'female',
@@ -196,7 +196,7 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
   },
   'B.5': {
     id: 'B.5',
-    figureNumber: 'Fig. B.5',
+    figureNumber: 'Fig.B.5',
     annexGroup: 'Annex B',
     name: 'Male Luer Lock Connector with Floating Ring',
     gender: 'male',
@@ -215,7 +215,7 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
   },
   'B.6': {
     id: 'B.6',
-    figureNumber: 'Fig. B.6',
+    figureNumber: 'Fig.B.6',
     annexGroup: 'Annex B',
     name: 'Female Luer Lock Connector Dimensional Envelope',
     gender: 'female',
@@ -233,7 +233,7 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
   },
   'C.1': {
     id: 'C.1',
-    figureNumber: 'Fig. C.1',
+    figureNumber: 'Fig.C.1',
     annexGroup: 'Annex C',
     name: 'Female Reference Luer Lock (Nominal)',
     gender: 'female',
@@ -241,7 +241,7 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
     tabWidthMm: 3.50,
     backFlankAngleDeg: 25,
     description: 'Female reference connector with 3.50 mm nominal tab width for general functional tests.',
-    descriptionZh: '標準母魯爾鎖定金屬參考接頭 (Fig. C.1)，具備 3.50 mm 標稱寬度凸耳，用於 6.1/6.2 洩漏、6.3 應力龜裂及 6.5 抗旋鬆測試。',
+    descriptionZh: '標準母魯爾鎖定金屬參考接頭 (Fig.C.1)，具備 3.50 mm 標稱寬度凸耳，用於 6.1/6.2 洩漏、6.3 應力龜裂及 6.5 抗旋鬆測試。',
     intendedClauses: ['6.1', '6.2', '6.3', '6.5'],
     isWorstCase: false,
     worstCaseReasonZh: '採用標準 3.50 mm 寬度耳翼，接觸面積大、應力分佈均勻，用於提供穩定氣密配合面，避免人為干擾氣密性評估。',
@@ -254,13 +254,13 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
   },
   'C.2': {
     id: 'C.2',
-    figureNumber: 'Fig. C.2',
+    figureNumber: 'Fig.C.2',
     annexGroup: 'Annex C',
     name: 'Male Reference Luer Slip',
     gender: 'male',
     type: 'slip',
     description: 'Male 6% taper reference connector for female Luer slip testing.',
-    descriptionZh: '公魯爾滑動式（Slip）參考接頭 (Fig. C.2)，專門用於測試母滑動接頭（Female Slip, L1）的密封性與拉拔力。',
+    descriptionZh: '公魯爾滑動式（Slip）參考接頭 (Fig.C.2)，專門用於測試母滑動接頭（Female Slip, L1）的密封性與拉拔力。',
     intendedClauses: ['6.1', '6.2', '6.3', '6.4'],
     isWorstCase: false,
     worstCaseReasonZh: '標準 6% 圓錐接頭，不具備旋緊鎖定螺紋，僅用於滑動錐面配合。',
@@ -272,7 +272,7 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
   },
   'C.3': {
     id: 'C.3',
-    figureNumber: 'Fig. C.3',
+    figureNumber: 'Fig.C.3',
     annexGroup: 'Annex C',
     name: 'Female Reference Luer Lock (Worst-Case)',
     gender: 'female',
@@ -280,7 +280,7 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
     tabWidthMm: 2.71,
     backFlankAngleDeg: 30,
     description: 'Female reference connector with narrowed 2.71 mm tab width and 30° flank angle for worst-case mechanical testing.',
-    descriptionZh: '最壞情況母參考接頭 (Fig. C.3)，耳翼寬度大幅縮窄至 2.71 mm（接觸面積少 22%），背角加大至 30°。專用於 6.4 抗拉拔與 6.6 抗過旋（滑牙）測試。',
+    descriptionZh: '最壞情況母參考接頭 (Fig.C.3)，耳翼寬度大幅縮窄至 2.71 mm（接觸面積少 22%），背角加大至 30°。專用於 6.4 抗拉拔與 6.6 抗過旋（滑牙）測試。',
     intendedClauses: ['6.4', '6.6'],
     isWorstCase: true,
     worstCaseReasonZh: '模擬臨床極端最劣配合配件（最小材料條件 LMC）。極窄的 2.71 mm 耳翼會產生高度集中的剪切力與徑向膨脹力，是驗證機械強度的最嚴苛考驗！',
@@ -293,13 +293,13 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
   },
   'C.4': {
     id: 'C.4',
-    figureNumber: 'Fig. C.4',
+    figureNumber: 'Fig.C.4',
     annexGroup: 'Annex C',
     name: 'Male Reference Luer Lock (Nominal)',
     gender: 'male',
     type: 'lock',
     description: 'Male reference connector with nominal threads for female Luer lock testing.',
-    descriptionZh: '標準公魯爾鎖定金屬參考接頭 (Fig. C.4)，用於測試母魯爾鎖定產品（Female Lock）的 6.1/6.2 洩漏、6.3 應力龜裂與 6.5 抗旋鬆性能。',
+    descriptionZh: '標準公魯爾鎖定金屬參考接頭 (Fig.C.4)，用於測試母魯爾鎖定產品（Female Lock）的 6.1/6.2 洩漏、6.3 應力龜裂與 6.5 抗旋鬆性能。',
     intendedClauses: ['6.1', '6.2', '6.3', '6.5'],
     isWorstCase: false,
     worstCaseReasonZh: '具備標準公螺紋，提供均勻穩定的旋合介面。',
@@ -311,13 +311,13 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
   },
   'C.5': {
     id: 'C.5',
-    figureNumber: 'Fig. C.5',
+    figureNumber: 'Fig.C.5',
     annexGroup: 'Annex C',
     name: 'Female Reference Luer Slip',
     gender: 'female',
     type: 'slip',
     description: 'Female 6% taper reference connector for male Luer slip testing.',
-    descriptionZh: '母魯爾滑動式（Slip）參考接頭 (Fig. C.5)，專門用於測試公滑動接頭（Male Slip, L1）。',
+    descriptionZh: '母魯爾滑動式（Slip）參考接頭 (Fig.C.5)，專門用於測試公滑動接頭（Male Slip, L1）。',
     intendedClauses: ['6.1', '6.2', '6.3', '6.4'],
     isWorstCase: false,
     worstCaseReasonZh: '標準母錐面金屬接頭，無螺紋。',
@@ -329,13 +329,13 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
   },
   'C.6': {
     id: 'C.6',
-    figureNumber: 'Fig. C.6',
+    figureNumber: 'Fig.C.6',
     annexGroup: 'Annex C',
     name: 'Male Reference Luer Lock (Worst-Case)',
     gender: 'male',
     type: 'lock',
     description: 'Male reference connector with worst-case thread profile for female mechanical testing.',
-    descriptionZh: '最壞情況公參考接頭 (Fig. C.6)，具備最大極限錐度與最薄螺牙特徵，用於測試母魯爾鎖定產品的 6.4 拉拔與 6.6 過旋性能。',
+    descriptionZh: '最壞情況公參考接頭 (Fig.C.6)，具備最大極限錐度與最薄螺牙特徵，用於測試母魯爾鎖定產品的 6.4 拉拔與 6.6 過旋性能。',
     intendedClauses: ['6.4', '6.6'],
     isWorstCase: true,
     worstCaseReasonZh: '專為考驗母接頭外側螺紋或耳翼強度設計的最壞幾何配合件。',
@@ -347,7 +347,7 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
   },
   'ISO20-B.1': {
     id: 'ISO20-B.1',
-    figureNumber: 'Fig. B.1 (ISO 20)',
+    figureNumber: 'Fig.B.1 (ISO 20)',
     standardOwner: 'ISO 80369-20',
     annexGroup: 'ISO 80369-20',
     name: 'Pressure Decay Positive Pressure Air Leakage Apparatus',
@@ -366,7 +366,7 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
   },
   'ISO20-C.1': {
     id: 'ISO20-C.1',
-    figureNumber: 'Fig. C.1 (ISO 20)',
+    figureNumber: 'Fig.C.1 (ISO 20)',
     standardOwner: 'ISO 80369-20',
     annexGroup: 'ISO 80369-20',
     name: 'Falling Drop Liquid Leakage Test Apparatus',
@@ -385,7 +385,7 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
   },
   'ISO20-D.1': {
     id: 'ISO20-D.1',
-    figureNumber: 'Fig. D.1 (ISO 20)',
+    figureNumber: 'Fig.D.1 (ISO 20)',
     standardOwner: 'ISO 80369-20',
     annexGroup: 'ISO 80369-20',
     name: 'Sub-atmospheric Vacuum Decay Leakage Test Apparatus',
@@ -404,7 +404,7 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
   },
   'ISO20-E.1': {
     id: 'ISO20-E.1',
-    figureNumber: 'Fig. E.1 (ISO 20)',
+    figureNumber: 'Fig.E.1 (ISO 20)',
     standardOwner: 'ISO 80369-20',
     annexGroup: 'ISO 80369-20',
     name: '70% IPA Chemical Solvent Stress Cracking Test Setup',
@@ -423,7 +423,7 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
   },
   'ISO20-F.1': {
     id: 'ISO20-F.1',
-    figureNumber: 'Fig. F.1 (ISO 20)',
+    figureNumber: 'Fig.F.1 (ISO 20)',
     standardOwner: 'ISO 80369-20',
     annexGroup: 'ISO 80369-20',
     name: 'Axial Load Pull-off Separation Test Apparatus',
@@ -442,7 +442,7 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
   },
   'ISO20-G.1': {
     id: 'ISO20-G.1',
-    figureNumber: 'Fig. G.1 (ISO 20)',
+    figureNumber: 'Fig.G.1 (ISO 20)',
     standardOwner: 'ISO 80369-20',
     annexGroup: 'ISO 80369-20',
     name: 'Unscrewing Torque Separation Apparatus',
@@ -460,7 +460,7 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
   },
   'ISO20-H.1': {
     id: 'ISO20-H.1',
-    figureNumber: 'Fig. H.1 (ISO 20)',
+    figureNumber: 'Fig.H.1 (ISO 20)',
     standardOwner: 'ISO 80369-20',
     annexGroup: 'ISO 80369-20',
     name: 'Resistance to Overriding Torque Test Rig',
@@ -469,17 +469,17 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
     descriptionZh: 'ISO 80369-20 Annex H 破壞性高扭矩 (0.15~0.17 N·m) 伺服電機驅動測試機台，展現套環環向張應力膨脹機制。',
     intendedClauses: ['6.6'],
     isWorstCase: true,
-    worstCaseReasonZh: '配合 Fig. C.3 縮窄耳翼極限考驗公套環抗過鎖滑牙強度。',
+    worstCaseReasonZh: '配合 Fig.C.3 縮窄耳翼極限考驗公套環抗過鎖滑牙強度。',
     svgHighlights: [
       { title: '過載扭矩', value: '0.15 ~ 0.17 N·m' },
       { title: '伺服轉速', value: '3.0 ± 0.5 rpm' },
-      { title: '最壞夾具', value: 'Fig. C.3 (2.71mm 耳翼)' }
+      { title: '最壞夾具', value: 'Fig.C.3 (2.71mm 耳翼)' }
     ],
     svgKey: 'ISO20-FIG-H1'
   },
   'ISO20-J.1': {
     id: 'ISO20-J.1',
-    figureNumber: 'Fig. J.1 (ISO 20)',
+    figureNumber: 'Fig.J.1 (ISO 20)',
     standardOwner: 'ISO 80369-20',
     annexGroup: 'ISO 80369-20',
     name: 'Standard Pre-assembly Torque & Thrust Rig',
@@ -498,7 +498,7 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
   },
   'ISO20-K.1': {
     id: 'ISO20-K.1',
-    figureNumber: 'Fig. K.1 (ISO 20)',
+    figureNumber: 'Fig.K.1 (ISO 20)',
     standardOwner: 'ISO 80369-20',
     annexGroup: 'ISO 80369-20',
     name: 'Submerged Air Leakage During Aspiration Test Setup',
@@ -527,7 +527,7 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
     descriptionZh: '商業級 360° 全螺紋連接器（非 ISO 80369-7 認可之參考接頭）。應力均勻分佈，極易通過測試，但不能用於法規申報驗證！',
     intendedClauses: [],
     isWorstCase: false,
-    worstCaseReasonZh: '360° 連續螺紋分散了剪切應力，完全避開了標準 Fig. C.3 接頭「雙耳翼點狀應力集中」的考驗。用此接頭 Passing 不具法規效益！',
+    worstCaseReasonZh: '360° 連續螺紋分散了剪切應力，完全避開了標準 Fig.C.3 接頭「雙耳翼點狀應力集中」的考驗。用此接頭 Passing 不具法規效益！',
     svgHighlights: [
       { title: '螺紋結構', value: '360° 全周螺紋' },
       { title: '法規效力', value: '❌ 不被 FDA / TFDA 認可' }

@@ -106,7 +106,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
       testForce: '-',
       testTorque: '-',
       holdTime: '≥ 10 秒 (壓降) / 30 秒 (水滴)',
-      fixture: 'Fig. C.1 (母) / Fig. C.4 (公)',
+      fixture: 'Fig.C.1 (母) / Fig.C.4 (公)',
       criteria: '加壓 300~330 kPa 保持 10 秒無水滴滲漏，或壓降洩漏率 < 0.005 Pa·m³/s',
       risk: '射出成型毛邊、6% 錐度縮水變形'
     },
@@ -123,7 +123,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
       testForce: '-',
       testTorque: '-',
       holdTime: '10 - 15 秒',
-      fixture: 'Fig. C.1 (母) / Fig. C.4 (公)',
+      fixture: 'Fig.C.1 (母) / Fig.C.4 (公)',
       criteria: '80~88 kPa 負壓真空下空氣洩漏率 < 0.005 Pa·m³/s，或水下無連續氣泡冒出',
       risk: '負壓時錐面微幅收縮脫離產生微氣孔致氣栓'
     },
@@ -140,7 +140,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
       testForce: '-',
       testTorque: '-',
       holdTime: '48 小時',
-      fixture: 'Fig. C.1 (母) / Fig. C.4 (公)',
+      fixture: 'Fig.C.1 (母) / Fig.C.4 (公)',
       criteria: '裝配後浸泡於 70% IPA 異丙醇等化學介質靜置 48 小時無結構爆裂或龜裂',
       risk: 'PC 材質射出殘留內應力高，接觸酒精發生應力爆裂'
     },
@@ -157,7 +157,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
       testForce: '32 - 35 N (Lock) / 23 - 25 N (Slip)',
       testTorque: '-',
       holdTime: '10 - 15 秒',
-      fixture: 'Fig. C.3 (母極限) / Fig. C.6 (公極限)',
+      fixture: 'Fig.C.3 (母極限) / Fig.C.6 (公極限)',
       criteria: '承受 35 N 軸向拉力 10~15 秒，接頭螺紋與錐面不得被拉拔分離',
       risk: '螺紋咬合深度不足，耳翼被直接剪切拉平'
     },
@@ -174,7 +174,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
       testForce: '-',
       testTorque: '0.018 - 0.020 N·m (反向)',
       holdTime: '10 - 15 秒',
-      fixture: 'Fig. C.1 (母) / Fig. C.4 (公)',
+      fixture: 'Fig.C.1 (母) / Fig.C.4 (公)',
       criteria: '施加 0.02 N·m 反向旋鬆力 10~15 秒，錐面摩擦力維持自鎖不自動解鎖',
       risk: '材料表面太滑（脫模劑/潤滑劑過量）致自鎖失敗'
     },
@@ -191,7 +191,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
       testForce: '-',
       testTorque: '0.15 - 0.17 N·m',
       holdTime: '5 - 10 秒',
-      fixture: 'Fig. C.3 (2.71mm 窄耳翼最壞情況)',
+      fixture: 'Fig.C.3 (2.71mm 窄耳翼最壞情況)',
       criteria: '0.15~0.17 N·m 高扭力下維持 5~10 秒無滑牙、套環無膨脹脫開',
       risk: 'PP 等低剛性材料環向膨脹 (Hoop Expansion) 脫牙'
     },
@@ -202,14 +202,14 @@ export const ClauseComparisonMatrix: React.FC = () => {
       iso20: 'General Apparatus Section 4',
       category: 'assembly',
       categoryZh: '夾具',
-      type: 'Fig. C.1 ~ Fig. C.6',
+      type: 'Fig.C.1 ~ Fig.C.6',
       assemblyTorque: '-',
       testPressure: '-',
       testForce: '-',
       testTorque: '-',
       holdTime: '-',
       fixture: '不鏽鋼參考夾具 (≥ 45 HRC)',
-      criteria: '製造精密度最高的不鏽鋼金屬測試夾具，Figure C.3 具備 2.71mm 極限最壞情況耳翼',
+      criteria: '製造精密度最高的不鏽鋼金屬測試夾具，Fig.C.3 具備 2.71mm 極限最壞情況耳翼',
       risk: '未定期校正參考夾具尺寸導致全盤測試結果無效'
     },
     {
