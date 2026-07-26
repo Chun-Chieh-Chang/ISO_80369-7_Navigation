@@ -41,10 +41,10 @@ export const ISO_CLAUSES: Record<string, ISOClauseInfo> = {
     holdTimeSec: { min: 172800, max: 172800 }, // 48 hours
     requiredMaleRef: 'C.4',
     requiredFemaleRef: 'C.1',
-    passCriteria: 'No evidence of stress cracking after 48h assembly in chemical media (e.g. 70% IPA).',
-    passCriteriaZh: '裝配後浸泡於化學介質（如 70% 異丙醇酒精）靜置 48 小時，無結構破裂或應力龜裂。',
-    keyPhysics: 'Verifies environmental stress cracking resistance (ESCR) under sustained hoop stress.',
-    keyPhysicsZh: '驗證塑膠材料在持續環向應力與化學藥品共同作用下的抗環境應力龜裂（ESCR）能力。'
+    passCriteria: 'No evidence of stress cracking after 48h assembly in chemical media (e.g. 70% IPA), and shall satisfy Clause 6.1 fluid leakage requirement (300-330 kPa).',
+    passCriteriaZh: '裝配後浸泡於化學介質（如 70% 異丙醇酒精）靜置 48 小時，無結構破裂或應力龜裂，且必須通過 6.1 條文 300–330 kPa 正壓流體洩漏測試驗證。',
+    keyPhysics: 'Verifies environmental stress cracking resistance (ESCR) under sustained hoop stress and subsequent pressure sealing capability.',
+    keyPhysicsZh: '驗證塑膠材料在持續環向應力與化學藥品共同作用下之抗應力龜裂（ESCR）能力，並確認 48 小時後仍具備完整正壓流體密封性能。'
   },
   '6.4': {
     id: '6.4',

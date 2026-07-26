@@ -282,7 +282,7 @@ export const ISO_TOPICS: ISOTopic[] = [
     category: 'durability',
     categoryZh: '耐久性與環境',
     iconName: 'ShieldAlert',
-    shortSummaryZh: '裝配後浸泡於化學介質（如 70% 異丙醇酒精）48 小時，驗證無應力龜裂或結構裂解。',
+    shortSummaryZh: '裝配後浸泡於化學介質（如 70% 異丙醇酒精）48 小時，驗證目視無結構龜裂，且後續必須通過 6.1 正壓流體洩漏 (300–330 kPa) 壓力測試驗證。',
     detailedDescriptionZh: '醫療環境中接頭常接觸消毒酒精（70% IPA）、脂質乳劑（Lipids）或化學藥品。內部殘留的裝配環向應力與化學介質共同作用，容易引發「環境應力龜裂（ESCR）」。測試將旋合裝配後的接頭浸泡或塗佈藥劑靜置 48 小時，檢視是否有微裂紋、破損或氣密失效。',
     keyParameters: [
       { label: '測試浸泡時間 Duration', value: '48', unit: '小時' },

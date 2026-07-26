@@ -141,8 +141,8 @@ export const ClauseComparisonMatrix: React.FC = () => {
       testTorque: '-',
       holdTime: '48 小時',
       fixture: 'Fig.C.1 (母) / Fig.C.4 (公)',
-      criteria: '裝配後浸泡於 70% IPA 異丙醇等化學介質靜置 48 小時無結構爆裂或龜裂',
-      risk: 'PC 材質射出殘留內應力高，接觸酒精發生應力爆裂'
+      criteria: '裝配後浸泡於 70% IPA 異丙醇等化學介質靜置 48 小時無結構爆裂或龜裂，且後續須通過 6.1 條文 300–330 kPa 正壓流體洩漏測試驗證',
+      risk: 'PC/PMMA 等材料射出殘留內應力高，接觸酒精發生應力爆裂或密封面微龜裂導致壓力洩漏'
     },
     {
       id: '6.4',

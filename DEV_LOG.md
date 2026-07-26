@@ -134,6 +134,23 @@
 ### 結論
 更名完成後經靜態型別確效 (`npx tsc --noEmit`) 及打包建置 (`npm run build`) 雙重驗證無誤。
 
+---
+
+## 版本：v1.6 條款 6.3 應力龜裂允收標準完整性補充 (2026-07-26)
+
+### 需求內容
+1. 依據 ISO 80369-7:2021 Clause 6.3 原文法規，確認並補充「48 小時化學介質靜置後須隨後通過 Clause 6.1 (300–330 kPa) 正壓流體洩漏測試驗證」之完整允收標準。
+
+### 過程紀錄與問題分析 (RCA & CAPA)
+- **原因分析 (RCA)**：ISO 80369-7 Clause 6.3 試驗規範包含兩階段判定：第一階段為 48 小時化學藥品（70% IPA）環境下目視無應力龜裂（No evidence of stress cracking）；第二階段為靜置結束後受測件仍必須滿足 Clause 6.1 之 300~330 kPa 流體洩漏壓測試要求。若僅列出目視無龜裂，則允收條件不夠嚴謹與完整。
+- **矯正措施 (CAPA)**：
+  1. 更新 `src/data/isoData.ts` 中 `6.3` 的 `passCriteria` 與 `passCriteriaZh`，增補正壓流體洩漏壓驗證要求。
+  2. 同步更新 `ClauseComparisonMatrix.tsx`、`TopicVisualMap.tsx` 及 `isoTopicsData.ts` 之允收標準說明。
+
+### 結論
+經靜態型別檢驗 (`npx tsc --noEmit`) 與生產打包 (`npm run build`) 驗證全數通過，系統資料庫與法規規範 100% 精確對齊。
+
+
 
 
 

@@ -236,7 +236,7 @@ export const TopicVisualMap: React.FC = () => {
                   {activeTopic.relatedISO7Clauses.includes('6.2') && '80~88 kPa 真空負壓下無氣體滲入'}
                   {activeTopic.relatedISO7Clauses.includes('6.6') && '承受 0.15~0.17 N·m 保持 10 秒無滑牙脫開'}
                   {activeTopic.relatedISO7Clauses.includes('6.4') && '承受 35 N 軸向拉力 10 秒無分離'}
-                  {activeTopic.relatedISO7Clauses.includes('6.3') && '70% IPA 浸泡 48 小時無應力龜裂'}
+                  {activeTopic.relatedISO7Clauses.includes('6.3') && '70% IPA 浸泡 48 小時無應力龜裂，且後續符合 6.1 條文 300~330 kPa 洩漏壓驗證'}
                   {activeTopic.relatedISO7Clauses.includes('6.5') && '0.02 N·m 反向旋鬆力下維持自鎖不鬆脫'}
                   {activeTopic.relatedISO7Clauses.includes('Clause 5.1') && '尺寸完全符合 6% 錐度規範'}
                   {activeTopic.relatedISO7Clauses.includes('Clause 4') && '非通用介面，100% 避免跨應用誤接'}
