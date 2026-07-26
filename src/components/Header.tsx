@@ -15,7 +15,7 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
     { id: 'visual-map', label: '🕸️ 條文脈絡圖表', icon: Network },
     { id: 'comparison-matrix', label: '⚖️ 雙標準對照矩陣', icon: Table },
     { id: 'connectors', label: '🔧 參考金屬夾具庫', icon: Wrench },
-    { id: 'dvp-report', label: '📋 DVP 與報告生成', icon: FileSpreadsheet },
+    { id: 'dvp-report', label: '📋 設計驗證矩陣表', icon: FileSpreadsheet },
   ];
 
   return (
