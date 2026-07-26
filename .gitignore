@@ -6,3 +6,6 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Local confidential ISO standards directory (Do not commit or upload)
+isodoc/
