@@ -271,14 +271,14 @@ function renderPressureDecayApparatus(showDims: boolean, showVectors: boolean, a
       <rect width="680" height="320" fill="url(#gridPattern)" rx="8" />
 
       {/* Main Flow Title */}
-      <text x="20" y="25" fill="#94a3b8" fontSize="12" fontFamily="monospace" fontWeight="bold">
+      <text x="20" y="25" fill="#94a3b8" fontSize="13" fontFamily="monospace" fontWeight="bold">
         ISO 80369-20 Annex B: Positive Pressure Leakage Test Apparatus (300~330 kPa)
       </text>
 
       {/* Pressure Air Source Block */}
       <rect x="30" y="110" width="80" height="70" rx="8" fill="#1e293b" stroke="#38bdf8" strokeWidth="1.5" />
-      <text x="70" y="140" fill="#38bdf8" fontSize="12" textAnchor="middle" fontWeight="bold">壓力源 Source</text>
-      <text x="70" y="158" fill="#94a3b8" fontSize="12" textAnchor="middle">&gt; 350 kPa</text>
+      <text x="70" y="140" fill="#38bdf8" fontSize="13" textAnchor="middle" fontWeight="bold">壓力源 Source</text>
+      <text x="70" y="158" fill="#94a3b8" fontSize="13" textAnchor="middle">&gt; 350 kPa</text>
 
       {/* Connection Pipe 1 */}
       <line x1="110" y1="145" x2="160" y2="145" stroke="url(#pipeBlue)" strokeWidth="6" />
@@ -290,7 +290,7 @@ function renderPressureDecayApparatus(showDims: boolean, showVectors: boolean, a
       <rect x="160" y="105" width="90" height="80" rx="8" fill="#0f172a" stroke="#cbd5e1" strokeWidth="1.5" />
       <circle cx="205" cy="135" r="20" fill="#1e293b" stroke="#38bdf8" strokeWidth="1.5" />
       <line x1="205" y1="135" x2="218" y2="125" stroke="#f43f5e" strokeWidth="2" />
-      <text x="205" y="172" fill="#e2e8f0" fontSize="12" textAnchor="middle" fontWeight="bold">調壓閥 Regulator</text>
+      <text x="205" y="172" fill="#e2e8f0" fontSize="13" textAnchor="middle" fontWeight="bold">調壓閥 Regulator</text>
 
       {/* Pipe 2 */}
       <line x1="250" y1="145" x2="310" y2="145" stroke="url(#pipeBlue)" strokeWidth="6" />
@@ -298,31 +298,31 @@ function renderPressureDecayApparatus(showDims: boolean, showVectors: boolean, a
       {/* Digital Gauge Sensor */}
       <rect x="310" y="60" width="80" height="50" rx="6" fill="#1e293b" stroke="#38bdf8" strokeWidth="1.5" />
       <text x="350" y="82" fill="#38bdf8" fontSize="13" fontFamily="monospace" textAnchor="middle" fontWeight="bold">320.0 kPa</text>
-      <text x="350" y="98" fill="#a7f3d0" fontSize="12" textAnchor="middle">精度 ±0.3%</text>
+      <text x="350" y="98" fill="#a7f3d0" fontSize="13" textAnchor="middle">精度 ±0.3%</text>
       <line x1="350" y1="110" x2="350" y2="145" stroke="#38bdf8" strokeWidth="2" />
 
       {/* Shut-off Valve S1 */}
       <polygon points="390,130 420,145 390,160" fill="#f43f5e" />
       <polygon points="420,130 390,145 420,160" fill="#f43f5e" />
-      <text x="405" y="120" fill="#f43f5e" fontSize="12" textAnchor="middle" fontWeight="bold">截止閥 S1</text>
+      <text x="405" y="120" fill="#f43f5e" fontSize="13" textAnchor="middle" fontWeight="bold">截止閥 S1</text>
 
       {/* Pipe 3 */}
       <line x1="420" y1="145" x2="480" y2="145" stroke="url(#pipeBlue)" strokeWidth="6" />
 
       {/* Reference Connector Metal Fixture (Fig.C.1/C.4) */}
       <rect x="480" y="120" width="60" height="50" rx="4" fill="#64748b" stroke="#e2e8f0" strokeWidth="2" />
-      <text x="510" y="142" fill="#ffffff" fontSize="12" textAnchor="middle" fontWeight="bold">金屬夾具</text>
-      <text x="510" y="156" fill="#cbd5e1" fontSize="12" textAnchor="middle">Fig.C.1</text>
+      <text x="510" y="142" fill="#ffffff" fontSize="13" textAnchor="middle" fontWeight="bold">金屬夾具</text>
+      <text x="510" y="156" fill="#cbd5e1" fontSize="13" textAnchor="middle">Fig.C.1</text>
 
       {/* Test Sample (Plastic Luer Connector) */}
       <rect x="540" y="128" width="70" height="34" rx="4" fill="#3b82f6" opacity="0.85" stroke="#60a5fa" strokeWidth="1.5" />
-      <text x="580" y="275" fill="#f43f5e" fontSize="12">洩漏 (Fail)</text>
+      <text x="580" y="275" fill="#f43f5e" fontSize="13">洩漏 (Fail)</text>
 
       {/* Callout Lines */}
       {showDims && (
         <g>
           <line x1="480" y1="100" x2="610" y2="100" stroke="#fbbf24" strokeWidth="1" strokeDasharray="2 2" />
-          <text x="545" y="93" fill="#fbbf24" fontSize="12" textAnchor="middle" fontWeight="bold">保持時間 15~20 秒 (Hold Time)</text>
+          <text x="545" y="93" fill="#fbbf24" fontSize="13" textAnchor="middle" fontWeight="bold">保持時間 15~20 秒 (Hold Time)</text>
         </g>
       )}
     </svg>
@@ -342,56 +342,56 @@ function renderFallingDropApparatus(showDims: boolean, showVectors: boolean, act
       </defs>
       <rect width="680" height="320" fill="url(#gridPattern2)" rx="8" />
 
-      <text x="20" y="25" fill="#94a3b8" fontSize="12" fontFamily="monospace" fontWeight="bold">
+      <text x="20" y="25" fill="#94a3b8" fontSize="13" fontFamily="monospace" fontWeight="bold">
         ISO 80369-20 Annex C: Falling Drop Positive-Pressure Liquid Leakage (300~330 kPa)
       </text>
 
       {/* Water Reservoir */}
       <rect x="40" y="70" width="100" height="150" rx="8" fill="#0284c7" opacity="0.3" stroke="#38bdf8" strokeWidth="2" />
       <rect x="40" y="110" width="100" height="110" rx="0" fill="#0284c7" opacity="0.6" />
-      <text x="90" y="150" fill="#ffffff" fontSize="12" textAnchor="middle" fontWeight="bold">測試用去離子水</text>
-      <text x="90" y="168" fill="#e0f2fe" fontSize="12" textAnchor="middle">De-aerated Water</text>
+      <text x="90" y="150" fill="#ffffff" fontSize="13" textAnchor="middle" fontWeight="bold">測試用去離子水</text>
+      <text x="90" y="168" fill="#e0f2fe" fontSize="13" textAnchor="middle">De-aerated Water</text>
 
       {/* Pressurization Inlet at top */}
       <line x1="90" y1="35" x2="90" y2="70" stroke="#38bdf8" strokeWidth="4" />
-      <text x="130" y="50" fill="#38bdf8" fontSize="12" fontStyle="italic">空氣加壓 300~330 kPa</text>
+      <text x="130" y="50" fill="#38bdf8" fontSize="13" fontStyle="italic">空氣加壓 300~330 kPa</text>
 
       {/* De-aeration Valve */}
       <circle cx="90" cy="80" r="8" fill="#38bdf8" stroke="#ffffff" strokeWidth="1.5" />
-      <text x="110" y="84" fill="#a7f3d0" fontSize="12">排氣閥 Vent</text>
+      <text x="110" y="84" fill="#a7f3d0" fontSize="13">排氣閥 Vent</text>
 
       {/* Water Outlet Line Horizontal */}
       <line x1="140" y1="180" x2="320" y2="180" stroke="#38bdf8" strokeWidth="8" />
 
       {/* Specimen Assembly Holder (Horizontal Axis) */}
       <rect x="320" y="160" width="70" height="40" rx="4" fill="#64748b" stroke="#cbd5e1" strokeWidth="2" />
-      <text x="355" y="184" fill="#ffffff" fontSize="12" textAnchor="middle" fontWeight="bold">金屬夾具</text>
+      <text x="355" y="184" fill="#ffffff" fontSize="13" textAnchor="middle" fontWeight="bold">金屬夾具</text>
 
       {/* Test Connector Under Test */}
       <rect x="390" y="166" width="80" height="28" rx="4" fill="#3b82f6" stroke="#93c5fd" strokeWidth="1.5" />
-      <text x="430" y="183" fill="#ffffff" fontSize="12" textAnchor="middle" fontWeight="bold">受測魯爾接頭</text>
+      <text x="430" y="183" fill="#ffffff" fontSize="13" textAnchor="middle" fontWeight="bold">受測魯爾接頭</text>
 
       {/* Taper Junction Seal Area */}
       <line x1="390" y1="160" x2="390" y2="200" stroke="#f43f5e" strokeWidth="2" strokeDasharray="3 3" />
-      <text x="390" y="150" fill="#f43f5e" fontSize="12" textAnchor="middle" fontWeight="bold">錐面配合縫隙 Junction</text>
+      <text x="390" y="150" fill="#f43f5e" fontSize="13" textAnchor="middle" fontWeight="bold">錐面配合縫隙 Junction</text>
 
       {/* Droplet Detection Water Drop */}
       {showVectors && (
         <g>
           <path d="M 390 205 C 385 220, 395 220, 390 225 C 385 220, 395 220, 390 205 Z" fill="#38bdf8" stroke="#ffffff" strokeWidth="1" />
-          <text x="410" y="222" fill="#f43f5e" fontSize="12" fontWeight="bold">水滴形成 (Falling Drop Risk)</text>
+          <text x="410" y="222" fill="#f43f5e" fontSize="13" fontWeight="bold">水滴形成 (Falling Drop Risk)</text>
         </g>
       )}
 
       {/* Catchment Tray / Filter Paper */}
       <rect x="330" y="245" width="160" height="15" rx="3" fill="#f8fafc" stroke="#cbd5e1" strokeWidth="1.5" />
-      <text x="410" y="256" fill="#475569" fontSize="12" textAnchor="middle" fontWeight="bold">乾燥無塵紙 (Absorbent Paper)</text>
+      <text x="410" y="256" fill="#475569" fontSize="13" textAnchor="middle" fontWeight="bold">乾燥無塵紙 (Absorbent Paper)</text>
 
       {/* Timer Callout */}
       <rect x="520" y="150" width="130" height="80" rx="8" fill="#1e293b" stroke="#38bdf8" strokeWidth="1.5" />
-      <text x="585" y="175" fill="#38bdf8" fontSize="12" textAnchor="middle" fontWeight="bold">水滴法保持時間</text>
+      <text x="585" y="175" fill="#38bdf8" fontSize="13" textAnchor="middle" fontWeight="bold">水滴法保持時間</text>
       <text x="585" y="200" fill="#a7f3d0" fontSize="18" fontFamily="monospace" textAnchor="middle" fontWeight="bold">30 ~ 35 秒</text>
-      <text x="585" y="218" fill="#94a3b8" fontSize="12" textAnchor="middle">判定: 100% 無水滴滴落</text>
+      <text x="585" y="218" fill="#94a3b8" fontSize="13" textAnchor="middle">判定: 100% 無水滴滴落</text>
     </svg>
   );
 }
@@ -409,7 +409,7 @@ function renderVacuumDecayApparatus(showDims: boolean, showVectors: boolean, act
       </defs>
       <rect width="680" height="320" fill="url(#gridPattern3)" rx="8" />
 
-      <text x="20" y="25" fill="#94a3b8" fontSize="12" fontFamily="monospace" fontWeight="bold">
+      <text x="20" y="25" fill="#94a3b8" fontSize="13" fontFamily="monospace" fontWeight="bold">
         ISO 80369-20 Annex D: Sub-atmospheric Air Vacuum Leakage Apparatus (80.0~88.0 kPa Vacuum)
       </text>
 
@@ -417,7 +417,7 @@ function renderVacuumDecayApparatus(showDims: boolean, showVectors: boolean, act
       <rect x="40" y="110" width="100" height="80" rx="8" fill="#1e293b" stroke="#a855f7" strokeWidth="2" />
       <circle cx="90" cy="140" r="22" fill="#0f172a" stroke="#a855f7" strokeWidth="1.5" />
       <path d="M 80 140 L 100 140 M 90 130 L 90 150" stroke="#c084fc" strokeWidth="2" />
-      <text x="90" y="178" fill="#c084fc" fontSize="12" textAnchor="middle" fontWeight="bold">真空幫浦 Vacuum</text>
+      <text x="90" y="178" fill="#c084fc" fontSize="13" textAnchor="middle" fontWeight="bold">真空幫浦 Vacuum</text>
 
       {/* Vacuum Pipe line */}
       <line x1="140" y1="150" x2="230" y2="150" stroke="#a855f7" strokeWidth="6" />
@@ -425,13 +425,13 @@ function renderVacuumDecayApparatus(showDims: boolean, showVectors: boolean, act
       {/* Digital Vacuum Manometer */}
       <rect x="230" y="60" width="100" height="55" rx="6" fill="#1e293b" stroke="#c084fc" strokeWidth="1.5" />
       <text x="280" y="82" fill="#c084fc" fontSize="13" fontFamily="monospace" textAnchor="middle" fontWeight="bold">-85.0 kPa</text>
-      <text x="280" y="100" fill="#a7f3d0" fontSize="12" textAnchor="middle">負壓範圍 80.0~88.0</text>
+      <text x="280" y="100" fill="#a7f3d0" fontSize="13" textAnchor="middle">負壓範圍 80.0~88.0</text>
       <line x1="280" y1="115" x2="280" y2="150" stroke="#c084fc" strokeWidth="2" />
 
       {/* Isolation Valve */}
       <polygon points="330,135 360,150 330,165" fill="#f43f5e" />
       <polygon points="360,135 330,150 360,165" fill="#f43f5e" />
-      <text x="345" y="125" fill="#f43f5e" fontSize="12" textAnchor="middle" fontWeight="bold">關閉閥門 Valve</text>
+      <text x="345" y="125" fill="#f43f5e" fontSize="13" textAnchor="middle" fontWeight="bold">關閉閥門 Valve</text>
 
       {/* Vacuum Line to Specimen */}
       <line x1="360" y1="150" x2="450" y2="150" stroke="#a855f7" strokeWidth="6" />
@@ -439,24 +439,24 @@ function renderVacuumDecayApparatus(showDims: boolean, showVectors: boolean, act
       {/* Sealed Test Specimen Assembly */}
       <rect x="450" y="125" width="60" height="50" rx="4" fill="#64748b" stroke="#e2e8f0" strokeWidth="2" />
       <rect x="510" y="133" width="70" height="34" rx="4" fill="#3b82f6" stroke="#93c5fd" strokeWidth="1.5" />
-      <text x="480" y="154" fill="#ffffff" fontSize="12" textAnchor="middle" fontWeight="bold">金屬件</text>
-      <text x="545" y="154" fill="#ffffff" fontSize="12" textAnchor="middle" fontWeight="bold">受測接頭</text>
+      <text x="480" y="154" fill="#ffffff" fontSize="13" textAnchor="middle" fontWeight="bold">金屬件</text>
+      <text x="545" y="154" fill="#ffffff" fontSize="13" textAnchor="middle" fontWeight="bold">受測接頭</text>
 
       {/* Air Ingress Vectors */}
       {showVectors && (
         <g>
           <path d="M 510 100 L 510 130" stroke="#f43f5e" strokeWidth="2" strokeDasharray="3 3" />
           <polygon points="510,133 506,124 514,124" fill="#f43f5e" />
-          <text x="510" y="90" fill="#f43f5e" fontSize="12" textAnchor="middle" fontWeight="bold">外界空氣吸入 (Air Ingress)</text>
-          <text x="510" y="210" fill="#a7f3d0" fontSize="12" textAnchor="middle" fontWeight="bold">⚠️ 防止氣栓危害 (Air Embolism Prevention)</text>
+          <text x="510" y="90" fill="#f43f5e" fontSize="13" textAnchor="middle" fontWeight="bold">外界空氣吸入 (Air Ingress)</text>
+          <text x="510" y="210" fill="#a7f3d0" fontSize="13" textAnchor="middle" fontWeight="bold">⚠️ 防止氣栓危害 (Air Embolism Prevention)</text>
         </g>
       )}
 
       {/* Vacuum Hold Time Box */}
       <rect x="450" y="230" width="200" height="70" rx="8" fill="#1e293b" stroke="#334155" strokeWidth="1" />
-      <text x="550" y="250" fill="#94a3b8" fontSize="12" textAnchor="middle" fontWeight="bold">真空保持時間 Hold Time</text>
+      <text x="550" y="250" fill="#94a3b8" fontSize="13" textAnchor="middle" fontWeight="bold">真空保持時間 Hold Time</text>
       <text x="550" y="275" fill="#c084fc" fontSize="16" fontFamily="monospace" textAnchor="middle" fontWeight="bold">15 ~ 20 秒</text>
-      <text x="550" y="290" fill="#a7f3d0" fontSize="12" textAnchor="middle">洩漏極限 ≤ 0.005 Pa·m³/s</text>
+      <text x="550" y="290" fill="#a7f3d0" fontSize="13" textAnchor="middle">洩漏極限 ≤ 0.005 Pa·m³/s</text>
     </svg>
   );
 }
@@ -474,7 +474,7 @@ function renderAspirationSubmergedApparatus(showDims: boolean, showVectors: bool
       </defs>
       <rect width="680" height="320" fill="url(#gridPattern4)" rx="8" />
 
-      <text x="20" y="25" fill="#a7f3d0" fontSize="12" fontFamily="monospace" fontWeight="bold">
+      <text x="20" y="25" fill="#a7f3d0" fontSize="13" fontFamily="monospace" fontWeight="bold">
         ISO 80369-20:2024 Annex K: Air Leakage During Aspiration (Submerged Water Chamber) [2024最新新增]
       </text>
 
@@ -483,11 +483,11 @@ function renderAspirationSubmergedApparatus(showDims: boolean, showVectors: bool
       {/* Water Level (1/3 height) */}
       <rect x="222" y="190" width="176" height="78" rx="0" fill="#0284c7" opacity="0.4" />
       <line x1="222" y1="190" x2="398" y2="190" stroke="#38bdf8" strokeWidth="1.5" strokeDasharray="4 4" />
-      <text x="310" y="182" fill="#a7f3d0" fontSize="12" textAnchor="middle">水面高度 Water Line (填充約 1/3)</text>
+      <text x="310" y="182" fill="#a7f3d0" fontSize="13" textAnchor="middle">水面高度 Water Line (填充約 1/3)</text>
 
       {/* Submerged Specimen at bottom */}
       <rect x="270" y="225" width="80" height="30" rx="4" fill="#3b82f6" stroke="#ffffff" strokeWidth="1.5" />
-      <text x="310" y="244" fill="#ffffff" fontSize="12" textAnchor="middle" fontWeight="bold">浸沒受測接頭 Specimen</text>
+      <text x="310" y="244" fill="#ffffff" fontSize="13" textAnchor="middle" fontWeight="bold">浸沒受測接頭 Specimen</text>
 
       {/* Vacuum Line from top of vessel */}
       <line x1="310" y1="70" x2="310" y2="40" stroke="#a855f7" strokeWidth="4" />
@@ -496,8 +496,8 @@ function renderAspirationSubmergedApparatus(showDims: boolean, showVectors: bool
 
       {/* Vacuum Pump & Gauge */}
       <rect x="70" y="100" width="100" height="60" rx="8" fill="#1e293b" stroke="#a855f7" strokeWidth="1.5" />
-      <text x="120" y="125" fill="#c084fc" fontSize="12" textAnchor="middle" fontWeight="bold">抽真空源</text>
-      <text x="120" y="145" fill="#a7f3d0" fontSize="12" textAnchor="middle">80.0~88.0 kPa</text>
+      <text x="120" y="125" fill="#c084fc" fontSize="13" textAnchor="middle" fontWeight="bold">抽真空源</text>
+      <text x="120" y="145" fill="#a7f3d0" fontSize="13" textAnchor="middle">80.0~88.0 kPa</text>
 
       {/* Bubbles visual stream */}
       {showVectors && (
@@ -506,16 +506,16 @@ function renderAspirationSubmergedApparatus(showDims: boolean, showVectors: bool
           <circle cx="308" cy="195" r="5" fill="#ffffff" opacity="0.8" />
           <circle cx="312" cy="175" r="6" fill="#ffffff" opacity="0.7" />
           <circle cx="307" cy="150" r="7" fill="#ffffff" opacity="0.6" />
-          <text x="420" y="160" fill="#f43f5e" fontSize="12" fontWeight="bold">← 目視氣泡流 (Bubble Stream)</text>
-          <text x="420" y="175" fill="#cbd5e1" fontSize="12">20秒初始氣泡停止後持續觀察</text>
+          <text x="420" y="160" fill="#f43f5e" fontSize="13" fontWeight="bold">← 目視氣泡流 (Bubble Stream)</text>
+          <text x="420" y="175" fill="#cbd5e1" fontSize="13">20秒初始氣泡停止後持續觀察</text>
         </g>
       )}
 
       {/* Acceptance Criteria Callout */}
       <rect x="440" y="210" width="210" height="70" rx="8" fill="#1e293b" stroke="#10b981" strokeWidth="1.5" />
-      <text x="545" y="232" fill="#10b981" fontSize="12" textAnchor="middle" fontWeight="bold">Annex K 合格判定標準</text>
-      <text x="545" y="252" fill="#ffffff" fontSize="12" textAnchor="middle">抽吸過程中水容器內</text>
-      <text x="545" y="268" fill="#a7f3d0" fontSize="12" textAnchor="middle" fontWeight="bold">無連續產生的氣泡流即 Pass</text>
+      <text x="545" y="232" fill="#10b981" fontSize="13" textAnchor="middle" fontWeight="bold">Annex K 合格判定標準</text>
+      <text x="545" y="252" fill="#ffffff" fontSize="13" textAnchor="middle">抽吸過程中水容器內</text>
+      <text x="545" y="268" fill="#a7f3d0" fontSize="13" textAnchor="middle" fontWeight="bold">無連續產生的氣泡流即 Pass</text>
     </svg>
   );
 }
@@ -533,30 +533,30 @@ function renderOverridingTorqueRig(showDims: boolean, showVectors: boolean, acti
       </defs>
       <rect width="680" height="320" fill="url(#gridPattern5)" rx="8" />
 
-      <text x="20" y="25" fill="#f59e0b" fontSize="12" fontFamily="monospace" fontWeight="bold">
+      <text x="20" y="25" fill="#f59e0b" fontSize="13" fontFamily="monospace" fontWeight="bold">
         ISO 80369-20 Annex H: Resistance to Overriding Test Rig (0.15 ~ 0.17 N·m)
       </text>
 
       {/* Motor Driver Base */}
       <rect x="50" y="100" width="120" height="130" rx="8" fill="#1e293b" stroke="#f59e0b" strokeWidth="2" />
-      <text x="110" y="140" fill="#f59e0b" fontSize="12" textAnchor="middle" fontWeight="bold">伺服扭矩馬達</text>
-      <text x="110" y="160" fill="#cbd5e1" fontSize="12" textAnchor="middle">3.0 rpm ± 0.5 rpm</text>
+      <text x="110" y="140" fill="#f59e0b" fontSize="13" textAnchor="middle" fontWeight="bold">伺服扭矩馬達</text>
+      <text x="110" y="160" fill="#cbd5e1" fontSize="13" textAnchor="middle">3.0 rpm ± 0.5 rpm</text>
 
       {/* Rotating Shaft & Torque Sensor */}
       <rect x="170" y="145" width="80" height="40" rx="4" fill="#0f172a" stroke="#cbd5e1" strokeWidth="1.5" />
-      <text x="210" y="168" fill="#38bdf8" fontSize="12" textAnchor="middle" fontFamily="monospace" fontWeight="bold">扭矩感測器</text>
+      <text x="210" y="168" fill="#38bdf8" fontSize="13" textAnchor="middle" fontFamily="monospace" fontWeight="bold">扭矩感測器</text>
 
       {/* Shaft Connection */}
       <line x1="250" y1="165" x2="310" y2="165" stroke="#cbd5e1" strokeWidth="8" />
 
       {/* Fig.C.3 Metal Fixture (Worst case 2.71mm lug) */}
       <rect x="310" y="130" width="70" height="70" rx="6" fill="#f59e0b" opacity="0.85" stroke="#ffffff" strokeWidth="2" />
-      <text x="345" y="160" fill="#ffffff" fontSize="12" textAnchor="middle" fontWeight="bold">Fig.C.3</text>
-      <text x="345" y="176" fill="#fef3c7" fontSize="12" textAnchor="middle">耳翼 2.71 mm</text>
+      <text x="345" y="160" fill="#ffffff" fontSize="13" textAnchor="middle" fontWeight="bold">Fig.C.3</text>
+      <text x="345" y="176" fill="#fef3c7" fontSize="13" textAnchor="middle">耳翼 2.71 mm</text>
 
       {/* Plastic Test Connector */}
       <rect x="380" y="140" width="90" height="50" rx="6" fill="#3b82f6" stroke="#60a5fa" strokeWidth="2" />
-      <text x="425" y="168" fill="#ffffff" fontSize="12" textAnchor="middle" fontWeight="bold">受測公鎖定接頭</text>
+      <text x="425" y="168" fill="#ffffff" fontSize="13" textAnchor="middle" fontWeight="bold">受測公鎖定接頭</text>
 
       {/* Hoop Stress Expansion Stress Arrows */}
       {showVectors && (
@@ -565,19 +565,19 @@ function renderOverridingTorqueRig(showDims: boolean, showVectors: boolean, acti
           <polygon points="425,100 421,108 429,108" fill="#f43f5e" />
           <path d="M 425 205 L 425 225" stroke="#f43f5e" strokeWidth="2" />
           <polygon points="425,230 421,222 429,222" fill="#f43f5e" />
-          <text x="425" y="90" fill="#f43f5e" fontSize="12" textAnchor="middle" fontWeight="bold">環向應力膨脹 (Hoop Stress Expansion)</text>
-          <text x="425" y="248" fill="#f43f5e" fontSize="12" textAnchor="middle" fontWeight="bold">跳牙滑脫 (Override Hazard)</text>
+          <text x="425" y="90" fill="#f43f5e" fontSize="13" textAnchor="middle" fontWeight="bold">環向應力膨脹 (Hoop Stress Expansion)</text>
+          <text x="425" y="248" fill="#f43f5e" fontSize="13" textAnchor="middle" fontWeight="bold">跳牙滑脫 (Override Hazard)</text>
         </g>
       )}
 
       {/* Torque Curve Graph Box */}
       <rect x="490" y="90" width="160" height="160" rx="8" fill="#0f172a" stroke="#334155" strokeWidth="1" />
-      <text x="570" y="112" fill="#f59e0b" fontSize="12" textAnchor="middle" fontWeight="bold">扭矩-時間曲線 (Torque Curve)</text>
+      <text x="570" y="112" fill="#f59e0b" fontSize="13" textAnchor="middle" fontWeight="bold">扭矩-時間曲線 (Torque Curve)</text>
       <path d="M 505 220 L 530 140 L 630 140" fill="none" stroke="#10b981" strokeWidth="2" />
       <path d="M 530 140 L 550 220" fill="none" stroke="#f43f5e" strokeWidth="2" strokeDasharray="3 3" />
-      <text x="580" y="132" fill="#10b981" fontSize="12">平穩持壓 (Pass)</text>
-      <text x="580" y="185" fill="#f43f5e" fontSize="12">驟降滑牙 (Fail)</text>
-      <text x="570" y="240" fill="#94a3b8" fontSize="12" textAnchor="middle">目標扭矩: 0.16 N·m (5~10s)</text>
+      <text x="580" y="132" fill="#10b981" fontSize="13">平穩持壓 (Pass)</text>
+      <text x="580" y="185" fill="#f43f5e" fontSize="13">驟降滑牙 (Fail)</text>
+      <text x="570" y="240" fill="#94a3b8" fontSize="13" textAnchor="middle">目標扭矩: 0.16 N·m (5~10s)</text>
     </svg>
   );
 }
@@ -589,7 +589,7 @@ function renderAxialSeparationRig(showDims: boolean, showVectors: boolean, activ
   return (
     <svg viewBox="0 0 680 320" className="w-full max-w-3xl bg-white rounded-xl border border-slate-200 p-2 shadow-2xl">
       <rect width="680" height="320" fill="#0f172a" rx="8" />
-      <text x="20" y="25" fill="#10b981" fontSize="12" fontFamily="monospace" fontWeight="bold">
+      <text x="20" y="25" fill="#10b981" fontSize="13" fontFamily="monospace" fontWeight="bold">
         ISO 80369-20 Annex F: Resistance to Separation from Axial Load (35 N Tensile Force)
       </text>
 
@@ -600,16 +600,16 @@ function renderAxialSeparationRig(showDims: boolean, showVectors: boolean, activ
 
       {/* Load Cell */}
       <rect x="200" y="70" width="60" height="35" rx="4" fill="#10b981" stroke="#ffffff" strokeWidth="1.5" />
-      <text x="230" y="92" fill="#ffffff" fontSize="12" textAnchor="middle" fontWeight="bold">35 N 荷重計</text>
+      <text x="230" y="92" fill="#ffffff" fontSize="13" textAnchor="middle" fontWeight="bold">35 N 荷重計</text>
 
       {/* Upper Grip with Metal Fixture */}
       <line x1="230" y1="105" x2="230" y2="130" stroke="#cbd5e1" strokeWidth="6" />
       <rect x="190" y="130" width="80" height="40" rx="4" fill="#64748b" stroke="#e2e8f0" strokeWidth="1.5" />
-      <text x="230" y="154" fill="#ffffff" fontSize="12" textAnchor="middle" fontWeight="bold">金屬參考夾具</text>
+      <text x="230" y="154" fill="#ffffff" fontSize="13" textAnchor="middle" fontWeight="bold">金屬參考夾具</text>
 
       {/* Lower Specimen */}
       <rect x="200" y="170" width="60" height="50" rx="4" fill="#3b82f6" stroke="#93c5fd" strokeWidth="1.5" />
-      <text x="230" y="198" fill="#ffffff" fontSize="12" textAnchor="middle" fontWeight="bold">受測接頭</text>
+      <text x="230" y="198" fill="#ffffff" fontSize="13" textAnchor="middle" fontWeight="bold">受測接頭</text>
       <rect x="180" y="220" width="100" height="30" rx="4" fill="#1e293b" stroke="#cbd5e1" strokeWidth="1" />
 
       {/* Pull Force Vectors */}
@@ -617,17 +617,17 @@ function renderAxialSeparationRig(showDims: boolean, showVectors: boolean, activ
         <g>
           <path d="M 230 115 L 230 75" stroke="#f43f5e" strokeWidth="3" />
           <polygon points="230,70 224,80 236,80" fill="#f43f5e" />
-          <text x="260" y="85" fill="#f43f5e" fontSize="12" fontWeight="bold">軸向拉力 F = 35 N (10 N/s)</text>
+          <text x="260" y="85" fill="#f43f5e" fontSize="13" fontWeight="bold">軸向拉力 F = 35 N (10 N/s)</text>
         </g>
       )}
 
       {/* Tensile Test Parameter Summary */}
       <rect x="420" y="80" width="230" height="180" rx="12" fill="#1e293b" stroke="#10b981" strokeWidth="1.5" />
-      <text x="535" y="108" fill="#10b981" fontSize="12" textAnchor="middle" fontWeight="bold">軸向分離測試標準參數</text>
-      <text x="440" y="138" fill="#cbd5e1" fontSize="12">• 加載速率 Rate: <tspan fill="#ffffff" fontWeight="bold">10 N/s</tspan></text>
-      <text x="440" y="162" fill="#cbd5e1" fontSize="12">• 鎖定接頭 Lock: <tspan fill="#a7f3d0" fontWeight="bold">35 N (10~15秒)</tspan></text>
-      <text x="440" y="186" fill="#cbd5e1" fontSize="12">• 滑動接頭 Slip: <tspan fill="#38bdf8" fontWeight="bold">25 N (10~15秒)</tspan></text>
-      <text x="440" y="210" fill="#cbd5e1" fontSize="12">• 判定基準: <tspan fill="#ffffff" fontWeight="bold">無接頭完全脫離</tspan></text>
+      <text x="535" y="108" fill="#10b981" fontSize="13" textAnchor="middle" fontWeight="bold">軸向分離測試標準參數</text>
+      <text x="440" y="138" fill="#cbd5e1" fontSize="13">• 加載速率 Rate: <tspan fill="#ffffff" fontWeight="bold">10 N/s</tspan></text>
+      <text x="440" y="162" fill="#cbd5e1" fontSize="13">• 鎖定接頭 Lock: <tspan fill="#a7f3d0" fontWeight="bold">35 N (10~15秒)</tspan></text>
+      <text x="440" y="186" fill="#cbd5e1" fontSize="13">• 滑動接頭 Slip: <tspan fill="#38bdf8" fontWeight="bold">25 N (10~15秒)</tspan></text>
+      <text x="440" y="210" fill="#cbd5e1" fontSize="13">• 判定基準: <tspan fill="#ffffff" fontWeight="bold">無接頭完全脫離</tspan></text>
     </svg>
   );
 }
@@ -639,22 +639,22 @@ function renderUnscrewingTorqueRig(showDims: boolean, showVectors: boolean, acti
   return (
     <svg viewBox="0 0 680 320" className="w-full max-w-3xl bg-white rounded-xl border border-slate-200 p-2 shadow-2xl">
       <rect width="680" height="320" fill="#0f172a" rx="8" />
-      <text x="20" y="25" fill="#38bdf8" fontSize="12" fontFamily="monospace" fontWeight="bold">
+      <text x="20" y="25" fill="#38bdf8" fontSize="13" fontFamily="monospace" fontWeight="bold">
         ISO 80369-20 Annex G &amp; Annex I: Unscrewing &amp; Disconnection Torque Test Setup
       </text>
 
       {/* Unscrewing Motor Center */}
       <circle cx="200" cy="160" r="70" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
       <circle cx="200" cy="160" r="45" fill="#0f172a" stroke="#cbd5e1" strokeWidth="1.5" />
-      <text x="200" y="155" fill="#ffffff" fontSize="12" textAnchor="middle" fontWeight="bold">6% 錐面</text>
-      <text x="200" y="172" fill="#38bdf8" fontSize="12" textAnchor="middle">自鎖接觸面</text>
+      <text x="200" y="155" fill="#ffffff" fontSize="13" textAnchor="middle" fontWeight="bold">6% 錐面</text>
+      <text x="200" y="172" fill="#38bdf8" fontSize="13" textAnchor="middle">自鎖接觸面</text>
 
       {/* Counter-clockwise Torque Arrow */}
       {showVectors && (
         <g>
           <path d="M 200 70 A 90 90 0 0 0 110 160" fill="none" stroke="#f43f5e" strokeWidth="4" />
           <polygon points="105,160 115,150 115,170" fill="#f43f5e" />
-          <text x="130" y="65" fill="#f43f5e" fontSize="12" fontWeight="bold">反向旋鬆扭矩 0.02 N·m</text>
+          <text x="130" y="65" fill="#f43f5e" fontSize="13" fontWeight="bold">反向旋鬆扭矩 0.02 N·m</text>
         </g>
       )}
 
@@ -663,18 +663,18 @@ function renderUnscrewingTorqueRig(showDims: boolean, showVectors: boolean, acti
       <text x="490" y="98" fill="#38bdf8" fontSize="13" textAnchor="middle" fontWeight="bold">Annex G vs Annex I 雙軌條文對照</text>
 
       <rect x="345" y="115" width="135" height="135" rx="8" fill="#0f172a" stroke="#38bdf8" strokeWidth="1" />
-      <text x="412" y="135" fill="#a7f3d0" fontSize="12" textAnchor="middle" fontWeight="bold">Annex G 抗旋鬆</text>
-      <text x="355" y="158" fill="#cbd5e1" fontSize="12">• 施加 0.018~0.020 N·m</text>
-      <text x="355" y="178" fill="#cbd5e1" fontSize="12">• 保持 10~15 秒</text>
-      <text x="355" y="198" fill="#cbd5e1" fontSize="12">• 目的: 防震動意外脫落</text>
-      <text x="355" y="228" fill="#a7f3d0" fontSize="12" fontWeight="bold">合格: 無分離</text>
+      <text x="412" y="135" fill="#a7f3d0" fontSize="13" textAnchor="middle" fontWeight="bold">Annex G 抗旋鬆</text>
+      <text x="355" y="158" fill="#cbd5e1" fontSize="13">• 施加 0.018~0.020 N·m</text>
+      <text x="355" y="178" fill="#cbd5e1" fontSize="13">• 保持 10~15 秒</text>
+      <text x="355" y="198" fill="#cbd5e1" fontSize="13">• 目的: 防震動意外脫落</text>
+      <text x="355" y="228" fill="#a7f3d0" fontSize="13" fontWeight="bold">合格: 無分離</text>
 
       <rect x="495" y="115" width="140" height="135" rx="8" fill="#0f172a" stroke="#purple-400" strokeWidth="1" />
-      <text x="565" y="135" fill="#c084fc" fontSize="12" textAnchor="middle" fontWeight="bold">Annex I 拆卸力</text>
-      <text x="505" y="158" fill="#cbd5e1" fontSize="12">• 裝配後靜置 10~15 分</text>
-      <text x="505" y="178" fill="#cbd5e1" fontSize="12">• 量測最大峰值扭矩</text>
-      <text x="505" y="198" fill="#cbd5e1" fontSize="12">• 目的: 人因工程易拆性</text>
-      <text x="505" y="228" fill="#c084fc" fontSize="12" fontWeight="bold">合格: 徒手可順利旋開</text>
+      <text x="565" y="135" fill="#c084fc" fontSize="13" textAnchor="middle" fontWeight="bold">Annex I 拆卸力</text>
+      <text x="505" y="158" fill="#cbd5e1" fontSize="13">• 裝配後靜置 10~15 分</text>
+      <text x="505" y="178" fill="#cbd5e1" fontSize="13">• 量測最大峰值扭矩</text>
+      <text x="505" y="198" fill="#cbd5e1" fontSize="13">• 目的: 人因工程易拆性</text>
+      <text x="505" y="228" fill="#c084fc" fontSize="13" fontWeight="bold">合格: 徒手可順利旋開</text>
     </svg>
   );
 }
@@ -686,19 +686,19 @@ function renderStressCrackingApparatus(showDims: boolean, showVectors: boolean, 
   return (
     <svg viewBox="0 0 680 320" className="w-full max-w-3xl bg-white rounded-xl border border-slate-200 p-2 shadow-2xl">
       <rect width="680" height="320" fill="#0f172a" rx="8" />
-      <text x="20" y="25" fill="#a855f7" fontSize="12" fontFamily="monospace" fontWeight="bold">
+      <text x="20" y="25" fill="#a855f7" fontSize="13" fontFamily="monospace" fontWeight="bold">
         ISO 80369-20 Annex E: Stress Cracking &amp; Chemical Solvent Exposure Test Setup
       </text>
 
       {/* Assembly Specimen in Chemical Bath */}
       <rect x="60" y="80" width="180" height="180" rx="12" fill="#1e293b" stroke="#a855f7" strokeWidth="2" />
       <rect x="62" y="140" width="176" height="118" rx="0" fill="#a855f7" opacity="0.25" />
-      <text x="150" y="130" fill="#c084fc" fontSize="12" textAnchor="middle" fontWeight="bold">70% 異丙醇 / 化學試劑</text>
-      <text x="150" y="175" fill="#ffffff" fontSize="12" textAnchor="middle" fontWeight="bold">預裝配組裝件 (0.12 N·m)</text>
+      <text x="150" y="130" fill="#c084fc" fontSize="13" textAnchor="middle" fontWeight="bold">70% 異丙醇 / 化學試劑</text>
+      <text x="150" y="175" fill="#ffffff" fontSize="13" textAnchor="middle" fontWeight="bold">預裝配組裝件 (0.12 N·m)</text>
 
       {/* Micro Crack Diagram */}
       <rect x="280" y="80" width="360" height="180" rx="12" fill="#1e293b" stroke="#f43f5e" strokeWidth="1.5" />
-      <text x="460" y="108" fill="#f43f5e" fontSize="12" textAnchor="middle" fontWeight="bold">塑膠環境應力龜裂 (ESCR) 機制</text>
+      <text x="460" y="108" fill="#f43f5e" fontSize="13" textAnchor="middle" fontWeight="bold">塑膠環境應力龜裂 (ESCR) 機制</text>
 
       {/* Molecular Polymer Chain Visualization */}
       <path d="M 310 140 Q 340 120, 370 140 T 430 140" fill="none" stroke="#38bdf8" strokeWidth="4" />
@@ -706,12 +706,12 @@ function renderStressCrackingApparatus(showDims: boolean, showVectors: boolean, 
 
       {/* Crack Line */}
       <line x1="370" y1="120" x2="370" y2="200" stroke="#f43f5e" strokeWidth="3" strokeDasharray="4 2" />
-      <text x="370" y="220" fill="#f43f5e" fontSize="12" textAnchor="middle" fontWeight="bold">內應力高 + 酒精誘發龜裂</text>
+      <text x="370" y="220" fill="#f43f5e" fontSize="13" textAnchor="middle" fontWeight="bold">內應力高 + 酒精誘發龜裂</text>
 
-      <text x="480" y="145" fill="#cbd5e1" fontSize="12">• 靜置時間: <tspan fill="#a7f3d0" fontWeight="bold">≥ 48 小時</tspan></text>
-      <text x="480" y="170" fill="#cbd5e1" fontSize="12">• 測試溫度: <tspan fill="#ffffff" fontWeight="bold">20°C ~ 30°C</tspan></text>
-      <text x="480" y="195" fill="#cbd5e1" fontSize="12">• 隨後試驗: <tspan fill="#38bdf8" fontWeight="bold">Annex B/C 洩漏測試</tspan></text>
-      <text x="480" y="220" fill="#cbd5e1" fontSize="12">• 判定: <tspan fill="#a7f3d0" fontWeight="bold">零裂紋且氣密 Pass</tspan></text>
+      <text x="480" y="145" fill="#cbd5e1" fontSize="13">• 靜置時間: <tspan fill="#a7f3d0" fontWeight="bold">≥ 48 小時</tspan></text>
+      <text x="480" y="170" fill="#cbd5e1" fontSize="13">• 測試溫度: <tspan fill="#ffffff" fontWeight="bold">20°C ~ 30°C</tspan></text>
+      <text x="480" y="195" fill="#cbd5e1" fontSize="13">• 隨後試驗: <tspan fill="#38bdf8" fontWeight="bold">Annex B/C 洩漏測試</tspan></text>
+      <text x="480" y="220" fill="#cbd5e1" fontSize="13">• 判定: <tspan fill="#a7f3d0" fontWeight="bold">零裂紋且氣密 Pass</tspan></text>
     </svg>
   );
 }
@@ -731,7 +731,7 @@ function renderFigB1MaleSlipCad(showDims: boolean, showVectors: boolean, activeC
         </marker>
       </defs>
 
-      <text x="680" y="25" fill="#475569" fontSize="12" textAnchor="end" fontFamily="sans-serif" fontStyle="italic">
+      <text x="680" y="25" fill="#475569" fontSize="13" textAnchor="end" fontFamily="sans-serif" fontStyle="italic">
         Dimensions in millimetres unless otherwise indicated
       </text>
 
@@ -754,7 +754,7 @@ function renderFigB1MaleSlipCad(showDims: boolean, showVectors: boolean, activeC
         {/* Length e >= 7.5 mm */}
         <line x1="80" y1="30" x2="480" y2="30" stroke="#0f172a" strokeWidth="1" markerStart="url(#arrowB1)" markerEnd="url(#arrowB1)" />
         <rect x="250" y="20" width="70" height="20" fill="#ffffff" stroke="#0f172a" strokeWidth="1" />
-        <text x="285" y="34" fill="#0f172a" fontSize="12" textAnchor="middle" fontFamily="sans-serif" fontWeight="bold">e ≥ 7,5</text>
+        <text x="285" y="34" fill="#0f172a" fontSize="13" textAnchor="middle" fontFamily="sans-serif" fontWeight="bold">e ≥ 7,5</text>
 
         {/* Tip & Base Diameters */}
         <text x="495" y="165" fill="#0f172a" fontSize="13" fontFamily="sans-serif" fontStyle="italic" fontWeight="bold">ØA (Ø3.970~4.072)</text>
@@ -765,7 +765,7 @@ function renderFigB1MaleSlipCad(showDims: boolean, showVectors: boolean, activeC
         <text x="260" y="164" fill="#0f172a" fontSize="14" textAnchor="middle" fontFamily="sans-serif" fontStyle="italic" fontWeight="bold">α</text>
       </g>
 
-      <text x="40" y="390" fill="#2563eb" fontSize="12" fontFamily="sans-serif" fontWeight="bold">
+      <text x="40" y="390" fill="#2563eb" fontSize="13" fontFamily="sans-serif" fontWeight="bold">
         Table B.1 contains the dimensions for this figure.
       </text>
       <text x="350" y="420" fill="#0f172a" fontSize="13" textAnchor="middle" fontFamily="sans-serif" fontWeight="bold">
@@ -790,7 +790,7 @@ function renderFigB2FemaleSlipCad(showDims: boolean, showVectors: boolean, activ
         </marker>
       </defs>
 
-      <text x="680" y="25" fill="#475569" fontSize="12" textAnchor="end" fontFamily="sans-serif" fontStyle="italic">
+      <text x="680" y="25" fill="#475569" fontSize="13" textAnchor="end" fontFamily="sans-serif" fontStyle="italic">
         Dimensions in millimetres unless otherwise indicated
       </text>
 
@@ -839,12 +839,12 @@ function renderFigB2FemaleSlipCad(showDims: boolean, showVectors: boolean, activ
         {/* 7,5 Boxed Dimension */}
         <line x1="125" y1="30" x2="520" y2="30" stroke="#0f172a" strokeWidth="1" markerStart="url(#arrowB2)" markerEnd="url(#arrowB2)" />
         <rect x="300" y="20" width="40" height="20" fill="#ffffff" stroke="#0f172a" strokeWidth="1" />
-        <text x="320" y="34" fill="#0f172a" fontSize="12" textAnchor="middle" fontFamily="sans-serif" fontWeight="bold">7,5</text>
+        <text x="320" y="34" fill="#0f172a" fontSize="13" textAnchor="middle" fontFamily="sans-serif" fontWeight="bold">7,5</text>
 
         {/* 0,75 Boxed Dimension */}
         <line x1="470" y1="50" x2="520" y2="50" stroke="#0f172a" strokeWidth="1" markerStart="url(#arrowB2)" markerEnd="url(#arrowB2)" />
         <rect x="478" y="40" width="34" height="18" fill="#ffffff" stroke="#0f172a" strokeWidth="1" />
-        <text x="495" y="53" fill="#0f172a" fontSize="12" textAnchor="middle" fontFamily="sans-serif" fontWeight="bold">0,75</text>
+        <text x="495" y="53" fill="#0f172a" fontSize="13" textAnchor="middle" fontFamily="sans-serif" fontWeight="bold">0,75</text>
 
         {/* Diameter Dimensions */}
         {/* ØG at Base */}
@@ -879,7 +879,7 @@ function renderFigB2FemaleSlipCad(showDims: boolean, showVectors: boolean, activ
       </g>
 
       {/* Bottom Text Footer */}
-      <text x="40" y="390" fill="#2563eb" fontSize="12" fontFamily="sans-serif" fontWeight="bold">
+      <text x="40" y="390" fill="#2563eb" fontSize="13" fontFamily="sans-serif" fontWeight="bold">
         Table B.2 contains the dimensions for this figure.
       </text>
       <text x="350" y="420" fill="#0f172a" fontSize="13" textAnchor="middle" fontFamily="sans-serif" fontWeight="bold">
@@ -904,7 +904,7 @@ function renderFigB3MaleLockCad(showDims: boolean, showVectors: boolean, activeC
         </marker>
       </defs>
 
-      <text x="680" y="25" fill="#475569" fontSize="12" textAnchor="end" fontFamily="sans-serif" fontStyle="italic">
+      <text x="680" y="25" fill="#475569" fontSize="13" textAnchor="end" fontFamily="sans-serif" fontStyle="italic">
         Dimensions in millimetres unless otherwise indicated
       </text>
 
@@ -921,14 +921,14 @@ function renderFigB3MaleLockCad(showDims: boolean, showVectors: boolean, activeC
 
         {/* Thread Pitch Callout Pitch = 2.5 mm */}
         <line x1="140" y1="35" x2="240" y2="35" stroke="#0f172a" strokeWidth="1" markerStart="url(#arrowB3)" markerEnd="url(#arrowB3)" />
-        <text x="190" y="30" fill="#0f172a" fontSize="12" textAnchor="middle" fontWeight="bold">Pitch = 2,5</text>
+        <text x="190" y="30" fill="#0f172a" fontSize="13" textAnchor="middle" fontWeight="bold">Pitch = 2,5</text>
 
         {/* Projection c >= 2.1 mm */}
-        <text x="350" y="140" fill="#2563eb" fontSize="12" textAnchor="middle" fontWeight="bold">c ≥ 2,1 mm (Projection)</text>
-        <text x="350" y="180" fill="#2563eb" fontSize="12" textAnchor="middle" fontWeight="bold">t ≤ 3,2 mm (1st Thread)</text>
+        <text x="350" y="140" fill="#2563eb" fontSize="13" textAnchor="middle" fontWeight="bold">c ≥ 2,1 mm (Projection)</text>
+        <text x="350" y="180" fill="#2563eb" fontSize="13" textAnchor="middle" fontWeight="bold">t ≤ 3,2 mm (1st Thread)</text>
       </g>
 
-      <text x="40" y="390" fill="#2563eb" fontSize="12" fontFamily="sans-serif" fontWeight="bold">
+      <text x="40" y="390" fill="#2563eb" fontSize="13" fontFamily="sans-serif" fontWeight="bold">
         Table B.3 contains the dimensions for this figure.
       </text>
       <text x="350" y="420" fill="#0f172a" fontSize="13" textAnchor="middle" fontFamily="sans-serif" fontWeight="bold">
@@ -953,7 +953,7 @@ function renderFigB4FemaleLockCad(showDims: boolean, showVectors: boolean, activ
         </marker>
       </defs>
 
-      <text x="680" y="25" fill="#475569" fontSize="12" textAnchor="end" fontFamily="sans-serif" fontStyle="italic">
+      <text x="680" y="25" fill="#475569" fontSize="13" textAnchor="end" fontFamily="sans-serif" fontStyle="italic">
         Dimensions in millimetres unless otherwise indicated
       </text>
 
@@ -971,13 +971,13 @@ function renderFigB4FemaleLockCad(showDims: boolean, showVectors: boolean, activ
 
         {/* Lug width 3.50 mm */}
         <line x1="380" y1="20" x2="440" y2="20" stroke="#0f172a" strokeWidth="1" markerStart="url(#arrowB4)" markerEnd="url(#arrowB4)" />
-        <text x="410" y="15" fill="#0f172a" fontSize="12" textAnchor="middle" fontWeight="bold">3,50 mm</text>
+        <text x="410" y="15" fill="#0f172a" fontSize="13" textAnchor="middle" fontWeight="bold">3,50 mm</text>
 
         {/* Back flank angle 25 deg */}
-        <text x="460" y="55" fill="#2563eb" fontSize="12" fontWeight="bold">25° Flank Angle</text>
+        <text x="460" y="55" fill="#2563eb" fontSize="13" fontWeight="bold">25° Flank Angle</text>
       </g>
 
-      <text x="40" y="390" fill="#2563eb" fontSize="12" fontFamily="sans-serif" fontWeight="bold">
+      <text x="40" y="390" fill="#2563eb" fontSize="13" fontFamily="sans-serif" fontWeight="bold">
         Table B.4 contains the dimensions for this figure.
       </text>
       <text x="350" y="420" fill="#0f172a" fontSize="13" textAnchor="middle" fontFamily="sans-serif" fontWeight="bold">
@@ -1050,7 +1050,7 @@ function renderFigC1FemaleRefNominalCad(showDims: boolean, showVectors: boolean,
         <rect x="80" y="60" width="400" height="200" rx="8" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
         <text x="280" y="140" fill="#38bdf8" fontSize="16" textAnchor="middle" fontWeight="bold">ISO 80369-7 Fig.C.1</text>
         <text x="280" y="170" fill="#cbd5e1" fontSize="13" textAnchor="middle">Female Reference Luer Lock Connector (Nominal)</text>
-        <text x="280" y="200" fill="#a7f3d0" fontSize="12" textAnchor="middle">Lug Width = 3.50 mm | Flank Angle = 25°</text>
+        <text x="280" y="200" fill="#a7f3d0" fontSize="13" textAnchor="middle">Lug Width = 3.50 mm | Flank Angle = 25°</text>
       </g>
       <text x="350" y="420" fill="#38bdf8" fontSize="13" textAnchor="middle" fontWeight="bold">
         Fig.C.1 — Female reference Luer lock connector (3.50mm Nominal)
@@ -1082,7 +1082,7 @@ function renderFigC3FemaleRefWorstCaseCad(showDims: boolean, showVectors: boolea
         <text x="280" y="130" fill="#f43f5e" fontSize="16" textAnchor="middle" fontWeight="bold">ISO 80369-7 Fig.C.3 (WORST-CASE)</text>
         <text x="280" y="160" fill="#fca5a5" fontSize="13" textAnchor="middle">Narrowed Lug Width = 2.71 mm (縮窄 22%)</text>
         <text x="280" y="190" fill="#fca5a5" fontSize="13" textAnchor="middle">Steeper Flank Angle = 30° (外撐力加大)</text>
-        <text x="280" y="220" fill="#ffffff" fontSize="12" textAnchor="middle">專用於 6.4 拉拔與 6.6 抗滑牙/過旋破壞測試</text>
+        <text x="280" y="220" fill="#ffffff" fontSize="13" textAnchor="middle">專用於 6.4 拉拔與 6.6 抗滑牙/過旋破壞測試</text>
       </g>
       <text x="350" y="420" fill="#f43f5e" fontSize="13" textAnchor="middle" fontWeight="bold">
         Fig.C.3 — Female reference Luer lock connector (2.71mm Worst-Case)
@@ -1142,8 +1142,8 @@ function renderFigSmlCad(showDims: boolean, showVectors: boolean, activeCallout:
       <g transform="translate(40, 50)">
         <rect x="80" y="60" width="400" height="200" rx="8" fill="#1e293b" stroke="#f59e0b" strokeWidth="2" />
         <text x="280" y="130" fill="#f59e0b" fontSize="16" textAnchor="middle" fontWeight="bold">Commercial SML Full-Thread Connector</text>
-        <text x="280" y="170" fill="#fca5a5" fontSize="12" textAnchor="middle">⚠️ 非 ISO 80369-7 認可參考夾具</text>
-        <text x="280" y="200" fill="#cbd5e1" fontSize="12" textAnchor="middle">360° 全螺紋分散應力，無法代表法規最壞情況審查</text>
+        <text x="280" y="170" fill="#fca5a5" fontSize="13" textAnchor="middle">⚠️ 非 ISO 80369-7 認可參考夾具</text>
+        <text x="280" y="200" fill="#cbd5e1" fontSize="13" textAnchor="middle">360° 全螺紋分散應力，無法代表法規最壞情況審查</text>
       </g>
       <text x="350" y="420" fill="#f59e0b" fontSize="13" textAnchor="middle" fontWeight="bold">
         Commercial SML Connector (Non-ISO Standard)
@@ -1159,19 +1159,19 @@ function renderPreAssemblyRig(showDims: boolean, showVectors: boolean, activeCal
   return (
     <svg viewBox="0 0 680 320" className="w-full max-w-3xl bg-white rounded-xl border border-slate-200 p-2 shadow-2xl">
       <rect width="680" height="320" fill="#0f172a" rx="8" />
-      <text x="20" y="25" fill="#38bdf8" fontSize="12" fontFamily="monospace" fontWeight="bold">
+      <text x="20" y="25" fill="#38bdf8" fontSize="13" fontFamily="monospace" fontWeight="bold">
         ISO 80369-20 General Test Procedure: Standard Pre-assembly Rig (0.08~0.12 N·m + 27.5 N)
       </text>
 
       {/* Torque Driver */}
       <rect x="60" y="100" width="120" height="90" rx="8" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
-      <text x="120" y="135" fill="#38bdf8" fontSize="12" textAnchor="middle" fontWeight="bold">定扭矩起子 Driver</text>
-      <text x="120" y="155" fill="#a7f3d0" fontSize="12" textAnchor="middle" fontWeight="bold">0.08 ~ 0.12 N·m</text>
+      <text x="120" y="135" fill="#38bdf8" fontSize="13" textAnchor="middle" fontWeight="bold">定扭矩起子 Driver</text>
+      <text x="120" y="155" fill="#a7f3d0" fontSize="13" textAnchor="middle" fontWeight="bold">0.08 ~ 0.12 N·m</text>
 
       {/* Axial Force Spring */}
       <line x1="180" y1="145" x2="300" y2="145" stroke="#cbd5e1" strokeWidth="6" />
       <path d="M 200 130 L 210 160 L 220 130 L 230 160 L 240 130 L 250 160" fill="none" stroke="#f59e0b" strokeWidth="3" />
-      <text x="230" y="115" fill="#f59e0b" fontSize="12" textAnchor="middle" fontWeight="bold">推力彈簧 Axial Push: 26.5 ~ 27.5 N</text>
+      <text x="230" y="115" fill="#f59e0b" fontSize="13" textAnchor="middle" fontWeight="bold">推力彈簧 Axial Push: 26.5 ~ 27.5 N</text>
 
       {/* Connector Fixture Interface */}
       <rect x="300" y="120" width="60" height="50" rx="4" fill="#64748b" stroke="#ffffff" strokeWidth="1.5" />
@@ -1179,10 +1179,10 @@ function renderPreAssemblyRig(showDims: boolean, showVectors: boolean, activeCal
 
       {/* Hold Time Clock */}
       <rect x="470" y="90" width="170" height="130" rx="12" fill="#1e293b" stroke="#38bdf8" strokeWidth="1.5" />
-      <text x="555" y="118" fill="#38bdf8" fontSize="12" textAnchor="middle" fontWeight="bold">預裝配保持時間</text>
+      <text x="555" y="118" fill="#38bdf8" fontSize="13" textAnchor="middle" fontWeight="bold">預裝配保持時間</text>
       <text x="555" y="150" fill="#a7f3d0" fontSize="24" fontFamily="monospace" textAnchor="middle" fontWeight="bold">5 ~ 6 秒</text>
-      <text x="555" y="180" fill="#cbd5e1" fontSize="12" textAnchor="middle">確保靜態接觸應力達到平衡</text>
-      <text x="555" y="198" fill="#cbd5e1" fontSize="12" textAnchor="middle">所有 6.1~6.5 測試前之標準步驟</text>
+      <text x="555" y="180" fill="#cbd5e1" fontSize="13" textAnchor="middle">確保靜態接觸應力達到平衡</text>
+      <text x="555" y="198" fill="#cbd5e1" fontSize="13" textAnchor="middle">所有 6.1~6.5 測試前之標準步驟</text>
     </svg>
   );
 }
@@ -1194,7 +1194,7 @@ function renderNonInterchangeabilityMatrix(showDims: boolean, showVectors: boole
   return (
     <svg viewBox="0 0 680 320" className="w-full max-w-3xl bg-white rounded-xl border border-slate-200 p-2 shadow-2xl">
       <rect width="680" height="320" fill="#0f172a" rx="8" />
-      <text x="20" y="25" fill="#f43f5e" fontSize="12" fontFamily="monospace" fontWeight="bold">
+      <text x="20" y="25" fill="#f43f5e" fontSize="13" fontFamily="monospace" fontWeight="bold">
         ISO 80369 Small-Bore Connectors Non-Interchangeability Family Architecture
       </text>
 
@@ -1202,52 +1202,52 @@ function renderNonInterchangeabilityMatrix(showDims: boolean, showVectors: boole
       <g transform="translate(30, 60)">
         {/* ISO 80369-7 Luer */}
         <rect x="0" y="0" width="130" height="180" rx="8" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
-        <text x="65" y="30" fill="#38bdf8" fontSize="12" textAnchor="middle" fontWeight="bold">ISO 80369-7</text>
+        <text x="65" y="30" fill="#38bdf8" fontSize="13" textAnchor="middle" fontWeight="bold">ISO 80369-7</text>
 
-        <text x="65" y="50" fill="#ffffff" fontSize="12" textAnchor="middle" fontWeight="bold">血管/皮下注射</text>
-        <text x="65" y="70" fill="#cbd5e1" fontSize="12" textAnchor="middle">Intravascular / SubQ</text>
+        <text x="65" y="50" fill="#ffffff" fontSize="13" textAnchor="middle" fontWeight="bold">血管/皮下注射</text>
+        <text x="65" y="70" fill="#cbd5e1" fontSize="13" textAnchor="middle">Intravascular / SubQ</text>
 
         <rect x="15" y="90" width="100" height="40" rx="4" fill="#0284c7" />
-        <text x="65" y="115" fill="#ffffff" fontSize="12" textAnchor="middle" fontWeight="bold">6% Luer 圓錐</text>
-        <text x="65" y="155" fill="#a7f3d0" fontSize="12" textAnchor="middle">關鍵幾何界限</text>
+        <text x="65" y="115" fill="#ffffff" fontSize="13" textAnchor="middle" fontWeight="bold">6% Luer 圓錐</text>
+        <text x="65" y="155" fill="#a7f3d0" fontSize="13" textAnchor="middle">關鍵幾何界限</text>
       </g>
 
       <g transform="translate(180, 60)">
         {/* ISO 80369-3 Enteral */}
         <rect x="0" y="0" width="130" height="180" rx="8" fill="#1e293b" stroke="#f59e0b" strokeWidth="2" />
-        <text x="65" y="30" fill="#f59e0b" fontSize="12" textAnchor="middle" fontWeight="bold">ISO 80369-3</text>
-        <text x="65" y="50" fill="#ffffff" fontSize="12" textAnchor="middle" fontWeight="bold">腸道餵食 (ENFit)</text>
-        <text x="65" y="70" fill="#cbd5e1" fontSize="12" textAnchor="middle">Enteral Applications</text>
+        <text x="65" y="30" fill="#f59e0b" fontSize="13" textAnchor="middle" fontWeight="bold">ISO 80369-3</text>
+        <text x="65" y="50" fill="#ffffff" fontSize="13" textAnchor="middle" fontWeight="bold">腸道餵食 (ENFit)</text>
+        <text x="65" y="70" fill="#cbd5e1" fontSize="13" textAnchor="middle">Enteral Applications</text>
         <rect x="15" y="90" width="100" height="40" rx="4" fill="#d97706" />
-        <text x="65" y="115" fill="#ffffff" fontSize="12" textAnchor="middle" fontWeight="bold">反向幾何構造</text>
-        <text x="65" y="155" fill="#fef3c7" fontSize="12" textAnchor="middle">阻絕與 Luer 誤插</text>
+        <text x="65" y="115" fill="#ffffff" fontSize="13" textAnchor="middle" fontWeight="bold">反向幾何構造</text>
+        <text x="65" y="155" fill="#fef3c7" fontSize="13" textAnchor="middle">阻絕與 Luer 誤插</text>
       </g>
 
       <g transform="translate(330, 60)">
         {/* ISO 80369-6 Neuraxial */}
         <rect x="0" y="0" width="130" height="180" rx="8" fill="#1e293b" stroke="#a855f7" strokeWidth="2" />
-        <text x="65" y="30" fill="#a855f7" fontSize="12" textAnchor="middle" fontWeight="bold">ISO 80369-6</text>
-        <text x="65" y="50" fill="#ffffff" fontSize="12" textAnchor="middle" fontWeight="bold">神經軸麻醉 (NRFit)</text>
-        <text x="65" y="70" fill="#cbd5e1" fontSize="12" textAnchor="middle">Neuraxial Applications</text>
+        <text x="65" y="30" fill="#a855f7" fontSize="13" textAnchor="middle" fontWeight="bold">ISO 80369-6</text>
+        <text x="65" y="50" fill="#ffffff" fontSize="13" textAnchor="middle" fontWeight="bold">神經軸麻醉 (NRFit)</text>
+        <text x="65" y="70" fill="#cbd5e1" fontSize="13" textAnchor="middle">Neuraxial Applications</text>
         <rect x="15" y="90" width="100" height="40" rx="4" fill="#7e22ce" />
-        <text x="65" y="115" fill="#ffffff" fontSize="12" textAnchor="middle" fontWeight="bold">20% 大錐度</text>
-        <text x="65" y="155" fill="#c084fc" fontSize="12" textAnchor="middle">物理維度互斥</text>
+        <text x="65" y="115" fill="#ffffff" fontSize="13" textAnchor="middle" fontWeight="bold">20% 大錐度</text>
+        <text x="65" y="155" fill="#c084fc" fontSize="13" textAnchor="middle">物理維度互斥</text>
       </g>
 
       <g transform="translate(480, 60)">
         {/* ISO 80369-2 Respiratory */}
         <rect x="0" y="0" width="160" height="180" rx="8" fill="#1e293b" stroke="#10b981" strokeWidth="2" />
-        <text x="80" y="30" fill="#10b981" fontSize="12" textAnchor="middle" fontWeight="bold">ISO 80369-2</text>
-        <text x="80" y="50" fill="#ffffff" fontSize="12" textAnchor="middle" fontWeight="bold">呼吸與氣體驅動</text>
-        <text x="80" y="70" fill="#cbd5e1" fontSize="12" textAnchor="middle">Respiratory / Gas Driven</text>
+        <text x="80" y="30" fill="#10b981" fontSize="13" textAnchor="middle" fontWeight="bold">ISO 80369-2</text>
+        <text x="80" y="50" fill="#ffffff" fontSize="13" textAnchor="middle" fontWeight="bold">呼吸與氣體驅動</text>
+        <text x="80" y="70" fill="#cbd5e1" fontSize="13" textAnchor="middle">Respiratory / Gas Driven</text>
         <rect x="15" y="90" width="130" height="40" rx="4" fill="#059669" />
-        <text x="80" y="115" fill="#ffffff" fontSize="12" textAnchor="middle" fontWeight="bold">特定鎖扣結構</text>
-        <text x="80" y="155" fill="#a7f3d0" fontSize="12" textAnchor="middle">防止誤接氧化氣體</text>
+        <text x="80" y="115" fill="#ffffff" fontSize="13" textAnchor="middle" fontWeight="bold">特定鎖扣結構</text>
+        <text x="80" y="155" fill="#a7f3d0" fontSize="13" textAnchor="middle">防止誤接氧化氣體</text>
       </g>
 
       {/* Safety Red Line across bottom */}
       <rect x="30" y="260" width="610" height="40" rx="8" fill="#881337" stroke="#f43f5e" strokeWidth="1.5" />
-      <text x="335" y="285" fill="#ffffff" fontSize="12" textAnchor="middle" fontWeight="bold">
+      <text x="335" y="285" fill="#ffffff" fontSize="13" textAnchor="middle" fontWeight="bold">
         🚨 法規防呆目標：確保不同醫療用途之小口徑連接器 100% 物理無法相互旋合插入，防止致死錯接事故
       </text>
     </svg>

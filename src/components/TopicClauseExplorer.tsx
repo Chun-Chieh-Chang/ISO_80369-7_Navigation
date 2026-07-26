@@ -287,55 +287,55 @@ export const TopicClauseExplorer: React.FC = () => {
                       <div
                         key={topic.id}
                         onClick={() => setSelectedTopicId(topic.id)}
-                        className={`p-4 rounded-xl border transition-all cursor-pointer relative ${
+                        className={`p-4 rounded-2xl border transition-all duration-200 cursor-pointer relative ${
                           isSelected
-                            ? 'bg-blue-50/80 border-blue-500 shadow-md ring-1 ring-blue-500/20'
-                            : 'bg-white border-slate-200 hover:border-slate-300 hover:shadow-sm'
+                            ? 'bg-gradient-to-r from-blue-50/90 to-indigo-50/90 border-blue-500 shadow-md shadow-blue-500/10 ring-1 ring-blue-500/30'
+                            : 'bg-white border-slate-200/80 hover:border-slate-300 hover:shadow-md'
                         }`}
                       >
                         <div className="flex items-start justify-between gap-2">
-                          <div className="flex items-center space-x-2.5">
-                            <div className={`p-2 rounded-lg ${
-                              isSelected ? 'bg-blue-600 text-white' : 'bg-slate-100 text-blue-600'
+                          <div className="flex items-center space-x-3">
+                            <div className={`p-2.5 rounded-xl transition-colors ${
+                              isSelected ? 'bg-blue-600 text-white shadow-sm' : 'bg-slate-100 text-blue-600'
                             }`}>
-                              {renderIcon(topic.iconName, "w-4 h-4")}
+                              {renderIcon(topic.iconName, "w-4.5 h-4.5")}
                             </div>
                             <div>
                               <h3 className={`text-sm font-bold tracking-tight ${
-                                isSelected ? 'text-blue-950' : 'text-slate-800'
+                                isSelected ? 'text-blue-950 font-extrabold' : 'text-slate-800'
                               }`}>
                                 {topic.titleZh}
                               </h3>
-                              <span className="text-xs text-slate-400 font-mono block">
+                              <span className="text-[13px] text-slate-400 font-mono block mt-0.5">
                                 {topic.titleEn}
                               </span>
                             </div>
                           </div>
 
-                          <span className="text-xs font-semibold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full shrink-0">
+                          <span className="text-[13px] font-semibold bg-slate-100 text-slate-600 px-2.5 py-0.5 rounded-full border border-slate-200/60 shrink-0">
                             {topic.categoryZh}
                           </span>
                         </div>
 
-                        <p className="text-xs text-slate-600 mt-2.5 line-clamp-2 leading-relaxed">
+                        <p className="text-[13px] text-slate-600 mt-2.5 line-clamp-2 leading-relaxed">
                           {topic.shortSummaryZh}
                         </p>
 
                         {/* Quick Badges & Clause Connection */}
-                        <div className="mt-3 pt-2.5 border-t border-slate-100 flex flex-wrap items-center gap-1.5 text-xs">
+                        <div className="mt-3 pt-2.5 border-t border-slate-100 flex flex-wrap items-center gap-1.5 text-[13px]">
                           <span className="font-semibold text-slate-400">連動條文:</span>
                           {topic.relatedISO7Clauses.map(c => (
-                            <span key={c} className="bg-blue-100 text-blue-800 font-mono px-1.5 py-0.5 rounded font-bold">
+                            <span key={c} className="bg-blue-50 text-blue-800 border border-blue-200/80 font-mono px-2 py-0.5 rounded-lg font-bold">
                               ISO 7 §{c}
                             </span>
                           ))}
                           {topic.relatedISO20Annexes.map(a => (
-                            <span key={a} className="bg-purple-100 text-purple-800 font-mono px-1.5 py-0.5 rounded font-bold">
+                            <span key={a} className="bg-purple-50 text-purple-800 border border-purple-200/80 font-mono px-2 py-0.5 rounded-lg font-bold">
                               ISO 20 {a}
                             </span>
                           ))}
                           {topic.relatedRefConnectors.map(r => (
-                            <span key={r} className="bg-amber-100 text-amber-800 font-mono px-1.5 py-0.5 rounded font-bold">
+                            <span key={r} className="bg-amber-50 text-amber-800 border border-amber-200/80 font-mono px-2 py-0.5 rounded-lg font-bold">
                               {r}
                             </span>
                           ))}

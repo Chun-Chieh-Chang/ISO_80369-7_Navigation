@@ -270,36 +270,36 @@ export const ClauseComparisonMatrix: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-4">
+      <div className="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm space-y-4">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div>
-            <div className="flex items-center space-x-2">
-              <span className="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded-md flex items-center gap-1">
-                <Table className="w-3.5 h-3.5" />
+            <div className="flex items-center space-x-2.5">
+              <span className="bg-emerald-50 text-emerald-800 border border-emerald-200 text-[13px] font-bold px-3 py-1 rounded-lg flex items-center gap-1.5 shadow-2xs">
+                <Table className="w-4 h-4 text-emerald-600" />
                 標準雙向對照矩陣
               </span>
               <h2 className="text-xl font-bold text-slate-900 tracking-tight">
                 ISO 80369-7 (條文) vs ISO 80369-20 (測試細則) 橫向對照矩陣
               </h2>
             </div>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-[13px] text-slate-500 mt-1">
               可一目瞭然比較 ISO 80369-7 規範要求與 ISO 80369-20 實驗室測試方法之間的裝配扭力、加壓/加力數值、保持時間與必備 Annex C 金屬參考夾具。
             </p>
           </div>
 
           <button
             onClick={exportCSV}
-            className="flex items-center space-x-1.5 px-3 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold shadow-sm transition shrink-0"
+            className="flex items-center space-x-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-sm shadow-emerald-600/20 transition-all shrink-0 cursor-pointer"
           >
-            <Download className="w-3.5 h-3.5" />
+            <Download className="w-4 h-4" />
             <span>匯出 CSV 對照表</span>
           </button>
         </div>
 
         {/* Filter & Search */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-3 border-t border-slate-100">
-          <div className="flex items-center space-x-2 text-xs">
-            <span className="text-slate-400 font-medium">篩選領域:</span>
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-3 border-t border-slate-100/80">
+          <div className="flex items-center space-x-2 text-[13px] flex-wrap gap-y-1.5">
+            <span className="text-slate-400 font-semibold">篩選領域:</span>
             {[
               { id: 'all', label: '全部條文 (Clause 1~6 & Annex)' },
               { id: 'general', label: '📘 通用 (1~4章)' },
@@ -312,8 +312,8 @@ export const ClauseComparisonMatrix: React.FC = () => {
               <button
                 key={f.id}
                 onClick={() => setFilterType(f.id)}
-                className={`px-2.5 py-1 rounded-lg font-medium transition ${
-                  filterType === f.id ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                className={`px-3 py-1 rounded-lg font-medium transition-all cursor-pointer ${
+                  filterType === f.id ? 'bg-blue-600 text-white shadow-xs font-bold' : 'bg-slate-100/80 text-slate-600 hover:bg-slate-200/80 hover:text-slate-900'
                 }`}
               >
                 {f.label}
@@ -322,22 +322,22 @@ export const ClauseComparisonMatrix: React.FC = () => {
           </div>
 
           <div className="relative w-full sm:w-64">
-            <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder="搜尋矩陣條文..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-8 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white"
+              className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-[13px] text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all"
             />
           </div>
         </div>
       </div>
 
       {/* Responsive Table Card */}
-      <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+      <div className="bg-white border border-slate-200/80 rounded-2xl shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse text-xs">
+          <table className="w-full text-left border-collapse text-[13px]">
             <thead>
               <tr className="bg-slate-50 border-b border-slate-200 text-slate-500 font-bold uppercase tracking-wider">
                 <th className="py-3 px-4 w-12 text-center">條文</th>

@@ -33,7 +33,7 @@ export default function App() {
       <Header activeTab={activeTab} setActiveTab={setActiveTab} config={config} setConfig={setConfig} />
 
       {/* Main Content Area */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <main className="max-w-[1920px] w-[96%] mx-auto px-3 sm:px-5 lg:px-8 py-6">
         {activeTab === 'topic-explorer' && (
           <TopicClauseExplorer />
         )}
@@ -56,12 +56,12 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500 mt-12 print:hidden">
-        <div className="max-w-7xl mx-auto px-4">
-          <p className="font-semibold text-slate-700">
+      <footer className="border-t border-slate-200 bg-white py-6 text-center text-[13px] text-slate-500 mt-12 print:hidden">
+        <div className="max-w-[1920px] w-[96%] mx-auto px-4">
+          <p className="font-semibold text-slate-700 text-sm">
             ISO 80369-7:2021 & ISO 80369-20:2015 醫療小口徑連接器 條文檢索與視覺化導航系統
           </p>
-          <p className="mt-1 text-xs text-slate-400">
+          <p className="mt-1 text-[13px] text-slate-500">
             Designed for Medical Device R&D, Quality Assurance, Regulatory Affairs (RA), and Testing Laboratory Engineers.
           </p>
         </div>
