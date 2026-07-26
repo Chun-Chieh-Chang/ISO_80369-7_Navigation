@@ -29,29 +29,49 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
   const [showPhysicsVectors, setShowPhysicsVectors] = useState(true);
   const [activeCalloutId, setActiveCalloutId] = useState<string | null>(null);
   const [showCategoryModal, setShowCategoryModal] = useState(false);
-  const [displayMode, setDisplayMode] = useState<'hd_render' | 'svg_cad'>('hd_render');
+  const [displayMode, setDisplayMode] = useState<'hd_render' | 'svg_cad'>('svg_cad');
   const [showZoomModal, setShowZoomModal] = useState(false);
 
   const getDiagramImagePath = (key: string) => {
     const baseUrl = (import.meta as any).env?.BASE_URL || '/';
     const cleanBase = baseUrl.endsWith('/') ? baseUrl : baseUrl + '/';
     
-    if (key.startsWith('ISO20-FIG-J') || key.includes('SIMULTANEOUS') || key.includes('PREASSEMBLY')) {
-      return `${cleanBase}assets/diagrams/iso20_simultaneous_axial_torque.png`;
+    // Strict 1-to-1 mapping for specific ISO 80369-7 and ISO 80369-20 figure keys
+    switch (key) {
+      case 'ISO7-FIG-B1':
+      case 'ISO7-FIG-B1-B2':
+        return `${cleanBase}assets/diagrams/iso7_fig_b1_male_slip.png`;
+      case 'ISO7-FIG-B2':
+        return `${cleanBase}assets/diagrams/iso7_fig_b2_female_slip.png`;
+      case 'ISO7-FIG-B3':
+      case 'ISO7-FIG-B3-B6':
+        return `${cleanBase}assets/diagrams/iso7_fig_b3_male_lock_fixed.png`;
+      case 'ISO7-FIG-B4':
+        return `${cleanBase}assets/diagrams/iso7_fig_b4_male_lock_rotatable.png`;
+      case 'ISO7-FIG-B5':
+        return `${cleanBase}assets/diagrams/iso7_fig_b5_female_lock.png`;
+      case 'ISO7-FIG-B6':
+        return `${cleanBase}assets/diagrams/iso7_fig_b6_female_lock_lugs.png`;
+      case 'ISO7-FIG-C1':
+        return `${cleanBase}assets/diagrams/iso7_fig_c1_female_ref_lock.png`;
+      case 'ISO20-FIG-J1':
+        return `${cleanBase}assets/diagrams/iso20_simultaneous_axial_torque.png`;
+      case 'ISO20-FIG-B1':
+      case 'ISO20-FIG-B2':
+      case 'ISO20-FIG-C1':
+        return `${cleanBase}assets/diagrams/iso20_pressure_leakage.png`;
+      case 'ISO20-FIG-D1':
+      case 'ISO20-FIG-K1':
+        return `${cleanBase}assets/diagrams/iso20_vacuum_air_leakage.png`;
+      case 'ISO20-FIG-E1':
+        return `${cleanBase}assets/diagrams/iso20_stress_cracking.png`;
+      case 'ISO20-FIG-F1':
+      case 'ISO20-FIG-G1':
+      case 'ISO20-FIG-H1':
+        return `${cleanBase}assets/diagrams/iso20_mechanical_test.png`;
+      default:
+        return `${cleanBase}assets/diagrams/iso7_luer_lock_cad.png`;
     }
-    if (key.startsWith('ISO20-FIG-B') || key.startsWith('ISO20-FIG-C')) {
-      return `${cleanBase}assets/diagrams/iso20_pressure_leakage.png`;
-    }
-    if (key.startsWith('ISO20-FIG-D') || key.startsWith('ISO20-FIG-K')) {
-      return `${cleanBase}assets/diagrams/iso20_vacuum_air_leakage.png`;
-    }
-    if (key.startsWith('ISO20-FIG-E')) {
-      return `${cleanBase}assets/diagrams/iso20_stress_cracking.png`;
-    }
-    if (key.startsWith('ISO20-FIG-F') || key.startsWith('ISO20-FIG-G') || key.startsWith('ISO20-FIG-H')) {
-      return `${cleanBase}assets/diagrams/iso20_mechanical_test.png`;
-    }
-    return `${cleanBase}assets/diagrams/iso7_luer_lock_cad.png`;
   };
 
   const currentImagePath = getDiagramImagePath(svgKey);

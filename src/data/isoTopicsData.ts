@@ -73,14 +73,14 @@ export const ISO_TOPICS: ISOTopic[] = [
         ]
       },
       {
-        id: 'ISO7-FIG-B1-B2',
-        titleZh: '6% 魯爾錐面貼合密封 CAD 幾何圖',
-        titleEn: '6% Luer Slip Cone & Socket Mating Geometry',
-        standard: 'ISO 80369-7:2021 Fig.B.1 & B.2',
+        id: 'ISO7-FIG-B1',
+        titleZh: '6% 公魯爾錐面 3.97mm CAD 幾何圖',
+        titleEn: '6% Male Luer Slip Cone Geometry (Fig.B.1)',
+        standard: 'ISO 80369-7:2021 Fig.B.1',
         figureType: 'connector_cad',
         figureTypeZh: '接頭幾何 CAD 圖',
         descriptionZh: '詳細呈現 6% 魯爾公錐體與母錐座配合處之 CAD 斷面圖。標記公錐小端直徑 (Ø3.970~4.072 mm)、母錐開口直徑 (Ø4.198~4.298 mm) 及 1:16.667 (雙邊 3.436°) 錐度角，證明防漏取決於微觀錐面靜摩擦緊密過盈配合。',
-        svgKey: 'ISO7-FIG-B1-B2',
+        svgKey: 'ISO7-FIG-B1',
         keyCallouts: [
           { id: 'taper', labelZh: '圓錐斜率', valueZh: '6% (1 : 16.667)' },
           { id: 'length', labelZh: '配合長度', valueZh: '≥ 7.5 mm' },
@@ -183,17 +183,16 @@ export const ISO_TOPICS: ISOTopic[] = [
         ]
       },
       {
-        id: 'ISO7-FIG-B3-B6',
-        titleZh: '公鎖定套環螺紋與 2.71mm 最壞情況耳翼幾何圖',
-        titleEn: 'Luer Lock Thread Profile & 2.71mm Narrow Lug Geometry',
-        standard: 'ISO 80369-7:2021 Fig.B.3 & Fig.C.3',
+        id: 'ISO7-FIG-B3',
+        titleZh: '公鎖定套環螺紋 CAD 幾何剖面圖 (Fig.B.3)',
+        titleEn: 'Male Luer Lock Fixed Collar Thread Geometry (Fig.B.3)',
+        standard: 'ISO 80369-7:2021 Fig.B.3',
         figureType: 'connector_cad',
         figureTypeZh: '接頭幾何 CAD 圖',
-        descriptionZh: 'CAD 幾何剖面圖說明 ISO 80369-7 雙頭內螺紋 (Pitch 2.5mm，角度 25°~30°) 與 Fig.C.3 縮窄耳翼 (2.71mm) 旋合咬合時之接觸面。解析耳翼寬度縮小 22% 如何極端考驗塑膠套環之幾何公差與剛性。',
-        svgKey: 'ISO7-FIG-B3-B6',
+        descriptionZh: 'CAD 幾何剖面圖說明 ISO 80369-7 雙頭內螺紋 (Pitch 2.5mm，角度 25°~30°) 旋合咬合時之接觸面與頂部投影量 c (2.1mm)。',
+        svgKey: 'ISO7-FIG-B3',
         keyCallouts: [
           { id: 'pitch', labelZh: '螺紋節距 Pitch', valueZh: '2.5 mm' },
-          { id: 'tab_w', labelZh: 'C.3 耳翼寬度', valueZh: '2.71 mm (縮窄 22%)' },
           { id: 'proj', labelZh: '錐體投影量 c', valueZh: '≥ 2.1 mm' }
         ]
       }
