@@ -411,32 +411,34 @@ export const ISO_TOPICS: ISOTopic[] = [
     categoryZh: '夾具與金屬件',
     iconName: 'Sparkles',
     shortSummaryZh: '規範所有性能測試前之標準預裝配程序：0.08~0.12 N·m 旋緊扭矩與 26.5~27.5 N 軸向推力結合。',
-    detailedDescriptionZh: 'ISO 80369-20 各附錄（B~I）統一規範了進行各項性能測試前的裝配標準方法。鎖定型（Lock）接頭須先施加 0.08~0.12 N·m 的指定旋緊扭矩（Assembly Torque），同時施加 26.5~27.5 N 的軸向推力，維持 5~6 秒，確保每次測試的基準貼合應力一致。',
+    detailedDescriptionZh: 'ISO 80369-20 各附錄（B~I）統一規範了進行物理性能測試前的標準預裝配程序：鎖定型接頭須同時施加 26.5~27.5 N 軸向推力與 0.08~0.12 N·m 旋緊扭矩保持 5~6 秒。在業界與國際標竿實驗室中（如 Enersol S15A 裝置），採用了非常優雅聰明的「雙軸懸浮線性導軌與校正重錘/槓桿機構 (Dead-weight & Biaxial Spindle Mechanism)」，使 27.5 N 垂直軸向力經由低摩擦線性滑軌垂直壓下，同時透過高精度定扭矩盤旋轉，達成 100% 無偏心、零傾角且完全同時作用的極致裝配精確度。',
     keyParameters: [
       { label: '標準裝配扭矩 Assembly Torque', value: '0.08 - 0.12', unit: 'N·m' },
       { label: '裝配軸向推力 Axial Force', value: '26.5 - 27.5', unit: 'N' },
-      { label: '裝配保持時間 Hold Time', value: '5 - 6', unit: '秒' }
+      { label: '裝配保持時間 Hold Time', value: '5 - 6', unit: '秒' },
+      { label: '機構系統 Mechanism', value: '雙軸線性導軌重錘與定扭矩盤 (S15A 原理)' }
     ],
     relatedISO7Clauses: ['6.1', '6.2', '6.3', '6.4', '6.5'],
     relatedISO20Annexes: ['General Test Procedure'],
     relatedRefConnectors: ['C.1', 'C.2', 'C.4', 'C.5'],
-    engineeringRiskZh: '裝配扭矩不足（< 0.08 N·m）導致錐面未完全貼合產生假洩漏；裝配扭矩過大（> 0.12 N·m）預先破壞塑膠螺紋結構。',
-    auditFocusZh: '自動化裝配扭矩儀之轉速控制與扭矩截止（Torque Shut-off）精度。',
-    tags: ['0.12Nm', '裝配扭矩', '預裝配', '27.5N'],
+    engineeringRiskZh: '人工裝配無法精確同時施加軸向力與扭矩，易產生歪斜傾角（Cocked Assembly）導致密封面受力不均產生假洩漏或螺紋滑牙。',
+    auditFocusZh: '檢視實驗室裝配裝置是否具備 27.5N 垂直重錘/線性滑軌與 0.12N·m 扭矩雙軸獨立運作結構，防範手持夾具之偏心誤差。',
+    tags: ['0.12Nm', '裝配扭矩', '預裝配', '27.5N', 'S15A', '同時施加軸推力與扭力'],
     figures: [
       {
         id: 'ISO20-FIG-J1',
-        titleZh: '標準預裝配定扭矩起子與軸向推力機構圖',
-        titleEn: 'Standard Pre-assembly Torque Driver & Axial Thrust Rig',
+        titleZh: '軸向力 (27.5N) 與扭矩 (0.12N·m) 同時施加預裝配裝置原理圖 (Enersol S15A Concept)',
+        titleEn: 'Simultaneous Axial Force & Assembly Torque Biaxial Device Schematic',
         standard: 'ISO 80369-20 General Procedure',
         figureType: 'apparatus',
         figureTypeZh: '測試裝置示意圖',
-        descriptionZh: '展示 ISO 80369-20 所有 Annex 試驗前之標準預裝配作業。結合 0.08~0.12 N·m 校正扭矩起子與 26.5~27.5 N 彈簧軸向推力，持壓 5~6 秒，確保基準接觸力學一致。',
+        descriptionZh: '示範國際標竿 ISO 80369-20 雙軸同時裝配裝置（如 Enersol S15A 原理）。利用垂直低摩擦線性導軌掛載 27.5 N 校正重錘垂直下壓，同時搭配頂部高精度 0.12 N·m 定扭矩輪旋轉，完全消除手持裝配的歪斜與傾角誤差。',
         svgKey: 'ISO20-FIG-J1',
         keyCallouts: [
-          { id: 'pre_t', labelZh: '預裝配扭矩', valueZh: '0.08 ~ 0.12 N·m' },
-          { id: 'pre_f', labelZh: '預裝配軸推力', valueZh: '26.5 ~ 27.5 N' },
-          { id: 'pre_hold', labelZh: '預裝配保持時間', valueZh: '5 ~ 6 秒' }
+          { id: 'pre_t', labelZh: '預裝配扭矩 (Assembly Torque)', valueZh: '0.08 ~ 0.12 N·m' },
+          { id: 'pre_f', labelZh: '預裝配軸向推力 (Axial Force)', valueZh: '26.5 ~ 27.5 N' },
+          { id: 'pre_hold', labelZh: '持壓穩定時間 (Hold Time)', valueZh: '5 ~ 6 秒' },
+          { id: 'pre_mech', labelZh: '機構設計 (Biaxial Mechanism)', valueZh: '無摩擦線性導軌 + 校正重錘' }
         ]
       }
     ]

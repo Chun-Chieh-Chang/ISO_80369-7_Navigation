@@ -36,6 +36,9 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
     const baseUrl = (import.meta as any).env?.BASE_URL || '/';
     const cleanBase = baseUrl.endsWith('/') ? baseUrl : baseUrl + '/';
     
+    if (key.startsWith('ISO20-FIG-J') || key.includes('SIMULTANEOUS') || key.includes('PREASSEMBLY')) {
+      return `${cleanBase}assets/diagrams/iso20_simultaneous_axial_torque.png`;
+    }
     if (key.startsWith('ISO20-FIG-B') || key.startsWith('ISO20-FIG-C')) {
       return `${cleanBase}assets/diagrams/iso20_pressure_leakage.png`;
     }

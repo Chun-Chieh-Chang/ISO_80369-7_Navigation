@@ -171,6 +171,25 @@
 ### 結論
 全站圖表解析度與專業度邁向頂尖工業級水準，經靜態型別檢查 (`npx tsc --noEmit`) 與 Vite 打包 (`npm run build`) 驗證完全通過。
 
+---
+
+## 版本：v1.8 雙軸同時施加軸向力 (27.5N) 與扭矩 (0.12Nm) 機構圖解重構 (2026-07-26)
+
+### 需求內容
+1. 參考使用者提供之 YouTube 影片（Enersol S15A 國際標竿預裝配裝置），理解並解析其「雙軸懸浮線性導軌 + 校正重錘 + 定扭矩盤」機構原理。
+2. 產出 3D/HD 專用示意圖並整合入專案 Topic 9「預裝配程序與旋緊扭矩」與圖表渲染器 (`ISOStandardFigureRenderer.tsx`) 中。
+
+### 過程紀錄與問題分析 (RCA & CAPA)
+- **原因分析 (RCA)**：ISO 80369-20 要求預裝配時必須「同時施加 26.5~27.5 N 軸向推力與 0.08~0.12 N·m 旋緊扭矩」。傳統手持起子裝配容易產生偏心與軸向傾角（Cocked Assembly），造成密封面受力不均或假洩漏。
+- **矯正措施 (CAPA)**：
+  1. 生成 `iso20_simultaneous_axial_torque.png` 置於 `public/assets/diagrams/`，呈現在無摩擦垂直線性滑軌下懸掛 27.5 N 標準重錘，同時由頂部定扭矩盤施加 0.12 N·m 之雙軸完美機構。
+  2. 更新 `src/data/isoTopicsData.ts` Topic 9 的原理說明、技術參數與 Key Callouts。
+  3. 更新 `ISOStandardFigureRenderer.tsx` 映射 `ISO20-FIG-J1` 圖號直接載入新圖。
+
+### 結論
+經 `npx tsc --noEmit` 型別確效與 `npm run build` 打包全數通過，使系統成為兼具法規依據與頂尖機構實踐的權威知識導航平台。
+
+
 
 
 
