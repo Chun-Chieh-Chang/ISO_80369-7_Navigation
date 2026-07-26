@@ -258,12 +258,22 @@
 2. **確效要求**：每次修改後執行 `npx tsc --noEmit` 與 `npm run build` 雙重確效。
 3. **版控記錄**：更新 `DEV_LOG.md` 並推送 Git 倉庫。
 
+---
 
+## 版本：v2.1 ISO 80369-20 Fig.B.2 氣壓與時間衰減曲線圖 (Pressure vs. Time) 找回與索引補齊 (2026-07-26)
 
+### 需求內容
+1. 尋找並補回缺失的 ISO 80369-20 Annex B 氣壓與時間 (Pressure vs. Time) 測試四階段動態曲線圖表 (`Fig.B.2 (ISO 20)` / `ISO20-FIG-B2`)。
 
+### 過程紀錄與問題分析 (RCA & CAPA)
+- **原因分析 (RCA)**：
+  1. `ISOStandardFigureRenderer.tsx` 中早已具備高精度向量 SVG 圖表 `renderPressureDecayCurve`（包含 4 個測試階段：Fill 充氣 0~5s、Stabilize 穩定 5~15s、Test 測試 15~35s、Exhaust 排氣 >35s，以及壓力 (Pressure) Y 軸與時間 (Time) X 軸標示）。
+  2. 但在全全專案圖號對照地圖 `src/data/isoData.ts` 之 `ANNEX_C_FIGURES` 字典及 `src/types/index.ts` 之 `AnnexCFigureId` 聯合型別中，**漏掉了 `ISO20-B.2` 的 key 註冊**。
+  3. 導致使用者在導覽樹 (`TopicClauseExplorer.tsx` 附件圖表導航樹) 與圖號庫 (`ConnectorInspector.tsx` 80369-20 測試機台與裝置分頁) 選擇時，無法列出或點選 `Fig.B.2 (ISO 20)` 氣壓與時間曲線圖。
+- **矯正措施 (CAPA)**：
+  1. **型別補齊**：於 `src/types/index.ts` 的 `AnnexCFigureId` 補上 `'ISO20-B.2'`。
+  2. **資料庫索引註冊**：於 `src/data/isoData.ts` 的 `ANNEX_C_FIGURES` 補齊 `ISO20-B.2` 的元資料與特色 Callouts (`Fig.B.2 (ISO 20)`: `Four Stages of Pressure Decay Test Execution Curve (Pressure vs. Time)`)。
+  3. **動態節點計數**：將 `TopicClauseExplorer.tsx` 中的圖表數量 Badge 升級為動態計算，避免硬編碼數字。
 
-
-
-
-
-
+### 結論
+經 `npx tsc --noEmit` 靜態型別確效與 `npm run build` 打包測試 100% 成功，成功找回「氣壓與時間衰減曲線圖」，使用者可於「附件圖號導航樹」與「圖號庫」中隨時點選檢視與比對。

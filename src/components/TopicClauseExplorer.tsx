@@ -370,7 +370,7 @@ export const TopicClauseExplorer: React.FC = () => {
                     📘 ISO 80369-7 血管小口徑接頭規範圖表
                   </span>
                   <span className="bg-blue-200/80 text-blue-800 text-xs px-2 py-0.5 rounded-md font-mono font-bold">
-                    13 幅
+                    {allStandardFigures.filter(f => f.annexGroup !== 'ISO 80369-20').length} 幅
                   </span>
                 </button>
 
@@ -510,7 +510,7 @@ export const TopicClauseExplorer: React.FC = () => {
                     🔬 ISO 80369-20 實驗室測試方法機台與裝置圖表
                   </span>
                   <span className="bg-purple-200/80 text-purple-800 text-xs px-2 py-0.5 rounded-md font-mono font-bold">
-                    9 幅
+                    {allStandardFigures.filter(f => f.annexGroup === 'ISO 80369-20').length} 幅
                   </span>
                 </button>
 

@@ -12,7 +12,7 @@ export type AnnexCFigureId =
   | 'A.1' | 'B.1' | 'B.2' | 'B.3' | 'B.4' | 'B.5' | 'B.6' 
   | 'C.1' | 'C.2' | 'C.3' | 'C.4' | 'C.5' | 'C.6' 
   | 'SML' 
-  | 'ISO20-B.1' | 'ISO20-C.1' | 'ISO20-D.1' | 'ISO20-E.1' 
+  | 'ISO20-B.1' | 'ISO20-B.2' | 'ISO20-C.1' | 'ISO20-D.1' | 'ISO20-E.1' 
   | 'ISO20-F.1' | 'ISO20-G.1' | 'ISO20-H.1' | 'ISO20-J.1' | 'ISO20-K.1';
 
 export interface ISOClauseInfo {

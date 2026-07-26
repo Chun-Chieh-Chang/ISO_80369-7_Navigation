@@ -364,6 +364,26 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
     ],
     svgKey: 'ISO20-FIG-B1'
   },
+  'ISO20-B.2': {
+    id: 'ISO20-B.2',
+    figureNumber: 'Fig.B.2 (ISO 20)',
+    standardOwner: 'ISO 80369-20',
+    annexGroup: 'ISO 80369-20',
+    name: 'Four Stages of Pressure Decay Test Execution Curve (Pressure vs. Time)',
+    nameZh: '氣壓衰減測試四階段壓力-時間變化曲線圖',
+    description: 'ISO 80369-20 Annex B pressure vs. time profile illustrating the 4 test stages: Fill, Stabilize, Test, and Exhaust with ΔP calculation window.',
+    descriptionZh: 'ISO 80369-20 Annex B 氣壓衰減測試流程之壓力對時間 (Pressure vs. Time) 變化動態曲線圖，解構 Fill(充氣 0~5s)、Stabilize(穩定 5~15s)、Test(測試 15~35s) 與 Exhaust(排氣) 四個階段與 ΔP (PL) 量測視窗。',
+    intendedClauses: ['6.1'],
+    isWorstCase: false,
+    worstCaseReasonZh: '提供壓力衰減法之時間-壓力響應特徵圖，標示目標壓力視窗 (300~330 kPa) 與壓降 ΔP (PL) 的實測區間。',
+    svgHighlights: [
+      { title: '充氣階段 (Fill)', value: '0 ~ 5 秒' },
+      { title: '穩定階段 (Stabilize)', value: '5 ~ 15 秒' },
+      { title: '測試階段 (Test)', value: '15 ~ 35 秒 (持壓 20s)' },
+      { title: '目標壓力視窗', value: '300 ~ 330 kPa' }
+    ],
+    svgKey: 'ISO20-FIG-B2'
+  },
   'ISO20-C.1': {
     id: 'ISO20-C.1',
     figureNumber: 'Fig.C.1 (ISO 20)',
