@@ -1,7 +1,8 @@
 import React from 'react';
 import { ISO_CLAUSES, ANNEX_C_FIGURES } from '../data/isoData';
 import { ConnectorGender, ConnectorType, TestConfigState, TestClauseId } from '../types';
-import { FileSpreadsheet } from 'lucide-react';
+import { ISOStandardFigureRenderer } from './ISOStandardFigureRenderer';
+import { FileSpreadsheet, Eye, Info } from 'lucide-react';
 
 interface DvpGeneratorProps {
   config: TestConfigState;
@@ -15,6 +16,22 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
   const setSelectedGender = (gender: ConnectorGender) => setConfig(prev => ({ ...prev, connectorGender: gender }));
   const setSelectedType = (type: ConnectorType) => setConfig(prev => ({ ...prev, connectorType: type }));
   const setSelectedClause = (clauseId: TestClauseId) => setConfig(prev => ({ ...prev, selectedClauseId: clauseId }));
+
+  const getClauseSvgKey = (clauseId: string): string => {
+    switch (clauseId) {
+      case '6.1': return 'ISO20-FIG-B1';
+      case '6.2': return 'ISO20-FIG-D1';
+      case '6.3': return 'ISO20-FIG-E1';
+      case '6.4': return 'ISO20-FIG-F1';
+      case '6.5': return 'ISO20-FIG-G1';
+      case '6.6': return 'ISO20-FIG-H1';
+      default: return 'ISO20-FIG-B1';
+    }
+  };
+
+  const activeClauseObj = ISO_CLAUSES[config.selectedClauseId || '6.1'];
+  const activeSvgKey = getClauseSvgKey(config.selectedClauseId || '6.1');
+  const activeFigInfo = ANNEX_C_FIGURES[activeSvgKey];
 
   return (
     <div className="space-y-6 print:space-y-2">
@@ -128,6 +145,30 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
                   })}
               </tbody>
             </table>
+          </div>
+
+          {/* Active Clause Embedded Diagram Section */}
+          <div className="mt-6 pt-4 border-t border-slate-200 space-y-3 print:hidden">
+            <div className="flex items-center space-x-2">
+              <span className="bg-blue-600 text-white font-mono font-bold text-xs px-2.5 py-1 rounded-md shadow-xs">
+                Clause {config.selectedClauseId} 內嵌規範圖示 (SVG CAD / 3D Render)
+              </span>
+              <h3 className="font-bold text-slate-900 text-sm">
+                【{activeClauseObj?.titleZh}】對應 ISO 80369-20 實驗裝置圖解
+              </h3>
+            </div>
+
+            <div className="w-full flex justify-center py-2">
+              <ISOStandardFigureRenderer
+                svgKey={activeSvgKey}
+                titleZh={activeFigInfo?.nameZh || activeClauseObj?.titleZh || ''}
+                titleEn={activeFigInfo?.name || activeClauseObj?.title || ''}
+                standard={activeFigInfo?.standardOwner || 'ISO 80369-20:2024'}
+                figureTypeZh={activeFigInfo?.annexGroup || '測試方法圖解'}
+                descriptionZh={activeFigInfo?.descriptionZh || activeClauseObj?.passCriteriaZh || ''}
+                keyCallouts={activeFigInfo?.svgHighlights}
+              />
+            </div>
           </div>
 
           <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs text-slate-600 space-y-1">

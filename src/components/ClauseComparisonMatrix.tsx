@@ -1,11 +1,28 @@
 import React, { useState } from 'react';
 import { ISO_TOPICS, STANDARD_CLAUSE_DETAILS } from '../data/isoTopicsData';
-import { ISO_CLAUSES } from '../data/isoData';
-import { Table, Search, Download, Filter, Info, CheckCircle2, AlertTriangle, ArrowUpDown } from 'lucide-react';
+import { ISO_CLAUSES, ANNEX_C_FIGURES } from '../data/isoData';
+import { ISOStandardFigureRenderer } from './ISOStandardFigureRenderer';
+import { Table, Search, Download, Filter, Info, CheckCircle2, AlertTriangle, ArrowUpDown, ChevronDown, ChevronUp, Eye, Sparkles } from 'lucide-react';
 
 export const ClauseComparisonMatrix: React.FC = () => {
   const [filterType, setFilterType] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState<string>('');
+  const [expandedClauseId, setExpandedClauseId] = useState<string | null>('6.1');
+
+  const getClauseSvgKey = (clauseId: string): string => {
+    switch (clauseId) {
+      case '6.1': return 'ISO20-FIG-B1';
+      case '6.2': return 'ISO20-FIG-D1';
+      case '6.3': return 'ISO20-FIG-E1';
+      case '6.4': return 'ISO20-FIG-F1';
+      case '6.5': return 'ISO20-FIG-G1';
+      case '6.6': return 'ISO20-FIG-H1';
+      case 'Clause 4': return 'ISO20-FIG-J1';
+      case 'Clause 5': return 'ISO7-FIG-B3';
+      case 'Annex C': return 'ISO7-FIG-C3';
+      default: return 'ISO7-FIG-A1';
+    }
+  };
 
   const clausesList = [
     {
@@ -279,11 +296,11 @@ export const ClauseComparisonMatrix: React.FC = () => {
                 標準雙向對照矩陣
               </span>
               <h2 className="text-xl font-bold text-slate-900 tracking-tight">
-                ISO 80369-7 (條文) vs ISO 80369-20 (測試細則) 橫向對照矩陣
+                ISO 80369-7 (條文) vs ISO 80369-20 (測試細則) 橫向對照與內嵌圖表矩陣
               </h2>
             </div>
             <p className="text-[13px] text-slate-500 mt-1">
-              可一目瞭然比較 ISO 80369-7 規範要求與 ISO 80369-20 實驗室測試方法之間的裝配扭力、加壓/加力數值、保持時間與必備 Annex C 金屬參考夾具。
+              可一目瞭然比較 ISO 80369-7 規範要求與 ISO 80369-20 實驗室測試方法，點擊任一列即可在下方**直接展開內嵌規範 SVG CAD 向量圖表與裝置圖解**。
             </p>
           </div>
 
@@ -348,43 +365,106 @@ export const ClauseComparisonMatrix: React.FC = () => {
                 <th className="py-3 px-4">定量加載條件 (壓力/拉力/扭矩)</th>
                 <th className="py-3 px-4">保持時間</th>
                 <th className="py-3 px-4 min-w-[150px]">必要金屬參考夾具</th>
-                <th className="py-3 px-4 min-w-[220px]">合格 Pass 標準</th>
+                <th className="py-3 px-4 min-w-[200px]">合格 Pass 標準</th>
+                <th className="py-3 px-4 w-28 text-center">內嵌圖表</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 text-slate-700">
-              {filteredClauses.map((clause) => (
-                <tr key={clause.id} className="hover:bg-blue-50/40 transition">
-                  <td className="py-3 px-4 font-bold font-mono text-center text-blue-700 bg-slate-50/50">
-                    {clause.id}
-                  </td>
-                  <td className="py-3 px-4 font-bold text-slate-900">
-                    {clause.title}
-                  </td>
-                  <td className="py-3 px-4 font-mono font-semibold text-blue-800">
-                    {clause.iso7}
-                  </td>
-                  <td className="py-3 px-4 font-mono font-semibold text-purple-800">
-                    {clause.iso20}
-                  </td>
-                  <td className="py-3 px-4 font-mono text-slate-800">
-                    {clause.assemblyTorque}
-                  </td>
-                  <td className="py-3 px-4 font-mono font-bold text-slate-900">
-                    {clause.testPressure !== '-' && <span className="text-blue-600">{clause.testPressure}</span>}
-                    {clause.testForce !== '-' && <span className="text-emerald-600">{clause.testForce}</span>}
-                    {clause.testTorque !== '-' && <span className="text-amber-600">{clause.testTorque}</span>}
-                  </td>
-                  <td className="py-3 px-4 font-mono text-slate-800">
-                    {clause.holdTime}
-                  </td>
-                  <td className="py-3 px-4 font-semibold text-slate-800">
-                    {clause.fixture}
-                  </td>
-                  <td className="py-3 px-4 text-slate-700 leading-relaxed bg-slate-50/30">
-                    {clause.criteria}
-                  </td>
-                </tr>
-              ))}
+              {filteredClauses.map((clause) => {
+                const isExpanded = expandedClauseId === clause.id;
+                const svgKey = getClauseSvgKey(clause.id);
+                const figInfo = ANNEX_C_FIGURES[svgKey];
+
+                return (
+                  <React.Fragment key={clause.id}>
+                    <tr 
+                      onClick={() => setExpandedClauseId(isExpanded ? null : clause.id)}
+                      className={`cursor-pointer transition ${isExpanded ? 'bg-blue-50/70 border-l-4 border-l-blue-600' : 'hover:bg-slate-50'}`}
+                    >
+                      <td className="py-3 px-4 font-bold font-mono text-center text-blue-700 bg-slate-50/50">
+                        {clause.id}
+                      </td>
+                      <td className="py-3 px-4 font-bold text-slate-900">
+                        {clause.title}
+                      </td>
+                      <td className="py-3 px-4 font-mono font-semibold text-blue-800">
+                        {clause.iso7}
+                      </td>
+                      <td className="py-3 px-4 font-mono font-semibold text-purple-800">
+                        {clause.iso20}
+                      </td>
+                      <td className="py-3 px-4 font-mono text-slate-800">
+                        {clause.assemblyTorque}
+                      </td>
+                      <td className="py-3 px-4 font-mono font-bold text-slate-900">
+                        {clause.testPressure !== '-' && <span className="text-blue-600">{clause.testPressure}</span>}
+                        {clause.testForce !== '-' && <span className="text-emerald-600">{clause.testForce}</span>}
+                        {clause.testTorque !== '-' && <span className="text-amber-600">{clause.testTorque}</span>}
+                      </td>
+                      <td className="py-3 px-4 font-mono text-slate-800">
+                        {clause.holdTime}
+                      </td>
+                      <td className="py-3 px-4 font-semibold text-slate-800">
+                        {clause.fixture}
+                      </td>
+                      <td className="py-3 px-4 text-slate-700 leading-relaxed bg-slate-50/30">
+                        {clause.criteria}
+                      </td>
+                      <td className="py-3 px-4 text-center">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setExpandedClauseId(isExpanded ? null : clause.id);
+                          }}
+                          className={`px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1 mx-auto ${
+                            isExpanded 
+                              ? 'bg-blue-600 text-white shadow-xs' 
+                              : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900 border border-slate-200'
+                          }`}
+                        >
+                          <Eye className="w-3.5 h-3.5" />
+                          <span>{isExpanded ? '收合' : '圖表'}</span>
+                          {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                        </button>
+                      </td>
+                    </tr>
+
+                    {/* Inline Embedded Figure Drawer */}
+                    {isExpanded && (
+                      <tr className="bg-slate-50/90 border-b-2 border-blue-200">
+                        <td colSpan={10} className="p-4 sm:p-6">
+                          <div className="bg-white rounded-2xl border border-slate-200/90 p-4 sm:p-5 shadow-lg space-y-4">
+                            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pb-3 border-b border-slate-100">
+                              <div className="flex items-center space-x-2">
+                                <span className="bg-purple-100 text-purple-800 font-mono font-bold text-xs px-2.5 py-1 rounded-md border border-purple-200">
+                                  {clause.iso7} 內嵌規範圖示 (SVG CAD / 3D Render)
+                                </span>
+                                <h4 className="font-bold text-slate-900 text-sm">{clause.title} — 規範實驗裝置與 CAD 圖解</h4>
+                              </div>
+                              <span className="text-xs text-slate-400 font-mono">
+                                研發防呆風險: <strong className="text-rose-600 font-sans">{clause.risk}</strong>
+                              </span>
+                            </div>
+
+                            {/* Embedded ISO Figure Renderer */}
+                            <div className="w-full flex justify-center py-2">
+                              <ISOStandardFigureRenderer
+                                svgKey={svgKey}
+                                titleZh={figInfo?.nameZh || clause.title}
+                                titleEn={figInfo?.name || clause.iso7}
+                                standard={figInfo?.standardOwner || 'ISO 80369-20:2024'}
+                                figureTypeZh={figInfo?.annexGroup || '測試方法圖解'}
+                                descriptionZh={figInfo?.descriptionZh || clause.criteria}
+                                keyCallouts={figInfo?.svgHighlights}
+                              />
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    )}
+                  </React.Fragment>
+                );
+              })}
             </tbody>
           </table>
         </div>
