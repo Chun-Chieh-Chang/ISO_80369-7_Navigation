@@ -232,12 +232,12 @@ export const TopicVisualMap: React.FC = () => {
                   <span>最終 Pass 合格判定</span>
                 </div>
                 <p className="text-[13px] text-emerald-900 leading-relaxed">
-                  {activeTopic.relatedISO7Clauses.includes('6.1') && '加壓 300~330 kPa 保持 10 秒無水滴滲漏'}
-                  {activeTopic.relatedISO7Clauses.includes('6.2') && '80~88 kPa 真空負壓下無氣體滲入'}
-                  {activeTopic.relatedISO7Clauses.includes('6.6') && '承受 0.15~0.17 N·m 保持 10 秒無滑牙脫開'}
-                  {activeTopic.relatedISO7Clauses.includes('6.4') && '承受 35 N 軸向拉力 10 秒無分離'}
-                  {activeTopic.relatedISO7Clauses.includes('6.3') && '70% IPA 浸泡 48 小時無應力龜裂，且後續符合 6.1 條文 300~330 kPa 洩漏壓驗證'}
-                  {activeTopic.relatedISO7Clauses.includes('6.5') && '0.02 N·m 反向旋鬆力下維持自鎖不鬆脫'}
+                  {activeTopic.relatedISO7Clauses.includes('6.1') && '300~330 kPa 加壓下無漏水滴落 (30~35s) 或壓降 ≤ 0.005 Pa·m³/s (15~20s)'}
+                  {activeTopic.relatedISO7Clauses.includes('6.2') && '80.0~88.0 kPa 負壓下持壓 15~20 秒，洩漏率 ≤ 0.005 Pa·m³/s'}
+                  {activeTopic.relatedISO7Clauses.includes('6.6') && '0.15~0.17 N·m 扭力下持壓 5~10 秒無滑牙脫開'}
+                  {activeTopic.relatedISO7Clauses.includes('6.4') && '23~25 N (Slip) 或 32~35 N (Lock) 軸向拉力下持壓 10~15 秒無分離'}
+                  {activeTopic.relatedISO7Clauses.includes('6.3') && '23°C 空氣靜置 48 小時 (Annex E) 無龜裂破裂，且通過 6.1.1 洩漏驗證'}
+                  {activeTopic.relatedISO7Clauses.includes('6.5') && '0.018~0.020 N·m 反向扭矩下持壓 10~15 秒維持自鎖不鬆脫'}
                   {activeTopic.relatedISO7Clauses.includes('Clause 5.1') && '尺寸完全符合 6% 錐度規範'}
                   {activeTopic.relatedISO7Clauses.includes('Clause 4') && '非通用介面，100% 避免跨應用誤接'}
                 </p>

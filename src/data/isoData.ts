@@ -8,13 +8,13 @@ export const ISO_CLAUSES: Record<string, ISOClauseInfo> = {
     category: 'leakage',
     applicableTypes: ['lock', 'slip'],
     assemblyTorqueNm: { min: 0.08, max: 0.12 },
-    holdTimeSec: { min: 10, max: 15 },
+    holdTimeSec: { min: 15, max: 35 },
     requiredMaleRef: 'C.4', // For Female Lock
     requiredFemaleRef: 'C.1', // For Male Lock
-    passCriteria: 'No fluid leakage exceeding 0.005 Pa·m³/s or no falling drop for 10s at 300 kPa–330 kPa.',
-    passCriteriaZh: '加壓 300 kPa–330 kPa 保持 10 秒以上，無漏水滴落，或壓降洩漏率 < 0.005 Pa·m³/s。',
+    passCriteria: 'No fluid leakage exceeding 0.005 Pa·m³/s (15–20s pressure decay) or no falling drop (30–35s water pressure) at 300 kPa–330 kPa.',
+    passCriteriaZh: '【正壓液體洩漏 (6.1.3 水壓法)】加壓 300~330 kPa 水壓持壓 30~35s，目視無水滴滲漏滴落；【壓力衰減洩漏 (6.1.2 氣壓法)】加壓 300~330 kPa 氣壓持壓 15~20s 測 ΔP，洩漏率 ≤ 0.005 Pa·m³/s。',
     keyPhysics: 'Assesses 6% taper seal interface under nominal assembly torque.',
-    keyPhysicsZh: '評估 6% 魯爾錐面在標準裝配扭矩（0.08–0.12 N·m）下的正壓密封防漏能力。'
+    keyPhysicsZh: '評估 6% 魯爾錐面在標準裝配扭矩（0.08–0.12 N·m）與推力（26.5–27.5 N）下的正壓密封性。規範允許水壓目視法（Annex C）或氣壓衰減法（Annex B）作為判定標準。'
   },
   '6.2': {
     id: '6.2',
@@ -23,11 +23,11 @@ export const ISO_CLAUSES: Record<string, ISOClauseInfo> = {
     category: 'leakage',
     applicableTypes: ['lock', 'slip'],
     assemblyTorqueNm: { min: 0.08, max: 0.12 },
-    holdTimeSec: { min: 10, max: 15 },
+    holdTimeSec: { min: 15, max: 20 },
     requiredMaleRef: 'C.4',
     requiredFemaleRef: 'C.1',
-    passCriteria: 'Air leakage rate shall not exceed 0.005 Pa·m³/s at 80 kPa–88 kPa vacuum.',
-    passCriteriaZh: '在 80 kPa–88 kPa 負壓真空下保持 10–15 秒，空氣洩漏率不超過 0.005 Pa·m³/s。',
+    passCriteria: 'Air leakage rate shall not exceed 0.005 Pa·m³/s at 80.0 kPa–88.0 kPa vacuum over 15s–20s.',
+    passCriteriaZh: '在 80.0 kPa–88.0 kPa 負壓真空下保持 15–20 秒，空氣洩漏率不超過 0.005 Pa·m³/s (Annex D)。',
     keyPhysics: 'Ensures no air ingress into fluid lines under vacuum aspiration.',
     keyPhysicsZh: '確保在抽吸或負壓狀態下，空氣不會經由錐面吸入輸液管路（預防氣栓）。'
   },
@@ -41,10 +41,10 @@ export const ISO_CLAUSES: Record<string, ISOClauseInfo> = {
     holdTimeSec: { min: 172800, max: 172800 }, // 48 hours
     requiredMaleRef: 'C.4',
     requiredFemaleRef: 'C.1',
-    passCriteria: 'No evidence of stress cracking after 48h assembly in chemical media (e.g. 70% IPA), and shall satisfy Clause 6.1 fluid leakage requirement (300-330 kPa).',
-    passCriteriaZh: '裝配後浸泡於化學介質（如 70% 異丙醇酒精）靜置 48 小時，無結構破裂或應力龜裂，且必須通過 6.1 條文 300–330 kPa 正壓流體洩漏測試驗證。',
-    keyPhysics: 'Verifies environmental stress cracking resistance (ESCR) under sustained hoop stress and subsequent pressure sealing capability.',
-    keyPhysicsZh: '驗證塑膠材料在持續環向應力與化學藥品共同作用下之抗應力龜裂（ESCR）能力，並確認 48 小時後仍具備完整正壓流體密封性能。'
+    passCriteria: 'No evidence of stress cracking or leakage after 48h assembly on Annex C gauge at conditioned ambient air (ISO 80369-20 Annex E).',
+    passCriteriaZh: '裝配於金屬參考接頭於 23°C 空氣環境中靜置 48 小時 (ISO 80369-20 Annex E)，無結構龜裂且須通過 6.1.1 洩漏測試。（註：70% IPA 浸泡為臨床延伸 ESCR 測試，非 ISO 強制要求）',
+    keyPhysics: 'Verifies environmental stress cracking resistance (ESCR) under sustained hoop stress.',
+    keyPhysicsZh: '驗證塑膠材料在持續裝配環向應力與空氣/化學介質作用下的抗應力龜裂（ESCR）能力與洩漏密封性。'
   },
   '6.4': {
     id: '6.4',
@@ -53,12 +53,12 @@ export const ISO_CLAUSES: Record<string, ISOClauseInfo> = {
     category: 'mechanical',
     applicableTypes: ['lock', 'slip'],
     assemblyTorqueNm: { min: 0.08, max: 0.12 },
-    testForceN: { min: 32, max: 35 }, // Lock: 32-35N, Slip: 23-25N
-    holdTimeSec: { min: 10, max: 15 },
+    testForceN: { min: 23, max: 35 }, // ISO 80369-7 Clause 6.4: Slip (23-25N), Lock (32-35N)
+    holdTimeSec: { min: 10, max: 15 }, // ISO 80369-7 Clause 6.4: 10-15s
     requiredMaleRef: 'C.6', // For Female Lock
     requiredFemaleRef: 'C.3', // For Male Lock (Worst-case 2.71mm)
-    passCriteria: 'Shall not separate when subjected to 32 N–35 N axial tension for 10 s–15 s.',
-    passCriteriaZh: '在 32 N–35 N（Slip為 23–25 N）軸向拉力下維持 10–15 秒，接頭不得脫開分離。',
+    passCriteria: 'Shall not separate when subjected to 23 N–25 N (Slip) or 32 N–35 N (Lock) axial tension for 10 s–15 s (ISO 80369-7 Clause 6.4 / ISO 80369-20 Annex F).',
+    passCriteriaZh: '在 23 N–25 N（Slip滑動型）或 32 N–35 N（Lock鎖定型）軸向拉力下維持 10–15 秒，接頭不得脫開分離。',
     keyPhysics: 'Tests mechanical lock thread shear strength under worst-case narrow ear engagement.',
     keyPhysicsZh: '使用最壞情況窄耳翼（C.3）測試螺紋在軸向強拉力下的剪切抗拉拔強度。'
   },
@@ -69,12 +69,12 @@ export const ISO_CLAUSES: Record<string, ISOClauseInfo> = {
     category: 'mechanical',
     applicableTypes: ['lock'],
     assemblyTorqueNm: { min: 0.08, max: 0.12 },
-    testTorqueNm: { min: 0.018, max: 0.02 },
-    holdTimeSec: { min: 10, max: 15 },
+    testTorqueNm: { min: 0.018, max: 0.020 }, // ISO 80369-7 Clause 6.5: 0.018-0.020 N·m
+    holdTimeSec: { min: 10, max: 15 }, // ISO 80369-7 Clause 6.5: 10-15s
     requiredMaleRef: 'C.4',
     requiredFemaleRef: 'C.1',
-    passCriteria: 'Shall not unscrew when subjected to a 0.02 N·m reverse torque for 10 s–15 s.',
-    passCriteriaZh: '裝配後施加 0.018–0.020 N·m 的反向旋鬆扭矩維持 10–15 秒，接頭不得自行旋鬆。',
+    passCriteria: 'Shall not unscrew when subjected to a 0.018 N·m–0.020 N·m reverse torque for 10 s–15 s (ISO 80369-7 Clause 6.5 / ISO 80369-20 Annex G).',
+    passCriteriaZh: '裝配後施加 0.018 N·m–0.020 N·m 的反向旋鬆扭矩維持 10–15 秒，接頭不得自行旋鬆脫開。',
     keyPhysics: 'Verifies frictional self-locking angle between taper and thread surface.',
     keyPhysicsZh: '驗證錐面摩擦力與螺紋角組成的自鎖能力，防止管路因微小外力晃動而自動鬆脫。'
   },
@@ -85,12 +85,12 @@ export const ISO_CLAUSES: Record<string, ISOClauseInfo> = {
     category: 'mechanical',
     applicableTypes: ['lock'],
     assemblyTorqueNm: { min: 0, max: 0 }, // Direct torque test
-    testTorqueNm: { min: 0.15, max: 0.17 },
-    holdTimeSec: { min: 5, max: 10 },
+    testTorqueNm: { min: 0.15, max: 0.17 }, // ISO 80369-7 Clause 6.6: 0.15-0.17 N·m
+    holdTimeSec: { min: 5, max: 10 }, // ISO 80369-7 Clause 6.6: 5-10s
     requiredMaleRef: 'C.6', // For Female Lock
     requiredFemaleRef: 'C.3', // For Male Lock (Worst-case 2.71mm)
-    passCriteria: 'Shall not override threads when subjected to 0.15 N·m–0.17 N·m torque for 5 s–10 s.',
-    passCriteriaZh: '施加 0.15–0.17 N·m 破壞性扭矩維持 5–10 秒，螺紋或耳翼不得越過滑脫（不滑牙）。',
+    passCriteria: 'Shall not override threads when subjected to 0.15 N·m–0.17 N·m torque for 5 s–10 s (ISO 80369-7 Clause 6.6 / ISO 80369-20 Annex H).',
+    passCriteriaZh: '施加 0.15 N·m–0.17 N·m 破壞性扭矩維持 5–10 秒，螺紋或耳翼不得越過滑脫（不滑牙）。',
     keyPhysics: 'Tests hoop expansion, creep, and worst-case 2.71mm ear shear limit under severe over-torque.',
     keyPhysicsZh: '考驗公套環在極限過鎖扭力下的抗環向膨脹、抗塑膠蠕變及對抗 C.3 窄耳翼（2.71mm）應力集中的能力。'
   }
@@ -427,17 +427,17 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
     figureNumber: 'Fig.E.1 (ISO 20)',
     standardOwner: 'ISO 80369-20',
     annexGroup: 'ISO 80369-20',
-    name: '70% IPA Chemical Solvent Stress Cracking Test Setup',
-    nameZh: '70% 異丙醇溶劑應力龜裂試驗圖',
-    description: 'ISO 80369-20 Annex E environmental stress cracking test setup under 48-hour solvent immersion.',
-    descriptionZh: 'ISO 80369-20 Annex E 試驗圖，受測組件浸泡於 70% IPA 酒精溶劑中靜置 48 小時，檢視高分子鏈龜裂。',
+    name: 'Stress Cracking Test Setup (Conditioned Air / Optional IPA)',
+    nameZh: 'ISO 80369-20 Annex E 48小時應力龜裂試驗圖',
+    description: 'ISO 80369-20 Annex E environmental stress cracking test setup under 48-hour conditioned air (optional 70% IPA extension).',
+    descriptionZh: 'ISO 80369-20 Annex E 試驗圖，組裝件裝配於金屬參考接頭於 23°C 空氣環境中靜置 48 小時，驗證環向應力下無龜裂破裂，並需通過 Annex B/C 洩漏測試。（註：臨床可延伸浸泡 70% IPA 驗證 ESCR）。',
     intendedClauses: ['6.3'],
     isWorstCase: false,
-    worstCaseReasonZh: '驗證高應力區在消毒劑浸泡下之抗龜裂 (ESCR) 能力。',
+    worstCaseReasonZh: '驗證高應力區在持續裝配應力下之抗龜裂能力與洩漏密封性。',
     svgHighlights: [
-      { title: '浸泡介質', value: '70% IPA 異丙醇' },
+      { title: '試驗條件', value: '23°C 空氣 48h (標準) / IPA (延伸)' },
       { title: '靜置時間', value: '≥ 48 小時' },
-      { title: '溫度範圍', value: '20°C ~ 30°C' }
+      { title: '環境溫度', value: '20°C ~ 30°C' }
     ],
     svgKey: 'ISO20-FIG-E1'
   },
@@ -448,15 +448,15 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
     annexGroup: 'ISO 80369-20',
     name: 'Axial Load Pull-off Separation Test Apparatus',
     nameZh: '萬能拉力機軸向拉拔分離測試裝置圖',
-    description: 'ISO 80369-20 Annex F axial tension apparatus (35N Lock / 25N Slip).',
-    descriptionZh: 'ISO 80369-20 Annex F 萬能材料試驗機軸向拉拔示意圖，施加 35 N (Lock) 或 25 N (Slip) 持壓 10~15 秒。',
+    description: 'ISO 80369-20 Annex F axial tension apparatus (27.5N Standard / 35N Margin).',
+    descriptionZh: 'ISO 80369-20 Annex F 萬能材料試驗機軸向拉拔示意圖，施加 27.5 N 軸向拉力持壓 10 秒（舊規範或廠商可加碼至 35N / 25N）。',
     intendedClauses: ['6.4'],
     isWorstCase: false,
     worstCaseReasonZh: '驗證強拉力下螺紋與錐面之抗脫離能力。',
     svgHighlights: [
-      { title: '鎖定型拉力', value: '35 N (10~15秒)' },
-      { title: '滑動型拉力', value: '25 N (10~15秒)' },
-      { title: '加載速率', value: '10 N/s' }
+      { title: '標準軸向拉力', value: '27.5 N (10秒)' },
+      { title: '廠商加碼拉力', value: '35 N (Lock) / 25 N (Slip)' },
+      { title: '加載速率', value: '≤ 10 N/s' }
     ],
     svgKey: 'ISO20-FIG-F1'
   },
@@ -468,12 +468,12 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
     name: 'Unscrewing Torque Separation Apparatus',
     nameZh: '反向旋鬆扭矩與拆卸力雙軌測試示意圖',
     description: 'ISO 80369-20 Annex G & Annex I reverse unscrewing torque (0.02 N·m) test rig.',
-    descriptionZh: 'ISO 80369-20 Annex G (0.02 N·m 反向旋鬆持壓) 與 Annex I (拆卸扭矩) 雙軌試驗機構圖。',
+    descriptionZh: 'ISO 80369-20 Annex G (0.02 N·m 反向旋鬆持壓 10s) 與 Annex I (拆卸扭矩) 雙軌試驗機構圖。',
     intendedClauses: ['6.5'],
     isWorstCase: false,
     worstCaseReasonZh: '考驗 6% 錐面摩擦自鎖性，防止震動自動鬆脫。',
     svgHighlights: [
-      { title: 'Annex G 反旋力', value: '0.018 ~ 0.020 N·m' },
+      { title: 'Annex G 反旋力', value: '0.02 N·m (持壓 10s)' },
       { title: 'Annex I 拆卸峰值', value: '靜置 10~15 分鐘後量測' }
     ],
     svgKey: 'ISO20-FIG-G1'

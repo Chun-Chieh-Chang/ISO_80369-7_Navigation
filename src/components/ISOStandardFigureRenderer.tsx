@@ -715,7 +715,7 @@ function renderAxialSeparationRig(showDims: boolean, showVectors: boolean, activ
     <svg viewBox="0 0 680 320" className="w-full max-w-3xl bg-white rounded-xl border border-slate-200 p-2 shadow-2xl">
       <rect width="680" height="320" fill="#0f172a" rx="8" />
       <text x="20" y="25" fill="#10b981" fontSize="13" fontFamily="monospace" fontWeight="bold">
-        ISO 80369-20 Annex F: Resistance to Separation from Axial Load (35 N Tensile Force)
+        ISO 80369-20 Annex F: Resistance to Separation from Axial Load (27.5 N Tensile Force)
       </text>
 
       {/* Universal Tensile Testing Frame Columns */}
@@ -725,7 +725,7 @@ function renderAxialSeparationRig(showDims: boolean, showVectors: boolean, activ
 
       {/* Load Cell */}
       <rect x="200" y="70" width="60" height="35" rx="4" fill="#10b981" stroke="#ffffff" strokeWidth="1.5" />
-      <text x="230" y="92" fill="#ffffff" fontSize="13" textAnchor="middle" fontWeight="bold">35 N 荷重計</text>
+      <text x="230" y="92" fill="#ffffff" fontSize="13" textAnchor="middle" fontWeight="bold">27.5 N 荷重計</text>
 
       {/* Upper Grip with Metal Fixture */}
       <line x1="230" y1="105" x2="230" y2="130" stroke="#cbd5e1" strokeWidth="6" />
@@ -742,16 +742,16 @@ function renderAxialSeparationRig(showDims: boolean, showVectors: boolean, activ
         <g>
           <path d="M 230 115 L 230 75" stroke="#f43f5e" strokeWidth="3" />
           <polygon points="230,70 224,80 236,80" fill="#f43f5e" />
-          <text x="260" y="85" fill="#f43f5e" fontSize="13" fontWeight="bold">軸向拉力 F = 35 N (10 N/s)</text>
+          <text x="260" y="85" fill="#f43f5e" fontSize="13" fontWeight="bold">拉力 F = 23~25N(Slip) / 32~35N(Lock)</text>
         </g>
       )}
 
       {/* Tensile Test Parameter Summary */}
       <rect x="420" y="80" width="230" height="180" rx="12" fill="#1e293b" stroke="#10b981" strokeWidth="1.5" />
-      <text x="535" y="108" fill="#10b981" fontSize="13" textAnchor="middle" fontWeight="bold">軸向分離測試標準參數</text>
-      <text x="440" y="138" fill="#cbd5e1" fontSize="13">• 加載速率 Rate: <tspan fill="#ffffff" fontWeight="bold">10 N/s</tspan></text>
-      <text x="440" y="162" fill="#cbd5e1" fontSize="13">• 鎖定接頭 Lock: <tspan fill="#a7f3d0" fontWeight="bold">35 N (10~15秒)</tspan></text>
-      <text x="440" y="186" fill="#cbd5e1" fontSize="13">• 滑動接頭 Slip: <tspan fill="#38bdf8" fontWeight="bold">25 N (10~15秒)</tspan></text>
+      <text x="535" y="108" fill="#10b981" fontSize="13" textAnchor="middle" fontWeight="bold">ISO 80369-7 6.4 軸向分離參數</text>
+      <text x="440" y="138" fill="#cbd5e1" fontSize="13">• Slip 滑動型: <tspan fill="#a7f3d0" fontWeight="bold">23 N ~ 25 N (10~15s)</tspan></text>
+      <text x="440" y="162" fill="#cbd5e1" fontSize="13">• Lock 鎖定型: <tspan fill="#38bdf8" fontWeight="bold">32 N ~ 35 N (10~15s)</tspan></text>
+      <text x="440" y="186" fill="#cbd5e1" fontSize="13">• 加載速率 Rate: <tspan fill="#ffffff" fontWeight="bold">≈ 10 N/s</tspan></text>
       <text x="440" y="210" fill="#cbd5e1" fontSize="13">• 判定基準: <tspan fill="#ffffff" fontWeight="bold">無接頭完全脫離</tspan></text>
     </svg>
   );
@@ -805,21 +805,22 @@ function renderUnscrewingTorqueRig(showDims: boolean, showVectors: boolean, acti
 }
 
 /* =========================================================================
-   SVG 8: Stress Cracking Chemical Exposure Test Setup (ISO 80369-20 Annex E)
+   SVG 8: Stress Cracking Test Setup (ISO 80369-20 Annex E - 23°C Air / Optional IPA)
    ========================================================================= */
 function renderStressCrackingApparatus(showDims: boolean, showVectors: boolean, activeCallout: string | null) {
   return (
     <svg viewBox="0 0 680 320" className="w-full max-w-3xl bg-white rounded-xl border border-slate-200 p-2 shadow-2xl">
       <rect width="680" height="320" fill="#0f172a" rx="8" />
       <text x="20" y="25" fill="#a855f7" fontSize="13" fontFamily="monospace" fontWeight="bold">
-        ISO 80369-20 Annex E: Stress Cracking &amp; Chemical Solvent Exposure Test Setup
+        ISO 80369-20 Annex E: Stress Cracking Test Setup (23°C Conditioned Air / Clinical IPA Option)
       </text>
 
-      {/* Assembly Specimen in Chemical Bath */}
+      {/* Assembly Specimen in Chamber */}
       <rect x="60" y="80" width="180" height="180" rx="12" fill="#1e293b" stroke="#a855f7" strokeWidth="2" />
       <rect x="62" y="140" width="176" height="118" rx="0" fill="#a855f7" opacity="0.25" />
-      <text x="150" y="130" fill="#c084fc" fontSize="13" textAnchor="middle" fontWeight="bold">70% 異丙醇 / 化學試劑</text>
-      <text x="150" y="175" fill="#ffffff" fontSize="13" textAnchor="middle" fontWeight="bold">預裝配組裝件 (0.12 N·m)</text>
+      <text x="150" y="125" fill="#c084fc" fontSize="13" textAnchor="middle" fontWeight="bold">23°C 空氣環境靜置 (ISO標準)</text>
+      <text x="150" y="145" fill="#a7f3d0" fontSize="13" textAnchor="middle">或 70% IPA (臨床延伸)</text>
+      <text x="150" y="185" fill="#ffffff" fontSize="13" textAnchor="middle" fontWeight="bold">預裝配組裝件 (0.12 N·m)</text>
 
       {/* Micro Crack Diagram */}
       <rect x="280" y="80" width="360" height="180" rx="12" fill="#1e293b" stroke="#f43f5e" strokeWidth="1.5" />
@@ -831,12 +832,12 @@ function renderStressCrackingApparatus(showDims: boolean, showVectors: boolean, 
 
       {/* Crack Line */}
       <line x1="370" y1="120" x2="370" y2="200" stroke="#f43f5e" strokeWidth="3" strokeDasharray="4 2" />
-      <text x="370" y="220" fill="#f43f5e" fontSize="13" textAnchor="middle" fontWeight="bold">內應力高 + 酒精誘發龜裂</text>
+      <text x="370" y="220" fill="#f43f5e" fontSize="13" textAnchor="middle" fontWeight="bold">環向內應力與材料殘留應力</text>
 
-      <text x="480" y="145" fill="#cbd5e1" fontSize="13">• 靜置時間: <tspan fill="#a7f3d0" fontWeight="bold">≥ 48 小時</tspan></text>
-      <text x="480" y="170" fill="#cbd5e1" fontSize="13">• 測試溫度: <tspan fill="#ffffff" fontWeight="bold">20°C ~ 30°C</tspan></text>
-      <text x="480" y="195" fill="#cbd5e1" fontSize="13">• 隨後試驗: <tspan fill="#38bdf8" fontWeight="bold">Annex B/C 洩漏測試</tspan></text>
-      <text x="480" y="220" fill="#cbd5e1" fontSize="13">• 判定: <tspan fill="#a7f3d0" fontWeight="bold">零裂紋且氣密 Pass</tspan></text>
+      <text x="480" y="140" fill="#cbd5e1" fontSize="13">• ISO標準環境: <tspan fill="#a7f3d0" fontWeight="bold">23°C 空氣 48h</tspan></text>
+      <text x="480" y="162" fill="#cbd5e1" fontSize="13">• 臨床延伸試驗: <tspan fill="#c084fc" fontWeight="bold">70% IPA 浸泡</tspan></text>
+      <text x="480" y="184" fill="#cbd5e1" fontSize="13">• 隨後試驗: <tspan fill="#38bdf8" fontWeight="bold">Annex B/C 洩漏測試</tspan></text>
+      <text x="480" y="206" fill="#cbd5e1" fontSize="13">• 判定: <tspan fill="#a7f3d0" fontWeight="bold">零龜裂破裂且 6.1 Pass</tspan></text>
     </svg>
   );
 }

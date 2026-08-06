@@ -276,16 +276,16 @@ export const ISO_TOPICS: ISOTopic[] = [
   },
   {
     id: 'stress-cracking',
-    titleZh: '6. 應力龜裂與耐化學測試 (Stress Cracking & ESCR)',
+    titleZh: '6. 應力龜裂測試 (Stress Cracking & Annex E)',
     titleEn: 'Environmental Stress Cracking (ESCR)',
     category: 'durability',
     categoryZh: '耐久性與環境',
     iconName: 'ShieldAlert',
-    shortSummaryZh: '裝配後浸泡於化學介質（如 70% 異丙醇酒精）48 小時，驗證目視無結構龜裂，且後續必須通過 6.1 正壓流體洩漏 (300–330 kPa) 壓力測試驗證。',
-    detailedDescriptionZh: '醫療環境中接頭常接觸消毒酒精（70% IPA）、脂質乳劑（Lipids）或化學藥品。內部殘留的裝配環向應力與化學介質共同作用，容易引發「環境應力龜裂（ESCR）」。測試將旋合裝配後的接頭浸泡或塗佈藥劑靜置 48 小時，檢視是否有微裂紋、破損或氣密失效。',
+    shortSummaryZh: '裝配於參考接頭於 23°C 空氣中靜置 48 小時 (Annex E)，驗證無應力龜裂與洩漏。（可延伸 70% IPA 耐化驗證）',
+    detailedDescriptionZh: 'ISO 80369-7 6.3 與 ISO 80369-20 Annex E 規範：將接頭裝配於金屬參考接頭上，於 23°C 空氣中靜置 48 小時後評估洩漏。注意：規範標準環境為「空氣環境」，不包含 IPA 浸泡；但醫療現場常接觸 70% IPA 酒精，許多廠商會延伸執行 70% IPA 化學環境應力龜裂 (ESCR) 評估。',
     keyParameters: [
       { label: '測試浸泡時間 Duration', value: '48', unit: '小時' },
-      { label: '化學介質 Chemical Media', value: '70% IPA 異丙醇 / 脂質溶液' },
+      { label: '試驗環境 Ambient Environment', value: '23°C 空氣靜置 48h (ISO標準) / 可選 70% IPA (臨床延伸)' },
       { label: '環境溫度 Temperature', value: '20 - 30', unit: '°C' }
     ],
     relatedISO7Clauses: ['6.3'],
@@ -297,15 +297,15 @@ export const ISO_TOPICS: ISOTopic[] = [
     figures: [
       {
         id: 'ISO20-FIG-E1',
-        titleZh: '70% 異丙醇化學劑浸泡與 48h 應力龜裂試驗圖',
-        titleEn: '70% IPA Chemical Solvent Exposure & ESCR Test Setup',
+        titleZh: 'ISO 80369-20 Annex E 48小時應力龜裂試驗圖',
+        titleEn: 'ISO 80369-20 Annex E 48h Stress Cracking Test Setup',
         standard: 'ISO 80369-20:2024 Annex E',
         figureType: 'apparatus',
         figureTypeZh: '測試裝置示意圖',
-        descriptionZh: '說明 ISO 80369-20 Annex E 試驗。裝配組裝件浸泡於 70% IPA 消毒酒精中靜置 48 小時，分子高應力區受溶劑侵蝕引發高分子鏈斷裂 (Polymer chain scission)，隨後需通過 Annex B/C 洩漏測試。',
+        descriptionZh: '說明 ISO 80369-20 Annex E 試驗。組裝件裝配於金屬參考接頭於 23°C 空氣環境中靜置 48 小時，驗證環向應力下無龜裂破裂，並需通過 Annex B/C 洩漏測試。（註：臨床可延伸浸泡 70% IPA 驗證 ESCR）。',
         svgKey: 'ISO20-FIG-E1',
         keyCallouts: [
-          { id: 'media', labelZh: '浸泡介質', valueZh: '70% IPA 異丙醇溶劑' },
+          { id: 'media', labelZh: '試驗條件', valueZh: '23°C 空氣環境 48h (標準) / IPA (延伸)' },
           { id: 'time', labelZh: '浸泡靜置時間', valueZh: '≥ 48 小時' },
           { id: 'temp', labelZh: '環境溫度', valueZh: '20°C ~ 30°C' }
         ]
