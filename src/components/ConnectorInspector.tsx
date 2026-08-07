@@ -244,6 +244,72 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
             </ul>
           </div>
         </div>
+
+        {/* Calibration & Certification Standard Section */}
+        <div className="mt-4 pt-4 border-t border-slate-200/80 space-y-3">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-blue-50/80 p-3 rounded-xl border border-blue-200/80 text-xs">
+            <div className="flex items-center space-x-2">
+              <span className="bg-blue-600 text-white font-mono font-bold px-2 py-0.5 rounded text-[11px]">
+                Certification & Calibration
+              </span>
+              <strong className="text-blue-950 font-bold text-xs">
+                ISO 80369-7:2021 參考接頭校驗與認證 (Calibration & Certification) 4 大評估面向
+              </strong>
+            </div>
+            <span className="text-blue-800 text-[11px] font-medium">
+              💡 註：量具日常點檢程序超出本標準範疇，此指認證與出廠校驗判定
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            {/* Aspect 1 */}
+            <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+              <h5 className="font-bold text-slate-900 text-[12px] flex items-center gap-1.5">
+                <Ruler className="w-3.5 h-3.5 text-blue-600" /> 1. 幾何尺寸與公差校驗 (Dimensional Verification)
+              </h5>
+              <ul className="list-disc list-inside text-slate-600 space-y-1 text-[11px] leading-relaxed">
+                <li><strong>量測設備</strong>：使用三次元量儀 (CMM)、影像測量儀或高精度工具顯微鏡。</li>
+                <li><strong>關鍵接觸特徵</strong>：精確量測 0.06:1 (1:16.667) 錐度與接觸直徑。</li>
+                <li><strong>邊緣倒角</strong>：螺紋外側邊緣圓角 <strong>0.15 mm ~ 0.20 mm</strong>，入口倒角 R ≤ 0.5 mm。</li>
+                <li><strong>難量測特徵替代判定</strong>：公接頭尖端至第一牙底部 $t$ 軸向尺寸改為「輔助尺寸」，其有效性由「抗軸向拉力分離測試」功能性試驗進行間接評估，不強制極限硬性量測。</li>
+              </ul>
+            </div>
+
+            {/* Aspect 2 */}
+            <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+              <h5 className="font-bold text-slate-900 text-[12px] flex items-center gap-1.5">
+                <Eye className="w-3.5 h-3.5 text-purple-600" /> 2. 表面粗糙度檢測 (Surface Roughness)
+              </h5>
+              <ul className="list-disc list-inside text-slate-600 space-y-1 text-[11px] leading-relaxed">
+                <li><strong>設備儀器</strong>：使用表面粗糙度觸針儀對關鍵接觸界面進行檢測。</li>
+                <li><strong>合格判定標準</strong>：關鍵表面粗糙度平均值 $R_a$ <strong>不得超過 0.8 μm</strong>。</li>
+                <li>確保重複測試時密封面的可重現性與耐磨損度。</li>
+              </ul>
+            </div>
+
+            {/* Aspect 3 */}
+            <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+              <h5 className="font-bold text-slate-900 text-[12px] flex items-center gap-1.5">
+                <ShieldAlert className="w-3.5 h-3.5 text-amber-600" /> 3. 材質與硬度確認 (Material & Hardness)
+              </h5>
+              <ul className="list-disc list-inside text-slate-600 space-y-1 text-[11px] leading-relaxed">
+                <li><strong>耐腐蝕剛性材質</strong>：使用 316 不鏽鋼 (≥45 HRC) 或黃銅材料。</li>
+                <li><strong>彈性模數確認</strong>：材料彎曲/拉伸彈性模數 <strong>&gt; 3 433 MPa</strong>。</li>
+                <li>透過出廠材料證明 (MTR) 與接收硬度檢測雙重驗證。</li>
+              </ul>
+            </div>
+
+            {/* Aspect 4 */}
+            <div className="bg-emerald-50/70 p-3.5 rounded-xl border border-emerald-200 space-y-1.5">
+              <h5 className="font-bold text-emerald-950 text-[12px] flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> 4. 歷史版本過渡相容條款 (Legacy Compatibility)
+              </h5>
+              <p className="text-emerald-900 text-[11px] leading-relaxed">
+                標準給予極具實用性的過渡規範：若實驗室目前使用之金屬參考接頭符合舊版 <strong>ISO 80369-7:2016</strong> Annex C 公差要求，<strong>直接視為符合現行 2021 年版本</strong>，不需因為標準修訂而重新採購或重新認證！
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

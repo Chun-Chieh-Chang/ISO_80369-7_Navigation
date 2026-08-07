@@ -1188,3 +1188,23 @@
 - **編譯與確效 (Mandatory Runtime Check)**：
   - `npx tsc --noEmit` 型別檢查：100% 通過 (0 errors)。
   - `npx vite build` 生產打包確效：1682 模組成功打包，Built in 1.83s，0 errors。
+
+---
+
+## 版本：v5.7 ISO 80369-7:2021 金屬參考接頭校驗 (Calibration) 與認證 (Certification) 4 大面向與過渡條款整合 (2026-08-07)
+
+### 需求內容
+1. **ISO 80369-7:2021 金屬參考接頭校驗與認證定位與 4 大面向整合**：
+   - 標準本體定位說明：標準本身未指定一套具體量具日常點檢程序（界定為超出本標準範疇），但詳細規定了製造與認證 (Certification) 時必須符合的幾何與物理指標。
+   - 1. 幾何尺寸與公差校驗 (Dimensional & Tolerance)：CMM 三次元/影像測量儀；關鍵 0.06:1 錐度；外側邊緣圓角 0.15~0.20mm，入口倒角 R ≤ 0.5mm；公錐尖端至第一牙 $t$ 軸向尺寸改為輔助尺寸，其有效性由「抗軸向拉力分離測試」功能性試驗間接評估，免強制極限硬性量測。
+   - 2. 表面粗糙度檢測 (Surface Roughness)：關鍵接觸界面表面粗糙度平均值 $R_a \le 0.8\ \mu\text{m}$。
+   - 3. 材質與硬度確認 (Material Verification)：316 不鏽鋼 (≥45 HRC) 或黃銅 MTR 材料證明，彈性模數 > 3,433 MPa。
+   - 4. 歷史版本過渡相容條款 (Legacy Compatibility)：若現有金屬參考接頭符合舊版 **ISO 80369-7:2016** Annex C 公差要求，**直接視為符合現行 2021 年版本**，不需重新採購或重新認證。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **知識單一真理源整合 (Single Source of Truth CAPA)**：
+  - 在 `ConnectorInspector.tsx` 擴充全站專屬《ISO 80369-7:2021 參考接頭校驗與認證 4 大評估面向與過渡條款》標準卡片。
+- **編譯與確效 (Mandatory Runtime Check)**：
+  - `npx tsc --noEmit` 型別檢查：100% 通過 (0 errors)。
+  - `npx vite build` 生產打包確效：1682 模組成功打包，Built in 1.71s，0 errors。
+
