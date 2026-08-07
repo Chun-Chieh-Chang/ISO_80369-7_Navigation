@@ -1208,3 +1208,27 @@
   - `npx tsc --noEmit` 型別檢查：100% 通過 (0 errors)。
   - `npx vite build` 生產打包確效：1682 模組成功打包，Built in 1.71s，0 errors。
 
+---
+
+## 版本：v6.0 專案整體程式碼、檔案與文件全流程優化與重構 SOP (2026-08-07)
+
+### 需求內容
+1. **全量死碼、冗餘檔案與死連結盤點清理 (MECE Audit)**：
+   - 遍歷全專案所有目錄（含 `src/`, `public/`, `.github/`），確保零冗餘無效檔案。
+2. **文件 100% 同步與對齊 (Documentation Alignment)**：
+   - 檢視並更新 `README.md` 與 `DEV_LOG.md`，同步最新手機版響應式架構 (Mobile View)、$\Delta P_{\text{max}}$ 計算器 ($20\text{s}, 8.5\text{mL}$)、測試總容積 $V$ 3 大測定法，以及 ISO 80369-7 金屬參考接頭校驗 (Calibration) 與認證 (Certification) 規範。
+3. **MECE 架構整合與靜態建置確效 (Consolidation & Runtime Check)**：
+   - 執行 TypeScript 靜態型別確效 (`npx tsc --noEmit`) 與 Vite 生產建置 (`npx vite build`)，確保主程式 0 警告 0 錯誤。
+4. ** Git 版本還原基準點建立與推送**：
+   - 本地 Git 提交備份，並安全推送至 GitHub `main` 遠端倉庫。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **死碼與資源 MECE 審查 (CAPA)**：
+  - 全數 8 個子目錄與 13 個核心程式碼檔案完全 MECE，無未引用資產或廢棄樣板。
+- **文件 100% 同步 (CAPA)**：
+  - `README.md` 完整補充 Mobile View UI 特色、$\Delta P_{\text{max}}$ 計算器與 Reference Connector 校驗認證卡片。
+- **編譯與確效 (Mandatory Runtime Check)**：
+  - `npx tsc --noEmit` 軟體確效型別檢查：100% 通過 (0 errors)。
+  - `npx vite build` 生產打包確效：1682 模組成功打包，Built in 1.71s，0 errors。
+
+

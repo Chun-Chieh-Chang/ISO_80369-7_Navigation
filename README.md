@@ -15,17 +15,18 @@
 
 ## 系統核心特色 (Key Features)
 
-- **🔍 主題導向條文對照庫 (Topic Explorer)**：橫向整合 ISO 80369-7 規格條文與 ISO 80369-20 實驗室測試方法，支援關鍵字與主題快速篩選。
-- **⚖️ 雙標準對照矩陣 (Comparison Matrix)**：一目瞭然比較 ISO 7 與 ISO 20 之間的定量裝配扭力、加壓/加力數值、保持時間與指定金屬夾具，支援 CSV 匯出。
-- **📐 規範圖號庫與向量圖表 (Figure Renderer & Connector Inspector)**：收錄完整 Fig.A.1 ~ K.1 規範圖號，提供高精細向量圖表渲染與定量參數說明。
-- **🕸️ 條文脈絡圖表 (Visual Map)**：視覺化展現條文間的跨領域防錯 (Non-interchangeability) 網絡與試驗依賴關係。
+- **🔍 主題導向條文對照庫 (Topic Explorer)**：橫向整合 ISO 80369-7 規格條文與 ISO 80369-20 實驗室測試方法，支援關鍵字與主題快速篩選，並提供手機端 Segmented Control 視圖切換。
+- **Activity 壓差降極限 ($\Delta P_{\text{max}}$) 即時換算計算器**：內建 ISO 80369-20:2024 動態對算工具，預設 $\Delta t=20\text{s}, V=8.5\text{mL}$，自動換算 Pa, kPa, mbar 極限壓降，並完整收錄測試總容積 $V$ 3 大測定法（尺寸計算、系統注水、組合量測）與剛性防呆要求。
+- **⚖️ 雙標準對照矩陣 (Comparison Matrix)**：一目瞭然比較 ISO 7 與 ISO 20 之間的定量裝配扭力、加壓/加力數值、持壓時間與指定金屬夾具，支援 CSV 匯出與手機端條文卡片檢視 (Mobile Card Mode)。
+- **🔧 規範圖號庫與校驗認證卡 (Connector Inspector & Reference Standards)**：收錄完整 Fig.A.1 ~ K.1 規範圖號，提供高精細向量圖表渲染，並整合 ISO 80369-7:2021 Annex C.1 金屬參考接頭 4 大製造、幾何公差、校驗 (Calibration) 與認證 (Certification) 規範。
+- **🕸️ 條文脈絡圖表 (Visual Map)**：視覺化展現條文間的跨領域防錯 (Non-interchangeability) 網絡與試驗依賴關係，在手機端自動適配為垂直引導步驟卡片 (Step 1➔2➔3➔4)。
 - **📋 DVP 與報告生成器 (DVP Generator)**：根據產品類別與金屬夾具配置，自動產生合規之設計驗證計畫 (DVP) 建議。
 
 ---
 
 ## UI/UX 設計規範與視覺系統 (Design System)
 
-- **滿版寬螢幕響應佈局 (Widescreen Layout)**：可視寬度提升至 `max-w-[1920px] w-[96%]`，大幅縮減大螢幕兩側無用留白。
+- **📱 手機端與寬螢幕雙模響應 (Mobile & Widescreen Responsive Layout)**：桌上型電腦支援 `max-w-[1920px] w-[96%]` 寬螢幕全景檢視；手機端 (375px~768px) 支援 Tab 列與 Chip 橫向順暢滾動 (`overflow-x-auto, no-scrollbar`)，且全站按鈕觸控區皆符合至少 `44px x 44px` 觸控防誤觸標準。
 - **13px 最低字級防禦 (Min Font Size ≥ 13px)**：全站 UI 文字與 SVG 向量圖表文字嚴格維持最少 13px (`0.8125rem`)，確保法規細節清晰易讀。
 - **莫蘭迪高級灰調色體系 (Morandi Color System)**：Morandi 低飽和色彩配搭玻璃質感面板 (`glass-panel`) 與層次卡片 (`premium-card`)，符合醫材軟體「可親近的高級感」。
 
