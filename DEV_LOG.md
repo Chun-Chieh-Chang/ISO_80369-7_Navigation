@@ -572,3 +572,17 @@
 - **還原基準與遠端部署 (CAPA)**：
   - 執行 `npm run build` 通過生產打包確效 (1682 模組，Built in 2.27s)。
 
+---
+
+## 版本：v2.8 雙標準對照矩陣「裝配扭矩」與「定量加載條件」欄位定位條件強化 (2026-08-07)
+
+### 需求內容
+1. 深入定義雙標準對照矩陣中「裝配扭矩」與「定量加載條件 (壓力/拉力/扭矩)」欄位之納入條件與物理定位。
+2. 於矩陣頁面 [ClauseComparisonMatrix.tsx](file:///c:/Users/USER/Downloads/Project/ISO_80369-7_Navigation/src/components/ClauseComparisonMatrix.tsx) 補充定位說明 Banner 與表頭清晰標記（劃分「前置準備條件」與「實測考驗負載」）。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **UI 與欄位導航優化 (CAPA)**：
+  - 於 `ClauseComparisonMatrix.tsx` 頂部加入「欄位定位條件與納入標準說明 Banner」，清晰說明「裝配扭矩」為前置準備旋合條件（0.08~0.12 N·m），而「定量加載條件」為實測加載負載（壓力 300kPa / 80kPa、拉力 25N/35N、扭矩 0.02Nm/0.17Nm）。
+  - 於 `<thead>` 表頭為 `裝配扭矩` 標註 `前置準備條件`、為 `定量加載條件` 標註 `實測考驗負載`。
+- **建置確效 (CAPA)**：
+  - 執行 `npm run build` 打包確效 (1682 模組，Built in 2.33s)。

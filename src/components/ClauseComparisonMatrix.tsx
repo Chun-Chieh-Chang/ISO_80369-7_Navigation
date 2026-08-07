@@ -313,6 +313,24 @@ export const ClauseComparisonMatrix: React.FC = () => {
           </button>
         </div>
 
+        {/* Positioning & Criteria Explanation Banner */}
+        <div className="bg-slate-50 border border-slate-200/90 rounded-xl p-3.5 text-xs space-y-2">
+          <div className="flex items-center space-x-1.5 text-slate-800 font-bold">
+            <Info className="w-4 h-4 text-blue-600 shrink-0" />
+            <span>矩陣關鍵欄位「定位條件」與「納入標準」說明 (Field Inclusion Criteria)</span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-slate-600 leading-relaxed">
+            <div className="bg-white p-2.5 rounded-lg border border-slate-200/80">
+              <span className="font-bold text-blue-900 block mb-0.5">1. 裝配扭矩 (Pre-assembly Torque):</span>
+              定位為**「測試前置準備條件」**。凡屬 ISO 80369-20 物理/機械實測項目 (Clause 6.1~6.5)，依規定須先旋合至 <span className="font-mono font-bold text-slate-800">0.08 ~ 0.12 N·m</span> (配合 27.5N 軸推力) 確立 6% 錐面緊密配合基礎；6.6 為直加過載測試；非實測條文標註 <span className="font-mono text-slate-400 font-bold">-</span>。
+            </div>
+            <div className="bg-white p-2.5 rounded-lg border border-slate-200/80">
+              <span className="font-bold text-purple-900 block mb-0.5">2. 定量加載條件 (Active Test Load):</span>
+              定位為**「實測考驗負載」**。預裝配完成後，為考驗特定性能所施加的定量極限。包含**測試壓力** (6.1 正壓 300~330kPa / 6.2 負壓 80~88kPa)、**測試拉力** (6.4 拔脫力 25N/35N) 與**測試扭矩** (6.5 反旋 0.02Nm / 6.6 過載 0.17Nm)。
+            </div>
+          </div>
+        </div>
+
         {/* Filter & Search */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-3 border-t border-slate-100/80">
           <div className="flex items-center space-x-2 text-[13px] flex-wrap gap-y-1.5">
@@ -361,8 +379,14 @@ export const ClauseComparisonMatrix: React.FC = () => {
                 <th className="py-3 px-4 min-w-[160px]">測試名稱 & 主題</th>
                 <th className="py-3 px-4">ISO 80369-7 條文</th>
                 <th className="py-3 px-4">ISO 80369-20 附錄</th>
-                <th className="py-3 px-4">裝配扭矩</th>
-                <th className="py-3 px-4">定量加載條件 (壓力/拉力/扭矩)</th>
+                <th className="py-3 px-4">
+                  <div>裝配扭矩</div>
+                  <span className="text-[10px] text-blue-600 font-normal block normal-case">前置準備條件</span>
+                </th>
+                <th className="py-3 px-4">
+                  <div>定量加載條件 (壓力/拉力/扭矩)</div>
+                  <span className="text-[10px] text-purple-600 font-normal block normal-case">實測考驗負載</span>
+                </th>
                 <th className="py-3 px-4">保持時間</th>
                 <th className="py-3 px-4 min-w-[150px]">必要金屬參考夾具</th>
                 <th className="py-3 px-4 min-w-[200px]">合格 Pass 標準</th>
