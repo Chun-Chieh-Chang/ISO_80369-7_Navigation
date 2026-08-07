@@ -163,7 +163,7 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
               }`}
             >
               <Ruler className="w-3.5 h-3.5" />
-              <span>ISO 規範原廠藍圖</span>
+              <span>ISO 80369-7 精密藍圖指引</span>
             </button>
             <button
               onClick={() => setDisplayMode('hd_render')}

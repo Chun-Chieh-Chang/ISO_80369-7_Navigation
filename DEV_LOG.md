@@ -655,6 +655,23 @@
 - **打包與型別確效 (CAPA)**：
   - 執行 `npx tsc --noEmit` 與 `npm run build` 通過生產打包與 TypeScript 靜態檢驗 (1682 模組，Built in 2.42s)。
 
+---
+
+## 版本：v3.3 採用 ISO_80369-7_Precision_Blueprint_Guide.pptx 精密藍圖指引全量置換 (2026-08-07)
+
+### 需求內容
+1. 置換舊版 PDF 圖面：採用包含 100% 嚴謹工程術語「公 (Male) / 母 (Female)」之全新高解析簡報檔 `ISO_80369-7_Precision_Blueprint_Guide.pptx` (15 頁)。
+2. 自動化導出與重新綁定：透過 PowerPoint Automation 導出全部 15 頁高清 1920x1080 圖像，全面覆蓋 `public/assets/blueprint/page_1.png` ~ `page_15.png`。
+3. 頁籤名稱更新：將 `ISOStandardFigureRenderer.tsx` 頁籤升級為 `[ 📜 ISO 80369-7 精密藍圖指引 ]`。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **PowerPoint Automation 高解析導出 (CAPA)**：
+  - 透過 `win32com.client` 呼叫 PowerPoint 原生引擎，將 `ISO_80369-7_Precision_Blueprint_Guide.pptx` 之 15 頁投影片精準導出為 1920x1080 高解析 PNG。
+  - 驗證導出圖面，確認標題與內容 100% 採用工程術語「公 Luer slip 接頭 (L1)」、「母 Luer slip 接頭 (L1)」、「公 Luer lock 接頭 (L2)」與「母 Luer lock 接頭 (L2)」。
+- **打包與型別確效 (CAPA)**：
+  - 執行 `npm run build` 通過生產打包 (1682 模組，Built in 2.55s)。
+
+
 
 
 
