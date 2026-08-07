@@ -690,6 +690,23 @@
 - **瀏覽器子代理 UI/UX 確效 (CAPA)**：
   - 啟動 `browser_subagent` 模擬點擊「ISO 80369-7 幾何尺寸藍圖」、「ISO 80369-20 實驗架設藍圖」與「3D/HD 精密重構圖」頁籤切換與 Lightbox 全螢幕彈窗放大檢視，功能全數通過確效。
 
+---
+
+## 版本：v3.5 Clause 4 通用要求與預裝配程序藍圖代表性優化 (2026-08-07)
+
+### 需求內容
+1. 診斷 Clause 4 內嵌規範圖示代表性問題：先前 `ISO20-FIG-J1` 之幾何尺寸藍圖誤映照至 `page_10.png`（單一母參考件），無法代表 Clause 4 通用要求與預裝配程序總覽。
+2. 藍圖映照優化：修正 [ISOStandardFigureRenderer.tsx](file:///c:/Users/USER/Downloads/Project/ISO_80369-7_Navigation/src/components/ISOStandardFigureRenderer.tsx) 中 `ISO20-FIG-J1` 之幾何尺寸藍圖映射為 `page_1.png`（ISO 80369-7 魯爾接頭幾何尺寸與組合總覽圖面）。
+3. 形成多維度結構代表性：
+   - 幾何尺寸藍圖：`page_1.png`（ISO 80369-7 接頭全系列尺寸總覽）
+   - 實驗架設藍圖：`test_page_2.png`（Annex J 標準化組裝條件：軸向力 26.5~27.5 N + 扭矩同軸加壓）
+   - 3D/HD 重構圖：`iso20_simultaneous_axial_torque.png`（同軸加壓立體動作圖）
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **打包與型別確效 (CAPA)**：
+  - 執行 `npm run build` 通過生產打包確效 (1682 模組，Built in 2.58s)。
+
+
 
 
 

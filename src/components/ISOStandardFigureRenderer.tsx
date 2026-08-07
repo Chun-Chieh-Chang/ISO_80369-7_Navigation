@@ -65,7 +65,7 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
       case 'ISO7-FIG-C6':
         return `${cleanBase}assets/blueprint/page_15.png`;
       case 'ISO20-FIG-J1':
-        return `${cleanBase}assets/blueprint/page_10.png`;
+        return `${cleanBase}assets/blueprint/page_1.png`;
       case 'ISO20-FIG-B1':
       case 'ISO20-FIG-B2':
       case 'ISO20-FIG-C1':
