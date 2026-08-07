@@ -9,7 +9,7 @@ export const ISO_TOPICS: ISOTopic[] = [
     categoryZh: '洩漏與氣密',
     iconName: 'Droplets',
     shortSummaryZh: '評估 6% 魯爾錐面與螺紋在 300~330 kPa 加壓下的密封防漏能力 (水滴法無水滴 / 壓降法漏率 ≤ 0.005 Pa·m³/s)。',
-    detailedDescriptionZh: '正壓流體洩漏測試為醫療級魯爾接頭最基礎且核心的驗證項目。接頭在以規定之裝配扭矩（0.08~0.12 N·m）旋合於標準參考金屬夾具後，於 300 kPa 至 330 kPa 下驗證防漏安全性。若採用【氣壓壓降法 (Annex B)】，持壓 15~20 秒且極限洩漏率必須遵循 ≤ 0.005 Pa·m³/s 規定；若採用【水壓滴落法 (Annex C)】，持壓 30~35 秒且目視不得有水滴形成或滴落。',
+    detailedDescriptionZh: '正壓流體洩漏測試為醫療級魯爾接頭最基礎且核心的驗證項目。接頭在以規定之裝配扭矩（0.08~0.12 N·m）旋合於標準參考金屬夾具後，於 300 kPa 至 330 kPa 下驗證防漏安全性。若採用【氣壓壓降法 (Annex B)】，持壓 15~20 秒且極限洩漏率必須遵循 ≤ 0.005 Pa·m³/s 規定。根據 ISO 80369-20:2024 最新修訂，已取消洩漏率 Q 的計算公式，改為直接記錄測試期間的壓力變化值（壓降 ΔP），透過理想氣體狀態方程 ΔP_max = (Q_max × Δt) / V 進行物理換算；若採用【水壓滴落法 (Annex C)】，持壓 30~35 秒且目視不得有水滴形成或滴落。',
     keyParameters: [
       { label: '裝配扭矩 Assembly Torque', value: '0.08 - 0.12', unit: 'N·m' },
       { label: '測試壓力 Test Pressure', value: '300 - 330', unit: 'kPa' },
@@ -20,8 +20,8 @@ export const ISO_TOPICS: ISOTopic[] = [
     relatedISO7Clauses: ['6.1'],
     relatedISO20Annexes: ['Annex B', 'Annex C'],
     relatedRefConnectors: ['C.1', 'C.4', 'C.2', 'C.5'],
-    engineeringRiskZh: '塑膠模具毛邊、錐度不均（非 6% 圓錐）、射出縮水造成圓度不良，均會直接導致加壓時流體自錐面隙縫滲漏。',
-    auditFocusZh: '確認測試設備壓力感測器精度（±0.3%），夾具是否有定期更換，乾燥拭紙檢驗是否有水痕擴散。',
+    engineeringRiskZh: '塑膠模具毛邊、錐度不均（非 6% 圓錐）、射出縮水造成圓度不良，均會直接導致加壓時流體自錐面隙縫滲漏。測試管路使用易膨脹軟管會造成體積 V 變大，致使壓降判定失真。',
+    auditFocusZh: '確認測試設備壓力感測器精度（±0.3%），夾具是否有定期更換，乾燥拭紙檢驗是否有水痕擴散。若採用 Annex J 統計量化驗證（J.2.1），需直接記錄壓降實測值 ΔP 並計算單側公差上限（UTL）。',
     tags: ['300kPa', '正壓', '水壓', '6.1', 'Annex B', 'Annex C', '漏水滴落'],
     figures: [
       {

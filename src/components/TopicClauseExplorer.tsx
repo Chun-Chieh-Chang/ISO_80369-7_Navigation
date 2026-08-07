@@ -6,7 +6,7 @@ import { ISOStandardFigureRenderer } from './ISOStandardFigureRenderer';
 import { 
   Search, BookOpen, FileText, CheckCircle2, AlertTriangle, ShieldCheck, 
   ArrowRight, Copy, Check, Info, Sparkles, Filter, ExternalLink, RefreshCw,
-  Droplets, Wind, Zap, ArrowDownUp, RotateCw, ShieldAlert, Ruler, Wrench, Layers3, Layers,
+  Droplets, Wind, Zap, ArrowDownUp, RotateCw, ShieldAlert, Ruler, Wrench, Layers3, Layers, Activity,
   FolderTree, ChevronRight, ChevronDown, Tag, Eye, FileCode
 } from 'lucide-react';
 
@@ -18,6 +18,8 @@ export const TopicClauseExplorer: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedStandardFilter, setSelectedStandardFilter] = useState<'all' | 'iso7' | 'iso20'>('all');
   const [copiedText, setCopiedText] = useState<boolean>(false);
+  const [calcVolume, setCalcVolume] = useState<number>(10);
+  const [calcTime, setCalcTime] = useState<number>(15);
   const [expandedNodes, setExpandedNodes] = useState<Record<string, boolean>>({
     'iso7': true,
     'iso7-annex-a': true,
@@ -613,6 +615,132 @@ export const TopicClauseExplorer: React.FC = () => {
                     ))}
                   </div>
                 </div>
+
+                {/* Interactive ISO 80369-20:2024 Pressure Decay ΔP_max Calculator Widget */}
+                {currentTopic && (currentTopic.id === 'fluid-leakage' || currentTopic.id === 'sub-atmospheric-air-leakage' || currentTopic.id === 'stress-cracking' || currentTopic.category === 'leakage') && (
+                  <div className="bg-gradient-to-br from-slate-900 via-slate-850 to-blue-950 rounded-2xl p-4 text-white space-y-3 shadow-lg border border-blue-800/50">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-blue-800/50 pb-2">
+                      <div className="flex items-center space-x-2">
+                        <span className="bg-blue-600 text-white font-mono font-bold text-[10px] px-2 py-0.5 rounded shadow-xs">
+                          ISO 80369-20:2024 Annex B.4 / D.4 / J.2
+                        </span>
+                        <h4 className="text-xs font-bold text-blue-100 flex items-center gap-1.5">
+                          <Activity className="w-4 h-4 text-blue-400" />
+                          壓差降極限 (&Delta;P<sub>max</sub>) 即時換算計算器
+                        </h4>
+                      </div>
+                      <span className="text-[11px] text-blue-300 font-mono">Q<sub>max</sub> = 0.005 Pa·m³/s</span>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-center text-xs">
+                      {/* Controls */}
+                      <div className="md:col-span-6 space-y-2 bg-slate-800/60 p-3 rounded-xl border border-slate-700/60">
+                        <div className="flex items-center justify-between">
+                          <label className="text-slate-300 font-medium">測試系統總容積 V (mL):</label>
+                          <input
+                            type="number"
+                            min="0.5"
+                            max="100"
+                            step="0.5"
+                            value={calcVolume}
+                            onChange={(e) => setCalcVolume(Math.max(0.1, parseFloat(e.target.value) || 0.1))}
+                            className="w-24 px-2 py-1 bg-slate-900 border border-slate-600 rounded text-right font-mono font-bold text-blue-300 focus:outline-none focus:border-blue-400"
+                          />
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <label className="text-slate-300 font-medium">持壓時間 &Delta;t (秒):</label>
+                          <input
+                            type="number"
+                            min="5"
+                            max="60"
+                            step="1"
+                            value={calcTime}
+                            onChange={(e) => setCalcTime(Math.max(1, parseFloat(e.target.value) || 1))}
+                            className="w-24 px-2 py-1 bg-slate-900 border border-slate-600 rounded text-right font-mono font-bold text-blue-300 focus:outline-none focus:border-blue-400"
+                          />
+                        </div>
+                        <div className="text-[10px] text-slate-400 font-mono pt-1">
+                          換算公式: &Delta;P<sub>max</sub> (Pa) = (5000 × &Delta;t) / V (mL)
+                        </div>
+                      </div>
+
+                      {/* Output Results */}
+                      <div className="md:col-span-6 bg-blue-900/40 p-3 rounded-xl border border-blue-700/50 flex flex-col justify-between space-y-2">
+                        <span className="text-[11px] text-blue-200 font-semibold">允許最大壓力下降極限 (&Delta;P<sub>max</sub>):</span>
+                        <div className="grid grid-cols-3 gap-2 text-center font-mono">
+                          <div className="bg-slate-900/80 p-2 rounded-lg border border-blue-500/30">
+                            <span className="text-[10px] text-slate-400 block">帕斯卡 (Pa)</span>
+                            <span className="text-xs font-black text-amber-300">{Math.round((5000 * calcTime) / calcVolume).toLocaleString()}</span>
+                          </div>
+                          <div className="bg-slate-900/80 p-2 rounded-lg border border-blue-500/30">
+                            <span className="text-[10px] text-slate-400 block">千帕 (kPa)</span>
+                            <span className="text-xs font-black text-emerald-300">{((5 * calcTime) / calcVolume).toFixed(2)}</span>
+                          </div>
+                          <div className="bg-slate-900/80 p-2 rounded-lg border border-blue-500/30">
+                            <span className="text-[10px] text-slate-400 block">毫巴 (mbar)</span>
+                            <span className="text-xs font-black text-sky-300">{(((5000 * calcTime) / calcVolume) / 100).toFixed(1)}</span>
+                          </div>
+                        </div>
+                        <p className="text-[10px] text-blue-300/80 leading-tight">
+                          📌 判定原則：持壓 {calcTime}s 期間實測壓降 &Delta;P &le; {((5 * calcTime) / calcVolume).toFixed(2)} kPa &rarr; <strong className="text-emerald-400">合格 (Pass)</strong>；若 &gt; {((5 * calcTime) / calcVolume).toFixed(2)} kPa &rarr; <strong className="text-rose-400">不合格 (Fail)</strong>。
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Technical Supplementary Guide for Pressure Decay (ΔP) & ISO 80369-20:2024 Revision */}
+                {currentTopic && (currentTopic.id === 'fluid-leakage' || currentTopic.id === 'sub-atmospheric-air-leakage' || currentTopic.id === 'stress-cracking' || currentTopic.category === 'leakage') && (
+                  <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-4 space-y-3 shadow-xs">
+                    <div className="flex items-center space-x-2 text-slate-800 text-xs font-bold border-b border-slate-200 pb-2">
+                      <FileText className="w-4 h-4 text-blue-600" />
+                      <span>ISO 80369-20:2024 與 ISO 80369-7 壓差降 (&Delta;P) 物理量計算法規與技術補充指南</span>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                      <div className="bg-white p-3 rounded-xl border border-slate-200/60 space-y-1.5">
+                        <h5 className="font-bold text-slate-800 flex items-center gap-1 text-[11px]">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-blue-600" /> 1. 壓差記錄 (&Delta;P) 4 大適用測試項目
+                        </h5>
+                        <ul className="list-disc list-inside text-slate-600 space-y-1 text-[11px]">
+                          <li><strong>正壓壓差降洩漏測試 (Annex B)</strong>：施加 300~330 kPa，記錄持壓 15~20s 壓力差。</li>
+                          <li><strong>次大氣壓空氣洩漏測試 (Annex D)</strong>：抽取 80~88 kPa 真空負壓，記錄持壓 15~20s 壓差。</li>
+                          <li><strong>應力龜裂隨後洩漏評估 (Annex E)</strong>：組裝放置 &ge;48h 後執行氣體壓降評估。</li>
+                          <li><strong>統計變量數據生成 (Annex J.2.1/J.2.3)</strong>：記錄實際壓降 &Delta;P，計算單側公差上限 (UTL)。</li>
+                        </ul>
+                      </div>
+
+                      <div className="bg-white p-3 rounded-xl border border-slate-200/60 space-y-1.5">
+                        <h5 className="font-bold text-slate-800 flex items-center gap-1 text-[11px]">
+                          <Sparkles className="w-3.5 h-3.5 text-purple-600" /> 2. ISO 80369-20:2024 重大技術修訂
+                        </h5>
+                        <p className="text-slate-600 text-[11px] leading-relaxed">
+                          新版標準正式<strong>取消了傳統洩漏率 Q 的計算公式，改為直接記錄測試期間的壓力變化量 (&Delta;P)</strong>。此修訂大幅消除因未知的隙縫幾何通路導致的計算誤差，提升實驗室間的可重現性與量測不確定度。
+                        </p>
+                      </div>
+
+                      <div className="bg-white p-3 rounded-xl border border-slate-200/60 space-y-1.5 md:col-span-2">
+                        <h5 className="font-bold text-slate-800 flex items-center gap-1 text-[11px]">
+                          <Zap className="w-3.5 h-3.5 text-amber-500" /> 3. 理想氣體狀態方程公式推導與現場 3 大關鍵注意事項
+                        </h5>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px] pt-1">
+                          <div className="bg-slate-50 p-2 rounded-lg border border-slate-100">
+                            <strong className="text-slate-700 block mb-0.5">① 精準測定總容積 (V)</strong>
+                            <p className="text-slate-500">測試容積含儀器氣路、感測器腔體與管路，須透過 3D CAD 或水重排法精準測定。</p>
+                          </div>
+                          <div className="bg-slate-50 p-2 rounded-lg border border-slate-100">
+                            <strong className="text-slate-700 block mb-0.5">② 系統夾具剛性 (Rigidity)</strong>
+                            <p className="text-slate-500">高壓下軟管膨脹會使體積 V 變大導致壓降判定失真，夾具與管路應使用金屬等剛性材質。</p>
+                          </div>
+                          <div className="bg-slate-50 p-2 rounded-lg border border-slate-100">
+                            <strong className="text-slate-700 block mb-0.5">③ 環境溫度嚴格控制</strong>
+                            <p className="text-slate-500">氣體對溫度極度敏感，微小溫差會造成虛假壓力波動，須於 15°C~30°C 恆溫下測試。</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
 
                 {/* Engineering Risk & Audit Focus Callouts */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
