@@ -706,6 +706,26 @@
 - **打包與型別確效 (CAPA)**：
   - 執行 `npm run build` 通過生產打包確效 (1682 模組，Built in 2.58s)。
 
+---
+
+## 版本：v3.6 零假圖降級原則：ISO 80369-20 測試方法嚴格空值處理與頁籤停用機制 (2026-08-07)
+
+### 需求內容
+1. 貫徹第一性原則（Zero Sycophancy / Strict SSOT）：物理試驗條文（ISO 80369-20 Clause 4, 6.1~6.6）若無 ISO 80369-7 幾何尺寸藍圖，**嚴禁隨意拿別的圖湊數或降級備用**。
+2. 嚴格空值邏輯 (Strict Null Return)：
+   - `getBlueprintImagePath(key)` 針對 ISO 80369-20 物理試驗條文一律返回 `null`。
+   - 對於物理試驗條文，`ISOStandardFigureRenderer.tsx` 預設模式自動動態切換為 **`[ 🛠️ ISO 80369-20 實驗架設藍圖 ]`**。
+3. 頁籤停用與警示視圖 (Disabled State & Warning Empty State Box)：
+   - `[ 📜 ISO 80369-7 幾何尺寸藍圖 (無圖面) ]` 頁籤呈灰階停用（`disabled / cursor-not-allowed`），並附上明確提示 tooltip。
+   - 若使用者強制切換，則呈現高信號警示面板：「本條文屬於 ISO 80369-20 物理性能試驗方法，ISO 80369-7 未定義專屬幾何尺寸圖面」。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **打包與型別確效 (CAPA)**：
+  - 執行 `npm run build` 通過生產打包確效 (1682 模組，Built in 2.48s)。
+- **瀏覽器子代理實測確效 (CAPA)**：
+  - 執行 `browser_subagent` 驗證：Clause 6.1 等物理測試條文之「幾何尺寸藍圖 (無圖面)」按鈕一律呈停用狀態，且預設直接載入實驗架設藍圖；Clause 5 幾何尺寸條文則完美載入幾何圖面。
+
+
 
 
 

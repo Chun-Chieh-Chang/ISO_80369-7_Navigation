@@ -27,16 +27,13 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
 }) => {
   const [activeCalloutId, setActiveCalloutId] = useState<string | null>(null);
   const [showCategoryModal, setShowCategoryModal] = useState(false);
-  const [displayMode, setDisplayMode] = useState<'official_blueprint' | 'testing_blueprint' | 'hd_render'>('official_blueprint');
-  const [showZoomModal, setShowZoomModal] = useState(false);
-  const [zoomImageSrc, setZoomImageSrc] = useState<string>('');
-  const [zoomImageTitle, setZoomImageTitle] = useState<string>('');
 
   const getBlueprintImagePath = (key: string) => {
     const baseUrl = (import.meta as any).env?.BASE_URL || '/';
     const cleanBase = baseUrl.endsWith('/') ? baseUrl : baseUrl + '/';
     
     // Strict 1-to-1 mapping to extracted ISO 80369-7 Blueprint Folio pages
+    // Returns null for ISO 80369-20 physical test clauses to prevent showing arbitrary fallbacks
     switch (key) {
       case 'ISO7-FIG-B1':
         return `${cleanBase}assets/blueprint/page_2.png`;
@@ -64,25 +61,23 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
         return `${cleanBase}assets/blueprint/page_14.png`;
       case 'ISO7-FIG-C6':
         return `${cleanBase}assets/blueprint/page_15.png`;
-      case 'ISO20-FIG-J1':
+      case 'ISO7-FIG-SML':
+      case 'ISO7-FIG-A1':
         return `${cleanBase}assets/blueprint/page_1.png`;
-      case 'ISO20-FIG-B1':
-      case 'ISO20-FIG-B2':
-      case 'ISO20-FIG-C1':
-        return `${cleanBase}assets/blueprint/page_10.png`;
-      case 'ISO20-FIG-D1':
-      case 'ISO20-FIG-K1':
-        return `${cleanBase}assets/blueprint/page_10.png`;
-      case 'ISO20-FIG-E1':
-        return `${cleanBase}assets/blueprint/page_10.png`;
-      case 'ISO20-FIG-F1':
-      case 'ISO20-FIG-G1':
-      case 'ISO20-FIG-H1':
-        return `${cleanBase}assets/blueprint/page_12.png`;
       default:
-        return `${cleanBase}assets/blueprint/page_1.png`;
+        // No dedicated ISO 80369-7 dimensional drawing for ISO 80369-20 physical test methods
+        return null;
     }
   };
+
+  const currentBlueprintPath = getBlueprintImagePath(svgKey);
+  const [displayMode, setDisplayMode] = useState<'official_blueprint' | 'testing_blueprint' | 'hd_render'>(() => {
+    if (svgKey.startsWith('ISO20-FIG-') || !currentBlueprintPath) return 'testing_blueprint';
+    return 'official_blueprint';
+  });
+  const [showZoomModal, setShowZoomModal] = useState(false);
+  const [zoomImageSrc, setZoomImageSrc] = useState<string>('');
+  const [zoomImageTitle, setZoomImageTitle] = useState<string>('');
 
   const getTestingBlueprintImagePath = (key: string) => {
     const baseUrl = (import.meta as any).env?.BASE_URL || '/';
@@ -170,7 +165,6 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
     }
   };
 
-  const currentBlueprintPath = getBlueprintImagePath(svgKey);
   const currentTestingBlueprintPath = getTestingBlueprintImagePath(svgKey);
   const currentImagePath = getDiagramImagePath(svgKey);
 
@@ -198,15 +192,19 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
           {/* Display Mode Toggle */}
           <div className="flex items-center bg-slate-200/60 p-0.5 rounded-xl border border-slate-300/60">
             <button
-              onClick={() => setDisplayMode('official_blueprint')}
-              className={`px-3 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                displayMode === 'official_blueprint'
-                  ? 'bg-blue-600 text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
+              onClick={() => currentBlueprintPath && setDisplayMode('official_blueprint')}
+              disabled={!currentBlueprintPath}
+              title={currentBlueprintPath ? "檢視 ISO 80369-7 幾何尺寸藍圖" : "本條文屬於 ISO 80369-20 物理試驗，無專屬 ISO 80369-7 幾何尺寸藍圖"}
+              className={`px-3 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
+                !currentBlueprintPath
+                  ? 'bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed opacity-60'
+                  : displayMode === 'official_blueprint'
+                    ? 'bg-blue-600 text-white shadow-xs cursor-pointer'
+                    : 'text-slate-600 hover:text-slate-900 cursor-pointer'
               }`}
             >
               <Ruler className="w-3.5 h-3.5" />
-              <span>ISO 80369-7 幾何尺寸藍圖</span>
+              <span>ISO 80369-7 幾何尺寸藍圖 {!currentBlueprintPath && '(無圖面)'}</span>
             </button>
             <button
               onClick={() => setDisplayMode('testing_blueprint')}
@@ -249,29 +247,52 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
       <div className="p-4 sm:p-6 flex flex-col items-center justify-center bg-white/80 relative min-h-[360px]">
         
         {displayMode === 'official_blueprint' ? (
-          <div className="w-full relative space-y-3">
-            <div className="relative group rounded-2xl overflow-hidden border border-slate-300/80 shadow-lg bg-slate-900">
-              <img 
-                src={currentBlueprintPath} 
-                alt={`${titleZh} Official Standard Blueprint`}
-                className="w-full max-h-[500px] object-contain mx-auto bg-slate-950 transition-transform duration-300 group-hover:scale-[1.01]" 
-              />
-              
-              <div className="absolute top-3 right-3 flex items-center gap-2">
-                <span className="bg-blue-900/80 backdrop-blur-md text-blue-100 text-xs font-mono font-bold px-3 py-1 rounded-full border border-blue-400/40 shadow-sm flex items-center gap-1.5">
-                  <Ruler className="w-3.5 h-3.5 text-blue-300" />
-                  ISO 80369-7:2021 Precision Blueprint Guide
-                </span>
+          currentBlueprintPath ? (
+            <div className="w-full relative space-y-3">
+              <div className="relative group rounded-2xl overflow-hidden border border-slate-300/80 shadow-lg bg-slate-900">
+                <img 
+                  src={currentBlueprintPath} 
+                  alt={`${titleZh} Official Standard Blueprint`}
+                  className="w-full max-h-[500px] object-contain mx-auto bg-slate-950 transition-transform duration-300 group-hover:scale-[1.01]" 
+                />
+                
+                <div className="absolute top-3 right-3 flex items-center gap-2">
+                  <span className="bg-blue-900/80 backdrop-blur-md text-blue-100 text-xs font-mono font-bold px-3 py-1 rounded-full border border-blue-400/40 shadow-sm flex items-center gap-1.5">
+                    <Ruler className="w-3.5 h-3.5 text-blue-300" />
+                    ISO 80369-7:2021 Precision Blueprint Guide
+                  </span>
+                  <button
+                    onClick={() => openZoomModal(currentBlueprintPath, `${titleZh} - ISO 80369-7 幾何尺寸藍圖`)}
+                    className="bg-blue-600/90 hover:bg-blue-600 backdrop-blur-md text-white p-1.5 rounded-full border border-white/20 shadow-md transition cursor-pointer"
+                    title="放大全螢幕檢視幾何尺寸藍圖"
+                  >
+                    <Maximize2 className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="w-full relative py-12 px-6 bg-slate-900/90 rounded-2xl border border-slate-700 shadow-xl flex flex-col items-center justify-center text-center space-y-4">
+              <div className="p-4 bg-slate-800 rounded-full border border-slate-600 text-amber-400">
+                <ShieldAlert className="w-10 h-10" />
+              </div>
+              <div className="space-y-1.5 max-w-md">
+                <h4 className="text-sm font-bold text-white">本主題無 ISO 80369-7 幾何尺寸藍圖</h4>
+                <p className="text-xs text-slate-300 leading-relaxed">
+                  本條文（<span className="text-amber-300 font-semibold">{titleZh}</span>）屬於 ISO 80369-20 之物理性能試驗方法，ISO 80369-7 標準未定義專屬幾何尺寸圖面。
+                </p>
+              </div>
+              <div className="flex items-center gap-3 pt-2">
                 <button
-                  onClick={() => openZoomModal(currentBlueprintPath, `${titleZh} - ISO 80369-7 幾何尺寸藍圖`)}
-                  className="bg-blue-600/90 hover:bg-blue-600 backdrop-blur-md text-white p-1.5 rounded-full border border-white/20 shadow-md transition cursor-pointer"
-                  title="放大全螢幕檢視幾何尺寸藍圖"
+                  onClick={() => setDisplayMode('testing_blueprint')}
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-md cursor-pointer"
                 >
-                  <Maximize2 className="w-4 h-4" />
+                  <Activity className="w-4 h-4" />
+                  切換至『ISO 80369-20 實驗架設藍圖』
                 </button>
               </div>
             </div>
-          </div>
+          )
         ) : displayMode === 'testing_blueprint' ? (
           <div className="w-full relative space-y-3">
             <div className="relative group rounded-2xl overflow-hidden border border-slate-300/80 shadow-lg bg-slate-900">
