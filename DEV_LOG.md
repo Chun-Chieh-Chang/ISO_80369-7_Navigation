@@ -764,6 +764,23 @@
 - **瀏覽器子代理圖像確效 (CAPA)**：
   - 啟動 `browser_subagent` 實際點擊 `📘 通用規範與預裝配 (1~4章 & 附錄 A/D/E)` 並截圖，確認 Clause 1, Clause 2, Clause 3, Clause 4 與 Annex A/D/E、Annex C 全數 100% 完整呈現於列表中。
 
+---
+
+## 版本：v3.9 雙標準對照矩陣可展開介面預設完全收合修正 (2026-08-07)
+
+### 需求內容
+1. 診斷預設展開問題：先前 `ClauseComparisonMatrix.tsx` 中 `expandedClauseId` 初始化預設為 `'6.1'`，造成進入頁面或「洩漏與氣密」相關條文預設呈現展開狀態。
+2. 預設全數收合修正 (Default Collapsed State)：
+   - 將 `ClauseComparisonMatrix.tsx` 中 `expandedClauseId` 狀態預設值修訂為 **`null`**。
+   - 確保進入頁面時，對照矩陣中所有條文列（包含 6.1, 6.2 等）100% 呈收合狀態，使用者點擊該列或「圖表」按鈕時才按需動態展開。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **打包確效 (CAPA)**：
+  - 執行 `npm run build` 通過生產打包確效 (1682 模組，Built in 2.35s)。
+- **瀏覽器子代理視覺確效 (CAPA)**：
+  - 啟動 `browser_subagent` 檢驗對照矩陣頁面，截圖 `matrix_collapsed_top` 與 `matrix_collapsed_mid` 確效 6.1、6.2 及全數條文預設皆呈現 100% 完全收合。
+
+
 
 
 

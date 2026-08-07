@@ -7,7 +7,7 @@ import { Table, Search, Download, Filter, Info, CheckCircle2, AlertTriangle, Arr
 export const ClauseComparisonMatrix: React.FC = () => {
   const [filterType, setFilterType] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [expandedClauseId, setExpandedClauseId] = useState<string | null>('6.1');
+  const [expandedClauseId, setExpandedClauseId] = useState<string | null>(null);
 
   const getClauseSvgKey = (clauseId: string): string => {
     switch (clauseId) {
