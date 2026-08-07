@@ -8,6 +8,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
   const [filterType, setFilterType] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [expandedClauseId, setExpandedClauseId] = useState<string | null>(null);
+  const [matrixViewMode, setMatrixViewMode] = useState<'card' | 'table'>('card');
 
   const getClauseSvgKey = (clauseId: string): string => {
     switch (clauseId) {
@@ -377,21 +378,21 @@ export const ClauseComparisonMatrix: React.FC = () => {
 
         {/* Filter & Search */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-3 border-t border-slate-100/80">
-          <div className="flex items-center space-x-2 text-[13px] flex-wrap gap-y-1.5">
-            <span className="text-slate-400 font-semibold">篩選領域:</span>
+          <div className="flex items-center overflow-x-auto no-scrollbar gap-1.5 py-1 w-full sm:w-auto scroll-smooth">
+            <span className="text-slate-400 font-semibold text-xs shrink-0">篩選:</span>
             {[
-              { id: 'all', label: '全部條文與附錄 (Clause 1~6 & Annex)' },
-              { id: 'general', label: '📘 通用規範與預裝配 (1~4章 & 附錄 A/D/E)' },
-              { id: 'dimensional', label: '📐 幾何尺寸與參考件 (5章 & 附錄 C)' },
-              { id: 'leakage', label: '💧 洩漏與氣密 (6.1/6.2)' },
-              { id: 'mechanical', label: '⚡ 機械強度 (6.4/6.5/6.6)' },
-              { id: 'durability', label: '🛡️ 耐久與應力龜裂 (6.3)' },
-              { id: 'assembly', label: '🔧 預裝配與治具 (4章 & 附錄 C)' }
+              { id: 'all', label: '全部條文 All' },
+              { id: 'general', label: '📘 通用與預裝配' },
+              { id: 'dimensional', label: '📐 尺寸與夾具' },
+              { id: 'leakage', label: '💧 洩漏與氣密' },
+              { id: 'mechanical', label: '⚡ 機械強度' },
+              { id: 'durability', label: '🛡️ 耐久環境' },
+              { id: 'assembly', label: '🔧 治具配件' }
             ].map(f => (
               <button
                 key={f.id}
                 onClick={() => setFilterType(f.id)}
-                className={`px-3 py-1 rounded-lg font-medium transition-all cursor-pointer ${
+                className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all whitespace-nowrap shrink-0 cursor-pointer min-h-[36px] flex items-center ${
                   filterType === f.id ? 'bg-blue-600 text-white shadow-xs font-bold' : 'bg-slate-100/80 text-slate-600 hover:bg-slate-200/80 hover:text-slate-900'
                 }`}
               >
@@ -400,24 +401,158 @@ export const ClauseComparisonMatrix: React.FC = () => {
             ))}
           </div>
 
-          <div className="relative w-full sm:w-64">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              placeholder="搜尋矩陣條文..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-[13px] text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all"
-            />
+          <div className="flex items-center space-x-2">
+            {/* View Mode Switcher Toggle */}
+            <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 shrink-0 text-xs font-bold">
+              <button
+                onClick={() => setMatrixViewMode('card')}
+                className={`px-2.5 py-1 rounded-lg transition ${
+                  matrixViewMode === 'card' ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-600'
+                }`}
+              >
+                📱 手機卡片 Mode
+              </button>
+              <button
+                onClick={() => setMatrixViewMode('table')}
+                className={`px-2.5 py-1 rounded-lg transition ${
+                  matrixViewMode === 'table' ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-600'
+                }`}
+              >
+                📊 完整表格 Mode
+              </button>
+            </div>
+
+            <div className="relative w-full sm:w-60">
+              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                placeholder="搜尋矩陣條文..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all"
+              />
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Responsive Table Card */}
-      <div className="bg-white border border-slate-200/80 rounded-2xl shadow-sm overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse text-[13px]">
-            <thead>
+      {/* Main Matrix Content: Dual View (Mobile Cards vs Full Table) */}
+      {matrixViewMode === 'card' ? (
+        /* Mobile Clause Cards View */
+        <div className="space-y-4">
+          {filteredClauses.map((clause) => {
+            const isExpanded = expandedClauseId === clause.id;
+            const svgKey = getClauseSvgKey(clause.id);
+            const figInfo = ANNEX_C_FIGURES[svgKey];
+
+            return (
+              <div 
+                key={clause.id}
+                className="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-xs space-y-3 transition-all hover:border-slate-300"
+              >
+                {/* Header */}
+                <div className="flex items-start justify-between gap-2 border-b border-slate-100 pb-2.5">
+                  <div>
+                    <div className="flex items-center space-x-2">
+                      <span className="bg-blue-600 text-white font-mono font-bold text-xs px-2.5 py-0.5 rounded-md shadow-2xs">
+                        {clause.id}
+                      </span>
+                      <span className="bg-slate-100 text-slate-700 text-[12px] font-bold px-2 py-0.5 rounded-md border border-slate-200">
+                        {clause.categoryZh}
+                      </span>
+                    </div>
+                    <h3 className="text-sm font-extrabold text-slate-900 mt-1.5">
+                      {clause.title}
+                    </h3>
+                  </div>
+
+                  <button
+                    onClick={() => setExpandedClauseId(isExpanded ? null : clause.id)}
+                    className="p-2 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-xl text-xs font-bold shrink-0 flex items-center space-x-1 border border-blue-200 cursor-pointer min-h-[36px]"
+                  >
+                    <Eye className="w-3.5 h-3.5" />
+                    <span>{isExpanded ? '收合圖表' : '圖解'}</span>
+                  </button>
+                </div>
+
+                {/* Standard Mapping Info */}
+                <div className="grid grid-cols-2 gap-2 text-xs font-mono">
+                  <div className="bg-slate-50 p-2 rounded-xl border border-slate-100">
+                    <span className="text-slate-400 block text-[11px]">ISO 80369-7 條文:</span>
+                    <strong className="text-blue-900">{clause.iso7}</strong>
+                  </div>
+                  <div className="bg-purple-50/50 p-2 rounded-xl border border-purple-100">
+                    <span className="text-purple-500 block text-[11px]">ISO 80369-20 附錄:</span>
+                    <strong className="text-purple-900">{clause.iso20}</strong>
+                  </div>
+                </div>
+
+                {/* Parameter Details Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                  <div className="bg-blue-50/40 p-2.5 rounded-xl border border-blue-100/80">
+                    <span className="font-bold text-blue-900 block text-[11px] mb-0.5">預裝配前置條件:</span>
+                    <span className="font-mono text-slate-800">{clause.assemblyTorque}</span>
+                  </div>
+                  <div className="bg-purple-50/40 p-2.5 rounded-xl border border-purple-100/80">
+                    <span className="font-bold text-purple-900 block text-[11px] mb-0.5">實測考驗負載:</span>
+                    <span className="font-mono text-slate-800">{clause.testPressure !== '-' ? `壓力 ${clause.testPressure}` : clause.testForce !== '-' ? `拉力 ${clause.testForce}` : clause.testTorque !== '-' ? `扭矩 ${clause.testTorque}` : '-'}</span>
+                  </div>
+                  <div className="bg-amber-50/40 p-2.5 rounded-xl border border-amber-100/80">
+                    <span className="font-bold text-amber-900 block text-[11px] mb-0.5">持壓時間 & 金屬夾具:</span>
+                    <span className="text-slate-800">{clause.holdTime !== '-' ? `持壓 ${clause.holdTime}` : ''} ({clause.fixture})</span>
+                  </div>
+                </div>
+
+                {/* Pass Criteria & Risk */}
+                <div className="space-y-1.5 pt-1 text-xs">
+                  <div className="flex items-start space-x-1.5 text-emerald-800 bg-emerald-50/60 p-2.5 rounded-xl border border-emerald-200/60">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <div>
+                      <strong className="block text-emerald-950 font-bold">Pass 合格標準:</strong>
+                      <span className="text-slate-700 leading-relaxed">{clause.criteria}</span>
+                    </div>
+                  </div>
+                  <div className="flex items-start space-x-1.5 text-rose-800 bg-rose-50/50 p-2.5 rounded-xl border border-rose-200/60">
+                    <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+                    <div>
+                      <strong className="block text-rose-950 font-bold">常見不合格風險:</strong>
+                      <span className="text-slate-700 leading-relaxed">{clause.risk}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Inline SVG Figure Drawer for Mobile Card */}
+                {isExpanded && (
+                  <div className="pt-2 border-t border-slate-100">
+                    <div className="bg-slate-50 p-3 rounded-2xl border border-slate-200 space-y-3">
+                      <div className="flex items-center space-x-2 text-xs font-bold text-slate-800">
+                        <Sparkles className="w-4 h-4 text-purple-600" />
+                        <span>{clause.title} — 規範圖解</span>
+                      </div>
+                      <div className="w-full flex justify-center py-1">
+                        <ISOStandardFigureRenderer
+                          svgKey={svgKey}
+                          titleZh={figInfo?.nameZh || clause.title}
+                          titleEn={figInfo?.name || clause.iso7}
+                          standard={figInfo?.standardOwner || 'ISO 80369-20:2024'}
+                          figureTypeZh={figInfo?.annexGroup || '測試方法圖解'}
+                          descriptionZh={figInfo?.descriptionZh || clause.criteria}
+                          keyCallouts={figInfo?.svgHighlights}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        /* Full Table View (Horizontal Scrollable) */
+        <div className="bg-white border border-slate-200/80 rounded-2xl shadow-sm overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse text-[13px]">
+              <thead>
               <tr className="bg-slate-50 border-b border-slate-200 text-slate-500 font-bold uppercase tracking-wider">
                 <th className="py-3 px-4 w-12 text-center">條文</th>
                 <th className="py-3 px-4 min-w-[160px]">測試名稱 & 主題</th>
@@ -537,6 +672,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
           </table>
         </div>
       </div>
+      )}
     </div>
   );
 };

@@ -17,9 +17,10 @@ export const TopicClauseExplorer: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedStandardFilter, setSelectedStandardFilter] = useState<'all' | 'iso7' | 'iso20'>('all');
+  const [mobileTab, setMobileTab] = useState<'list' | 'detail'>('list');
   const [copiedText, setCopiedText] = useState<boolean>(false);
-  const [calcVolume, setCalcVolume] = useState<number>(10);
-  const [calcTime, setCalcTime] = useState<number>(15);
+  const [calcVolume, setCalcVolume] = useState<number>(8.5);
+  const [calcTime, setCalcTime] = useState<number>(20);
   const [expandedNodes, setExpandedNodes] = useState<Record<string, boolean>>({
     'iso7': true,
     'iso7-annex-a': true,
@@ -207,27 +208,27 @@ export const TopicClauseExplorer: React.FC = () => {
         </div>
 
         {/* Category Chips Filter & Navigation Mode Switcher */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-2 border-t border-slate-100 text-xs">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="text-slate-400 font-medium flex items-center gap-1 mr-1">
-              <Filter className="w-3.5 h-3.5" /> 主題分類:
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-2 border-t border-slate-100 text-xs overflow-hidden">
+          <div className="flex items-center overflow-x-auto no-scrollbar gap-1.5 py-1 w-full sm:w-auto scroll-smooth">
+            <span className="text-slate-400 font-medium flex items-center gap-1 mr-1 shrink-0">
+              <Filter className="w-3.5 h-3.5" /> 分類:
             </span>
             {[
-              { id: 'all', label: '全部主題 All Topics' },
-              { id: 'leakage', label: '💧 洩漏與氣密 Leakage' },
-              { id: 'mechanical', label: '⚡ 機械強度 Mechanical' },
-              { id: 'durability', label: '🛡️ 耐久與環境 Durability' },
-              { id: 'dimensional', label: '📐 幾何尺寸 Dimensions' },
-              { id: 'assembly', label: '🔧 夾具與裝配 Assembly' },
-              { id: 'general', label: '🌐 通用安全 General' }
+              { id: 'all', label: '全部主題 All' },
+              { id: 'leakage', label: '💧 洩漏氣密' },
+              { id: 'mechanical', label: '⚡ 機械強度' },
+              { id: 'durability', label: '🛡️ 耐久與環境' },
+              { id: 'dimensional', label: '📐 幾何尺寸' },
+              { id: 'assembly', label: '🔧 夾具裝配' },
+              { id: 'general', label: '🌐 通用安全' }
             ].map(cat => (
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`px-3 py-1 rounded-lg font-medium transition-all text-xs ${
+                className={`px-3 py-1.5 rounded-xl font-semibold transition-all whitespace-nowrap shrink-0 cursor-pointer min-h-[36px] flex items-center ${
                   selectedCategory === cat.id
-                    ? 'bg-blue-600 text-white shadow-sm'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                    ? 'bg-blue-600 text-white shadow-xs font-bold'
+                    : 'bg-slate-100/90 text-slate-600 hover:bg-slate-200/80'
                 }`}
               >
                 {cat.label}
@@ -236,7 +237,7 @@ export const TopicClauseExplorer: React.FC = () => {
           </div>
 
           {/* View Mode Switcher Button Group */}
-          <div className="flex items-center space-x-1 bg-slate-100 p-1 rounded-xl shrink-0 border border-slate-200 self-end sm:self-auto">
+          <div className="flex items-center space-x-1 bg-slate-100 p-1 rounded-xl shrink-0 border border-slate-200 self-end sm:self-auto w-full sm:w-auto justify-end">
             <button
               onClick={() => setViewMode('topics')}
               className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${
@@ -257,17 +258,39 @@ export const TopicClauseExplorer: React.FC = () => {
               }`}
             >
               <FolderTree className="w-3.5 h-3.5" />
-              <span>規範附件圖表導航樹</span>
+              <span>規範附件導航樹</span>
             </button>
           </div>
         </div>
+      </div>
+
+      {/* Mobile-only Segmented Control: List vs Detail Switcher */}
+      <div className="lg:hidden flex items-center bg-slate-200/70 p-1 rounded-xl border border-slate-300 text-xs font-bold w-full shadow-2xs">
+        <button
+          onClick={() => setMobileTab('list')}
+          className={`flex-1 py-2.5 rounded-lg flex items-center justify-center space-x-2 transition cursor-pointer ${
+            mobileTab === 'list' ? 'bg-white text-blue-700 shadow-sm font-extrabold' : 'text-slate-600'
+          }`}
+        >
+          <BookOpen className="w-4 h-4 text-blue-600" />
+          <span>📋 檢索主題列表 ({filteredTopics.length})</span>
+        </button>
+        <button
+          onClick={() => setMobileTab('detail')}
+          className={`flex-1 py-2.5 rounded-lg flex items-center justify-center space-x-2 transition cursor-pointer ${
+            mobileTab === 'detail' ? 'bg-blue-600 text-white shadow-sm font-extrabold' : 'text-slate-600'
+          }`}
+        >
+          <Eye className="w-4 h-4 text-white" />
+          <span>🔍 條文與測試細則</span>
+        </button>
       </div>
 
       {/* Main Content Layout: Left Navigation Column & Right Detailed Inspector */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
         {/* Left Column: Navigation Selector (5 cols) */}
-        <div className="lg:col-span-5 space-y-3">
+        <div className={`lg:col-span-5 space-y-3 ${mobileTab === 'list' ? 'block' : 'hidden lg:block'}`}>
           {viewMode === 'topics' ? (
           <>
             <div className="flex items-center justify-between px-1">
@@ -296,7 +319,10 @@ export const TopicClauseExplorer: React.FC = () => {
                     return (
                       <div
                         key={topic.id}
-                        onClick={() => setSelectedTopicId(topic.id)}
+                        onClick={() => {
+                          setSelectedTopicId(topic.id);
+                          setMobileTab('detail');
+                        }}
                         className={`p-4 rounded-2xl border transition-all duration-200 cursor-pointer relative ${
                           isSelected
                             ? 'bg-gradient-to-r from-blue-50/90 to-indigo-50/90 border-blue-500 shadow-md shadow-blue-500/10 ring-1 ring-blue-500/30'
@@ -554,7 +580,20 @@ export const TopicClauseExplorer: React.FC = () => {
         </div>
 
         {/* Right Column: Detailed Topic or Figure View (7 cols) */}
-        <div className="lg:col-span-7 space-y-5">
+        <div className={`lg:col-span-7 space-y-5 ${mobileTab === 'detail' ? 'block' : 'hidden lg:block'}`}>
+          {/* Mobile Back Button */}
+          <div className="lg:hidden flex items-center justify-between bg-blue-50/80 border border-blue-200 p-2.5 rounded-xl mb-3 text-xs">
+            <button
+              onClick={() => setMobileTab('list')}
+              className="px-3 py-1.5 bg-blue-600 text-white font-bold rounded-lg flex items-center space-x-1.5 shadow-xs cursor-pointer min-h-[36px]"
+            >
+              <span>← 返回主題列表</span>
+            </button>
+            <span className="text-blue-800 font-semibold truncate ml-2">
+              現正檢視：{currentTopic?.titleZh}
+            </span>
+          </div>
+
           {viewMode === 'topics' ? (
             currentTopic ? (
               <>

@@ -74,13 +74,13 @@ export const TopicVisualMap: React.FC = () => {
         </div>
 
         {/* Topic Selector Bar */}
-        <div className="mt-4 pt-3 border-t border-slate-100/80 flex flex-wrap items-center gap-2 pb-1 text-[13px]">
+        <div className="mt-4 pt-3 border-t border-slate-100/80 flex items-center overflow-x-auto no-scrollbar gap-2 pb-1 text-[13px] scroll-smooth">
           <span className="font-bold text-slate-400 shrink-0">切換主題:</span>
           {ISO_TOPICS.map(topic => (
             <button
               key={topic.id}
               onClick={() => setSelectedTopicId(topic.id)}
-              className={`px-3 py-1.5 rounded-xl font-semibold shrink-0 transition-all cursor-pointer ${
+              className={`px-3 py-1.5 rounded-xl font-semibold shrink-0 transition-all cursor-pointer min-h-[38px] flex items-center ${
                 selectedTopicId === topic.id
                   ? 'bg-blue-600 text-white shadow-xs font-bold'
                   : 'bg-slate-100/80 text-slate-600 hover:bg-slate-200/80 hover:text-slate-900'
@@ -93,7 +93,7 @@ export const TopicVisualMap: React.FC = () => {
       </div>
 
       {/* Visual Flow Network Diagram */}
-      <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm space-y-6 overflow-hidden">
+      <div className="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm space-y-6 overflow-hidden">
         
         {/* Node Columns Grid */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-5 relative">
@@ -125,6 +125,11 @@ export const TopicVisualMap: React.FC = () => {
                 ))}
               </div>
             </div>
+          </div>
+
+          {/* Mobile Arrow Connector 1 -> 2 */}
+          <div className="md:hidden flex justify-center py-1 text-blue-600 font-bold text-lg animate-bounce">
+            ↓
           </div>
 
           {/* Column 2: ISO 80369-7 Requirements */}
@@ -159,6 +164,11 @@ export const TopicVisualMap: React.FC = () => {
             </div>
           </div>
 
+          {/* Mobile Arrow Connector 2 -> 3 */}
+          <div className="md:hidden flex justify-center py-1 text-purple-600 font-bold text-lg animate-bounce">
+            ↓
+          </div>
+
           {/* Column 3: ISO 80369-20 Test Annexes */}
           <div className="space-y-3">
             <div className="flex items-center space-x-2 text-[13px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100 pb-2">
@@ -189,6 +199,11 @@ export const TopicVisualMap: React.FC = () => {
                 </div>
               ))}
             </div>
+          </div>
+
+          {/* Mobile Arrow Connector 3 -> 4 */}
+          <div className="md:hidden flex justify-center py-1 text-emerald-600 font-bold text-lg animate-bounce">
+            ↓
           </div>
 
           {/* Column 4: Reference Fixtures & Pass Criteria */}

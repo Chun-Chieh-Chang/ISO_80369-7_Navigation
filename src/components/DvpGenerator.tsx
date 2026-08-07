@@ -60,23 +60,23 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
             </div>
 
             {/* Filter controls */}
-            <div className="flex items-center space-x-2 text-xs print:hidden">
+            <div className="flex flex-wrap items-center gap-2 text-xs print:hidden w-full sm:w-auto">
               <select
                 value={selectedGender}
                 onChange={(e) => setSelectedGender(e.target.value as ConnectorGender)}
-                className="bg-slate-50 border border-slate-200 rounded-lg p-2 font-medium text-slate-800"
+                className="bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 font-semibold text-slate-800 focus:ring-2 focus:ring-blue-500 focus:outline-none cursor-pointer min-h-[42px] flex-1 sm:flex-initial"
               >
-                <option value="male">公接頭 (Male Luer)</option>
-                <option value="female">母接頭 (Female Luer)</option>
+                <option value="male">♂️ 公接頭 (Male Luer)</option>
+                <option value="female">♀️ 母接頭 (Female Luer)</option>
               </select>
 
               <select
                 value={selectedType}
                 onChange={(e) => setSelectedType(e.target.value as ConnectorType)}
-                className="bg-slate-50 border border-slate-200 rounded-lg p-2 font-medium text-slate-800"
+                className="bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 font-semibold text-slate-800 focus:ring-2 focus:ring-blue-500 focus:outline-none cursor-pointer min-h-[42px] flex-1 sm:flex-initial"
               >
-                <option value="lock">鎖定式 (L2 Lock)</option>
-                <option value="slip">滑動式 (L1 Slip)</option>
+                <option value="lock">🔒 鎖定式 (L2 Lock)</option>
+                <option value="slip">💧 滑動式 (L1 Slip)</option>
               </select>
             </div>
           </div>

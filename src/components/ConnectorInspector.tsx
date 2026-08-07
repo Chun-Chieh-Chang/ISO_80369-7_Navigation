@@ -46,20 +46,20 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
           </div>
 
           {/* Group Filter Tabs */}
-          <div className="flex items-center space-x-1.5 text-xs bg-slate-50 p-1.5 rounded-xl border border-slate-200 flex-wrap gap-y-1">
+          <div className="flex items-center overflow-x-auto no-scrollbar gap-1.5 text-xs bg-slate-50 p-1.5 rounded-xl border border-slate-200 w-full sm:w-auto scroll-smooth">
             {[
-              { id: 'all', label: '全部圖號 (All)' },
-              { id: 'ISO 80369-7', label: '📘 80369-7 規格圖 (全)' },
-              { id: 'Annex B', label: '📐 80369-7 Annex B 產品CAD圖' },
-              { id: 'Annex C', label: '🔧 80369-7 Annex C 金屬夾具圖' },
-              { id: 'ISO 80369-20', label: '🔬 80369-20 測試機台與裝置' }
+              { id: 'all', label: '全部圖號 All' },
+              { id: 'ISO 80369-7', label: '📘 80369-7 規格圖' },
+              { id: 'Annex B', label: '📐 Annex B CAD圖' },
+              { id: 'Annex C', label: '🔧 Annex C 金屬夾具' },
+              { id: 'ISO 80369-20', label: '🔬 80369-20 機台圖' }
             ].map(group => (
               <button
                 key={group.id}
                 onClick={() => setSelectedGroup(group.id as any)}
-                className={`px-2.5 py-1.5 rounded-lg font-medium transition whitespace-nowrap ${
+                className={`px-3 py-1.5 rounded-lg font-medium transition whitespace-nowrap shrink-0 cursor-pointer min-h-[36px] flex items-center ${
                   selectedGroup === group.id
-                    ? 'bg-blue-600 text-white shadow-xs'
+                    ? 'bg-blue-600 text-white shadow-xs font-bold'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200'
                 }`}
               >
@@ -69,23 +69,23 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
           </div>
         </div>
 
-        {/* Figure Selector Buttons */}
-        <div className="flex flex-wrap gap-2 pt-4 no-scrollbar">
+        {/* Figure Selector Buttons - Touch Target & Horizontal Scrollable */}
+        <div className="flex items-center overflow-x-auto no-scrollbar gap-2 pt-3 pb-1 scroll-smooth w-full">
           {filteredFigures.map((fig) => {
             const isSelected = selectedFigId === fig.id;
             return (
               <button
                 key={fig.id}
                 onClick={() => handleSelectFig(fig.id)}
-                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border whitespace-nowrap ${
+                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border whitespace-nowrap shrink-0 cursor-pointer min-h-[38px] ${
                   isSelected
                     ? 'bg-blue-600 text-white border-blue-500 shadow-md shadow-blue-600/30'
                     : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100 hover:text-slate-900'
                 }`}
               >
                 <span className="font-mono">{fig.figureNumber}</span>
-                <span className="text-xs opacity-80">({fig.annexGroup})</span>
-                {fig.isWorstCase && <span className="bg-rose-500/80 text-white text-xs px-1.5 py-0.5 rounded">Worst-Case</span>}
+                <span className="text-[11px] opacity-80">({fig.annexGroup})</span>
+                {fig.isWorstCase && <span className="bg-rose-500/90 text-white text-[10px] px-1.5 py-0.5 rounded font-sans">Worst-Case</span>}
               </button>
             );
           })}

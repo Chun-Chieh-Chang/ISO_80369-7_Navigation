@@ -948,16 +948,25 @@
 - **打包確效 (CAPA)**：
   - 執行 `npm run build` 通過生產打包確效 (1682 模組，Built in 2.12s)。
 
+---
 
+## 版本：v5.5 全站手機版介面 (Mobile View) 響應式適配與 ΔPmax 計算器參數更新 (2026-08-07)
 
+### 需求內容
+1. **全站手機版介面 (Mobile Version) 響應式適配重構**：
+   - 頁首標題與 5 大導航 Tabs 在手機端 (375px~768px) 支援橫向順暢滾動 (overflow-x-auto, no-scrollbar) 並確保點擊觸控點 >= 44px。
+   - 檢索主題庫 (TopicClauseExplorer) 增設手機端「📋 主題列表 ↔ 🔍 條文詳情」Segmented Control 切換與自動點擊響應。
+   - 條文脈絡圖表 (TopicVisualMap) 將 4 欄流向圖改為手機端垂直 Step 1➔Step 2➔Step 3➔Step 4 步驟卡片導引。
+   - 雙標準對照矩陣 (ClauseComparisonMatrix) 增設「📱 手機卡片 Mode ↔ 📊 完整表格 Mode」視圖切換，方便行動端彈性瀏覽與查看圖表。
+   - 參考夾具庫 (ConnectorInspector) 與 DVP 矩陣 (DvpGenerator) 完成觸控按鈕膠囊與彈性堆疊 layout。
+2. **壓差降極限 (ΔPmax) 即時換算計算器預設值更新**：
+   - 將預設持壓時間 (&Delta;t) 設定為 **20 秒**。
+   - 將預設測試系統總容積 (V) 設定為 **8.5 mL**。
 
-
-
-
-
-
-
-
-
-
-
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **行動優先與設計規範對齊 (CAPA)**：
+  - 依照 Mobile-First SOP 與 Color Master Palette，確保手機端 (375px) 字級 >= 13px/14px，按鈕點擊高度達 44px 以上防誤觸。
+  - 將計算器初始 state 更新為 `calcVolume: 8.5` 與 `calcTime: 20`。
+- **編譯與確效 (Mandatory Runtime Check)**：
+  - `npx tsc --noEmit` 軟體確效型別檢查：100% 通過。
+  - `npx vite build` 生產打包確效：1682 模組成功打包，費時 1.84s，0 errors。
