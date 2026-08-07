@@ -637,5 +637,24 @@
   - 執行 `npx tsc --noEmit` 驗證通過（0 錯誤）。
   - 執行 `npm run build` 打包確效通過 (1682 模組，Built in 2.25s)。
 
+---
+
+## 版本：v3.2 ISO 80369-7 規範原廠藍圖 Folio 頁面動態嵌入與工程術語「公 / 母」稽核 (2026-08-07)
+
+### 需求內容
+1. 提取 `ISO_80369-7_Blueprint_Folio.pdf` 全部 15 頁高解析度工程藍圖頁面，完整嵌入 `ISOStandardFigureRenderer.tsx` 之核心圖面組件。
+2. 於 [ISOStandardFigureRenderer.tsx](file:///c:/Users/USER/Downloads/Project/ISO_80369-7_Navigation/src/components/ISOStandardFigureRenderer.tsx) 新設 `[ 📜 ISO 規範原廠藍圖 ]` 頁籤，成為預設首選展示模式，並支援全螢幕高解析 Lightbox 檢視。
+3. 全站連鎖稽核工程術語：確認醫療連接器極性一律採用工程規範用語 **「公 (Male)」** 與 **「母 (Female)」**，嚴禁使用「男 / 女」。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **藍圖圖庫提取與動態綁定 (CAPA)**：
+  - 提取 `ISO_80369-7_Blueprint_Folio.pdf` (15 頁) 存入 `public/assets/blueprint/page_1.png` ~ `page_15.png`。
+  - 於 `ISOStandardFigureRenderer.tsx` 新增 `getBlueprintImagePath(key)` 函式，實現各 ISO 7 / ISO 20 圖號至原廠高解析藍圖頁面之 100% 精準動態對應。
+- **全站「公 / 母」術語二進位掃描確效 (CAPA)**：
+  - 執行全專案二進位與 UTF-8 多重編碼掃描，確認 `src/` 中 100% 使用「公魯爾 / 母魯爾」、「公接頭 / 母接頭」、「公參考件 / 母參考件」，零殘留「男 / 女」用語。
+- **打包與型別確效 (CAPA)**：
+  - 執行 `npx tsc --noEmit` 與 `npm run build` 通過生產打包與 TypeScript 靜態檢驗 (1682 模組，Built in 2.42s)。
+
+
 
 

@@ -29,8 +29,62 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
   const [showPhysicsVectors, setShowPhysicsVectors] = useState(true);
   const [activeCalloutId, setActiveCalloutId] = useState<string | null>(null);
   const [showCategoryModal, setShowCategoryModal] = useState(false);
-  const [displayMode, setDisplayMode] = useState<'hd_render' | 'svg_cad'>('svg_cad');
+  const [displayMode, setDisplayMode] = useState<'official_blueprint' | 'hd_render' | 'svg_cad'>('official_blueprint');
   const [showZoomModal, setShowZoomModal] = useState(false);
+  const [zoomImageSrc, setZoomImageSrc] = useState<string>('');
+  const [zoomImageTitle, setZoomImageTitle] = useState<string>('');
+
+  const getBlueprintImagePath = (key: string) => {
+    const baseUrl = (import.meta as any).env?.BASE_URL || '/';
+    const cleanBase = baseUrl.endsWith('/') ? baseUrl : baseUrl + '/';
+    
+    // Strict 1-to-1 mapping to extracted ISO 80369-7 Blueprint Folio pages
+    switch (key) {
+      case 'ISO7-FIG-B1':
+        return `${cleanBase}assets/blueprint/page_2.png`;
+      case 'ISO7-FIG-B2':
+      case 'ISO7-FIG-B1-B2':
+        return `${cleanBase}assets/blueprint/page_3.png`;
+      case 'ISO7-FIG-B3':
+        return `${cleanBase}assets/blueprint/page_4.png`;
+      case 'ISO7-FIG-B4':
+        return `${cleanBase}assets/blueprint/page_5.png`;
+      case 'ISO7-FIG-B5':
+        return `${cleanBase}assets/blueprint/page_6.png`;
+      case 'ISO7-FIG-B6':
+      case 'ISO7-FIG-B3-B6':
+        return `${cleanBase}assets/blueprint/page_7.png`;
+      case 'ISO7-FIG-C1':
+        return `${cleanBase}assets/blueprint/page_10.png`;
+      case 'ISO7-FIG-C2':
+        return `${cleanBase}assets/blueprint/page_11.png`;
+      case 'ISO7-FIG-C3':
+        return `${cleanBase}assets/blueprint/page_12.png`;
+      case 'ISO7-FIG-C4':
+        return `${cleanBase}assets/blueprint/page_13.png`;
+      case 'ISO7-FIG-C5':
+        return `${cleanBase}assets/blueprint/page_14.png`;
+      case 'ISO7-FIG-C6':
+        return `${cleanBase}assets/blueprint/page_15.png`;
+      case 'ISO20-FIG-J1':
+        return `${cleanBase}assets/blueprint/page_10.png`;
+      case 'ISO20-FIG-B1':
+      case 'ISO20-FIG-B2':
+      case 'ISO20-FIG-C1':
+        return `${cleanBase}assets/blueprint/page_10.png`;
+      case 'ISO20-FIG-D1':
+      case 'ISO20-FIG-K1':
+        return `${cleanBase}assets/blueprint/page_10.png`;
+      case 'ISO20-FIG-E1':
+        return `${cleanBase}assets/blueprint/page_10.png`;
+      case 'ISO20-FIG-F1':
+      case 'ISO20-FIG-G1':
+      case 'ISO20-FIG-H1':
+        return `${cleanBase}assets/blueprint/page_12.png`;
+      default:
+        return `${cleanBase}assets/blueprint/page_1.png`;
+    }
+  };
 
   const getDiagramImagePath = (key: string) => {
     const baseUrl = (import.meta as any).env?.BASE_URL || '/';
@@ -74,7 +128,14 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
     }
   };
 
+  const currentBlueprintPath = getBlueprintImagePath(svgKey);
   const currentImagePath = getDiagramImagePath(svgKey);
+
+  const openZoomModal = (src: string, title: string) => {
+    setZoomImageSrc(src);
+    setZoomImageTitle(title);
+    setShowZoomModal(true);
+  };
 
   return (
     <div className={`bg-white border border-slate-200/80 rounded-2xl overflow-hidden shadow-xl text-slate-900 ${className}`}>
@@ -93,6 +154,17 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
         <div className="flex flex-wrap items-center gap-2">
           {/* Display Mode Toggle */}
           <div className="flex items-center bg-slate-200/60 p-0.5 rounded-xl border border-slate-300/60">
+            <button
+              onClick={() => setDisplayMode('official_blueprint')}
+              className={`px-3 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                displayMode === 'official_blueprint'
+                  ? 'bg-blue-600 text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              <Ruler className="w-3.5 h-3.5" />
+              <span>ISO 規範原廠藍圖</span>
+            </button>
             <button
               onClick={() => setDisplayMode('hd_render')}
               className={`px-3 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
@@ -122,26 +194,28 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
             <>
               <button
                 onClick={() => setShowDimensions(!showDimensions)}
-                className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition border flex items-center gap-1 cursor-pointer ${
+                title="切換是否顯示 CAD 圖面上之法規標註尺寸與時間公差"
+                className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition border flex items-center gap-1.5 cursor-pointer ${
                   showDimensions 
                     ? 'bg-blue-600 text-white border-blue-500 shadow-xs' 
                     : 'bg-slate-100 text-slate-500 border-slate-200 hover:text-slate-800'
                 }`}
               >
-                <Ruler className="w-3 h-3" />
-                <span>標註尺寸</span>
+                <Ruler className="w-3.5 h-3.5" />
+                <span>標註尺寸 ({showDimensions ? '開' : '關'})</span>
               </button>
 
               <button
                 onClick={() => setShowPhysicsVectors(!showPhysicsVectors)}
-                className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition border flex items-center gap-1 cursor-pointer ${
+                title="切換是否顯示物理受力方向、流態推力向量與水滴/氣泡微粒"
+                className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition border flex items-center gap-1.5 cursor-pointer ${
                   showPhysicsVectors 
                     ? 'bg-purple-600 text-white border-purple-500 shadow-xs' 
                     : 'bg-slate-100 text-slate-500 border-slate-200 hover:text-slate-800'
                 }`}
               >
-                <Zap className="w-3 h-3" />
-                <span>物理應力/流向</span>
+                <Zap className="w-3.5 h-3.5" />
+                <span>物理應力/流向 ({showPhysicsVectors ? '開' : '關'})</span>
               </button>
             </>
           )}
@@ -162,7 +236,31 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
       {/* Canvas / Image Display Workspace */}
       <div className="p-4 sm:p-6 flex flex-col items-center justify-center bg-white/80 relative min-h-[360px]">
         
-        {displayMode === 'hd_render' ? (
+        {displayMode === 'official_blueprint' ? (
+          <div className="w-full relative space-y-3">
+            <div className="relative group rounded-2xl overflow-hidden border border-slate-300/80 shadow-lg bg-slate-900">
+              <img 
+                src={currentBlueprintPath} 
+                alt={`${titleZh} Official Standard Blueprint`}
+                className="w-full max-h-[500px] object-contain mx-auto bg-slate-950 transition-transform duration-300 group-hover:scale-[1.01]" 
+              />
+              
+              <div className="absolute top-3 right-3 flex items-center gap-2">
+                <span className="bg-blue-900/80 backdrop-blur-md text-blue-100 text-xs font-mono font-bold px-3 py-1 rounded-full border border-blue-400/40 shadow-sm flex items-center gap-1.5">
+                  <Ruler className="w-3.5 h-3.5 text-blue-300" />
+                  ISO 80369-7:2021 Official Blueprint Folio
+                </span>
+                <button
+                  onClick={() => openZoomModal(currentBlueprintPath, `${titleZh} - ISO 規範原廠藍圖`)}
+                  className="bg-blue-600/90 hover:bg-blue-600 backdrop-blur-md text-white p-1.5 rounded-full border border-white/20 shadow-md transition cursor-pointer"
+                  title="放大全螢幕檢視原廠高解析藍圖"
+                >
+                  <Maximize2 className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : displayMode === 'hd_render' ? (
           <div className="w-full relative space-y-3">
             <div className="relative group rounded-2xl overflow-hidden border border-slate-200/80 shadow-md bg-slate-950">
               <img 
@@ -177,7 +275,7 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
                   ISO Standard HD Photorealistic
                 </span>
                 <button
-                  onClick={() => setShowZoomModal(true)}
+                  onClick={() => openZoomModal(currentImagePath, `${titleZh} - 3D/HD 重構圖`)}
                   className="bg-blue-600/90 hover:bg-blue-600 backdrop-blur-md text-white p-1.5 rounded-full border border-white/20 shadow-md transition cursor-pointer"
                   title="放大全螢幕檢視"
                 >
@@ -187,7 +285,21 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
             </div>
           </div>
         ) : (
-          <div className="w-full flex justify-center">
+          <div className="w-full relative flex justify-center">
+            {/* SVG Interactive Overlay Status Indicator */}
+            <div className="absolute top-2 left-2 z-10 hidden sm:flex items-center gap-2 pointer-events-none">
+              <span className={`text-[11px] font-bold px-2 py-0.5 rounded-md border transition-all ${
+                showDimensions ? 'bg-blue-50 text-blue-700 border-blue-200/80 shadow-2xs' : 'bg-slate-100 text-slate-400 border-slate-200 opacity-60'
+              }`}>
+                📐 尺寸標註: {showDimensions ? '顯示中' : '已隱藏'}
+              </span>
+              <span className={`text-[11px] font-bold px-2 py-0.5 rounded-md border transition-all ${
+                showPhysicsVectors ? 'bg-purple-50 text-purple-700 border-purple-200/80 shadow-2xs' : 'bg-slate-100 text-slate-400 border-slate-200 opacity-60'
+              }`}>
+                ⚡ 應力/流向: {showPhysicsVectors ? '顯示中' : '已隱藏'}
+              </span>
+            </div>
+
             {renderSvgContent(svgKey, showDimensions, showPhysicsVectors, activeCalloutId, setActiveCalloutId)}
           </div>
         )}
@@ -198,7 +310,13 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
             <span className="font-semibold text-blue-600 flex items-center gap-1">
               <Info className="w-3.5 h-3.5" /> 標準規範圖解重點說明
             </span>
-            <span className="font-mono text-xs">SVG CAD High-Precision Model</span>
+            <span className="font-mono text-xs">
+              {displayMode === 'official_blueprint' 
+                ? 'ISO 80369-7 Official Blueprint Folio' 
+                : displayMode === 'hd_render' 
+                  ? 'ISO Photorealistic 3D Model' 
+                  : 'SVG CAD High-Precision Model'}
+            </span>
           </div>
           <p className="text-slate-600 leading-relaxed">
             {descriptionZh}
@@ -227,12 +345,12 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
         )}
       </div>
 
-      {/* Fullscreen Zoom Modal for HD Image */}
+      {/* Fullscreen Zoom Modal for Blueprint or HD Image */}
       {showZoomModal && (
-        <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex flex-col items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex flex-col items-center justify-center p-4">
           <div className="absolute top-4 right-4 flex items-center gap-3 z-10">
             <span className="text-white text-xs font-mono bg-white/10 px-3 py-1 rounded-full border border-white/20">
-              {titleZh} ({standard})
+              {zoomImageTitle || titleZh} ({standard})
             </span>
             <button
               onClick={() => setShowZoomModal(false)}
@@ -241,11 +359,11 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
               <X className="w-6 h-6" />
             </button>
           </div>
-          <div className="max-w-6xl w-full max-h-[85vh] flex items-center justify-center overflow-auto p-2">
+          <div className="max-w-7xl w-full max-h-[90vh] flex items-center justify-center overflow-auto p-2">
             <img 
-              src={currentImagePath} 
-              alt={titleZh}
-              className="max-w-full max-h-[80vh] object-contain rounded-xl shadow-2xl border border-white/20" 
+              src={zoomImageSrc || currentBlueprintPath} 
+              alt={zoomImageTitle || titleZh}
+              className="max-w-full max-h-[85vh] object-contain rounded-xl shadow-2xl border border-white/20 bg-slate-950" 
             />
           </div>
         </div>
