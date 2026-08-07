@@ -100,13 +100,13 @@ export const ClauseComparisonMatrix: React.FC = () => {
         category: 'assembly',
         categoryZh: '裝配',
         type: 'Lock & Slip',
-        assemblyTorque: '0.08 - 0.12 N·m (+ 26.5–27.5N)',
+        assemblyTorque: '0.08 - 0.12 N·m (+ 26.5–27.5 N 軸向推力)',
         testPressure: '-',
-        testForce: '26.5 - 27.5 N (軸向推力)',
+        testForce: '-',
         testTorque: '-',
         holdTime: '5 - 6 秒',
         fixture: '校正定扭矩起子 & 彈簧推力機構',
-        criteria: '性能測試前必須執行統一標準預裝配作業，並符合跨領域非互換性防呆要求',
+        criteria: '性能測試前必須執行統一標準預裝配作業，旋合時須同時施加 0.08~0.12 N·m 扭矩與 26.5~27.5 N 軸向推力持壓 5~6s 確立 6% 錐面配合',
         risk: '預裝配未定量加壓致使假洩漏或螺紋損傷'
       },
       {

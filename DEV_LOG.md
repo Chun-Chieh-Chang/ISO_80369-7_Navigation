@@ -606,3 +606,20 @@
 - **建置確效 (CAPA)**：
   - 執行 `npm run build` 打包確效 (1682 模組，Built in 2.28s)。
 
+---
+
+## 版本：v3.0 全專案參數定位與 SSOT 單一事實來源水平展開全面稽核 (2026-08-07)
+
+### 需求內容
+1. 執行「水平展開 (Horizontal First)」全專案掃描：徹底檢視全系統所有數據庫 (`isoData.ts`, `isoTopicsData.ts`) 與視圖組件 (`ClauseComparisonMatrix.tsx`, `DvpGenerator.tsx`, `TopicClauseExplorer.tsx`)，消除所有欄位定位錯置與參數遺漏。
+2. 補齊 `STANDARD_CLAUSE_DETAILS` 中 6.1~6.5、Annex B/C/D/F/G/I/E 之 `quantitativeConditions` 字典中缺漏的 `assemblyAxialForceN: '26.5 N - 27.5 N'`。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **水平展開全面稽核 (CAPA)**：
+  - **Clause 4**：更正 `ClauseComparisonMatrix.tsx` 中 Clause 4 的 `定量加載條件` 為 `-`（預裝配程序本身無加載考驗），避免將軸向推力誤標為實測負載。
+  - **條文細節字典**：為 `src/data/isoTopicsData.ts` 中 `STANDARD_CLAUSE_DETAILS` 的所有物理與測試附錄（6.1, 6.2, 6.3, 6.4, 6.5, Annex B, C, D, F, G, I, E）補齊 `assemblyAxialForceN: '26.5 N - 27.5 N'` 屬性。
+  - **主題與 DVP 對齊**：對齊 `ISO_TOPICS` 12 個主題與 DVP 矩陣欄位，實現全站參數 100% 同一事實來源（SSOT）與定位無歧義。
+- **打包與型別確效 (CAPA)**：
+  - 執行 `npm run build` 通過生產打包與 TypeScript 靜態檢驗 (1682 模組，Built in 2.31s)。
+
+

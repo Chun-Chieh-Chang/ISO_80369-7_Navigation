@@ -823,6 +823,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     appliesToZh: '公鎖定（Male Lock）、母鎖定（Female Lock）、公滑動（Male Slip）、母滑動（Female Slip）',
     quantitativeConditions: {
       assemblyTorqueNm: '0.08 N·m - 0.12 N·m',
+      assemblyAxialForceN: '26.5 N - 27.5 N',
       testPressureKpa: '300 kPa - 330 kPa',
       holdTimeSec: '30 - 35 秒 (水滴法) / 15 - 20 秒 (壓降法)',
       temperatureC: '15°C - 30°C',
@@ -856,7 +857,8 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     objectiveZh: '提供使用空氣介質測量加壓系統壓力衰減（Pressure Decay）的量化標準實驗步驟。',
     appliesToZh: '所有符合 ISO 80369 及 ISO 18250 系列之小口徑連接器',
     quantitativeConditions: {
-      assemblyTorqueNm: '0.08 - 0.12 N·m',
+      assemblyTorqueNm: '0.08 N·m - 0.12 N·m',
+      assemblyAxialForceN: '26.5 N - 27.5 N',
       testPressureKpa: '300 - 330 kPa',
       holdTimeSec: '15 - 20 秒',
       temperatureC: '15°C - 30°C (溫濕度預處理: 20±5°C, 50±10% RH ≥24小時)'
@@ -888,7 +890,8 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     objectiveZh: '提供使用水介質目視觀察水滴滴落的標準流體洩漏實驗步驟。',
     appliesToZh: '所有小口徑連接器',
     quantitativeConditions: {
-      assemblyTorqueNm: '0.08 - 0.12 N·m',
+      assemblyTorqueNm: '0.08 N·m - 0.12 N·m',
+      assemblyAxialForceN: '26.5 N - 27.5 N',
       testPressureKpa: '300 - 330 kPa',
       holdTimeSec: '30 - 35 秒',
       media: '蒸餾水/飲用水 (可添加亞甲藍色素)'
@@ -920,6 +923,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     appliesToZh: '所有血管與皮下注射用魯爾接頭',
     quantitativeConditions: {
       assemblyTorqueNm: '0.08 N·m - 0.12 N·m',
+      assemblyAxialForceN: '26.5 N - 27.5 N',
       testPressureKpa: '80.0 kPa - 88.0 kPa (真空負壓)',
       holdTimeSec: '15 秒 - 20 秒'
     },
@@ -1070,6 +1074,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     appliesToZh: '鎖定型（L2, 32-35N）及滑動型（L1, 23-25N）接頭',
     quantitativeConditions: {
       assemblyTorqueNm: '0.08 N·m - 0.12 N·m',
+      assemblyAxialForceN: '26.5 N - 27.5 N',
       testForceN: '32 N - 35 N (Lock) / 23 N - 25 N (Slip)',
       holdTimeSec: '10 秒 - 15 秒'
     },
@@ -1130,6 +1135,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     appliesToZh: '魯爾鎖定型接頭（Luer Lock Connectors）',
     quantitativeConditions: {
       assemblyTorqueNm: '0.08 N·m - 0.12 N·m',
+      assemblyAxialForceN: '26.5 N - 27.5 N',
       testTorqueNm: '0.018 N·m - 0.020 N·m (反向)',
       holdTimeSec: '10 秒 - 15 秒'
     },
@@ -1185,7 +1191,8 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     objectiveZh: '評估使用者將接頭旋鬆拆卸時的最大峰值扭矩（Peak Torque），確保臨床易用性。',
     appliesToZh: '需要頻繁旋開拆卸之魯爾鎖定接頭',
     quantitativeConditions: {
-      assemblyTorqueNm: '0.08 - 0.12 N·m',
+      assemblyTorqueNm: '0.08 N·m - 0.12 N·m',
+      assemblyAxialForceN: '26.5 N - 27.5 N',
       restTimeMin: '10 - 15 分鐘 (靜置貼合)',
       maxAllowedUnscrewingTorque: '按產品規格上限 (例: ≤ 0.24 N·m)'
     },
@@ -1214,7 +1221,8 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     objectiveZh: '評估接頭在裝配應力下靜置 48 小時後，是否因化學介質引發微龜裂並通過隨後之氣密性測試。',
     appliesToZh: '所有塑膠成型小口徑連接器',
     quantitativeConditions: {
-      assemblyTorqueNm: '0.08 - 0.12 N·m',
+      assemblyTorqueNm: '0.08 N·m - 0.12 N·m',
+      assemblyAxialForceN: '26.5 N - 27.5 N',
       holdTimeHours: '≥ 48 小時',
       temperatureC: '15°C - 30°C'
     },
