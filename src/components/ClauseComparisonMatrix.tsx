@@ -142,7 +142,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
         testForce: '-',
         testTorque: '-',
         holdTime: '15–20s (6.1.2氣壓) / 30–35s (6.1.3水壓)',
-        fixture: c61Detail?.fixtureRequiredZh || 'Fig.C.1 (母) / Fig.C.4 (公)',
+        fixture: 'Fig.C.1/C.5 (母鎖定/滑動) 或 Fig.C.4/C.2 (公鎖定/滑動)',
         criteria: c61Data?.passCriteriaZh || '【正壓液體洩漏 (6.1.3 水壓法)】加壓 300~330 kPa...',
         risk: c61Detail?.commonNonConformancesZh?.join('；') || '射出成型毛邊、6% 錐度縮水變形'
       },
@@ -159,7 +159,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
         testForce: '-',
         testTorque: '-',
         holdTime: `${c62Data?.holdTimeSec.min} - ${c62Data?.holdTimeSec.max} 秒`,
-        fixture: c62Detail?.fixtureRequiredZh || 'Fig.C.1 (母) / Fig.C.4 (公)',
+        fixture: 'Fig.C.1/C.5 (母鎖定/滑動) 或 Fig.C.4/C.2 (公鎖定/滑動)',
         criteria: c62Data?.passCriteriaZh || '在 80.0 kPa–88.0 kPa 負壓真空下保持 15–20 秒...',
         risk: c62Detail?.commonNonConformancesZh?.join('；') || '負壓時錐面微幅收縮脫離產生微氣孔致氣栓'
       },
@@ -176,7 +176,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
         testForce: '-',
         testTorque: '-',
         holdTime: '≥ 48 小時',
-        fixture: c63Detail?.fixtureRequiredZh || 'Fig.C.1 (母) / Fig.C.4 (公)',
+        fixture: 'Fig.C.1/C.5 (母鎖定/滑動) 或 Fig.C.4/C.2 (公鎖定/滑動)',
         criteria: c63Data?.passCriteriaZh || '裝配於金屬參考接頭於 23°C 空氣中靜置 48 小時...',
         risk: c63Detail?.commonNonConformancesZh?.join('；') || 'PC/PMMA 材質射出殘留內應力高，受長效過盈應力作用發生爆裂'
       },
@@ -193,7 +193,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
         testForce: `${c64Data?.testForceN?.min || 23} - 25 N (Slip) / 32 - ${c64Data?.testForceN?.max || 35} N (Lock)`,
         testTorque: '-',
         holdTime: `${c64Data?.holdTimeSec.min} - ${c64Data?.holdTimeSec.max} 秒`,
-        fixture: c64Detail?.fixtureRequiredZh || 'Fig.C.3 (母 2.71mm 窄耳翼極限) / Fig.C.6 (公極限)',
+        fixture: 'Fig.C.3/C.5 (母鎖定最壞/滑動) 或 Fig.C.6/C.2 (公鎖定最壞/滑動)',
         criteria: c64Data?.passCriteriaZh || '在 23 N–25 N (Slip) 或 32 N–35 N (Lock) 軸向拉力下...',
         risk: c64Detail?.commonNonConformancesZh?.join('；') || '螺紋咬合深度不足，耳翼被直接剪切拉平'
       },

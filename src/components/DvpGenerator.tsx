@@ -105,8 +105,36 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
                 {Object.values(ISO_CLAUSES)
                   .filter(c => c.applicableTypes.includes(selectedType))
                   .map((clause) => {
-                    const requiredRefId = selectedGender === 'male' ? clause.requiredFemaleRef : clause.requiredMaleRef;
+                    // Helper to get exact standard ISO 80369-7 Annex C reference connector
+                    let requiredRefId = 'C.1';
+                    if (selectedGender === 'male') {
+                      // Testing Male Luer product -> Requires Female Reference Connector (C.1, C.3, or C.5)
+                      if (selectedType === 'slip') {
+                        requiredRefId = 'C.5'; // Female Reference Luer Slip
+                      } else {
+                        requiredRefId = (clause.id === '6.4' || clause.id === '6.6') ? 'C.3' : 'C.1';
+                      }
+                    } else {
+                      // Testing Female Luer product -> Requires Male Reference Connector (C.2, C.4, or C.6)
+                      if (selectedType === 'slip') {
+                        requiredRefId = 'C.2'; // Male Reference Luer Slip
+                      } else {
+                        requiredRefId = (clause.id === '6.4' || clause.id === '6.6') ? 'C.6' : 'C.4';
+                      }
+                    }
+
                     const requiredRef = ANNEX_C_FIGURES[requiredRefId];
+                    const refLabel = requiredRefId === 'C.3' 
+                      ? '母最壞情況 2.71mm' 
+                      : requiredRefId === 'C.6' 
+                      ? '公最壞情況' 
+                      : requiredRefId === 'C.5' 
+                      ? '母滑動標稱' 
+                      : requiredRefId === 'C.2' 
+                      ? '公滑動標稱' 
+                      : requiredRefId === 'C.1' 
+                      ? '母鎖定標稱 3.50mm' 
+                      : '公鎖定標稱';
 
                     const isActiveClause = clause.id === config.selectedClauseId;
                     return (
@@ -147,7 +175,7 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
                           <span className={`inline-block px-2 py-1 rounded text-xs ${
                             requiredRef?.isWorstCase ? 'bg-rose-100 text-rose-800 font-black border border-rose-300' : 'bg-blue-100 text-blue-900 border border-blue-200'
                           }`}>
-                            Fig.{requiredRefId} ({requiredRef?.isWorstCase ? '最壞情況 2.71mm' : '標稱 3.50mm'})
+                            Fig.{requiredRefId} ({refLabel})
                           </span>
                         </td>
                         <td className="p-3 border border-slate-200 text-slate-700 leading-tight text-xs">

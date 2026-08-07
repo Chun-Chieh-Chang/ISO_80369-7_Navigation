@@ -106,7 +106,7 @@ export const ISO_TOPICS: ISOTopic[] = [
     ],
     relatedISO7Clauses: ['6.2'],
     relatedISO20Annexes: ['Annex D', 'Annex K'],
-    relatedRefConnectors: ['C.1', 'C.4'],
+    relatedRefConnectors: ['C.1', 'C.4', 'C.2', 'C.5'],
     engineeringRiskZh: '軟質塑膠在負壓下發生錐面向內微幅收縮變形，導致配合面局部脫離產生微氣孔吸氣。',
     auditFocusZh: '負壓量測衰減法（Vacuum Decay, Annex D）中的儀器容積校正與溫度穩定度。注意：真空衰減法與正壓衰減法（Annex B.4）在儀器動作控制上皆具備「充/抽氣-穩定-測試-排/復壓」四階段邏輯，但 Annex D 施加條件為 80~88 kPa 負壓真空，以避免外界空氣吸入。',
     tags: ['80kPa', '負壓', '真空', '氣栓', '6.2', 'Annex D', 'Annex K'],

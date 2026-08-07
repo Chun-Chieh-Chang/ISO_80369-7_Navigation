@@ -786,6 +786,91 @@
 - **打包確效 (CAPA)**：
   - 執行 `npm run build` 通過生產打包確效 (1682 模組，Built in 1.60s)。
 
+---
+
+## 版本：v4.1 ISO 80369-7 修正版高精度幾何尺寸藍圖完全對應與全面取代 (2026-08-07)
+
+### 需求內容
+1. 識別並解析 `ISO_80369-7_Precision_Blueprint_Guide.pptx` 簡報中全數 15 頁修正版藍圖內容。
+2. 解決原藍圖中尺寸標示與箭頭指向錯誤問題，精確 1 對 1 替換專案 `public/assets/blueprint/` 中之 ISO 80369-7 幾何尺寸工程藍圖及預覽縮圖。
+
+### 頁面與圖號精確對應矩陣 (Precision Mapping Matrix)
+- **Slide 1 (`page_1.png`)**: Cover Page / ISO 80369-7 Blueprint Folio Summary
+- **Slide 2 (`page_2.png`)**: Fig. B.1 公 Luer slip 接頭 (L1) 基礎錐形設計
+- **Slide 3 (`page_3.png`)**: Fig. B.2 母 Luer slip 接頭 (L1) 基礎錐形設計
+- **Slide 4 (`page_4.png`)**: Fig. B.3 公 Luer lock 接頭 (L2) 固定環 (Fixed Collar)
+- **Slide 5 (`page_5.png`)**: Fig. B.4 公 Luer lock 接頭 (L2) 可旋轉環 (Rotatable Collar)
+- **Slide 6 (`page_6.png`)**: Fig. B.5 母 Luer lock 接頭 (L2) 標準外螺紋
+- **Slide 7 (`page_7.png`)**: Fig. B.6 (Variant A) 母 Luer lock 接頭 直角卡榫
+- **Slide 8 (`page_8.png`)**: Fig. B.6 (Variant B) 母 Luer lock 接頭 剛性材質專用
+- **Slide 9 (`page_9.png`)**: Fig. B.6 (Variant C) 母 Luer lock 接頭 擴展直角卡榫
+- **Slide 10 (`page_10.png`)**: Fig. C.1 [測試用] 母參考 Luer lock 接頭
+- **Slide 11 (`page_11.png`)**: Fig. C.2 [測試用] 公參考 Luer slip 接頭
+- **Slide 12 (`page_12.png`)**: Fig. C.3 [測試用] 母參考接頭 (分離與過載專用)
+- **Slide 13 (`page_13.png`)**: Fig. C.4 [測試用] 公參考 Luer lock 接頭
+- **Slide 14 (`page_14.png`)**: Fig. C.5 [測試用] 母參考 Luer slip 接頭
+- **Slide 15 (`page_15.png`)**: Fig. C.6 [測試用] 公參考接頭 (分離與過載專用)
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **圖檔替換與預覽產生 (CAPA)**：
+  - 由 PPTX 抽取 1376x768 原始無損影像，100% 覆蓋 `public/assets/blueprint/page_1.png` ~ `page_15.png`。
+  - 自動生成 800px 高品質預覽縮圖 `page_1_preview.png` ~ `page_15_preview.png`。
+- **組件對映擴充 (CAPA)**：
+  - 於 `ISOStandardFigureRenderer.tsx` 擴充 `ISO7-FIG-B6-A` (page 7), `ISO7-FIG-B6-B` (page 8), `ISO7-FIG-B6-C` (page 9) 之對應分支。
+- **打包確效 (CAPA)**：
+  - 執行 `npm run build` 通過生產打包確效 (1682 模組，Built in 1.72s)。
+
+---
+
+## 版本：v4.2 DVP 設計驗證矩陣表與全站滑動/鎖定型金屬參考接頭對應關聯全面盤點修復 (2026-08-07)
+
+### 需求內容
+1. 深入排查設計驗證矩陣表 (DVP Matrix) 未顯示 ISO 80369-7 Fig. C.5 (母滑動參考接頭) 之根本原因。
+2. 全面掃描並補齊全站其他主題頁面、雙標準對照矩陣及條文檢索頁面中，滑動型 (Slip) 與鎖定型 (Lock) 參考接頭對應資訊缺失或失真問題。
+
+### 根因分析 (RCA)
+1. **DVP 動態解析邏輯缺失 (RCA)**：
+   原 `DvpGenerator.tsx` 僅根據 `selectedGender` ('male' / 'female') 提取 `ISO_CLAUSES` 中硬編碼之 `requiredFemaleRef` ('C.1' / 'C.3') 與 `requiredMaleRef` ('C.4' / 'C.6')，未考量 `selectedType` ('lock' / 'slip') 之差異。導致選擇「公滑動型 (Male Slip, L1)」或「母滑動型 (Female Slip, L1)」時，系統誤帶入鎖定型參考件 Fig. C.1 / C.3 / C.4 / C.6，造成專用於滑動型之 **Fig. C.5 (母滑動參考接頭)** 與 **Fig. C.2 (公滑動參考接頭)** 在 DVP 表格中隱形。
+2. **跨主題資料關聯缺失 (RCA)**：
+   - `src/data/isoTopicsData.ts` Topic 2 (負壓空氣與抽吸洩漏測試) 適用於 Lock & Slip 兩型受測物，但其 `relatedRefConnectors` 漏未包含 `'C.2'` 與 `'C.5'`。
+   - `ClauseComparisonMatrix.tsx` 雙標準對照矩陣之金屬夾具欄位未明確兼顧滑動型（Slip）參考件。
+
+### 矯正與預防措施 (CAPA)
+1. **DVP 動態判定函式重構 (`DvpGenerator.tsx`)**：
+   - 建立高精度動態分流機制：
+     - **受測物為公接頭 (Male)**：`Slip` 帶入 **Fig. C.5** (母滑動標稱)；`Lock` 根據 6.4/6.6 帶入 **Fig. C.3** (母最壞 2.71mm) 或 6.1/6.2/6.3/6.5 帶入 **Fig. C.1** (母鎖定標稱 3.50mm)。
+     - **受測物為母接頭 (Female)**：`Slip` 帶入 **Fig. C.2** (公滑動標稱)；`Lock` 根據 6.4/6.6 帶入 **Fig. C.6** (公最壞) 或 6.1/6.2/6.3/6.5 帶入 **Fig. C.4** (公鎖定標稱)。
+2. **全站資料與視圖補齊**：
+   - `src/data/isoTopicsData.ts`：更新 Topic 2 之 `relatedRefConnectors` 為 `['C.1', 'C.4', 'C.2', 'C.5']`。
+   - `ClauseComparisonMatrix.tsx`：更新條款 6.1~6.4 之夾具欄位，明確呈現 `Fig.C.1/C.5 (母鎖定/滑動)` 與 `Fig.C.4/C.2 (公鎖定/滑動)`。
+3. **瀏覽器實機確效 (CAPA)**：
+   - 啟動 `browser_subagent` 實際切換 DVP 篩選：
+     - 切換為 `公接頭 + 滑動式 (L1 Slip)` -> 驗證 `Fig.C.5 (母滑動標稱)` 100% 正常顯示於表格中。
+     - 切換為 `母接頭 + 滑動式 (L1 Slip)` -> 驗證 `Fig.C.2 (公滑動標稱)` 100% 正常顯示於表格中。
+4. **打包確效 (CAPA)**：
+   - 執行 `npm run build` 通過生產打包確效 (1682 模組，Built in 1.81s)。
+
+---
+
+## 版本：v5.0 專案整體程式碼、幾何藍圖與文件架構全流程優化與重構 (2026-08-07)
+
+### 需求內容
+1. 執行專案全量死碼、冗餘檔案與死連結盤點清理 (MECE Audit)。
+2. 同步更新 `DEV_LOG.md`、`README.md` 等開發文件至最新功能與圖像狀態。
+3. 遵循 MECE 原則整理專案檔案與幾何藍圖結構，確立完整版本基準點。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **死碼與資源清理 (MECE Audit)**：
+  - 遍歷全專案 8 個子目錄與 13 個核心檔案，確認 `public/assets/blueprint/` 15 頁 corrected 藍圖與 `public/assets/diagrams/` 14 個工程圖形均完全 MECE 無無效檔案。
+  - 清除暫存目錄，確保 `.gitignore` 排除環境隱患。
+- **文件 100% 同步 (Doc Sync)**：
+  - 完整記錄 v4.0 (壓力衰減測試圖整合)、v4.1 (PPTX 15 頁高精度藍圖取代)、v4.2 (DVP Fig. C.5/C.2 帶入邏輯修復) 與 v5.0 (整體重構清理)。
+- **生產打包與運行確效 (Mandatory Runtime Check)**：
+  - 執行 `npm run build` 通過生產打包確效 (1682 模組，Built in 1.76s，0 errors)。
+- **版本基準點建立 (Git Baseline)**：
+  - 本地 Git 庫完成變更 Stage 與提交備份。
+
+
 
 
 
