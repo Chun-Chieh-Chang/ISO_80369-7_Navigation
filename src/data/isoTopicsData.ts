@@ -281,19 +281,19 @@ export const ISO_TOPICS: ISOTopic[] = [
     category: 'durability',
     categoryZh: '耐久性與環境',
     iconName: 'ShieldAlert',
-    shortSummaryZh: '裝配於參考接頭於 23°C 空氣中靜置 48 小時 (Annex E)，驗證無應力龜裂與洩漏。（可延伸 70% IPA 耐化驗證）',
-    detailedDescriptionZh: 'ISO 80369-7 6.3 與 ISO 80369-20 Annex E 規範：將接頭裝配於金屬參考接頭上，於 23°C 空氣中靜置 48 小時後評估洩漏。注意：規範標準環境為「空氣環境」，不包含 IPA 浸泡；但醫療現場常接觸 70% IPA 酒精，許多廠商會延伸執行 70% IPA 化學環境應力龜裂 (ESCR) 評估。',
+    shortSummaryZh: '裝配於參考接頭於 23°C 空氣中靜置 48 小時 (Annex E)，驗證無應力龜裂與洩漏。',
+    detailedDescriptionZh: 'ISO 80369-7 6.3 與 ISO 80369-20 Annex E 規範：將接頭裝配於金屬參考接頭上，於 23°C 空氣中靜置 48 小時後評估洩漏與結構無應力龜裂狀況。',
     keyParameters: [
-      { label: '測試浸泡時間 Duration', value: '48', unit: '小時' },
-      { label: '試驗環境 Ambient Environment', value: '23°C 空氣靜置 48h (ISO標準) / 可選 70% IPA (臨床延伸)' },
+      { label: '測試靜置時間 Duration', value: '48', unit: '小時' },
+      { label: '試驗環境 Ambient Environment', value: '23°C 空氣靜置 48h (ISO標準)' },
       { label: '環境溫度 Temperature', value: '20 - 30', unit: '°C' }
     ],
     relatedISO7Clauses: ['6.3'],
     relatedISO20Annexes: ['Annex E'],
     relatedRefConnectors: ['C.1', 'C.4'],
-    engineeringRiskZh: 'PC 或 Polycarbonate 材料對酒精非常敏感，若射出成型分子內應力過高，極易在 24 小時內發生爆裂。',
+    engineeringRiskZh: 'PC 或 Polycarbonate 材料對過盈應力較為敏感，若射出成型分子內應力過高，極易在 24 小時內發生龜裂爆裂。',
     auditFocusZh: '顯微鏡觀察倍率（≥ 10x），殘留應力檢驗（偏光應力分析）。',
-    tags: ['48小時', '酒精', 'ESCR', '應力龜裂', '6.3', 'Annex E'],
+    tags: ['48小時', '23°C空氣', 'ESCR', '應力龜裂', '6.3', 'Annex E'],
     figures: [
       {
         id: 'ISO20-FIG-E1',
@@ -302,10 +302,10 @@ export const ISO_TOPICS: ISOTopic[] = [
         standard: 'ISO 80369-20:2024 Annex E',
         figureType: 'apparatus',
         figureTypeZh: '測試裝置示意圖',
-        descriptionZh: '說明 ISO 80369-20 Annex E 試驗。組裝件裝配於金屬參考接頭於 23°C 空氣環境中靜置 48 小時，驗證環向應力下無龜裂破裂，並需通過 Annex B/C 洩漏測試。（註：臨床可延伸浸泡 70% IPA 驗證 ESCR）。',
+        descriptionZh: '說明 ISO 80369-20 Annex E 試驗。組裝件裝配於金屬參考接頭於 23°C 空氣環境中靜置 48 小時，驗證環向應力下無龜裂破裂，並需通過 Annex B/C 洩漏測試。',
         svgKey: 'ISO20-FIG-E1',
         keyCallouts: [
-          { id: 'media', labelZh: '試驗條件', valueZh: '23°C 空氣環境 48h (標準) / IPA (延伸)' },
+          { id: 'media', labelZh: '試驗條件', valueZh: '23°C 空氣環境 48h (ISO標準)' },
           { id: 'time', labelZh: '浸泡靜置時間', valueZh: '≥ 48 小時' },
           { id: 'temp', labelZh: '環境溫度', valueZh: '20°C ~ 30°C' }
         ]
@@ -1254,15 +1254,15 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     },
     fixtureRequiredZh: 'Fig.C.1 或 Fig.C.4',
     testProcedureStepsZh: [
-      '裝配接頭並浸泡或塗佈化學藥劑（如 70% 異丙醇）。',
-      '在室溫下靜置保持至少 48 小時。',
+      '依規範將接頭裝配於參考金屬接頭上。',
+      '在 23°C 室溫空氣環境下靜置保持至少 48 小時。',
       '進行 Annex B 或 Annex C 流體洩漏測試驗證密封性。'
     ],
     acceptanceCriteriaZh: [
       '靜置 48 小時後進行洩漏測試 Pass，且視覺無裂紋。'
     ],
     commonNonConformancesZh: [
-      'PC 材質殘留內應力高，接觸酒精後 24 小時內破裂。'
+      'PC 材質殘留內應力高，於 48 小時靜置期間發生應力龜裂破裂。'
     ],
     regulatoryTipZh: '常與 ISO 10993 生物相容性及耐化學性測試整合執行。'
   },
@@ -1282,7 +1282,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     fixtureRequiredZh: 'C.1 (母標稱), C.2 (公滑動), C.3 (母最壞情況), C.4 (公標稱), C.5 (母滑動), C.6 (公最壞情況)',
     testProcedureStepsZh: [
       '檢驗金屬件校正證書，確認錐度 6% 及耳翼寬度（C.1: 3.50mm / C.3: 2.71mm）。',
-      '每次測試前以無塵布與異丙醇清潔金屬表面。',
+      '每次測試前以無塵布清潔金屬表面。',
       '搭配扭矩起子進一步旋合裝配。'
     ],
     acceptanceCriteriaZh: [
@@ -1303,18 +1303,18 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     titleZh: '6.3 耐環境應力龜裂規範條文',
     type: 'requirement',
     typeZh: '法規要求條文',
-    objectiveZh: '驗證塑膠魯爾接頭在維持預裝配過盈應力下，浸泡於消毒酒精等化學介質 48 小時後無結構破裂與洩漏。',
+    objectiveZh: '驗證塑膠魯爾接頭在維持預裝配過盈應力下，於 23°C 空氣環境靜置 48 小時後無結構破裂與洩漏。',
     appliesToZh: '所有塑膠成型魯爾接頭 (PC, PP, Tritan, ABS 等)',
     quantitativeConditions: {
       assemblyTorqueNm: '0.08 N·m - 0.12 N·m',
       holdTimeHours: '≥ 48 小時',
       temperatureC: '20°C - 30°C',
-      media: '70% IPA 異丙醇消毒酒精或脂質溶液'
+      media: '23°C 溫濕度控制之空氣環境 (ISO 80369-20 Annex E)'
     },
     fixtureRequiredZh: 'Fig.C.1 (母) 或 Fig.C.4 (公)',
     testProcedureStepsZh: [
       '以 0.08–0.12 N·m 裝配受測物與參考金屬夾具。',
-      '完全浸泡或表面塗佈 70% 異丙醇藥劑。',
+      '於 23°C 溫濕度控制之空氣環境中靜置。',
       '在 20–30°C 室溫環境下靜置保持至少 48 小時。',
       '進行 6.1 (正壓流體洩漏) 或 6.2 (負壓空氣洩漏) 驗證密封性。'
     ],
@@ -1323,7 +1323,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       '隨後執行的流體洩漏測試須完全 Pass。'
     ],
     commonNonConformancesZh: [
-      'Polycarbonate (PC) 射出殘留內應力高，接觸酒精 24 小時內發生應力爆裂。'
+      'Polycarbonate (PC) 射出殘留內應力高，靜置期間發生應力爆裂。'
     ],
     regulatoryTipZh: '建議於模具設計階段即執行偏光應力檢驗，必要時進行 退火 (Annealing) 消除殘留應力。'
   },

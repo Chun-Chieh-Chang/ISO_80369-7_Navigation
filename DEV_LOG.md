@@ -311,3 +311,37 @@
 ### 結論
 版本 `v2.3` 已達成全站數據 100% 契合 ISO 80369-7:2021 與 ISO 80369-20:2024 最新規範，軟體確效全數通過，建立穩定還原基準。
 
+---
+
+## 版本：v2.4 依用戶指示完全移除非 ISO 標準內之 IPA 酒精檢索與介面內容 (2026-08-07)
+
+### 需求內容
+1. 依據用戶指令：「IPA如果沒出現在ISO規範內就不必出現在檢索的介面內容中」。
+2. 徹底清理數據集與 UI 元件中所有「IPA 酒精浸泡 / 70% 異丙醇 / 臨床延伸化驗」等非 ISO 80369-7 / ISO 80369-20 條文內載明之描述與關鍵字標籤。
+
+### 過程紀錄與問題分析 (RCA & CAPA)
+- **原因分析 (RCA)**：ISO 80369-7:2021 Clause 6.3 與 ISO 80369-20:2024 Annex E 之官方標準測試條件僅規定於「(23 ± 2) °C 空氣環境中靜置 ≥ 48 小時」。過往版本雖然標註了「70% IPA 浸泡為臨床延伸選配」，但此延伸測試非 ISO 規範標準內容，出現在檢索介面中會干擾對 ISO 標準規格的純粹查閱與搜尋。
+- **矯正措施 (CAPA)**：
+  1. `src/data/isoTopicsData.ts`：移除所有 70% IPA、酒精、異丙醇描述與標籤，全數校正為 ISO 標準之「23°C 空氣環境靜置 48 小時 (ISO 80369-20 Annex E)」。
+  2. `src/data/isoData.ts`：更新 Clause 6.3 通過標準與材料推薦描述，刪除 IPA / 酒精延伸評估說明。
+  3. `src/components/ClauseComparisonMatrix.tsx`：清空對照矩陣中關於 70% IPA 浸泡之備註。
+  4. `src/components/ISOStandardFigureRenderer.tsx`：更新 SVG 8 (Stress Cracking Test Setup) 繪圖與圖例文字，僅呈現 ISO 標準 23°C 空氣環境靜置。
+  5. `src/components/TopicClauseExplorer.tsx`：更新快速搜尋欄位 Placeholder 關鍵字範例（將「酒精」替換為「龜裂」）。
+
+---
+
+## 版本：v2.5 執行專案整體程式碼與檔案優化作業 (2026-08-07)
+
+### 需求內容
+1. 觸發全域 SOP 咒語：「執行專案的整體程式碼與檔案優化作業」。
+2. 執行 5 大閉環 SOP：全面盤點清理、同步更新開發文件、MECE 原則整合整理、建立 Git 還原基準點、推送至 GitHub 遠端倉庫。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **全面盤點與清理作業 (CAPA)**：
+  - 掃描全專案模組與相依套件，清理 `Header.tsx` 中未引用的 Lucide Icon 匯入項（`Activity`, `ShieldCheck`, `Sparkles`, `CheckCircle2`）。
+  - 對齊頁首 `Header.tsx` 與頁尾 `App.tsx` 之規範版本標籤，全站統一為 `ISO 80369-7:2021 & ISO 80369-20:2024` 最新雙標準版。
+- **文件與規範動態對齊 (CAPA)**：
+  - 更新 `DEV_LOG.md` 與全域規則 [.agents/AGENTS.md](file:///c:/Users/USER/Downloads/Project/ISO_80369-7_Navigation/.agents/AGENTS.md) 及 [SKILL.md](file:///C:/Users/USER/.gemini/config/skills/codebase-cleanup-optimization/SKILL.md)，確保維護日誌與實際程式碼 100% 同步。
+- **MECE 結構梳理與建置驗證 (CAPA)**：
+  - 依 MECE 原則整理組件層級，零過時備份檔案與冗餘資源。
+  - 執行 `npm run build` 打包確效，通過 1682 個模組零錯誤轉譯 (2.29s)。

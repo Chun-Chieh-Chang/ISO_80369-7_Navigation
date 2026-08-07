@@ -42,9 +42,9 @@ export const ISO_CLAUSES: Record<string, ISOClauseInfo> = {
     requiredMaleRef: 'C.4',
     requiredFemaleRef: 'C.1',
     passCriteria: 'No evidence of stress cracking or leakage after 48h assembly on Annex C gauge at conditioned ambient air (ISO 80369-20 Annex E).',
-    passCriteriaZh: '裝配於金屬參考接頭於 23°C 空氣環境中靜置 48 小時 (ISO 80369-20 Annex E)，無結構龜裂且須通過 6.1.1 洩漏測試。（註：70% IPA 浸泡為臨床延伸 ESCR 測試，非 ISO 強制要求）',
+    passCriteriaZh: '裝配於金屬參考接頭於 23°C 空氣環境中靜置 48 小時 (ISO 80369-20 Annex E)，無結構龜裂且須通過 6.1.1 洩漏測試。',
     keyPhysics: 'Verifies environmental stress cracking resistance (ESCR) under sustained hoop stress.',
-    keyPhysicsZh: '驗證塑膠材料在持續裝配環向應力與空氣/化學介質作用下的抗應力龜裂（ESCR）能力與洩漏密封性。'
+    keyPhysicsZh: '驗證塑膠材料在持續裝配環向應力與溫濕度環境作用下的抗應力龜裂（ESCR）能力與洩漏密封性。'
   },
   '6.4': {
     id: '6.4',
@@ -427,15 +427,15 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
     figureNumber: 'Fig.E.1 (ISO 20)',
     standardOwner: 'ISO 80369-20',
     annexGroup: 'ISO 80369-20',
-    name: 'Stress Cracking Test Setup (Conditioned Air / Optional IPA)',
+    name: 'Stress Cracking Test Setup (Conditioned Air)',
     nameZh: 'ISO 80369-20 Annex E 48小時應力龜裂試驗圖',
-    description: 'ISO 80369-20 Annex E environmental stress cracking test setup under 48-hour conditioned air (optional 70% IPA extension).',
-    descriptionZh: 'ISO 80369-20 Annex E 試驗圖，組裝件裝配於金屬參考接頭於 23°C 空氣環境中靜置 48 小時，驗證環向應力下無龜裂破裂，並需通過 Annex B/C 洩漏測試。（註：臨床可延伸浸泡 70% IPA 驗證 ESCR）。',
+    description: 'ISO 80369-20 Annex E environmental stress cracking test setup under 48-hour conditioned air.',
+    descriptionZh: 'ISO 80369-20 Annex E 試驗圖，組裝件裝配於金屬參考接頭於 23°C 空氣環境中靜置 48 小時，驗證環向應力下無龜裂破裂，並需通過 Annex B/C 洩漏測試。',
     intendedClauses: ['6.3'],
     isWorstCase: false,
     worstCaseReasonZh: '驗證高應力區在持續裝配應力下之抗龜裂能力與洩漏密封性。',
     svgHighlights: [
-      { title: '試驗條件', value: '23°C 空氣 48h (標準) / IPA (延伸)' },
+      { title: '試驗條件', value: '23°C 空氣 48h (ISO標準)' },
       { title: '靜置時間', value: '≥ 48 小時' },
       { title: '環境溫度', value: '20°C ~ 30°C' }
     ],
@@ -571,7 +571,7 @@ export const PLASTIC_MATERIALS: PlasticMaterial[] = [
     flexuralModulusMpa: 2100,
     yieldStrengthMpa: 55,
     creepResistanceScore: 'High',
-    recommendationZh: '優良推薦。兼具極佳耐化學性（抗酒精）與高剛性，在 6.3 應力龜裂與 6.6 抗過旋測試中均有優異表現。'
+    recommendationZh: '優良推薦。兼具極佳耐化學性與高剛性，在 6.3 應力龜裂與 6.6 抗過旋測試中均有優異表現。'
   },
   {
     id: 'abs',

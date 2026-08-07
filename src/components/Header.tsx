@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookOpen, Network, Table, Wrench, Activity, ShieldCheck, FileSpreadsheet, Sparkles, FileText, CheckCircle2 } from 'lucide-react';
+import { BookOpen, Network, Table, Wrench, FileSpreadsheet, FileText } from 'lucide-react';
 import { TestConfigState } from '../types';
 
 interface HeaderProps {
@@ -49,7 +49,7 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
               <span className="font-bold text-slate-800">ISO 80369-7:2021</span>
               <span className="text-slate-300">|</span>
-              <span className="font-bold text-slate-800">ISO 80369-20:2015</span>
+              <span className="font-bold text-slate-800">ISO 80369-20:2024</span>
             </div>
           </div>
         </div>

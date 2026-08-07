@@ -158,8 +158,8 @@ export const ClauseComparisonMatrix: React.FC = () => {
       testTorque: '-',
       holdTime: '≥ 48 小時',
       fixture: 'Fig.C.1 (母) / Fig.C.4 (公)',
-      criteria: '裝配於金屬參考接頭於 23°C 空氣中靜置 48 小時 (Annex E) 無龜裂，且隨後須通過 6.1.1 洩漏測試（註：70% IPA 浸泡為臨床延伸 ESCR 評估）',
-      risk: 'PC/PMMA 材質射出殘留內應力高，受長效應力與藥劑作用發生爆裂'
+      criteria: '裝配於金屬參考接頭於 23°C 空氣中靜置 48 小時 (Annex E) 無龜裂，且隨後須通過 6.1.1 洩漏測試',
+      risk: 'PC/PMMA 材質射出殘留內應力高，受長效過盈應力作用發生爆裂'
     },
     {
       id: '6.4',

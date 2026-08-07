@@ -805,21 +805,20 @@ function renderUnscrewingTorqueRig(showDims: boolean, showVectors: boolean, acti
 }
 
 /* =========================================================================
-   SVG 8: Stress Cracking Test Setup (ISO 80369-20 Annex E - 23°C Air / Optional IPA)
+   SVG 8: Stress Cracking Test Setup (ISO 80369-20 Annex E - 23°C Conditioned Air)
    ========================================================================= */
 function renderStressCrackingApparatus(showDims: boolean, showVectors: boolean, activeCallout: string | null) {
   return (
     <svg viewBox="0 0 680 320" className="w-full max-w-3xl bg-white rounded-xl border border-slate-200 p-2 shadow-2xl">
       <rect width="680" height="320" fill="#0f172a" rx="8" />
       <text x="20" y="25" fill="#a855f7" fontSize="13" fontFamily="monospace" fontWeight="bold">
-        ISO 80369-20 Annex E: Stress Cracking Test Setup (23°C Conditioned Air / Clinical IPA Option)
+        ISO 80369-20 Annex E: Stress Cracking Test Setup (23°C Conditioned Air)
       </text>
 
       {/* Assembly Specimen in Chamber */}
       <rect x="60" y="80" width="180" height="180" rx="12" fill="#1e293b" stroke="#a855f7" strokeWidth="2" />
       <rect x="62" y="140" width="176" height="118" rx="0" fill="#a855f7" opacity="0.25" />
-      <text x="150" y="125" fill="#c084fc" fontSize="13" textAnchor="middle" fontWeight="bold">23°C 空氣環境靜置 (ISO標準)</text>
-      <text x="150" y="145" fill="#a7f3d0" fontSize="13" textAnchor="middle">或 70% IPA (臨床延伸)</text>
+      <text x="150" y="135" fill="#c084fc" fontSize="13" textAnchor="middle" fontWeight="bold">23°C 空氣環境靜置 48h (ISO標準)</text>
       <text x="150" y="185" fill="#ffffff" fontSize="13" textAnchor="middle" fontWeight="bold">預裝配組裝件 (0.12 N·m)</text>
 
       {/* Micro Crack Diagram */}
@@ -834,10 +833,9 @@ function renderStressCrackingApparatus(showDims: boolean, showVectors: boolean, 
       <line x1="370" y1="120" x2="370" y2="200" stroke="#f43f5e" strokeWidth="3" strokeDasharray="4 2" />
       <text x="370" y="220" fill="#f43f5e" fontSize="13" textAnchor="middle" fontWeight="bold">環向內應力與材料殘留應力</text>
 
-      <text x="480" y="140" fill="#cbd5e1" fontSize="13">• ISO標準環境: <tspan fill="#a7f3d0" fontWeight="bold">23°C 空氣 48h</tspan></text>
-      <text x="480" y="162" fill="#cbd5e1" fontSize="13">• 臨床延伸試驗: <tspan fill="#c084fc" fontWeight="bold">70% IPA 浸泡</tspan></text>
-      <text x="480" y="184" fill="#cbd5e1" fontSize="13">• 隨後試驗: <tspan fill="#38bdf8" fontWeight="bold">Annex B/C 洩漏測試</tspan></text>
-      <text x="480" y="206" fill="#cbd5e1" fontSize="13">• 判定: <tspan fill="#a7f3d0" fontWeight="bold">零龜裂破裂且 6.1 Pass</tspan></text>
+      <text x="480" y="145" fill="#cbd5e1" fontSize="13">• ISO標準環境: <tspan fill="#a7f3d0" fontWeight="bold">23°C 空氣 48h</tspan></text>
+      <text x="480" y="172" fill="#cbd5e1" fontSize="13">• 隨後試驗: <tspan fill="#38bdf8" fontWeight="bold">Annex B/C 洩漏測試</tspan></text>
+      <text x="480" y="199" fill="#cbd5e1" fontSize="13">• 判定: <tspan fill="#a7f3d0" fontWeight="bold">零龜裂破裂且 6.1 Pass</tspan></text>
     </svg>
   );
 }
