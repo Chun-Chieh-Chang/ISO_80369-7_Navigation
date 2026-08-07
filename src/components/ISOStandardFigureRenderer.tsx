@@ -67,7 +67,6 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
       case 'ISO7-FIG-C6':
         return `${cleanBase}assets/blueprint/page_15.png`;
       case 'ISO7-FIG-SML':
-      case 'ISO7-FIG-A1':
         return `${cleanBase}assets/blueprint/page_1.png`;
       default:
         // No dedicated ISO 80369-7 dimensional drawing for textual clauses (Clauses 1-3) or physical test methods

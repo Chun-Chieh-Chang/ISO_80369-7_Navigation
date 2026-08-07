@@ -870,6 +870,27 @@
 - **版本基準點建立 (Git Baseline)**：
   - 本地 Git 庫完成變更 Stage 與提交備份。
 
+---
+
+## 版本：v5.1 主題 10 防錯對接非正確藍圖按鈕停用與權限對齊 (2026-08-07)
+
+### 需求內容
+1. 針對主題 10「防錯對接與不相容性規範 (Non-Interchangeability & Misconnection Safety)」中，「規範文件對應關鍵配圖與裝置結構圖」區塊內「ISO 80369-7 幾何尺寸藍圖」按鈕不正確之問題進行停用。
+
+### 根因分析 (RCA)
+- **圖號類別與條文對應歧異 (RCA)**：
+  主題 10 核心配圖為 `ISO7-FIG-A1`（ISO 80369 跨領域小口徑連接器防誤插幾何矩陣，屬 ISO 80369-1 通用防錯矩陣示意圖）。原 `ISOStandardFigureRenderer.tsx` 中 `getBlueprintImagePath('ISO7-FIG-A1')` 誤導向至 `assets/blueprint/page_1.png`（ISO 80369-7 Luer 接頭 6% 錐度尺寸圖鑑封面）。此圖並非防誤插矩陣藍圖，造成畫面呈現失真。
+
+### 矯正與預防措施 (CAPA)
+1. **藍圖路徑映射精確停用 (`ISOStandardFigureRenderer.tsx`)**：
+   - 自 `getBlueprintImagePath` 中移除 `case 'ISO7-FIG-A1':` 分支，使其傳回 `null`。
+   - 使「ISO 80369-7 幾何尺寸藍圖」按鈕在渲染 `ISO7-FIG-A1` 時自動進入停用狀態（顯示為 `ISO 80369-7 幾何尺寸藍圖 (無圖面)`，按鈕置灰、`disabled` 無法點擊）。
+   - 預設自動導向至正確之「ISO 80369-20 實驗架設藍圖」與「3D/HD 精密重構圖」。
+2. **瀏覽器實機確效 (CAPA)**：
+   - 啟動 `browser_subagent` 實際點擊主題 10，驗證按鈕已呈現 `(無圖面)` 置灰不可點擊，且實驗架設藍圖與 HD 重構圖渲染與縮放均完全正常，Console 無紅色錯誤。
+3. **打包確效 (CAPA)**：
+   - 執行 `npm run build` 通過生產打包確效 (1682 模組，Built in 1.86s)。
+
 
 
 
