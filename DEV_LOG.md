@@ -744,6 +744,27 @@
 - **瀏覽器子代理自動化檢驗 (CAPA)**：
   - 啟動 `browser_subagent` 模擬展開 Clause 1~3 內嵌視圖，驗證三大頁籤皆精準呈現停用狀態，提示面板語義 100% 精準對齊。
 
+---
+
+## 版本：v3.8 雙標準對照矩陣篩選類別完整性修復 (2026-08-07)
+
+### 需求內容
+1. 診斷矩陣篩選遺漏問題：先前點選 `📘 通用 (1~4章)` 時，因 Clause 4 條文之分類設為 `assembly` (預裝配)，導致 Clause 4 在篩選條件中被漏掉（只顯示 Clause 1, 2, 3 與 Annex A/D/E）。
+2. 多維度分類邏輯修復 (MECE Category Filtering)：
+   - 修訂 `ClauseComparisonMatrix.tsx` 中 `filteredClauses` 之匹配邏輯：
+     - `general`（通用規範與預裝配）：包含 Clause 1, 2, 3, 4 與 Annex A/D/E。
+     - `dimensional`（幾何尺寸與參考件）：包含 Clause 5 (Figures B.1~B.6) 與 Annex C (Figures C.1~C.6)。
+     - `assembly`（預裝配與治具）：包含 Clause 4 與 Annex C。
+3. 篩選按鈕標籤視覺升級：
+   - 標籤升級為 `📘 通用規範與預裝配 (1~4章 & 附錄 A/D/E)`、`📐 幾何尺寸與參考件 (5章 & 附錄 C)` 等完整語義描述。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **打包確效 (CAPA)**：
+  - 執行 `npm run build` 通過生產打包確效 (1682 模組，Built in 2.52s)。
+- **瀏覽器子代理圖像確效 (CAPA)**：
+  - 啟動 `browser_subagent` 實際點擊 `📘 通用規範與預裝配 (1~4章 & 附錄 A/D/E)` 並截圖，確認 Clause 1, Clause 2, Clause 3, Clause 4 與 Annex A/D/E、Annex C 全數 100% 完整呈現於列表中。
+
+
 
 
 

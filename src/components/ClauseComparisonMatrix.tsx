@@ -269,7 +269,31 @@ export const ClauseComparisonMatrix: React.FC = () => {
   }, []);
 
   const filteredClauses = clausesList.filter(c => {
-    const matchesCat = filterType === 'all' || c.category === filterType;
+    let matchesCat = false;
+    if (filterType === 'all') {
+      matchesCat = true;
+    } else if (filterType === 'general') {
+      // General (Clause 1~4 & Annex A/D/E)
+      matchesCat = c.category === 'general' || c.category === 'assembly' || c.id === 'Clause 4' || c.id === 'Clause 1' || c.id === 'Clause 2' || c.id === 'Clause 3';
+    } else if (filterType === 'dimensional') {
+      // Dimensional (Clause 5 & Annex C Reference Connectors)
+      matchesCat = c.category === 'dimensional' || c.id === 'Annex C';
+    } else if (filterType === 'leakage') {
+      // Leakage & Airtightness (6.1 & 6.2)
+      matchesCat = c.category === 'leakage';
+    } else if (filterType === 'mechanical') {
+      // Mechanical Strength (6.4, 6.5, 6.6)
+      matchesCat = c.category === 'mechanical';
+    } else if (filterType === 'durability') {
+      // Durability & Stress Cracking (6.3)
+      matchesCat = c.category === 'durability' || c.category === 'crack';
+    } else if (filterType === 'assembly') {
+      // Pre-assembly & Fixtures (Clause 4 & Annex C)
+      matchesCat = c.category === 'assembly' || c.id === 'Clause 4' || c.id === 'Annex C';
+    } else {
+      matchesCat = c.category === filterType;
+    }
+
     const q = searchTerm.toLowerCase();
     const matchesSearch = !q || 
       c.title.toLowerCase().includes(q) ||
@@ -356,13 +380,13 @@ export const ClauseComparisonMatrix: React.FC = () => {
           <div className="flex items-center space-x-2 text-[13px] flex-wrap gap-y-1.5">
             <span className="text-slate-400 font-semibold">篩選領域:</span>
             {[
-              { id: 'all', label: '全部條文 (Clause 1~6 & Annex)' },
-              { id: 'general', label: '📘 通用 (1~4章)' },
-              { id: 'dimensional', label: '📐 幾何尺寸 (5章)' },
+              { id: 'all', label: '全部條文與附錄 (Clause 1~6 & Annex)' },
+              { id: 'general', label: '📘 通用規範與預裝配 (1~4章 & 附錄 A/D/E)' },
+              { id: 'dimensional', label: '📐 幾何尺寸與參考件 (5章 & 附錄 C)' },
               { id: 'leakage', label: '💧 洩漏與氣密 (6.1/6.2)' },
               { id: 'mechanical', label: '⚡ 機械強度 (6.4/6.5/6.6)' },
-              { id: 'durability', label: '🛡️ 耐久與環境 (6.3)' },
-              { id: 'assembly', label: '🔧 預裝配與夾具' }
+              { id: 'durability', label: '🛡️ 耐久與應力龜裂 (6.3)' },
+              { id: 'assembly', label: '🔧 預裝配與治具 (4章 & 附錄 C)' }
             ].map(f => (
               <button
                 key={f.id}
