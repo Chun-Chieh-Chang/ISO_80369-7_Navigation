@@ -43,17 +43,17 @@ export const ISO_TOPICS: ISOTopic[] = [
       {
         id: 'ISO20-FIG-B2',
         titleZh: '儀器如何執行標準？解構壓力衰減測試的四個階段',
-        titleEn: 'Four Stages of Pressure Decay Test Execution',
-        standard: 'ISO 80369-20:2024 Annex B',
+        titleEn: 'Four Stages of Pressure Decay Test Execution (Annex B.4)',
+        standard: 'ISO 80369-20:2024 Annex B.4',
         figureType: 'analysis',
         figureTypeZh: '測試曲線分析圖',
-        descriptionZh: '本附圖詳細解構儀器執行壓力衰減測試的四個關鍵階段：充氣 (Fill)、穩定 (Stabilize)、測試 (Test) 與排氣 (Exhaust)，並標示出 ΔP 的計算區間。',
+        descriptionZh: '本附圖精確對照 ISO 80369-20 Annex B.4 條文，解構正壓氣壓衰減測試儀器執行的四個關鍵階段：充氣 (Fill 0~5s, 對應 B.4 c)、穩定 (Stabilize 5~15s, 熱平衡與材料蠕變隔離)、測試持壓 (Test 15~35s, 對應 B.4 d/e 量測 ΔP) 與排氣 (Exhaust 35s+)，並標示出 300~330 kPa 目標壓力視窗。',
         svgKey: 'ISO20-FIG-B2',
         keyCallouts: [
-          { id: 'fill', labelZh: '充氣階段', valueZh: '0~5s' },
-          { id: 'stabilize', labelZh: '穩定階段', valueZh: '5~15s' },
-          { id: 'test', labelZh: '測試階段', valueZh: '15~35s' },
-          { id: 'exhaust', labelZh: '排氣階段', valueZh: '35s 後' }
+          { id: 'fill', labelZh: '1. 充氣 (Fill)', valueZh: '0~5s (對應 Annex B.4 c 施加壓力)' },
+          { id: 'stabilize', labelZh: '2. 穩定 (Stabilize)', valueZh: '5~15s (隔離氣源、熱平衡與蠕變穩定)' },
+          { id: 'test', labelZh: '3. 測試 (Test)', valueZh: '15~35s (對應 Annex B.4 d/e 測量 ΔP)' },
+          { id: 'exhaust', labelZh: '4. 排氣 (Exhaust)', valueZh: '35s 後 (測試結束釋放壓力)' }
         ]
       },
       {
@@ -108,7 +108,7 @@ export const ISO_TOPICS: ISOTopic[] = [
     relatedISO20Annexes: ['Annex D', 'Annex K'],
     relatedRefConnectors: ['C.1', 'C.4'],
     engineeringRiskZh: '軟質塑膠在負壓下發生錐面向內微幅收縮變形，導致配合面局部脫離產生微氣孔吸氣。',
-    auditFocusZh: '負壓量測衰減法（Pressure Decay）中的儀器容積校正與溫度穩定度，避免環境熱脹冷縮干擾。',
+    auditFocusZh: '負壓量測衰減法（Vacuum Decay, Annex D）中的儀器容積校正與溫度穩定度。注意：真空衰減法與正壓衰減法（Annex B.4）在儀器動作控制上皆具備「充/抽氣-穩定-測試-排/復壓」四階段邏輯，但 Annex D 施加條件為 80~88 kPa 負壓真空，以避免外界空氣吸入。',
     tags: ['80kPa', '負壓', '真空', '氣栓', '6.2', 'Annex D', 'Annex K'],
     figures: [
       {

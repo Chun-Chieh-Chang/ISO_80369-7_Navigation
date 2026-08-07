@@ -143,8 +143,9 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
         return `${cleanBase}assets/diagrams/iso7_fig_c1_female_ref_lock.png`;
       case 'ISO20-FIG-J1':
         return `${cleanBase}assets/diagrams/iso20_simultaneous_axial_torque.png`;
-      case 'ISO20-FIG-B1':
       case 'ISO20-FIG-B2':
+        return `${cleanBase}assets/diagrams/pressure_decay_explanation.png`;
+      case 'ISO20-FIG-B1':
       case 'ISO20-FIG-C1':
         return `${cleanBase}assets/diagrams/iso20_pressure_leakage.png`;
       case 'ISO20-FIG-D1':
@@ -171,6 +172,7 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
   const currentImagePath = getDiagramImagePath(svgKey);
 
   const [displayMode, setDisplayMode] = useState<'official_blueprint' | 'testing_blueprint' | 'hd_render'>(() => {
+    if (svgKey === 'ISO20-FIG-B2') return 'hd_render';
     if (currentBlueprintPath) return 'official_blueprint';
     if (currentTestingBlueprintPath) return 'testing_blueprint';
     if (currentImagePath) return 'hd_render';

@@ -766,19 +766,26 @@
 
 ---
 
-## 版本：v3.9 雙標準對照矩陣可展開介面預設完全收合修正 (2026-08-07)
+---
+
+## 版本：v4.0 壓力衰減測試說明圖完全整合與國際標準原著嚴謹審查 (2026-08-07)
 
 ### 需求內容
-1. 診斷預設展開問題：先前 `ClauseComparisonMatrix.tsx` 中 `expandedClauseId` 初始化預設為 `'6.1'`，造成進入頁面或「洩漏與氣密」相關條文預設呈現展開狀態。
-2. 預設全數收合修正 (Default Collapsed State)：
-   - 將 `ClauseComparisonMatrix.tsx` 中 `expandedClauseId` 狀態預設值修訂為 **`null`**。
-   - 確保進入頁面時，對照矩陣中所有條文列（包含 6.1, 6.2 等）100% 呈收合狀態，使用者點擊該列或「圖表」按鈕時才按需動態展開。
+1. 將 `壓力衰檢測試說明.png` 完全整合至「儀器如何執行標準？解構壓力衰減測試的四個階段」圖解中。
+2. 基於 ISO 80369-7 與 ISO 80369-20 國際標準第一性原理審查該圖解之適用範疇與法規對應精確度，進行嚴謹矯正。
 
-### 過程紀錄與執行分析 (RCA & CAPA)
+### 過程紀錄與第一性原理審查 (RCA & CAPA)
+- **圖形標籤與條文審查 (RCA)**：
+  - 檢視 `壓力衰檢測試說明.png` 原圖內容，圖中明確標註：
+    - Y 軸壓力為 **0 ~ 350 kPa 正壓**，標示 Target Pressure Window (300~330 kPa 視窗)。
+    - 文字明確註記 **「對應 ISO 80369-20 Annex B.4 c) 施加壓力」** 與 **「對應 Annex B.4 d) 和 e) 記錄起始/結束壓力」**。
+  - **法規評斷 (RCA)**：ISO 80369-20 Annex B 專門規範 **正壓氣壓壓降法 (Positive Pressure Leakage by Pressure Decay, Clause 6.1.2)**；而 Annex D 為 **負壓真空衰減法 (Sub-atmospheric Air Leakage under Vacuum, Clause 6.2)**，施加條件為 80.0~88.0 kPa 負壓真空。
+- **矯正措施 (CAPA)**：
+  1. **正壓 Annex B.4 精確對齊**：將 `壓力衰檢測試說明.png` 作為 ISO 80369-20 Annex B.4 (Fig.B.2) 之「正壓氣壓衰減四階段測試動態曲線」重點圖解，於 `ISOStandardFigureRenderer.tsx` 預設呈現高畫質 HD 重構視圖。
+  2. **負壓 Annex D 邏輯對比與界定**：維持 Topic 2 (負壓空氣與抽吸洩漏測試) 之標準原廠圖面 `ISO20-FIG-D1` (真空測試裝置) 與 `ISO20-FIG-K1` (水下氣泡法)，並於說明中補齊雙法對比提示（說明真空衰減與正壓衰減共享充/抽氣-穩定-測試-排/復壓控制 logic，但 Annex D 施壓介質為 80~88 kPa 真空負壓）。
 - **打包確效 (CAPA)**：
-  - 執行 `npm run build` 通過生產打包確效 (1682 模組，Built in 2.35s)。
-- **瀏覽器子代理視覺確效 (CAPA)**：
-  - 啟動 `browser_subagent` 檢驗對照矩陣頁面，截圖 `matrix_collapsed_top` 與 `matrix_collapsed_mid` 確效 6.1、6.2 及全數條文預設皆呈現 100% 完全收合。
+  - 執行 `npm run build` 通過生產打包確效 (1682 模組，Built in 1.60s)。
+
 
 
 

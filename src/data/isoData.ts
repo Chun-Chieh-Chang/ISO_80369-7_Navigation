@@ -376,16 +376,16 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
     annexGroup: 'ISO 80369-20',
     name: 'Four Stages of Pressure Decay Test Execution Curve (Pressure vs. Time)',
     nameZh: '氣壓衰減測試四階段壓力-時間變化曲線圖',
-    description: 'ISO 80369-20 Annex B pressure vs. time profile illustrating the 4 test stages: Fill, Stabilize, Test, and Exhaust with ΔP calculation window.',
-    descriptionZh: 'ISO 80369-20 Annex B 氣壓衰減測試流程之壓力對時間 (Pressure vs. Time) 變化動態曲線圖，解構 Fill(充氣 0~5s)、Stabilize(穩定 5~15s)、Test(測試 15~35s) 與 Exhaust(排氣) 四個階段與 ΔP (PL) 量測視窗。',
+    description: 'ISO 80369-20 Annex B.4 pressure vs. time profile illustrating the 4 test stages: Fill (B.4 c), Stabilize, Test (B.4 d/e), and Exhaust with ΔP calculation window.',
+    descriptionZh: 'ISO 80369-20 Annex B.4 氣壓衰減測試流程之壓力對時間 (Pressure vs. Time) 變化動態曲線圖，解構 1.充氣 (Fill 0~5s, B.4 c 施加壓力)、2.穩定 (Stabilize 5~15s, 隔離氣源熱平衡)、3.測試 (Test 15~35s, B.4 d/e 持壓量測 ΔP) 與 7.排氣 (Exhaust 35s+ 洩壓) 四個階段與 300~330 kPa 目標壓力視窗。',
     intendedClauses: ['6.1'],
     isWorstCase: false,
-    worstCaseReasonZh: '提供壓力衰減法之時間-壓力響應特徵圖，標示目標壓力視窗 (300~330 kPa) 與壓降 ΔP (PL) 的實測區間。',
+    worstCaseReasonZh: '提供正壓氣壓衰減法 (Annex B.4) 之時間-壓力響應特徵圖，標示目標壓力視窗 (300~330 kPa) 與壓降 ΔP (PL) 的實測區間。',
     svgHighlights: [
-      { title: '充氣階段 (Fill)', value: '0 ~ 5 秒' },
-      { title: '穩定階段 (Stabilize)', value: '5 ~ 15 秒' },
-      { title: '測試階段 (Test)', value: '15 ~ 35 秒 (持壓 20s)' },
-      { title: '目標壓力視窗', value: '300 ~ 330 kPa' }
+      { title: '1. 充氣 (Fill)', value: '0 ~ 5 秒 (對應 Annex B.4 c 施加壓力)' },
+      { title: '2. 穩定 (Stabilize)', value: '5 ~ 15 秒 (隔離氣源熱平衡與蠕變穩定)' },
+      { title: '3. 測試 (Test)', value: '15 ~ 35 秒 (對應 Annex B.4 d/e 量測 ΔP)' },
+      { title: '4. 排氣 (Exhaust)', value: '35 秒後 (測試結束釋放壓力)' }
     ],
     svgKey: 'ISO20-FIG-B2'
   },
