@@ -622,4 +622,20 @@
 - **打包與型別確效 (CAPA)**：
   - 執行 `npm run build` 通過生產打包與 TypeScript 靜態檢驗 (1682 模組，Built in 2.31s)。
 
+---
+
+## 版本：v3.1 修復 StandardClauseDetail TypeScript 型別定義與開放索引聲明 (2026-08-07)
+
+### 需求內容
+1. 解決 CI / Copilot 報錯（TS2353）：`assemblyAxialForceN` 屬性在 `src/data/isoTopicsData.ts` 之 `quantitativeConditions` 字典中使用，但未在 `StandardClauseDetail` 型別介面中聲明。
+2. 於 [src/types/index.ts](file:///c:/Users/USER/Downloads/Project/ISO_80369-7_Navigation/src/types/index.ts) 中補齊 `assemblyAxialForceN?: string` 並添加 `[key: string]: string | undefined` 開放索引聲明，提升型別彈性與未來擴充性。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **型別修復 (CAPA)**：
+  - 於 `src/types/index.ts` 之 `StandardClauseDetail.quantitativeConditions` 介面中新增 `assemblyAxialForceN?: string` 與 `[key: string]: string | undefined;` 索引簽名。
+- **建置確效 (CAPA)**：
+  - 執行 `npx tsc --noEmit` 驗證通過（0 錯誤）。
+  - 執行 `npm run build` 打包確效通過 (1682 模組，Built in 2.25s)。
+
+
 

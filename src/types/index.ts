@@ -162,6 +162,7 @@ export interface StandardClauseDetail {
   appliesToZh: string;
   quantitativeConditions: {
     assemblyTorqueNm?: string;
+    assemblyAxialForceN?: string;
     testTorqueNm?: string;
     testForceN?: string;
     testPressureKpa?: string;
@@ -171,6 +172,7 @@ export interface StandardClauseDetail {
     restTimeMin?: string;
     holdTimeHours?: string;
     maxAllowedUnscrewingTorque?: string;
+    [key: string]: string | undefined;
   };
   fixtureRequiredZh: string;
   testProcedureStepsZh: string[];
