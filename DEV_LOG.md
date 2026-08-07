@@ -891,6 +891,25 @@
 3. **打包確效 (CAPA)**：
    - 執行 `npm run build` 通過生產打包確效 (1682 模組，Built in 1.86s)。
 
+---
+
+## 版本：v5.2 全站測試治具對應矩陣 (Test Fixture Matrix) 完全替換與最新標準更新 (2026-08-07)
+
+### 需求內容
+1. 針對「參考金屬夾具庫」與全站主題中「ISO 80369-7 實驗架設藍圖」引用之舊版「測試治具對應矩陣」圖片中部分 Figure 錯誤問題進行修正。
+2. 使用最新提供之高畫質無損影像 `醫療器材接頭測試標準更新.png` 全面覆蓋並替換全站所有對應之治具對應矩陣藍圖。
+
+### 根因分析與技術細節 (RCA & CAPA)
+- **舊版矩陣 Figure 標示失真 (RCA)**：
+  舊版測試治具對應矩陣（`test_page_3.png` & `test_page_11.png`）中，誤將滑動型 (Slip) 之旋開分離列為 `Figure C.1/C.5`（實際 Slip 無螺紋旋開，應為 `不適用`），且母鎖定型 (Female Lock) 之旋開分離與越扣抵抗未精確標註 `Figure C.6 (帶螺紋)`。
+- **全站資產 100% 替換與同構更新 (CAPA)**：
+  1. **全站同構替換**：將高解析度無損圖檔 `醫療器材接頭測試標準更新.png` (2752x1536 PNG) 重新採樣優化，100% 覆蓋專案 `public/assets/testing_blueprint/test_page_3.png` 及 `test_page_11.png`。
+  2. **高畫質 HD 渲染庫備份**：同步存入 `public/assets/diagrams/fixture_matrix_update.png`，確保不論由「參考金屬夾具庫 (ConnectorInspector)」、「主題與條文檢索 (TopicExplorer)」、「條文脈絡圖表 (TopicVisualMap)」或「雙標準對照矩陣」呼叫，全站全數視圖 100% 均展示最新修正版之《醫療器材小孔徑接頭 (Luer) 測試治具對應矩陣：ISO 80369-7 與 80369-20 標準更新指南》。
+- **瀏覽器實機確效 (CAPA)**：
+  - 啟動 `browser_subagent` 實際進入「參考金屬夾具庫」，切換 Fig.C.3 / Fig.A.1 並點擊「ISO 80369-20 實驗架設藍圖」，確認畫面 100% 成功加載最新《測試治具對應矩陣：ISO 80369-7 與 80369-20 標準更新指南》影像，Console **0 errors**。
+- **打包確效 (CAPA)**：
+  - 執行 `npm run build` 通過生產打包確效 (1682 模組，Built in 1.85s)。
+
 
 
 
