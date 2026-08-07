@@ -962,6 +962,200 @@
 2. **壓差降極限 (ΔPmax) 即時換算計算器預設值更新**：
    - 將預設持壓時間 (&Delta;t) 設定為 **20 秒**。
    - 將預設測試系統總容積 (V) 設定為 **8.5 mL**。
+## 版本：v4.0 壓力衰減測試說明圖完全整合與國際標準原著嚴謹審查 (2026-08-07)
+
+### 需求內容
+1. 將 `壓力衰檢測試說明.png` 完全整合至「儀器如何執行標準？解構壓力衰減測試的四個階段」圖解中。
+2. 基於 ISO 80369-7 與 ISO 80369-20 國際標準第一性原理審查該圖解之適用範疇與法規對應精確度，進行嚴謹矯正。
+
+### 過程紀錄與第一性原理審查 (RCA & CAPA)
+- **圖形標籤與條文審查 (RCA)**：
+  - 檢視 `壓力衰檢測試說明.png` 原圖內容，圖中明確標註：
+    - Y 軸壓力為 **0 ~ 350 kPa 正壓**，標示 Target Pressure Window (300~330 kPa 視窗)。
+    - 文字明確註記 **「對應 ISO 80369-20 Annex B.4 c) 施加壓力」** 與 **「對應 Annex B.4 d) 和 e) 記錄起始/結束壓力」**。
+  - **法規評斷 (RCA)**：ISO 80369-20 Annex B 專門規範 **正壓氣壓壓降法 (Positive Pressure Leakage by Pressure Decay, Clause 6.1.2)**；而 Annex D 為 **負壓真空衰減法 (Sub-atmospheric Air Leakage under Vacuum, Clause 6.2)**，施加條件為 80.0~88.0 kPa 負壓真空。
+- **矯正措施 (CAPA)**：
+  1. **正壓 Annex B.4 精確對齊**：將 `壓力衰檢測試說明.png` 作為 ISO 80369-20 Annex B.4 (Fig.B.2) 之「正壓氣壓衰減四階段測試動態曲線」重點圖解，於 `ISOStandardFigureRenderer.tsx` 預設呈現高畫質 HD 重構視圖。
+  2. **負壓 Annex D 邏輯對比與界定**：維持 Topic 2 (負壓空氣與抽吸洩漏測試) 之標準原廠圖面 `ISO20-FIG-D1` (真空測試裝置) 與 `ISO20-FIG-K1` (水下氣泡法)，並於說明中補齊雙法對比提示（說明真空衰減與正壓衰減共享充/抽氣-穩定-測試-排/復壓控制 logic，但 Annex D 施壓介質為 80~88 kPa 真空負壓）。
+- **打包確效 (CAPA)**：
+  - 執行 `npm run build` 通過生產打包確效 (1682 模組，Built in 1.60s)。
+
+---
+
+## 版本：v4.1 ISO 80369-7 修正版高精度幾何尺寸藍圖完全對應與全面取代 (2026-08-07)
+
+### 需求內容
+1. 識別並解析 `ISO_80369-7_Precision_Blueprint_Guide.pptx` 簡報中全數 15 頁修正版藍圖內容。
+2. 解決原藍圖中尺寸標示與箭頭指向錯誤問題，精確 1 對 1 替換專案 `public/assets/blueprint/` 中之 ISO 80369-7 幾何尺寸工程藍圖及預覽縮圖。
+
+### 頁面與圖號精確對應矩陣 (Precision Mapping Matrix)
+- **Slide 1 (`page_1.png`)**: Cover Page / ISO 80369-7 Blueprint Folio Summary
+- **Slide 2 (`page_2.png`)**: Fig. B.1 公 Luer slip 接頭 (L1) 基礎錐形設計
+- **Slide 3 (`page_3.png`)**: Fig. B.2 母 Luer slip 接頭 (L1) 基礎錐形設計
+- **Slide 4 (`page_4.png`)**: Fig. B.3 公 Luer lock 接頭 (L2) 固定環 (Fixed Collar)
+- **Slide 5 (`page_5.png`)**: Fig. B.4 公 Luer lock 接頭 (L2) 可旋轉環 (Rotatable Collar)
+- **Slide 6 (`page_6.png`)**: Fig. B.5 母 Luer lock 接頭 標準外螺紋
+- **Slide 7 (`page_7.png`)**: Fig. B.6 (Variant A) 母 Luer lock 接頭 直角卡榫
+- **Slide 8 (`page_8.png`)**: Fig. B.6 (Variant B) 母 Luer lock 接頭 剛性材質專用
+- **Slide 9 (`page_9.png`)**: Fig. B.6 (Variant C) 母 Luer lock 接頭 擴展直角卡榫
+- **Slide 10 (`page_10.png`)**: Fig. C.1 [測試用] 母參考 Luer lock 接頭
+- **Slide 11 (`page_11.png`)**: Fig. C.2 [測試用] 公參考 Luer slip 接頭
+- **Slide 12 (`page_12.png`)**: Fig. C.3 [測試用] 母參考接頭 (分離與過載專用)
+- **Slide 13 (`page_13.png`)**: Fig. C.4 [測試用] 公參考 Luer lock 接頭
+- **Slide 14 (`page_14.png`)**: Fig. C.5 [測試用] 母參考 Luer slip 接頭
+- **Slide 15 (`page_15.png`)**: Fig. C.6 [測試用] 公參考接頭 (分離與過載專用)
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **圖檔替換與預覽產生 (CAPA)**：
+  - 由 PPTX 抽取 1376x768 原始無損影像，100% 覆蓋 `public/assets/blueprint/page_1.png` ~ `page_15.png`。
+  - 自動生成 800px 高品質預覽縮圖 `page_1_preview.png` ~ `page_15_preview.png`。
+- **組件對映擴充 (CAPA)**：
+  - 於 `ISOStandardFigureRenderer.tsx` 擴充 `ISO7-FIG-B6-A` (page 7), `ISO7-FIG-B6-B` (page 8), `ISO7-FIG-B6-C` (page 9) 之對應分支。
+- **打包確效 (CAPA)**：
+  - 執行 `npm run build` 通過生產打包確效 (1682 模組，Built in 1.72s)。
+
+---
+
+## 版本：v4.2 DVP 設計驗證矩陣表與全站滑動/鎖定型金屬參考接頭對應關聯全面盤點修復 (2026-08-07)
+
+### 需求內容
+1. 深入排查設計驗證矩陣表 (DVP Matrix) 未顯示 ISO 80369-7 Fig. C.5 (母滑動參考接頭) 之根本原因。
+2. 全面掃描並補齊全站其他主題頁面、雙標準對照矩陣及條文檢索頁面中，滑動型 (Slip) 與鎖定型 (Lock) 參考接頭對應資訊缺失或失真問題。
+
+### 根因分析 (RCA)
+1. **DVP 動態解析邏輯缺失 (RCA)**：
+   原 `DvpGenerator.tsx` 僅根據 `selectedGender` ('male' / 'female') 提取 `ISO_CLAUSES` 中硬編碼之 `requiredFemaleRef` ('C.1' / 'C.3') 與 `requiredMaleRef` ('C.4' / 'C.6')，未考量 `selectedType` ('lock' / 'slip') 之差異。導致選擇「公滑動型 (Male Slip, L1)」或「母滑動型 (Female Slip, L1)」時，系統誤帶入鎖定型參考件 Fig. C.1 / C.3 / C.4 / C.6，造成專用於滑動型之 **Fig. C.5 (母滑動參考接頭)** 與 **Fig. C.2 (公滑動參考接頭)** 在 DVP 表格中隱形。
+2. **跨主題資料關聯缺失 (RCA)**：
+   - `src/data/isoTopicsData.ts` Topic 2 (負壓空氣與抽吸洩漏測試) 適用於 Lock & Slip 兩型受測物，但其 `relatedRefConnectors` 漏未包含 `'C.2'` 與 `'C.5'`。
+   - `ClauseComparisonMatrix.tsx` 雙標準對照矩陣之金屬夾具欄位未明確兼顧滑動型（Slip）參考件。
+
+### 矯正與預防措施 (CAPA)
+1. **DVP 動態判定函式重構 (`DvpGenerator.tsx`)**：
+   - 建立高精度動態分流機制：
+     - **受測物為公接頭 (Male)**：`Slip` 帶入 **Fig. C.5** (母滑動標稱)；`Lock` 根據 6.4/6.6 帶入 **Fig. C.3** (母最壞 2.71mm) 或 6.1/6.2/6.3/6.5 帶入 **Fig. C.1** (母鎖定標稱 3.50mm)。
+     - **受測物為母接頭 (Female)**：`Slip` 帶入 **Fig. C.2** (公滑動標稱)；`Lock` 根據 6.4/6.6 帶入 **Fig. C.6** (公最壞) 或 6.1/6.2/6.3/6.5 帶入 **Fig. C.4** (公鎖定標稱)。
+2. **全站資料與視圖補齊**：
+   - `src/data/isoTopicsData.ts`：更新 Topic 2 之 `relatedRefConnectors` 為 `['C.1', 'C.4', 'C.2', 'C.5']`。
+   - `ClauseComparisonMatrix.tsx`：更新條款 6.1~6.4 之夾具欄位，明確呈現 `Fig.C.1/C.5 (母鎖定/滑動)` 與 `Fig.C.4/C.2 (公鎖定/滑動)`。
+3. **瀏覽器實機確效 (CAPA)**：
+   - 啟動 `browser_subagent` 實際切換 DVP 篩選：
+     - 切換為 `公接頭 + 滑動式 (L1 Slip)` -> 驗證 `Fig.C.5 (母滑動標稱)` 100% 正常顯示於表格中。
+     - 切換為 `母接頭 + 滑動式 (L1 Slip)` -> 驗證 `Fig.C.2 (公滑動標稱)` 100% 正常顯示於表格中。
+4. **打包確效 (CAPA)**：
+   - 執行 `npm run build` 通過生產打包確效 (1682 模組，Built in 1.81s)。
+
+---
+
+## 版本：v5.0 專案整體程式碼、幾何藍圖與文件架構全流程優化與重構 (2026-08-07)
+
+### 需求內容
+1. 執行專案全量死碼、冗餘檔案與死連結盤點清理 (MECE Audit)。
+2. 同步更新 `DEV_LOG.md`、`README.md` 等開發文件至最新功能與圖像狀態。
+3. 遵循 MECE 原則整理專案檔案與幾何藍圖結構，確立完整版本基準點。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **死碼與資源清理 (MECE Audit)**：
+  - 遍歷全專案 8 個子目錄與 13 個核心檔案，確認 `public/assets/blueprint/` 15 頁 corrected 藍圖與 `public/assets/diagrams/` 14 個工程圖形均完全 MECE 無無效檔案。
+  - 清除暫存目錄，確保 `.gitignore` 排除環境隱患。
+- **文件 100% 同步 (Doc Sync)**：
+  - 完整記錄 v4.0 (壓力衰減測試圖整合)、v4.1 (PPTX 15 頁高精度藍圖取代)、v4.2 (DVP Fig. C.5/C.2 帶入邏輯修復) 與 v5.0 (整體重構清理)。
+- **生產打包與運行確效 (Mandatory Runtime Check)**：
+  - 執行 `npm run build` 通過生產打包確效 (1682 模組，Built in 1.76s，0 errors)。
+- **版本基準點建立 (Git Baseline)**：
+  - 本地 Git 庫完成變更 Stage 與提交備份。
+
+---
+
+## 版本：v5.1 主題 10 防錯對接非正確藍圖按鈕停用與權限對齊 (2026-08-07)
+
+### 需求內容
+1. 針對主題 10「防錯對接與不相容性規範 (Non-Interchangeability & Misconnection Safety)」中，「規範文件對應關鍵配圖與裝置結構圖」區塊內「ISO 80369-7 幾何尺寸藍圖」按鈕不正確之問題進行停用。
+
+### 根因分析 (RCA)
+- **圖號類別與條文對應歧異 (RCA)**：
+  主題 10 核心配圖為 `ISO7-FIG-A1`（ISO 80369 跨領域小口徑連接器防誤插幾何矩陣，屬 ISO 80369-1 通用防錯矩陣示意圖）。原 `ISOStandardFigureRenderer.tsx` 中 `getBlueprintImagePath('ISO7-FIG-A1')` 誤導向至 `assets/blueprint/page_1.png`（ISO 80369-7 Luer 接頭 6% 錐度尺寸圖鑑封面）。此圖並非防誤插矩陣藍圖，造成畫面呈現失真。
+
+### 矯正與預防措施 (CAPA)
+1. **藍圖路徑映射精確停用 (`ISOStandardFigureRenderer.tsx`)**：
+   - 自 `getBlueprintImagePath` 中移除 `case 'ISO7-FIG-A1':` 分支，使其傳回 `null`。
+   - 使「ISO 80369-7 幾何尺寸藍圖」按鈕在渲染 `ISO7-FIG-A1` 時自動進入停用狀態（顯示為 `ISO 80369-7 幾何尺寸藍圖 (無圖面)`，按鈕置灰、`disabled` 無法點擊）。
+   - 預設自動導向至正確之「ISO 80369-20 實驗架設藍圖」與「3D/HD 精密重構圖」。
+2. **瀏覽器實機確效 (CAPA)**：
+   - 啟動 `browser_subagent` 實際點擊主題 10，驗證按鈕已呈現 `(無圖面)` 置灰不可點擊，且實驗架設藍圖與 HD 重構圖渲染與縮放均完全正常，Console 無紅色錯誤。
+3. **打包確效 (CAPA)**：
+   - 執行 `npm run build` 通過生產打包確效 (1682 模組，Built in 1.86s)。
+
+---
+
+## 版本：v5.2 全站測試治具對應矩陣 (Test Fixture Matrix) 完全替換與最新標準更新 (2026-08-07)
+
+### 需求內容
+1. 針對「參考金屬夾具庫」與全站主題中「ISO 80369-7 實驗架設藍圖」引用之舊版「測試治具對應矩陣」圖片中部分 Figure 錯誤問題進行修正。
+2. 使用最新提供之高畫質無損影像 `醫療器材接頭測試標準更新.png` 全面覆蓋並替換全站所有對應之治具對應矩陣藍圖。
+
+### 根因分析與技術細節 (RCA & CAPA)
+- **舊版矩陣 Figure 標示失真 (RCA)**：
+  舊版測試治具對應矩陣（`test_page_3.png` & `test_page_11.png`）中，誤將滑動型 (Slip) 之旋開分離列為 `Figure C.1/C.5`（實際 Slip 無螺紋旋開，應為 `不適用`），且母鎖定型 (Female Lock) 之旋開分離與越扣抵抗未精確標註 `Figure C.6 (帶螺紋)`。
+- **全站資產 100% 替換與同構更新 (CAPA)**：
+  1. **全站同構替換**：將高解析度無損圖檔 `醫療器材接頭測試標準更新.png` (2752x1536 PNG) 重新採樣優化，100% 覆蓋專案 `public/assets/testing_blueprint/test_page_3.png` 及 `test_page_11.png`。
+  2. **高畫質 HD 渲染庫備份**：同步存入 `public/assets/diagrams/fixture_matrix_update.png`，確保不論由「參考金屬夾具庫 (ConnectorInspector)」、「主題與條文檢索 (TopicExplorer)」、「條文脈絡圖表 (TopicVisualMap)」或「雙標準對照矩陣」呼叫，全站全數視圖 100% 均展示最新修正版之《醫療器材小孔徑接頭 (Luer) 測試治具對應矩陣：ISO 80369-7 與 80369-20 標準更新指南》。
+- **瀏覽器實機確效 (CAPA)**：
+  - 啟動 `browser_subagent` 實際進入「參考金屬夾具庫」，切換 Fig.C.3 / Fig.A.1 並點擊「ISO 80369-20 實驗架設藍圖」，確認畫面 100% 成功加載最新《測試治具對應矩陣：ISO 80369-7 與 80369-20 標準更新指南》影像，Console **0 errors**。
+- **打包確效 (CAPA)**：
+  - 執行 `npm run build` 通過生產打包確效 (1682 模組，Built in 1.85s)。
+
+---
+
+## 版本：v5.3 專案全量測試治具對應圖資與跨主題模組全流程優化與重構 (2026-08-07)
+
+### 需求內容
+1. 執行專案全量死碼、冗餘檔案與死連結盤點清理 (MECE Audit)。
+2. 同步更新 `DEV_LOG.md` 等開發文件至最新功能與圖像狀態。
+3. 遵循 MECE 原則整理專案檔案與測試治具幾何藍圖結構，確立完整版本基準點。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **死碼與資源清理 (MECE Audit)**：
+  - 遍歷全專案 8 個子目錄與 13 個核心檔案，確認 `public/assets/blueprint/` 15 頁 corrected 藍圖、`public/assets/testing_blueprint/` 11 頁測試裝置藍圖與 `public/assets/diagrams/` 15 個工程圖形均完全 MECE 無無效檔案。
+  - 清除暫存目錄，確保 `.gitignore` 排除環境隱患。
+- **文件 100% 同步 (Doc Sync)**：
+  - 完整記錄 v4.0 (壓力衰減測試圖整合)、v4.1 (PPTX 15 頁高精度藍圖取代)、v4.2 (DVP Fig. C.5/C.2 帶入邏輯修復)、v5.1 (主題 10 按鈕停用) 與 v5.2 (全站測試治具對應矩陣更新)。
+- **生產打包與運行確效 (Mandatory Runtime Check)**：
+  - 執行 `npm run build` 通過生產打包確效 (1682 模組，Built in 1.83s，0 errors)。
+- **版本基準點建立 (Git Baseline)**：
+  - 本地 Git 庫完成變更 Commit `b1fb5ad` 提交備份。
+
+---
+
+## 版本：v5.4 壓差降 (ΔP) 物理量計算、2024 新標技術指南與即時計算器整合 (2026-08-07)
+
+### 需求內容
+1. 整合 ISO 80369-20:2024 與 ISO 80369-7 壓差降 (ΔP) 物理量計算法規與技術補充指南於檢索系統。
+2. 建立「壓差降極限 (&Delta;P<sub>max</sub>) 即時換算計算器」互動組件，支援動態對算 5000×Δt/V (Pa) 與 5×Δt/V (kPa)。
+3. 在洩漏與氣密主題中無縫展現壓差降 4 大適用項目 (Annex B, D, E, J.2)、理想氣體狀態方程推導與現場 3 大注意事項。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **法規知識體系與動態工具無縫結合 (CAPA)**：
+  1. **互動計算組件 (`TopicClauseExplorer.tsx`)**：新增「壓差降極限 (&Delta;P<sub>max</sub>) 即時換算計算器」，工程師可自由輸入測試總容積 V (mL) 與持壓時間 Δt (s)，即時計算輸出 Pa, kPa, mbar 三種工程單位極限值與判定說明。
+  2. **法規技術指南 (`TopicClauseExplorer.tsx` & `isoTopicsData.ts`)**：全面補充 2024 年版「取消 Q 計算、改為直接記錄 ΔP」之重大修訂、Annex J.2 統計變量數據應用，以及系統總容積測定、夾具剛度與溫控等現場關鍵注意事項。
+- **瀏覽器實機確效 (CAPA)**：
+  - 啟動 `browser_subagent` 測試動態對算：輸入 V=5 mL, Δt=120 s，正確計算出 ΔP_max = 120.00 kPa / 120,000 Pa，畫面呈現完全正常，Console **0 errors**。
+- **打包確效 (CAPA)**：
+  - 執行 `npm run build` 通過生產打包確效 (1682 模組，Built in 2.12s)。
+
+---
+
+## 版本：v5.5 全站手機版介面 (Mobile View) 響應式適配與 ΔPmax 計算器參數更新 (2026-08-07)
+
+### 需求內容
+1. **全站手機版介面 (Mobile Version) 響應式適配重構**：
+   - 頁首標題與 5 大導航 Tabs 在手機端 (375px~768px) 支援橫向順暢滾動 (overflow-x-auto, no-scrollbar) 並確保點擊觸控點 >= 44px。
+   - 檢索主題庫 (TopicClauseExplorer) 增設手機端「📋 主題列表 ↔ 🔍 條文詳情」Segmented Control 切換與自動點擊響應。
+   - 條文脈絡圖表 (TopicVisualMap) 將 4 欄流向圖改為手機端垂直 Step 1➔Step 2➔Step 3➔Step 4 步驟卡片導引。
+   - 雙標準對照矩陣 (ClauseComparisonMatrix) 增設「📱 手機卡片 Mode ↔ 📊 完整表格 Mode」視圖切換，方便行動端彈性瀏覽與查看圖表。
+   - 參考夾具庫 (ConnectorInspector) 與 DVP 矩陣 (DvpGenerator) 完成觸控按鈕膠囊與彈性堆疊 layout。
+2. **壓差降極限 (ΔPmax) 即時換算計算器預設值更新**：
+   - 將預設持壓時間 (&Delta;t) 設定為 **20 秒**。
+   - 將預設測試系統總容積 (V) 設定為 **8.5 mL**。
 
 ### 過程紀錄與執行分析 (RCA & CAPA)
 - **行動優先與設計規範對齊 (CAPA)**：
@@ -970,3 +1164,27 @@
 - **編譯與確效 (Mandatory Runtime Check)**：
   - `npx tsc --noEmit` 軟體確效型別檢查：100% 通過。
   - `npx vite build` 生產打包確效：1682 模組成功打包，費時 1.84s，0 errors。
+
+---
+
+## 版本：v5.6 ISO 80369-20 測試總容積 (V) 3 大測定法與 ISO 80369-7 參考接頭 4 大製造規範整合 (2026-08-07)
+
+### 需求內容
+1. **ISO 80369-20:2024 Annex B.3.7 與 Annex D.3.7 測試總容積 (V) 3 大測定方法整合**：
+   - 尺寸計算量測法 (Dimensional Calculation)：由 3D CAD 模型直接計算理論空腔體積，無液體殘留與損壞精密電子傳感器風險。
+   - 系統注水量測法 (Measurement of amount of water)：使用蒸餾水乾燥與注水排氣天平重排法 (1g ≈ 1mL)。
+   - 組合量測法 (Combination of methods)：業界標準，內部儀器傳感器氣路 (尺寸計算) + 外部管路金屬夾具 (注水法) 加總。
+   - 剛性防呆限制：要求夾具與管路使用高剛性材質 (彈性模數 > 3,433 MPa)，避免壓力變形使容積 V 失真。
+2. **ISO 80369-7:2021 Annex C.1 金屬參考接頭 (Reference Connectors) 4 大核心製造與幾何規範整合**：
+   - 材質與剛性要求：耐腐蝕材質 (不鏽鋼/黃銅)，彈性模數 > 3,433 MPa。
+   - 表面粗糙度極限：關鍵表面 $R_a \le 0.8\ \mu\text{m}$。
+   - 尺寸、公差與倒角細節：放寬非接觸公差並相容 2016/2021 版；外側邊緣圓角 $0.15 \sim 0.20\text{ mm}$，入口倒角 $R \le 0.5\text{ mm}$；非相互連接測試公錐長度 $\ge 10.5\text{ mm}$，一般測試 $\ge 7.5\text{ mm}$。
+   - 特定測試項目指定圖樣 (Fig C.1~C.6) 精確對照。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **知識單一真理源整合 (Single Source of Truth CAPA)**：
+  - 在 `TopicClauseExplorer.tsx` 補充測試總容積 $V$ 3 大測定法與剛性防呆要求卡片。
+  - 在 `ConnectorInspector.tsx` 建立全站專屬《ISO 80369-7:2021 Annex C.1 金屬參考接頭 4 大製造與幾何核心規範》技術標準卡片。
+- **編譯與確效 (Mandatory Runtime Check)**：
+  - `npx tsc --noEmit` 型別檢查：100% 通過 (0 errors)。
+  - `npx vite build` 生產打包確效：1682 模組成功打包，Built in 1.83s，0 errors。

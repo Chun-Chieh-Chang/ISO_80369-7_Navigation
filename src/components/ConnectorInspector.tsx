@@ -198,6 +198,53 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
           </div>
         </div>
       </div>
+
+      {/* Technical Standard Guide Card: ISO 80369-7:2021 Annex C.1 Manufacturing & Geometric Requirements */}
+      <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-4">
+        <div className="flex items-center space-x-2 border-b border-slate-100 pb-3">
+          <span className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-mono font-bold text-xs px-2.5 py-1 rounded-lg shadow-xs">
+            ISO 80369-7:2021 Annex C.1
+          </span>
+          <h3 className="text-base font-extrabold text-slate-900">
+            金屬參考接頭 (Reference Connectors) 4 大製造與幾何核心規範
+          </h3>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+          <div className="bg-slate-50 border border-slate-200 p-3.5 rounded-xl space-y-1.5">
+            <strong className="text-blue-900 block font-bold text-[13px]">1. 材質與剛性要求</strong>
+            <ul className="list-disc list-inside text-slate-600 space-y-1 leading-relaxed text-[11px]">
+              <li><strong>耐腐蝕剛性材質</strong>：使用不鏽鋼 (≥45 HRC) 或黃銅。</li>
+              <li><strong>彈性模數限制</strong>：彎曲/拉伸彈性模數 (Modulus of Elasticity) 必須 <strong>&gt; 3 433 MPa</strong>。</li>
+            </ul>
+          </div>
+
+          <div className="bg-slate-50 border border-slate-200 p-3.5 rounded-xl space-y-1.5">
+            <strong className="text-purple-900 block font-bold text-[13px]">2. 表面粗糙度極限</strong>
+            <ul className="list-disc list-inside text-slate-600 space-y-1 leading-relaxed text-[11px]">
+              <li><strong>關鍵表面 (Critical)</strong>：錐面與密封接觸面粗糙度平均值 $R_a$ <strong>不得超過 0.8 μm</strong>。</li>
+              <li>確保測試密封重現性與極致抗磨損耐用度。</li>
+            </ul>
+          </div>
+
+          <div className="bg-slate-50 border border-slate-200 p-3.5 rounded-xl space-y-1.5">
+            <strong className="text-amber-900 block font-bold text-[13px]">3. 尺寸與倒角細節</strong>
+            <ul className="list-disc list-inside text-slate-600 space-y-1 leading-relaxed text-[11px]">
+              <li><strong>邊緣圓角</strong>：外側邊緣圓角半徑需在 <strong>0.15 mm ~ 0.20 mm</strong>。</li>
+              <li><strong>入口倒角</strong>：入口處圓角/倒角 R ≤ 0.5 mm。</li>
+              <li><strong>公錐長度</strong>：非相互連接測試 ≥ 10.5 mm；一般測試 ≥ 7.5 mm。</li>
+            </ul>
+          </div>
+
+          <div className="bg-slate-50 border border-slate-200 p-3.5 rounded-xl space-y-1.5">
+            <strong className="text-emerald-900 block font-bold text-[13px]">4. 測試項目指定圖樣</strong>
+            <ul className="list-disc list-inside text-slate-600 space-y-1 leading-relaxed text-[11px]">
+              <li><strong>洩漏/應力龜裂/反旋</strong>：公件配 <strong>Fig.C.1/C.5</strong>；母件配 <strong>Fig.C.2/C.4</strong>。</li>
+              <li><strong>抗拉拔/過載滑牙</strong>：公件配 <strong>Fig.C.3 (2.71mm 最壞情況)</strong>；母件配 <strong>Fig.C.6</strong>。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

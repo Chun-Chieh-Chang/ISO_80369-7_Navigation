@@ -758,23 +758,36 @@ export const TopicClauseExplorer: React.FC = () => {
                         </p>
                       </div>
 
-                      <div className="bg-white p-3 rounded-xl border border-slate-200/60 space-y-1.5 md:col-span-2">
+                      <div className="bg-white p-3 rounded-xl border border-slate-200/60 space-y-2 md:col-span-2">
                         <h5 className="font-bold text-slate-800 flex items-center gap-1 text-[11px]">
-                          <Zap className="w-3.5 h-3.5 text-amber-500" /> 3. 理想氣體狀態方程公式推導與現場 3 大關鍵注意事項
+                          <Zap className="w-3.5 h-3.5 text-amber-500" /> 3. 測試總容積 (Test Volume V) 3 大測定方法 (Annex B.3.7 & D.3.7) 與剛性要求
                         </h5>
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px] pt-1">
-                          <div className="bg-slate-50 p-2 rounded-lg border border-slate-100">
-                            <strong className="text-slate-700 block mb-0.5">① 精準測定總容積 (V)</strong>
-                            <p className="text-slate-500">測試容積含儀器氣路、感測器腔體與管路，須透過 3D CAD 或水重排法精準測定。</p>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px]">
+                          <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-200/80 space-y-1">
+                            <strong className="text-blue-900 block font-bold">① 尺寸計算量測法 (Dimensional)</strong>
+                            <p className="text-slate-600 text-[10px] leading-relaxed">
+                              依據夾具、管路與內部閥體之 <strong>3D CAD 模型或設計圖紙</strong>直接計算內部空腔體積。無水液殘留與損壞精密電路/傳感器風險。
+                            </p>
                           </div>
-                          <div className="bg-slate-50 p-2 rounded-lg border border-slate-100">
-                            <strong className="text-slate-700 block mb-0.5">② 系統夾具剛性 (Rigidity)</strong>
-                            <p className="text-slate-500">高壓下軟管膨脹會使體積 V 變大導致壓降判定失真，夾具與管路應使用金屬等剛性材質。</p>
+                          <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-200/80 space-y-1">
+                            <strong className="text-purple-900 block font-bold">② 系統注水量測法 (Water Amount)</strong>
+                            <p className="text-slate-600 text-[10px] leading-relaxed">
+                              裝配乾燥系統於天平稱重，緩緩注入蒸餾水並持續傾斜<strong>徹底排出氣泡</strong>對齊液面後再次稱重。以 1g ≈ 1mL 高精度換算總容積。
+                            </p>
                           </div>
-                          <div className="bg-slate-50 p-2 rounded-lg border border-slate-100">
-                            <strong className="text-slate-700 block mb-0.5">③ 環境溫度嚴格控制</strong>
-                            <p className="text-slate-500">氣體對溫度極度敏感，微小溫差會造成虛假壓力波動，須於 15°C~30°C 恆溫下測試。</p>
+                          <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-200/80 space-y-1">
+                            <strong className="text-emerald-900 block font-bold">③ 組合量測法 (Combination)</strong>
+                            <p className="text-slate-600 text-[10px] leading-relaxed">
+                              業界最常用做法。內部儀器傳感器與電磁閥體積由原廠提供（尺寸計算值），加總外部管路夾具之注水實測值即得正確總容積 $V$。
+                            </p>
                           </div>
+                        </div>
+
+                        <div className="bg-amber-50/80 border border-amber-200 p-2 rounded-lg text-[10px] text-amber-900 flex items-center gap-1.5">
+                          <ShieldAlert className="w-4 h-4 text-amber-600 shrink-0" />
+                          <span>
+                            <strong>⚠️ 剛性防呆要求：</strong>測試儀器與管路必須使用高剛性材料 (如金屬夾具，彈性模數 &gt; 3,433 MPa)。若使用易壓力膨脹/回縮之軟膠管，測試容積 $V$ 會隨壓力改變而致使壓降判定失真。
+                          </span>
                         </div>
                       </div>
                     </div>
