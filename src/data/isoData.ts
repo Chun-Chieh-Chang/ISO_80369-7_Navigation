@@ -8,6 +8,7 @@ export const ISO_CLAUSES: Record<string, ISOClauseInfo> = {
     category: 'leakage',
     applicableTypes: ['lock', 'slip'],
     assemblyTorqueNm: { min: 0.08, max: 0.12 },
+    assemblyAxialForceN: { min: 26.5, max: 27.5 },
     holdTimeSec: { min: 15, max: 35 },
     requiredMaleRef: 'C.4', // For Female Lock
     requiredFemaleRef: 'C.1', // For Male Lock
@@ -23,6 +24,7 @@ export const ISO_CLAUSES: Record<string, ISOClauseInfo> = {
     category: 'leakage',
     applicableTypes: ['lock', 'slip'],
     assemblyTorqueNm: { min: 0.08, max: 0.12 },
+    assemblyAxialForceN: { min: 26.5, max: 27.5 },
     holdTimeSec: { min: 15, max: 20 },
     requiredMaleRef: 'C.4',
     requiredFemaleRef: 'C.1',
@@ -38,6 +40,7 @@ export const ISO_CLAUSES: Record<string, ISOClauseInfo> = {
     category: 'durability',
     applicableTypes: ['lock', 'slip'],
     assemblyTorqueNm: { min: 0.08, max: 0.12 },
+    assemblyAxialForceN: { min: 26.5, max: 27.5 },
     holdTimeSec: { min: 172800, max: 172800 }, // 48 hours
     requiredMaleRef: 'C.4',
     requiredFemaleRef: 'C.1',
@@ -53,6 +56,7 @@ export const ISO_CLAUSES: Record<string, ISOClauseInfo> = {
     category: 'mechanical',
     applicableTypes: ['lock', 'slip'],
     assemblyTorqueNm: { min: 0.08, max: 0.12 },
+    assemblyAxialForceN: { min: 26.5, max: 27.5 },
     testForceN: { min: 23, max: 35 }, // ISO 80369-7 Clause 6.4: Slip (23-25N), Lock (32-35N)
     holdTimeSec: { min: 10, max: 15 }, // ISO 80369-7 Clause 6.4: 10-15s
     requiredMaleRef: 'C.6', // For Female Lock
@@ -69,6 +73,7 @@ export const ISO_CLAUSES: Record<string, ISOClauseInfo> = {
     category: 'mechanical',
     applicableTypes: ['lock'],
     assemblyTorqueNm: { min: 0.08, max: 0.12 },
+    assemblyAxialForceN: { min: 26.5, max: 27.5 },
     testTorqueNm: { min: 0.018, max: 0.020 }, // ISO 80369-7 Clause 6.5: 0.018-0.020 N·m
     holdTimeSec: { min: 10, max: 15 }, // ISO 80369-7 Clause 6.5: 10-15s
     requiredMaleRef: 'C.4',

@@ -586,3 +586,23 @@
   - 於 `<thead>` 表頭為 `裝配扭矩` 標註 `前置準備條件`、為 `定量加載條件` 標註 `實測考驗負載`。
 - **建置確效 (CAPA)**：
   - 執行 `npm run build` 打包確效 (1682 模組，Built in 2.33s)。
+
+---
+
+## 版本：v2.9 貫徹單一事實來源 (SSOT) 原則與預裝配軸向推力顯性化重構 (2026-08-07)
+
+### 需求內容
+1. 貫徹單一事實來源 (Single Source of Truth, SSOT) 原則：消除全站寫死字串，讓所有對照矩陣與 DVP 表格完全動態組裝自 `ISO_CLAUSES` 與 `STANDARD_CLAUSE_DETAILS`。
+2. 補齊預裝配軸向推力資訊：於 `ISOClauseInfo` 與 `ISO_CLAUSES` 補齊 `assemblyAxialForceN: { min: 26.5, max: 27.5 }`，並於 `ClauseComparisonMatrix.tsx` 與 `DvpGenerator.tsx` 完整顯性呈現。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **SSOT 資料庫與型別重構 (CAPA)**：
+  - 於 `src/types/index.ts` 之 `ISOClauseInfo` 介面新增 `assemblyAxialForceN` 屬性。
+  - 於 `src/data/isoData.ts` 之 `ISO_CLAUSES` 為 6.1~6.5 補齊 `assemblyAxialForceN: { min: 26.5, max: 27.5 }` 預裝配軸向推力資料。
+  - 重構 `ClauseComparisonMatrix.tsx`，改寫 `clausesList` 為動態讀取 `ISO_CLAUSES` 與 `STANDARD_CLAUSE_DETAILS`，徹底解除資料不同步風驗。
+- **UI 與 DVP 驗證表訊息一致性 (CAPA)**：
+  - 更新對照矩陣與 DVP 欄位標題為 `預裝配條件 (扭矩 / 軸向推力)` 與 `定量加載考驗 (壓力/拉力/扭矩)`。
+  - 於 DVP 驗證表 `DvpGenerator.tsx` 中完整渲染 `0.08–0.12 N·m (+ 26.5–27.5 N 推力)`，使全站雙矩陣訊息 100% 同步。
+- **建置確效 (CAPA)**：
+  - 執行 `npm run build` 打包確效 (1682 模組，Built in 2.28s)。
+

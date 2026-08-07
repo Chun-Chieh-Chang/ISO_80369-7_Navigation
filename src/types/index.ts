@@ -22,6 +22,7 @@ export interface ISOClauseInfo {
   category: 'leakage' | 'durability' | 'mechanical';
   applicableTypes: ConnectorType[];
   assemblyTorqueNm: { min: number; max: number };
+  assemblyAxialForceN?: { min: number; max: number };
   testTorqueNm?: { min: number; max: number };
   testForceN?: { min: number; max: number };
   holdTimeSec: { min: number; max: number };

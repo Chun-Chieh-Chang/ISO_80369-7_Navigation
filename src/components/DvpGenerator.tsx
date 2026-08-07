@@ -88,8 +88,14 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
                 <tr className="bg-slate-100 text-slate-800 font-bold">
                   <th className="p-3 rounded-tl-xl border border-slate-200">條款 (Clause)</th>
                   <th className="p-3 border border-slate-200">測試項目 (Test Title)</th>
-                  <th className="p-3 border border-slate-200">裝配扭矩 (Assembly)</th>
-                  <th className="p-3 border border-slate-200">測試扭矩 / 軸向力</th>
+                  <th className="p-3 border border-slate-200">
+                    <div>預裝配條件 (扭矩 / 軸向推力)</div>
+                    <span className="text-[10px] text-blue-600 font-normal block normal-case">前置準備條件</span>
+                  </th>
+                  <th className="p-3 border border-slate-200">
+                    <div>定量加載考驗 (壓力/拉力/扭矩)</div>
+                    <span className="text-[10px] text-purple-600 font-normal block normal-case">實測考驗負載</span>
+                  </th>
                   <th className="p-3 border border-slate-200">保持時間 (Hold Time)</th>
                   <th className="p-3 border border-slate-200">指定金屬參考接頭</th>
                   <th className="p-3 rounded-tr-xl border border-slate-200">允收標準 (Pass Criteria)</th>
@@ -118,10 +124,17 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
                           {clause.titleZh}
                         </td>
                         <td className="p-3 border border-slate-200 font-mono">
-                          {clause.assemblyTorqueNm.max > 0 ? `${clause.assemblyTorqueNm.min}–${clause.assemblyTorqueNm.max} N·m` : '不適用'}
+                          {clause.assemblyTorqueNm.max > 0 ? (
+                            <div>
+                              <div>{clause.assemblyTorqueNm.min}–{clause.assemblyTorqueNm.max} N·m</div>
+                              {clause.assemblyAxialForceN && (
+                                <div className="text-[11px] text-blue-700 font-bold">+ {clause.assemblyAxialForceN.min}–{clause.assemblyAxialForceN.max} N (推力)</div>
+                              )}
+                            </div>
+                          ) : '直加破壞扭矩'}
                         </td>
                         <td className="p-3 border border-slate-200 font-mono">
-                          {clause.testTorqueNm
+                          {clause.id === '6.1' ? '300–330 kPa' : clause.id === '6.2' ? '80.0–88.0 kPa (真空)' : clause.testTorqueNm
                             ? `${clause.testTorqueNm.min}–${clause.testTorqueNm.max} N·m`
                             : clause.testForceN
                             ? `${clause.testForceN.min}–${clause.testForceN.max} N`

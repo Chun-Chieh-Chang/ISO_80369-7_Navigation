@@ -24,229 +24,246 @@ export const ClauseComparisonMatrix: React.FC = () => {
     }
   };
 
-  const clausesList = [
-    {
-      id: 'Clause 1',
-      title: 'Clause 1 適用範圍 (Scope)',
-      iso7: 'Clause 1',
-      iso20: 'Clause 1',
-      category: 'general',
-      categoryZh: '一般',
-      type: 'All Connectors',
-      assemblyTorque: '-',
-      testPressure: '-',
-      testForce: '-',
-      testTorque: '-',
-      holdTime: '-',
-      fixture: '法規審查對照表',
-      criteria: '明確界定適用於血管（Intravascular）或皮下（Subcutaneous）注射/輸液設備之小口徑魯爾連接器範疇',
-      risk: '產品預期用途劃分錯誤致審查退件'
-    },
-    {
-      id: 'Clause 2',
-      title: 'Clause 2 規範性引用文件 (Normative References)',
-      iso7: 'Clause 2',
-      iso20: 'Clause 2',
-      category: 'general',
-      categoryZh: '一般',
-      type: 'All Connectors',
-      assemblyTorque: '-',
-      testPressure: '-',
-      testForce: '-',
-      testTorque: '-',
-      holdTime: '-',
-      fixture: '標準追溯文件',
-      criteria: '強制引用 ISO 80369-1 (通用防錯要求) 與 ISO 80369-20 (通用測試方法) 規範版本',
-      risk: '引用被廢止之舊版 ISO 594 標準'
-    },
-    {
-      id: 'Clause 3',
-      title: 'Clause 3 術語與定義 (Terms & Definitions)',
-      iso7: 'Clause 3',
-      iso20: 'Clause 3',
-      category: 'general',
-      categoryZh: '一般',
-      type: 'All Connectors',
-      assemblyTorque: '-',
-      testPressure: '-',
-      testForce: '-',
-      testTorque: '-',
-      holdTime: '-',
-      fixture: 'DHF 專有名詞對照表',
-      criteria: '精確定義 Luer connector、Luer slip、Luer lock、Reference connector、Leak rate 等法規專有名詞',
-      risk: '圖面名詞與國際標準歧異導致審查補件'
-    },
-    {
-      id: 'Clause 4',
-      title: 'Clause 4 通用要求與預裝配程序 (General & Pre-assembly)',
-      iso7: 'Clause 4',
-      iso20: 'Clause 4 & General Procedure',
-      category: 'assembly',
-      categoryZh: '裝配',
-      type: 'Lock & Slip',
-      assemblyTorque: '0.08 - 0.12 N·m',
-      testPressure: '-',
-      testForce: '26.5 - 27.5 N (軸向推力)',
-      testTorque: '-',
-      holdTime: '5 - 6 秒',
-      fixture: '校正定扭矩起子 & 彈簧推力機構',
-      criteria: '性能測試前必須執行統一標準預裝配作業，並符合跨領域非互換性防呆要求',
-      risk: '預裝配未定量加壓致使假洩漏或螺紋損傷'
-    },
-    {
-      id: 'Clause 5',
-      title: 'Clause 5 幾何尺寸與 6% 圓錐度驗證 (Dimensional Requirements)',
-      iso7: 'Clause 5 (Figures B.1~B.6)',
-      iso20: 'Annex A (幾何量測法)',
-      category: 'dimensional',
-      categoryZh: '尺寸',
-      type: 'Lock & Slip',
-      assemblyTorque: '-',
-      testPressure: '-',
-      testForce: '-',
-      testTorque: '-',
-      holdTime: '-',
-      fixture: '三次元 CMM / 6% 光學投影儀 / 通止規',
-      criteria: '圓錐度 6% (1:16.667)、配合長度 ≥ 7.5mm、螺紋 Pitch 2.5mm，完全符合 Figures B.1~B.6 CAD 矩陣',
-      risk: '射出保壓不足致錐度偏離 6% 或螺紋厚度超差'
-    },
-    {
-      id: '6.1',
-      title: '6.1 流體洩漏 (6.1.2 氣壓衰減法 vs 6.1.3 正壓液體法)',
-      iso7: 'Clause 6.1',
-      iso20: 'Annex B (氣壓) / Annex C (水壓)',
-      category: 'leakage',
-      categoryZh: '洩漏',
-      type: 'Lock & Slip',
-      assemblyTorque: '0.08 - 0.12 N·m (+ 26.5–27.5N)',
-      testPressure: '300 - 330 kPa',
-      testForce: '-',
-      testTorque: '-',
-      holdTime: '15–20s (6.1.2氣壓) / 30–35s (6.1.3水壓)',
-      fixture: 'Fig.C.1 (母) / Fig.C.4 (公)',
-      criteria: '【6.1.2 氣壓】加壓 300~330 kPa 氣壓持壓 15~20s，壓降洩漏率 ≤ 0.005 Pa·m³/s (Annex B)；【6.1.3 水壓】加壓 300~330 kPa 水壓持壓 30~35s，目視無水滴滴落 (Annex C)',
-      risk: '射出成型毛邊、6% 錐度縮水變形'
-    },
-    {
-      id: '6.2',
-      title: '6.2 負壓空氣洩漏 (Sub-atmospheric Air Leakage)',
-      iso7: 'Clause 6.2',
-      iso20: 'Annex D (負壓衰減) / Annex K (抽吸水下氣泡)',
-      category: 'leakage',
-      categoryZh: '洩漏',
-      type: 'Lock & Slip',
-      assemblyTorque: '0.08 - 0.12 N·m (+ 26.5–27.5N)',
-      testPressure: '80.0 - 88.0 kPa 真空',
-      testForce: '-',
-      testTorque: '-',
-      holdTime: '15 - 20 秒',
-      fixture: 'Fig.C.1 (母) / Fig.C.4 (公)',
-      criteria: '80.0~88.0 kPa 負壓真空下持壓 15~20 秒，空氣洩漏率 ≤ 0.005 Pa·m³/s (Annex D)，或水中連續無氣泡冒出 (Annex K)',
-      risk: '負壓時錐面微幅收縮脫離產生微氣孔致氣栓'
-    },
-    {
-      id: '6.3',
-      title: '6.3 耐環境應力龜裂 (Stress Cracking)',
-      iso7: 'Clause 6.3',
-      iso20: 'Annex E (裝配靜置 48h)',
-      category: 'durability',
-      categoryZh: '耐久',
-      type: 'Lock & Slip',
-      assemblyTorque: '0.08 - 0.12 N·m (+ 26.5–27.5N)',
-      testPressure: '-',
-      testForce: '-',
-      testTorque: '-',
-      holdTime: '≥ 48 小時',
-      fixture: 'Fig.C.1 (母) / Fig.C.4 (公)',
-      criteria: '裝配於金屬參考接頭於 23°C 空氣中靜置 48 小時 (Annex E) 無龜裂，且隨後須通過 6.1.1 洩漏測試',
-      risk: 'PC/PMMA 材質射出殘留內應力高，受長效過盈應力作用發生爆裂'
-    },
-    {
-      id: '6.4',
-      title: '6.4 抗軸向負載分離 (Resistance to Separation from Axial Load)',
-      iso7: 'Clause 6.4',
-      iso20: 'Annex F',
-      category: 'mechanical',
-      categoryZh: '機械',
-      type: 'Lock (32~35N) / Slip (23~25N)',
-      assemblyTorque: '0.08 - 0.12 N·m (+ 26.5–27.5N)',
-      testPressure: '-',
-      testForce: '23 - 25 N (Slip) / 32 - 35 N (Lock)',
-      testTorque: '-',
-      holdTime: '10 - 15 秒',
-      fixture: 'Fig.C.3 (母 2.71mm 窄耳翼極限) / Fig.C.6 (公極限)',
-      criteria: '施加 23~25 N (Slip) 或 32~35 N (Lock) 軸向拉力維持 10~15 秒 (加載速率 ≤ 10 N/s)，接頭螺紋與錐面不得脫開分離',
-      risk: '螺紋咬合深度不足，耳翼被直接剪切拉平'
-    },
-    {
-      id: '6.5',
-      title: '6.5 抗旋鬆分離 (Resistance to Separation from Unscrewing)',
-      iso7: 'Clause 6.5',
-      iso20: 'Annex G (反旋) / Annex I (拆卸力)',
-      category: 'mechanical',
-      categoryZh: '機械',
-      type: 'Lock only',
-      assemblyTorque: '0.08 - 0.12 N·m (+ 26.5–27.5N)',
-      testPressure: '-',
-      testForce: '-',
-      testTorque: '0.018 - 0.020 N·m (反向)',
-      holdTime: '10 - 15 秒',
-      fixture: 'Fig.C.1 (母) / Fig.C.4 (公)',
-      criteria: '施加 0.018~0.020 N·m 反向旋鬆力維持 10~15 秒，錐面與螺紋摩擦力維持自鎖不自動解鎖',
-      risk: '材料表面太滑（脫模劑/潤滑劑過量）致自鎖失敗'
-    },
-    {
-      id: '6.6',
-      title: '6.6 抗過載滑牙測試 (Resistance to Overriding)',
-      iso7: 'Clause 6.6',
-      iso20: 'Annex H',
-      category: 'mechanical',
-      categoryZh: '機械',
-      type: 'Lock only',
-      assemblyTorque: '直加破壞扭矩',
-      testPressure: '-',
-      testForce: '-',
-      testTorque: '0.15 - 0.17 N·m',
-      holdTime: '5 - 10 秒',
-      fixture: 'Fig.C.3 (2.71mm 窄耳翼最壞情況) / Fig.C.6',
-      criteria: '施加 0.15~0.17 N·m 過旋扭矩維持 5~10 秒，螺紋或耳翼不得越過滑脫（不滑牙）、套環無膨脹脫開',
-      risk: 'PP 等低剛性材料環向膨脹 (Hoop Expansion) 脫牙'
-    },
-    {
-      id: 'Annex C',
-      title: 'Annex C 金屬標準參考連接器 (Reference Connectors)',
-      iso7: 'Annex C (Figures C.1~C.6)',
-      iso20: 'General Apparatus Section 4',
-      category: 'assembly',
-      categoryZh: '夾具',
-      type: 'Fig.C.1 ~ Fig.C.6',
-      assemblyTorque: '-',
-      testPressure: '-',
-      testForce: '-',
-      testTorque: '-',
-      holdTime: '-',
-      fixture: '不鏽鋼參考夾具 (≥ 45 HRC)',
-      criteria: '製造精密度最高的不鏽鋼金屬測試夾具，Fig.C.3 具備 2.71mm 極限最壞情況耳翼',
-      risk: '未定期校正參考夾具尺寸導致全盤測試結果無效'
-    },
-    {
-      id: 'Annex A/D/E',
-      title: 'Annex A / D / E 原理說明、防錯評估與測試總覽',
-      iso7: 'Annex A, D, E',
-      iso20: 'Annex J (修訂歷史)',
-      category: 'general',
-      categoryZh: '一般',
-      type: 'All Connectors',
-      assemblyTorque: '-',
-      testPressure: '-',
-      testForce: '-',
-      testTorque: '-',
-      holdTime: '-',
-      fixture: '法規綜合說明文件',
-      criteria: '提供測試參數臨床原理 (Annex A)、跨領域 3D 碰撞防誤接評估 (Annex D) 及完整測試矩陣 (Annex E)',
-      risk: '風險管理文件中漏引 Annex A 科學說明'
-    }
-  ];
+  // Dynamically derive clausesList from Single Source of Truth (ISO_CLAUSES & STANDARD_CLAUSE_DETAILS)
+  const clausesList = React.useMemo(() => {
+    const clause5Detail = STANDARD_CLAUSE_DETAILS['iso7-clause-5'];
+    const c61Data = ISO_CLAUSES['6.1'];
+    const c61Detail = STANDARD_CLAUSE_DETAILS['iso7-6.1'];
+    const c62Data = ISO_CLAUSES['6.2'];
+    const c62Detail = STANDARD_CLAUSE_DETAILS['iso7-6.2'];
+    const c63Data = ISO_CLAUSES['6.3'];
+    const c63Detail = STANDARD_CLAUSE_DETAILS['iso7-6.3'];
+    const c64Data = ISO_CLAUSES['6.4'];
+    const c64Detail = STANDARD_CLAUSE_DETAILS['iso7-6.4'];
+    const c65Data = ISO_CLAUSES['6.5'];
+    const c65Detail = STANDARD_CLAUSE_DETAILS['iso7-6.5'];
+    const c66Data = ISO_CLAUSES['6.6'];
+    const c66Detail = STANDARD_CLAUSE_DETAILS['iso7-6.6'];
+
+    return [
+      {
+        id: 'Clause 1',
+        title: 'Clause 1 適用範圍 (Scope)',
+        iso7: 'Clause 1',
+        iso20: 'Clause 1',
+        category: 'general',
+        categoryZh: '一般',
+        type: 'All Connectors',
+        assemblyTorque: '-',
+        testPressure: '-',
+        testForce: '-',
+        testTorque: '-',
+        holdTime: '-',
+        fixture: '法規審查對照表',
+        criteria: '明確界定適用於血管（Intravascular）或皮下（Subcutaneous）注射/輸液設備之小口徑魯爾連接器範疇',
+        risk: '產品預期用途劃分錯誤致審查退件'
+      },
+      {
+        id: 'Clause 2',
+        title: 'Clause 2 規範性引用文件 (Normative References)',
+        iso7: 'Clause 2',
+        iso20: 'Clause 2',
+        category: 'general',
+        categoryZh: '一般',
+        type: 'All Connectors',
+        assemblyTorque: '-',
+        testPressure: '-',
+        testForce: '-',
+        testTorque: '-',
+        holdTime: '-',
+        fixture: '標準追溯文件',
+        criteria: '強制引用 ISO 80369-1 (通用防錯要求) 與 ISO 80369-20 (通用測試方法) 規範版本',
+        risk: '引用被廢止之舊版 ISO 594 標準'
+      },
+      {
+        id: 'Clause 3',
+        title: 'Clause 3 術語與定義 (Terms & Definitions)',
+        iso7: 'Clause 3',
+        iso20: 'Clause 3',
+        category: 'general',
+        categoryZh: '一般',
+        type: 'All Connectors',
+        assemblyTorque: '-',
+        testPressure: '-',
+        testForce: '-',
+        testTorque: '-',
+        holdTime: '-',
+        fixture: 'DHF 專有名詞對照表',
+        criteria: '精確定義 Luer connector、Luer slip、Luer lock、Reference connector、Leak rate 等法規專有名詞',
+        risk: '圖面名詞與國際標準歧異導致審查補件'
+      },
+      {
+        id: 'Clause 4',
+        title: 'Clause 4 通用要求與預裝配程序 (General & Pre-assembly)',
+        iso7: 'Clause 4',
+        iso20: 'Clause 4 & General Procedure',
+        category: 'assembly',
+        categoryZh: '裝配',
+        type: 'Lock & Slip',
+        assemblyTorque: '0.08 - 0.12 N·m (+ 26.5–27.5N)',
+        testPressure: '-',
+        testForce: '26.5 - 27.5 N (軸向推力)',
+        testTorque: '-',
+        holdTime: '5 - 6 秒',
+        fixture: '校正定扭矩起子 & 彈簧推力機構',
+        criteria: '性能測試前必須執行統一標準預裝配作業，並符合跨領域非互換性防呆要求',
+        risk: '預裝配未定量加壓致使假洩漏或螺紋損傷'
+      },
+      {
+        id: 'Clause 5',
+        title: 'Clause 5 幾何尺寸與 6% 圓錐度驗證 (Dimensional Requirements)',
+        iso7: 'Clause 5 (Figures B.1~B.6)',
+        iso20: 'Annex A (幾何量測法)',
+        category: 'dimensional',
+        categoryZh: '尺寸',
+        type: 'Lock & Slip',
+        assemblyTorque: '-',
+        testPressure: '-',
+        testForce: '-',
+        testTorque: '-',
+        holdTime: '-',
+        fixture: clause5Detail?.fixtureRequiredZh || '三次元 CMM / 6% 光學投影儀 / 通止規',
+        criteria: clause5Detail?.acceptanceCriteriaZh?.join('；') || '圓錐度 6% (1:16.667)、配合長度 ≥ 7.5mm、螺紋 Pitch 2.5mm',
+        risk: clause5Detail?.commonNonConformancesZh?.join('；') || '射出保壓不足致錐度偏離 6% 或螺紋厚度超差'
+      },
+      {
+        id: '6.1',
+        title: '6.1 流體洩漏 (6.1.2 氣壓衰減法 vs 6.1.3 正壓液體法)',
+        iso7: 'Clause 6.1',
+        iso20: 'Annex B (氣壓) / Annex C (水壓)',
+        category: c61Data?.category || 'leakage',
+        categoryZh: '洩漏',
+        type: 'Lock & Slip',
+        assemblyTorque: `${c61Data?.assemblyTorqueNm.min} - ${c61Data?.assemblyTorqueNm.max} N·m (+ ${c61Data?.assemblyAxialForceN?.min}–${c61Data?.assemblyAxialForceN?.max}N 推力)`,
+        testPressure: '300 - 330 kPa',
+        testForce: '-',
+        testTorque: '-',
+        holdTime: '15–20s (6.1.2氣壓) / 30–35s (6.1.3水壓)',
+        fixture: c61Detail?.fixtureRequiredZh || 'Fig.C.1 (母) / Fig.C.4 (公)',
+        criteria: c61Data?.passCriteriaZh || '【正壓液體洩漏 (6.1.3 水壓法)】加壓 300~330 kPa...',
+        risk: c61Detail?.commonNonConformancesZh?.join('；') || '射出成型毛邊、6% 錐度縮水變形'
+      },
+      {
+        id: '6.2',
+        title: '6.2 負壓空氣洩漏 (Sub-atmospheric Air Leakage)',
+        iso7: 'Clause 6.2',
+        iso20: 'Annex D (負壓衰減) / Annex K (抽吸水下氣泡)',
+        category: c62Data?.category || 'leakage',
+        categoryZh: '洩漏',
+        type: 'Lock & Slip',
+        assemblyTorque: `${c62Data?.assemblyTorqueNm.min} - ${c62Data?.assemblyTorqueNm.max} N·m (+ ${c62Data?.assemblyAxialForceN?.min}–${c62Data?.assemblyAxialForceN?.max}N 推力)`,
+        testPressure: '80.0 - 88.0 kPa 真空',
+        testForce: '-',
+        testTorque: '-',
+        holdTime: `${c62Data?.holdTimeSec.min} - ${c62Data?.holdTimeSec.max} 秒`,
+        fixture: c62Detail?.fixtureRequiredZh || 'Fig.C.1 (母) / Fig.C.4 (公)',
+        criteria: c62Data?.passCriteriaZh || '在 80.0 kPa–88.0 kPa 負壓真空下保持 15–20 秒...',
+        risk: c62Detail?.commonNonConformancesZh?.join('；') || '負壓時錐面微幅收縮脫離產生微氣孔致氣栓'
+      },
+      {
+        id: '6.3',
+        title: '6.3 耐環境應力龜裂 (Stress Cracking)',
+        iso7: 'Clause 6.3',
+        iso20: 'Annex E (裝配靜置 48h)',
+        category: c63Data?.category || 'durability',
+        categoryZh: '耐久',
+        type: 'Lock & Slip',
+        assemblyTorque: `${c63Data?.assemblyTorqueNm.min} - ${c63Data?.assemblyTorqueNm.max} N·m (+ ${c63Data?.assemblyAxialForceN?.min}–${c63Data?.assemblyAxialForceN?.max}N 推力)`,
+        testPressure: '-',
+        testForce: '-',
+        testTorque: '-',
+        holdTime: '≥ 48 小時',
+        fixture: c63Detail?.fixtureRequiredZh || 'Fig.C.1 (母) / Fig.C.4 (公)',
+        criteria: c63Data?.passCriteriaZh || '裝配於金屬參考接頭於 23°C 空氣中靜置 48 小時...',
+        risk: c63Detail?.commonNonConformancesZh?.join('；') || 'PC/PMMA 材質射出殘留內應力高，受長效過盈應力作用發生爆裂'
+      },
+      {
+        id: '6.4',
+        title: '6.4 抗軸向負載分離 (Resistance to Separation from Axial Load)',
+        iso7: 'Clause 6.4',
+        iso20: 'Annex F',
+        category: c64Data?.category || 'mechanical',
+        categoryZh: '機械',
+        type: `Lock (${c64Data?.testForceN?.max || 35}N) / Slip (${c64Data?.testForceN?.min || 23}N)`,
+        assemblyTorque: `${c64Data?.assemblyTorqueNm.min} - ${c64Data?.assemblyTorqueNm.max} N·m (+ ${c64Data?.assemblyAxialForceN?.min}–${c64Data?.assemblyAxialForceN?.max}N 推力)`,
+        testPressure: '-',
+        testForce: `${c64Data?.testForceN?.min || 23} - 25 N (Slip) / 32 - ${c64Data?.testForceN?.max || 35} N (Lock)`,
+        testTorque: '-',
+        holdTime: `${c64Data?.holdTimeSec.min} - ${c64Data?.holdTimeSec.max} 秒`,
+        fixture: c64Detail?.fixtureRequiredZh || 'Fig.C.3 (母 2.71mm 窄耳翼極限) / Fig.C.6 (公極限)',
+        criteria: c64Data?.passCriteriaZh || '在 23 N–25 N (Slip) 或 32 N–35 N (Lock) 軸向拉力下...',
+        risk: c64Detail?.commonNonConformancesZh?.join('；') || '螺紋咬合深度不足，耳翼被直接剪切拉平'
+      },
+      {
+        id: '6.5',
+        title: '6.5 抗旋鬆分離 (Resistance to Separation from Unscrewing)',
+        iso7: 'Clause 6.5',
+        iso20: 'Annex G (反旋) / Annex I (拆卸力)',
+        category: c65Data?.category || 'mechanical',
+        categoryZh: '機械',
+        type: 'Lock only',
+        assemblyTorque: `${c65Data?.assemblyTorqueNm.min} - ${c65Data?.assemblyTorqueNm.max} N·m (+ ${c65Data?.assemblyAxialForceN?.min}–${c65Data?.assemblyAxialForceN?.max}N 推力)`,
+        testPressure: '-',
+        testForce: '-',
+        testTorque: `${c65Data?.testTorqueNm?.min || 0.018} - ${c65Data?.testTorqueNm?.max || 0.020} N·m (反向)`,
+        holdTime: `${c65Data?.holdTimeSec.min} - ${c65Data?.holdTimeSec.max} 秒`,
+        fixture: c65Detail?.fixtureRequiredZh || 'Fig.C.1 (母) / Fig.C.4 (公)',
+        criteria: c65Data?.passCriteriaZh || '裝配後施加 0.018 N·m–0.020 N·m 的反向旋鬆扭矩...',
+        risk: c65Detail?.commonNonConformancesZh?.join('；') || '材料表面太滑（脫模劑/潤滑劑過量）致自鎖失敗'
+      },
+      {
+        id: '6.6',
+        title: '6.6 抗過載滑牙測試 (Resistance to Overriding)',
+        iso7: 'Clause 6.6',
+        iso20: 'Annex H',
+        category: c66Data?.category || 'mechanical',
+        categoryZh: '機械',
+        type: 'Lock only',
+        assemblyTorque: '直加破壞扭矩',
+        testPressure: '-',
+        testForce: '-',
+        testTorque: `${c66Data?.testTorqueNm?.min || 0.15} - ${c66Data?.testTorqueNm?.max || 0.17} N·m`,
+        holdTime: `${c66Data?.holdTimeSec.min} - ${c66Data?.holdTimeSec.max} 秒`,
+        fixture: c66Detail?.fixtureRequiredZh || 'Fig.C.3 (2.71mm 窄耳翼最壞情況) / Fig.C.6',
+        criteria: c66Data?.passCriteriaZh || '施加 0.15 N·m–0.17 N·m 破壞性扭矩維持 5–10 秒...',
+        risk: c66Detail?.commonNonConformancesZh?.join('；') || 'PP 等低剛性材料環向膨脹 (Hoop Expansion) 脫牙'
+      },
+      {
+        id: 'Annex C',
+        title: 'Annex C 金屬標準參考連接器 (Reference Connectors)',
+        iso7: 'Annex C (Figures C.1~C.6)',
+        iso20: 'General Apparatus Section 4',
+        category: 'assembly',
+        categoryZh: '夾具',
+        type: 'Fig.C.1 ~ Fig.C.6',
+        assemblyTorque: '-',
+        testPressure: '-',
+        testForce: '-',
+        testTorque: '-',
+        holdTime: '-',
+        fixture: '不鏽鋼參考夾具 (≥ 45 HRC)',
+        criteria: '製造精密度最高的不鏽鋼金屬測試夾具，Fig.C.3 具備 2.71mm 極限最壞情況耳翼',
+        risk: '未定期校正參考夾具尺寸導致全盤測試結果無效'
+      },
+      {
+        id: 'Annex A/D/E',
+        title: 'Annex A / D / E 原理說明、防錯評估與測試總覽',
+        iso7: 'Annex A, D, E',
+        iso20: 'Annex J (修訂歷史)',
+        category: 'general',
+        categoryZh: '一般',
+        type: 'All Connectors',
+        assemblyTorque: '-',
+        testPressure: '-',
+        testForce: '-',
+        testTorque: '-',
+        holdTime: '-',
+        fixture: '法規綜合說明文件',
+        criteria: '提供測試參數臨床原理 (Annex A)、跨領域 3D 碰撞防誤接評估 (Annex D) 及完整測試矩陣 (Annex E)',
+        risk: '風險管理文件中漏引 Annex A 科學說明'
+      }
+    ];
+  }, []);
 
   const filteredClauses = clausesList.filter(c => {
     const matchesCat = filterType === 'all' || c.category === filterType;
@@ -261,7 +278,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
   });
 
   const exportCSV = () => {
-    const headers = ['條文號', 'ISO 80369-7 條文', 'ISO 80369-20 附錄', '適用類型', '裝配扭矩', '測試壓力/力矩/拉力', '保持時間', '指定金屬夾具', '合格標準'];
+    const headers = ['條文號', 'ISO 80369-7 條文', 'ISO 80369-20 附錄', '適用類型', '預裝配條件 (扭矩 / 軸向推力)', '定量加載考驗 (壓力/拉力/扭矩)', '保持時間', '指定金屬夾具', '合格標準'];
     const rows = clausesList.map(c => [
       c.id,
       c.iso7,
@@ -321,8 +338,8 @@ export const ClauseComparisonMatrix: React.FC = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-slate-600 leading-relaxed">
             <div className="bg-white p-2.5 rounded-lg border border-slate-200/80">
-              <span className="font-bold text-blue-900 block mb-0.5">1. 裝配扭矩 (Pre-assembly Torque):</span>
-              定位為**「測試前置準備條件」**。凡屬 ISO 80369-20 物理/機械實測項目 (Clause 6.1~6.5)，依規定須先旋合至 <span className="font-mono font-bold text-slate-800">0.08 ~ 0.12 N·m</span> (配合 27.5N 軸推力) 確立 6% 錐面緊密配合基礎；6.6 為直加過載測試；非實測條文標註 <span className="font-mono text-slate-400 font-bold">-</span>。
+              <span className="font-bold text-blue-900 block mb-0.5">1. 預裝配條件 (Pre-assembly Torque & Axial Force):</span>
+              定位為**「測試前置準備條件」**。凡屬 ISO 80369-20 物理/機械實測項目 (Clause 6.1~6.5)，依規定須先旋合至 <span className="font-mono font-bold text-slate-800">0.08 ~ 0.12 N·m 扭矩</span> 並搭配 <span className="font-mono font-bold text-blue-700">26.5 ~ 27.5 N 軸向推力</span> 確立 6% 錐面緊密配合基礎；6.6 為直加過載測試；非實測條文標註 <span className="font-mono text-slate-400 font-bold">-</span>。
             </div>
             <div className="bg-white p-2.5 rounded-lg border border-slate-200/80">
               <span className="font-bold text-purple-900 block mb-0.5">2. 定量加載條件 (Active Test Load):</span>
@@ -380,7 +397,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
                 <th className="py-3 px-4">ISO 80369-7 條文</th>
                 <th className="py-3 px-4">ISO 80369-20 附錄</th>
                 <th className="py-3 px-4">
-                  <div>裝配扭矩</div>
+                  <div>預裝配條件 (扭矩 / 軸向推力)</div>
                   <span className="text-[10px] text-blue-600 font-normal block normal-case">前置準備條件</span>
                 </th>
                 <th className="py-3 px-4">
