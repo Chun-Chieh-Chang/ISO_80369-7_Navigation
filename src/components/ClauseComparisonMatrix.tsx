@@ -20,7 +20,10 @@ export const ClauseComparisonMatrix: React.FC = () => {
       case 'Clause 4': return 'ISO20-FIG-J1';
       case 'Clause 5': return 'ISO7-FIG-B3';
       case 'Annex C': return 'ISO7-FIG-C3';
-      default: return 'ISO7-FIG-A1';
+      case 'Clause 1': return 'ISO7-CLAUSE-1';
+      case 'Clause 2': return 'ISO7-CLAUSE-2';
+      case 'Clause 3': return 'ISO7-CLAUSE-3';
+      default: return 'ISO7-CLAUSE-TEXT';
     }
   };
 

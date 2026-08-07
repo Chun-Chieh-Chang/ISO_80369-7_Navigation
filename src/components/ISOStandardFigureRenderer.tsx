@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   Zap, Info, Maximize2, ShieldAlert, CheckCircle2, Sliders, Droplets, Wind, 
-  RotateCw, ArrowDownUp, Ruler, Sparkles, Eye, RefreshCw, Tag, HelpCircle, X, Activity
+  RotateCw, ArrowDownUp, Ruler, Sparkles, Eye, RefreshCw, Tag, HelpCircle, X, Activity, FileText
 } from 'lucide-react';
 
 interface ISOStandardFigureRendererProps {
@@ -33,7 +33,7 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
     const cleanBase = baseUrl.endsWith('/') ? baseUrl : baseUrl + '/';
     
     // Strict 1-to-1 mapping to extracted ISO 80369-7 Blueprint Folio pages
-    // Returns null for ISO 80369-20 physical test clauses to prevent showing arbitrary fallbacks
+    // Returns null for ISO 80369-20 physical test clauses and textual clauses (Clauses 1-3) to prevent showing arbitrary fallbacks
     switch (key) {
       case 'ISO7-FIG-B1':
         return `${cleanBase}assets/blueprint/page_2.png`;
@@ -65,19 +65,10 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
       case 'ISO7-FIG-A1':
         return `${cleanBase}assets/blueprint/page_1.png`;
       default:
-        // No dedicated ISO 80369-7 dimensional drawing for ISO 80369-20 physical test methods
+        // No dedicated ISO 80369-7 dimensional drawing for textual clauses (Clauses 1-3) or physical test methods
         return null;
     }
   };
-
-  const currentBlueprintPath = getBlueprintImagePath(svgKey);
-  const [displayMode, setDisplayMode] = useState<'official_blueprint' | 'testing_blueprint' | 'hd_render'>(() => {
-    if (svgKey.startsWith('ISO20-FIG-') || !currentBlueprintPath) return 'testing_blueprint';
-    return 'official_blueprint';
-  });
-  const [showZoomModal, setShowZoomModal] = useState(false);
-  const [zoomImageSrc, setZoomImageSrc] = useState<string>('');
-  const [zoomImageTitle, setZoomImageTitle] = useState<string>('');
 
   const getTestingBlueprintImagePath = (key: string) => {
     const baseUrl = (import.meta as any).env?.BASE_URL || '/';
@@ -118,6 +109,11 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
       case 'ISO7-FIG-C5':
       case 'ISO7-FIG-C6':
         return `${cleanBase}assets/testing_blueprint/test_page_3.png`;
+      case 'ISO7-CLAUSE-1':
+      case 'ISO7-CLAUSE-2':
+      case 'ISO7-CLAUSE-3':
+      case 'ISO7-CLAUSE-TEXT':
+        return null;
       default:
         return `${cleanBase}assets/testing_blueprint/test_page_11.png`;
     }
@@ -160,13 +156,30 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
       case 'ISO20-FIG-G1':
       case 'ISO20-FIG-H1':
         return `${cleanBase}assets/diagrams/iso20_mechanical_test.png`;
+      case 'ISO7-CLAUSE-1':
+      case 'ISO7-CLAUSE-2':
+      case 'ISO7-CLAUSE-3':
+      case 'ISO7-CLAUSE-TEXT':
+        return null;
       default:
         return `${cleanBase}assets/diagrams/iso7_luer_lock_cad.png`;
     }
   };
 
+  const currentBlueprintPath = getBlueprintImagePath(svgKey);
   const currentTestingBlueprintPath = getTestingBlueprintImagePath(svgKey);
   const currentImagePath = getDiagramImagePath(svgKey);
+
+  const [displayMode, setDisplayMode] = useState<'official_blueprint' | 'testing_blueprint' | 'hd_render'>(() => {
+    if (currentBlueprintPath) return 'official_blueprint';
+    if (currentTestingBlueprintPath) return 'testing_blueprint';
+    if (currentImagePath) return 'hd_render';
+    return 'official_blueprint';
+  });
+
+  const [showZoomModal, setShowZoomModal] = useState(false);
+  const [zoomImageSrc, setZoomImageSrc] = useState<string>('');
+  const [zoomImageTitle, setZoomImageTitle] = useState<string>('');
 
   const openZoomModal = (src: string, title: string) => {
     setZoomImageSrc(src);
@@ -194,7 +207,7 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
             <button
               onClick={() => currentBlueprintPath && setDisplayMode('official_blueprint')}
               disabled={!currentBlueprintPath}
-              title={currentBlueprintPath ? "檢視 ISO 80369-7 幾何尺寸藍圖" : "本條文屬於 ISO 80369-20 物理試驗，無專屬 ISO 80369-7 幾何尺寸藍圖"}
+              title={currentBlueprintPath ? "檢視 ISO 80369-7 幾何尺寸藍圖" : "本條文屬於文字規範或物理試驗，無專屬 ISO 80369-7 幾何尺寸藍圖"}
               className={`px-3 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
                 !currentBlueprintPath
                   ? 'bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed opacity-60'
@@ -207,26 +220,34 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
               <span>ISO 80369-7 幾何尺寸藍圖 {!currentBlueprintPath && '(無圖面)'}</span>
             </button>
             <button
-              onClick={() => setDisplayMode('testing_blueprint')}
-              className={`px-3 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                displayMode === 'testing_blueprint'
-                  ? 'bg-blue-600 text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
+              onClick={() => currentTestingBlueprintPath && setDisplayMode('testing_blueprint')}
+              disabled={!currentTestingBlueprintPath}
+              title={currentTestingBlueprintPath ? "檢視 ISO 80369-20 實驗架設藍圖" : "本條文屬於文字規範或一般說明，無專屬 ISO 80369-20 實驗架設圖面"}
+              className={`px-3 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
+                !currentTestingBlueprintPath
+                  ? 'bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed opacity-60'
+                  : displayMode === 'testing_blueprint'
+                    ? 'bg-blue-600 text-white shadow-xs cursor-pointer'
+                    : 'text-slate-600 hover:text-slate-900 cursor-pointer'
               }`}
             >
               <Activity className="w-3.5 h-3.5" />
-              <span>ISO 80369-20 實驗架設藍圖</span>
+              <span>ISO 80369-20 實驗架設藍圖 {!currentTestingBlueprintPath && '(無圖面)'}</span>
             </button>
             <button
-              onClick={() => setDisplayMode('hd_render')}
-              className={`px-3 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                displayMode === 'hd_render'
-                  ? 'bg-blue-600 text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
+              onClick={() => currentImagePath && setDisplayMode('hd_render')}
+              disabled={!currentImagePath}
+              title={currentImagePath ? "檢視 3D/HD 精密重構圖" : "本條文屬於文字規範，無 3D 重構圖面"}
+              className={`px-3 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
+                !currentImagePath
+                  ? 'bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed opacity-60'
+                  : displayMode === 'hd_render'
+                    ? 'bg-blue-600 text-white shadow-xs cursor-pointer'
+                    : 'text-slate-600 hover:text-slate-900 cursor-pointer'
               }`}
             >
               <Sparkles className="w-3.5 h-3.5" />
-              <span>3D/HD 精密重構圖</span>
+              <span>3D/HD 精密重構圖 {!currentImagePath && '(無圖面)'}</span>
             </button>
           </div>
 
@@ -273,74 +294,110 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
             </div>
           ) : (
             <div className="w-full relative py-12 px-6 bg-slate-900/90 rounded-2xl border border-slate-700 shadow-xl flex flex-col items-center justify-center text-center space-y-4">
-              <div className="p-4 bg-slate-800 rounded-full border border-slate-600 text-amber-400">
-                <ShieldAlert className="w-10 h-10" />
+              <div className="p-4 bg-slate-800 rounded-full border border-slate-600 text-blue-400">
+                {svgKey.startsWith('ISO7-CLAUSE-') ? <FileText className="w-10 h-10" /> : <ShieldAlert className="w-10 h-10 text-amber-400" />}
               </div>
               <div className="space-y-1.5 max-w-md">
-                <h4 className="text-sm font-bold text-white">本主題無 ISO 80369-7 幾何尺寸藍圖</h4>
+                <h4 className="text-sm font-bold text-white">
+                  {svgKey.startsWith('ISO7-CLAUSE-') ? '本條文為規範文字/術語定義條文，無專屬圖面' : '本主題無 ISO 80369-7 幾何尺寸藍圖'}
+                </h4>
                 <p className="text-xs text-slate-300 leading-relaxed">
-                  本條文（<span className="text-amber-300 font-semibold">{titleZh}</span>）屬於 ISO 80369-20 之物理性能試驗方法，ISO 80369-7 標準未定義專屬幾何尺寸圖面。
+                  {svgKey.startsWith('ISO7-CLAUSE-') ? (
+                    <>本條文（<span className="text-blue-300 font-semibold">{titleZh}</span>）主要規範標準適用範疇、引述採納標準與術語定義，ISO 80369-7 與 ISO 80369-20 原廠規範中<strong className="text-amber-300 font-normal">未包含任何幾何尺寸工程藍圖或物理實驗架設圖解</strong>。</>
+                  ) : (
+                    <>本條文（<span className="text-amber-300 font-semibold">{titleZh}</span>）屬於 ISO 80369-20 之物理性能試驗方法，ISO 80369-7 標準未定義專屬幾何尺寸圖面。</>
+                  )}
                 </p>
               </div>
-              <div className="flex items-center gap-3 pt-2">
-                <button
-                  onClick={() => setDisplayMode('testing_blueprint')}
-                  className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-md cursor-pointer"
-                >
-                  <Activity className="w-4 h-4" />
-                  切換至『ISO 80369-20 實驗架設藍圖』
-                </button>
-              </div>
+              {!svgKey.startsWith('ISO7-CLAUSE-') && (
+                <div className="flex items-center gap-3 pt-2">
+                  <button
+                    onClick={() => setDisplayMode('testing_blueprint')}
+                    className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-md cursor-pointer"
+                  >
+                    <Activity className="w-4 h-4" />
+                    切換至『ISO 80369-20 實驗架設藍圖』
+                  </button>
+                </div>
+              )}
             </div>
           )
         ) : displayMode === 'testing_blueprint' ? (
-          <div className="w-full relative space-y-3">
-            <div className="relative group rounded-2xl overflow-hidden border border-slate-300/80 shadow-lg bg-slate-900">
-              <img 
-                src={currentTestingBlueprintPath} 
-                alt={`${titleZh} ISO 80369-20 Testing Rig Blueprint`}
-                className="w-full max-h-[500px] object-contain mx-auto bg-slate-950 transition-transform duration-300 group-hover:scale-[1.01]" 
-              />
-              
-              <div className="absolute top-3 right-3 flex items-center gap-2">
-                <span className="bg-purple-900/80 backdrop-blur-md text-purple-100 text-xs font-mono font-bold px-3 py-1 rounded-full border border-purple-400/40 shadow-sm flex items-center gap-1.5">
-                  <Activity className="w-3.5 h-3.5 text-purple-300" />
-                  ISO 80369-20 Testing Rig Apparatus Blueprint
-                </span>
-                <button
-                  onClick={() => openZoomModal(currentTestingBlueprintPath, `${titleZh} - ISO 80369-20 實驗架設藍圖`)}
-                  className="bg-purple-600/90 hover:bg-purple-600 backdrop-blur-md text-white p-1.5 rounded-full border border-white/20 shadow-md transition cursor-pointer"
-                  title="放大全螢幕檢視實驗架設藍圖"
-                >
-                  <Maximize2 className="w-4 h-4" />
-                </button>
+          currentTestingBlueprintPath ? (
+            <div className="w-full relative space-y-3">
+              <div className="relative group rounded-2xl overflow-hidden border border-slate-300/80 shadow-lg bg-slate-900">
+                <img 
+                  src={currentTestingBlueprintPath} 
+                  alt={`${titleZh} ISO 80369-20 Testing Rig Blueprint`}
+                  className="w-full max-h-[500px] object-contain mx-auto bg-slate-950 transition-transform duration-300 group-hover:scale-[1.01]" 
+                />
+                
+                <div className="absolute top-3 right-3 flex items-center gap-2">
+                  <span className="bg-purple-900/80 backdrop-blur-md text-purple-100 text-xs font-mono font-bold px-3 py-1 rounded-full border border-purple-400/40 shadow-sm flex items-center gap-1.5">
+                    <Activity className="w-3.5 h-3.5 text-purple-300" />
+                    ISO 80369-20 Testing Rig Apparatus Blueprint
+                  </span>
+                  <button
+                    onClick={() => openZoomModal(currentTestingBlueprintPath, `${titleZh} - ISO 80369-20 實驗架設藍圖`)}
+                    className="bg-purple-600/90 hover:bg-purple-600 backdrop-blur-md text-white p-1.5 rounded-full border border-white/20 shadow-md transition cursor-pointer"
+                    title="放大全螢幕檢視實驗架設藍圖"
+                  >
+                    <Maximize2 className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
+          ) : (
+            <div className="w-full relative py-12 px-6 bg-slate-900/95 rounded-2xl border border-slate-700 shadow-xl flex flex-col items-center justify-center text-center space-y-4">
+              <div className="p-4 bg-slate-800 rounded-full border border-slate-600 text-blue-400">
+                <FileText className="w-10 h-10" />
+              </div>
+              <div className="space-y-2 max-w-lg">
+                <h4 className="text-sm font-bold text-white">本條文為規範文字/術語定義條文，無專屬實驗藍圖</h4>
+                <p className="text-xs text-slate-300 leading-relaxed">
+                  本條文（<span className="text-blue-300 font-semibold">{titleZh}</span>）主要規範標準適用範疇、引述採納標準、術語定義或附錄原理說明。ISO 80369-7 與 ISO 80369-20 原廠規範中<strong className="text-amber-300 font-normal">未包含任何幾何尺寸工程藍圖或物理實驗架設圖解</strong>。
+                </p>
+              </div>
+            </div>
+          )
         ) : (
-          <div className="w-full relative space-y-3">
-            <div className="relative group rounded-2xl overflow-hidden border border-slate-200/80 shadow-md bg-slate-950">
-              <img 
-                src={currentImagePath} 
-                alt={`${titleZh} HD Render`}
-                className="w-full max-h-[460px] object-contain mx-auto transition-transform duration-300 group-hover:scale-[1.02]" 
-              />
-              
-              <div className="absolute top-3 right-3 flex items-center gap-2">
-                <span className="bg-black/60 backdrop-blur-md text-white text-[13px] font-mono px-3 py-1 rounded-full border border-white/20 shadow-sm flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-blue-400" />
-                  ISO Standard HD Photorealistic
-                </span>
-                <button
-                  onClick={() => openZoomModal(currentImagePath, `${titleZh} - 3D/HD 重構圖`)}
-                  className="bg-blue-600/90 hover:bg-blue-600 backdrop-blur-md text-white p-1.5 rounded-full border border-white/20 shadow-md transition cursor-pointer"
-                  title="放大全螢幕檢視"
-                >
-                  <Maximize2 className="w-4 h-4" />
-                </button>
+          currentImagePath ? (
+            <div className="w-full relative space-y-3">
+              <div className="relative group rounded-2xl overflow-hidden border border-slate-200/80 shadow-md bg-slate-950">
+                <img 
+                  src={currentImagePath} 
+                  alt={`${titleZh} HD Render`}
+                  className="w-full max-h-[460px] object-contain mx-auto transition-transform duration-300 group-hover:scale-[1.02]" 
+                />
+                
+                <div className="absolute top-3 right-3 flex items-center gap-2">
+                  <span className="bg-black/60 backdrop-blur-md text-white text-[13px] font-mono px-3 py-1 rounded-full border border-white/20 shadow-sm flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+                    ISO Standard HD Photorealistic
+                  </span>
+                  <button
+                    onClick={() => openZoomModal(currentImagePath, `${titleZh} - 3D/HD 重構圖`)}
+                    className="bg-blue-600/90 hover:bg-blue-600 backdrop-blur-md text-white p-1.5 rounded-full border border-white/20 shadow-md transition cursor-pointer"
+                    title="放大全螢幕檢視"
+                  >
+                    <Maximize2 className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
+          ) : (
+            <div className="w-full relative py-12 px-6 bg-slate-900/95 rounded-2xl border border-slate-700 shadow-xl flex flex-col items-center justify-center text-center space-y-4">
+              <div className="p-4 bg-slate-800 rounded-full border border-slate-600 text-blue-400">
+                <FileText className="w-10 h-10" />
+              </div>
+              <div className="space-y-2 max-w-lg">
+                <h4 className="text-sm font-bold text-white">本條文為規範文字/術語定義條文，無 3D 重構圖面</h4>
+                <p className="text-xs text-slate-300 leading-relaxed">
+                  本條文（<span className="text-blue-300 font-semibold">{titleZh}</span>）主要規範標準適用範疇、引述採納標準與術語定義，無需進行實體接頭物理測試。
+                </p>
+              </div>
+            </div>
+          )
         )}
 
         {/* Dynamic Tooltip / Description Footer */}
