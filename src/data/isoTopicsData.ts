@@ -387,14 +387,14 @@ export const ISO_TOPICS: ISOTopic[] = [
     tags: ['C.1', 'C.3', 'C.4', 'C.6', '參考夾具', 'Annex C'],
     figures: [
       {
-        id: 'ISO7-FIG-B3-B6',
-        titleZh: 'Annex C 金屬標準參考連接器 CAD 圖鑑',
+        id: 'ISO7-FIG-C1-C3',
+        titleZh: 'Annex C 金屬標準參考連接器 CAD 圖鑑 (Fig.C.1 ~ C.6)',
         titleEn: 'Annex C Stainless Steel Reference Fixture Schematics',
         standard: 'ISO 80369-7:2021 Annex C',
         figureType: 'fixture',
         figureTypeZh: '參考金屬件',
         descriptionZh: '不鏽鋼 (≥45 HRC) 高精密度法規測試專用金屬參考件 (Fig.C.1~C.6)。詳細解析 C.1 標稱件與 C.3 Worst-case 最壞情況件之幾何差異。',
-        svgKey: 'ISO7-FIG-B3-B6',
+        svgKey: 'ISO7-FIG-C3',
         keyCallouts: [
           { id: 'material', labelZh: '夾具材質', valueZh: 'Stainless Steel (≥ 45 HRC)' },
           { id: 'roughness', labelZh: '表面粗糙度', valueZh: 'Ra ≤ 0.8 μm' }
@@ -499,24 +499,7 @@ export const ISO_TOPICS: ISOTopic[] = [
     relatedRefConnectors: ['C.1', 'C.4'],
     engineeringRiskZh: '產品範疇誤劃分（如將腸胃道餵食接頭誤申報為 ISO 80369-7 血管魯爾），致使法規審查全盤退件。',
     auditFocusZh: '確認醫療器材標籤（Labeling）與使用說明書（IFU）聲稱之預期用途（Intended Use）符合 Clause 1 範疇。',
-    tags: ['Clause 1', 'Clause 2', 'Clause 3', 'Scope', '引用標準', '術語定義'],
-    figures: [
-      {
-        id: 'ISO7-FIG-A1',
-        titleZh: 'ISO 80369 跨領域小口徑連接器防誤插幾何矩陣',
-        titleEn: 'ISO 80369 Non-Interchangeability Family Architecture Matrix',
-        standard: 'ISO 80369 Series (ISO 80369-7 / -3 / -6 / -2)',
-        figureType: 'mechanism',
-        figureTypeZh: '物理機構/失效原理圖',
-        descriptionZh: '解析 ISO 80369 家族化尺寸互斥矩陣：血管 (Luer -7)、腸餵 (ENFit -3)、神經軸麻醉 (NRFit -6) 與呼吸 (-2) 之幾何隔絕防呆原理。',
-        svgKey: 'ISO7-FIG-A1',
-        keyCallouts: [
-          { id: 'luer', labelZh: 'ISO 80369-7', valueZh: '血管/皮下注射 (6% Luer)' },
-          { id: 'enfit', labelZh: 'ISO 80369-3', valueZh: '腸道餵食 (ENFit 反向鎖定)' },
-          { id: 'nrfit', labelZh: 'ISO 80369-6', valueZh: '神經軸麻醉 (20% 大錐度 NRFit)' }
-        ]
-      }
-    ]
+    tags: ['Clause 1', 'Clause 2', 'Clause 3', 'Scope', '引用標準', '術語定義']
   },
   {
     id: 'annexes-rationale-summary',
@@ -537,24 +520,7 @@ export const ISO_TOPICS: ISOTopic[] = [
     relatedRefConnectors: ['C.1', 'C.3', 'C.4', 'C.6'],
     engineeringRiskZh: '進行醫療器材風險管理時未引用 Annex A 原理說明，無法向認證機構（NB）證明測試參數之充足合理性。',
     auditFocusZh: '確認法規檢驗報告中的測試項目覆蓋率符合 Annex E 彙整矩陣要求。',
-    tags: ['Annex A', 'Annex D', 'Annex E', 'Annex J', '原理說明', '測試矩陣'],
-    figures: [
-      {
-        id: 'ISO7-FIG-A1',
-        titleZh: 'ISO 80369 跨領域小口徑連接器防誤插幾何矩陣',
-        titleEn: 'ISO 80369 Non-Interchangeability Family Architecture Matrix',
-        standard: 'ISO 80369 Series (ISO 80369-7 / -3 / -6 / -2)',
-        figureType: 'mechanism',
-        figureTypeZh: '物理機構/失效原理圖',
-        descriptionZh: '解析 ISO 80369 家族化尺寸互斥矩陣：血管 (Luer -7)、腸餵 (ENFit -3)、神經軸麻醉 (NRFit -6) 與呼吸 (-2) 之幾何隔絕防呆原理。',
-        svgKey: 'ISO7-FIG-A1',
-        keyCallouts: [
-          { id: 'luer', labelZh: 'ISO 80369-7', valueZh: '血管/皮下注射 (6% Luer)' },
-          { id: 'enfit', labelZh: 'ISO 80369-3', valueZh: '腸道餵食 (ENFit 反向鎖定)' },
-          { id: 'nrfit', labelZh: 'ISO 80369-6', valueZh: '神經軸麻醉 (20% 大錐度 NRFit)' }
-        ]
-      }
-    ]
+    tags: ['Annex A', 'Annex D', 'Annex E', 'Annex J', '原理說明', '測試矩陣']
   }
 ];
 

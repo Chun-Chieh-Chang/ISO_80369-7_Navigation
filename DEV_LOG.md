@@ -554,3 +554,21 @@
   - 更新 `src/data/isoTopicsData.ts` 之 Topic 1 與 Clause 6.1 (`iso7-6.1`)，明確加入 `氣壓壓降極限 Max Leak Rate: ≤ 0.005 Pa·m³/s` 參數與壓降換算合格判定描述。
 - **建置確效 (CAPA)**：
   - 執行 `npm run build` 打包驗證通過。
+
+---
+
+## 版本：v2.7 遵循 MECE 原則清理檢索主題重複內容與關聯條文去重 (2026-08-07)
+
+### 需求內容
+1. 再次觸發全域 SOP 咒語：「執行專案的整體程式碼與檔案優化作業」。
+2. 依 MECE 原則盤點清理：消除跨主題重複指派之非必要配圖，並於前端動態檢索時對關聯條文卡片與金屬夾具進行去重。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **數據庫層級 MECE 去重 (CAPA)**：
+  - 檢視 `src/data/isoTopicsData.ts` 數據庫，移除 Topic 11 (適用範圍) 與 Topic 12 (原理背景) 中非必要重複綁定之 `ISO7-FIG-A1` 配圖陣列。
+  - 更正 Topic 8 (金屬參考接頭) 之配圖 Key 為專屬金屬夾具圖樣 `ISO7-FIG-C3`。
+- **組件渲染層級 MECE 去重 (CAPA)**：
+  - 更新 `src/components/TopicClauseExplorer.tsx` 之 `currentClauses` 與 `currentRefConnectors` 計算函式，加入 `!clauseKeys.includes(key)` 與 `Set` 集合去重邏輯，確保檢索時 100% 無任何重複條文卡片。
+- **還原基準與遠端部署 (CAPA)**：
+  - 執行 `npm run build` 通過生產打包確效 (1682 模組，Built in 2.27s)。
+

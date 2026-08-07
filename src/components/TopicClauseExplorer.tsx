@@ -108,7 +108,7 @@ export const TopicClauseExplorer: React.FC = () => {
     return ANNEX_C_FIGURES[selectedFigureId] || ANNEX_C_FIGURES['B.2'];
   }, [selectedFigureId]);
 
-  // Associated clause details
+  // Associated clause details (MECE deduplicated)
   const currentClauses = useMemo(() => {
     if (!currentTopic) return [];
     
@@ -116,7 +116,7 @@ export const TopicClauseExplorer: React.FC = () => {
     currentTopic.relatedISO7Clauses.forEach(c => {
       const sanitized = c.toLowerCase().replace('clause ', '').trim().replace(/\s+/g, '-');
       const key = `iso7-${sanitized}`;
-      if (STANDARD_CLAUSE_DETAILS[key]) {
+      if (STANDARD_CLAUSE_DETAILS[key] && !clauseKeys.includes(key)) {
         clauseKeys.push(key);
       }
     });
@@ -124,7 +124,7 @@ export const TopicClauseExplorer: React.FC = () => {
     currentTopic.relatedISO20Annexes.forEach(a => {
       const sanitized = a.toLowerCase().trim().replace(/\s+/g, '-');
       const key = `iso20-${sanitized}`;
-      if (STANDARD_CLAUSE_DETAILS[key]) {
+      if (STANDARD_CLAUSE_DETAILS[key] && !clauseKeys.includes(key)) {
         clauseKeys.push(key);
       }
     });
@@ -132,10 +132,18 @@ export const TopicClauseExplorer: React.FC = () => {
     return clauseKeys.map(k => STANDARD_CLAUSE_DETAILS[k]).filter(Boolean);
   }, [currentTopic]);
 
-  // Associated reference connectors
+  // Associated reference connectors (MECE deduplicated)
   const currentRefConnectors = useMemo(() => {
     if (!currentTopic) return [];
-    return currentTopic.relatedRefConnectors.map(id => ANNEX_C_FIGURES[id]).filter(Boolean);
+    const seen = new Set<string>();
+    return currentTopic.relatedRefConnectors
+      .map(id => ANNEX_C_FIGURES[id])
+      .filter(Boolean)
+      .filter(fig => {
+        if (seen.has(fig.id)) return false;
+        seen.add(fig.id);
+        return true;
+      });
   }, [currentTopic]);
 
   // Copy structured summary to clipboard
