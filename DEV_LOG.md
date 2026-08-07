@@ -671,6 +671,26 @@
 - **打包與型別確效 (CAPA)**：
   - 執行 `npm run build` 通過生產打包 (1682 模組，Built in 2.55s)。
 
+---
+
+## 版本：v3.4 移除舊版 CAD 向量圖，全量置換為 ISO 80369-20 實驗架設藍圖 (2026-08-07)
+
+### 需求內容
+1. 移除舊版合成向量圖：完全移除 `CAD幾何向量圖` 展示模式及其冗餘繪圖函式。
+2. 全量嵌入 ISO 80369-20 測試架設藍圖：透過 PowerPoint Automation 提取 `ISO_80369-7_Testing_Blueprint.pptx` 全部 11 頁高解析圖像存入 `public/assets/testing_blueprint/test_page_1.png` ~ `test_page_11.png`。
+3. 主題精準 1 對 1 綁定：實現各條文主題（如 Clause 4 預裝配、Clause 6.1 正壓衰減與滴落法、6.2 負壓抽吸、6.3 應力開裂、6.4 軸向拉力、6.5 旋開扭矩、6.6 越扣抵抗）與對應測試治具藍圖之 100% 準確動態映照。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **測試藍圖圖庫自動化導出 (CAPA)**：
+  - 透過 `win32com.client` 將 `ISO_80369-7_Testing_Blueprint.pptx` 11 頁簡報導出為 1920x1080 PNG 存於 `public/assets/testing_blueprint/`。
+  - 於 `ISOStandardFigureRenderer.tsx` 新增 `getTestingBlueprintImagePath(key)` 函式，實現精準 1 對 1 映照對應。
+- **代碼精簡與打包確效 (CAPA)**：
+  - 清理舊版合成 SVG 向量函式，打包體積由 453 kB 降低至 393 kB。
+  - 執行 `npm run build` 通過生產打包確效 (1682 模組，Built in 2.68s)。
+- **瀏覽器子代理 UI/UX 確效 (CAPA)**：
+  - 啟動 `browser_subagent` 模擬點擊「ISO 80369-7 幾何尺寸藍圖」、「ISO 80369-20 實驗架設藍圖」與「3D/HD 精密重構圖」頁籤切換與 Lightbox 全螢幕彈窗放大檢視，功能全數通過確效。
+
+
 
 
 
