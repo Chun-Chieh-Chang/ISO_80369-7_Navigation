@@ -8,14 +8,14 @@ export const ISO_TOPICS: ISOTopic[] = [
     category: 'leakage',
     categoryZh: '洩漏與氣密',
     iconName: 'Droplets',
-    shortSummaryZh: '評估 6% 魯爾錐面與螺紋在 300~330 kPa 水壓下的密封防漏能力，確保藥液不外漏。',
-    detailedDescriptionZh: '正壓流體洩漏測試為醫療級魯爾接頭最基礎且核心的驗證項目。接頭在以規定之裝配扭矩（0.08~0.12 N·m）旋合於標準參考金屬夾具後，施加 300 kPa 至 330 kPa 之水壓並保持 30~35 秒（水滴法）或 15~20 秒（壓降法），觀察錐面配合處是否有水滴形成或滴落。此測試模擬靜脈輸液、推注藥物時管路內高壓環境下的防漏安全性。',
+    shortSummaryZh: '評估 6% 魯爾錐面與螺紋在 300~330 kPa 加壓下的密封防漏能力 (水滴法無水滴 / 壓降法漏率 ≤ 0.005 Pa·m³/s)。',
+    detailedDescriptionZh: '正壓流體洩漏測試為醫療級魯爾接頭最基礎且核心的驗證項目。接頭在以規定之裝配扭矩（0.08~0.12 N·m）旋合於標準參考金屬夾具後，於 300 kPa 至 330 kPa 下驗證防漏安全性。若採用【氣壓壓降法 (Annex B)】，持壓 15~20 秒且極限洩漏率必須遵循 ≤ 0.005 Pa·m³/s 規定；若採用【水壓滴落法 (Annex C)】，持壓 30~35 秒且目視不得有水滴形成或滴落。',
     keyParameters: [
       { label: '裝配扭矩 Assembly Torque', value: '0.08 - 0.12', unit: 'N·m' },
       { label: '測試壓力 Test Pressure', value: '300 - 330', unit: 'kPa' },
-      { label: '水滴法保持時間 Hold Time', value: '30 - 35', unit: '秒' },
-      { label: '壓降法保持時間 Hold Time', value: '15 - 20', unit: '秒' },
-      { label: '測試介質 Test Medium', value: '去離子水 / 蒸餾水或空氣' }
+      { label: '氣壓壓降極限 Max Leak Rate', value: '≤ 0.005', unit: 'Pa·m³/s' },
+      { label: '水滴法持壓 Hold Time', value: '30 - 35', unit: '秒' },
+      { label: '壓降法持壓 Hold Time', value: '15 - 20', unit: '秒' }
     ],
     relatedISO7Clauses: ['6.1'],
     relatedISO20Annexes: ['Annex B', 'Annex C'],
@@ -870,8 +870,8 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       '維持壓力 30–35 秒，目視檢查是否有水滴形成或滴落。'
     ],
     acceptanceCriteriaZh: [
-      '在 300 kPa–330 kPa 下維持 30–35 秒，無水滴形成滴落。',
-      '如使用壓降法（Pressure Decay），壓降對應洩漏率不得超過 0.005 Pa·m³/s。'
+      '【正壓水壓滴落法 (Annex C)】於 300 kPa–330 kPa 水壓持壓 30–35 秒，目視配合錐面與表面無水滴形成或滴落。',
+      '【正壓氣壓壓降法 (Annex B)】於 300 kPa–330 kPa 氣壓持壓 15–20 秒，壓力衰減量換算之極限洩漏率必須 ≤ 0.005 Pa·m³/s。'
     ],
     commonNonConformancesZh: [
       '塑膠模具分模線毛邊（Parting Line Flash）導致錐面環狀密封點被切斷。',
