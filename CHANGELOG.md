@@ -2,13 +2,16 @@
 
 All notable changes to the ISO 80369-7 & ISO 80369-20 Navigation App will be documented in this file.
 
-## [v8.1.0] - 2026-08-08
+## [v8.3.0] - 2026-08-08
 
-### Fixed & Aligned (Official ISO 80369-7:2021 Figure B.4 Blueprint Card Replacement)
-- **100% Replacement with Official ISO Drawing**: Replaced the incorrect embedded schematic in `public/assets/blueprint/page_5.png` with the exact official ISO 80369-7:2021 Figure B.4 standard document drawing provided by the user.
-- **Accurate Dimension Alignment**: Correctly displays dimension $c$ (male tip protrusion), dimension $e$ (male taper cone length), and dimension $t$ (internal thread section length) with rotatable collar assembly.
+### Updated (ISO 80369-20:2024 Annex B.4 Tab Label & Pressure Decay Curve Image Integration)
+- **Tab Label Customization**: Customized the second tab label for `ISO 80369-20:2024 Annex B.4` (`ISO20-FIG-B2`) to display as **「壓降測試曲線圖」** (Pressure Decay Test Curve Plot).
+- **Correct Image Asset Integration**: Embedded `壓力衰檢測試說明.png` (Deconstructing the Four Stages of Pressure Decay Test: Fill, Stabilize, Test, Exhaust) into `public/assets/diagrams/pressure_decay_explanation.png` for Annex B.4.
 
-## [v8.0.0] - 2026-08-08
+## [v8.2.0] - 2026-08-08
 
-### Major Release: Complete ISO 80369-7 CAD Diagram Suite Redraw & Verification
-- **Batch Redrawn ISO 80369-7 Diagrams**: Completely redrew and replaced all 5 core ISO 80369-7 CAD schematics to 100% align with ISO 80369-7:2021 specifications.
+### Refactored & Purified (Removal of 3D/HD Photorealistic Render Mode)
+- **UI Simplification & Standard Blueprint Focus**: Removed the redundant `3D/HD 精密重構圖` tab option and associated asset code from `ISOStandardFigureRenderer.tsx`.
+- **Pure Dual Blueprint Mode**: Streamlined the renderer display mode to 2 official engineering blueprint tabs:
+  1. 📐 **ISO 80369-7 幾何尺寸藍圖** (`official_blueprint`)
+  2. ⚡ **ISO 80369-20 實驗架設藍圖** (`testing_blueprint`)

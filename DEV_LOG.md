@@ -1659,6 +1659,33 @@
 2. **測試確效 (Mandatory Runtime Check)**：
    - Vitest 8/8 測試通過、tsc --noEmit 0 錯誤、Vite 5.60s 生產打包通過。
 
+---
+
+## 版本：v8.2 移除 3D/HD 重構圖項目與藍圖純化 (2026-08-08)
+
+### 需求內容
+1. **移除 `3D/HD 精密重構圖` 選項與邏輯**：
+   - 依據使用者指令，將 `ISOStandardFigureRenderer.tsx` 中冗餘的 `3D/HD 精密重構圖` 切換頁籤與圖像渲染程式碼完全移除。
+   - 系統圖面展現純化為雙官方工程藍圖模式：
+     1. 📐 **ISO 80369-7 幾何尺寸藍圖** (`official_blueprint`)
+     2. ⚡ **ISO 80369-20 實驗架設藍圖** (`testing_blueprint`)
+2. **測試確效 (Mandatory Runtime Check)**：
+   - Vitest 8/8 測試通過、tsc --noEmit 0 錯誤、Vite 10.23s 生產打包通過。
+
+---
+
+## 版本：v8.3 Annex B.4 壓降測試曲線圖頁籤名稱與資產更新 (2026-08-08)
+
+### 需求內容
+1. **Annex B.4 頁籤名稱自訂化**：
+   - 針對 `ISO 80369-20:2024 Annex B.4` (`ISO20-FIG-B2`)，將原本「ISO 80369-20 實驗架設藍圖」按鈕動態調整顯示為 **「壓降測試曲線圖」**。
+2. **圖面資產修正**：
+   - 依據指示將 Annex B.4 之展示圖面精準更換為 **`壓力衰檢測試說明.png`**（解構壓力衰減測試四階段：充氣-穩定-測試-排氣，`assets/diagrams/pressure_decay_explanation.png`）。
+3. **測試確效 (Mandatory Runtime Check)**：
+   - Vitest 8/8 測試通過、tsc --noEmit 0 錯誤、Vite 6.50s 生產打包通過。
+
+
+
 
 
 
