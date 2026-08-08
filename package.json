@@ -1,7 +1,7 @@
 {
   "name": "iso-80369-7-navigation",
   "private": true,
-  "version": "7.6.0",
+  "version": "7.7.0",
   "type": "module",
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
@@ -13,6 +13,7 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.1.14",
     "@vitejs/plugin-react": "^5.0.4",
+    "exceljs": "^4.4.0",
     "lucide-react": "^0.546.0",
     "react": "^19.0.1",
     "react-dom": "^19.0.1",

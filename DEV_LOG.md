@@ -1576,6 +1576,24 @@
   - `npm run lint` (`tsc --noEmit`)：100% 通過 (0 errors)。
   - `npm run build`：成功將 A4 Excel 匯出模組與 SW 打包 (Built in 1.80s, 0 errors)。
 
+---
+
+## 版本：v7.7 原生二進位 .XLSX 匯出與 Excel 彈窗警告完全消除 (2026-08-08)
+
+### 錯誤點分析 (RCA - Root Cause Analysis)
+- **現象**：使用者使用 Microsoft Excel 開啟匯出的 `.xls` 檔案時，彈出「'ISO_80369_Medical_Test_Report_and_DVP_Matrix.xls' 的檔案格式與副檔名不相符，此檔案可能已損毀或不安全...」之警告對話框。
+- **根因**：Microsoft Excel 2016/365 對副檔名導入了嚴格的 Extension Hardening 安全機制。當檔案副檔名為 `.xls`，但內部為 XML 結構時，Excel 會強制彈出警告提示。
+
+### 矯正與預防措施 (CAPA)
+1. **重構為 ExcelJS 原生二進位 .XLSX 格式**：
+   - 全面改採 [ExcelJS](https://github.com/exceljs/exceljs) 之 `workbook.xlsx.writeBuffer()` 生成真正的 OpenXML 原生二進位 `.xlsx` 檔案，**100% 徹底消除 Excel 開啟時的任何警告彈窗**。
+2. **完整繼承 A4 橫向單頁與莫蘭迪色彩與自動換行**：
+   - 保持 `fitToWidth: 1`, `fitToHeight: 0`, `orientation: 'landscape'`, `paperSize: 9` (A4)。
+   - 包含深藍標題 (`#0F172A`)、皇家藍欄位標題 (`#2563EB`)、翡翠綠必填標籤 (`#DCFCE7`)、Morandi 柔和底色 (`#F8FAFC`)、數據邊框 (`#E2E8F0`) 與文字自動垂直換行。
+3. **確效驗證**：
+   - Vitest 8/8 測試通過，TypeScript 0 錯誤，Vite 生產打包 5.59s 通過。
+
+
 
 
 

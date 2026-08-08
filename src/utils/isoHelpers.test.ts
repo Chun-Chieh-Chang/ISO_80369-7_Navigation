@@ -57,7 +57,7 @@ describe('ISO 80369-7 & 20 Data & Helper Unit Tests', () => {
     });
   });
 
-  it('should run exportMedicalGradeExcelReport without throwing for all connector configs', () => {
+  it('should run exportMedicalGradeExcelReport without throwing for all connector configs', async () => {
     const configs: Array<{ gender: 'male' | 'female'; type: 'lock' | 'slip' }> = [
       { gender: 'male', type: 'lock' },
       { gender: 'female', type: 'lock' },
@@ -65,8 +65,8 @@ describe('ISO 80369-7 & 20 Data & Helper Unit Tests', () => {
       { gender: 'female', type: 'slip' }
     ];
 
-    configs.forEach(cfg => {
-      expect(() => {
+    for (const cfg of configs) {
+      await expect(
         exportMedicalGradeExcelReport({
           deviceType: 't-port',
           connectorGender: cfg.gender,
@@ -81,8 +81,8 @@ describe('ISO 80369-7 & 20 Data & Helper Unit Tests', () => {
           collarWallThicknessMm: 1.1,
           collarOuterDiameterMm: 7.5,
           tPortAsymmetryFactor: 1.25
-        });
-      }).not.toThrow();
-    });
+        })
+      ).resolves.toBeDefined();
+    }
   });
 });
