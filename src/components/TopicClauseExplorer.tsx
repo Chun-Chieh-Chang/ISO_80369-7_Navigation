@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+﻿import React, { useState, useMemo } from 'react';
 import { ISO_TOPICS, STANDARD_CLAUSE_DETAILS } from '../data/isoTopicsData';
 import { ANNEX_C_FIGURES } from '../data/isoData';
 import { ISOTopic, StandardClauseDetail, AnnexCFigureInfo } from '../types';
@@ -325,7 +325,7 @@ export const TopicClauseExplorer: React.FC = () => {
                         }}
                         className={`p-4 rounded-2xl border transition-all duration-200 cursor-pointer relative ${
                           isSelected
-                            ? 'bg-gradient-to-r from-blue-50/90 to-indigo-50/90 border-blue-500 shadow-md shadow-blue-500/10 ring-1 ring-blue-500/30'
+                            ? 'bg-blue-50 border-blue-500 shadow-md shadow-blue-500/10 ring-1 ring-blue-500/30'
                             : 'bg-white border-slate-200/80 hover:border-slate-300 hover:shadow-md'
                         }`}
                       >
@@ -366,7 +366,7 @@ export const TopicClauseExplorer: React.FC = () => {
                             </span>
                           ))}
                           {topic.relatedISO20Annexes.map(a => (
-                            <span key={a} className="bg-purple-50 text-purple-800 border border-purple-200/80 font-mono px-2 py-0.5 rounded-lg font-bold">
+                            <span key={a} className="bg-indigo-50 text-indigo-800 border border-indigo-200/80 font-mono px-2 py-0.5 rounded-lg font-bold">
                               ISO 20 {a}
                             </span>
                           ))}
@@ -539,19 +539,19 @@ export const TopicClauseExplorer: React.FC = () => {
               <div className="space-y-1 pt-2">
                 <button
                   onClick={() => toggleNode('iso20')}
-                  className="w-full flex items-center justify-between p-2.5 rounded-xl bg-purple-50/80 hover:bg-purple-100/80 text-purple-900 font-bold text-xs transition border border-purple-100"
+                  className="w-full flex items-center justify-between p-2.5 rounded-xl bg-indigo-50/80 hover:bg-indigo-100/80 text-indigo-900 font-bold text-xs transition border border-indigo-100"
                 >
                   <span className="flex items-center gap-1.5">
-                    {expandedNodes['iso20'] ? <ChevronDown className="w-4 h-4 text-purple-600" /> : <ChevronRight className="w-4 h-4 text-purple-600" />}
+                    {expandedNodes['iso20'] ? <ChevronDown className="w-4 h-4 text-indigo-700" /> : <ChevronRight className="w-4 h-4 text-indigo-700" />}
                     🔬 ISO 80369-20 實驗室測試方法機台與裝置圖表
                   </span>
-                  <span className="bg-purple-200/80 text-purple-800 text-xs px-2 py-0.5 rounded-md font-mono font-bold">
+                  <span className="bg-indigo-200/80 text-indigo-800 text-xs px-2 py-0.5 rounded-md font-mono font-bold">
                     {allStandardFigures.filter(f => f.annexGroup === 'ISO 80369-20').length} 幅
                   </span>
                 </button>
 
                 {expandedNodes['iso20'] && (
-                  <div className="pl-2 space-y-1 border-l-2 border-purple-100 ml-2 pt-1">
+                  <div className="pl-2 space-y-1 border-l-2 border-indigo-100 ml-2 pt-1">
                     {filteredAnnexFigures.filter(f => f.annexGroup === 'ISO 80369-20').map(fig => {
                       const isSelected = selectedFigureId === fig.id;
                       return (
@@ -560,12 +560,12 @@ export const TopicClauseExplorer: React.FC = () => {
                           onClick={() => setSelectedFigureId(fig.id)}
                           className={`w-full text-left p-2 rounded-xl text-xs transition flex items-center justify-between border ${
                             isSelected 
-                              ? 'bg-purple-600 text-white font-bold border-purple-500 shadow-sm' 
+                              ? 'bg-indigo-700 text-white font-bold border-indigo-500 shadow-sm' 
                               : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200/60'
                           }`}
                         >
                           <span className="flex items-center gap-1.5 truncate">
-                            <FileCode className={`w-3.5 h-3.5 shrink-0 ${isSelected ? 'text-white' : 'text-purple-500'}`} />
+                            <FileCode className={`w-3.5 h-3.5 shrink-0 ${isSelected ? 'text-white' : 'text-indigo-500'}`} />
                             <span className="font-mono">{fig.figureNumber}:</span>
                             <span className="truncate">{fig.nameZh || fig.name}</span>
                           </span>
@@ -751,7 +751,7 @@ export const TopicClauseExplorer: React.FC = () => {
 
                       <div className="bg-white p-3 rounded-xl border border-slate-200/60 space-y-1.5">
                         <h5 className="font-bold text-slate-800 flex items-center gap-1 text-[11px]">
-                          <Sparkles className="w-3.5 h-3.5 text-purple-600" /> 2. ISO 80369-20:2024 重大技術修訂
+                          <Sparkles className="w-3.5 h-3.5 text-indigo-700" /> 2. ISO 80369-20:2024 重大技術修訂
                         </h5>
                         <p className="text-slate-600 text-[11px] leading-relaxed">
                           新版標準正式<strong>取消了傳統洩漏率 Q 的計算公式，改為直接記錄測試期間的壓力變化量 (&Delta;P)</strong>。此修訂大幅消除因未知的隙縫幾何通路導致的計算誤差，提升實驗室間的可重現性與量測不確定度。
@@ -770,7 +770,7 @@ export const TopicClauseExplorer: React.FC = () => {
                             </p>
                           </div>
                           <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-200/80 space-y-1">
-                            <strong className="text-purple-900 block font-bold">② 系統注水量測法 (Water Amount)</strong>
+                            <strong className="text-indigo-900 block font-bold">② 系統注水量測法 (Water Amount)</strong>
                             <p className="text-slate-600 text-[10px] leading-relaxed">
                               裝配乾燥系統於天平稱重，緩緩注入蒸餾水並持續傾斜<strong>徹底排出氣泡</strong>對齊液面後再次稱重。以 1g ≈ 1mL 高精度換算總容積。
                             </p>
@@ -872,7 +872,7 @@ export const TopicClauseExplorer: React.FC = () => {
                     </button>
                     <button
                       onClick={() => setSelectedStandardFilter('iso20')}
-                      className={`px-2 py-0.5 rounded ${selectedStandardFilter === 'iso20' ? 'bg-white text-purple-700 shadow-xs' : 'text-slate-600'}`}
+                      className={`px-2 py-0.5 rounded ${selectedStandardFilter === 'iso20' ? 'bg-white text-indigo-700 shadow-xs' : 'text-slate-600'}`}
                     >
                       ISO 80369-20
                     </button>
@@ -896,7 +896,7 @@ export const TopicClauseExplorer: React.FC = () => {
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
                           <div className="flex items-center space-x-2.5">
                             <span className={`px-2.5 py-1 rounded-lg text-xs font-bold font-mono ${
-                              isISO7 ? 'bg-blue-600 text-white' : 'bg-purple-600 text-white'
+                              isISO7 ? 'bg-blue-600 text-white' : 'bg-indigo-700 text-white'
                             }`}>
                               {clause.standard} §{clause.clauseNumber}
                             </span>
@@ -911,7 +911,7 @@ export const TopicClauseExplorer: React.FC = () => {
                           </div>
 
                           <span className={`text-xs font-semibold px-2 py-0.5 rounded-full shrink-0 ${
-                            isISO7 ? 'bg-blue-50 text-blue-700 border border-blue-200' : 'bg-purple-50 text-purple-700 border border-purple-200'
+                            isISO7 ? 'bg-blue-50 text-blue-700 border border-blue-200' : 'bg-indigo-50 text-indigo-700 border border-indigo-200'
                           }`}>
                             {clause.typeZh}
                           </span>

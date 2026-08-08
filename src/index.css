@@ -23,10 +23,6 @@
   --color-brand-600: #1d4ed8;
   --color-brand-700: #1e40af;
   --color-brand-900: #1e3a8a;
-
-  --color-teal-muted: #14b8a6;
-  --color-purple-muted: #8b5cf6;
-  --color-amber-muted: #f59e0b;
 }
 
 @layer base {

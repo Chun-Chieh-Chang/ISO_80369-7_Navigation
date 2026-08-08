@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { ISO_TOPICS, STANDARD_CLAUSE_DETAILS } from '../data/isoTopicsData';
 import { ISO_CLAUSES } from '../data/isoData';
 import { ISOStandardFigureRenderer } from './ISOStandardFigureRenderer';
@@ -426,9 +426,9 @@ export const ClauseComparisonMatrix: React.FC = () => {
                     <span className="text-slate-400 block text-[11px]">ISO 80369-7 條文:</span>
                     <strong className="text-blue-900">{clause.iso7}</strong>
                   </div>
-                  <div className="bg-purple-50/50 p-2 rounded-xl border border-purple-100">
-                    <span className="text-purple-500 block text-[11px]">ISO 80369-20 附錄:</span>
-                    <strong className="text-purple-900">{clause.iso20}</strong>
+                  <div className="bg-indigo-50/50 p-2 rounded-xl border border-indigo-100">
+                    <span className="text-indigo-500 block text-[11px]">ISO 80369-20 附錄:</span>
+                    <strong className="text-indigo-900">{clause.iso20}</strong>
                   </div>
                 </div>
 
@@ -438,8 +438,8 @@ export const ClauseComparisonMatrix: React.FC = () => {
                     <span className="font-bold text-blue-900 block text-[11px] mb-0.5">預裝配前置條件:</span>
                     <span className="font-mono text-slate-800">{clause.assemblyTorque}</span>
                   </div>
-                  <div className="bg-purple-50/40 p-2.5 rounded-xl border border-purple-100/80">
-                    <span className="font-bold text-purple-900 block text-[11px] mb-0.5">實測考驗負載:</span>
+                  <div className="bg-indigo-50/40 p-2.5 rounded-xl border border-indigo-100/80">
+                    <span className="font-bold text-indigo-900 block text-[11px] mb-0.5">實測考驗負載:</span>
                     <span className="font-mono text-slate-800">{clause.testPressure !== '-' ? `壓力 ${clause.testPressure}` : clause.testForce !== '-' ? `拉力 ${clause.testForce}` : clause.testTorque !== '-' ? `扭矩 ${clause.testTorque}` : '-'}</span>
                   </div>
                   <div className="bg-amber-50/40 p-2.5 rounded-xl border border-amber-100/80">
@@ -471,7 +471,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
                   <div className="pt-2 border-t border-slate-100">
                     <div className="bg-slate-50 p-3 rounded-2xl border border-slate-200 space-y-3">
                       <div className="flex items-center space-x-2 text-xs font-bold text-slate-800">
-                        <Sparkles className="w-4 h-4 text-purple-600" />
+                        <Sparkles className="w-4 h-4 text-indigo-700" />
                         <span>{clause.title} — 規範圖解</span>
                       </div>
                       <div className="w-full flex justify-center py-1">
@@ -509,7 +509,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
                 </th>
                 <th className="py-3 px-4">
                   <div>定量加載條件 (壓力/拉力/扭矩)</div>
-                  <span className="text-[10px] text-purple-600 font-normal block normal-case">實測考驗負載</span>
+                  <span className="text-[10px] text-indigo-700 font-normal block normal-case">實測考驗負載</span>
                 </th>
                 <th className="py-3 px-4">保持時間</th>
                 <th className="py-3 px-4 min-w-[150px]">必要金屬參考夾具</th>
@@ -538,7 +538,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
                       <td className="py-3 px-4 font-mono font-semibold text-blue-800">
                         {clause.iso7}
                       </td>
-                      <td className="py-3 px-4 font-mono font-semibold text-purple-800">
+                      <td className="py-3 px-4 font-mono font-semibold text-indigo-800">
                         {clause.iso20}
                       </td>
                       <td className="py-3 px-4 font-mono text-slate-800">
@@ -584,7 +584,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
                           <div className="bg-white rounded-2xl border border-slate-200/90 p-4 sm:p-5 shadow-lg space-y-4">
                             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pb-3 border-b border-slate-100">
                               <div className="flex items-center space-x-2">
-                                <span className="bg-purple-100 text-purple-800 font-mono font-bold text-xs px-2.5 py-1 rounded-md border border-purple-200">
+                                <span className="bg-indigo-100 text-indigo-800 font-mono font-bold text-xs px-2.5 py-1 rounded-md border border-indigo-200">
                                   {clause.iso7} 內嵌規範圖示 (SVG CAD / 3D Render)
                                 </span>
                                 <h4 className="font-bold text-slate-900 text-sm">{clause.title} — 規範實驗裝置與 CAD 圖解</h4>

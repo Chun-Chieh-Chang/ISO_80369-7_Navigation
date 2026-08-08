@@ -133,7 +133,7 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
                   </th>
                   <th className="p-3 border border-slate-200">
                     <div>定量加載考驗 (壓力/拉力/扭矩)</div>
-                    <span className="text-[10px] text-purple-600 font-normal block normal-case">實測考驗負載</span>
+                    <span className="text-[10px] text-indigo-700 font-normal block normal-case">實測考驗負載</span>
                   </th>
                   <th className="p-3 border border-slate-200">保持時間 (Hold Time)</th>
                   <th className="p-3 border border-slate-200">指定金屬參考接頭</th>
@@ -298,7 +298,7 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
           </div>
 
           {/* Annex A Environmental Preconditioning Highlight Banner */}
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200/80 rounded-2xl p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-2xs">
+          <div className="bg-blue-50 border border-blue-200/80 rounded-2xl p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-2xs">
             <div className="flex items-start space-x-3">
               <div className="p-2.5 bg-blue-600 text-white rounded-xl shadow-xs shrink-0 mt-0.5">
                 <Thermometer className="w-5 h-5" />

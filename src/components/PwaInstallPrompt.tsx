@@ -88,7 +88,7 @@ export const PwaInstallPrompt: React.FC = () => {
           <div className="flex items-center space-x-2 pt-1 border-t border-slate-800">
             <button
               onClick={handleInstallClick}
-              className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-bold py-2 px-3 rounded-xl transition shadow-md flex items-center justify-center space-x-1.5 cursor-pointer"
+              className="flex-1 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold py-2 px-3 rounded-xl transition shadow-md flex items-center justify-center space-x-1.5 cursor-pointer"
             >
               <Download className="w-4 h-4" />
               <span>立即安裝至主畫面</span>

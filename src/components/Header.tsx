@@ -25,7 +25,7 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
           
           {/* Brand & Main Title */}
           <div className="flex items-center space-x-2.5 sm:space-x-3.5">
-            <div className="p-2 sm:p-3 bg-gradient-to-br from-blue-600 to-indigo-700 text-white rounded-xl sm:rounded-2xl shadow-md shadow-blue-600/20 shrink-0">
+            <div className="p-2 sm:p-3 bg-blue-600 text-white rounded-xl sm:rounded-2xl shadow-md shadow-blue-600/20 shrink-0">
               <FileText className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
             <div>
@@ -33,8 +33,8 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
                 <h1 className="text-sm sm:text-lg lg:text-xl font-extrabold tracking-tight text-slate-900 leading-tight">
                   ISO 80369-7 & 20 視覺化導航系統
                 </h1>
-                <span className="bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-800 text-[12px] sm:text-[13px] font-bold px-2 py-0.5 rounded-full border border-blue-200/80 shrink-0 shadow-2xs">
-                  v7.7 原生 XLSX 版
+                <span className="bg-blue-50 text-blue-800 text-[12px] sm:text-[13px] font-bold px-2 py-0.5 rounded-full border border-blue-200/80 shrink-0 shadow-2xs">
+                  v7.8 工業配色版
                 </span>
               </div>
               <p className="text-[12px] sm:text-[13px] text-slate-500 mt-0.5 font-normal hidden sm:block">
@@ -65,7 +65,7 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center space-x-2 px-3 sm:px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap shrink-0 min-h-[44px] cursor-pointer touch-target ${
                   isActive
-                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-600/25 font-bold scale-[1.01]'
+                    ? 'bg-blue-600 text-white shadow-md shadow-blue-600/25 font-bold'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/80 bg-slate-50/50 sm:bg-transparent'
                 }`}
               >

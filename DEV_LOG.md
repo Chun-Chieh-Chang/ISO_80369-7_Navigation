@@ -1593,6 +1593,25 @@
 3. **確效驗證**：
    - Vitest 8/8 測試通過，TypeScript 0 錯誤，Vite 生產打包 5.59s 通過。
 
+---
+
+## 版本：v7.8 工業精密 Morandi 配色統一與 Design.md 規範建立 (2026-08-08)
+
+### 需求內容
+1. **Tool-Calling 工具鏈檢索與選用**：
+   - 於 Tool-Calling 庫以 5 維度重排矩陣檢索，評估匹配度最高 (89%) 之 Google Labs **Design.md** 規範與 **Impeccable** 介面優化法則。
+   - 建立 [DESIGN.md](file:///d:/Self-developed_Apps/ISO_80369-7_Navigation/DESIGN.md) 基準檔，以 YAML frontmatter 定義全專案 Design Tokens 與色彩語義。
+2. **全專案單色系 (Monochromatic Blue-Slate) 視覺收斂**：
+   - **消除多色混搭**：全面清理 `purple-*` 雜色（統一為 `indigo-700` 作為 ISO 80369-20 標籤）、`teal-*` 未使用 token 與消費風漸層 (`from-blue to-indigo`)。
+   - **語義色標準化**：
+     - `blue-600` (`#2563EB`)：品牌主色、導航 Active 態與按鈕。
+     - `blue-800` (`#1E40AF`)：ISO 80369-7 規範專屬標籤。
+     - `indigo-700` (`#4338CA`)：ISO 80369-20 規範專屬標籤。
+     - `emerald-600`, `amber-600`, `rose-600`：僅用於合格/最壞情況/錯誤語義。
+3. **測試與編譯確效**：
+   - Vitest 8/8 測試通過、tsc --noEmit 0 錯誤、Vite 5.05s 打包通過、`purple` 殘留檢測 0 筆。
+
+
 
 
 

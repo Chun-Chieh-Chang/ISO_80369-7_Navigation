@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { ANNEX_C_FIGURES, ISO_CLAUSES } from '../data/isoData';
 import { AnnexCFigureId, TestConfigState } from '../types';
 import { ISOStandardFigureRenderer } from './ISOStandardFigureRenderer';
@@ -41,7 +41,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
               <h2 className="text-lg font-bold">ISO 80369-7 與 ISO 80369-20 規範附件圖號庫 (Fig.A.1 ~ K.1)</h2>
             </div>
             <p className="text-xs text-slate-500 mt-1">
-              收錄完整規範圖號：<strong className="text-blue-600">ISO 80369-7 Annex A/B/C</strong> (防誤插矩陣、產品 CAD 尺寸、金屬參考夾具) 與 <strong className="text-purple-600">ISO 80369-20 Annex B~K</strong> (測試方法裝置與機台圖)。
+              收錄完整規範圖號：<strong className="text-blue-600">ISO 80369-7 Annex A/B/C</strong> (防誤插矩陣、產品 CAD 尺寸、金屬參考夾具) 與 <strong className="text-indigo-700">ISO 80369-20 Annex B~K</strong> (測試方法裝置與機台圖)。
             </p>
           </div>
 
@@ -202,7 +202,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
       {/* Technical Standard Guide Card: ISO 80369-7:2021 Annex C.1 Manufacturing & Geometric Requirements */}
       <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-4">
         <div className="flex items-center space-x-2 border-b border-slate-100 pb-3">
-          <span className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-mono font-bold text-xs px-2.5 py-1 rounded-lg shadow-xs">
+          <span className="bg-blue-600 text-white font-mono font-bold text-xs px-2.5 py-1 rounded-lg shadow-xs">
             ISO 80369-7:2021 Annex C.1
           </span>
           <h3 className="text-base font-extrabold text-slate-900">
@@ -222,7 +222,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
           </div>
 
           <div className="bg-slate-50 border border-slate-200 p-3.5 rounded-xl space-y-1.5">
-            <strong className="text-purple-900 block font-bold text-[13px]">2. 表面粗糙度極限</strong>
+            <strong className="text-indigo-900 block font-bold text-[13px]">2. 表面粗糙度極限</strong>
             <ul className="list-disc list-inside text-slate-600 space-y-1 leading-relaxed text-[11px]">
               <li><strong>關鍵表面 (Critical)</strong>：錐面與密封接觸面粗糙度平均值 <span className="font-mono font-bold text-slate-800">R<sub>a</sub></span> <strong>不得超過 0.8 μm</strong>。</li>
               <li>確保測試密封重現性與極致抗磨損耐用度。</li>
@@ -280,7 +280,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
             {/* Aspect 2 */}
             <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1.5">
               <h5 className="font-bold text-slate-900 text-[12px] flex items-center gap-1.5">
-                <Eye className="w-3.5 h-3.5 text-purple-600" /> 2. 表面粗糙度檢測 (Surface Roughness)
+                <Eye className="w-3.5 h-3.5 text-indigo-700" /> 2. 表面粗糙度檢測 (Surface Roughness)
               </h5>
               <ul className="list-disc list-inside text-slate-600 space-y-1 text-[11px] leading-relaxed">
                 <li><strong>設備儀器</strong>：使用表面粗糙度觸針儀對關鍵接觸界面進行檢測。</li>

@@ -334,13 +334,13 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
                 />
                 
                 <div className="absolute top-3 right-3 flex items-center gap-2">
-                  <span className="bg-purple-900/80 backdrop-blur-md text-purple-100 text-xs font-mono font-bold px-3 py-1 rounded-full border border-purple-400/40 shadow-sm flex items-center gap-1.5">
-                    <Activity className="w-3.5 h-3.5 text-purple-300" />
+                  <span className="bg-indigo-900/80 backdrop-blur-md text-indigo-100 text-xs font-mono font-bold px-3 py-1 rounded-full border border-indigo-400/40 shadow-sm flex items-center gap-1.5">
+                    <Activity className="w-3.5 h-3.5 text-indigo-300" />
                     ISO 80369-20 Testing Rig Apparatus Blueprint
                   </span>
                   <button
                     onClick={() => openZoomModal(currentTestingBlueprintPath, `${titleZh} - ISO 80369-20 實驗架設藍圖`)}
-                    className="bg-purple-600/90 hover:bg-purple-600 backdrop-blur-md text-white p-1.5 rounded-full border border-white/20 shadow-md transition cursor-pointer"
+                    className="bg-indigo-700/90 hover:bg-indigo-700 backdrop-blur-md text-white p-1.5 rounded-full border border-white/20 shadow-md transition cursor-pointer"
                     title="放大全螢幕檢視實驗架設藍圖"
                   >
                     <Maximize2 className="w-4 h-4" />

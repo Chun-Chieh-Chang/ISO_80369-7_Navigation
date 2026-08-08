@@ -59,8 +59,8 @@ export const TopicVisualMap: React.FC = () => {
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div>
             <div className="flex items-center space-x-2.5">
-              <span className="bg-purple-50 text-purple-800 border border-purple-200 text-[13px] font-bold px-3 py-1 rounded-lg flex items-center gap-1.5 shadow-2xs">
-                <Network className="w-4 h-4 text-purple-600" />
+              <span className="bg-indigo-50 text-indigo-800 border border-indigo-200 text-[13px] font-bold px-3 py-1 rounded-lg flex items-center gap-1.5 shadow-2xs">
+                <Network className="w-4 h-4 text-indigo-700" />
                 檢索視覺化圖表
               </span>
               <h2 className="text-xl font-bold text-slate-900 tracking-tight">
@@ -105,7 +105,7 @@ export const TopicVisualMap: React.FC = () => {
               <span>1. 檢索主題 (Topic)</span>
             </div>
 
-            <div className="bg-gradient-to-b from-blue-50/90 to-indigo-50/60 border border-blue-300/80 rounded-2xl p-4 shadow-sm space-y-2.5">
+            <div className="bg-blue-50 border border-blue-300/80 rounded-2xl p-4 shadow-sm space-y-2.5">
               <span className="text-[13px] bg-blue-600 text-white font-bold px-2.5 py-0.5 rounded-md shadow-2xs">
                 {activeTopic.categoryZh}
               </span>
@@ -165,14 +165,14 @@ export const TopicVisualMap: React.FC = () => {
           </div>
 
           {/* Mobile Arrow Connector 2 -> 3 */}
-          <div className="md:hidden flex justify-center py-1 text-purple-600 font-bold text-lg animate-bounce">
+          <div className="md:hidden flex justify-center py-1 text-indigo-700 font-bold text-lg animate-bounce">
             ↓
           </div>
 
           {/* Column 3: ISO 80369-20 Test Annexes */}
           <div className="space-y-3">
             <div className="flex items-center space-x-2 text-[13px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100 pb-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-purple-600"></span>
+              <span className="w-2.5 h-2.5 rounded-full bg-indigo-700"></span>
               <span>3. ISO 80369-20 實驗方法</span>
             </div>
 
@@ -180,20 +180,20 @@ export const TopicVisualMap: React.FC = () => {
               {mappingNodes.iso20.map((item, idx) => (
                 <div
                   key={idx}
-                  className="bg-purple-50/40 border border-purple-200/80 rounded-2xl p-3.5 shadow-2xs space-y-2 hover:border-purple-400 transition-all duration-200"
+                  className="bg-indigo-50/40 border border-indigo-200/80 rounded-2xl p-3.5 shadow-2xs space-y-2 hover:border-indigo-400 transition-all duration-200"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="bg-purple-600 text-white font-mono font-bold text-[13px] px-2 py-0.5 rounded-md">
+                    <span className="bg-indigo-700 text-white font-mono font-bold text-[13px] px-2 py-0.5 rounded-md">
                       ISO 20 {item.clauseNumber}
                     </span>
-                    <span className="text-[13px] text-purple-700 font-semibold bg-purple-100/80 px-2 py-0.5 rounded-md">
+                    <span className="text-[13px] text-indigo-700 font-semibold bg-indigo-100/80 px-2 py-0.5 rounded-md">
                       測試細則
                     </span>
                   </div>
-                  <h4 className="text-[13px] font-bold text-purple-950">
+                  <h4 className="text-[13px] font-bold text-indigo-950">
                     {item.titleZh}
                   </h4>
-                  <p className="text-[13px] text-purple-900 leading-relaxed">
+                  <p className="text-[13px] text-indigo-900 leading-relaxed">
                     {item.objectiveZh}
                   </p>
                 </div>
@@ -277,7 +277,7 @@ export const TopicVisualMap: React.FC = () => {
               ISO 80369-7 §{activeTopic.relatedISO7Clauses.join(', ')}
             </span>
             <ArrowRight className="w-4 h-4 text-slate-400" />
-            <span className="bg-purple-600 text-white px-2.5 py-1 rounded-lg font-bold shadow-2xs">
+            <span className="bg-indigo-700 text-white px-2.5 py-1 rounded-lg font-bold shadow-2xs">
               ISO 80369-20 {activeTopic.relatedISO20Annexes.join(', ')}
             </span>
             <ArrowRight className="w-4 h-4 text-slate-400" />
