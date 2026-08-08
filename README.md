@@ -20,6 +20,7 @@
 - **⚖️ 雙標準對照矩陣 (Comparison Matrix)**：一目瞭然比較 ISO 7 與 ISO 20 之間的定量裝配扭力、加壓/加力數值、持壓時間與指定金屬夾具，支援 CSV 匯出與手機端條文卡片檢視 (Mobile Card Mode)。
 - **🔧 規範圖號庫與校驗認證卡 (Connector Inspector & Reference Standards)**：收錄完整 Fig.A.1 ~ K.1 規範圖號，提供高精細向量圖表渲染，並整合 ISO 80369-7:2021 Annex C.1 金屬參考接頭 4 大製造、幾何公差、校驗 (Calibration) 與認證 (Certification) 規範。
 - **🕸️ 條文脈絡圖表 (Visual Map)**：視覺化展現條文間的跨領域防錯 (Non-interchangeability) 網絡與試驗依賴關係，在手機端自動適配為垂直引導步驟卡片 (Step 1➔2➔3➔4)。
+- **📲 醫療級 PWA 離線應用程式 (Progressive Web App)**：支援 Android / iOS 手機一鍵「新增至主畫面」獨立全屏運行，內建 Workbox 服務工作線程 (Service Worker) 自動預快取 93 項條文與向量圖表，支援實驗室斷網環境 100% 離線檢視。
 - **📋 DVP 與報告生成器 (DVP Generator)**：根據產品類別與金屬夾具配置，自動產生合規之設計驗證計畫 (DVP) 建議。
 
 ---

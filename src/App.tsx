@@ -5,6 +5,7 @@ import { TopicVisualMap } from './components/TopicVisualMap';
 import { ClauseComparisonMatrix } from './components/ClauseComparisonMatrix';
 import { ConnectorInspector } from './components/ConnectorInspector';
 import { DvpGenerator } from './components/DvpGenerator';
+import { PwaInstallPrompt } from './components/PwaInstallPrompt';
 import { TestConfigState } from './types';
 
 export default function App() {
@@ -66,6 +67,9 @@ export default function App() {
           </p>
         </div>
       </footer>
+
+      {/* PWA Home Screen Install Banner & Offline Status Indicator */}
+      <PwaInstallPrompt />
     </div>
   );
 }

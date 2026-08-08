@@ -1488,6 +1488,24 @@
   - `npm run lint` (`tsc --noEmit`)：100% 通過 (0 errors)。
   - `npm run build`：1683 模組成功打包 (Built in 1.83s, 0 errors)。
 
+---
+
+## 版本：v7.3 醫療級 PWA 全功能離線 App 升級 (2026-08-08)
+
+### 需求內容
+1. **升級全專案符合 PWA (Progressive Web App) 國際標準**：
+   - 整合 `vite-plugin-pwa` 與 Workbox 服務工作線程 (`generateSW`)，實現所有靜態資源與圖表的自動預快取 (Precache 93 entries, 54.5MB)。
+   - 新增 Web App Manifest (`manifest.webmanifest`)，配置 `standalone` 全螢幕獨立 App 模式、主題顏色 (`#2563eb`) 與啟動畫像。
+   - 生成高解析度 App 圖示 (`pwa-192x192.png`, `pwa-512x512.png`, `apple-touch-icon.png`, `favicon.svg`)。
+   - 建立 [PwaInstallPrompt.tsx](file:///d:/Self-developed_Apps/ISO_80369-7_Navigation/src/components/PwaInstallPrompt.tsx) 元件，支援 Android / iOS 手機一鍵新增至主畫面，並包含斷網離線浮動提醒 Toast。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **測試確效 (Mandatory Runtime Check)**：
+  - `npm run test` (`vitest run`)：7/7 單元測試全數通過 (219ms)。
+  - `npm run lint` (`tsc --noEmit`)：100% 通過 (0 errors)。
+  - `npm run build`：成功產生 `sw.js` (Workbox) 與 `manifest.webmanifest` (Built in 1.69s, 0 errors)。
+
+
 
 
 
