@@ -778,7 +778,7 @@ export const TopicClauseExplorer: React.FC = () => {
                           <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-200/80 space-y-1">
                             <strong className="text-emerald-900 block font-bold">③ 組合量測法 (Combination)</strong>
                             <p className="text-slate-600 text-[10px] leading-relaxed">
-                              業界最常用做法。內部儀器傳感器與電磁閥體積由原廠提供（尺寸計算值），加總外部管路夾具之注水實測值即得正確總容積 $V$。
+                              業界最常用做法。內部儀器傳感器與電磁閥體積由原廠提供（尺寸計算值），加總外部管路夾具之注水實測值即得正確總容積 <span className="font-mono font-bold text-slate-800">V</span>。
                             </p>
                           </div>
                         </div>
@@ -786,7 +786,7 @@ export const TopicClauseExplorer: React.FC = () => {
                         <div className="bg-amber-50/80 border border-amber-200 p-2 rounded-lg text-[10px] text-amber-900 flex items-center gap-1.5">
                           <ShieldAlert className="w-4 h-4 text-amber-600 shrink-0" />
                           <span>
-                            <strong>⚠️ 剛性防呆要求：</strong>測試儀器與管路必須使用高剛性材料 (如金屬夾具，彈性模數 &gt; 3,433 MPa)。若使用易壓力膨脹/回縮之軟膠管，測試容積 $V$ 會隨壓力改變而致使壓降判定失真。
+                            <strong>⚠️ 剛性防呆要求：</strong>測試儀器與管路必須使用高剛性材料 (如金屬夾具，彈性模數 &gt; 3,433 MPa)。若使用易壓力膨脹/回縮之軟膠管，測試容積 <span className="font-mono font-bold text-amber-950">V</span> 會隨壓力改變而致使壓降判定失真。
                           </span>
                         </div>
                       </div>

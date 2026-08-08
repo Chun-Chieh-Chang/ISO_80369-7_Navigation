@@ -224,7 +224,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
           <div className="bg-slate-50 border border-slate-200 p-3.5 rounded-xl space-y-1.5">
             <strong className="text-purple-900 block font-bold text-[13px]">2. 表面粗糙度極限</strong>
             <ul className="list-disc list-inside text-slate-600 space-y-1 leading-relaxed text-[11px]">
-              <li><strong>關鍵表面 (Critical)</strong>：錐面與密封接觸面粗糙度平均值 $R_a$ <strong>不得超過 0.8 μm</strong>。</li>
+              <li><strong>關鍵表面 (Critical)</strong>：錐面與密封接觸面粗糙度平均值 <span className="font-mono font-bold text-slate-800">R<sub>a</sub></span> <strong>不得超過 0.8 μm</strong>。</li>
               <li>確保測試密封重現性與極致抗磨損耐用度。</li>
             </ul>
           </div>
@@ -273,7 +273,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
                 <li><strong>量測設備</strong>：使用三次元量儀 (CMM)、影像測量儀或高精度工具顯微鏡。</li>
                 <li><strong>關鍵接觸特徵</strong>：精確量測 0.06:1 (1:16.667) 錐度與接觸直徑。</li>
                 <li><strong>邊緣倒角</strong>：螺紋外側邊緣圓角 <strong>0.15 mm ~ 0.20 mm</strong>，入口倒角 R ≤ 0.5 mm。</li>
-                <li><strong>難量測特徵替代判定</strong>：公接頭尖端至第一牙底部 $t$ 軸向尺寸改為「輔助尺寸」，其有效性由「抗軸向拉力分離測試」功能性試驗進行間接評估，不強制極限硬性量測。</li>
+                <li><strong>難量測特徵替代判定</strong>：公接頭尖端至第一牙底部 <span className="font-mono font-bold text-slate-800">t</span> 軸向尺寸改為「輔助尺寸」，其有效性由「抗軸向拉力分離測試」功能性試驗進行間接評估，不強制極限硬性量測。</li>
               </ul>
             </div>
 
@@ -284,7 +284,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
               </h5>
               <ul className="list-disc list-inside text-slate-600 space-y-1 text-[11px] leading-relaxed">
                 <li><strong>設備儀器</strong>：使用表面粗糙度觸針儀對關鍵接觸界面進行檢測。</li>
-                <li><strong>合格判定標準</strong>：關鍵表面粗糙度平均值 $R_a$ <strong>不得超過 0.8 μm</strong>。</li>
+                <li><strong>合格判定標準</strong>：關鍵表面粗糙度平均值 <span className="font-mono font-bold text-slate-800">R<sub>a</sub></span> <strong>不得超過 0.8 μm</strong>。</li>
                 <li>確保重複測試時密封面的可重現性與耐磨損度。</li>
               </ul>
             </div>

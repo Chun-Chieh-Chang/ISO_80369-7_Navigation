@@ -1329,6 +1329,25 @@
   - `npm run lint` (`tsc --noEmit`)：100% 通過 (0 errors)。
   - `npm run build`：1682 模組成功打包 (Built in 1.76s, 0 errors)。
 
+---
+
+## 版本：v6.6 修正介面未渲染之原始 LaTeX 語法字串亂碼 (2026-08-08)
+
+### 需求內容
+1. **消除 JSX 介面中未渲染之 raw LaTeX 語法字串**：
+   - 解決畫面中出現如 `$R_a$`、`$t$`、`$V$` 等未經引擎轉換而直接顯現為 `$R_a$` 之美觀問題。
+   - 將 `ConnectorInspector.tsx` 與 `TopicClauseExplorer.tsx` 中之未轉換符號替換為美觀且語義化的標準 HTML 標籤（如 `<span className="font-mono font-bold">R<sub>a</sub></span>`、`<span className="font-mono font-bold">t</span>` 與 `<span className="font-mono font-bold">V</span>`）。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **根因分析 (RCA)**：
+  - React JSX 渲染純文字時不會自動解析 `$math$` 語法，導致原生 `$R_a$` 呈現為帶有錢字號的文字亂碼。
+- **矯正措施 (CAPA)**：
+  - 全面清理並升級為帶有微學摩登字型 (`font-mono font-bold`) 的 HTML 下標標籤 `R<sub>a</sub>`，徹底解決顯示亂碼與排版歧義。
+- **編譯與確效 (Mandatory Runtime Check)**：
+  - `npm run lint` (`tsc --noEmit`)：100% 通過 (0 errors)。
+  - `npm run build`：1682 模組成功打包 (Built in 1.93s, 0 errors)。
+
+
 
 
 
