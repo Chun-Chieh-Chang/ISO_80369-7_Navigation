@@ -29,7 +29,7 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
   const [showCategoryModal, setShowCategoryModal] = useState(false);
 
   const getBlueprintImagePath = (key: string) => {
-    const baseUrl = (import.meta as any).env?.BASE_URL || '/';
+    const baseUrl = import.meta.env.BASE_URL || '/';
     const cleanBase = baseUrl.endsWith('/') ? baseUrl : baseUrl + '/';
     
     // Strict 1-to-1 mapping to extracted ISO 80369-7 Blueprint Folio pages
@@ -75,7 +75,7 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
   };
 
   const getTestingBlueprintImagePath = (key: string) => {
-    const baseUrl = (import.meta as any).env?.BASE_URL || '/';
+    const baseUrl = import.meta.env.BASE_URL || '/';
     const cleanBase = baseUrl.endsWith('/') ? baseUrl : baseUrl + '/';
     
     // Strict 1-to-1 mapping to extracted ISO 80369-7 / ISO 80369-20 Testing Rig Blueprint pages
@@ -113,18 +113,13 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
       case 'ISO7-FIG-C5':
       case 'ISO7-FIG-C6':
         return `${cleanBase}assets/testing_blueprint/test_page_3.png`;
-      case 'ISO7-CLAUSE-1':
-      case 'ISO7-CLAUSE-2':
-      case 'ISO7-CLAUSE-3':
-      case 'ISO7-CLAUSE-TEXT':
-        return null;
       default:
-        return `${cleanBase}assets/testing_blueprint/test_page_11.png`;
+        return null;
     }
   };
 
   const getDiagramImagePath = (key: string) => {
-    const baseUrl = (import.meta as any).env?.BASE_URL || '/';
+    const baseUrl = import.meta.env.BASE_URL || '/';
     const cleanBase = baseUrl.endsWith('/') ? baseUrl : baseUrl + '/';
     
     // Strict 1-to-1 mapping for specific ISO 80369-7 and ISO 80369-20 figure keys

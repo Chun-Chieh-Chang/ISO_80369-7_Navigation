@@ -1383,6 +1383,37 @@
   - `npm run lint` (`tsc --noEmit`)：100% 通過 (0 errors)。
   - `npm run build`：1682 模組成功打包 (Built in 1.78s, 0 errors)。
 
+---
+
+## 版本：v6.9 全面內審回應與修復 P0/P1/P2 重大缺失 (2026-08-08)
+
+### 需求與修正內容
+1. **P0-1 修復 Fig. B.4 / B.5 / B.6 定義與性別錯置**：
+   - 依據 ISO 80369-7:2021 正式標準修正 `isoData.ts`：
+     - **Fig. B.4**：`Male Luer Lock Connector with Rotatable Collar` (公型，旋轉套環)
+     - **Fig. B.5**：`Female Luer Lock Connector` (母型，標稱耳翼鎖定)
+     - **Fig. B.6**：`Female Luer Lock Connector with Lugs (Variant A) / Envelope` (母型 Variant A 直角耳翼與包絡面)
+2. **P0-2 修正 B.1 / B.2 尺寸公差與 ISO 原圖對齊**：
+   - **Fig. B.1**：修正公錐小端直徑為 $\varnothing d = 3.970 \sim 4.035\text{ mm}$、大端直徑 $\varnothing g = 4.375 \sim 4.440\text{ mm}$。
+   - **Fig. B.2**：修正母錐小端內徑為 $\varnothing G = 3.820 \sim 3.865\text{ mm}$、大端內徑 $\varnothing D = 4.225 \sim 4.270\text{ mm}$。
+3. **P0-3 修復 DvpGenerator Key 解析靜默失效 Bug**：
+   - 建立共用模組 `src/utils/isoHelpers.ts` 提供 `getClauseSvgKey` 與 `getAnnexCFigure`，自動正規化 `'ISO20-FIG-B1'` 與 `'ISO20-B.1'`，徹底修復 `activeFigInfo` 回傳 `undefined` 的問題。
+4. **P1 消除 `as any` 型別逃逸與建置自動化單元測試**：
+   - 消除 `ISOStandardFigureRenderer.tsx` 與 `ConnectorInspector.tsx` 之 `as any` 繞過型別問題。
+   - 引入 Vitest 建置全自動化單元測試套件 `src/utils/isoHelpers.test.ts` (6/6 測試全數通過)。
+5. **P2 專案衛生與開源規範修復**：
+   - 清理死依賴（`d3`, `express`, `dotenv`, `@google/genai` 等）與雙 lockfile (`bun.lock`)。
+   - 清理根目錄重複二進位大圖檔 (`壓力衰檢測試說明.png`, `醫療器材接頭測試標準更新.png`)。
+   - 本地化 `index.html` `lang="zh-TW"` 與標題，將 `Header.tsx` 版本號更新至 `v6.8 規範確效版`。
+   - 新增 `LICENSE` (MIT) 與 `CHANGELOG.md` 開源文件。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **測試確效 (Mandatory Runtime Check)**：
+  - `npm run test` (`vitest run`)：6/6 單元測試全數通過 (192ms)。
+  - `npm run lint` (`tsc --noEmit`)：100% 通過 (0 errors)。
+  - `npm run build`：1683 模組成功打包 (Built in 1.79s, 0 errors)。
+
+
 
 
 

@@ -1,7 +1,8 @@
 import React from 'react';
-import { ISO_CLAUSES, ANNEX_C_FIGURES } from '../data/isoData';
+import { ISO_CLAUSES } from '../data/isoData';
 import { ConnectorGender, ConnectorType, TestConfigState, TestClauseId } from '../types';
 import { ISOStandardFigureRenderer } from './ISOStandardFigureRenderer';
+import { getClauseSvgKey, getAnnexCFigure } from '../utils/isoHelpers';
 import { FileSpreadsheet, Eye, Info } from 'lucide-react';
 
 interface DvpGeneratorProps {
@@ -17,21 +18,9 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
   const setSelectedType = (type: ConnectorType) => setConfig(prev => ({ ...prev, connectorType: type }));
   const setSelectedClause = (clauseId: TestClauseId) => setConfig(prev => ({ ...prev, selectedClauseId: clauseId }));
 
-  const getClauseSvgKey = (clauseId: string): string => {
-    switch (clauseId) {
-      case '6.1': return 'ISO20-FIG-B1';
-      case '6.2': return 'ISO20-FIG-D1';
-      case '6.3': return 'ISO20-FIG-E1';
-      case '6.4': return 'ISO20-FIG-F1';
-      case '6.5': return 'ISO20-FIG-G1';
-      case '6.6': return 'ISO20-FIG-H1';
-      default: return 'ISO20-FIG-B1';
-    }
-  };
-
   const activeClauseObj = ISO_CLAUSES[config.selectedClauseId || '6.1'];
   const activeSvgKey = getClauseSvgKey(config.selectedClauseId || '6.1');
-  const activeFigInfo = ANNEX_C_FIGURES[activeSvgKey];
+  const activeFigInfo = getAnnexCFigure(activeSvgKey);
 
   return (
     <div className="space-y-6 print:space-y-2">
@@ -123,7 +112,7 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
                       }
                     }
 
-                    const requiredRef = ANNEX_C_FIGURES[requiredRefId];
+                    const requiredRef = getAnnexCFigure(requiredRefId);
                     const refLabel = requiredRefId === 'C.3' 
                       ? '母最壞情況 2.71mm' 
                       : requiredRefId === 'C.6' 

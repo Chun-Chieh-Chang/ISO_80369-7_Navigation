@@ -129,14 +129,14 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
     gender: 'male',
     type: 'slip',
     description: 'Dimensional specifications for male 6% Luer slip connector.',
-    descriptionZh: '6% (1:16.667) 公魯爾滑動接頭 CAD 尺寸規範圖，包含錐體長度 e ≥ 7.5 mm、尖端直徑 Ø3.970~4.072 mm 與錐度斜率。',
+    descriptionZh: '6% (1:16.667) 公魯爾滑動接頭 CAD 尺寸規範圖，包含錐體長度 e ≥ 7.5 mm、小端直徑 Ød 3.970~4.035 mm、大端直徑 Øg 4.375~4.440 mm 與錐度斜率。',
     intendedClauses: ['6.1', '6.2', '6.3', '6.4'],
     isWorstCase: false,
     worstCaseReasonZh: '標準公魯爾滑動接頭（L1），用於無螺紋滑動對接需求。',
     svgHighlights: [
       { title: '錐體長度 e', value: '≥ 7.5 mm' },
-      { title: '圓錐斜率', value: '6% (1:16.667)' },
-      { title: '適用類型', value: '公滑動 (Male Slip)' }
+      { title: '小端直徑 Ød', value: '3.970~4.035 mm' },
+      { title: '大端直徑 Øg', value: '4.375~4.440 mm' }
     ],
     svgKey: 'ISO7-FIG-B1'
   },
@@ -148,13 +148,13 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
     gender: 'female',
     type: 'slip',
     description: 'Dimensional specifications for female 6% Luer slip connector.',
-    descriptionZh: '6% 母魯爾滑動接頭 CAD 尺寸規範圖，包含開口處標稱直徑 Ø4.198~4.298 mm、基底直徑 Ø3.793~3.893 mm 與內錐角。',
+    descriptionZh: '6% 母魯爾滑動接頭 CAD 尺寸規範圖，包含大端內徑 ØD 4.225~4.270 mm、小端內徑 ØG 3.820~3.865 mm 與內錐角。',
     intendedClauses: ['6.1', '6.2', '6.3', '6.4'],
     isWorstCase: false,
     worstCaseReasonZh: '標準母魯爾滑動接頭（L1），用於接收公滑動錐體。',
     svgHighlights: [
-      { title: '開口直徑', value: 'Ø4.198~4.298 mm' },
-      { title: '基底直徑', value: 'Ø3.793~3.893 mm' },
+      { title: '大端內徑 ØD', value: '4.225~4.270 mm' },
+      { title: '小端內徑 ØG', value: '3.820~3.865 mm' },
       { title: '適用類型', value: '母滑動 (Female Slip)' }
     ],
     svgKey: 'ISO7-FIG-B2'
@@ -182,32 +182,11 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
     id: 'B.4',
     figureNumber: 'Fig.B.4',
     annexGroup: 'Annex B',
-    name: 'Female Luer Lock Connector with Rigid Lugs',
-    gender: 'female',
-    type: 'lock',
-    tabWidthMm: 3.50,
-    backFlankAngleDeg: 25,
-    description: 'Dimensional specifications for female Luer lock connector with rigid lugs.',
-    descriptionZh: '母魯爾鎖定接頭與剛性耳翼（Lugs）CAD 尺寸規範圖，標稱耳翼寬度 3.50 mm，背側斜角 25°，與公鎖定螺紋嚙合。',
-    intendedClauses: ['6.1', '6.2', '6.3', '6.4', '6.5', '6.6'],
-    isWorstCase: false,
-    worstCaseReasonZh: '標準母魯爾鎖定產品，耳翼提供穩定之旋緊拉合力。',
-    svgHighlights: [
-      { title: '耳翼寬度', value: '3.50 mm (標稱)' },
-      { title: '背側角度', value: '25°' },
-      { title: '適用類型', value: '母鎖定 (Female Lock)' }
-    ],
-    svgKey: 'ISO7-FIG-B4'
-  },
-  'B.5': {
-    id: 'B.5',
-    figureNumber: 'Fig.B.5',
-    annexGroup: 'Annex B',
-    name: 'Male Luer Lock Connector with Floating Ring',
+    name: 'Male Luer Lock Connector with Rotatable Collar',
     gender: 'male',
     type: 'lock',
-    description: 'Dimensional specifications for male Luer lock connector with floating ring collar.',
-    descriptionZh: '旋轉套環式（Floating Ring Collar）公魯爾鎖定接頭 CAD 尺寸圖，螺紋套環可自由旋轉，防止管路在鎖緊過程中扭曲。',
+    description: 'Dimensional specifications for male Luer lock connector with rotatable collar.',
+    descriptionZh: '旋轉套環式（Rotatable / Floating Collar）公魯爾鎖定接頭 CAD 尺寸規範圖，螺紋套環可自由 360° 旋轉防止管路在鎖緊過程中扭曲。',
     intendedClauses: ['6.1', '6.2', '6.3', '6.4', '6.5', '6.6'],
     isWorstCase: false,
     worstCaseReasonZh: '獨立旋轉套環避免管路絞纏，常用於三通閥、留置針及延長管路。',
@@ -216,21 +195,43 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
       { title: '螺距 Pitch', value: '2.5 mm' },
       { title: '主要功能', value: '防管路扭曲 (Anti-Torsion)' }
     ],
+    svgKey: 'ISO7-FIG-B4'
+  },
+  'B.5': {
+    id: 'B.5',
+    figureNumber: 'Fig.B.5',
+    annexGroup: 'Annex B',
+    name: 'Female Luer Lock Connector',
+    gender: 'female',
+    type: 'lock',
+    tabWidthMm: 3.50,
+    backFlankAngleDeg: 25,
+    description: 'Dimensional specifications for female Luer lock connector.',
+    descriptionZh: '母魯爾鎖定接頭 CAD 尺寸規範圖，包含標稱耳翼寬度 3.50 mm，背側斜角 25°，與公鎖定螺紋嚙合。',
+    intendedClauses: ['6.1', '6.2', '6.3', '6.4', '6.5', '6.6'],
+    isWorstCase: false,
+    worstCaseReasonZh: '標準母魯爾鎖定產品，耳翼提供穩定之旋緊拉合力。',
+    svgHighlights: [
+      { title: '耳翼寬度', value: '3.50 mm (標稱)' },
+      { title: '背側角度', value: '25°' },
+      { title: '適用類型', value: '母鎖定 (Female Lock)' }
+    ],
     svgKey: 'ISO7-FIG-B5'
   },
   'B.6': {
     id: 'B.6',
     figureNumber: 'Fig.B.6',
     annexGroup: 'Annex B',
-    name: 'Female Luer Lock Connector Dimensional Envelope',
+    name: 'Female Luer Lock Connector with Lugs (Variant A) / Envelope',
     gender: 'female',
     type: 'lock',
-    description: 'Dimensional envelope boundary for female Luer lock connector.',
-    descriptionZh: '母魯爾鎖定接頭包絡面（Dimensional Envelope）極限幾何圖，界定外形最大邊界，用於 3D CAD 空間干涉與非互換性模擬。',
+    description: 'Dimensional specifications for female Luer lock connector with Variant A lugs and dimensional envelope.',
+    descriptionZh: '母魯爾鎖定接頭 Variant A 直角耳翼與包絡面（Dimensional Envelope）極限幾何圖，用於 3D CAD 空間干涉與非互換性模擬。',
     intendedClauses: [],
     isWorstCase: false,
-    worstCaseReasonZh: '提供整體包絡面極限尺寸，確保周邊結構不會干擾魯爾旋合對接。',
+    worstCaseReasonZh: '提供整體包絡面極限尺寸與 Variant A 直角耳翼幾何，確保周邊結構不會干擾魯爾旋合對接。',
     svgHighlights: [
+      { title: '耳翼樣態', value: 'Variant A 直角耳翼' },
       { title: '包絡直徑', value: 'Ø7.80 mm (最大外界)' },
       { title: '用途', value: '3D CAD 防干涉評估 (Annex D)' }
     ],

@@ -56,7 +56,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
             ].map(group => (
               <button
                 key={group.id}
-                onClick={() => setSelectedGroup(group.id as any)}
+                onClick={() => setSelectedGroup(group.id)}
                 className={`px-3 py-1.5 rounded-lg font-medium transition whitespace-nowrap shrink-0 cursor-pointer min-h-[36px] flex items-center ${
                   selectedGroup === group.id
                     ? 'bg-blue-600 text-white shadow-xs font-bold'

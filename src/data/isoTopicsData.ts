@@ -79,7 +79,7 @@ export const ISO_TOPICS: ISOTopic[] = [
         standard: 'ISO 80369-7:2021 Fig.B.1',
         figureType: 'connector_cad',
         figureTypeZh: '接頭幾何 CAD 圖',
-        descriptionZh: '詳細呈現 6% 魯爾公錐體與母錐座配合處之 CAD 斷面圖。標記公錐小端直徑 (Ø3.970~4.072 mm)、母錐開口直徑 (Ø4.198~4.298 mm) 及 1:16.667 (雙邊 3.436°) 錐度角，證明防漏取決於微觀錐面靜摩擦緊密過盈配合。',
+        descriptionZh: '詳細呈現 6% 魯爾公錐體與母錐座配合處之 CAD 斷面圖。標記公錐小端直徑 (Ød 3.970~4.035 mm)、母錐大端內徑 (ØD 4.225~4.270 mm) 及 1:16.667 (雙邊 3.436°) 錐度角，證明防漏取決於微觀錐面靜摩擦緊密過盈配合。',
         svgKey: 'ISO7-FIG-B1',
         keyCallouts: [
           { id: 'taper', labelZh: '圓錐斜率', valueZh: '6% (1 : 16.667)' },
@@ -323,7 +323,7 @@ export const ISO_TOPICS: ISOTopic[] = [
     detailedDescriptionZh: 'ISO 80369-7 第 5 章精確規定了公魯爾（Male / Cone）與母魯爾（Female / Socket）鎖定與滑動接頭的所有關鍵幾何尺寸。包括 6% 錐度斜率（每毫米直徑遞減 0.06mm）、最小錐面接觸長度（7.5mm）、公套環內徑、螺紋 pitch（2.5mm）、耳翼角度等，確保全球不同廠商之醫療器材能無縫互換。',
     keyParameters: [
       { label: '圓錐斜率 Taper Ratio', value: '6% (1 : 16.667)', unit: '' },
-      { label: '小端直徑 Base Diameter', value: '3.970 - 4.072', unit: 'mm' },
+      { label: '公錐小端直徑 Ød', value: '3.970 - 4.035', unit: 'mm' },
       { label: '最小配合長度 Min Length', value: '7.5', unit: 'mm' },
       { label: '標準耳翼寬度 Tab Width', value: '3.50 (C.1 標稱)', unit: 'mm' }
     ],
@@ -341,7 +341,7 @@ export const ISO_TOPICS: ISOTopic[] = [
         standard: 'ISO 80369-7:2021 Fig.B.1 & B.2',
         figureType: 'connector_cad',
         figureTypeZh: '接頭幾何 CAD 圖',
-        descriptionZh: '展現 6% 圓錐 (1:16.667，單邊 α=1.718°) 幾何尺寸圖。標記 Base 直徑 (3.970~4.072mm)、最小配合長度 7.5mm 與倒角規格。',
+        descriptionZh: '展現 6% 圓錐 (1:16.667，單邊 α=1.718°) 幾何尺寸圖。標記小端直徑 (Ød 3.970~4.035mm)、最小配合長度 7.5mm 與倒角規格。',
         svgKey: 'ISO7-FIG-B1-B2',
         keyCallouts: [
           { id: 'ratio', labelZh: '錐度斜率', valueZh: '1 : 16.667 (6%)' },

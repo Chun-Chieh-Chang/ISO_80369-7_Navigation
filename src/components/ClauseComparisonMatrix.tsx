@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ISO_TOPICS, STANDARD_CLAUSE_DETAILS } from '../data/isoTopicsData';
 import { ISO_CLAUSES, ANNEX_C_FIGURES } from '../data/isoData';
 import { ISOStandardFigureRenderer } from './ISOStandardFigureRenderer';
+import { getClauseSvgKey } from '../utils/isoHelpers';
 import { Table, Search, Download, Filter, Info, CheckCircle2, AlertTriangle, ArrowUpDown, ChevronDown, ChevronUp, Eye, Sparkles } from 'lucide-react';
 
 export const ClauseComparisonMatrix: React.FC = () => {
@@ -9,24 +10,6 @@ export const ClauseComparisonMatrix: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [expandedClauseId, setExpandedClauseId] = useState<string | null>(null);
   const [matrixViewMode, setMatrixViewMode] = useState<'card' | 'table'>('card');
-
-  const getClauseSvgKey = (clauseId: string): string => {
-    switch (clauseId) {
-      case '6.1': return 'ISO20-FIG-B1';
-      case '6.2': return 'ISO20-FIG-D1';
-      case '6.3': return 'ISO20-FIG-E1';
-      case '6.4': return 'ISO20-FIG-F1';
-      case '6.5': return 'ISO20-FIG-G1';
-      case '6.6': return 'ISO20-FIG-H1';
-      case 'Clause 4': return 'ISO20-FIG-J1';
-      case 'Clause 5': return 'ISO7-FIG-B3';
-      case 'Annex C': return 'ISO7-FIG-C3';
-      case 'Clause 1': return 'ISO7-CLAUSE-1';
-      case 'Clause 2': return 'ISO7-CLAUSE-2';
-      case 'Clause 3': return 'ISO7-CLAUSE-3';
-      default: return 'ISO7-CLAUSE-TEXT';
-    }
-  };
 
   // Dynamically derive clausesList from Single Source of Truth (ISO_CLAUSES & STANDARD_CLAUSE_DETAILS)
   const clausesList = React.useMemo(() => {
