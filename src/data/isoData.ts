@@ -453,15 +453,15 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
     annexGroup: 'ISO 80369-20',
     name: 'Axial Load Pull-off Separation Test Apparatus',
     nameZh: '萬能拉力機軸向拉拔分離測試裝置圖',
-    description: 'ISO 80369-20 Annex F axial tension apparatus (27.5N Standard / 35N Margin).',
-    descriptionZh: 'ISO 80369-20 Annex F 萬能材料試驗機軸向拉拔示意圖，施加 27.5 N 軸向拉力持壓 10 秒（舊規範或廠商可加碼至 35N / 25N）。',
+    description: 'ISO 80369-20 Annex F axial tension apparatus (Lock 32~35N / Slip 23~25N).',
+    descriptionZh: 'ISO 80369-20 Annex F 萬能材料試驗機軸向拉拔示意圖。先以 26.5~27.5 N 進行預裝配推力，測試時施加 32~35 N (Lock 鎖定型) 或 23~25 N (Slip 滑動型) 軸向拉力持壓 10~15 秒。',
     intendedClauses: ['6.4'],
     isWorstCase: false,
     worstCaseReasonZh: '驗證強拉力下螺紋與錐面之抗脫離能力。',
     svgHighlights: [
-      { title: '標準軸向拉力', value: '27.5 N (10秒)' },
-      { title: '廠商加碼拉力', value: '35 N (Lock) / 25 N (Slip)' },
-      { title: '加載速率', value: '≤ 10 N/s' }
+      { title: 'Lock 測試拉力', value: '32 ~ 35 N (10-15秒)' },
+      { title: 'Slip 測試拉力', value: '23 ~ 25 N (10-15秒)' },
+      { title: '預裝配推力', value: '26.5 ~ 27.5 N (Annex J)' }
     ],
     svgKey: 'ISO20-FIG-F1'
   },

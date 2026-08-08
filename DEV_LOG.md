@@ -1366,6 +1366,24 @@
   - `npm run lint` (`tsc --noEmit`)：100% 通過 (0 errors)。
   - `npm run build`：1682 模組成功打包 (Built in 1.76s, 0 errors)。
 
+---
+
+## 版本：v6.8 全專案 ISO 80369-7 / ISO 80369-20 條文內文深度審查與 Annex F 拉力參數精確化 (2026-08-08)
+
+### 需求內容
+1. **全專案 ISO 條文與測試參數嚴格深度審查**：
+   - 審查 6.1 流體洩漏 ($300\sim330\text{ kPa}$ 正壓水壓/氣壓衰減)、6.2 負壓氣密 ($80.0\sim88.0\text{ kPa}$ 真空衰減/水下氣泡)、6.3 應力龜裂 ($23^\circ\text{C}$ 空氣 $48\text{h}$ 靜置)、6.5 抗旋鬆 ($0.018\sim0.020\text{ N}\cdot\text{m}$) 與 6.6 抗過載 ($0.15\sim0.17\text{ N}\cdot\text{m}$ 配合 Fig.C.3 $2.71\text{mm}$ 最壞窄耳翼)，確認全數 100% 吻合規範。
+2. **微小技術差異精確修復 (Annex F 測試拉力區隔)**：
+   - 修正 `isoData.ts` 中 `ISO20-F.1` 圖解敘述，明確區分預裝配軸向推力 ($26.5\sim27.5\text{ N}$, Annex J) 與 Clause 6.4 之實際測試拉拔力 ($32\sim35\text{ N}$ Lock 鎖定型 / $23\sim25\text{ N}$ Slip 滑動型)，消除遺留舊版 ISO 594-2 的敘述模糊歧義。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **矯正措施 (CAPA)**：
+  - 更新 `src/data/isoData.ts` 之 `ISO20-F.1` 條目，標明 Lock 測試拉力 $32\sim35\text{ N}$、Slip 測試拉力 $23\sim25\text{ N}$ 與預裝配推力 $26.5\sim27.5\text{ N}$。
+- **編譯與確效 (Mandatory Runtime Check)**：
+  - `npm run lint` (`tsc --noEmit`)：100% 通過 (0 errors)。
+  - `npm run build`：1682 模組成功打包 (Built in 1.78s, 0 errors)。
+
+
 
 
 
