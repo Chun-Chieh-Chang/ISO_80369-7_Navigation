@@ -1456,6 +1456,21 @@
   - `npm run lint` (`tsc --noEmit`)：100% 通過 (0 errors)。
   - `npm run build`：1683 模組成功打包 (Built in 1.84s, 0 errors)。
 
+---
+
+## 版本：v7.1 雙標準對照矩陣介面優化 (2026-08-08)
+
+### 需求內容
+1. **依用戶要求移除矩陣說明 Banner 卡片**：
+   - 移除 `ClauseComparisonMatrix.tsx` 頂部之「矩陣關鍵欄位『定位條件』與『納入標準』說明 (Field Inclusion Criteria)」卡片，使對照矩陣介面更簡潔精煉。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **測試確效 (Mandatory Runtime Check)**：
+  - `npm run test` (`vitest run`)：7/7 單元測試全數通過 (226ms)。
+  - `npm run lint` (`tsc --noEmit`)：100% 通過 (0 errors)。
+  - `npm run build`：1683 模組成功打包 (Built in 1.67s, 0 errors)。
+
+
 
 
 
