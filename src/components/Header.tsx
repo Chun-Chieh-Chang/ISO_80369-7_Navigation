@@ -34,7 +34,7 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
                   ISO 80369-7 & 20 視覺化導航系統
                 </h1>
                 <span className="bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-800 text-[12px] sm:text-[13px] font-bold px-2 py-0.5 rounded-full border border-blue-200/80 shrink-0 shadow-2xs">
-                  v7.5 專業 Excel 報告版
+                  v7.6 A4 排版優化版
                 </span>
               </div>
               <p className="text-[12px] sm:text-[13px] text-slate-500 mt-0.5 font-normal hidden sm:block">

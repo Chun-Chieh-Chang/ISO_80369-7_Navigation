@@ -1555,6 +1555,28 @@
 2. **單元測試防禦擴充**：於 `isoHelpers.test.ts` 新增 8 個涵蓋所有對接組合 (Male/Female Lock/Slip) 的 Excel Exporter 導出保護測試。
 3. **確效驗證**：Vitest 8/8 測試全數通過，TypeScript 0 錯誤。
 
+---
+
+## 版本：v7.6 A4 橫向單頁與國際醫療美學 Excel 報告升級 (2026-08-08)
+
+### 需求內容
+1. **解決 Excel 欄位截斷、溢出與無 A4 列印設定問題**：
+   - 重構 [excelExporter.ts](file:///d:/Self-developed_Apps/ISO_80369-7_Navigation/src/utils/excelExporter.ts) 為 XML Spreadsheet 2003 高級醫療格式。
+   - 注入 `<Layout ss:Orientation="Landscape"/>` 與 `<FitWidth>1</FitWidth>`，確保開啟或列印時 **100% 自動鎖定並自適應縮放至 A4 橫向單頁寬度內，完全不溢出爆頁**！
+2. **醫療級視覺美學與自動換行**：
+   - **標題橫幅**：深藍色背景 (`#0F172A`) + 白色粗體字。
+   - **欄位 Header**：皇家藍 (`#2563EB`) + 白色粗體字。
+   - **法定標籤**：翡翠綠背景 (`#DCFCE7`) + 深綠粗體字 (`#166534`)。
+   - **自動換行 (`ss:WrapText="1"`)**：法規說明與範例欄位自動垂直換行，徹底解決橫向過長被遮蔽問題。
+   - **打包優化**：JS 主 Chunk 體積由 741 kB 大幅縮減至 468 kB (縮減 40%)。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **測試確效 (Mandatory Runtime Check)**：
+  - `npm run test` (`vitest run`)：8/8 單元測試全數通過 (221ms)。
+  - `npm run lint` (`tsc --noEmit`)：100% 通過 (0 errors)。
+  - `npm run build`：成功將 A4 Excel 匯出模組與 SW 打包 (Built in 1.80s, 0 errors)。
+
+
 
 
 

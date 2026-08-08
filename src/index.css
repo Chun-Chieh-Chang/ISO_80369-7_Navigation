@@ -106,3 +106,28 @@
   min-width: 44px;
 }
 
+/* A4 Landscape Print Page Setup */
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 8mm;
+  }
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .print\:hidden {
+    display: none !important;
+  }
+  table {
+    width: 100% !important;
+    font-size: 11px !important;
+    table-layout: auto !important;
+  }
+  th, td {
+    padding: 6px 8px !important;
+    word-break: break-word !important;
+  }
+}
+
+
