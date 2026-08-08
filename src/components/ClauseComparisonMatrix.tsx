@@ -9,7 +9,6 @@ export const ClauseComparisonMatrix: React.FC = () => {
   const [filterType, setFilterType] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [expandedClauseId, setExpandedClauseId] = useState<string | null>(null);
-  const [matrixViewMode, setMatrixViewMode] = useState<'card' | 'table'>('card');
 
   // Dynamically derive clausesList from Single Source of Truth (ISO_CLAUSES & STANDARD_CLAUSE_DETAILS)
   const clausesList = React.useMemo(() => {
@@ -369,26 +368,6 @@ export const ClauseComparisonMatrix: React.FC = () => {
           </div>
 
           <div className="flex items-center space-x-2">
-            {/* View Mode Switcher Toggle */}
-            <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 shrink-0 text-xs font-bold">
-              <button
-                onClick={() => setMatrixViewMode('card')}
-                className={`px-2.5 py-1 rounded-lg transition ${
-                  matrixViewMode === 'card' ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-600'
-                }`}
-              >
-                📱 手機卡片 Mode
-              </button>
-              <button
-                onClick={() => setMatrixViewMode('table')}
-                className={`px-2.5 py-1 rounded-lg transition ${
-                  matrixViewMode === 'table' ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-600'
-                }`}
-              >
-                📊 完整表格 Mode
-              </button>
-            </div>
-
             <div className="relative w-full sm:w-60">
               <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
@@ -403,10 +382,9 @@ export const ClauseComparisonMatrix: React.FC = () => {
         </div>
       </div>
 
-      {/* Main Matrix Content: Dual View (Mobile Cards vs Full Table) */}
-      {matrixViewMode === 'card' ? (
-        /* Mobile Clause Cards View */
-        <div className="space-y-4">
+      {/* Responsive Dual Layout (Mobile Cards on Mobile, Full Table on Desktop) */}
+      {/* Mobile Clause Cards View (Auto-visible on Mobile < 768px) */}
+      <div className="space-y-4 md:hidden">
           {filteredClauses.map((clause) => {
             const isExpanded = expandedClauseId === clause.id;
             const svgKey = getClauseSvgKey(clause.id);
@@ -514,9 +492,9 @@ export const ClauseComparisonMatrix: React.FC = () => {
             );
           })}
         </div>
-      ) : (
-        /* Full Table View (Horizontal Scrollable) */
-        <div className="bg-white border border-slate-200/80 rounded-2xl shadow-sm overflow-hidden">
+
+        {/* Full Table View (Auto-visible on Desktop >= 768px) */}
+        <div className="bg-white border border-slate-200/80 rounded-2xl shadow-sm overflow-hidden hidden md:block">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse text-[13px]">
               <thead>
@@ -639,7 +617,6 @@ export const ClauseComparisonMatrix: React.FC = () => {
           </table>
         </div>
       </div>
-      )}
     </div>
   );
 };

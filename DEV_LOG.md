@@ -1470,6 +1470,25 @@
   - `npm run lint` (`tsc --noEmit`)：100% 通過 (0 errors)。
   - `npm run build`：1683 模組成功打包 (Built in 1.67s, 0 errors)。
 
+---
+
+## 版本：v7.2 全自動響應式螢幕偵測與模式切換按鈕移除 (2026-08-08)
+
+### 需求內容
+1. **依用戶要求移除手動切換按鈕並實現 100% 自動響應式偵測**：
+   - 完全移除 `ClauseComparisonMatrix.tsx` 中的「📱 手機卡片 Mode / 📊 完整表格 Mode」手動切換按鈕與 `matrixViewMode` 狀態。
+   - 利用 Tailwind CSS 斷點樣式 (`space-y-4 md:hidden` 與 `hidden md:block`) 實現：
+     - 手機裝置/小螢幕 (`< 768px`) 自動顯示「手機卡片 Mode」；
+     - 電腦裝置/寬螢幕 (`>= 768px`) 自動顯示「完整表格 Mode」。
+   - 達到完全無須人工點擊、無切換按鈕且 100% 自動自適應對應顯示的體驗。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **測試確效 (Mandatory Runtime Check)**：
+  - `npm run test` (`vitest run`)：7/7 單元測試全數通過 (230ms)。
+  - `npm run lint` (`tsc --noEmit`)：100% 通過 (0 errors)。
+  - `npm run build`：1683 模組成功打包 (Built in 1.83s, 0 errors)。
+
+
 
 
 
