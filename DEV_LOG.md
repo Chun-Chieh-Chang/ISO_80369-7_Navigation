@@ -1413,6 +1413,30 @@
   - `npm run lint` (`tsc --noEmit`)：100% 通過 (0 errors)。
   - `npm run build`：1683 模組成功打包 (Built in 1.79s, 0 errors)。
 
+---
+
+## 版本：v6.9.1 複審修復 N1~N4 及衛生防護 (2026-08-08)
+
+### 需求與修正內容
+1. **N1 修復 ClauseComparisonMatrix 圖號查詢靜默失效**：
+   - 將 `ClauseComparisonMatrix.tsx` L429/L562 之 `ANNEX_C_FIGURES[svgKey]` 替換為 `getAnnexCFigure(svgKey)`，補齊單元測試 (`7/7 tests passed`)。
+2. **N2 修復 LICENSE 錯字**：
+   - 修正 MIT 授權條款 L15 `WITHOUT WARRANTY OFinit` 錯字為 `WITHOUT WARRANTY OF ANY KIND`。
+3. **N3 清理 RAW LaTeX 符號**：
+   - 將 `CHANGELOG.md` 與 `README.md` 中之 Raw LaTeX 替換為標準 Unicode 符號 (Ød, Øg, ΔPmax)。
+4. **N4 版本標籤統一**：
+   - 統一 `package.json` (`6.9.0`)、`Header.tsx` (`v6.9 規範確效版`)、`CHANGELOG.md` 與 `DEV_LOG.md` 版本標記。
+5. **衛生工程**：
+   - 清理 `vite.config.ts` 註解 mojibake。
+   - 清理 `metadata.json` 無用宣告與未引用圖檔 (`test_page_11.png`)。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **測試確效 (Mandatory Runtime Check)**：
+  - `npm run test` (`vitest run`)：7/7 單元測試全數通過 (188ms)。
+  - `npm run lint` (`tsc --noEmit`)：100% 通過 (0 errors)。
+  - `npm run build`：1683 模組成功打包 (Built in 1.82s, 0 errors)。
+
+
 
 
 

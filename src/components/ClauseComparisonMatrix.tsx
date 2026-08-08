@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { ISO_TOPICS, STANDARD_CLAUSE_DETAILS } from '../data/isoTopicsData';
-import { ISO_CLAUSES, ANNEX_C_FIGURES } from '../data/isoData';
+import { ISO_CLAUSES } from '../data/isoData';
 import { ISOStandardFigureRenderer } from './ISOStandardFigureRenderer';
-import { getClauseSvgKey } from '../utils/isoHelpers';
+import { getClauseSvgKey, getAnnexCFigure } from '../utils/isoHelpers';
 import { Table, Search, Download, Filter, Info, CheckCircle2, AlertTriangle, ArrowUpDown, ChevronDown, ChevronUp, Eye, Sparkles } from 'lucide-react';
 
 export const ClauseComparisonMatrix: React.FC = () => {
@@ -426,7 +426,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
           {filteredClauses.map((clause) => {
             const isExpanded = expandedClauseId === clause.id;
             const svgKey = getClauseSvgKey(clause.id);
-            const figInfo = ANNEX_C_FIGURES[svgKey];
+            const figInfo = getAnnexCFigure(svgKey);
 
             return (
               <div 
@@ -559,7 +559,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
               {filteredClauses.map((clause) => {
                 const isExpanded = expandedClauseId === clause.id;
                 const svgKey = getClauseSvgKey(clause.id);
-                const figInfo = ANNEX_C_FIGURES[svgKey];
+                const figInfo = getAnnexCFigure(svgKey);
 
                 return (
                   <React.Fragment key={clause.id}>

@@ -16,7 +16,7 @@
 ## 系統核心特色 (Key Features)
 
 - **🔍 主題導向條文對照庫 (Topic Explorer)**：橫向整合 ISO 80369-7 規格條文與 ISO 80369-20 實驗室測試方法，支援關鍵字與主題快速篩選，並提供手機端 Segmented Control 視圖切換。
-- **Activity 壓差降極限 ($\Delta P_{\text{max}}$) 即時換算計算器**：內建 ISO 80369-20:2024 動態對算工具，預設 $\Delta t=20\text{s}, V=8.5\text{mL}$，自動換算 Pa, kPa, mbar 極限壓降，並完整收錄測試總容積 $V$ 3 大測定法（尺寸計算、系統注水、組合量測）與剛性防呆要求。
+- **Activity 壓差降極限 (ΔPmax) 即時換算計算器**：內建 ISO 80369-20:2024 動態對算工具，預設 Δt=20s, V=8.5mL，自動換算 Pa, kPa, mbar 極限壓降，並完整收錄測試總容積 V 3 大測定法（尺寸計算、系統注水、組合量測）與剛性防呆要求。
 - **⚖️ 雙標準對照矩陣 (Comparison Matrix)**：一目瞭然比較 ISO 7 與 ISO 20 之間的定量裝配扭力、加壓/加力數值、持壓時間與指定金屬夾具，支援 CSV 匯出與手機端條文卡片檢視 (Mobile Card Mode)。
 - **🔧 規範圖號庫與校驗認證卡 (Connector Inspector & Reference Standards)**：收錄完整 Fig.A.1 ~ K.1 規範圖號，提供高精細向量圖表渲染，並整合 ISO 80369-7:2021 Annex C.1 金屬參考接頭 4 大製造、幾何公差、校驗 (Calibration) 與認證 (Certification) 規範。
 - **🕸️ 條文脈絡圖表 (Visual Map)**：視覺化展現條文間的跨領域防錯 (Non-interchangeability) 網絡與試驗依賴關係，在手機端自動適配為垂直引導步驟卡片 (Step 1➔2➔3➔4)。

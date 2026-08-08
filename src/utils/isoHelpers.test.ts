@@ -46,4 +46,13 @@ describe('ISO 80369-7 & 20 Data & Helper Unit Tests', () => {
     expect(c64.testForceN.min).toBe(23);
     expect(c64.testForceN.max).toBe(35);
   });
+
+  it('should resolve defined figure info for getClauseSvgKey of all clauses 6.1-6.6', () => {
+    const clauses = ['6.1', '6.2', '6.3', '6.4', '6.5', '6.6'];
+    clauses.forEach(clauseId => {
+      const svgKey = getClauseSvgKey(clauseId);
+      const figInfo = getAnnexCFigure(svgKey);
+      expect(figInfo).toBeDefined();
+    });
+  });
 });
