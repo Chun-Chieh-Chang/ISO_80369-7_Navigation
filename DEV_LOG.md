@@ -1542,6 +1542,20 @@
   - `npm run lint` (`tsc --noEmit`)：100% 通過 (0 errors)。
   - `npm run build`：成功將 `xlsx` 打包至建置套件 (Built in 3.01s, 0 errors)。
 
+---
+
+## 版本：v7.5.1 Excel Exporter 屬性防禦與無障礙保護 (2026-08-08)
+
+### 錯誤點分析 (RCA - Root Cause Analysis)
+- **現象**：點擊 Excel 匯出按鈕時拋出 `Uncaught TypeError: Cannot read properties of undefined (reading 'min')` 運行時異常。
+- **根因**：[excelExporter.ts](file:///d:/Self-developed_Apps/ISO_80369-7_Navigation/src/utils/excelExporter.ts) 在迭代 Clause 6.6（破壞性過載測試）時，直接存取 `clause.assemblyAxialForceN.min`，而 Clause 6.6 標準規定為直加破壞性扭矩（無拉力預裝配），該欄位為 `undefined`，導致點擊時被拋錯中斷。
+
+### 矯正與預防措施 (CAPA)
+1. **屬性可空防禦 (Nullish Safe Access)**：對 `assemblyTorqueNm`、`assemblyAxialForceN` 與 `holdTimeSec` 加入 `?` 可選鏈與備用字串 `clause.id === '6.6' ? '直加破壞性過載扭矩 (無拉力預裝配)' : ...`。
+2. **單元測試防禦擴充**：於 `isoHelpers.test.ts` 新增 8 個涵蓋所有對接組合 (Male/Female Lock/Slip) 的 Excel Exporter 導出保護測試。
+3. **確效驗證**：Vitest 8/8 測試全數通過，TypeScript 0 錯誤。
+
+
 
 
 

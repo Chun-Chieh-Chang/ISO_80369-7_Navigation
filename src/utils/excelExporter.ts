@@ -87,7 +87,13 @@ export const exportMedicalGradeExcelReport = (config: TestConfigState) => {
       }
 
       const requiredRef = getAnnexCFigure(requiredRefId);
-      const preAssemblyStr = `${clause.assemblyTorqueNm.min}–${clause.assemblyTorqueNm.max} N·m + ${clause.assemblyAxialForceN.min}–${clause.assemblyAxialForceN.max} N`;
+      const torqueStr = clause.assemblyTorqueNm ? `${clause.assemblyTorqueNm.min}–${clause.assemblyTorqueNm.max} N·m` : '';
+      const forceStr = clause.assemblyAxialForceN ? `${clause.assemblyAxialForceN.min}–${clause.assemblyAxialForceN.max} N` : '';
+      const preAssemblyStr = (torqueStr && forceStr)
+        ? `${torqueStr} + ${forceStr}`
+        : clause.id === '6.6'
+        ? '直加破壞性過載扭矩 (無拉力預裝配)'
+        : (torqueStr || forceStr || 'N/A');
 
       let activeLoadStr = 'N/A';
       if (clause.id === '6.1') activeLoadStr = '300–330 kPa (正壓)';
@@ -95,7 +101,11 @@ export const exportMedicalGradeExcelReport = (config: TestConfigState) => {
       else if (clause.testTorqueNm) activeLoadStr = `${clause.testTorqueNm.min}–${clause.testTorqueNm.max} N·m (扭矩)`;
       else if (clause.testForceN) activeLoadStr = `${clause.testForceN.min}–${clause.testForceN.max} N (拉力)`;
 
-      const holdTimeStr = clause.id === '6.3' ? '48 小時 (23°C 空氣)' : `${clause.holdTimeSec.min}–${clause.holdTimeSec.max} 秒`;
+      const holdTimeStr = clause.id === '6.3'
+        ? '48 小時 (23°C 空氣)'
+        : clause.holdTimeSec
+        ? `${clause.holdTimeSec.min}–${clause.holdTimeSec.max} 秒`
+        : 'N/A';
 
       sheet2Data.push([
         clause.id,
@@ -150,7 +160,10 @@ export const exportMedicalGradeExcelReport = (config: TestConfigState) => {
 
   XLSX.utils.book_append_sheet(wb, ws3, 'Annex A 大氣環境規格');
 
-  // Trigger download as .xlsx file
-  const fileName = `ISO_80369_Medical_Test_Report_and_DVP_Matrix_${new Date().toISOString().split('T')[0]}.xlsx`;
-  XLSX.writeFile(wb, fileName);
+  // Trigger download as .xlsx file in browser environment
+  if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+    const fileName = `ISO_80369_Medical_Test_Report_and_DVP_Matrix_${new Date().toISOString().split('T')[0]}.xlsx`;
+    XLSX.writeFile(wb, fileName);
+  }
+  return wb;
 };

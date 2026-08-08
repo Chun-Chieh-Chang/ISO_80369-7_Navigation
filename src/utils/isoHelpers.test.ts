@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { getClauseSvgKey, getAnnexCFigure } from './isoHelpers';
 import { ISO_CLAUSES, ANNEX_C_FIGURES } from '../data/isoData';
+import { exportMedicalGradeExcelReport } from './excelExporter';
 
 describe('ISO 80369-7 & 20 Data & Helper Unit Tests', () => {
   it('should map clause IDs to correct SVG keys in getClauseSvgKey', () => {
@@ -53,6 +54,35 @@ describe('ISO 80369-7 & 20 Data & Helper Unit Tests', () => {
       const svgKey = getClauseSvgKey(clauseId);
       const figInfo = getAnnexCFigure(svgKey);
       expect(figInfo).toBeDefined();
+    });
+  });
+
+  it('should run exportMedicalGradeExcelReport without throwing for all connector configs', () => {
+    const configs: Array<{ gender: 'male' | 'female'; type: 'lock' | 'slip' }> = [
+      { gender: 'male', type: 'lock' },
+      { gender: 'female', type: 'lock' },
+      { gender: 'male', type: 'slip' },
+      { gender: 'female', type: 'slip' }
+    ];
+
+    configs.forEach(cfg => {
+      expect(() => {
+        exportMedicalGradeExcelReport({
+          deviceType: 't-port',
+          connectorGender: cfg.gender,
+          connectorType: cfg.type,
+          selectedClauseId: '6.6',
+          selectedRefConnectorId: 'C.3',
+          appliedAssemblyTorqueNm: 0,
+          appliedTestTorqueNm: 0.16,
+          appliedTestForceN: 35,
+          appliedHoldTimeSec: 8,
+          selectedMaterialId: 'pp-standard',
+          collarWallThicknessMm: 1.1,
+          collarOuterDiameterMm: 7.5,
+          tPortAsymmetryFactor: 1.25
+        });
+      }).not.toThrow();
     });
   });
 });
