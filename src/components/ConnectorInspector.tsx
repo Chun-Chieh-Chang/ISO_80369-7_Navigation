@@ -337,36 +337,31 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
         </div>
 
         <p className="text-xs text-slate-500">
-          依據 ISO 80369-7 Annex C（硬化不鏽鋼 <span className="font-mono text-slate-700 font-bold">Hardened SS</span>、彈性模數 <span className="font-mono text-slate-700 font-bold">&gt; 3 433 MPa</span>、表面粗糙度 <span className="font-mono text-slate-700 font-bold">Ra ≤ 0.8 µm</span>）與材料冶金學客觀數據，全面評估 8 大候選材料之合規性：
+          依據 ISO 80369-7 Annex C（硬化不鏽鋼 <span className="font-mono text-slate-700 font-bold">Hardened SS</span>、彈性模數 <span className="font-mono text-slate-700 font-bold">&gt; 3 433 MPa</span>、表面粗糙度 <span className="font-mono text-slate-700 font-bold">Ra ≤ 0.8 µm</span>）與材料加工價格代價，【性價比 CP 值由高到低】排序評估：
         </p>
 
         <div className="overflow-x-auto rounded-xl border border-slate-200">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
               <tr className="bg-slate-50 text-slate-700 font-bold border-b border-slate-200">
+                <th className="p-2.5">CP 值排名</th>
                 <th className="p-2.5">材料名稱 &amp; 牌號</th>
                 <th className="p-2.5">硬度 (Hardness)</th>
                 <th className="p-2.5">彈性模數 (Modulus)</th>
                 <th className="p-2.5">耐磨損與抗咬合</th>
                 <th className="p-2.5">水壓測試防銹性</th>
-                <th className="p-2.5">表面粗糙度 (Ra)</th>
-                <th className="p-2.5">ISO 80369-7 客觀合規判定</th>
+                <th className="p-2.5">綜合 CP 值分析評語</th>
+                <th className="p-2.5">ISO 合規判定</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 text-slate-600">
-              <tr className="hover:bg-slate-50/80 transition">
-                <td className="p-2.5 font-bold text-slate-900">
-                  Uddeholm Stavax® ESR
-                  <span className="block font-mono text-[10px] text-slate-400 font-normal">AISI 420 Mod / 電渣重熔鋼</span>
+              {/* Rank 1: 17-4PH */}
+              <tr className="hover:bg-amber-50/40 bg-amber-50/20 transition">
+                <td className="p-2.5">
+                  <span className="bg-amber-100 text-amber-900 border border-amber-300 font-bold px-2 py-0.5 rounded text-[11px] font-mono">
+                    🏆 No.1 最佳性價比
+                  </span>
                 </td>
-                <td className="p-2.5 font-mono font-bold text-blue-700">45 – 52 HRC</td>
-                <td className="p-2.5 font-mono">200 GPa</td>
-                <td className="p-2.5 text-emerald-700 font-medium">極佳 (高純淨相，耐磨抗咬)</td>
-                <td className="p-2.5 text-emerald-700 font-medium">🌟 優秀 (鏡面抗水蒸氣)</td>
-                <td className="p-2.5 font-mono">Ra ≤ 0.1 µm</td>
-                <td className="p-2.5"><span className="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2 py-0.5 rounded-md border border-emerald-300">✅ 完全合規 (醫療首選)</span></td>
-              </tr>
-              <tr className="hover:bg-slate-50/80 transition">
                 <td className="p-2.5 font-bold text-slate-900">
                   17-4PH / SUS630
                   <span className="block font-mono text-[10px] text-slate-400 font-normal">AISI 630 / H900 狀態</span>
@@ -375,10 +370,36 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
                 <td className="p-2.5 font-mono">196 GPa</td>
                 <td className="p-2.5 text-slate-700">優秀 (沉澱硬化相強度高)</td>
                 <td className="p-2.5 text-emerald-700 font-medium">🌟 良好 (含 Cu/Ni/Cr 防銹)</td>
-                <td className="p-2.5 font-mono">Ra ≤ 0.4 µm</td>
+                <td className="p-2.5 font-medium text-slate-800">性價比之王！熱處理便宜防銹高硬度兼備。</td>
                 <td className="p-2.5"><span className="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2 py-0.5 rounded-md border border-emerald-300">✅ 完全合規 (鋼規標配)</span></td>
               </tr>
+
+              {/* Rank 2: Uddeholm Stavax ESR */}
+              <tr className="hover:bg-sky-50/40 bg-sky-50/10 transition">
+                <td className="p-2.5">
+                  <span className="bg-sky-100 text-sky-900 border border-sky-300 font-bold px-2 py-0.5 rounded text-[11px] font-mono">
+                    🌟 No.2 高階 CP 首選
+                  </span>
+                </td>
+                <td className="p-2.5 font-bold text-slate-900">
+                  Uddeholm Stavax® ESR
+                  <span className="block font-mono text-[10px] text-slate-400 font-normal">AISI 420 Mod / 電渣重熔鋼</span>
+                </td>
+                <td className="p-2.5 font-mono font-bold text-blue-700">45 – 52 HRC</td>
+                <td className="p-2.5 font-mono">200 GPa</td>
+                <td className="p-2.5 text-emerald-700 font-medium">極佳 (高純淨相，耐磨抗咬)</td>
+                <td className="p-2.5 text-emerald-700 font-medium">🌟 優秀 (鏡面抗水蒸氣)</td>
+                <td className="p-2.5 font-medium text-slate-800">高階醫療首選！45-52 HRC + 鏡面抗蝕。</td>
+                <td className="p-2.5"><span className="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2 py-0.5 rounded-md border border-emerald-300">✅ 完全合規 (醫療首選)</span></td>
+              </tr>
+
+              {/* Rank 3: AISI 440C */}
               <tr className="hover:bg-slate-50/80 transition">
+                <td className="p-2.5">
+                  <span className="bg-indigo-100 text-indigo-900 border border-indigo-300 font-bold px-2 py-0.5 rounded text-[11px] font-mono">
+                    ⚖️ No.3 高硬度便宜
+                  </span>
+                </td>
                 <td className="p-2.5 font-bold text-slate-900">
                   AISI 440C / SUS440C
                   <span className="block font-mono text-[10px] text-slate-400 font-normal">高碳馬氏體不鏽鋼</span>
@@ -386,11 +407,18 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
                 <td className="p-2.5 font-mono font-bold text-indigo-700">58 – 60 HRC</td>
                 <td className="p-2.5 font-mono">200 GPa</td>
                 <td className="p-2.5 text-slate-700">極高 (馬氏體高硬度抗刮)</td>
-                <td className="p-2.5 text-amber-700 font-medium">⚠️ 較弱 (高碳水測後須擦乾)</td>
-                <td className="p-2.5 font-mono">Ra ≤ 0.2 µm</td>
+                <td className="p-2.5 text-amber-700 font-medium">⚠️ 較弱 (水測後須防銹擦乾)</td>
+                <td className="p-2.5 font-medium text-slate-800">58-60 HRC 極便宜，但水測後須保養。</td>
                 <td className="p-2.5"><span className="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2 py-0.5 rounded-md border border-emerald-300">✅ 合規 (極硬，須防銹)</span></td>
               </tr>
+
+              {/* Rank 4: Uddeholm Elmax SuperClean */}
               <tr className="hover:bg-slate-50/80 transition">
+                <td className="p-2.5">
+                  <span className="bg-slate-100 text-slate-700 border border-slate-300 font-bold px-2 py-0.5 rounded text-[11px] font-mono">
+                    💎 No.4 頂級粉末鋼
+                  </span>
+                </td>
                 <td className="p-2.5 font-bold text-slate-900">
                   Uddeholm Elmax® SuperClean
                   <span className="block font-mono text-[10px] text-slate-400 font-normal">高鉻高釩粉末冶金不鏽鋼</span>
@@ -399,10 +427,17 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
                 <td className="p-2.5 font-mono">210 GPa</td>
                 <td className="p-2.5 text-emerald-700 font-medium">頂級 (碳化釩極致抗磨)</td>
                 <td className="p-2.5 text-emerald-700 font-medium">🌟 優秀 (18% Cr 粉末防鏽)</td>
-                <td className="p-2.5 font-mono">Ra ≤ 0.1 µm</td>
+                <td className="p-2.5 font-medium text-slate-800">頂級極致性能，但原料切削成本高。</td>
                 <td className="p-2.5"><span className="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2 py-0.5 rounded-md border border-emerald-300">✅ 完全合規 (頂級粉末鋼)</span></td>
               </tr>
+
+              {/* Rank 5: Nitrided 316 */}
               <tr className="hover:bg-slate-50/80 transition">
+                <td className="p-2.5">
+                  <span className="bg-slate-100 text-slate-700 border border-slate-300 font-bold px-2 py-0.5 rounded text-[11px] font-mono">
+                    🔧 No.5 工藝費用高
+                  </span>
+                </td>
                 <td className="p-2.5 font-bold text-slate-900">
                   AISI 316 / 316L (低溫氮化)
                   <span className="block font-mono text-[10px] text-slate-400 font-normal">Surface Nitrided / Kolsterising®</span>
@@ -410,23 +445,18 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
                 <td className="p-2.5 font-mono font-bold text-blue-700">表面 &gt;68 HRC<span className="block font-normal text-[10px] text-slate-400">基材 &lt;20 HRC</span></td>
                 <td className="p-2.5 font-mono">193 GPa</td>
                 <td className="p-2.5 text-slate-700">優秀 (氮化表面層抑制咬死)</td>
-                <td className="p-2.5 text-emerald-700 font-medium">🌟 極佳 (保留 316 含鉬高抗蝕)</td>
-                <td className="p-2.5 font-mono">Ra ≤ 0.4 µm</td>
-                <td className="p-2.5"><span className="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2 py-0.5 rounded-md border border-emerald-300">✅ 合規 (須表面氮化工藝)</span></td>
+                <td className="p-2.5 text-emerald-700 font-medium">🌟 極佳 (保留 316 高抗蝕)</td>
+                <td className="p-2.5 font-medium text-slate-800">基材便宜但特殊氮化處理費用極高。</td>
+                <td className="p-2.5"><span className="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2 py-0.5 rounded-md border border-emerald-300">✅ 合規 (須表面氮化)</span></td>
               </tr>
-              <tr className="hover:bg-slate-50/80 transition bg-rose-50/30">
-                <td className="p-2.5 font-bold text-slate-900">
-                  AISI 316 / 316L (未處理退火態)
-                  <span className="block font-mono text-[10px] text-rose-500 font-normal">Standard Annealed Stainless</span>
+
+              {/* Rank 6: Free-Cutting Brass */}
+              <tr className="hover:bg-slate-50/80 transition bg-amber-50/20">
+                <td className="p-2.5">
+                  <span className="bg-amber-100 text-amber-800 border border-amber-300 font-bold px-2 py-0.5 rounded text-[11px] font-mono">
+                    ⚠️ No.6 便宜但質軟
+                  </span>
                 </td>
-                <td className="p-2.5 font-mono text-rose-600">&lt; 20 HRC (150-200 HV)</td>
-                <td className="p-2.5 font-mono">193 GPa</td>
-                <td className="p-2.5 text-rose-600 font-bold">❌ 極差 (過軟易 Galling 咬死)</td>
-                <td className="p-2.5 text-emerald-700 font-medium">🌟 極佳</td>
-                <td className="p-2.5 font-mono">Ra ≤ 0.4 µm</td>
-                <td className="p-2.5"><span className="bg-rose-100 text-rose-800 text-[11px] font-bold px-2 py-0.5 rounded-md border border-rose-300">❌ 不合規 (未硬化無法抗磨)</span></td>
-              </tr>
-              <tr className="hover:bg-slate-50/80 transition bg-amber-50/30">
                 <td className="p-2.5 font-bold text-slate-900">
                   快削黃銅 Free-Cutting Brass
                   <span className="block font-mono text-[10px] text-slate-400 font-normal">C36000 / UNS C36000</span>
@@ -435,10 +465,17 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
                 <td className="p-2.5 font-mono">105 GPa</td>
                 <td className="p-2.5 text-amber-700">❌ 較差 (質軟，高頻耳翼易變形)</td>
                 <td className="p-2.5 text-amber-700">⚠️ 中等 (無銹但易氧化變色)</td>
-                <td className="p-2.5 font-mono">Ra ≤ 0.8 µm</td>
+                <td className="p-2.5 font-medium text-slate-800">極便宜，但高頻旋合耳朵極易變形。</td>
                 <td className="p-2.5"><span className="bg-amber-100 text-amber-800 text-[11px] font-bold px-2 py-0.5 rounded-md border border-amber-300">⚠️ 有限度允許 (低頻治具)</span></td>
               </tr>
-              <tr className="hover:bg-slate-50/80 transition bg-amber-50/30">
+
+              {/* Rank 7: Titanium Grade 5 */}
+              <tr className="hover:bg-slate-50/80 transition bg-amber-50/20">
+                <td className="p-2.5">
+                  <span className="bg-amber-100 text-amber-800 border border-amber-300 font-bold px-2 py-0.5 rounded text-[11px] font-mono">
+                    ⚠️ No.7 昂貴易咬死
+                  </span>
+                </td>
                 <td className="p-2.5 font-bold text-slate-900">
                   鈦合金 Ti-6Al-4V
                   <span className="block font-mono text-[10px] text-slate-400 font-normal">Titanium Grade 5</span>
@@ -447,8 +484,27 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
                 <td className="p-2.5 font-mono">114 GPa</td>
                 <td className="p-2.5 text-amber-700">⚠️ 一般 (乾摩擦易黏著咬合)</td>
                 <td className="p-2.5 text-emerald-700 font-medium">🌟 極佳 (生物相容極抗蝕)</td>
-                <td className="p-2.5 font-mono">Ra ≤ 0.4 µm</td>
+                <td className="p-2.5 font-medium text-slate-800">材料昂貴且極難切削，乾摩擦易咬死。</td>
                 <td className="p-2.5"><span className="bg-amber-100 text-amber-800 text-[11px] font-bold px-2 py-0.5 rounded-md border border-amber-300">⚠️ 須鍍膜才防旋合磨損</span></td>
+              </tr>
+
+              {/* Rank 8: Raw Annealed 316 */}
+              <tr className="hover:bg-rose-50/50 bg-rose-50/30 transition">
+                <td className="p-2.5">
+                  <span className="bg-rose-100 text-rose-800 border border-rose-300 font-bold px-2 py-0.5 rounded text-[11px] font-mono">
+                    ❌ No.8 0分 (不合格)
+                  </span>
+                </td>
+                <td className="p-2.5 font-bold text-slate-900">
+                  AISI 316 / 316L (未處理退火態)
+                  <span className="block font-mono text-[10px] text-rose-500 font-normal">Standard Annealed Stainless</span>
+                </td>
+                <td className="p-2.5 font-mono text-rose-600">&lt; 20 HRC (150-200 HV)</td>
+                <td className="p-2.5 font-mono">193 GPa</td>
+                <td className="p-2.5 text-rose-600 font-bold">❌ 極差 (過軟易 Galling 咬死)</td>
+                <td className="p-2.5 text-emerald-700 font-medium">🌟 極佳</td>
+                <td className="p-2.5 font-bold text-rose-700">性價比為零！未經硬化不符 ISO 規定。</td>
+                <td className="p-2.5"><span className="bg-rose-100 text-rose-800 text-[11px] font-bold px-2 py-0.5 rounded-md border border-rose-300">❌ 不合規 (未硬化無法抗磨)</span></td>
               </tr>
             </tbody>
           </table>

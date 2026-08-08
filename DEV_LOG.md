@@ -1307,6 +1307,29 @@
   - `npm run lint` (`tsc --noEmit`)：100% 通過 (0 errors)。
   - `npm run build`：1682 模組成功打包 (Built in 1.73s, 0 errors)。
 
+---
+
+## 版本：v6.5 ISO 80369-7 全候選材料性價比 (CP Value High→Low) 精確排序優化 (2026-08-08)
+
+### 需求內容
+1. **性價比 CP 值由高至低精確排序 (CP Value High to Low Sorting)**：
+   - 更新獨立 HTML 報告檔 (`public/iso_80369_7_material_evaluation_matrix.html`) 與專案 UI 組件 (`ConnectorInspector.tsx`) 之表格排序。
+   - 綜合考慮「材料硬度與耐磨」、「水壓測試防銹性」、「原料成本與加工/氮化處置費」及「實驗室保養維護代價」，依【CP 值由高至低】進行 8 大材料排序：
+     - **No.1 🏆 17-4PH** (商業鋼規性價比之王，熱處理便宜且防銹硬度佳)
+     - **No.2 🌟 Stavax® ESR** (高階醫療 CP 首選，45-52 HRC 剛好達標，鏡面耐蝕極佳)
+     - **No.3 ⚖️ AISI 440C** (58-60 HRC 極便宜，但水測後須防銹擦乾)
+     - **No.4 💎 Elmax® SuperClean** (頂級粉末鋼，性能極致但材料切削昂貴)
+     - **No.5 🔧 低溫氮化 316** (特定耐蝕情境，但特殊氮化工程費用高)
+     - **No.6 ⚠️ 快削黃銅 C36000** (極便宜但質軟耳翼易變形)
+     - **No.7 ⚠️ 鈦合金 Ti-6Al-4V** (昂貴且易 Galling 咬死)
+     - **No.8 ❌ 未處理 316** (CP 值為 0，未硬化完全不合規)
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **編譯與確效 (Mandatory Runtime Check)**：
+  - `npm run lint` (`tsc --noEmit`)：100% 通過 (0 errors)。
+  - `npm run build`：1682 模組成功打包 (Built in 1.76s, 0 errors)。
+
+
 
 
 

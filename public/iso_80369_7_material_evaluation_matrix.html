@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ISO 80369-7 參考夾具金屬材質客觀工程評估矩陣 (Material Evaluation Matrix)</title>
+  <title>ISO 80369-7 參考鋼規金屬材質性價比 (CP值) 客觀評估矩陣</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -37,7 +37,7 @@
     }
 
     .container {
-      max-width: 1400px;
+      max-width: 1450px;
       margin: 0 auto;
     }
 
@@ -141,7 +141,7 @@
     }
 
     th {
-      background: rgba(15, 23, 42, 0.9);
+      background: rgba(15, 23, 42, 0.95);
       color: var(--text-secondary);
       font-weight: 700;
       font-size: 0.8rem;
@@ -153,6 +153,48 @@
 
     tr:hover {
       background: var(--surface-hover);
+    }
+
+    .cp-rank {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 800;
+      font-size: 0.9rem;
+      padding: 0.35rem 0.65rem;
+      border-radius: 0.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      white-space: nowrap;
+    }
+
+    .cp-rank-1 {
+      background: rgba(251, 191, 36, 0.2);
+      color: #FBBF24;
+      border: 1px solid rgba(251, 191, 36, 0.4);
+    }
+
+    .cp-rank-2 {
+      background: rgba(56, 189, 248, 0.2);
+      color: #38BDF8;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+    }
+
+    .cp-rank-3 {
+      background: rgba(129, 140, 248, 0.2);
+      color: #818CF8;
+      border: 1px solid rgba(129, 140, 248, 0.4);
+    }
+
+    .cp-rank-other {
+      background: rgba(148, 163, 184, 0.15);
+      color: #94A3B8;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    .cp-rank-fail {
+      background: rgba(248, 113, 113, 0.15);
+      color: #F87171;
+      border: 1px solid rgba(248, 113, 113, 0.3);
     }
 
     .mat-name {
@@ -237,159 +279,168 @@
 <body>
   <div class="container">
     <header>
-      <span class="badge">ISO 80369-7 : 2021 Material Science Verification</span>
-      <h1>ISO 80369-7 參考金屬鋼規材質客觀工程評估矩陣</h1>
-      <p class="subtitle">全面盤點符合 ISO 80369-7 Annex C / Clause 5 規範要求之金屬候選材料，依據第一性原理與冶金數據評估合規性。</p>
+      <span class="badge">Sorted by Cost-Performance Ratio (CP Value)</span>
+      <h1>ISO 80369-7 參考鋼規金屬材質性價比 (CP值) 客觀評估矩陣</h1>
+      <p class="subtitle">依據 ISO 80369-7 物理規範、材料取得價格、熱處理/表面處置工藝成本及實驗室維護代價，進行【性價比由高至低】精確排序。</p>
     </header>
 
     <!-- ISO Standard Requirements Summary -->
     <div class="iso-box">
-      <h3>📜 ISO 80369-7 附錄 C (Annex C) 官方標準要求指標</h3>
+      <h3>📜 ISO 80369-7 附錄 C (Annex C) 評估門檻與 CP 值計算基準</h3>
       <div class="iso-grid">
         <div class="iso-item">
-          <strong>1. 硬化防磨損 (Hardened to Resist Wear)</strong>
-          <span>Must be Hardened (防止反覆旋合刮傷)</span>
+          <strong>1. 性價比 CP 值公式分子 (性能 Performance)</strong>
+          <span>硬度 (HRC) + 抗磨損抗咬合 + 防銹性 + ISO 完全合規</span>
         </div>
         <div class="iso-item">
-          <strong>2. 彈性模數 (Modulus of Elasticity)</strong>
-          <span>> 3 433 MPa (> 3.433 GPa)</span>
+          <strong>2. 性價比 CP 值公式分母 (成本 Expense)</strong>
+          <span>原料單價 + 熱處理/氮化處置費 + 實驗室維護代價</span>
         </div>
         <div class="iso-item">
-          <strong>3. 接觸面粗糙度 (Surface Roughness)</strong>
-          <span>Ra ≤ 0.8 µm</span>
+          <strong>3. ISO 硬化條文要求</strong>
+          <span>Hardened to resist wear (硬化防反覆磨損)</span>
         </div>
         <div class="iso-item">
-          <strong>4. 耐腐蝕性 (Corrosion Resistance)</strong>
-          <span>耐去離子水與氣密環境，無銹蝕損壞</span>
+          <strong>4. ISO 彈性模數與粗糙度</strong>
+          <span>Modulus > 3 433 MPa / Ra ≤ 0.8 µm</span>
         </div>
       </div>
     </div>
 
-    <!-- Objective Material Comparison Table -->
+    <!-- Objective Material Comparison Table Sorted by CP Value High -> Low -->
     <div class="table-container">
       <table>
         <thead>
           <tr>
+            <th>CP 值排名</th>
             <th>材料名稱 & 牌號</th>
             <th>硬度表現 (Hardness)</th>
             <th>彈性模數 (Modulus)</th>
-            <th>耐磨損與抗咬合 (Wear/Galling)</th>
-            <th>抗腐蝕與水壓測試防銹</th>
-            <th>表面粗糙度 (Ra)</th>
-            <th>ISO 80369-7 合規性客觀判定</th>
+            <th>耐磨損與抗咬合</th>
+            <th>水壓測試防銹性</th>
+            <th>綜合 CP 值分析評語</th>
+            <th>ISO 合規判定</th>
           </tr>
         </thead>
         <tbody>
-          <!-- 1. Uddeholm Stavax ESR -->
-          <tr>
-            <td>
-              <div class="mat-name">Uddeholm Stavax® ESR</div>
-              <div class="mat-spec">AISI 420 Mod / ESR 電渣重熔鋼</div>
-            </td>
-            <td><span class="mono">45 – 52 HRC</span></td>
-            <td><span class="mono">200 GPa (200,000 MPa)</span></td>
-            <td>極佳 (高純淨相結構，耐磨抗咬痕)</td>
-            <td><span class="tag-status tag-pass">🌟 優秀</span> (鏡面抗水蒸氣與弱酸)</td>
-            <td><span class="mono">Ra ≤ 0.1 µm</span> (鏡面級)</td>
-            <td><span class="tag-status tag-pass">✅ 完全合規 (醫療極品首選)</span></td>
-          </tr>
-
-          <!-- 2. 17-4PH -->
-          <tr>
+          <!-- Rank 1: 17-4PH -->
+          <tr style="background: rgba(251, 191, 36, 0.04);">
+            <td><span class="cp-rank cp-rank-1">🏆 No.1 最佳性價比</span></td>
             <td>
               <div class="mat-name">17-4PH / SUS630</div>
-              <div class="mat-spec">AISI 630 / DIN 1.4542 (H900)</div>
+              <div class="mat-spec">AISI 630 / H900 沉澱硬化鋼</div>
             </td>
             <td><span class="mono">40 – 45 HRC</span></td>
-            <td><span class="mono">196 GPa (196,000 MPa)</span></td>
-            <td>優秀 (沉澱硬化相，高結構強度)</td>
+            <td><span class="mono">196 GPa</span></td>
+            <td>優秀 (沉澱硬化相強度高)</td>
             <td><span class="tag-status tag-pass">🌟 良好</span> (含 Cu/Ni/Cr 不生鏽)</td>
-            <td><span class="mono">Ra ≤ 0.4 µm</span></td>
-            <td><span class="tag-status tag-pass">✅ 完全合規 (商業鋼規常備材料)</span></td>
+            <td><strong>性價比之王！</strong> 原料與時效熱處理便宜，耐蝕高硬度兼備，無須昂貴鍍膜。</td>
+            <td><span class="tag-status tag-pass">✅ 完全合規 (鋼規標配)</span></td>
           </tr>
 
-          <!-- 3. AISI 440C -->
+          <!-- Rank 2: Uddeholm Stavax ESR -->
+          <tr style="background: rgba(56, 189, 248, 0.04);">
+            <td><span class="cp-rank cp-rank-2">🌟 No.2 高階醫療 CP 首選</span></td>
+            <td>
+              <div class="mat-name">Uddeholm Stavax® ESR</div>
+              <div class="mat-spec">AISI 420 Mod / 電渣重熔鋼</div>
+            </td>
+            <td><span class="mono">45 – 52 HRC</span></td>
+            <td><span class="mono">200 GPa</span></td>
+            <td>極佳 (高純淨相，耐磨抗咬)</td>
+            <td><span class="tag-status tag-pass">🌟 優秀</span> (鏡面抗水蒸氣)</td>
+            <td><strong>高階醫療鋼規首選！</strong> 45-52 HRC 剛好達標，ESR 電渣重熔鏡面耐蝕極佳。</td>
+            <td><span class="tag-status tag-pass">✅ 完全合規 (醫療首選)</span></td>
+          </tr>
+
+          <!-- Rank 3: AISI 440C -->
           <tr>
+            <td><span class="cp-rank cp-rank-3">⚖️ No.3 高硬度便宜</span></td>
             <td>
               <div class="mat-name">AISI 440C / SUS440C</div>
               <div class="mat-spec">DIN 1.4125 高碳馬氏體鋼</div>
             </td>
             <td><span class="mono">58 – 60 HRC</span></td>
-            <td><span class="mono">200 GPa (200,000 MPa)</span></td>
-            <td>極高 (馬氏體高硬度抗刮損)</td>
-            <td><span class="tag-status tag-warn">⚠️ 較弱</span> (高碳消耗游離鉻，水測後須擦乾保養)</td>
-            <td><span class="mono">Ra ≤ 0.2 µm</span></td>
-            <td><span class="tag-status tag-pass">✅ 合規 (硬度極高，需水測後防銹)</span></td>
+            <td><span class="mono">200 GPa</span></td>
+            <td>極高 (馬氏體高硬度抗刮)</td>
+            <td><span class="tag-status tag-warn">⚠️ 較弱</span> (高碳水測後須擦乾)</td>
+            <td><strong>原料極便宜但維護代價高！</strong> 58-60 HRC 超硬，但水測試後須即時擦乾防銹。</td>
+            <td><span class="tag-status tag-pass">✅ 合規 (極硬，須防銹)</span></td>
           </tr>
 
-          <!-- 4. Elmax SuperClean -->
+          <!-- Rank 4: Uddeholm Elmax SuperClean -->
           <tr>
+            <td><span class="cp-rank cp-rank-other">💎 No.4 頂級粉末鋼</span></td>
             <td>
               <div class="mat-name">Uddeholm Elmax® SuperClean</div>
               <div class="mat-spec">高鉻高釩粉末冶金不鏽鋼</div>
             </td>
             <td><span class="mono">58 – 62 HRC</span></td>
-            <td><span class="mono">210 GPa (210,000 MPa)</span></td>
-            <td>頂級 (碳化釩顆粒極致抗磨損)</td>
-            <td><span class="tag-status tag-pass">🌟 優秀</span> (18% Cr 粉末組織防鏽)</td>
-            <td><span class="mono">Ra ≤ 0.1 µm</span></td>
-            <td><span class="tag-status tag-pass">✅ 完全合規 (頂級粉末鋼鋼規)</span></td>
+            <td><span class="mono">210 GPa</span></td>
+            <td>頂級 (碳化釩極致抗磨)</td>
+            <td><span class="tag-status tag-pass">🌟 優秀</span> (18% Cr 粉末防鏽)</td>
+            <td><strong>性能頂級但材料昂貴！</strong> 碳化釩耐磨與 18% Cr 防鏽極致，適合千萬次超高頻夾具。</td>
+            <td><span class="tag-status tag-pass">✅ 完全合規 (頂級粉末鋼)</span></td>
           </tr>
 
-          <!-- 5. Nitrided 316 -->
+          <!-- Rank 5: Nitrided 316 -->
           <tr>
+            <td><span class="cp-rank cp-rank-other">🔧 No.5 工藝費用偏高</span></td>
             <td>
               <div class="mat-name">AISI 316 / 316L (低溫氮化)</div>
               <div class="mat-spec">Surface Nitrided / Kolsterising®</div>
             </td>
-            <td><span class="mono">表面 > 1000 HV (> 68 HRC)</span><br><span class="mat-spec">基材 ~ 180 HV (< 20 HRC)</span></td>
-            <td><span class="mono">193 GPa (193,000 MPa)</span></td>
-            <td>優秀 (表面硬化層抑制 Galling 咬死)</td>
+            <td><span class="mono">表面 > 1000 HV</span><br><span class="mat-spec">基材 < 20 HRC</span></td>
+            <td><span class="mono">193 GPa</span></td>
+            <td>優秀 (氮化表面層抑制咬死)</td>
             <td><span class="tag-status tag-pass">🌟 極佳</span> (保留 316 含鉬高抗蝕)</td>
-            <td><span class="mono">Ra ≤ 0.4 µm</span></td>
-            <td><span class="tag-status tag-pass">✅ 合規 (須經過特殊表面滲氮工藝)</span></td>
+            <td><strong>特定強腐蝕環境適用！</strong> 基材便宜但特殊低溫氮化處理費用極昂貴，拉低 CP 值。</td>
+            <td><span class="tag-status tag-pass">✅ 合規 (須表面氮化)</span></td>
           </tr>
 
-          <!-- 6. Raw Annealed 316 -->
+          <!-- Rank 6: Free-Cutting Brass -->
           <tr>
-            <td>
-              <div class="mat-name">AISI 316 / 316L (未處理退火態)</div>
-              <div class="mat-spec">Standard Annealed Austenitic SS</div>
-            </td>
-            <td><span class="mono">< 20 HRC</span> (150 – 200 HV)</td>
-            <td><span class="mono">193 GPa (193,000 MPa)</span></td>
-            <td><span class="tag-status tag-fail">❌ 極差</span> (過軟且極易 Galling 咬痕損壞)</td>
-            <td><span class="tag-status tag-pass">🌟 極佳</span></td>
-            <td><span class="mono">Ra ≤ 0.4 µm</span></td>
-            <td><span class="tag-status tag-fail">❌ 不合規 (未硬化無法抗磨損)</span></td>
-          </tr>
-
-          <!-- 7. Free-Cutting Brass -->
-          <tr>
+            <td><span class="cp-rank cp-rank-other">⚠️ No.6 便宜但質軟</span></td>
             <td>
               <div class="mat-name">快削黃銅 Free-Cutting Brass</div>
               <div class="mat-spec">C36000 / UNS C36000</div>
             </td>
-            <td><span class="mono">< 10 HRC</span> (110 – 140 HV)</td>
-            <td><span class="mono">105 GPa (105,000 MPa)</span></td>
-            <td><span class="tag-status tag-fail">❌ 較差</span> (質軟，高頻旋合耳翼易變形)</td>
-            <td><span class="tag-status tag-warn">⚠️ 中等</span> (水測無銹但易氧化變色)</td>
-            <td><span class="mono">Ra ≤ 0.8 µm</span></td>
-            <td><span class="tag-status tag-warn">⚠️ 有限度允許 (僅限低頻臨時治具)</span></td>
+            <td><span class="mono">< 10 HRC</span> (110–140 HV)</td>
+            <td><span class="mono">105 GPa</span></td>
+            <td><span class="tag-status tag-fail">❌ 較差</span> (質軟，高頻耳翼易變形)</td>
+            <td><span class="tag-status tag-warn">⚠️ 中等</span> (無銹但易氧化變色)</td>
+            <td><strong>極便宜但壽命極短！</strong> 切削加工極快，但高頻反覆旋合耳朵極易刮傷變形。</td>
+            <td><span class="tag-status tag-warn">⚠️ 有限度允許 (低頻治具)</span></td>
           </tr>
 
-          <!-- 8. Titanium Ti-6Al-4V -->
+          <!-- Rank 7: Titanium Grade 5 -->
           <tr>
+            <td><span class="cp-rank cp-rank-other">⚠️ No.7 昂貴且易咬死</span></td>
             <td>
               <div class="mat-name">鈦合金 Ti-6Al-4V</div>
               <div class="mat-spec">Titanium Grade 5 / UNS R56400</div>
             </td>
-            <td><span class="mono">35 – 38 HRC</span> (330 – 380 HV)</td>
-            <td><span class="mono">114 GPa (114,000 MPa)</span></td>
-            <td><span class="tag-status tag-warn">⚠️ 一般</span> (乾摩擦極易滑痕黏著)</td>
+            <td><span class="mono">35 – 38 HRC</span></td>
+            <td><span class="mono">114 GPa</span></td>
+            <td><span class="tag-status tag-warn">⚠️ 一般</span> (乾摩擦極易黏著咬合)</td>
             <td><span class="tag-status tag-pass">🌟 極佳</span> (生物相容極抗蝕)</td>
-            <td><span class="mono">Ra ≤ 0.4 µm</span></td>
-            <td><span class="tag-status tag-warn">⚠️ 須表面 PVD 鍍膜才防磨損</span></td>
+            <td><strong>性價比低！</strong> 材料昂貴且極難切削，乾摩擦易 Galling 咬死，須額外 PVD 鍍膜。</td>
+            <td><span class="tag-status tag-warn">⚠️ 須鍍膜才防旋合磨損</span></td>
+          </tr>
+
+          <!-- Rank 8: Raw Annealed 316 -->
+          <tr style="background: rgba(248, 113, 113, 0.05);">
+            <td><span class="cp-rank cp-rank-fail">❌ No.8 0分 (不合格)</span></td>
+            <td>
+              <div class="mat-name">AISI 316 / 316L (未處理退火態)</div>
+              <div class="mat-spec">Standard Annealed Stainless</div>
+            </td>
+            <td><span class="mono">< 20 HRC</span> (150–200 HV)</td>
+            <td><span class="mono">193 GPa</span></td>
+            <td><span class="tag-status tag-fail">❌ 極差</span> (過軟易 Galling 咬死)</td>
+            <td><span class="tag-status tag-pass">🌟 極佳</span></td>
+            <td><strong>性價比為零！</strong> 未經硬化處理完全不符合 ISO 80369-7 附錄 C 硬化抗磨損要求。</td>
+            <td><span class="tag-status tag-fail">❌ 不合規 (未硬化無法抗磨)</span></td>
           </tr>
         </tbody>
       </table>
@@ -398,18 +449,18 @@
     <!-- Technical Analysis Notes -->
     <div class="footer-notes">
       <div class="note-card">
-        <h4>🔬 1. 冶金學客觀結論 (Metallurgical Truth)</h4>
-        <p>一般未經處理的 316 不鏽鋼因為基材硬度過低（< 20 HRC）且存在嚴重的 Galling（金屬黏著咬死）傾向，<strong>客觀上無法直接滿足 ISO 80369-7 附錄 C 的硬化抗磨損條款</strong>。若要使用 316，必須經過低溫氮化 (Kolsterising) 處理。</p>
+        <h4>🏆 1. 商業標配 CP 值之王：17-4PH (SUS630)</h4>
+        <p>17-4PH 採用單步低溫時效硬化（H900），熱處理變形極小，熱處理成本僅為特殊氮化的 1/5。基材硬度 40-45 HRC，且含有 3-5% 銅與鎳，水壓測試完畢隨意擺放也不生鏽，性價比奪冠！</p>
       </div>
 
       <div class="note-card">
-        <h4>🏆 2. 測試鋼規最佳選材指南 (Material Selection Guide)</h4>
-        <p><strong>高階醫療首選</strong>：<strong>Stavax® ESR (AISI 420 Mod)</strong> 與 <strong>Elmax® SuperClean</strong>，具備極高鏡面光潔度、硬度 (45-52 HRC / 58-62 HRC) 與強大耐水蝕能力。<br><strong>商業標準標配</strong>：<strong>17-4PH (SUS630)</strong>，兼具 40-45 HRC 硬度與優良防銹能力。</p>
+        <h4>🌟 2. 高階醫療鋼規 CP 值首選：Uddeholm Stavax® ESR</h4>
+        <p>Stavax® ESR (AISI 420 Mod) 經淬火回火後硬度達 45-52 HRC，完全涵蓋 ISO 標註範疇。電渣重熔（ESR）帶來極高金相純淨度，鏡面拋光性 $R_a \le 0.1\ \mu\text{m}$ 且防銹優異，為高精度醫療測試夾具綜合效益最高之選。</p>
       </div>
 
       <div class="note-card">
-        <h4>💧 3. 水壓測試維護事項 (Water Testing Maintenance)</h4>
-        <p>高硬度馬氏體鋼（如 <strong>440C</strong>）硬度雖高（58-60 HRC），但高碳成分消耗了自由游離鉻。進行 ISO 80369-20 Annex C 水壓滴落測試後，<strong>必須及時無塵布擦乾、酒精脫水並防潮存放</strong>，避免 6% 錐面產生點蝕。</p>
+        <h4>⚖️ 3. 440C 的 CP 值雙面性</h4>
+        <p>440C 原料價格便宜且硬度高達 58-60 HRC。但在水壓測試（Annex C Liquid Leakage）後若未擦乾保養，其高碳成分導致的自由鉻匱乏會讓錐面生點蝕。維護成本拉低了其在水測試情境下的 CP 值。</p>
       </div>
     </div>
   </div>
