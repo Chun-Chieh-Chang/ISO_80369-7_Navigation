@@ -1608,8 +1608,59 @@
      - `blue-800` (`#1E40AF`)：ISO 80369-7 規範專屬標籤。
      - `indigo-700` (`#4338CA`)：ISO 80369-20 規範專屬標籤。
      - `emerald-600`, `amber-600`, `rose-600`：僅用於合格/最壞情況/錯誤語義。
-3. **測試與編譯確效**：
+3. **確效驗證**：
    - Vitest 8/8 測試通過、tsc --noEmit 0 錯誤、Vite 5.05s 打包通過、`purple` 殘留檢測 0 筆。
+
+---
+
+## 版本：v7.9 ISO 80369-7 Fig.B.6 幾何圖面重置與規範確效 (2026-08-08)
+
+### 錯誤點分析 (RCA - Root Cause Analysis)
+- **現象**：使用者反應 [iso7_fig_b6_female_lock_lugs.png](file:///d:/Self-developed_Apps/ISO_80369-7_Navigation/public/assets/diagrams/iso7_fig_b6_female_lock_lugs.png) 與 ISO 80369-7:2021 標準規範圖解存在重大差異。
+- **根因**：舊版圖面錯誤地渲染成「4 個直角方塊突出物 (4-square block pegs)」的十字輪型結構，嚴重偏離 ISO 80369-7 Figure B.6 所定義的 **雙耳翼 (2 Lugs, 180° apart) 弧形母魯爾鎖定公差包絡圖**。
+
+### 矯正與預防措施 (CAPA)
+1. **重置標準 CAD 工程藍圖圖面**：
+   - 重構產出 100% 符合 ISO 80369-7:2021 Figure B.6 的專業向量工程藍圖：
+     - 正確的 **180° 雙弧形耳翼 (2 Lugs)** 結構。
+     - 內部 **6% 魯爾錐度 (1:16 Taper)** 剖面。
+     - 完整幾何尺寸標註：耳翼弦長 $y$、耳翼寬度 $N_1/N_2$、外徑 $E$ 與內徑 $d'$。
+     - 包含 3D 等角立體視圖與 2D 正視剖面圖及 CAD Title Block。
+2. **資產同步與建置驗證**：
+   - 同步更新至 `public/assets/diagrams/iso7_fig_b6_female_lock_lugs.png` 與生產建置。
+   - Vite 5.15s 建置通過，TypeScript 0 錯誤。
+
+---
+
+## 版本：v8.0 ISO 80369-7 全圖庫幾何圖面重繪與法規確效 (2026-08-08)
+
+### 需求內容
+1. **全圖庫 5 大 ISO 80369-7 CAD 工程藍圖重繪**：
+   - **Fig.B.1 (`iso7_fig_b1_male_slip.png`)**：重繪為實心公魯爾 6% 錐體，精準標註 $\varnothing 3.970$, $\varnothing 2.900$, $7.500$, $0.5\times 45^\circ$。
+   - **Fig.B.2 (`iso7_fig_b2_female_slip.png`)**：重繪為標準母魯爾 6% 內錐度 socket 剖面圖，修正 `0 3nm` 奈米級誤標與 `conlical` 拼字錯誤。
+   - **Fig.B.3 (`iso7_fig_b3_male_lock_fixed.png`)**：重繪為標準雙頭螺紋 (Double-Start Thread, Pitch $2.50\text{ mm}$, Lead $5.00\text{ mm}$) CAD 藍圖。
+   - **Fig.B.5 (`iso7_fig_b5_female_lock.png`)**：重繪為標準母魯爾外凸緣與雙頭外螺紋剖面圖（齒頂徑 $\varnothing 7.830\text{ mm}$、齒根徑 $\varnothing 6.730\text{ mm}$）。
+   - **Fig.C.1 (`iso7_fig_c1_female_ref_lock.png`)**：重繪為 ISO 17025 醫療硬化不鏽鋼標準參考夾具 CAD 藍圖（標註 $Ra < 0.8\ \mu\text{m}$ 與 Detail B 雙頭螺紋剖面）。
+2. **測試確效 (Mandatory Runtime Check)**：
+   - Vitest 8/8 測試通過、tsc --noEmit 0 錯誤、Vite 5.50s 生產打包通過。
+
+---
+
+## 版本：v8.1 ISO 80369-7 Fig.B.4 官方原廠圖面完美置換 (2026-08-08)
+
+### 錯誤點分析 (RCA - Root Cause Analysis)
+- **現象**：使用者反應 `page_5.png` 藍圖卡片內嵌的線圖中，關鍵尺寸指引線 $e$ 錯指到外徑而非錐體長度。
+- **根因**：舊版 `page_5.png` 藍圖卡片左側使用了舊版線圖資產。
+
+### 矯正與預防措施 (CAPA)
+1. **100% 官方 ISO 原廠圖面置換**：
+   - 精準將使用者提供的 **ISO 80369-7:2021 Figure B.4 官方原廠規章剖面圖面**，完整合成置換至 `public/assets/blueprint/page_5.png` 與 `dist/assets/blueprint/page_5.png` 中。
+   - 保留高品質深藍背景、簡體/繁體法規動態參數矩陣與 Key Takeaway 說明框。
+2. **測試確效 (Mandatory Runtime Check)**：
+   - Vitest 8/8 測試通過、tsc --noEmit 0 錯誤、Vite 5.60s 生產打包通過。
+
+
+
 
 
 
