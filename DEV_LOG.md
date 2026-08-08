@@ -1231,4 +1231,24 @@
   - `npx tsc --noEmit` 軟體確效型別檢查：100% 通過 (0 errors)。
   - `npx vite build` 生產打包確效：1682 模組成功打包，Built in 1.71s，0 errors。
 
+---
+
+## 版本：v6.1 規範圖號庫與全站篩選按鈕容器全量展平可見性優化 (2026-08-08)
+
+### 需求內容
+1. **圖號庫與篩選按鈕容器展開可見 (Expanded & Visible Buttons Container)**：
+   - 修正規範附件圖號庫 (`ConnectorInspector.tsx`) 中的圖號按鈕選擇容器，將單行橫向捲動 (`overflow-x-auto`) 改為全量多行自動折行 (`flex-wrap`)。
+   - 確保所有 Fig.A.1 ~ K.1 圖號按鈕（如 Fig.C.3 Worst-Case, Fig.C.4 ...）無須滾動即可直接全部展平顯示於介面上。
+   - 同步優化主題與條文檢索 (`TopicClauseExplorer.tsx`)、主題關聯脈絡圖 (`TopicVisualMap.tsx`) 及對照矩陣 (`ClauseComparisonMatrix.tsx`) 之分類篩選按鈕列。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **根因分析 (RCA)**：
+  - 原介面採用 `overflow-x-auto` 搭配單行 `flex` 佈局，當圖號按鈕數量過多（如 Fig.A.1 至 Fig.K.1 或全部顯示時），溢出的按鈕會被遮蔽至容器右側，需要手動滑動才能看見。
+- **矯正措施 (CAPA)**：
+  - 將容器樣式更新為 `flex flex-wrap items-center gap-2 pt-3 pb-1 w-full`，使按鈕自然多行展平，提升視覺直覺性與操作便利度。
+- **編譯與確效 (Mandatory Runtime Check)**：
+  - `npm run lint` (`tsc --noEmit`) 軟體確效型別檢查：100% 通過 (0 errors)。
+  - `npm run build` 生產打包確效：1682 模組成功打包 (Built in 7.45s, 0 errors)。
+
+
 

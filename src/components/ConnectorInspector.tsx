@@ -46,7 +46,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
           </div>
 
           {/* Group Filter Tabs */}
-          <div className="flex items-center overflow-x-auto no-scrollbar gap-1.5 text-xs bg-slate-50 p-1.5 rounded-xl border border-slate-200 w-full sm:w-auto scroll-smooth">
+          <div className="flex flex-wrap items-center gap-1.5 text-xs bg-slate-50 p-1.5 rounded-xl border border-slate-200 w-full sm:w-auto">
             {[
               { id: 'all', label: '全部圖號 All' },
               { id: 'ISO 80369-7', label: '📘 80369-7 規格圖' },
@@ -69,8 +69,8 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
           </div>
         </div>
 
-        {/* Figure Selector Buttons - Touch Target & Horizontal Scrollable */}
-        <div className="flex items-center overflow-x-auto no-scrollbar gap-2 pt-3 pb-1 scroll-smooth w-full">
+        {/* Figure Selector Buttons - Expanded & Fully Visible */}
+        <div className="flex flex-wrap items-center gap-2 pt-3 pb-1 w-full">
           {filteredFigures.map((fig) => {
             const isSelected = selectedFigId === fig.id;
             return (

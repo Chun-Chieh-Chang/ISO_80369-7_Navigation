@@ -209,7 +209,7 @@ export const TopicClauseExplorer: React.FC = () => {
 
         {/* Category Chips Filter & Navigation Mode Switcher */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-2 border-t border-slate-100 text-xs overflow-hidden">
-          <div className="flex items-center overflow-x-auto no-scrollbar gap-1.5 py-1 w-full sm:w-auto scroll-smooth">
+          <div className="flex flex-wrap items-center gap-1.5 py-1 w-full sm:w-auto">
             <span className="text-slate-400 font-medium flex items-center gap-1 mr-1 shrink-0">
               <Filter className="w-3.5 h-3.5" /> 分類:
             </span>

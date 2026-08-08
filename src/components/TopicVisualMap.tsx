@@ -74,7 +74,7 @@ export const TopicVisualMap: React.FC = () => {
         </div>
 
         {/* Topic Selector Bar */}
-        <div className="mt-4 pt-3 border-t border-slate-100/80 flex items-center overflow-x-auto no-scrollbar gap-2 pb-1 text-[13px] scroll-smooth">
+        <div className="mt-4 pt-3 border-t border-slate-100/80 flex flex-wrap items-center gap-2 pb-1 text-[13px]">
           <span className="font-bold text-slate-400 shrink-0">切換主題:</span>
           {ISO_TOPICS.map(topic => (
             <button

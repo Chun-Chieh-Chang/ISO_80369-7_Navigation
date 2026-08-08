@@ -378,7 +378,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
 
         {/* Filter & Search */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-3 border-t border-slate-100/80">
-          <div className="flex items-center overflow-x-auto no-scrollbar gap-1.5 py-1 w-full sm:w-auto scroll-smooth">
+          <div className="flex flex-wrap items-center gap-1.5 py-1 w-full sm:w-auto">
             <span className="text-slate-400 font-semibold text-xs shrink-0">篩選:</span>
             {[
               { id: 'all', label: '全部條文 All' },
