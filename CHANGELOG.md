@@ -2,20 +2,17 @@
 
 All notable changes to the ISO 80369-7 & ISO 80369-20 Navigation App will be documented in this file.
 
-## [v7.3.0] - 2026-08-08
+## [v7.5.0] - 2026-08-08
 
-### Added & Upgraded (PWA Full Support)
-- **PWA Web App Manifest**: Added `manifest.webmanifest` defining standalone display mode, theme colors (`#2563eb`), app icons, and scope.
-- **Service Worker & Offline Cache**: Integrated `vite-plugin-pwa` and Workbox (`generateSW`), precaching all assets (HTML, JS, CSS, SVG, blueprint PNGs) for 100% offline hospital/laboratory usage.
-- **PWA App Icons**: Created high-resolution 192x192, 512x512, maskable PNG icons, Apple touch icon (`apple-touch-icon.png`), and SVG favicon (`favicon.svg`).
-- **iOS & Android Installation Support**: Added mobile web app meta tags (`apple-mobile-web-app-capable`, `theme-color`), and built interactive `PwaInstallPrompt` banner component.
-- **Offline Network Toast**: Added auto-detecting floating toast when network disconnects, notifying users of active offline PWA cache mode.
+### Added & Upgraded (Medical-Grade Excel Exporter .XLSX)
+- **Multi-Worksheet Excel Workbook (.xlsx)**: Integrated SheetJS `xlsx` library to generate native binary `.xlsx` spreadsheets, eliminating UTF-8 encoding/BOM issues across Windows, macOS, and Linux.
+- **Sheet 1: 14項法定報告檢核(Section .5)**: Pre-populates all 14 mandatory reporting items (a ~ n) with code, standard requirement, Chinese title, mandatory status, regulatory guidelines, report examples, and dedicated empty input boxes for laboratory engineers.
+- **Sheet 2: DVP驗證計畫矩陣表(ISO 7&20)**: Contains product-specific design verification matrix with assembly torque/force, active load (pressure/vacuum/torque/pull), hold time, reference connector (Fig. C.1 ~ C.6), worst-case rationale, and pass criteria.
+- **Sheet 3: Annex A 大氣環境規格**: Lists environmental temperature (23±2°C), relative humidity (50±5% RH), and minimum 24h preconditioning protocol.
+- **Dual Export UI**: Embedded primary Excel export (`.xlsx`) button alongside secondary CSV (`.csv`) export button across headers and DVP generator views.
 
-## [v7.0.0] - 2026-08-08
+## [v7.4.0] - 2026-08-08
 
-### Fixed & Audited
-- **Standard Compliance**: Verified ISO 80369-7:2021 Clause 6.1~6.6 and ISO 80369-20 Annex B~K parameters against standard text.
-- **Annex B Figure Corrections**: Fixed Fig. B.4 (Male Luer Lock Rotatable Collar) and Fig. B.5 (Female Luer Lock Connector) names, genders, and descriptions.
-- **B.1 / B.2 Exact Dimensions**: Updated tip diameter Ød (3.970~4.035 mm), base diameter Øg (4.375~4.440 mm), female small end ØG (3.820~3.865 mm), and large end ØD (4.225~4.270 mm).
-- **Key Resolution & Helper Refactor**: Created shared `src/utils/isoHelpers.ts` to normalize figure keys (`ISO20-FIG-B1` vs `ISO20-B.1`), fixing silent fallback bug in `DvpGenerator.tsx` and `ClauseComparisonMatrix.tsx`.
-- **Testing**: Added Vitest unit test suite (`src/utils/isoHelpers.test.ts`) covering figure key mapping, gender verification, parameter bounds, and full clause figure lookup (7/7 tests passing).
+### Added & Compliant (ISO 80369-20 Section .5 Reporting Requirements)
+- **ISO 80369-20 Section .5 Mandatory 14 Test Report Elements (a ~ n)**: Added full compliance checklist (`ISO20_MANDATORY_REPORT_ITEMS`) covering Reference Standard, Date, Connectors Under Test, Sample Size n, Preconditioning, Reference Connector, Applied Load, Acceptance Criteria, Deviations, Unusual Features, Test Volume V, Test Period, Pressure Change ΔP, and Conformance Statement.
+- **Annex A Atmospheric Preconditioning**: Exported `ISO20_ANNEX_A_PRECONDITIONING` requirements ($(23 \pm 2)^\circ\text{C}$, $(50 \pm 5)\%\text{ RH} \ge 24\text{ hours}$) and embedded environmental preconditioning card.

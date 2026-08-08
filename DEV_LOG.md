@@ -1505,6 +1505,45 @@
   - `npm run lint` (`tsc --noEmit`)：100% 通過 (0 errors)。
   - `npm run build`：成功產生 `sw.js` (Workbox) 與 `manifest.webmanifest` (Built in 1.69s, 0 errors)。
 
+---
+
+## 版本：v7.4 ISO 80369-20 Section .5 測試報告 14 大法定必填欄位補齊與確效 (2026-08-08)
+
+### 需求內容
+1. **補齊 ISO 80369-20:2024 附錄 Section .5 測試報告 14 大法定必填項目 (a ~ n)**：
+   - 於 `isoData.ts` 建立 `ISO20_MANDATORY_REPORT_ITEMS` 資料結構，完整收錄 a) 引用標準、b) 日期、c) 樣品批號、d) 樣品數 n、e) 預處理溫濕度、f) 金屬參考接頭、g) 物理負載、h) 合格標準、i) 程序偏差、j) 異常現象、k) 系統總積 V、l) 持壓時間、m) 壓力降 ΔP 與 n) 判決結果。
+   - 補齊 Annex A 狀態調節環境規範 (`ISO20_ANNEX_A_PRECONDITIONING` 23±2°C, 50±5% RH ≥24h)。
+2. **DVP 生成器整合 14 項檢核表與一鍵 CSV 匯出**：
+   - 在 `DvpGenerator.tsx` 新增子分頁「📄 ISO 80369-20 附錄 Section .5 測試報告 14 大必填項目 (a~n) 檢核卡」，並提供單鍵 CSV 法定範本下載 (`exportReportChecklistCSV`)。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **測試確效 (Mandatory Runtime Check)**：
+  - `npm run test` (`vitest run`)：7/7 單元測試全數通過 (195ms)。
+  - `npm run lint` (`tsc --noEmit`)：100% 通過 (0 errors)。
+  - `npm run build`：成功產生 `sw.js` 與預快取打包 (Built in 1.61s, 0 errors)。
+
+---
+
+## 版本：v7.5 醫療級專業 Excel 多工作簿報告匯出 (.xlsx) 升級 (2026-08-08)
+
+### 需求內容
+1. **升級匯出機制為專業 Excel 活頁簿 (.xlsx)**：
+   - 建立 [excelExporter.ts](file:///d:/Self-developed_Apps/ISO_80369-7_Navigation/src/utils/excelExporter.ts)，採用原生二進位 XML `.xlsx` 格式，徹底消除中文環境直接開啟時的 UTF-8 亂碼與編碼轉換問題。
+   - 生成三大專業醫療級 Worksheets 工作表：
+     - **Sheet 1 (`14項法定報告檢核(Section .5)`)**：完整排版 a) 至 n) 法定必填欄位，並預留實驗室工程師填報欄位。
+     - **Sheet 2 (`DVP驗證計畫矩陣表(ISO 7&20)`)**：自動對應產品規格（公/母接頭、Lock/Slip）、裝配扭力、加壓負載、持壓時間與金屬參考接頭選用理由。
+     - **Sheet 3 (`Annex A 大氣環境規格`)**：標註 23±2°C、50±5% RH 與 ≥24h 狀態調節要求。
+2. **雙軌匯出介面優化**：
+   - 於 `DvpGenerator.tsx` 整合主推「📊 匯出專業 Excel 報告工作簿 (.xlsx)」按鈕與輔助「📄 匯出 CSV」按鈕。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **測試確效 (Mandatory Runtime Check)**：
+  - `npm run test` (`vitest run`)：7/7 單元測試全數通過 (197ms)。
+  - `npm run lint` (`tsc --noEmit`)：100% 通過 (0 errors)。
+  - `npm run build`：成功將 `xlsx` 打包至建置套件 (Built in 3.01s, 0 errors)。
+
+
+
 
 
 

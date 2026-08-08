@@ -683,3 +683,143 @@ export const FAILURE_MODES: FailureModeInfo[] = [
     ]
   }
 ];
+
+/**
+ * ISO 80369-20:2024 Annex A Standard Atmospheric Preconditioning Requirements
+ */
+export const ISO20_ANNEX_A_PRECONDITIONING = {
+  standard: 'ISO 80369-20:2024 Annex A',
+  titleZh: 'Annex A 狀態調節與大氣測試標準環境',
+  tempC: { target: 23, tolerance: 2 },
+  rhPercent: { target: 50, tolerance: 5 },
+  minDurationHours: 24,
+  descriptionZh: '所有物理與機械試驗 (Clause 6.1~6.6) 執行前，受測樣品與金屬參考接頭必須在 (23 ± 2)°C 與 (50 ± 5)% RH 之標準大氣環境中至少靜置調節 24 小時，且測試全程需維持於此標準環境溫度。'
+};
+
+/**
+ * ISO 80369-20:2024 Annex B.5 ~ G.5 Mandatory 14 Test Report Reporting Elements (a ~ n)
+ */
+export interface MandatoryReportItem {
+  id: string;
+  code: string;
+  titleEn: string;
+  titleZh: string;
+  descriptionZh: string;
+  exampleValueZh: string;
+}
+
+export const ISO20_MANDATORY_REPORT_ITEMS: MandatoryReportItem[] = [
+  {
+    id: 'a',
+    code: 'a)',
+    titleEn: 'Reference Standard & Annex',
+    titleZh: '引用標準與附錄',
+    descriptionZh: '明確聲明測試係嚴格遵循 ISO 80369-20:2024 之特定附錄 (如 Annex B/C/D/E/F/G) 執行。',
+    exampleValueZh: 'ISO 80369-20:2024, Annex B (正壓液體洩漏)'
+  },
+  {
+    id: 'b',
+    code: 'b)',
+    titleEn: 'Date of Testing',
+    titleZh: '測試執行日期',
+    descriptionZh: '載明實驗室實際進行該項物理測試之日期。',
+    exampleValueZh: '2026-08-08'
+  },
+  {
+    id: 'c',
+    code: 'c)',
+    titleEn: 'Connectors Under Test',
+    titleZh: '受測連接器資訊',
+    descriptionZh: '識別受測產品名稱、規格、醫療器材型號、塑料材質與生產批號 (Lot No.)。',
+    exampleValueZh: 'Male Luer Lock Connector (PP 醫療級, Lot: 20260801-A)'
+  },
+  {
+    id: 'd',
+    code: 'd)',
+    titleEn: 'Number of Connectors Tested',
+    titleZh: '受測樣品數量',
+    descriptionZh: '載明該組測試實際納入之有效測試樣品總數 n。',
+    exampleValueZh: 'n = 10 (或根據統計抽樣計畫決定)'
+  },
+  {
+    id: 'e',
+    code: 'e)',
+    titleEn: 'Preconditioning & Environmental Conditions',
+    titleZh: '預處理與環境條件',
+    descriptionZh: '記載 Annex A 試樣預處理時間 (≥24h) 與測試期間之實際溫濕度。',
+    exampleValueZh: '23.1 °C, 51.2% RH (已前置靜置 24h 狀態調節)'
+  },
+  {
+    id: 'f',
+    code: 'f)',
+    titleEn: 'Reference Connector Used',
+    titleZh: '指定金屬參考接頭',
+    descriptionZh: '識別測試所搭配之 ISO 80369-7 Annex C 金屬參考接頭圖號與最壞情況規格。',
+    exampleValueZh: 'Fig. C.1 Female Reference Connector (標稱 3.50mm)'
+  },
+  {
+    id: 'g)',
+    code: 'g)',
+    titleEn: 'Applied Pressure / Torque / Axial Force',
+    titleZh: '實際施加物理負載',
+    descriptionZh: '記載測試前置裝配扭矩/推力，以及實測施加之水壓、氣壓、拉力或過載扭矩。',
+    exampleValueZh: '裝配: 0.10 N·m + 27.0 N; 測試水壓: 315 kPa'
+  },
+  {
+    id: 'h',
+    code: 'h)',
+    titleEn: 'Acceptance Criterion',
+    titleZh: '合格判定標準',
+    descriptionZh: '明確條列法規要求之 Passing Criteria (如持壓 30s 無水滴滲漏滴落)。',
+    exampleValueZh: '持壓 30s 期間無水滴滲漏滴落 (Clause 6.1.3)'
+  },
+  {
+    id: 'i',
+    code: 'i)',
+    titleEn: 'Deviations from Procedure',
+    titleZh: '測試程序偏差說明',
+    descriptionZh: '揭露任何與 ISO 80369-20 標準步驟不同之修正或偏差 (若無填「無」)。',
+    exampleValueZh: '無偏差，嚴格依據 Annex B 標準 SOP 執行'
+  },
+  {
+    id: 'j',
+    code: 'j)',
+    titleEn: 'Unusual Features Observed',
+    titleZh: '異常觀察現象紀錄',
+    descriptionZh: '記錄測試過程中是否觀察到微觀應力白化、局部塑性變形、螺牙咬死等異常現象。',
+    exampleValueZh: '外觀正常，無應力白化或螺牙咬死現象'
+  },
+  {
+    id: 'k',
+    code: 'k)',
+    titleEn: 'Test Volume Used (Figure B.1)',
+    titleZh: '測試系統總積 V',
+    descriptionZh: '如圖 Fig. B.1 定義，揭露包含連接管路、容器與接頭內部之總測試容積 V (mL)。',
+    exampleValueZh: 'V = 8.50 mL (經注水法精密測定)'
+  },
+  {
+    id: 'l',
+    code: 'l)',
+    titleEn: 'Test Period Disclosed',
+    titleZh: '持壓/加載時間',
+    descriptionZh: '揭露測試實際維持加壓、拉力或靜置之時間長度。',
+    exampleValueZh: '持壓時間: 30 秒 (或 應力龜裂 48 小時)'
+  },
+  {
+    id: 'm',
+    code: 'm)',
+    titleEn: 'Pressure Change Disclosed',
+    titleZh: '測試期間壓力變化量 ΔP',
+    descriptionZh: '揭露測試期間氣壓衰減量 ΔP (Pa) 或液體滴落差距。',
+    exampleValueZh: 'ΔP = 12 Pa (低於氣壓衰減極限 ΔPmax)'
+  },
+  {
+    id: 'n',
+    code: 'n)',
+    titleEn: 'Conformance Statement',
+    titleZh: '最終合格判決結果',
+    descriptionZh: '明確宣告受測樣品是否符合該項 ISO 標準條文之合格要求。',
+    exampleValueZh: 'PASS (合格符合 ISO 80369-7 Clause 6.1 規範)'
+  }
+];
+
