@@ -1436,6 +1436,27 @@
   - `npm run lint` (`tsc --noEmit`)：100% 通過 (0 errors)。
   - `npm run build`：1683 模組成功打包 (Built in 1.82s, 0 errors)。
 
+---
+
+## 版本：v7.0 全專案整體程式碼與檔案優化作業 SOP (2026-08-08)
+
+### 需求內容
+1. **全面盤點與清理作業 (MECE Audit & Dead Asset Removal)**：
+   - 遍歷全專案目錄與檔案，識別並清理無引用之地圖更新大圖 (`fixture_matrix_update.png`, 4.37MB)、藍圖中間檔 (`crop_inspect`, `thumbs`, `titleblocks`) 及 15 張 `page_*_preview.png` 預覽圖（共節省超過 15MB 儲存空間）。
+2. **同步更新所有開發相關文件 (Doc Alignment)**：
+   - 同步檢視 `DEV_LOG.md`、`README.md` 與 `CHANGELOG.md`，確認文件描述與現有程式碼 100% 同步無斷層。
+3. **MECE 原則整合與模組邊界清理**：
+   - 梳理組件間 `isoHelpers` 引用關係，消除重複函式，確保全專案無死碼、無重複依賴。
+4. **建立程式碼還原基準點與驗證**：
+   - 執行 Vitest 7/7 單元測試、TypeScript 靜態確效與 Production 建置，零錯誤跑通。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **測試確效 (Mandatory Runtime Check)**：
+  - `npm run test` (`vitest run`)：7/7 單元測試全數通過 (206ms)。
+  - `npm run lint` (`tsc --noEmit`)：100% 通過 (0 errors)。
+  - `npm run build`：1683 模組成功打包 (Built in 1.84s, 0 errors)。
+
+
 
 
 
