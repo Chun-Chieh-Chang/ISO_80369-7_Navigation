@@ -1,4 +1,4 @@
-﻿import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { ISO_TOPICS, STANDARD_CLAUSE_DETAILS } from '../data/isoTopicsData';
 import { ANNEX_C_FIGURES } from '../data/isoData';
 import { ISOTopic, StandardClauseDetail, AnnexCFigureInfo } from '../types';
@@ -841,6 +841,7 @@ export const TopicClauseExplorer: React.FC = () => {
                         standard={fig.standard}
                         figureTypeZh={fig.figureTypeZh}
                         descriptionZh={fig.descriptionZh}
+                        selectionReasonZh={fig.selectionReasonZh}
                         keyCallouts={fig.keyCallouts}
                       />
                     ))}

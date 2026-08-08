@@ -11,6 +11,7 @@ interface ISOStandardFigureRendererProps {
   standard: string;
   figureTypeZh: string;
   descriptionZh: string;
+  selectionReasonZh?: string;
   keyCallouts?: { id: string; labelZh: string; valueZh: string }[];
   className?: string;
 }
@@ -22,6 +23,7 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
   standard,
   figureTypeZh,
   descriptionZh,
+  selectionReasonZh,
   keyCallouts,
   className = ""
 }) => {
@@ -36,38 +38,39 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
     // Returns null for ISO 80369-20 physical test clauses and textual clauses (Clauses 1-3) to prevent showing arbitrary fallbacks
     switch (key) {
       case 'ISO7-FIG-B1':
-        return `${cleanBase}assets/blueprint/page_2.png`;
+      case 'ISO7-FIG-SML':
+        return `${cleanBase}assets/blueprint/page_1.png`;
       case 'ISO7-FIG-B2':
       case 'ISO7-FIG-B1-B2':
-        return `${cleanBase}assets/blueprint/page_3.png`;
+        return `${cleanBase}assets/blueprint/page_2.png`;
       case 'ISO7-FIG-B3':
-        return `${cleanBase}assets/blueprint/page_4.png`;
+        return `${cleanBase}assets/blueprint/page_3.png`;
       case 'ISO7-FIG-B4':
-        return `${cleanBase}assets/blueprint/page_5.png`;
+        return `${cleanBase}assets/blueprint/page_4.png`;
       case 'ISO7-FIG-B5':
-        return `${cleanBase}assets/blueprint/page_6.png`;
+        return `${cleanBase}assets/blueprint/page_5.png`;
       case 'ISO7-FIG-B6':
       case 'ISO7-FIG-B6-A':
       case 'ISO7-FIG-B3-B6':
-        return `${cleanBase}assets/blueprint/page_7.png`;
+        return `${cleanBase}assets/blueprint/page_6.png`;
       case 'ISO7-FIG-B6-B':
-        return `${cleanBase}assets/blueprint/page_8.png`;
+      case 'ISO7-FIG-B7':
+        return `${cleanBase}assets/blueprint/page_7.png`;
       case 'ISO7-FIG-B6-C':
-        return `${cleanBase}assets/blueprint/page_9.png`;
+      case 'ISO7-FIG-B8':
+        return `${cleanBase}assets/blueprint/page_8.png`;
       case 'ISO7-FIG-C1':
-        return `${cleanBase}assets/blueprint/page_10.png`;
+        return `${cleanBase}assets/blueprint/page_9.png`;
       case 'ISO7-FIG-C2':
-        return `${cleanBase}assets/blueprint/page_11.png`;
+        return `${cleanBase}assets/blueprint/page_10.png`;
       case 'ISO7-FIG-C3':
-        return `${cleanBase}assets/blueprint/page_12.png`;
+        return `${cleanBase}assets/blueprint/page_11.png`;
       case 'ISO7-FIG-C4':
-        return `${cleanBase}assets/blueprint/page_13.png`;
+        return `${cleanBase}assets/blueprint/page_12.png`;
       case 'ISO7-FIG-C5':
-        return `${cleanBase}assets/blueprint/page_14.png`;
+        return `${cleanBase}assets/blueprint/page_13.png`;
       case 'ISO7-FIG-C6':
-        return `${cleanBase}assets/blueprint/page_15.png`;
-      case 'ISO7-FIG-SML':
-        return `${cleanBase}assets/blueprint/page_1.png`;
+        return `${cleanBase}assets/blueprint/page_14.png`;
       default:
         // No dedicated ISO 80369-7 dimensional drawing for textual clauses (Clauses 1-3) or physical test methods
         return null;
@@ -89,8 +92,9 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
       case 'ISO20-FIG-C1':
         return `${cleanBase}assets/testing_blueprint/test_page_5.png`;
       case 'ISO20-FIG-D1':
+        return `${cleanBase}assets/diagrams/iso20_fig_d1_official.png`;
       case 'ISO20-FIG-K1':
-        return `${cleanBase}assets/testing_blueprint/test_page_6.png`;
+        return `${cleanBase}assets/diagrams/iso20_fig_k1_official.png`;
       case 'ISO20-FIG-E1':
         return `${cleanBase}assets/testing_blueprint/test_page_7.png`;
       case 'ISO20-FIG-F1':
@@ -315,6 +319,24 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
           </p>
         </div>
 
+        {/* Selection Reason / Rationale Callout Box */}
+        {selectionReasonZh && (
+          <div className="mt-3 w-full bg-blue-50/90 border border-blue-200/90 p-3.5 rounded-xl text-xs space-y-1.5 shadow-2xs">
+            <div className="flex items-center justify-between text-blue-900 font-bold">
+              <span className="flex items-center gap-1.5 text-blue-800">
+                <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0" />
+                <span>圖號入選此主題之法規關聯邏輯與角色定位：</span>
+              </span>
+              <span className="bg-blue-100 text-blue-800 text-[11px] font-mono font-bold px-2 py-0.5 rounded-md border border-blue-300/80">
+                ISO Selection Rationale
+              </span>
+            </div>
+            <p className="text-slate-700 leading-relaxed text-[13px]">
+              {selectionReasonZh}
+            </p>
+          </div>
+        )}
+
         {/* Key Callouts Grid */}
         {keyCallouts && keyCallouts.length > 0 && (
           <div className="mt-3 w-full grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
@@ -361,56 +383,97 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
         </div>
       )}
 
-      {/* Category Info Modal */}
+      {/* Category Info Modal - Dynamic & Figure-Specific */}
       {showCategoryModal && (
         <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-white border border-slate-200 rounded-2xl max-w-xl w-full p-6 space-y-4 shadow-2xl relative text-slate-900">
             <div className="flex items-center justify-between pb-3 border-b border-slate-200">
               <div className="flex items-center gap-2">
                 <Tag className="w-5 h-5 text-blue-600" />
-                <h3 className="text-base font-bold">ISO 80369-7 圖號分類與規範定義說明</h3>
+                <div>
+                  <h3 className="text-base font-bold text-slate-900">法規圖號分類與圖別定義專屬說明</h3>
+                  <span className="text-xs text-blue-600 font-mono font-semibold">Current Figure: {standard} {titleZh}</span>
+                </div>
               </div>
               <button 
                 onClick={() => setShowCategoryModal(false)}
-                className="text-slate-400 hover:text-slate-900 p-1 rounded-lg hover:bg-slate-100 transition"
+                className="text-slate-400 hover:text-slate-900 p-1 rounded-lg hover:bg-slate-100 transition cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             <div className="space-y-3 text-xs text-slate-600">
-              <div className={`p-3 rounded-xl border ${figureTypeZh.includes('產品') ? 'bg-blue-50 border-blue-200' : 'bg-slate-50 border-slate-200'}`}>
-                <div className="font-bold text-blue-700 flex items-center gap-1.5 mb-1">
-                  📐 1. 產品 CAD 幾何圖 (Annex B / Fig.B.1 ~ Fig.B.6)
+              {/* Dynamic Active Hero Banner */}
+              <div className="p-3.5 bg-blue-600 text-white rounded-xl shadow-sm space-y-1">
+                <div className="text-xs font-bold text-blue-100 flex items-center justify-between">
+                  <span>🎯 當前卡片專屬圖別標籤：</span>
+                  <span className="bg-white/20 px-2 py-0.5 rounded font-mono">{figureTypeZh}</span>
                 </div>
-                <p className="leading-relaxed text-slate-600">
-                  規範醫療器材製造商量產銷售之<strong>商業產品接頭</strong>（例如：針筒、針頭、輸液管線 connector、三向閥等）所需的 6% Luer 錐度、圓弧 R 角與螺紋幾何公差。
+                <div className="text-sm font-extrabold">{titleZh} ({standard})</div>
+                <p className="text-xs text-blue-100/90 leading-relaxed pt-1">
+                  {figureTypeZh.includes('測試裝置') || figureTypeZh.includes('apparatus') ? (
+                    <>本圖號屬於 <strong>ISO 80369-20 實驗室物理測試裝置藍圖</strong>。專門規範物理性能試驗時之機台架設、流體/氣體管路、閥門與感測器配置。</>
+                  ) : figureTypeZh.includes('CAD') || figureTypeZh.includes('幾何') ? (
+                    <>本圖號屬於 <strong>ISO 80369-7 量產商業產品接頭 CAD 幾何圖</strong>。規範醫療器材製造商量產銷售之 6% 魯爾錐度、螺紋 Pitch 與耳翼公差。</>
+                  ) : figureTypeZh.includes('夾具') || figureTypeZh.includes('參考') ? (
+                    <>本圖號屬於 <strong>ISO 80369-7 附錄 C 硬化不鏽鋼測試專用金屬參考件 (C.1~C.6)</strong>。規範第三方驗證實驗室進行物理性能測試時之標準夾具。</>
+                  ) : (
+                    <>本圖號屬於 <strong>ISO 80369 物理機構與防誤插互斥矩陣圖解</strong>。規範跨領域小口徑連接器防呆隔離與受力失效機構。</>
+                  )}
                 </p>
               </div>
 
-              <div className={`p-3 rounded-xl border ${figureTypeZh.includes('夾具') ? 'bg-amber-50 border-amber-200' : 'bg-slate-50 border-slate-200'}`}>
-                <div className="font-bold text-amber-700 flex items-center gap-1.5 mb-1">
-                  🔧 2. 金屬參考夾具件 (Annex C / Fig.C.1 ~ Fig.C.6)
+              {/* Distinction Comparison Grid */}
+              <div className="text-xs font-bold text-slate-800 pt-1">📊 ISO 80369 4 大圖號類別完整辨識與定義指南：</div>
+              
+              <div className="space-y-2 max-h-[220px] overflow-y-auto pr-1">
+                <div className={`p-2.5 rounded-xl border transition ${figureTypeZh.includes('測試裝置') ? 'bg-blue-50 border-blue-300 ring-1 ring-blue-300/60' : 'bg-slate-50 border-slate-200 opacity-70'}`}>
+                  <div className="font-bold text-blue-700 flex items-center justify-between mb-0.5">
+                    <span>🛠️ 1. 物理測試架設藍圖 (ISO 80369-20 Annex B ~ Annex K)</span>
+                    {figureTypeZh.includes('測試裝置') && <span className="bg-blue-600 text-white text-[10px] px-1.5 py-0.2 rounded">當前選擇</span>}
+                  </div>
+                  <p className="leading-relaxed text-[11px] text-slate-600">
+                    規範第三方實驗室執行洩漏 (B/D/K)、拉力 (F)、扭矩 (H) 等物理測試之機台架設、氣體/水流介質與傳感器連接。
+                  </p>
                 </div>
-                <p className="leading-relaxed text-slate-600">
-                  第三方檢驗實驗室進行物理洩漏 (6.1/6.2)、旋鬆扭矩 (6.3) 與拉拔力 (6.4) 等宣告測試時所使用的<strong>硬質不鏽鋼金屬測試規件 (Reference Test Gauges)</strong>，包含標稱件與最壞情況 (Worst-case) 限制件。
-                </p>
-              </div>
 
-              <div className={`p-3 rounded-xl border ${figureTypeZh.includes('防誤插') ? 'bg-emerald-50 border-emerald-200' : 'bg-slate-50 border-slate-200'}`}>
-                <div className="font-bold text-emerald-700 flex items-center gap-1.5 mb-1">
-                  📘 3. 防誤插幾何矩陣 (Annex A / Fig.A.1)
+                <div className={`p-2.5 rounded-xl border transition ${figureTypeZh.includes('CAD') || figureTypeZh.includes('幾何') ? 'bg-blue-50 border-blue-300 ring-1 ring-blue-300/60' : 'bg-slate-50 border-slate-200 opacity-70'}`}>
+                  <div className="font-bold text-blue-700 flex items-center justify-between mb-0.5">
+                    <span>📐 2. 產品 CAD 幾何圖 (ISO 80369-7 Fig.B.1 ~ Fig.B.6)</span>
+                    {(figureTypeZh.includes('CAD') || figureTypeZh.includes('幾何')) && <span className="bg-blue-600 text-white text-[10px] px-1.5 py-0.2 rounded">當前選擇</span>}
+                  </div>
+                  <p className="leading-relaxed text-[11px] text-slate-600">
+                    規範醫療器材製造商量產銷售之商業產品接頭（針筒、輸液管等）所需的 6% Luer 錐度、圓弧 R 角與螺紋公差。
+                  </p>
                 </div>
-                <p className="leading-relaxed text-slate-600">
-                  規範 ISO 80369 跨領域小孔徑接頭（如血管 80369-7 vs 腸道 80369-3 ENFit vs 神經軸 80369-6 NRFit）之間互不相容之<strong>防呆幾何矩陣與物理維度隔離要求</strong>。
-                </p>
+
+                <div className={`p-2.5 rounded-xl border transition ${figureTypeZh.includes('夾具') || figureTypeZh.includes('參考') ? 'bg-amber-50 border-amber-300 ring-1 ring-amber-300/60' : 'bg-slate-50 border-slate-200 opacity-70'}`}>
+                  <div className="font-bold text-amber-800 flex items-center justify-between mb-0.5">
+                    <span>🔧 3. 金屬參考夾具件 (ISO 80369-7 Annex C / Fig.C.1 ~ Fig.C.6)</span>
+                    {(figureTypeZh.includes('夾具') || figureTypeZh.includes('參考')) && <span className="bg-amber-600 text-white text-[10px] px-1.5 py-0.2 rounded">當前選擇</span>}
+                  </div>
+                  <p className="leading-relaxed text-[11px] text-slate-600">
+                    實驗室進行物理洩漏、旋鬆與拉拔力測試時所使用之高硬度不鏽鋼規件，包含標稱件與最壞情況 (Worst-case) 限制件。
+                  </p>
+                </div>
+
+                <div className={`p-2.5 rounded-xl border transition ${figureTypeZh.includes('機構') || figureTypeZh.includes('防誤插') ? 'bg-emerald-50 border-emerald-300 ring-1 ring-emerald-300/60' : 'bg-slate-50 border-slate-200 opacity-70'}`}>
+                  <div className="font-bold text-emerald-800 flex items-center justify-between mb-0.5">
+                    <span>📘 4. 防誤插與物理機構圖 (ISO 80369 Series)</span>
+                    {(figureTypeZh.includes('機構') || figureTypeZh.includes('防誤插')) && <span className="bg-emerald-600 text-white text-[10px] px-1.5 py-0.2 rounded">當前選擇</span>}
+                  </div>
+                  <p className="leading-relaxed text-[11px] text-slate-600">
+                    規範 ISO 80369 跨領域小孔徑接頭（血管 -7 vs 腸道 -3 vs 神經軸 -6）互不相容之防呆幾何矩陣與受力失效機構。
+                  </p>
+                </div>
               </div>
             </div>
 
             <div className="pt-2 flex justify-end">
               <button
                 onClick={() => setShowCategoryModal(false)}
-                className="bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs px-4 py-2 rounded-xl transition"
+                className="bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs px-4 py-2 rounded-xl transition cursor-pointer shadow-sm"
               >
                 瞭解並關閉
               </button>

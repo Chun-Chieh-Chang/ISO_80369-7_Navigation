@@ -127,6 +127,7 @@ export interface ISOTopicFigure {
   figureType: 'apparatus' | 'connector_cad' | 'fixture' | 'mechanism' | 'analysis';
   figureTypeZh: string;
   descriptionZh: string;
+  selectionReasonZh?: string; // 入選此主題之法規與第一性原理關聯邏輯說明
   svgKey: string;
   keyCallouts?: { id: string; labelZh: string; valueZh: string }[];
 }

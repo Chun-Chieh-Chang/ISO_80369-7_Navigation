@@ -32,6 +32,7 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureType: 'apparatus',
         figureTypeZh: '測試裝置示意圖',
         descriptionZh: '本圖展示 ISO 80369-20 Annex B 氣壓衰減洩漏試驗架構，包含加壓源、精密調壓閥 (±0.3% 精度感測器)、截止閥 S1、金屬參考夾具 (Fig.C.1/C.4) 與受測魯爾接頭。加壓至 300~330 kPa 保持 15~20 秒量測壓力衰減量 ΔP。',
+        selectionReasonZh: '🛠️ [物理測試架設藍圖] 入選原因：本圖為 ISO 80369-20 Annex B 氣壓衰減洩漏測試之實體儀器與管路架構圖。正壓流體洩漏 (6.1) 可採用此方法進行高精度自動化定量判定，故納入作為試驗設備與閥門控制指引。',
         svgKey: 'ISO20-FIG-B1',
         keyCallouts: [
           { id: 'p_test', labelZh: '測試壓力範圍', valueZh: '300 ~ 330 kPa' },
@@ -48,6 +49,7 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureType: 'analysis',
         figureTypeZh: '測試曲線分析圖',
         descriptionZh: '本附圖精確對照 ISO 80369-20 Annex B.4 條文，解構正壓氣壓衰減測試儀器執行的四個關鍵階段：充氣 (Fill 0~5s, 對應 B.4 c)、穩定 (Stabilize 5~15s, 熱平衡與材料蠕變隔離)、測試持壓 (Test 15~35s, 對應 B.4 d/e 量測 ΔP) 與排氣 (Exhaust 35s+)，並標示出 300~330 kPa 目標壓力視窗。',
+        selectionReasonZh: '📈 [數據曲線分析圖] 入選原因：本圖為 Annex B.4 測試執行的 4 階段時間-壓力動態響應曲線 (Fill-Stabilize-Test-Exhaust)，提供控制充氣持壓 15~20s 與評估 ΔP 壓降 (極限洩漏率 ≤ 0.005 Pa·m³/s) 之物理數據判讀依據。',
         svgKey: 'ISO20-FIG-B2',
         keyCallouts: [
           { id: 'fill', labelZh: '1. 充氣 (Fill)', valueZh: '0~5s (對應 Annex B.4 c 施加壓力)' },
@@ -64,6 +66,7 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureType: 'apparatus',
         figureTypeZh: '測試裝置示意圖',
         descriptionZh: '展示 ISO 80369-20 Annex C 水壓滴落測試裝置。使用去離子水填充水槽，經由 300~330 kPa 空氣加壓，水平固定夾具與受測接頭，下方鋪設乾燥無塵紙，在 30~35 秒持壓過程中目視檢驗錐面配合處是否有水滴形成或落於紙上。',
+        selectionReasonZh: '🛠️ [物理測試架設藍圖] 入選原因：本圖為 ISO 80369-20 Annex C 水壓滴落測試之裝置示意圖。正壓流體洩漏 (6.1) 可採用此目視法於 300~330 kPa 下持壓 30~35s，提供水槽加壓與無塵紙水痕檢驗設定指引。',
         svgKey: 'ISO20-FIG-C1',
         keyCallouts: [
           { id: 'media', labelZh: '測試介質', valueZh: '去離子水 De-aerated Water' },
@@ -80,6 +83,7 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureType: 'connector_cad',
         figureTypeZh: '接頭幾何 CAD 圖',
         descriptionZh: '詳細呈現 6% 魯爾公錐體與母錐座配合處之 CAD 斷面圖。標記公錐小端直徑 (Ød 3.970~4.035 mm)、母錐大端內徑 (ØD 4.225~4.270 mm) 及 1:16.667 (雙邊 3.436°) 錐度角，證明防漏取決於微觀錐面靜摩擦緊密過盈配合。',
+        selectionReasonZh: '🎯 [受測實體幾何規範] 入選原因：本圖為 ISO 80369-7 Fig.B.1 (6% 公魯爾錐體)，屬於 6.1 流體洩漏測試實施時的實體受測對象。6.1 液體防漏完全取決於 6% 微觀錐面靜摩擦過盈配合（Ød 3.970~4.035 mm），故納入作為產品端幾何驗證基準。',
         svgKey: 'ISO7-FIG-B1',
         keyCallouts: [
           { id: 'taper', labelZh: '圓錐斜率', valueZh: '6% (1 : 16.667)' },
@@ -113,33 +117,36 @@ export const ISO_TOPICS: ISOTopic[] = [
     figures: [
       {
         id: 'ISO20-FIG-D1',
-        titleZh: '負壓空氣洩漏 (真空衰減法) 測試裝置圖',
-        titleEn: 'Sub-atmospheric Vacuum Decay Leakage Test Apparatus',
+        titleZh: '負壓空氣洩漏測試裝置圖 (Figure D.1 — 乾式定量真空衰減法原圖)',
+        titleEn: 'Sub-atmospheric Vacuum Decay Leakage Test Apparatus (ISO 80369-20 Figure D.1)',
         standard: 'ISO 80369-20:2024 Annex D',
         figureType: 'apparatus',
         figureTypeZh: '測試裝置示意圖',
-        descriptionZh: '展示 ISO 80369-20 Annex D 真空洩漏試驗架構。真空幫浦抽氣至 80.0~88.0 kPa 負壓，隔離閥門後進行 15~20 秒負壓衰減量測，極限洩漏率要求 ≤ 0.005 Pa·m³/s，確保避免外界空氣被吸入管路導致致死性氣栓。',
+        descriptionZh: '忠實還原 ISO 80369-20 Figure D.1 官方線圖。管路與組件於【乾燥狀態】下運作。標示：1. 密封端件、2. 受測接頭、3. 金屬參考件 (C.2/C.4)、4. 隔離閥 (stop-valve)、5. 真空源 (-88.0 kPa)、6. 壓力計 (manometer)、7. 測試體積、8. 體積達成裝置。透由壓力計數值衰減進行定量驗證 (≤ 0.005 Pa·m³/s)。',
+        selectionReasonZh: '🛠️ [物理測試架設藍圖 - 乾式定量壓力計] 入選原因：本圖為 ISO 80369-20 Annex D Figure D.1 官方原圖。測試介質為純空氣（乾燥狀態），透由壓力計 (標示 6) 精密記錄負壓絕對變化量，屬於定量驗證 (Variable Test)。',
         svgKey: 'ISO20-FIG-D1',
         keyCallouts: [
-          { id: 'vac_press', labelZh: '負壓測試範圍', valueZh: '80.0 ~ 88.0 kPa' },
-          { id: 'hold_t', labelZh: '負壓持壓時間', valueZh: '15 ~ 20 秒' },
-          { id: 'max_leak', labelZh: '極限洩漏率', valueZh: '≤ 0.005 Pa·m³/s' },
-          { id: 'risk', labelZh: '臨床防範危害', valueZh: '靜脈空氣栓塞 (Air Embolism)' }
+          { id: 'key_1_2', labelZh: '1-2. 受測接頭與密封', valueZh: 'Key 1 (Sealing) & Key 2 (Connector Under Test)' },
+          { id: 'key_3', labelZh: '3. 參考金屬件', valueZh: 'Key 3 (Reference Connector C.2 / C.4)' },
+          { id: 'key_4_5', labelZh: '4-5. 隔離閥與真空源', valueZh: 'Key 4 (Stop-valve) & Key 5 (Vacuum Source)' },
+          { id: 'key_6_8', labelZh: '6-8. 壓力計與測試體積', valueZh: 'Key 6 (Manometer) & Key 7/8 (Test Volume Device)' }
         ]
       },
       {
         id: 'ISO20-FIG-K1',
-        titleZh: '抽吸過程水下氣泡法氣密測試裝置圖 (2024最新)',
-        titleEn: 'Air Leakage During Aspiration Submerged Test Apparatus',
+        titleZh: '抽吸過程水下氣泡法氣密測試裝置圖 (Figure K.1 — 濕式定性目視氣泡流原圖)',
+        titleEn: 'Air Leakage During Aspiration Test Apparatus (ISO 80369-20 Figure K.1)',
         standard: 'ISO 80369-20:2024 Annex K',
         figureType: 'apparatus',
         figureTypeZh: '測試裝置示意圖',
-        descriptionZh: 'ISO 80369-20:2024 最新新增之 Annex K 抽吸氣密試驗。受測魯爾組件浸沒於透明水容器底層 (填充 1/3 去離子水)，上方管路抽真空至 80~88 kPa，靜置 20 秒初始氣泡排盡後，觀察水體內是否有連續產生的微氣泡流。',
+        descriptionZh: '忠實還原 ISO 80369-20 Figure K.1 官方線圖。受測件內部【注滿水】。標示：1. 密封端件、2. 注水受測接头、3. 注水參考接頭、4. 透明圓筒水槽容器 (填充 1/3 水)、5. 壓力計、6. 快速閥門、7. 真空幫浦。抽真空 20 秒目視水槽內是否有連續氣泡流 (定性驗證)。',
+        selectionReasonZh: '🛠️ [物理測試架設藍圖 - 濕式水下目視氣泡] 入選原因：本圖為 ISO 80369-20 Annex K Figure K.1 官方原圖。核心特徵為接頭內部注滿水 (Key 2/3)，並垂直連接上方透明圓筒水槽 (Key 4)，以目視氣泡流判定 Pass/Fail (定性測試)，貼合臨床液體抽吸情境。',
         svgKey: 'ISO20-FIG-K1',
         keyCallouts: [
-          { id: 'method', labelZh: '方法特色', valueZh: '水下沉浸目視氣泡法' },
-          { id: 'water_level', labelZh: '水面高度', valueZh: '容器填充 1/3 高度' },
-          { id: 'pass_rule', labelZh: '合格標準', valueZh: '無連續產生之氣泡流 (Bubble Stream)' }
+          { id: 'key_1_3', labelZh: '1-3. 注水接頭組裝', valueZh: 'Key 1 (Sealing) & Key 2/3 (Connectors Filled with Water)' },
+          { id: 'key_4', labelZh: '4. 透明圓筒水槽', valueZh: 'Key 4 (Cylindrical Vessel Filled 1/3 Capacity with Water)' },
+          { id: 'key_5_6', labelZh: '5-6. 壓力計與快速閥', valueZh: 'Key 5 (Manometer) & Key 6 (Stop Valve)' },
+          { id: 'key_7', labelZh: '7. 真空幫浦源', valueZh: 'Key 7 (Vacuum Pump Source — -88.0 kPa)' }
         ]
       }
     ]
@@ -174,6 +181,7 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureType: 'apparatus',
         figureTypeZh: '測試裝置示意圖',
         descriptionZh: '展示 ISO 80369-20 Annex H 過載扭矩測試機台與受測公鎖定接頭在 0.15~0.17 N·m 高扭矩下的力學受力圖。受測公套環在對接 C.3 (2.71mm 窄耳翼) 時，斜面分力產生強烈環向應力 (Hoop Stress)，若剛性不足將致套環膨脹而跳牙。',
+        selectionReasonZh: '🛠️ [物理測試架設藍圖] 入選原因：本圖為 ISO 80369-20 Annex H 抗過載扭矩測試機台。6.6 過載滑牙測試施加 0.15~0.17 N·m 破壞性扭矩，本圖解構環向張應力 (Hoop Stress) 致使套環膨脹跳牙之受力機構。',
         svgKey: 'ISO20-FIG-H1',
         keyCallouts: [
           { id: 'torque', labelZh: '過載破壞扭矩', valueZh: '0.15 ~ 0.17 N·m' },
@@ -190,6 +198,7 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureType: 'connector_cad',
         figureTypeZh: '接頭幾何 CAD 圖',
         descriptionZh: 'CAD 幾何剖面圖說明 ISO 80369-7 雙頭內螺紋 (Pitch 2.5mm，角度 25°~30°) 旋合咬合時之接觸面與頂部投影量 c (2.1mm)。',
+        selectionReasonZh: '🎯 [受測實體幾何規範] 入選原因：本圖為 ISO 80369-7 Fig.B.3 (公鎖定固定環螺紋)，屬於 6.6 過載滑牙測試的受測實體對象，提供螺紋節距 (2.5mm) 與錐體投影量 (c ≥ 2.1mm) 咬合幾何依據。',
         svgKey: 'ISO7-FIG-B3',
         keyCallouts: [
           { id: 'pitch', labelZh: '螺紋節距 Pitch', valueZh: '2.5 mm' },
@@ -228,6 +237,7 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureType: 'apparatus',
         figureTypeZh: '測試裝置示意圖',
         descriptionZh: '展現 ISO 80369-20 Annex F 軸向拉力分離測試。定速 10 N/s 垂直施力至 35 N (Lock) 或 25 N (Slip)，持壓 10~15 秒，驗證受測接頭螺紋或錐面抗強拉拔能力，防止輸液管路拉扯斷開。',
+        selectionReasonZh: '🛠️ [物理測試架設藍圖] 入選原因：本圖為 ISO 80369-20 Annex F 萬能拉力機軸向分離測試架構。6.4 軸向負載分離測試需定速 10 N/s 施加 35 N (Lock) 或 25 N (Slip) 拉力持壓 10~15s，本圖提供抗拉脫測試裝置指引。',
         svgKey: 'ISO20-FIG-F1',
         keyCallouts: [
           { id: 'f_lock', labelZh: '鎖定型軸向拉力', valueZh: '35 N (10~15秒)' },
@@ -266,6 +276,7 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureType: 'apparatus',
         figureTypeZh: '測試裝置示意圖',
         descriptionZh: '對比 ISO 80369-20 Annex G (反向旋鬆 0.02 N·m 防振動解鎖) 與 Annex I (拆卸扭矩峰值量測) 雙軌規範。解析 6% 錐度摩擦自鎖力學與臨床人因易拆性之平衡。',
+        selectionReasonZh: '🛠️ [物理測試架設藍圖] 入選原因：本圖對比 ISO 80369-20 Annex G (反向旋鬆 0.02 N·m 防振動解鎖) 與 Annex I (拆卸扭矩峰值) 雙軌試驗架構。6.5 抗旋鬆測試評估 6% 圓錐靜摩擦自鎖力，本圖提供試驗指引。',
         svgKey: 'ISO20-FIG-G1',
         keyCallouts: [
           { id: 'annex_g', labelZh: 'Annex G 反旋扭矩', valueZh: '0.018 ~ 0.020 N·m' },
@@ -303,6 +314,7 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureType: 'apparatus',
         figureTypeZh: '測試裝置示意圖',
         descriptionZh: '說明 ISO 80369-20 Annex E 試驗。組裝件裝配於金屬參考接頭於 23°C 空氣環境中靜置 48 小時，驗證環向應力下無龜裂破裂，並需通過 Annex B/C 洩漏測試。',
+        selectionReasonZh: '🛠️ [物理測試架設藍圖] 入選原因：本圖為 ISO 80369-20 Annex E 48小時應力龜裂試驗架構。6.3 應力龜裂測試將裝配件於 23°C 空氣中靜置 48 小時，本圖提供環境靜置與試驗檢驗設定指引。',
         svgKey: 'ISO20-FIG-E1',
         keyCallouts: [
           { id: 'media', labelZh: '試驗條件', valueZh: '23°C 空氣環境 48h (ISO標準)' },
@@ -342,6 +354,7 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureType: 'connector_cad',
         figureTypeZh: '接頭幾何 CAD 圖',
         descriptionZh: '展現 6% 圓錐 (1:16.667，單邊 α=1.718°) 幾何尺寸圖。標記小端直徑 (Ød 3.970~4.035mm)、最小配合長度 7.5mm 與倒角規格。',
+        selectionReasonZh: '🎯 [受測實體幾何規範] 入選原因：本圖合併 6% 魯爾公錐 (Fig.B.1) 與母錐 (Fig.B.2) 幾何 CAD 尺寸，屬於 ISO 80369-7 第 5 章幾何尺寸與圓錐斜率 (1:16.667) 之核心產品檢驗基準。',
         svgKey: 'ISO7-FIG-B1-B2',
         keyCallouts: [
           { id: 'ratio', labelZh: '錐度斜率', valueZh: '1 : 16.667 (6%)' },
@@ -350,16 +363,49 @@ export const ISO_TOPICS: ISOTopic[] = [
       },
       {
         id: 'ISO7-FIG-B3-B6',
-        titleZh: '魯爾鎖定螺紋距、投影量與耳翼 CAD 幾何圖',
+        titleZh: '魯爾鎖定螺紋距、投影量與耳翼 CAD 幾何圖 (Fig.B.3 & Fig.B.6)',
         titleEn: 'Luer Lock Thread Pitch & Projection Distance CAD',
         standard: 'ISO 80369-7:2021 Fig.B.3 & Fig.B.6',
         figureType: 'connector_cad',
         figureTypeZh: '接頭幾何 CAD 圖',
         descriptionZh: 'CAD 圖面標註公鎖定雙頭螺紋 (Pitch 2.5mm) 與母耳翼 (標稱 3.50mm) 配合，標註核心參數 c ≥ 2.1mm 及 t ≤ 3.2mm。',
+        selectionReasonZh: '🎯 [受測實體幾何規範] 入選原因：本圖合併公鎖定雙頭螺紋 (Fig.B.3) 與母耳翼 (Fig.B.6) 幾何 CAD 尺寸，屬於 ISO 80369-7 第 5 章雙頭螺紋 (Pitch 2.5mm) 與咬合幾何 (c ≥ 2.1mm) 之驗證依據。',
         svgKey: 'ISO7-FIG-B3-B6',
         keyCallouts: [
           { id: 'p', labelZh: '雙頭螺紋 pitch', valueZh: '2.5 mm' },
           { id: 'c', labelZh: '錐體投影量 c', valueZh: '≥ 2.1 mm' }
+        ]
+      },
+      {
+        id: 'ISO7-FIG-B7',
+        titleZh: '具直角凸耳母 Luer Lock 接頭 CAD 幾何圖 (Fig.B.7 — 變體 B)',
+        titleEn: 'Female Luer Lock Connector Lugs CAD Geometry (ISO 80369-7 Fig.B.7 Variant B)',
+        standard: 'ISO 80369-7:2021 Fig.B.7',
+        figureType: 'connector_cad',
+        figureTypeZh: '接頭幾何 CAD 圖',
+        descriptionZh: '呈現 ISO 80369-7 Figure B.7 母魯爾鎖定接頭【直角凸耳變體 B】之 CAD 幾何尺寸與切向圓角公差。規範耳翼外徑 (ØD 7.70~7.90mm)、耳翼厚度 (t 1.40~1.70mm) 與 360° 圓角細節。',
+        selectionReasonZh: '🎯 [受測實體幾何規範] 入選原因：本圖為 ISO 80369-7 Fig.B.7 (母鎖定凸耳變體 B)，規範常見於射出成型藥液輸送管路接頭的倒角/圓角耳翼尺寸，提供 5.2 母鎖定接頭幾何檢驗依據。',
+        svgKey: 'ISO7-FIG-B7',
+        keyCallouts: [
+          { id: 'dia', labelZh: '耳翼外徑 ØD', valueZh: '7.70 ~ 7.90 mm' },
+          { id: 'thick', labelZh: '耳翼厚度 t', valueZh: '1.40 ~ 1.70 mm' },
+          { id: 'variant', labelZh: '幾何特徵', valueZh: '變體 B (Variant B 圓角凸耳)' }
+        ]
+      },
+      {
+        id: 'ISO7-FIG-B8',
+        titleZh: '具直角凸耳母 Luer Lock 接頭 CAD 幾何圖 (Fig.B.8 — 變體 C)',
+        titleEn: 'Female Luer Lock Connector Lugs CAD Geometry (ISO 80369-7 Fig.B.8 Variant C)',
+        standard: 'ISO 80369-7:2021 Fig.B.8',
+        figureType: 'connector_cad',
+        figureTypeZh: '接頭幾何 CAD 圖',
+        descriptionZh: '呈現 ISO 80369-7 Figure B.8 母魯爾鎖定接頭【直角凸耳變體 C】之 CAD 幾何尺寸與雙翼/外展圓弧公差。規範耳翼翼寬 (ØH 11.50~12.50mm) 與結構幾何加強區。',
+        selectionReasonZh: '🎯 [受測實體幾何規範] 入選原因：本圖為 ISO 80369-7 Fig.B.8 (母鎖定凸耳變體 C)，規範翅膀翼型 (Winged) 便於臨床人員旋緊手握之大尺寸耳翼幾何，提供 5.2 母鎖定接頭幾何檢驗依據。',
+        svgKey: 'ISO7-FIG-B8',
+        keyCallouts: [
+          { id: 'wing_width', labelZh: '雙翼外徑 ØH', valueZh: '11.50 ~ 12.50 mm' },
+          { id: 'thick', labelZh: '耳翼厚度 t', valueZh: '1.40 ~ 1.70 mm' },
+          { id: 'variant', labelZh: '幾何特徵', valueZh: '變體 C (Variant C 翅膀雙翼)' }
         ]
       }
     ]
@@ -394,6 +440,7 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureType: 'fixture',
         figureTypeZh: '參考金屬件',
         descriptionZh: '硬化不鏽鋼高精密度法規測試專用金屬參考件 (Fig.C.1~C.6，一般 316 須經表面氮化防磨損咬死；鋼規常選 17-4PH/440C ≥45 HRC)。詳細解析 C.1 標稱件與 C.3 Worst-case 最壞情況件之幾何差異。',
+        selectionReasonZh: '📐 [標準參考金屬夾具] 入選原因：本圖展現 ISO 80369-7 附錄 C 硬化不鏽鋼測試專用金屬參考件 (C.1~C.6)，對比 C.1 標稱件與 C.3 Worst-case (2.71mm 耳翼) 最壞情況件，提供法規測試夾具依據。',
         svgKey: 'ISO7-FIG-C3',
         keyCallouts: [
           { id: 'material', labelZh: '夾具材質', valueZh: 'ISO: Hardened SS / 17-4PH(≥45HRC) 或 316(須氮化)' },
@@ -432,6 +479,7 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureType: 'apparatus',
         figureTypeZh: '測試裝置示意圖',
         descriptionZh: '示範國際標竿 ISO 80369-20 雙軸同時裝配裝置（如 Enersol S15A 原理）。利用垂直低摩擦線性導軌掛載 27.5 N 校正重錘垂直下壓，同時搭配頂部高精度 0.12 N·m 定扭矩輪旋轉，完全消除手持裝配的歪斜與傾角誤差。',
+        selectionReasonZh: '🛠️ [物理測試架設藍圖] 入選原因：本圖為 ISO 80369-20 通用預裝配程序雙軸同時加載裝置 (如 Enersol S15A 原理)。所有性能測試前均需以 27.5 N 軸向力與 0.12 N·m 扭矩預裝配 5~6s，本圖提供機構指引。',
         svgKey: 'ISO20-FIG-J1',
         keyCallouts: [
           { id: 'pre_t', labelZh: '預裝配扭矩 (Assembly Torque)', valueZh: '0.08 ~ 0.12 N·m' },
@@ -471,6 +519,7 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureType: 'mechanism',
         figureTypeZh: '物理機構/失效原理圖',
         descriptionZh: '解析 ISO 80369 家族化尺寸互斥矩陣：血管 (Luer -7)、腸餵 (ENFit -3)、神經軸麻醉 (NRFit -6) 與呼吸 (-2) 之幾何隔絕防呆原理。',
+        selectionReasonZh: '📈 [防錯對接幾何矩陣] 入選原因：本圖展示 ISO 80369 家族化小口徑連接器防誤插矩陣 (血管-7、腸餵-3、神經軸-6、呼吸-2)，屬於 ISO 80369-7 Clause 4 跨領域防錯安全邏輯圖解。',
         svgKey: 'ISO7-FIG-A1',
         keyCallouts: [
           { id: 'luer', labelZh: 'ISO 80369-7', valueZh: '血管/皮下注射 (6% Luer)' },

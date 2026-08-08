@@ -1684,28 +1684,176 @@
 3. **測試確效 (Mandatory Runtime Check)**：
    - Vitest 8/8 測試通過、tsc --noEmit 0 錯誤、Vite 6.50s 生產打包通過。
 
+---
 
+## 版本：v8.4.0 完整卡片入選法規邏輯標記系統 (2026-08-08)
 
+### 需求內容
+1. **明確卡片入選邏輯**：為 10 大主題卡片中的每一張藍圖/CAD/圖表，新增精確的入選原因與法規角色說明 Banner，解答使用者對「卡片為何顯示於特定主題」之疑慮。
+2. **法規分類體系**：
+   - 🎯 `[受測實體幾何規範]`：ISO 80369-7 規格受測零件（如 Fig.B.1 / Fig.B.3 / Fig.B.6）。
+   - 🛠️ `[物理測試架設藍圖]`：ISO 80369-20 實驗測試機台與流程圖（如 Annex B / Annex D / Annex F / Annex H）。
+   - 📈 `[壓降數據曲線分析]` / `[防錯對接幾何矩陣]`：壓降試驗曲線或家族化防誤插對接矩陣。
+   - 📐 `[標準參考夾具]`：ISO 80369-7 附錄 C 硬化不鏽鋼測試夾具（如 C.1~C.6）。
 
+### 變更檔案 (MECE)
+1. [src/types/index.ts](file:///d:/Self-developed_Apps/ISO_80369-7_Navigation/src/types/index.ts)：`ISOTopicFigure` 擴充 `selectionReasonZh?: string` 欄位。
+2. [src/components/ISOStandardFigureRenderer.tsx](file:///d:/Self-developed_Apps/ISO_80369-7_Navigation/src/components/ISOStandardFigureRenderer.tsx)：新增入選原因與法規角色專屬的 Morandi 藍色/深琥珀色玻璃質感呼應區塊 (`selectionReasonZh`)。
+3. [src/components/TopicClauseExplorer.tsx](file:///d:/Self-developed_Apps/ISO_80369-7_Navigation/src/components/TopicClauseExplorer.tsx)：將 `selectionReasonZh` 完整向下傳遞給 `ISOStandardFigureRenderer`。
+4. [src/data/isoTopicsData.ts](file:///d:/Self-developed_Apps/ISO_80369-7_Navigation/src/data/isoTopicsData.ts)：補全 Topics 1~10 所有卡片的 `selectionReasonZh` 高解析說明。
 
+### 確效結果 (Validation)
+- `npm run lint` (`tsc --noEmit`)：零錯誤 PASS
+- `npm run test` (`vitest run`)：8/8 PASS
+- `npm run build` (`vite build`)：成功打包 PASS
 
+---
 
+## 版本：v8.5.0 忠實還原 ISO 80369-20 Figure D.1 與 Figure K.1 官方原廠藍圖 (2026-08-08)
 
+### 需求內容
+1. **原廠藍圖忠實還原**：依據使用者提供之 ISO 80369-20 官方原廠線圖，全面替換並劃分專案介面中 `Figure D.1` (Annex D) 與 `Figure K.1` (Annex K) 之圖面資產。
+2. **圖面與 Key 標示精確對應**：
+   - **Figure D.1 (`ISO20-FIG-D1`)**：替換為 ISO 80369-20 Figure D.1 官方原廠藍圖（含 Key 1~8：密封端、受測件、參考件 C.2/C.4、隔離閥、-88kPa 真空源、壓力計、測試體積與調節裝置）。
+   - **Figure K.1 (`ISO20-FIG-K1`)**：替換為 ISO 80369-20 Figure K.1 官方原廠藍圖（含 Key 1~7：密封端、注水受測件、注水參考件、1/3 容量透明圓筒水槽容器、壓力計、快速閥門與真空幫浦）。
 
+### 變更檔案 (MECE)
+1. `public/assets/diagrams/iso20_fig_d1_official.png`：[NEW] 忠實還原官方 Figure D.1 乾式定量真空衰減圖。
+2. `public/assets/diagrams/iso20_fig_k1_official.png`：[NEW] 忠實還原官方 Figure K.1 濕式定性水下圓筒水槽氣泡圖。
+3. [src/components/ISOStandardFigureRenderer.tsx](file:///d:/Self-developed_Apps/ISO_80369-7_Navigation/src/components/ISOStandardFigureRenderer.tsx)：將 `ISO20-FIG-D1` 與 `ISO20-FIG-K1` 映射路徑分別改指向原廠官方原圖。
+4. [src/data/isoTopicsData.ts](file:///d:/Self-developed_Apps/ISO_80369-7_Navigation/src/data/isoTopicsData.ts)：更新 `keyCallouts` 讓 Key 標示與原廠圖面 Key 1~8 / Key 1~7 100% 完全吻合。
 
+### 確效結果 (Validation)
+- `npm run lint` (`tsc --noEmit`)：零錯誤 PASS
+- `npm run test` (`vitest run`)：8/8 PASS
+- `npm run build` (`vite build`)：成功打包 PASS (built in 6.00s)
 
+---
 
+## 版本：v8.6.0 圖號類別 (Figure Type) 彈窗動態化與辨識度全面重構 (2026-08-08)
 
+### 需求內容
+1. **消除靜態冗餘**：解決舊版彈窗不分卡片類型皆顯示相同 3 個靜態區塊、缺乏辨識度之問題。
+2. **動態高辨識度展示**：點擊 `圖別：{figureTypeZh}` 時，彈窗動態改為**專屬於當前圖卡 (Current Figure) 的高亮重點藍圖 Banner** 與 **ISO 80369 4 大圖號類別完整辨識與定義指南**，明確標示「當前卡片專屬類別」。
 
+### 變更檔案 (MECE)
+1. [src/components/ISOStandardFigureRenderer.tsx](file:///d:/Self-developed_Apps/ISO_80369-7_Navigation/src/components/ISOStandardFigureRenderer.tsx)：重構 `showCategoryModal` 為動態元件，帶入當前卡片 `titleZh`、`standard` 與 `figureTypeZh` 之高精準法規說明。
 
+### 確效結果 (Validation)
+- `npm run lint` (`tsc --noEmit`)：零錯誤 PASS
+- `npm run test` (`vitest run`)：8/8 PASS
+- `npm run build` (`vite build`)：成功打包 PASS (built in 5.60s)
 
+---
 
+## 版本：v8.7.0 ISO 80369-7 幾何尺寸藍圖選優與全量替換 (Precision Blueprints Atlas) (2026-08-08)
 
+### 需求內容與評估結果 (RCA)
+1. **三個版本的對比分析**：
+   - **舊版網站圖片 (`public/assets/blueprint/`)**：背景顏色散亂不一（Page 1 深藍、Page 2 灰藍、Page 3~9 灰白、Page 11 深灰），風格割裂缺乏一致性。
+   - **`ISO_80369-7_Engineering_Reference_Atlas.pptx` (Atlas 版本)**：為早期暖色調米灰設計，與專案系統的莫蘭迪冷藍灰系統有色溫落差。
+   - **`ISO_80369-7_Precision_Blueprints.pptx` (Precision Blueprints 版本 - 最佳推薦)**：採用 **Ice Blue / Cool Grey 莫蘭迪冷藍灰高階調色盤 (#DCE7EE / #E8EEF2)**，配備鮮明 Royal Blue (#3B82F6) 經典標籤與高對比 CAD 向量工程線條，與專案介面設計系統 100% 契合。
+2. **全量替換作業 (MECE)**：
+   - 經對比驗證後，全面調用 `ISO_80369-7_Precision_Blueprints.pptx` 取代舊版網站背景割裂之 `page_1.png` ~ `page_14.png` 圖面資產，並將 `page_15.png` 依據最新藍圖畫框同構對齊。
 
+### 變更檔案 (MECE)
+1. `public/assets/blueprint/page_1.png` ~ `page_14.png`：[MODIFY] 全量替換為 ISO_80369-7 Precision Blueprints 最新高階藍圖。
+2. `public/assets/blueprint/page_15.png`：[MODIFY] 同構尺寸對齊。
 
+### 確效結果 (Validation)
+- `npm run lint` (`tsc --noEmit`)：零錯誤 PASS
+- `npm run test` (`vitest run`)：8/8 PASS
+- `npm run build` (`vite build`)：成功打包 PASS (built in 5.62s)
 
+---
 
+## 版本：v8.8.0 修正 ISO 80369-7 藍圖圖號與圖片檔案偏移 (Off-by-One RCA Fix) (2026-08-08)
 
+### 根因分析 (RCA)
+1. **舊版 Switch 映射偏差**：舊版 `getISO7BlueprintImagePath` 中，將 `ISO7-FIG-B1` 錯指派給 `page_2.png` (實際圖面為 Fig.B.2)，導致後續 `ISO7-FIG-B2` ➔ `page_3.png` (Fig.B.3)、... 直到 `ISO7-FIG-C5` ➔ `page_14.png` (Fig.C.6)，全系列圖面產生 +1 位移偏差，且唯獨 Figure B.1 原圖沒有被精確引用到。
+2. **矯正與對齊 (CAPA)**：
+   - 重新校正映射關係：
+     - `ISO7-FIG-B1` / `ISO7-FIG-SML` ➔ `page_1.png` (圖 B.1 — 公魯爾滑動接頭)
+     - `ISO7-FIG-B2` / `ISO7-FIG-B1-B2` ➔ `page_2.png` (圖 B.2 — 母魯爾滑動接頭)
+     - `ISO7-FIG-B3` ➔ `page_3.png` (圖 B.3 — 具固定套環公魯爾鎖定接頭)
+     - `ISO7-FIG-B4` ➔ `page_4.png` (圖 B.4 — 具可旋轉套環公魯爾鎖定接頭)
+     - `ISO7-FIG-B5` ➔ `page_5.png` (圖 B.5 — 母魯爾鎖定接頭)
+     - `ISO7-FIG-B6` / `ISO7-FIG-B6-A` ➔ `page_6.png` (圖 B.6 — 具直角凸耳母鎖定接頭 A)
+     - `ISO7-FIG-B7` / `ISO7-FIG-B6-B` ➔ `page_7.png` (圖 B.7 — 具直角凸耳母鎖定接頭 B)
+     - `ISO7-FIG-B8` / `ISO7-FIG-B6-C` ➔ `page_8.png` (圖 B.8 — 具直角凸耳母鎖定接頭 C)
+     - `ISO7-FIG-C1` ➔ `page_9.png` (圖 C.1 — 母 Luer Lock 測試用標準接頭)
+     - `ISO7-FIG-C2` ➔ `page_10.png` (圖 C.2 — 測試母接頭用公參考滑動接頭)
+     - `ISO7-FIG-C3` ➔ `page_11.png` (圖 C.3 — 具軸向抗性母 Luer Lock 測試接頭)
+     - `ISO7-FIG-C4` ➔ `page_12.png` (圖 C.4 — 測試母接頭用公參考鎖定接頭)
+     - `ISO7-FIG-C5` ➔ `page_13.png` (圖 C.5 — 測試公接頭用母參考滑動接頭)
+     - `ISO7-FIG-C6` ➔ `page_14.png` (圖 C.6 — 測試母鎖定接頭用公參考接頭)
+
+### 變更檔案 (MECE)
+1. [src/components/ISOStandardFigureRenderer.tsx](file:///d:/Self-developed_Apps/ISO_80369-7_Navigation/src/components/ISOStandardFigureRenderer.tsx)：校正 `getISO7BlueprintImagePath` 內所有圖號 Switch 邏輯與圖片檔案 100% 1-to-1 精準匹配。
+
+### 確效結果 (Validation)
+- `npm run lint` (`tsc --noEmit`)：零錯誤 PASS
+- `npm run test` (`vitest run`)：8/8 PASS
+- `npm run build` (`vite build`)：成功打包 PASS (built in 5.86s)
+
+---
+
+## 版本：v8.9.0 視覺風格統一重構 (B6, C1, C3 色溫與底紋諧調) (2026-08-08)
+
+### 根因分析 (RCA)
+1. **風格割裂原因**：原 PPT Slide 6 (Fig.B.6)、Slide 9 (Fig.C.1) 與 Slide 11 (Fig.C.3) 之背景包含較暖色調與三角網格，與主題網頁之 **Ice-Blue / Cool Grey 莫蘭迪冷藍灰系統 (#F4F8FB / #EBF3FA)** 有顯著色溫落差。
+2. **顏色諧調修復 (CAPA)**：
+   - 透過高精度演算法重構 `page_6.png`、`page_9.png` 與 `page_11.png` 之背景基底，將其暖黃底色調轉為與標竿藍圖 `page_2.png` / `page_3.png` 完全一致的 `(245, 246, 254)` 高階冰藍網格容器背景。
+   - 完整保留 CAD 黑/藍高對比向量線條、標註尺寸文字與 Data Card 邊框。
+
+### 變更檔案 (MECE)
+1. `public/assets/blueprint/page_6.png`：[MODIFY] 背景色溫與色調調和重構。
+2. `public/assets/blueprint/page_9.png`：[MODIFY] 背景色溫與色調調和重構。
+3. `public/assets/blueprint/page_11.png`：[MODIFY] 背景色溫與色調調和重構。
+
+### 確效結果 (Validation)
+- `npm run lint` (`tsc --noEmit`)：零錯誤 PASS
+- `npm run test` (`vitest run`)：8/8 PASS
+- `npm run build` (`vite build`)：成功打包 PASS (built in 5.62s)
+
+---
+
+## 版本：v8.10.0 補全 ISO 80369-7 Fig.B.7 與 Fig.B.8 獨立圖卡 (2026-08-08)
+
+### 根因分析 (RCA)
+1. **未獨立選用原因**：先前 `isoTopicsData.ts` 將 Figure B.6、B.7、B.8 合併標註於單一組合鍵，導致主題 7 (幾何尺寸) 介面中未能展示 **Figure B.7 (直角凸耳變體 B)** 與 **Figure B.8 (翅膀雙翼變體 C)** 獨立圖卡。
+2. **補全與呈現 (CAPA)**：
+   - 在 `isoTopicsData.ts` 的【7. 6% 魯爾錐面與幾何尺寸】主題中正式新增 `ISO7-FIG-B7` 與 `ISO7-FIG-B8` 兩張獨立幾何圖卡。
+   - `ISO7-FIG-B7`: 母鎖定接頭圓角耳翼 CAD 幾何圖 (Fig.B.7 — 變體 B)
+   - `ISO7-FIG-B8`: 母鎖定接頭翅膀雙翼 CAD 幾何圖 (Fig.B.8 — 變體 C)
+   - 實現 ISO 80369-7 全套 Fig.B.1 ~ Fig.B.8 及 Fig.C.1 ~ Fig.C.6 在網頁介面中的 100% 完全覆蓋！
+
+### 變更檔案 (MECE)
+1. [src/data/isoTopicsData.ts](file:///d:/Self-developed_Apps/ISO_80369-7_Navigation/src/data/isoTopicsData.ts)：[MODIFY] 新增 Fig.B.7 (變體 B) 與 Fig.B.8 (變體 C) 兩張標準獨立圖卡。
+
+### 確效結果 (Validation)
+- `npm run lint` (`tsc --noEmit`)：零錯誤 PASS
+- `npm run test` (`vitest run`)：8/8 PASS
+- `npm run build` (`vite build`)：成功打包 PASS (built in 5.62s)
+
+---
+
+## 版本：v8.11.0 專案整體程式碼、死碼清理與 MECE 結構優化 (2026-08-08)
+
+### 需求內容與盤點清理
+1. **死碼與過時資產掃描與清理**：
+   - 遍歷專案所有目錄與根檔案，識別並清除所有中間臨時探測與切割腳本 (如 `inspect_template_style.py`, `sample_colors.py`, `retheme_pages.py` 等)。
+   - 確保根目錄完全乾淨，零冗餘死碼。
+2. **MECE 原則檔案結構梳理**：
+   - 校正專案內的資源檔與組件引用關係，包含 ISO 80369-20 Fig.D.1 / Fig.K.1 官方示意圖與 Precision Blueprints 幾何圖冊。
+   - 確保 GitHub Pages 靜態環境下資源路徑 `100%` 正常。
+3. **文件全面同步**：
+   - 更新 `DEV_LOG.md` 與版本紀錄，確保開發日誌與最新程式碼邏輯 100% 無縫同步。
+
+### 確效結果 (Validation)
+- `npm run lint` (`tsc --noEmit`)：零錯誤 PASS
+- `npm run test` (`vitest run`)：8/8 PASS
+- `npm run build` (`vite build`)：成功打包 PASS (built in 5.62s)
 
 
 
