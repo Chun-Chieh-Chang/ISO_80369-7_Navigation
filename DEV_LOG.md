@@ -1250,5 +1250,65 @@
   - `npm run lint` (`tsc --noEmit`) 軟體確效型別檢查：100% 通過 (0 errors)。
   - `npm run build` 生產打包確效：1682 模組成功打包 (Built in 7.45s, 0 errors)。
 
+---
+
+## 版本：v6.2 ISO 80369-7 原文條文規範與業界商業採購實務標示精確對齊 (2026-08-08)
+
+### 需求內容
+1. **嚴謹釐清 ISO 原文規範與業界實務**：
+   - 修正全站所有組件與資料檔（`ConnectorInspector.tsx`, `isoTopicsData.ts`, `ClauseComparisonMatrix.tsx`）中有關金屬參考夾具材質與硬度之敘述。
+   - 明確劃分 **「ISO 80369-7 官方原文條文」** 要求（硬化不鏽鋼 `Hardened Stainless Steel` / 剛性金屬、彈性模數 $> 3\ 433\text{ MPa}$、$R_a \le 0.8\ \mu\text{m}$）與 **「業界商業實務/採購驗收標準」**（常用 316 / 17-4PH 不鏽鋼經表面硬化/氮化處理，驗收硬度常標註 $\ge 45\text{ HRC}$）。
+   - 防止使用者對 ISO 標準原文文字產生混淆與誤解。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **根因分析 (RCA)**：
+  - 原介面標籤將「316 不鏽鋼」與「$\ge 45\text{ HRC}$」直接標註於 ISO 80369-7 條文旁，容易讓工程師誤以為 ISO 80369-7 標準原文中有寫出 316 與 HRC 45 字樣。
+- **矯正措施 (CAPA)**：
+  - 全面將材質資訊獨立標註為 `ISO 原文條文要求` 與 `業界採購/校驗實務參考` 兩欄位，並補充 316 需經硬化/氮化處理解釋。
+- **編譯與確效 (Mandatory Runtime Check)**：
+  - `npm run lint` (`tsc --noEmit`)：100% 通過 (0 errors)。
+  - `npm run build`：1682 模組成功打包 (Built in 7.06s, 0 errors)。
+
+---
+
+## 版本：v6.3 材料冶金學確效：精確劃分 17-4PH/440C (HRC ≥45) 與 316 (低溫氮化硬化) (2026-08-08)
+
+### 需求內容
+1. **修正 316 不鏽鋼與 HRC 45 之冶金學混淆**：
+   - 經第一性原理與材料學確效，未經特殊處理之退火態 316 不鏽鋼基材硬度僅約 `< 20 HRC` (150-200 HV)，無法僅憑基材達標 `HRC 45`。
+   - 修正全站文字：標明鋼規夾具若採用基材熱處理硬化（$\ge 45\text{ HRC}$），業界常用材料為 **17-4PH (SUS630)** 或 **440C**；若採用 **316 不鏽鋼**，則必須進行**表面低溫氮化硬化處理 (Surface Nitriding)**。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **根因分析 (RCA)**：
+  - 原頁面若寫「316 不鏽鋼 (≥45 HRC)」，會犯下冶金學上的邏輯錯誤，容易誤導使用者認為 316 基材能直接達到 HRC 45。
+- **矯正措施 (CAPA)**：
+  - 全面更新 `ConnectorInspector.tsx`, `isoTopicsData.ts`, `ClauseComparisonMatrix.tsx`，標明「17-4PH/440C (基材硬度 $\ge 45\text{ HRC}$ Metric)」與「316 (高耐蝕/表面低溫氮化硬化 Metric)」。
+- **編譯與確效 (Mandatory Runtime Check)**：
+  - `npm run lint` (`tsc --noEmit`)：100% 通過 (0 errors)。
+  - `npm run build`：1682 模組成功打包 (Built in 1.78s, 0 errors)。
+
+---
+
+## 版本：v6.4 ISO 80369-7 全候選材料客觀數據評估矩陣 HTML 與專案 UI 組件生成 (2026-08-08)
+
+### 需求內容
+1. **8 大金屬候選材料全方位評估**：
+   - 盤點 ISO 80369-7 參考鋼規全系列 8 大候選材料（`Uddeholm Stavax® ESR`, `17-4PH`, `AISI 440C`, `Uddeholm Elmax® SuperClean`, `低溫氮化 316`, `未處理退火態 316`, `快削黃銅 C36000`, `鈦合金 Ti-6Al-4V`）。
+   - 以硬度 (HRC/HV)、彈性模數 (GPa)、耐磨抗咬痕 (Galling Risk)、水壓防銹力與表面粗糙度 ($R_a$) 等客觀物理數據進重對比。
+2. **獨立 HTML 報告生成 (`public/iso_80369_7_material_evaluation_matrix.html`)**：
+   - 生成高顏值深色現代響應式 HTML 報告檔，方便獨立開啟與傳閱。
+3. **專案 React 介面無縫整合 (`ConnectorInspector.tsx`)**：
+   - 在「參考金屬夾具庫」視圖新增互動式「ISO 80369-7 參考鋼規金屬候選材料客觀數據評估對照表」組件與 HTML 報告跳轉按鈕。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **矯正措施 (CAPA)**：
+  - 建立客觀評估矩陣，清楚揭示未處理 316 不合格、黃銅與鈦合金有條件限制，以及 Stavax ESR 與 Elmax 粉末鋼等高階醫療鋼材之優越性能。
+- **編譯與確效 (Mandatory Runtime Check)**：
+  - `npm run lint` (`tsc --noEmit`)：100% 通過 (0 errors)。
+  - `npm run build`：1682 模組成功打包 (Built in 1.73s, 0 errors)。
+
+
+
+
 
 

@@ -212,10 +212,12 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
           <div className="bg-slate-50 border border-slate-200 p-3.5 rounded-xl space-y-1.5">
-            <strong className="text-blue-900 block font-bold text-[13px]">1. 材質與剛性要求</strong>
+            <strong className="text-blue-900 block font-bold text-[13px]">1. 材質與硬化要求 (ISO vs 冶金學事實)</strong>
             <ul className="list-disc list-inside text-slate-600 space-y-1 leading-relaxed text-[11px]">
-              <li><strong>耐腐蝕剛性材質</strong>：使用不鏽鋼 (≥45 HRC) 或黃銅。</li>
-              <li><strong>彈性模數限制</strong>：彎曲/拉伸彈性模數 (Modulus of Elasticity) 必須 <strong>&gt; 3 433 MPa</strong>。</li>
+              <li><strong>ISO 條文強制規範</strong>：`Hardened Stainless Steel` (硬化不鏽鋼)，且必須經硬化處理以防磨損 (`hardened to resist wear`)。</li>
+              <li><strong>Stavax® ESR (醫療級模具鋼)</strong>：AISI 420 Mod (45~52 HRC, 200 GPa)，電渣重熔極高純度、鏡面拋光與優異耐蝕，為醫療鋼規高級選材！</li>
+              <li><strong>17-4PH / 440C (標準硬化鋼)</strong>：17-4PH (&ge;45 HRC) 綜合性佳；440C (58~60 HRC) 超硬但水測後須即時防銹。</li>
+              <li><strong>316 (高耐蝕奧斯田體)</strong>：一般未處理退火態基材過軟 (&lt;20 HRC) 且極易 Galling 咬死，<strong>必須經表面低溫氮化硬化才合格</strong>。</li>
             </ul>
           </div>
 
@@ -290,12 +292,12 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
             {/* Aspect 3 */}
             <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1.5">
               <h5 className="font-bold text-slate-900 text-[12px] flex items-center gap-1.5">
-                <ShieldAlert className="w-3.5 h-3.5 text-amber-600" /> 3. 材質與硬度確認 (Material & Hardness)
+                <ShieldAlert className="w-3.5 h-3.5 text-amber-600" /> 3. 材質與硬度確認 (Material & Hardness Verification)
               </h5>
               <ul className="list-disc list-inside text-slate-600 space-y-1 text-[11px] leading-relaxed">
-                <li><strong>耐腐蝕剛性材質</strong>：使用 316 不鏽鋼 (≥45 HRC) 或黃銅材料。</li>
-                <li><strong>彈性模數確認</strong>：材料彎曲/拉伸彈性模數 <strong>&gt; 3 433 MPa</strong>。</li>
-                <li>透過出廠材料證明 (MTR) 與接收硬度檢測雙重驗證。</li>
+                <li><strong>ISO 原文規範</strong>：`Hardened Stainless Steel`，要求必須硬化抗磨損 (hardened to resist wear)。</li>
+                <li><strong>材料選材權衡</strong>：<strong>Stavax® ESR (45~52 HRC)</strong> 高純度鏡面防蝕極佳；<strong>17-4PH (&ge;45 HRC)</strong> 綜合佳；<strong>440C (60 HRC)</strong> 極硬但水測須防銹；<strong>316</strong> 須表面氮化。</li>
+                <li><strong>認證實務處置</strong>：鋼規認證須檢查熱處理強度證明或表面氮化質控報告。</li>
               </ul>
             </div>
 
@@ -309,6 +311,147 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
               </p>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Interactive Material Evaluation Matrix Card (8 Candidate Materials) */}
+      <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-3">
+          <div className="flex items-center space-x-2">
+            <span className="bg-slate-900 text-white font-mono font-bold text-xs px-2.5 py-1 rounded-lg shadow-xs">
+              Material Science Matrix
+            </span>
+            <h3 className="text-base font-extrabold text-slate-900">
+              ISO 80369-7 參考鋼規金屬候選材料客觀數據評估對照表
+            </h3>
+          </div>
+          <a
+            href="/iso_80369_7_material_evaluation_matrix.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center space-x-1.5 text-xs font-bold text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 border border-blue-200 px-3 py-1.5 rounded-xl transition cursor-pointer self-start sm:self-auto"
+          >
+            <FileCode className="w-4 h-4" />
+            <span>開啟獨立 HTML 報告檔</span>
+          </a>
+        </div>
+
+        <p className="text-xs text-slate-500">
+          依據 ISO 80369-7 Annex C（硬化不鏽鋼 <span className="font-mono text-slate-700 font-bold">Hardened SS</span>、彈性模數 <span className="font-mono text-slate-700 font-bold">&gt; 3 433 MPa</span>、表面粗糙度 <span className="font-mono text-slate-700 font-bold">Ra ≤ 0.8 µm</span>）與材料冶金學客觀數據，全面評估 8 大候選材料之合規性：
+        </p>
+
+        <div className="overflow-x-auto rounded-xl border border-slate-200">
+          <table className="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr className="bg-slate-50 text-slate-700 font-bold border-b border-slate-200">
+                <th className="p-2.5">材料名稱 &amp; 牌號</th>
+                <th className="p-2.5">硬度 (Hardness)</th>
+                <th className="p-2.5">彈性模數 (Modulus)</th>
+                <th className="p-2.5">耐磨損與抗咬合</th>
+                <th className="p-2.5">水壓測試防銹性</th>
+                <th className="p-2.5">表面粗糙度 (Ra)</th>
+                <th className="p-2.5">ISO 80369-7 客觀合規判定</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100 text-slate-600">
+              <tr className="hover:bg-slate-50/80 transition">
+                <td className="p-2.5 font-bold text-slate-900">
+                  Uddeholm Stavax® ESR
+                  <span className="block font-mono text-[10px] text-slate-400 font-normal">AISI 420 Mod / 電渣重熔鋼</span>
+                </td>
+                <td className="p-2.5 font-mono font-bold text-blue-700">45 – 52 HRC</td>
+                <td className="p-2.5 font-mono">200 GPa</td>
+                <td className="p-2.5 text-emerald-700 font-medium">極佳 (高純淨相，耐磨抗咬)</td>
+                <td className="p-2.5 text-emerald-700 font-medium">🌟 優秀 (鏡面抗水蒸氣)</td>
+                <td className="p-2.5 font-mono">Ra ≤ 0.1 µm</td>
+                <td className="p-2.5"><span className="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2 py-0.5 rounded-md border border-emerald-300">✅ 完全合規 (醫療首選)</span></td>
+              </tr>
+              <tr className="hover:bg-slate-50/80 transition">
+                <td className="p-2.5 font-bold text-slate-900">
+                  17-4PH / SUS630
+                  <span className="block font-mono text-[10px] text-slate-400 font-normal">AISI 630 / H900 狀態</span>
+                </td>
+                <td className="p-2.5 font-mono font-bold text-blue-700">40 – 45 HRC</td>
+                <td className="p-2.5 font-mono">196 GPa</td>
+                <td className="p-2.5 text-slate-700">優秀 (沉澱硬化相強度高)</td>
+                <td className="p-2.5 text-emerald-700 font-medium">🌟 良好 (含 Cu/Ni/Cr 防銹)</td>
+                <td className="p-2.5 font-mono">Ra ≤ 0.4 µm</td>
+                <td className="p-2.5"><span className="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2 py-0.5 rounded-md border border-emerald-300">✅ 完全合規 (鋼規標配)</span></td>
+              </tr>
+              <tr className="hover:bg-slate-50/80 transition">
+                <td className="p-2.5 font-bold text-slate-900">
+                  AISI 440C / SUS440C
+                  <span className="block font-mono text-[10px] text-slate-400 font-normal">高碳馬氏體不鏽鋼</span>
+                </td>
+                <td className="p-2.5 font-mono font-bold text-indigo-700">58 – 60 HRC</td>
+                <td className="p-2.5 font-mono">200 GPa</td>
+                <td className="p-2.5 text-slate-700">極高 (馬氏體高硬度抗刮)</td>
+                <td className="p-2.5 text-amber-700 font-medium">⚠️ 較弱 (高碳水測後須擦乾)</td>
+                <td className="p-2.5 font-mono">Ra ≤ 0.2 µm</td>
+                <td className="p-2.5"><span className="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2 py-0.5 rounded-md border border-emerald-300">✅ 合規 (極硬，須防銹)</span></td>
+              </tr>
+              <tr className="hover:bg-slate-50/80 transition">
+                <td className="p-2.5 font-bold text-slate-900">
+                  Uddeholm Elmax® SuperClean
+                  <span className="block font-mono text-[10px] text-slate-400 font-normal">高鉻高釩粉末冶金不鏽鋼</span>
+                </td>
+                <td className="p-2.5 font-mono font-bold text-indigo-700">58 – 62 HRC</td>
+                <td className="p-2.5 font-mono">210 GPa</td>
+                <td className="p-2.5 text-emerald-700 font-medium">頂級 (碳化釩極致抗磨)</td>
+                <td className="p-2.5 text-emerald-700 font-medium">🌟 優秀 (18% Cr 粉末防鏽)</td>
+                <td className="p-2.5 font-mono">Ra ≤ 0.1 µm</td>
+                <td className="p-2.5"><span className="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2 py-0.5 rounded-md border border-emerald-300">✅ 完全合規 (頂級粉末鋼)</span></td>
+              </tr>
+              <tr className="hover:bg-slate-50/80 transition">
+                <td className="p-2.5 font-bold text-slate-900">
+                  AISI 316 / 316L (低溫氮化)
+                  <span className="block font-mono text-[10px] text-slate-400 font-normal">Surface Nitrided / Kolsterising®</span>
+                </td>
+                <td className="p-2.5 font-mono font-bold text-blue-700">表面 &gt;68 HRC<span className="block font-normal text-[10px] text-slate-400">基材 &lt;20 HRC</span></td>
+                <td className="p-2.5 font-mono">193 GPa</td>
+                <td className="p-2.5 text-slate-700">優秀 (氮化表面層抑制咬死)</td>
+                <td className="p-2.5 text-emerald-700 font-medium">🌟 極佳 (保留 316 含鉬高抗蝕)</td>
+                <td className="p-2.5 font-mono">Ra ≤ 0.4 µm</td>
+                <td className="p-2.5"><span className="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2 py-0.5 rounded-md border border-emerald-300">✅ 合規 (須表面氮化工藝)</span></td>
+              </tr>
+              <tr className="hover:bg-slate-50/80 transition bg-rose-50/30">
+                <td className="p-2.5 font-bold text-slate-900">
+                  AISI 316 / 316L (未處理退火態)
+                  <span className="block font-mono text-[10px] text-rose-500 font-normal">Standard Annealed Stainless</span>
+                </td>
+                <td className="p-2.5 font-mono text-rose-600">&lt; 20 HRC (150-200 HV)</td>
+                <td className="p-2.5 font-mono">193 GPa</td>
+                <td className="p-2.5 text-rose-600 font-bold">❌ 極差 (過軟易 Galling 咬死)</td>
+                <td className="p-2.5 text-emerald-700 font-medium">🌟 極佳</td>
+                <td className="p-2.5 font-mono">Ra ≤ 0.4 µm</td>
+                <td className="p-2.5"><span className="bg-rose-100 text-rose-800 text-[11px] font-bold px-2 py-0.5 rounded-md border border-rose-300">❌ 不合規 (未硬化無法抗磨)</span></td>
+              </tr>
+              <tr className="hover:bg-slate-50/80 transition bg-amber-50/30">
+                <td className="p-2.5 font-bold text-slate-900">
+                  快削黃銅 Free-Cutting Brass
+                  <span className="block font-mono text-[10px] text-slate-400 font-normal">C36000 / UNS C36000</span>
+                </td>
+                <td className="p-2.5 font-mono text-amber-700">&lt; 10 HRC (110-140 HV)</td>
+                <td className="p-2.5 font-mono">105 GPa</td>
+                <td className="p-2.5 text-amber-700">❌ 較差 (質軟，高頻耳翼易變形)</td>
+                <td className="p-2.5 text-amber-700">⚠️ 中等 (無銹但易氧化變色)</td>
+                <td className="p-2.5 font-mono">Ra ≤ 0.8 µm</td>
+                <td className="p-2.5"><span className="bg-amber-100 text-amber-800 text-[11px] font-bold px-2 py-0.5 rounded-md border border-amber-300">⚠️ 有限度允許 (低頻治具)</span></td>
+              </tr>
+              <tr className="hover:bg-slate-50/80 transition bg-amber-50/30">
+                <td className="p-2.5 font-bold text-slate-900">
+                  鈦合金 Ti-6Al-4V
+                  <span className="block font-mono text-[10px] text-slate-400 font-normal">Titanium Grade 5</span>
+                </td>
+                <td className="p-2.5 font-mono text-amber-700">35 – 38 HRC</td>
+                <td className="p-2.5 font-mono">114 GPa</td>
+                <td className="p-2.5 text-amber-700">⚠️ 一般 (乾摩擦易黏著咬合)</td>
+                <td className="p-2.5 text-emerald-700 font-medium">🌟 極佳 (生物相容極抗蝕)</td>
+                <td className="p-2.5 font-mono">Ra ≤ 0.4 µm</td>
+                <td className="p-2.5"><span className="bg-amber-100 text-amber-800 text-[11px] font-bold px-2 py-0.5 rounded-md border border-amber-300">⚠️ 須鍍膜才防旋合磨損</span></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

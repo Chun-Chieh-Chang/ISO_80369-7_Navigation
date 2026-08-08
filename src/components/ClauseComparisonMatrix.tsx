@@ -245,8 +245,8 @@ export const ClauseComparisonMatrix: React.FC = () => {
         testForce: '-',
         testTorque: '-',
         holdTime: '-',
-        fixture: '不鏽鋼參考夾具 (≥ 45 HRC)',
-        criteria: '製造精密度最高的不鏽鋼金屬測試夾具，Fig.C.3 具備 2.71mm 極限最壞情況耳翼',
+        fixture: '硬化不鏽鋼參考夾具 (ISO: Hardened SS / 實務: 17-4PH ≥45HRC 或 316氮化)',
+        criteria: '符合 ISO Annex C 精密金屬測試夾具 (硬化處理/Ra≤0.8μm)，Fig.C.3 具備 2.71mm 極限最壞情況耳翼',
         risk: '未定期校正參考夾具尺寸導致全盤測試結果無效'
       },
       {

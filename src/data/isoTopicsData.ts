@@ -372,9 +372,9 @@ export const ISO_TOPICS: ISOTopic[] = [
     categoryZh: '夾具與金屬件',
     iconName: 'Wrench',
     shortSummaryZh: '定義 ISO 80369-7 附錄 C 的 6 種標準鋼製金屬參考接頭（C.1~C.6），標準化法規測試檢驗條件。',
-    detailedDescriptionZh: '為了排除測試受測物時對手件材質變形的干擾，ISO 80369-7 附錄 C 精確指定了使用不鏽鋼高硬度金屬製作的參考接頭（Fig.C.1 至 C.6）。其中 C.1/C.4 用於標準氣密性測試，而 C.3（母耳翼縮窄至 2.71mm）及 C.6 則為專門測試機械極限的最壞情況（Worst-case）夾具。',
+    detailedDescriptionZh: '為了排除測試受測物時對手件材質變形的干擾，ISO 80369-7 附錄 C 定義了硬化不鏽鋼等高剛性金屬製作的參考接頭（Fig.C.1 至 C.6，彈性模數 > 3433 MPa；ISO 要求硬化抗磨損，一般未處理 316 因基材過軟 <20HRC 且易咬死而無法單獨達標，實務須用熱處理 17-4PH/440C ≥45 HRC 或 316 經表面低溫氮化改質硬化）。其中 C.1/C.4 用於標準氣密性測試，而 C.3（母耳翼縮窄至 2.71mm）及 C.6 則為專門測試機械極限的最壞情況（Worst-case）夾具。',
     keyParameters: [
-      { label: '材質要求 Material', value: '不鏽鋼 (Stainless Steel) 硬度 ≥ 45 HRC' },
+      { label: '材質要求 Material', value: 'ISO: 硬化不鏽鋼(抗磨損) / 17-4PH(≥45HRC)或316(須表面氮化)' },
       { label: '標稱母耳翼 C.1 Tab Width', value: '3.50', unit: 'mm' },
       { label: '極限母耳翼 C.3 Tab Width', value: '2.71 (縮窄 22%)', unit: 'mm' },
       { label: '表面粗糙度 Surface Finish', value: 'Ra ≤ 0.8', unit: 'μm' }
@@ -383,7 +383,7 @@ export const ISO_TOPICS: ISOTopic[] = [
     relatedISO20Annexes: ['General Apparatus Section 4'],
     relatedRefConnectors: ['C.1', 'C.2', 'C.3', 'C.4', 'C.5', 'C.6'],
     engineeringRiskZh: '誤用非標準的 360° 全螺紋 SML 連接器進行法規測試，雖然極易 Pass，但申報時會被 FDA / TFDA 認定無效並退件！',
-    auditFocusZh: '參考金屬夾具的 ISO 17025 外部校正報告、幾何特徵磨損定期檢查記錄。',
+    auditFocusZh: '參考金屬夾具的 ISO 17025 外部校正報告、幾何特徵磨損與表面咬合損壞檢查記錄。',
     tags: ['C.1', 'C.3', 'C.4', 'C.6', '參考夾具', 'Annex C'],
     figures: [
       {
@@ -393,10 +393,10 @@ export const ISO_TOPICS: ISOTopic[] = [
         standard: 'ISO 80369-7:2021 Annex C',
         figureType: 'fixture',
         figureTypeZh: '參考金屬件',
-        descriptionZh: '不鏽鋼 (≥45 HRC) 高精密度法規測試專用金屬參考件 (Fig.C.1~C.6)。詳細解析 C.1 標稱件與 C.3 Worst-case 最壞情況件之幾何差異。',
+        descriptionZh: '硬化不鏽鋼高精密度法規測試專用金屬參考件 (Fig.C.1~C.6，一般 316 須經表面氮化防磨損咬死；鋼規常選 17-4PH/440C ≥45 HRC)。詳細解析 C.1 標稱件與 C.3 Worst-case 最壞情況件之幾何差異。',
         svgKey: 'ISO7-FIG-C3',
         keyCallouts: [
-          { id: 'material', labelZh: '夾具材質', valueZh: 'Stainless Steel (≥ 45 HRC)' },
+          { id: 'material', labelZh: '夾具材質', valueZh: 'ISO: Hardened SS / 17-4PH(≥45HRC) 或 316(須氮化)' },
           { id: 'roughness', labelZh: '表面粗糙度', valueZh: 'Ra ≤ 0.8 μm' }
         ]
       }
@@ -1260,7 +1260,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       '搭配扭矩起子進一步旋合裝配。'
     ],
     acceptanceCriteriaZh: [
-      '金屬件表面硬度 ≥ 45 HRC，無鏽蝕或刮痕。',
+      '金屬件符合 ISO 粗糙度 Ra ≤ 0.8 μm，無鏽蝕刮痕 (實務常用 17-4PH ≥45 HRC 或 316 表面氮化)。',
       '關鍵尺寸符合 Annex C 容許公差（如 ± 0.005 mm）。'
     ],
     commonNonConformancesZh: [
