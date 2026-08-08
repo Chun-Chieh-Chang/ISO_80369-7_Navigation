@@ -1347,6 +1347,26 @@
   - `npm run lint` (`tsc --noEmit`)：100% 通過 (0 errors)。
   - `npm run build`：1682 模組成功打包 (Built in 1.93s, 0 errors)。
 
+---
+
+## 版本：v6.7 修正 GitHub Pages 子路徑 HTML 檔案 404 資源載入失敗問題 (2026-08-08)
+
+### 需求內容
+1. **修復 404 Failed to load resource (HTTP 404)**：
+   - 在 `ConnectorInspector.tsx` 中點擊「開啟獨立 HTML 報告檔」按鈕時，絕對根目錄超連結 `/iso_80369_7_material_evaluation_matrix.html` 在 GitHub Pages 的 `/ISO_80369-7_Navigation/` 子路徑環境下會請求到網域根目錄，致使 404 錯誤。
+
+### 過程紀錄與執行分析 (RCA & CAPA)
+- **根因分析 (RCA)**：
+  - Vite `vite.config.ts` 設定了 `base: '/ISO_80369-7_Navigation/'`，若 `href` 使用絕對斜線開頭 `/iso_...html`，瀏覽器會跳過專案子目錄直接請求網域根目錄，造成 GitHub Pages 回傳 HTTP 404 找不到檔案。
+- **矯正措施 (CAPA)**：
+  - 將超連結寫法修訂為動態帶入 Vite `import.meta.env.BASE_URL`：
+    `href={`${import.meta.env.BASE_URL}iso_80369_7_material_evaluation_matrix.html`}`
+  - 新增 `src/vite-env.d.ts` 提供完整的 Vite Client 型別宣告。
+- **編譯與確效 (Mandatory Runtime Check)**：
+  - `npm run lint` (`tsc --noEmit`)：100% 通過 (0 errors)。
+  - `npm run build`：1682 模組成功打包 (Built in 1.76s, 0 errors)。
+
+
 
 
 

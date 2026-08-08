@@ -326,7 +326,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
             </h3>
           </div>
           <a
-            href="/iso_80369_7_material_evaluation_matrix.html"
+            href={`${import.meta.env.BASE_URL}iso_80369_7_material_evaluation_matrix.html`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center space-x-1.5 text-xs font-bold text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 border border-blue-200 px-3 py-1.5 rounded-xl transition cursor-pointer self-start sm:self-auto"
