@@ -15,7 +15,9 @@ export const ISO_TOPICS: ISOTopic[] = [
       { label: '測試壓力 Test Pressure', value: '300 - 330', unit: 'kPa' },
       { label: '氣壓壓降極限 Max Leak Rate', value: '≤ 0.005', unit: 'Pa·m³/s' },
       { label: '水滴法持壓 Hold Time', value: '30 - 35', unit: '秒' },
-      { label: '壓降法持壓 Hold Time', value: '15 - 20', unit: '秒' }
+      { label: '壓降法持壓 Hold Time', value: '15 - 20', unit: '秒' },
+      { label: '預處理環境 Preconditioning (ISO 80369-20)', value: '(20 ± 5)°C, (50 ± 10)% RH, ≥24h' },
+      { label: '測試執行環境 Test Environment', value: '15°C – 30°C, 10% – 70% RH' }
     ],
     relatedISO7Clauses: ['6.1'],
     relatedISO20Annexes: ['Annex B', 'Annex C'],
@@ -551,8 +553,32 @@ export const ISO_TOPICS: ISOTopic[] = [
     tags: ['Clause 1', 'Clause 2', 'Clause 3', 'Scope', '引用標準', '術語定義']
   },
   {
+    id: 'statistical-analysis-annex-j',
+    titleZh: '12. 變量數據統計分析 (Statistical Analysis of Variable Data — Annex J)',
+    titleEn: 'Statistical Analysis of Variable Test Data',
+    category: 'general',
+    categoryZh: '通用法規與安全',
+    iconName: 'BarChart2',
+    shortSummaryZh: '將通過/失敗屬性測試轉化為可統計的連續變量數據，計算 UTL/LTL 容許限與 k 係數，提供量化合規證據（ISO 80369-20:2024 Annex J）。',
+    detailedDescriptionZh: 'ISO 80369-20:2024 Annex J 提供了一種將傳統「Pass/Fail 屬性測試」升級為「測量至失效點（Variable Data）」的先進統計驗證方法。透過測量每個樣品的實際失效值（如最大耐受壓力、最大分離拉力、最大抗旋鬆扭矩），可以計算母體分佈的平均值（Mean）與標準差（SD），進而用統計容許限（Tolerance Limit）係數 k 計算單側上/下公差限（UTL/LTL）。此方法數據遠比傳統 Pass/Fail 判定更具說服力，可大幅減少所需樣本數，並提供更嚴謹的統計合規證明。測試至失效時需特別注意：金屬參考接頭（如 Fig.C.1/C.3）不建議重複使用於破壞性測試，以免損壞法規校正夾具。',
+    keyParameters: [
+      { label: '統計方法 Method', value: '容許限分析 (Tolerance Limit Analysis)' },
+      { label: '常態性測試 Normality Test', value: '必須先驗證數據符合常態分佈（如 Shapiro-Wilk）' },
+      { label: '容許限 UTL/LTL', value: '單側公差上限 (Upper Tolerance Limit)' },
+      { label: 'k 係數 k-Factor', value: '依樣本數 n 與信心水準 (95%/99%) 查表決定' },
+      { label: '最小樣本數 Min n', value: '建議 n ≥ 30（提供足夠統計功效）' }
+    ],
+    relatedISO7Clauses: ['6.1', '6.2', '6.4', '6.5', '6.6'],
+    relatedISO20Annexes: ['Annex J'],
+    relatedRefConnectors: ['C.1', 'C.2', 'C.3', 'C.4', 'C.5', 'C.6'],
+    engineeringRiskZh: '【重要】測試至失效時，金屬夾具承受超規格負載可能導致磨損甚至損壞。ISO 標準明確建議：若金屬參考接頭（如 C.1/C.3）採用高強度鋼製作，通常不建議對金屬件進行破壞性測試；反之，應對受測塑膠件施加漸增負載直至分離，確保夾具安全。',
+    auditFocusZh: '(1) 常態性驗證報告（Normality test p-value）；(2) k 係數查表來源與信賴水準設定；(3) 計算 UTL = Mean + k × SD 之數學推導記錄；(4) 若採用 Annex J 統計分析，測試報告需完整附上原始數據、分佈圖與容許限計算書。',
+    tags: ['Annex J', '統計分析', 'UTL', 'LTL', 'k係數', '容許限', '常態性', '變量數據'],
+    figures: []
+  },
+  {
     id: 'annexes-rationale-summary',
-    titleZh: '12. 標準原理背景、非互換性評估與測試修訂彙整 (Rationale, Assessment & Modifications)',
+    titleZh: '13. 標準原理背景、非互換性評估與測試修訂彙整 (Rationale, Assessment & Modifications)',
     titleEn: 'Rationale, Non-interchangeability & Modifications',
     category: 'general',
     categoryZh: '通用法規與安全',
@@ -818,11 +844,12 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     titleZh: 'Clause 4 通用測試要求與預處理條件',
     type: 'test_method',
     typeZh: '實驗室測試方法',
-    objectiveZh: '規範測試環境溫濕度預處理（20±5°C, 50±10% RH ≥24h）與夾具要求。',
+    objectiveZh: '規範測試環境溫濕度預處理（20±5°C, 50±10% RH ≥24h，依 ISO 80369-20:2024 原文 Clause 4）與夾具要求。',
     appliesToZh: '所有 ISO 80369-20 附錄試驗',
     quantitativeConditions: {
-      temperatureC: '20°C ± 5°C',
-      holdTimeHours: '≥ 24 小時 (溫濕度預處理)'
+      temperatureC: '預處理: (20 ± 5)°C / 測試執行: 15°C – 30°C (ISO 80369-20:2024 Clause 4)',
+      holdTimeHours: '≥ 24 小時 (溫濕度預處理)',
+      media: '相對濕度 RH: 預處理 (50 ± 10)% / 測試執行 10% – 70%'
     },
     fixtureRequiredZh: '恆溫恆濕預處理箱',
     testProcedureStepsZh: [

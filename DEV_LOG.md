@@ -1,5 +1,37 @@
 # 開發日誌 (DEV_LOG)
 
+## 版本：v2.5 ISO 原文 PDF 核對與缺失資料補齊 (2026-08-09)
+
+### 需求內容
+1. 比對 Google 試算表（含 11 項測試方法）與專案頁面資訊的一致性。
+2. 直接從 `isodoc/ISO_80369-7_2021_en.pdf` 與 `isodoc/ISO_80369-20_2024_en.pdf` 萃取原文數值，逐條驗證。
+3. 補齊試算表比對中發現的 5 項缺失，並修正 1 項誤記錯誤。
+
+### 過程紀錄與問題分析 (RCA & CAPA)
+
+#### 1. 預處理溫度誤記 (RCA - 重要)
+- **問題描述**：`isoData.ts` 的 `ISO20_ANNEX_A_PRECONDITIONING` 及 `isoTopicsData.ts` 的 `iso20-clause-4` 記載預處理溫度為 `(23 ± 2)°C`，與 ISO 原文不符。
+- **原因分析 (RCA)**：資料建立時誤引用了 ISO 10993 系列標準（生物相容性測試常用 23°C）的條件，而非 ISO 80369-20 的實際規定。
+- **矯正措施 (CAPA)**：使用 PyMuPDF 直接萃取 `ISO_80369-20_2024_en.pdf` p.12 原文確認：`(20 ± 5) °C and (50 ± 10) % RH for not less than 24 h`。已全面修正所有相關記載。
+- **預防措施**：未來新增任何測試條件數據，必須以 PDF 萃取為第一性原理依據，禁止從記憶或其他文件推斷。
+
+#### 2. 缺少測試執行環境範圍 (RCA)
+- **問題描述**：試算表記載「測試環境：15°C 至 30°C，10% 至 70% RH」，但專案介面未顯示此資訊。
+- **矯正措施 (CAPA)**：
+  - 在 `fluid-leakage` Topic 的 `keyParameters` 補充測試執行環境欄位。
+  - 在 `isoData.ts` 的 `ISO20_ANNEX_A_PRECONDITIONING` 新增 `testEnvTempCMin/Max` 與 `testEnvRhPercentMin/Max` 欄位。
+  - 更新 `iso20-clause-4` 的 `quantitativeConditions` 區分預處理與執行環境。
+
+#### 3. 缺少 Annex J 統計分析 Topic (RCA)
+- **問題描述**：試算表將 Annex J 變量數據統計分析獨立列為一個測試維度，但專案無對應 Topic 頁面。
+- **矯正措施 (CAPA)**：新增 `statistical-analysis-annex-j` Topic（第 12 項），依 ISO 80369-20:2024 原文 p.30-32 準確描述 Annex J 的原則（J.1）、測試變體（J.2.1-J.2.6）與統計分析方法（J.3.1-J.3.2 UTL/LTL 公式 x̄ ± k·s）。
+
+### 核對結論
+- **ISO 80369-7:2021**：Clause 6.1 ~ 6.6 所有測試參數（壓力/力值/扭矩/時間）100% 與 PDF 原文完全一致。
+- **ISO 80369-20:2024**：修正預處理溫度錯誤，補充測試執行環境，新增 Annex J Topic，TypeScript 編譯零錯誤。
+
+---
+
 ## 版本：v1.0 基準點建立 (2026-07-22)
 
 ### 需求內容

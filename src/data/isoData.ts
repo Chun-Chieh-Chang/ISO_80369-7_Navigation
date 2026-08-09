@@ -688,12 +688,18 @@ export const FAILURE_MODES: FailureModeInfo[] = [
  * ISO 80369-20:2024 Annex A Standard Atmospheric Preconditioning Requirements
  */
 export const ISO20_ANNEX_A_PRECONDITIONING = {
-  standard: 'ISO 80369-20:2024 Annex A',
-  titleZh: 'Annex A 狀態調節與大氣測試標準環境',
-  tempC: { target: 23, tolerance: 2 },
-  rhPercent: { target: 50, tolerance: 5 },
+  standard: 'ISO 80369-20:2024 Clause 4',
+  titleZh: 'Clause 4 預處理条件與測試環境',
+  // 預處理環境（依 ISO 80369-20:2024 原文 Clause 4 確認）
+  tempC: { target: 20, tolerance: 5 },       // (20 ± 5)°C
+  rhPercent: { target: 50, tolerance: 10 },  // (50 ± 10)% RH
   minDurationHours: 24,
-  descriptionZh: '所有物理與機械試驗 (Clause 6.1~6.6) 執行前，受測樣品與金屬參考接頭必須在 (23 ± 2)°C 與 (50 ± 5)% RH 之標準大氣環境中至少靜置調節 24 小時，且測試全程需維持於此標準環境溫度。'
+  // 測試執行環境（依 ISO 80369-20:2024 各 Annex 确認）
+  testEnvTempCMin: 15,
+  testEnvTempCMax: 30,
+  testEnvRhPercentMin: 10,
+  testEnvRhPercentMax: 70,
+  descriptionZh: '所有物理與機械試驗 (Clause 6.1~6.6) 執行前，受測樣品與金屬參考接頭必須在 (20 ± 5)°C 與 (50 ± 10)% RH 之標準大氣環境中至少靜置調節 24 小時。測試執行期間環境需維持 15°C – 30°C，相對濕度 10% – 70%。'
 };
 
 /**
