@@ -2,6 +2,30 @@
 
 All notable changes to the ISO 80369-7 & ISO 80369-20 Navigation App will be documented in this file.
 
+## [v8.15.0] - 2026-09-03
+
+### SSOT Alignment: ISO 80369-20:2024 Preconditioning & MECE Audit
+- **Preconditioning SSOT Alignment**:
+  - `DvpGenerator.tsx`: Corrected the legacy preconditioning banner from `(23 ± 2) °C` / `(50 ± 5) % RH` to official ISO 80369-20:2024 Clause 4 / Section .2 specifications: `(20 ± 5) °C` and `(50 ± 10) % RH`.
+  - `excelExporter.ts`: Restructured Sheet 3 to `ISO 80369-20:2024 Clause 4 & Section .2 Preconditioning Specification` (`Preconditioning Specs`), explicitly detailing sample preconditioning `(20 ± 5) °C`, humidity `(50 ± 10) % RH`, and ambient test environment range (`15 °C ~ 30 °C`, `10 % ~ 70 % RH`).
+  - `isoData.ts`: Updated 14 Mandatory Elements item e) to cite Clause 4 / Section .2 with standardized example value `20.5 °C, 52.0% RH`.
+- **SSOT Unit Test Guard**: Added explicit automated assertion in `isoHelpers.test.ts` verifying `ISO20_ANNEX_A_PRECONDITIONING` has `tempC.target === 20`, `tempC.tolerance === 5`, `rhPercent.target === 50`, `rhPercent.tolerance === 10` (17/17 tests passing).
+- **MECE Navigation Validation**: Verified 5 main tabs and dual-tier filters satisfy mutual exclusivity and collective exhaustiveness across small-bore Luer connector design verification domains.
+
+## [v8.14.0] - 2026-09-03
+
+### International Bilingual Architecture & Full English Export
+- **Lightweight i18n Context (Zero Dependency)**: Built custom React `LanguageContext` + TypeScript dictionary (`src/i18n/LanguageContext.tsx`, `src/i18n/translations.ts`) supporting instantaneous `zh` ⇄ `en` toggle with `localStorage` persistence and `?lang=en` URL parameter auto-detection.
+- **Top Header & Navigation Localization**: Integrated sleek `[🌐 English / 繁體中文]` switcher into `Header.tsx`, dynamically translating title, subtitle, version badge, and all 5 main navigation tabs.
+- **DVP Matrix & 14 Reporting Items Full English Interface**:
+  - `DvpGenerator.tsx`: Subtab navigation, filter dropdowns (Male/Female, Lock/Slip), table headers, pre-assembly conditions, applied loads, hold times, reference fixtures, and acceptance criteria fully localized.
+  - Section .5 Test Report 14 Mandatory Elements cards dynamically display official English descriptions (`descriptionEn`) and verified example values (`exampleValueEn`).
+  - Added bilingual CSV export (`exportReportChecklistCSV`) generating localized filenames and column headers.
+- **Medical-Grade Excel Bilingual Workbook Export (`excelExporter.ts`)**:
+  - Function signature accepts `(config: TestConfigState, language: 'zh' | 'en' = 'zh')`.
+  - When in English mode, exports `ISO_80369_7_Design_Verification_Plan_Report_{date}.xlsx` with 3 fully translated A4 landscape worksheets: `ISO20 Report 14 Items`, `DVP Test Matrix`, and `Preconditioning Specs`.
+- **Validation & Automated Tests**: Added 3 new unit tests to `src/utils/isoHelpers.test.ts` (16/16 tests passing, 100% clean typecheck and production build).
+
 ## [v8.13.0] - 2026-09-03
 
 ### Golden Merge: SSOT Dual-Phase Expansion & Excel DVP Synchronization

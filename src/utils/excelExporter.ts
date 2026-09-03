@@ -26,16 +26,22 @@ const configureA4LandscapePageSetup = (worksheet: ExcelJS.Worksheet) => {
 
 /**
  * Generates and downloads a true native binary Excel workbook (.xlsx) via ExcelJS.
- * Features 100% zero warning popups, A4 Landscape 1-page width fitting, Morandi colors,
- * cell borders, bold title headers, and automatic text wrapping.
+ * Supports bilingual (ZH / EN) export for international regulatory compliance.
  */
-export const exportMedicalGradeExcelReport = async (config: TestConfigState) => {
+export const exportMedicalGradeExcelReport = async (config: TestConfigState, language: 'zh' | 'en' = 'zh') => {
+  const isEn = language === 'en';
   const workbook = new ExcelJS.Workbook();
   workbook.creator = 'ISO 80369 Navigation System';
   workbook.created = new Date();
 
-  const selectedGenderZh = config.connectorGender === 'male' ? '♂️ 公接頭 (Male Luer)' : '♀️ 母接頭 (Female Luer)';
-  const selectedTypeZh = config.connectorType === 'lock' ? '剛性/旋轉鎖定型 (Lock)' : '6% 滑動型 (Slip)';
+  const selectedGenderLabel = isEn
+    ? (config.connectorGender === 'male' ? '♂️ Male Luer' : '♀️ Female Luer')
+    : (config.connectorGender === 'male' ? '♂️ 公接頭 (Male Luer)' : '♀️ 母接頭 (Female Luer)');
+
+  const selectedTypeLabel = isEn
+    ? (config.connectorType === 'lock' ? 'Rigid/Rotatable Lock (L2)' : '6% Slip (L1)')
+    : (config.connectorType === 'lock' ? '剛性/旋轉鎖定型 (Lock)' : '6% 滑動型 (Slip)');
+
   const currentDate = new Date().toISOString().split('T')[0];
 
   // Common Border Style
@@ -49,14 +55,15 @@ export const exportMedicalGradeExcelReport = async (config: TestConfigState) => 
   // ==========================================
   // SHEET 1: ISO 80369-20 Section .5 Mandatory 14 Test Report Items
   // ==========================================
-  const ws1 = workbook.addWorksheet('14項法定報告檢核(Section .5)');
+  const sheet1Name = isEn ? 'ISO20 Report 14 Items' : '14項法定報告檢核(Section .5)';
+  const ws1 = workbook.addWorksheet(sheet1Name);
   configureA4LandscapePageSetup(ws1);
 
   ws1.columns = [
     { header: '', key: 'code', width: 10 },
     { header: '', key: 'clause', width: 16 },
     { header: '', key: 'titleEn', width: 28 },
-    { header: '', key: 'titleZh', width: 22 },
+    { header: '', key: 'titleZh', width: isEn ? 26 : 22 },
     { header: '', key: 'mandatory', width: 18 },
     { header: '', key: 'instructions', width: 46 },
     { header: '', key: 'example', width: 38 },
@@ -66,144 +73,171 @@ export const exportMedicalGradeExcelReport = async (config: TestConfigState) => 
   // Row 1: Main Title Banner
   ws1.mergeCells('A1:H1');
   const titleCell1 = ws1.getCell('A1');
-  titleCell1.value = '  ISO 80369-20:2024 Section .5 實驗室正式測試報告 14 大法定必填項目檢核表 (A4 檢核頁面)';
-  titleCell1.font = { name: 'Microsoft JhengHei', size: 12, bold: true, color: { argb: 'FFFFFF' } };
-  titleCell1.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: '0F172A' } };
+  titleCell1.value = isEn
+    ? '  ISO 80369-20:2024 Section .5 Laboratory Test Report 14 Mandatory Reporting Elements Checklist'
+    : '  ISO 80369-20:2024 Section .5 實驗室正式測試報告 14 大法定必填項目檢核表 (A4 檢核頁面)';
+  titleCell1.font = { name: 'Segoe UI', size: 12, bold: true, color: { argb: 'FFFFFF' } };
+  titleCell1.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: '1E1B4B' } };
   titleCell1.alignment = { vertical: 'middle', horizontal: 'left' };
-  ws1.getRow(1).height = 32;
+  ws1.getRow(1).height = 34;
 
   // Row 2: Subtitle Banner
   ws1.mergeCells('A2:H2');
-  const subTitleCell1 = ws1.getCell('A2');
-  subTitleCell1.value = `  規範依據: ISO 80369-20:2024 Annex B.5 / C.5 / D.5 / E.5 / F.5 / G.5 | 大氣預處理: ${ISO20_ANNEX_A_PRECONDITIONING.tempC.target}±${ISO20_ANNEX_A_PRECONDITIONING.tempC.tolerance}°C, ${ISO20_ANNEX_A_PRECONDITIONING.rhPercent.target}±${ISO20_ANNEX_A_PRECONDITIONING.rhPercent.tolerance}% RH (≥24h) | 導出日期: ${currentDate}`;
-  subTitleCell1.font = { name: 'Microsoft JhengHei', size: 9.5, bold: true, color: { argb: '1E40AF' } };
-  subTitleCell1.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'EFF6FF' } };
-  subTitleCell1.alignment = { vertical: 'middle', horizontal: 'left' };
-  ws1.getRow(2).height = 24;
+  const subCell1 = ws1.getCell('A2');
+  subCell1.value = isEn
+    ? `  Standard Annexes B.5 ~ G.5 Compliance Requirements | Specimen: ${selectedGenderLabel} ${selectedTypeLabel} | Generated: ${currentDate}`
+    : `  依據法規附錄 B.5 ~ G.5 規範 | 受測規格: ${selectedGenderLabel} ${selectedTypeLabel} | 產出日期: ${currentDate} | 適用醫療器材 DHF 驗證檔案存檔`;
+  subCell1.font = { name: 'Segoe UI', size: 9.5, italic: true, color: { argb: 'C7D2FE' } };
+  subCell1.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: '312E81' } };
+  subCell1.alignment = { vertical: 'middle', horizontal: 'left' };
+  ws1.getRow(2).height = 22;
 
   // Row 4: Column Headers
-  const headers1 = ['項目代碼', 'ISO 條款 (a~n)', '欄位名稱 (EN)', '必填欄位名稱 (中文)', '法規強制程度', '法規規範說明與指導', '報告填寫範例說明', '實驗室實際填報內容 (Lab Input)'];
+  const headers1 = isEn
+    ? ['Item', 'Standard Clause', 'Field Name (EN)', 'Reporting Category', 'Mandatory Level', 'Regulatory & Inspection Details', 'Compliance Example Value', 'Lab Verification Status']
+    : ['項目編號', '標準條款 (a~n)', '必填欄位名稱 (EN)', '必填欄位中文說明', '法規要求層級', '法規規範與填寫指引 (Audit Guidance)', '規範範例數值說明 (Example Data)', '實驗室填寫 / 稽核記錄欄位'];
+
   const headerRow1 = ws1.getRow(4);
-  headerRow1.height = 28;
+  headerRow1.height = 30;
   headers1.forEach((text, i) => {
     const cell = headerRow1.getCell(i + 1);
     cell.value = text;
-    cell.font = { name: 'Microsoft JhengHei', size: 10, bold: true, color: { argb: 'FFFFFF' } };
-    cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: '2563EB' } };
+    cell.font = { name: 'Segoe UI', size: 9.5, bold: true, color: { argb: 'FFFFFF' } };
+    cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: '4338CA' } };
     cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
     cell.border = {
-      bottom: { style: 'medium', color: { argb: '1D4ED8' } },
-      right: { style: 'thin', color: { argb: '64748B' } }
+      bottom: { style: 'medium', color: { argb: '312E81' } },
+      right: { style: 'thin', color: { argb: '6366F1' } }
     };
   });
 
-  // Data Rows for Sheet 1
+  // Populate 14 items
   ISO20_MANDATORY_REPORT_ITEMS.forEach((item, idx) => {
     const rowNum = idx + 5;
     const row = ws1.getRow(rowNum);
-    row.height = 42;
+    row.height = 38;
     const bgFill = idx % 2 === 0 ? 'FFFFFF' : 'F8FAFC';
+
+    const desc = isEn ? (item.descriptionEn || item.descriptionZh) : item.descriptionZh;
+    const exampleVal = isEn ? (item.exampleValueEn || item.exampleValueZh) : item.exampleValueZh;
+    const category = isEn ? item.titleZh : item.titleZh;
+    const mandatoryLevel = isEn ? 'Mandatory (Section .5)' : '★ 法定必填 (Section .5)';
+    const labStatus = isEn ? '[ ] Documented' : '[ ] 已填寫 (合格)';
 
     const values = [
       item.code,
       `Section .5 (${item.id})`,
       item.titleEn,
-      item.titleZh,
-      'MANDATORY (法定必填)',
-      item.descriptionZh,
-      item.exampleValueZh,
-      ''
+      category,
+      mandatoryLevel,
+      desc,
+      exampleVal,
+      labStatus
     ];
 
     values.forEach((val, i) => {
       const cell = row.getCell(i + 1);
       cell.value = val;
-      cell.font = { name: 'Microsoft JhengHei', size: 9.5, color: { argb: '1E293B' } };
+      cell.font = { name: 'Segoe UI', size: 9, color: { argb: '1E293B' } };
       cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: bgFill } };
-      cell.alignment = { vertical: 'top', wrapText: true };
+      cell.alignment = { vertical: 'middle', wrapText: true };
       cell.border = thinBorder;
 
-      if (i === 0) {
-        cell.font = { name: 'Segoe UI', size: 9.5, bold: true, color: { argb: '1E293B' } };
-        cell.alignment = { vertical: 'top', horizontal: 'center' };
+      if (i === 0 || i === 1) {
+        cell.font = { name: 'Segoe UI', size: 9, bold: true, color: { argb: '4338CA' } };
+        cell.alignment = { vertical: 'middle', horizontal: 'center' };
       } else if (i === 4) {
-        // Mandatory Badge
-        cell.font = { name: 'Microsoft JhengHei', size: 9, bold: true, color: { argb: '166534' } };
-        cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'DCFCE7' } };
-        cell.alignment = { vertical: 'top', horizontal: 'center' };
+        cell.font = { name: 'Segoe UI', size: 8.5, bold: true, color: { argb: '047857' } };
+        cell.alignment = { vertical: 'middle', horizontal: 'center' };
+      } else if (i === 7) {
+        cell.font = { name: 'Segoe UI', size: 9, italic: true, color: { argb: '64748B' } };
+        cell.alignment = { vertical: 'middle', horizontal: 'center' };
       }
     });
   });
 
-  // Warning Footer Box
+  // Warning Banner
   const warningStartRow = 5 + ISO20_MANDATORY_REPORT_ITEMS.length + 1;
-  ws1.mergeCells(`A${warningStartRow}:H${warningStartRow + 1}`);
-  const warningCell = ws1.getCell(`A${warningStartRow}`);
-  warningCell.value = '📌 法規查核與認證審查注意事項 (Regulatory Compliance Warning):\n1. 缺少上述 a) 至 n) 任何一項內容，可能導致 TFDA、FDA (510k) 或 CE MDR 稽核員補件發問 (RFI) 或退件。\n2. 第 k) 項測試系統總積 V（系統內部容積）為 ISO 80369-20:2024 新版強制揭露項目，需搭配 Figure B.1 的測定方法標註。';
-  warningCell.font = { name: 'Microsoft JhengHei', size: 9, color: { argb: '78350F' } };
-  warningCell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FEF3C7' } };
-  warningCell.alignment = { vertical: 'middle', wrapText: true };
+  ws1.mergeCells(`A${warningStartRow}:H${warningStartRow}`);
+  const warnCell = ws1.getCell(`A${warningStartRow}`);
+  warnCell.value = isEn
+    ? '  ⚠️ AUDIT COMPLIANCE WARNING: Omission of any item from a) through n) may lead to FDA (510k) RFI or EU MDR notified body non-conformance.'
+    : '  ⚠️ 認證審查安全警語 (Regulatory Warning)：測試報告中若缺少上述 a) 至 n) 任何一項內容，將引來主管機關 (FDA 510k / CE MDR / TFDA) 稽核員補件發問 (RFI) 或直接退件。';
+  warnCell.font = { name: 'Segoe UI', size: 9.5, bold: true, color: { argb: '9A3412' } };
+  warnCell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFEDD5' } };
+  warnCell.alignment = { vertical: 'middle', horizontal: 'left' };
+  warnCell.border = { top: { style: 'thin', color: { argb: 'FDBA74' } }, bottom: { style: 'thin', color: { argb: 'FDBA74' } } };
+  ws1.getRow(warningStartRow).height = 28;
 
   ws1.autoFilter = `A4:H${4 + ISO20_MANDATORY_REPORT_ITEMS.length}`;
 
   // ==========================================
-  // SHEET 2: ISO 80369-7 DVP Test Matrix
+  // SHEET 2: ISO 80369-7 DVP Design Verification Matrix
   // ==========================================
-  const ws2 = workbook.addWorksheet('DVP驗證計畫矩陣表(ISO 7&20)');
+  const sheet2Name = isEn ? 'DVP Test Matrix' : 'ISO 80369-7 DVP驗證矩陣';
+  const ws2 = workbook.addWorksheet(sheet2Name);
   configureA4LandscapePageSetup(ws2);
 
   ws2.columns = [
-    { header: '', key: 'id', width: 10 },
-    { header: '', key: 'title', width: 24 },
-    { header: '', key: 'clause7', width: 14 },
-    { header: '', key: 'annex20', width: 14 },
-    { header: '', key: 'preAssembly', width: 22 },
-    { header: '', key: 'activeLoad', width: 22 },
-    { header: '', key: 'holdTime', width: 16 },
-    { header: '', key: 'refConnector', width: 24 },
-    { header: '', key: 'worstCase', width: 32 },
-    { header: '', key: 'passCriteria', width: 42 }
+    { header: '', key: 'clause', width: 12 },
+    { header: '', key: 'title', width: 34 },
+    { header: '', key: 'iso7', width: 16 },
+    { header: '', key: 'iso20', width: 16 },
+    { header: '', key: 'preAssembly', width: 34 },
+    { header: '', key: 'testLoad', width: 30 },
+    { header: '', key: 'holdTime', width: 28 },
+    { header: '', key: 'fixture', width: 28 },
+    { header: '', key: 'worstCase', width: 24 },
+    { header: '', key: 'criteria', width: 48 }
   ];
 
   // Row 1: Title Banner
   ws2.mergeCells('A1:J1');
   const titleCell2 = ws2.getCell('A1');
-  titleCell2.value = '  ISO 80369-7:2021 & ISO 80369-20:2024 完整設計驗證計畫 (DVP) 測試規範矩陣';
-  titleCell2.font = { name: 'Microsoft JhengHei', size: 12, bold: true, color: { argb: 'FFFFFF' } };
+  titleCell2.value = isEn
+    ? '  ISO 80369-7:2021 & ISO 80369-20:2024 Design Verification Plan (DVP) Comprehensive Test Matrix'
+    : '  ISO 80369-7:2021 & ISO 80369-20:2024 醫療器材設計驗證規範 (DVP) 完整測試矩陣表';
+  titleCell2.font = { name: 'Segoe UI', size: 12, bold: true, color: { argb: 'FFFFFF' } };
   titleCell2.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: '0F172A' } };
   titleCell2.alignment = { vertical: 'middle', horizontal: 'left' };
-  ws2.getRow(1).height = 32;
+  ws2.getRow(1).height = 34;
 
   // Row 2: Subtitle Banner
   ws2.mergeCells('A2:J2');
-  const subTitleCell2 = ws2.getCell('A2');
-  subTitleCell2.value = `  受測產品對象: ${selectedGenderZh} - ${selectedTypeZh} | 導出日期: ${currentDate} | ISO 17025 合規對照表`;
-  subTitleCell2.font = { name: 'Microsoft JhengHei', size: 9.5, bold: true, color: { argb: '1E40AF' } };
-  subTitleCell2.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'EFF6FF' } };
-  subTitleCell2.alignment = { vertical: 'middle', horizontal: 'left' };
-  ws2.getRow(2).height = 24;
+  const subCell2 = ws2.getCell('A2');
+  subCell2.value = isEn
+    ? `  Target Specimen: ${selectedGenderLabel} ${selectedTypeLabel} | Standard Evaluation: Clauses 6.1 ~ 6.6 | Date: ${currentDate}`
+    : `  受測規格: ${selectedGenderLabel} ${selectedTypeLabel} | 涵蓋條文: Clause 6.1 ~ 6.6 全部物理性能驗證項目 | 產出日期: ${currentDate}`;
+  subCell2.font = { name: 'Segoe UI', size: 9.5, italic: true, color: { argb: 'CBD5E1' } };
+  subCell2.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: '1E293B' } };
+  subCell2.alignment = { vertical: 'middle', horizontal: 'left' };
+  ws2.getRow(2).height = 22;
 
   // Row 4: Column Headers
-  const headers2 = ['條文 ID', '測試名稱 & 主題 (Test Title)', 'ISO 80369-7 條文', 'ISO 80369-20 附錄', '預裝配條件 (扭矩 / 推力)', '定量加載條件 (壓力/拉力/扭矩)', '持壓時間', '指定金屬參考接頭 (Annex C)', '最壞情況選用理由 (Worst-Case Rationale)', '合格判定 Pass 標準'];
+  const headers2 = isEn
+    ? ['Clause', 'Test Title', 'ISO 80369-7', 'ISO 80369-20', 'Pre-assembly Condition', 'Applied Test Load', 'Hold Time', 'Specified Reference Fixture', 'Worst-Case Geometry Requirement', 'Acceptance Pass Criteria']
+    : ['條款編號', '測試項目名稱', 'ISO 80369-7 條文', 'ISO 80369-20 附錄', '預裝配條件 (扭矩 / 軸推力)', '定量加載考驗負載', '規定保持時間 (Hold Time)', '指定金屬參考接頭', '最壞情況幾何判定', '法規允收標準 (Pass Criteria)'];
+
   const headerRow2 = ws2.getRow(4);
-  headerRow2.height = 28;
+  headerRow2.height = 30;
   headers2.forEach((text, i) => {
     const cell = headerRow2.getCell(i + 1);
     cell.value = text;
-    cell.font = { name: 'Microsoft JhengHei', size: 10, bold: true, color: { argb: 'FFFFFF' } };
-    cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: '2563EB' } };
+    cell.font = { name: 'Segoe UI', size: 9.5, bold: true, color: { argb: 'FFFFFF' } };
+    cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: '1E40AF' } };
     cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
     cell.border = {
-      bottom: { style: 'medium', color: { argb: '1D4ED8' } },
-      right: { style: 'thin', color: { argb: '64748B' } }
+      bottom: { style: 'medium', color: { argb: '172554' } },
+      right: { style: 'thin', color: { argb: '3B82F6' } }
     };
   });
 
-  const activeClauses = Object.values(ISO_CLAUSES).filter(c => c.applicableTypes.includes(config.connectorType || 'lock'));
-  activeClauses.forEach((clause, idx) => {
+  // Populate DVP Rows
+  const applicableClauses = Object.values(ISO_CLAUSES).filter(c => c.applicableTypes.includes(config.connectorType));
+  applicableClauses.forEach((clause, idx) => {
     const rowNum = idx + 5;
     const row = ws2.getRow(rowNum);
-    row.height = 38;
+    row.height = 42;
     const bgFill = idx % 2 === 0 ? 'FFFFFF' : 'F8FAFC';
 
     let requiredRefId = 'C.1';
@@ -222,91 +256,123 @@ export const exportMedicalGradeExcelReport = async (config: TestConfigState) => 
     }
 
     const requiredRef = getAnnexCFigure(requiredRefId);
-    const preAssemblyStr = '0.08–0.12 N·m + 26.5–27.5 N (維持 5–6 秒後釋放)';
+    const preAssemblyStr = isEn
+      ? '0.08–0.12 N·m + 26.5–27.5 N (Hold 5–6 s then Release)'
+      : '0.08–0.12 N·m + 26.5–27.5 N (維持 5–6 秒後釋放)';
 
     let activeLoadStr = 'N/A';
-    if (clause.id === '6.1') activeLoadStr = '300–330 kPa (水壓法或氣壓法二選一)';
-    else if (clause.id === '6.2') activeLoadStr = '80.0–88.0 kPa (真空負壓)';
-    else if (clause.id === '6.3') activeLoadStr = 'N/A (靜置48h後測6.1.1)';
-    else if (clause.id === '6.4') activeLoadStr = (config.connectorType === 'slip') ? '23–25 N (滑動型拉力)' : '32–35 N (鎖定型拉力)';
-    else if (clause.id === '6.5') activeLoadStr = '0.018–0.020 N·m (反向旋鬆扭矩)';
-    else if (clause.id === '6.6') activeLoadStr = '0.15–0.17 N·m (純扭矩，無其他方向外力)';
+    if (clause.id === '6.1') activeLoadStr = isEn ? '300–330 kPa (Hydraulic or Pneumatic either/or)' : '300–330 kPa (水壓法或氣壓法二選一)';
+    else if (clause.id === '6.2') activeLoadStr = isEn ? '80.0–88.0 kPa (Vacuum Negative Pressure)' : '80.0–88.0 kPa (真空負壓)';
+    else if (clause.id === '6.3') activeLoadStr = isEn ? 'N/A (Air rest 48h then test 6.1.1)' : 'N/A (靜置48h後測6.1.1)';
+    else if (clause.id === '6.4') activeLoadStr = isEn
+      ? ((config.connectorType === 'slip') ? '23–25 N (Slip L1 Load)' : '32–35 N (Lock L2 Load)')
+      : ((config.connectorType === 'slip') ? '23–25 N (滑動型拉力)' : '32–35 N (鎖定型拉力)');
+    else if (clause.id === '6.5') activeLoadStr = isEn ? '0.018–0.020 N·m (Unscrewing Torque)' : '0.018–0.020 N·m (反向旋鬆扭矩)';
+    else if (clause.id === '6.6') activeLoadStr = isEn ? '0.15–0.17 N·m (Pure Overriding Torque)' : '0.15–0.17 N·m (純扭矩，無其他方向外力)';
     else if (clause.testTorqueNm) activeLoadStr = `${clause.testTorqueNm.min}–${clause.testTorqueNm.max} N·m`;
     else if (clause.testForceN) activeLoadStr = `${clause.testForceN.min}–${clause.testForceN.max} N`;
 
     const holdTimeStr = clause.id === '6.1'
-      ? '氣壓法 15–20 秒 / 水壓法 30–35 秒 (二選一)'
+      ? (isEn ? 'Pneumatic: 15–20 s / Hydraulic: 30–35 s (Choose one)' : '氣壓法 15–20 秒 / 水壓法 30–35 秒 (二選一)')
       : clause.id === '6.3'
-      ? '48 小時 (23°C 空氣靜置)'
+      ? (isEn ? '48 Hours (Air condition at 23°C)' : '48 小時 (23°C 空氣靜置)')
       : clause.holdTimeSec
-      ? `${clause.holdTimeSec.min}–${clause.holdTimeSec.max} 秒`
+      ? `${clause.holdTimeSec.min}–${clause.holdTimeSec.max} ${isEn ? 's' : '秒'}`
       : 'N/A';
+
+    const worstCaseText = isEn
+      ? (requiredRef?.isWorstCase ? '★ Mandated Worst-Case (2.71mm Lug)' : 'Nominal Standard Fixture (3.50mm Lug)')
+      : (requiredRef?.isWorstCase ? '★ 強制最壞情況 (2.71mm 窄耳翼極限)' : '標稱標準接頭 (3.50mm 耳翼)');
+
+    const refFixtureText = isEn
+      ? `Fig.${requiredRefId} (${requiredRef?.name || ''})`
+      : `Fig.${requiredRefId} (${requiredRef?.nameZh || ''})`;
+
+    const criteriaText = isEn
+      ? (clause.id === '6.4'
+          ? (config.connectorType === 'slip' ? 'Shall not separate from the reference connector when subjected to an axial force of 23 N to 25 N for 10 s to 15 s.' : 'Shall not separate from the reference connector when subjected to an axial force of 32 N to 35 N for 10 s to 15 s.')
+          : clause.id === '6.6'
+          ? 'Shall not override the threads or lugs when subjected to a torque of 0.15 N·m to 0.17 N·m for 5 s to 10 s, and no cocking shall occur (ISO 80369-20 Annex H.4 d).'
+          : clause.id === '6.3'
+          ? 'Condition assembled to reference connector for 48 h per ISO 80369-20 Annex E, then meet Clause 6.1.1 leakage requirements.'
+          : clause.passCriteria)
+      : (clause.id === '6.4'
+          ? (config.connectorType === 'slip' ? '在 23 N–25 N（Slip 滑動型）軸向拉力下維持 10–15 秒，接頭不得脫開分離。' : '在 32 N–35 N（Lock 鎖定型）軸向拉力下維持 10–15 秒，接頭不得脫開分離。')
+          : clause.id === '6.6'
+          ? '施加 0.15 N·m–0.17 N·m 破壞性扭矩維持 5–10 秒，螺紋或耳翼不得越過滑脫（不滑牙），且接頭無歪斜 (No cocking)（ISO 80369-20 Annex H.4 d）。'
+          : clause.id === '6.3'
+          ? '依 ISO 80369-20 Annex E 裝配於金屬參考接頭於環境中靜置 48 小時後，依 6.1.1 執行洩漏測試並符合其要求。'
+          : clause.passCriteriaZh);
 
     const values = [
       clause.id,
-      clause.titleZh,
+      isEn ? clause.title : clause.titleZh,
       `Clause ${clause.id}`,
       `Annex ${clause.id === '6.1' ? 'B/C' : clause.id === '6.2' ? 'D' : clause.id === '6.3' ? 'E' : clause.id === '6.4' ? 'F' : clause.id === '6.5' ? 'G' : 'H'}`,
       preAssemblyStr,
       activeLoadStr,
       holdTimeStr,
-      `Fig.${requiredRefId} (${requiredRef?.nameZh || ''})`,
-      requiredRef?.isWorstCase ? '★ 強制最壞情況 (2.71mm 窄耳翼極限)' : '標稱標準接頭 (3.50mm 耳翼)',
-      (clause.id === '6.4'
-        ? (config.connectorType === 'slip' ? '在 23 N–25 N（Slip 滑動型）軸向拉力下維持 10–15 秒，接頭不得脫開分離。' : '在 32 N–35 N（Lock 鎖定型）軸向拉力下維持 10–15 秒，接頭不得脫開分離。')
-        : clause.id === '6.6'
-        ? '施加 0.15 N·m–0.17 N·m 破壞性扭矩維持 5–10 秒，螺紋或耳翼不得越過滑脫（不滑牙），且接頭無歪斜 (No cocking)（ISO 80369-20 Annex H.4 d）。'
-        : clause.id === '6.3'
-        ? '依 ISO 80369-20 Annex E 裝配於金屬參考接頭於環境中靜置 48 小時後，依 6.1.1 執行洩漏測試並符合其要求。'
-        : clause.passCriteriaZh)
+      refFixtureText,
+      worstCaseText,
+      criteriaText
     ];
 
     values.forEach((val, i) => {
       const cell = row.getCell(i + 1);
       cell.value = val;
-      cell.font = { name: 'Microsoft JhengHei', size: 9.5, color: { argb: '1E293B' } };
+      cell.font = { name: 'Segoe UI', size: 9, color: { argb: '1E293B' } };
       cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: bgFill } };
-      cell.alignment = { vertical: 'top', wrapText: true };
+      cell.alignment = { vertical: 'middle', wrapText: true };
       cell.border = thinBorder;
 
       if (i === 0) {
-        cell.font = { name: 'Segoe UI', size: 9.5, bold: true, color: { argb: '1E293B' } };
-        cell.alignment = { vertical: 'top', horizontal: 'center' };
+        cell.font = { name: 'Segoe UI', size: 9.5, bold: true, color: { argb: '1E40AF' } };
+        cell.alignment = { vertical: 'middle', horizontal: 'center' };
+      } else if (i === 2 || i === 3) {
+        cell.alignment = { vertical: 'middle', horizontal: 'center' };
+      } else if (i === 8 && requiredRef?.isWorstCase) {
+        cell.font = { name: 'Segoe UI', size: 8.5, bold: true, color: { argb: 'BE123C' } };
       }
     });
   });
 
-  ws2.autoFilter = `A4:J${4 + activeClauses.length}`;
+  ws2.autoFilter = `A4:J${4 + applicableClauses.length}`;
 
   // ==========================================
-  // SHEET 3: Annex A Environmental Preconditioning Specifications
+  // SHEET 3: ISO 80369-20:2024 Clause 4 & Section .2 Preconditioning Specifications
   // ==========================================
-  const ws3 = workbook.addWorksheet('Annex A 大氣環境規格');
+  const sheet3Name = isEn ? 'Preconditioning Specs' : '大氣環境預處理規格';
+  const ws3 = workbook.addWorksheet(sheet3Name);
   configureA4LandscapePageSetup(ws3);
 
   ws3.columns = [
-    { header: '', key: 'clause', width: 14 },
-    { header: '', key: 'item', width: 22 },
+    { header: '', key: 'clause', width: 16 },
+    { header: '', key: 'item', width: isEn ? 28 : 22 },
     { header: '', key: 'target', width: 16 },
-    { header: '', key: 'tolerance', width: 28 },
+    { header: '', key: 'tolerance', width: isEn ? 32 : 28 },
     { header: '', key: 'notes', width: 48 }
   ];
 
   ws3.mergeCells('A1:E1');
   const titleCell3 = ws3.getCell('A1');
-  titleCell3.value = '  ISO 80369-20:2024 Annex A 大氣預處理與環境測試條款規格';
-  titleCell3.font = { name: 'Microsoft JhengHei', size: 12, bold: true, color: { argb: 'FFFFFF' } };
+  titleCell3.value = isEn
+    ? '  ISO 80369-20:2024 Clause 4 & Section .2 Environmental Preconditioning Specification'
+    : '  ISO 80369-20:2024 Clause 4 與各附錄 Section .2 標準大氣預處理與環境條件規格';
+  titleCell3.font = { name: 'Segoe UI', size: 12, bold: true, color: { argb: 'FFFFFF' } };
   titleCell3.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: '0F172A' } };
   titleCell3.alignment = { vertical: 'middle', horizontal: 'left' };
   ws3.getRow(1).height = 32;
 
-  const headers3 = ['標準條款', '管制項目', '目標標準值', '允許公差 / 範圍', '強制規定與備註說明'];
+  const headers3 = isEn
+    ? ['Standard Clause', 'Control Parameter', 'Target Standard Value', 'Allowable Tolerance / Range', 'Requirement & Technical Notes']
+    : ['標準條款', '管制項目', '目標標準值', '允許公差 / 範圍', '強制規定與備註說明'];
+
   const headerRow3 = ws3.getRow(3);
   headerRow3.height = 28;
   headers3.forEach((text, i) => {
     const cell = headerRow3.getCell(i + 1);
     cell.value = text;
-    cell.font = { name: 'Microsoft JhengHei', size: 10, bold: true, color: { argb: 'FFFFFF' } };
+    cell.font = { name: 'Segoe UI', size: 9.5, bold: true, color: { argb: 'FFFFFF' } };
     cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: '2563EB' } };
     cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
     cell.border = {
@@ -315,11 +381,20 @@ export const exportMedicalGradeExcelReport = async (config: TestConfigState) => 
     };
   });
 
-  const annexARows = [
-    ['Annex A.3', '環境試驗溫度', '23.0 °C', '± 2.0 °C (21.0 °C ~ 25.0 °C)', '測試全程必須維持於此溫度範圍，避免高溫引發塑膠蠕變 (Creep)。'],
-    ['Annex A.3', '相對濕度 (RH)', '50.0 %', '± 5.0 % (45.0 % ~ 55.0 %)', '大氣濕度調節管制，防止親水高分子材料吸濕變形。'],
-    ['Annex A.3', '狀態調節時間', '24 小時', '≥ 24.0 小時', '受測樣品與金屬參考接頭必須於測試前置靜置於標準大氣環境中。'],
-    ['Clause 6.3', '應力龜裂試驗環境', '48 小時', '48h ± 1h at 23±2°C', '裝配後靜置於空氣或指定介質中 (ISO 80369-20 Annex E)。']
+  const annexARows = isEn ? [
+    ['Clause 4 / .2.1', 'Sample Preconditioning Temp', '20.0 °C', '± 5.0 °C (15.0 °C ~ 25.0 °C)', 'Specimens and reference connectors preconditioned for not less than 24 h.'],
+    ['Clause 4 / .2.1', 'Preconditioning Humidity (RH)', '50.0 %', '± 10.0 % (40.0 % ~ 60.0 %)', 'Prevents moisture variation or dimension changes prior to test assembly.'],
+    ['Clause 4 / .2.1', 'Conditioning Duration', '24 Hours', '≥ 24.0 Hours', 'Mandatory for hygroscopic materials; non-hygroscopic polymers exempt.'],
+    ['Clause 4 / .2.2', 'Environmental Test Temp', '15 °C ~ 30 °C', 'Nominal ~20–25 °C Range', 'Ambient test execution laboratory temperature range per ISO 80369-20:2024.'],
+    ['Clause 4 / .2.2', 'Environmental Test RH', '10 % ~ 70 %', 'Standard Ambient Range', 'Ambient laboratory relative humidity range during physical testing execution.'],
+    ['Clause 6.3 / E.4', 'Stress Cracking Exposure', '48 Hours', '≥ 48.0 Hours (at 15–30 °C)', 'Leave assembled for not less than 48 h per ISO 80369-20 Annex E.4 b, then test 6.1.1.']
+  ] : [
+    ['Clause 4 / .2.1', '樣品狀態預處理溫度', '20.0 °C', '± 5.0 °C (15.0 °C ~ 25.0 °C)', '受測樣品與金屬參考接頭於測試前置靜置於標準大氣環境至少 24 小時。'],
+    ['Clause 4 / .2.1', '預處理相對濕度 (RH)', '50.0 %', '± 10.0 % (40.0 % ~ 60.0 %)', '大氣濕度調節管制，防止親水高分子材料吸濕變形。'],
+    ['Clause 4 / .2.1', '狀態調節靜置時間', '24 小時', '≥ 24.0 小時', '吸濕性材料強制要求；非吸濕性材料可豁免 (ISO 80369-20 Section .2.1)。'],
+    ['Clause 4 / .2.2', '測試執行環境溫度', '15 °C ~ 30 °C', '常溫區間 (15.0 °C ~ 30.0 °C)', '物理測試執行全程實驗室環境溫度管制範圍 (ISO 80369-20:2024 Section .2.2)。'],
+    ['Clause 4 / .2.2', '測試執行環境濕度', '10 % ~ 70 %', '常規濕度 (10.0 % ~ 70.0 % RH)', '物理測試執行期間實驗室環境相對濕度管制範圍。'],
+    ['Clause 6.3 / E.4', '應力龜裂組裝靜置時間', '48 小時', '≥ 48.0 小時 (於 15–30 °C 環境)', '依 ISO 80369-20 Annex E.4 b 裝配後靜置保持至少 48 小時，再測 6.1.1 洩漏。']
   ];
 
   annexARows.forEach((r, idx) => {
@@ -331,19 +406,19 @@ export const exportMedicalGradeExcelReport = async (config: TestConfigState) => 
     r.forEach((val, i) => {
       const cell = row.getCell(i + 1);
       cell.value = val;
-      cell.font = { name: 'Microsoft JhengHei', size: 9.5, color: { argb: '1E293B' } };
+      cell.font = { name: 'Segoe UI', size: 9, color: { argb: '1E293B' } };
       cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: bgFill } };
       cell.alignment = { vertical: 'middle', wrapText: true };
       cell.border = thinBorder;
 
       if (i === 0) {
-        cell.font = { name: 'Segoe UI', size: 9.5, bold: true, color: { argb: '1E293B' } };
+        cell.font = { name: 'Segoe UI', size: 9, bold: true, color: { argb: '1E293B' } };
         cell.alignment = { vertical: 'middle', horizontal: 'center' };
       }
     });
   });
 
-  ws3.autoFilter = 'A3:E7';
+  ws3.autoFilter = `A3:E${3 + annexARows.length}`;
 
   // Download binary .xlsx file in browser
   if (typeof window !== 'undefined' && typeof document !== 'undefined') {
@@ -352,7 +427,9 @@ export const exportMedicalGradeExcelReport = async (config: TestConfigState) => 
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `ISO_80369_Medical_Test_Report_and_DVP_Matrix_${currentDate}.xlsx`;
+    link.download = isEn
+      ? `ISO_80369_7_Design_Verification_Plan_Report_${currentDate}.xlsx`
+      : `ISO_80369_Medical_Test_Report_and_DVP_Matrix_${currentDate}.xlsx`;
     link.click();
     URL.revokeObjectURL(url);
   }

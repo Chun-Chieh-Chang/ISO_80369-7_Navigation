@@ -712,7 +712,9 @@ export interface MandatoryReportItem {
   titleEn: string;
   titleZh: string;
   descriptionZh: string;
+  descriptionEn?: string;
   exampleValueZh: string;
+  exampleValueEn?: string;
 }
 
 export const ISO20_MANDATORY_REPORT_ITEMS: MandatoryReportItem[] = [
@@ -722,7 +724,9 @@ export const ISO20_MANDATORY_REPORT_ITEMS: MandatoryReportItem[] = [
     titleEn: 'Reference Standard & Annex',
     titleZh: '引用標準與附錄',
     descriptionZh: '明確聲明測試係嚴格遵循 ISO 80369-20:2024 之特定附錄 (如 Annex B/C/D/E/F/G) 執行。',
-    exampleValueZh: 'ISO 80369-20:2024, Annex B (正壓液體洩漏)'
+    descriptionEn: 'Explicit statement that testing was performed strictly in accordance with ISO 80369-20:2024 specific Annex (e.g. Annex B/C/D/E/F/G/H).',
+    exampleValueZh: 'ISO 80369-20:2024, Annex B (正壓液體洩漏)',
+    exampleValueEn: 'ISO 80369-20:2024, Annex B (Positive pressure liquid leakage)'
   },
   {
     id: 'b',
@@ -730,7 +734,9 @@ export const ISO20_MANDATORY_REPORT_ITEMS: MandatoryReportItem[] = [
     titleEn: 'Date of Testing',
     titleZh: '測試執行日期',
     descriptionZh: '載明實驗室實際進行該項物理測試之日期。',
-    exampleValueZh: '2026-08-08'
+    descriptionEn: 'Record the actual date on which physical testing was conducted in the laboratory.',
+    exampleValueZh: '2026-09-03',
+    exampleValueEn: '2026-09-03'
   },
   {
     id: 'c',
@@ -738,7 +744,9 @@ export const ISO20_MANDATORY_REPORT_ITEMS: MandatoryReportItem[] = [
     titleEn: 'Connectors Under Test',
     titleZh: '受測連接器資訊',
     descriptionZh: '識別受測產品名稱、規格、醫療器材型號、塑料材質與生產批號 (Lot No.)。',
-    exampleValueZh: 'Male Luer Lock Connector (PP 醫療級, Lot: 20260801-A)'
+    descriptionEn: 'Identification of test specimen name, specification, medical device catalog number, polymer material and production lot number.',
+    exampleValueZh: 'Male Luer Lock Connector (PP 醫療級, Lot: 20260801-A)',
+    exampleValueEn: 'Male Luer Lock Connector (Medical Grade PP, Lot: 20260801-A)'
   },
   {
     id: 'd',
@@ -746,15 +754,19 @@ export const ISO20_MANDATORY_REPORT_ITEMS: MandatoryReportItem[] = [
     titleEn: 'Number of Connectors Tested',
     titleZh: '受測樣品數量',
     descriptionZh: '載明該組測試實際納入之有效測試樣品總數 n。',
-    exampleValueZh: 'n = 10 (或根據統計抽樣計畫決定)'
+    descriptionEn: 'Total number of valid test specimens n included in the evaluation group.',
+    exampleValueZh: 'n = 10 (或根據統計抽樣計畫決定)',
+    exampleValueEn: 'n = 10 (or determined per risk-based statistical sampling plan)'
   },
   {
     id: 'e',
     code: 'e)',
     titleEn: 'Preconditioning & Environmental Conditions',
     titleZh: '預處理與環境條件',
-    descriptionZh: '記載 Annex A 試樣預處理時間 (≥24h) 與測試期間之實際溫濕度。',
-    exampleValueZh: '23.1 °C, 51.2% RH (已前置靜置 24h 狀態調節)'
+    descriptionZh: '記載 Clause 4 / Section .2 試樣預處理 (20±5°C, 50±10% RH, ≥24h) 與測試期間之實際溫濕度。',
+    descriptionEn: 'Record preconditioning duration per Clause 4 / Section .2 ((20 ± 5) °C, (50 ± 10) % RH, >=24h) and ambient temperature and relative humidity during testing.',
+    exampleValueZh: '20.5 °C, 52.0% RH (已前置靜置 24h 狀態調節，符合 Clause 4 / Section .2)',
+    exampleValueEn: '20.5 °C, 52.0% RH (Preconditioned >=24h per Clause 4 / Section .2)'
   },
   {
     id: 'f',
@@ -762,15 +774,19 @@ export const ISO20_MANDATORY_REPORT_ITEMS: MandatoryReportItem[] = [
     titleEn: 'Reference Connector Used',
     titleZh: '指定金屬參考接頭',
     descriptionZh: '識別測試所搭配之 ISO 80369-7 Annex C 金屬參考接頭圖號與最壞情況規格。',
-    exampleValueZh: 'Fig. C.1 Female Reference Connector (標稱 3.50mm)'
+    descriptionEn: 'Identification of ISO 80369-7 Annex C metal reference connector drawing number and worst-case geometry utilized.',
+    exampleValueZh: 'Fig. C.1 Female Reference Connector (標稱 3.50mm)',
+    exampleValueEn: 'Fig. C.1 Female Reference Connector (Nominal 3.50mm)'
   },
   {
-    id: 'g)',
+    id: 'g',
     code: 'g)',
     titleEn: 'Applied Pressure / Torque / Axial Force',
     titleZh: '實際施加物理負載',
     descriptionZh: '記載測試前置裝配扭矩/推力，以及實測施加之水壓、氣壓、拉力或過載扭矩。',
-    exampleValueZh: '裝配: 0.10 N·m + 27.0 N; 測試水壓: 315 kPa'
+    descriptionEn: 'Record pre-assembly torque/axial force and applied hydraulic pressure, pneumatic pressure, tensile load or overriding torque.',
+    exampleValueZh: '裝配: 0.10 N·m + 27.0 N; 測試水壓: 315 kPa',
+    exampleValueEn: 'Pre-assembly: 0.10 N·m + 27.0 N; Test pressure: 315 kPa hydraulic'
   },
   {
     id: 'h',
@@ -778,7 +794,9 @@ export const ISO20_MANDATORY_REPORT_ITEMS: MandatoryReportItem[] = [
     titleEn: 'Acceptance Criterion',
     titleZh: '合格判定標準',
     descriptionZh: '明確條列法規要求之 Passing Criteria (如持壓 30s 無水滴滲漏滴落)。',
-    exampleValueZh: '持壓 30s 期間無水滴滲漏滴落 (Clause 6.1.3)'
+    descriptionEn: 'Statement of passing criteria specified by standard (e.g. no leakage sufficient to form a falling drop during hold).',
+    exampleValueZh: '持壓 30s 期間無水滴滲漏滴落 (Clause 6.1.3)',
+    exampleValueEn: 'No fluid leakage forming a falling drop during 30s hold (Clause 6.1.3)'
   },
   {
     id: 'i',
@@ -786,7 +804,9 @@ export const ISO20_MANDATORY_REPORT_ITEMS: MandatoryReportItem[] = [
     titleEn: 'Deviations from Procedure',
     titleZh: '測試程序偏差說明',
     descriptionZh: '揭露任何與 ISO 80369-20 標準步驟不同之修正或偏差 (若無填「無」)。',
-    exampleValueZh: '無偏差，嚴格依據 Annex B 標準 SOP 執行'
+    descriptionEn: 'Disclosure of any modifications, procedural deviations or additions to standard ISO 80369-20 protocol (or None).',
+    exampleValueZh: '無偏差，嚴格依據 Annex B 標準 SOP 執行',
+    exampleValueEn: 'None. Testing performed strictly per ISO 80369-20 Annex B protocol.'
   },
   {
     id: 'j',
@@ -794,15 +814,19 @@ export const ISO20_MANDATORY_REPORT_ITEMS: MandatoryReportItem[] = [
     titleEn: 'Unusual Features Observed',
     titleZh: '異常觀察現象紀錄',
     descriptionZh: '記錄測試過程中是否觀察到微觀應力白化、局部塑性變形、螺牙咬死等異常現象。',
-    exampleValueZh: '外觀正常，無應力白化或螺牙咬死現象'
+    descriptionEn: 'Observation of unusual features such as micro stress whitening, localized plastic deformation, thread galling, or cracking.',
+    exampleValueZh: '外觀正常，無應力白化或螺牙咬死現象',
+    exampleValueEn: 'Normal appearance, no stress whitening or thread seizing observed.'
   },
   {
     id: 'k',
     code: 'k)',
     titleEn: 'Test Volume Used (Figure B.1)',
-    titleZh: '測試系統總積 V',
+    titleZh: '測試系統總容積 V',
     descriptionZh: '如圖 Fig. B.1 定義，揭露包含連接管路、容器與接頭內部之總測試容積 V (mL)。',
-    exampleValueZh: 'V = 8.50 mL (經注水法精密測定)'
+    descriptionEn: 'Total internal volume V of test apparatus including connecting lines, chamber and test connector cavity as defined in Fig. B.1 (mL).',
+    exampleValueZh: 'V = 8.50 mL (經注水法精密測定)',
+    exampleValueEn: 'V = 8.50 mL (precisely determined via gravimetric water displacement)'
   },
   {
     id: 'l',
@@ -810,7 +834,9 @@ export const ISO20_MANDATORY_REPORT_ITEMS: MandatoryReportItem[] = [
     titleEn: 'Test Period Disclosed',
     titleZh: '持壓/加載時間',
     descriptionZh: '揭露測試實際維持加壓、拉力或靜置之時間長度。',
-    exampleValueZh: '持壓時間: 30 秒 (或 應力龜裂 48 小時)'
+    descriptionEn: 'Duration of applied hold pressure, tensile load, or 48-hour chemical exposure conditioning period.',
+    exampleValueZh: '持壓時間: 30 秒 (或 應力龜裂 48 小時)',
+    exampleValueEn: 'Hold duration: 30 seconds (or 48 hours for stress cracking)'
   },
   {
     id: 'm',
@@ -818,7 +844,9 @@ export const ISO20_MANDATORY_REPORT_ITEMS: MandatoryReportItem[] = [
     titleEn: 'Pressure Change Disclosed',
     titleZh: '測試期間壓力變化量 ΔP',
     descriptionZh: '揭露測試期間氣壓衰減量 ΔP (Pa) 或液體滴落差距。',
-    exampleValueZh: 'ΔP = 12 Pa (低於氣壓衰減極限 ΔPmax)'
+    descriptionEn: 'Disclosed pressure decay Delta P (Pa) for pneumatic decay test or observed liquid leakage volume.',
+    exampleValueZh: 'ΔP = 12 Pa (低於氣壓衰減極限 ΔPmax)',
+    exampleValueEn: 'Delta P = 12 Pa (below maximum allowable pressure decay threshold Delta Pmax)'
   },
   {
     id: 'n',
@@ -826,7 +854,9 @@ export const ISO20_MANDATORY_REPORT_ITEMS: MandatoryReportItem[] = [
     titleEn: 'Conformance Statement',
     titleZh: '最終合格判決結果',
     descriptionZh: '明確宣告受測樣品是否符合該項 ISO 標準條文之合格要求。',
-    exampleValueZh: 'PASS (合格符合 ISO 80369-7 Clause 6.1 規範)'
+    descriptionEn: 'Definitive statement confirming whether connector test specimens conform to ISO 80369-7 acceptance requirements.',
+    exampleValueZh: 'PASS (合格符合 ISO 80369-7 Clause 6.1 規範)',
+    exampleValueEn: 'PASS (Conforms to ISO 80369-7:2021 Clause 6.1 requirements)'
   }
 ];
 

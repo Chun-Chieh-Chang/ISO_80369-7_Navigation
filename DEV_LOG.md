@@ -1,6 +1,61 @@
 # 開發日誌 (DEV_LOG)
 
 ---
+## 版本：v8.15.0 ISO 80369-20:2024 預處理大氣條件 SSOT 深度修正與 MECE 確效 (2026-09-03)
+
+### 需求來源與目標
+1. **SSOT 唯一來源審查**：審查專案資料是否完全符合 `isodoc` 目錄中之 `ISO_80369-7_2021_en.pdf` 與 `ISO_80369-20_2024_en.pdf`。
+2. **根除殘留舊版預處理條件**：將 UI 與 Excel 中殘留的 2015 舊版 `(23 ± 2) °C` 與 `(50 ± 5) % RH` 全面修正為 2024 新版 Clause 4 / 各 Annex Section .2 的 `(20 ± 5) °C` 與 `(50 ± 10) % RH`。
+3. **MECE 架構確認**：驗證公母接頭、鎖定/滑動型式、6.1~6.6 條款與 5 大導航分頁之互斥與窮盡性。
+
+### 根因分析 (RCA) 與預防措施 (CAPA)
+1. **跨版本轉錄盲點 (RCA)**：2015 年版 ISO 80369-20 將預處理放在 Annex A，而 2024 年版將 Annex A 改為 Informative（指引與理由說明），將規範性的預處理條件改置於 Clause 4 及各試驗附錄之 Section .2（如 B.2.1, C.2.1 等）。過去前端畫面與 Excel 表單部分元件直接寫死了 `23 ± 2 °C`（早期慣用值），造成內部常數與顯示內容產生歧異。
+2. **CAPA 矯正措施**：
+   - 全面更新 `DvpGenerator.tsx` 預處理橫幅為 `(20 ± 5) °C`、`(50 ± 10) % RH`，出處引用修正為 `Clause 4 / Section .2`。
+   - 全面重構 `excelExporter.ts` 工作表 3（`Preconditioning Specs`），詳細羅列預處理溫度、濕度、時間，以及試驗執行環境常溫區間（15~30°C，10~70% RH）。
+   - 更新 `isoData.ts` 第 14 大報告項目 e 項之範例數值為 `20.5 °C, 52.0% RH`。
+   - 在 `isoHelpers.test.ts` 加入針對預處理常數之自動化單元測試斷言，建立防迴歸防線。
+
+### 確效結果 (Validation)
+- **單元測試 (vitest run)**：17/17 全部通過 (含 SSOT 溫濕度斷言與 Excel Sheet 3 驗證)。
+- **類型檢查 (tsc --noEmit)**：0 錯誤 / 0 警告通過。
+- **生產編譯 (vite build)**：5.55s 順利編譯通過，PWA Service Worker 快取精確產生。
+- **瀏覽器端到端測試**：中英文雙語模式下，14 項報告橫幅均精確顯示 `20 ± 5 °C`、`50 ± 10 % RH`、`≥ 24 Hours`，Console 0 紅字錯誤。
+
+---
+## 版本：v8.14.0 全英文介面與國際化 Excel 雙語匯出系統 (2026-09-03)
+
+### 需求來源與目標
+1. **對接外國客戶與跨國稽核需求**：因應外國醫材客戶、FDA 510(k) 審查員與歐盟 CE MDR 認證機構稽核，系統必須具備全英文介面，並能產出符合國際標準的純英文 Excel 驗證報告工作簿與 CSV 檢核清單。
+2. **零肥大依賴 (Zero Dependency / YAGNI)**：不額外安裝 react-i18next 等大型套件，以原生 React Context + 靜態型別字典達成零延遲切換與 URL 記憶 (`?lang=en`)。
+
+### 根因分析 (RCA) 與預防措施 (CAPA)
+1. **測試報告欄位英文化缺失**：過去 `ISO20_MANDATORY_REPORT_ITEMS` 僅有中文描述，若外國客戶查看無法直接理解法定要求。
+   - **CAPA**：擴充 `MandatoryReportItem` 介面，全面補齊 a) 至 n) 項之 `descriptionEn` 與 `exampleValueEn`，採用 ISO 80369-20 Section .5 官方英文定義。
+2. **Excel 匯出多語系適配**：過去 `exportMedicalGradeExcelReport` 寫死中文工作表名稱與欄位名稱。
+   - **CAPA**：將 `language: 'zh' | 'en'` 納入匯出函式參數，英文模式下全面產生符合英文 DHF 規範之工作表名稱（`ISO20 Report 14 Items`, `DVP Test Matrix`, `Annex A Conditioning Specs`）與全英文儲存格數值。
+
+### 變更檔案清單 (MECE)
+1. **新建 src/i18n/translations.ts**：定義全站 UI、DVP 矩陣、14 大報告項目對照字典。
+2. **新建 src/i18n/LanguageContext.tsx**：提供 `useLanguage` Hook，封裝語系切換、URL Query 自動偵測與 localStorage 持久化。
+3. **src/App.tsx**：以 `<LanguageProvider>` 包覆根元件，頁尾支援雙語自適應。
+4. **src/components/Header.tsx**：右上角新增 `[🌐 English / 繁體中文]` 切換按鈕，標題、子標題、版本徽章與 5 大導航標籤全面國際化。
+5. **src/components/DvpGenerator.tsx**：全面串接 `useLanguage()`，支援 DVP 矩陣中/英切換、14 大報告要件中/英雙軌呈現，以及雙語 CSV 匯出。
+6. **src/data/isoData.ts**：擴充 `MandatoryReportItem` 介面與 14 項法定項目之 `descriptionEn` 與 `exampleValueEn`。
+7. **src/types/index.ts**：擴充 `PreAssemblyCondition` 介面新增 `labelEn`, `descriptionEn`, `apparatusEn`。
+8. **src/utils/excelExporter.ts**：支援 `(config, language)` 雙語工作簿輸出，自動套用全英文/全中文樣式。
+9. **src/utils/isoHelpers.test.ts**：新增 3 項單元測試，確效英文 Excel 匯出、14 項英文描述完整度與字典鍵值一致性。
+
+### 確效結果 (Validation)
+- **單元測試 (vitest run)**：16/16 全部 PASS (包含 3 項國際化專用測試)。
+- **類型檢查 (tsc --noEmit)**：零警告、零錯誤通過。
+- **生產打包 (vite build)**：7.84s 順利編譯完成，PWA Service Worker 快取精確產生。
+- **瀏覽器端到端測試**：
+  - 預設繁體中文模式正常，點擊切換 English 後所有導航、標題、DVP 矩陣與 14 大報告項目瞬間切換為純英文。
+  - 再次點擊切換回繁體中文，無任何版面跑位或樣式破損。
+  - 瀏覽器 Console 全程 0 紅字錯誤。
+
+---
 ## 版本：v8.12.0 DVP 法規合规性深度修正與全域死碼清理 (2026-09-03)
 
 ### 修法來源 (RCA)

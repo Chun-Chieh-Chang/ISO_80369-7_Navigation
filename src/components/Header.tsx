@@ -1,5 +1,6 @@
 import React from 'react';
-import { BookOpen, Network, Table, Wrench, FileSpreadsheet, FileText } from 'lucide-react';
+import { BookOpen, Network, Table, Wrench, FileSpreadsheet, FileText, Globe } from 'lucide-react';
+import { useLanguage } from '../i18n/LanguageContext';
 import { TestConfigState } from '../types';
 
 interface HeaderProps {
@@ -10,12 +11,14 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
+  const { language, setLanguage, t } = useLanguage();
+
   const tabs = [
-    { id: 'topic-explorer', label: '🔍 主題與條文檢索', icon: BookOpen },
-    { id: 'visual-map', label: '🕸️ 條文脈絡圖表', icon: Network },
-    { id: 'comparison-matrix', label: '⚖️ 雙標準對照矩陣', icon: Table },
-    { id: 'connectors', label: '🔧 參考金屬夾具庫', icon: Wrench },
-    { id: 'dvp-report', label: '📋 設計驗證矩陣表', icon: FileSpreadsheet },
+    { id: 'topic-explorer', label: t.nav.topicExplorer, icon: BookOpen },
+    { id: 'visual-map', label: t.nav.visualMap, icon: Network },
+    { id: 'comparison-matrix', label: t.nav.comparisonMatrix, icon: Table },
+    { id: 'connectors', label: t.nav.connectors, icon: Wrench },
+    { id: 'dvp-report', label: t.nav.dvpReport, icon: FileSpreadsheet },
   ];
 
   return (
@@ -31,26 +34,36 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
             <div>
               <div className="flex flex-wrap items-center gap-1.5 sm:gap-2.5">
                 <h1 className="text-sm sm:text-lg lg:text-xl font-extrabold tracking-tight text-slate-900 leading-tight">
-                  ISO 80369-7 & 20 視覺化導航系統
+                  {t.app.title}
                 </h1>
                 <span className="bg-blue-50 text-blue-800 text-[12px] sm:text-[13px] font-bold px-2 py-0.5 rounded-full border border-blue-200/80 shrink-0 shadow-2xs">
-                  v8.3 壓降測試曲線版
+                  {t.app.versionBadge}
                 </span>
               </div>
               <p className="text-[12px] sm:text-[13px] text-slate-500 mt-0.5 font-normal hidden sm:block">
-                醫療級魯爾連接器主題檢索、規範條文對照、實驗室測試細則與最壞情況夾具導航
+                {t.app.subtitle}
               </p>
             </div>
           </div>
 
-          {/* Quick Standard Info Badges */}
-          <div className="flex items-center space-x-2 text-[12px] sm:text-[13px] font-mono shrink-0 self-end lg:self-auto">
+          {/* Quick Standard Info Badges & Language Switcher */}
+          <div className="flex items-center space-x-2.5 text-[12px] sm:text-[13px] font-mono shrink-0 self-end lg:self-auto">
             <div className="bg-slate-50/90 border border-slate-200 px-2.5 sm:px-3.5 py-1 rounded-xl sm:rounded-2xl flex items-center space-x-2 shadow-2xs">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
               <span className="font-bold text-slate-800">ISO 80369-7:2021</span>
               <span className="text-slate-300">|</span>
               <span className="font-bold text-slate-800">ISO 80369-20:2024</span>
             </div>
+
+            {/* Language Switcher */}
+            <button
+              onClick={() => setLanguage(language === 'zh' ? 'en' : 'zh')}
+              className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition shadow-2xs cursor-pointer min-h-[36px]"
+              title={language === 'zh' ? 'Switch to English' : '切換至繁體中文'}
+            >
+              <Globe className="w-3.5 h-3.5 text-blue-600" />
+              <span>{language === 'zh' ? 'English' : '繁體中文'}</span>
+            </button>
           </div>
         </div>
 

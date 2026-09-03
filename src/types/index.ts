@@ -152,11 +152,14 @@ export interface ISOTopic {
 export interface PreAssemblyCondition {
   status: 'standard_lock' | 'slip' | 'direct_overload' | 'not_applicable' | 'custom';
   labelZh: string;
+  labelEn?: string;
   assemblyTorqueNm?: string;
   assemblyAxialForceN?: string;
   holdTimeSec?: string;
   descriptionZh?: string;
+  descriptionEn?: string;
   apparatusZh?: string;
+  apparatusEn?: string;
 }
 
 export interface StandardClauseDetail {

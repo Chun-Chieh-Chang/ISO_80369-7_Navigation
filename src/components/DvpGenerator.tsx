@@ -4,6 +4,7 @@ import { ConnectorGender, ConnectorType, TestConfigState, TestClauseId, ISOClaus
 import { ISOStandardFigureRenderer } from './ISOStandardFigureRenderer';
 import { getClauseSvgKey, getAnnexCFigure } from '../utils/isoHelpers';
 import { exportMedicalGradeExcelReport } from '../utils/excelExporter';
+import { useLanguage } from '../i18n/LanguageContext';
 import { FileSpreadsheet, Eye, Info, FileCheck, Download, Calendar, ShieldCheck, Thermometer, FileText } from 'lucide-react';
 
 interface DvpGeneratorProps {
@@ -12,6 +13,7 @@ interface DvpGeneratorProps {
 }
 
 export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig }) => {
+  const { language, t } = useLanguage();
   const [activeSubTab, setActiveSubTab] = useState<'matrix' | 'report_checklist'>('matrix');
   const selectedGender = config.connectorGender || 'male';
   const selectedType = config.connectorType || 'lock';
@@ -25,13 +27,17 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
   const activeFigInfo = getAnnexCFigure(activeSvgKey);
 
   const exportReportChecklistCSV = () => {
-    const headers = ['項目編號', 'ISO 條款 (a~n)', '必填欄位名稱 (EN)', '必填欄位中文', '法規規範與範例說明'];
+    const isEn = language === 'en';
+    const headers = isEn
+      ? ['Item', 'ISO Clause (a~n)', 'Field Name (EN)', 'Regulatory Requirement & Details', 'Example Value / Format']
+      : ['項目編號', 'ISO 條款 (a~n)', '必填欄位名稱 (EN)', '必填欄位中文', '法規規範與範例說明'];
+
     const rows = ISO20_MANDATORY_REPORT_ITEMS.map(item => [
       item.code,
       `Section .5 (${item.id})`,
       `"${item.titleEn}"`,
-      `"${item.titleZh}"`,
-      `"${item.exampleValueZh}"`
+      isEn ? `"${item.descriptionEn || item.descriptionZh}"` : `"${item.titleZh}"`,
+      isEn ? `"${item.exampleValueEn || item.exampleValueZh}"` : `"${item.exampleValueZh}"`
     ]);
 
     const csvContent = '\uFEFF' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
@@ -39,7 +45,9 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `ISO_80369_20_Test_Report_14_Mandatory_Elements.csv`;
+    link.download = isEn
+      ? `ISO_80369_20_Test_Report_14_Mandatory_Elements.csv`
+      : `ISO_80369_20_測試報告_14大必填項目檢核表.csv`;
     link.click();
     URL.revokeObjectURL(url);
   };
@@ -52,9 +60,11 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
   const renderPreAssembly = (clause: ISOClauseInfo) => (
     <div>
       <div>{clause.assemblyTorqueNm?.min ?? 0.08}–{clause.assemblyTorqueNm?.max ?? 0.12} N·m</div>
-      <div className="text-[11px] text-blue-700 font-bold">+ 26.5–27.5 N (推力)</div>
+      <div className="text-[11px] text-blue-700 font-bold">
+        + 26.5–27.5 N {language === 'en' ? '(Axial Force)' : '(推力)'}
+      </div>
       <div className="text-[10px] text-blue-900 font-semibold bg-blue-50 px-1.5 py-0.5 rounded mt-1 inline-block border border-blue-200">
-        維持 5–6 秒後釋放 (Release)
+        {t.dvp.releaseBadge}
       </div>
     </div>
   );
@@ -70,10 +80,10 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
     if (clause.id === '6.1') {
       return (
         <div className="space-y-1">
-          <div><span className="font-bold">氣壓法：</span>15–20 秒</div>
-          <div><span className="font-bold">水壓法：</span>30–35 秒</div>
+          <div><span className="font-bold">{t.dvp.pressureDecay}</span>15–20 {t.dvp.seconds}</div>
+          <div><span className="font-bold">{t.dvp.hydraulicPressure}</span>30–35 {t.dvp.seconds}</div>
           <div className="text-[10px] text-blue-600 font-bold bg-blue-50/60 px-1 py-0.5 rounded border border-blue-100 inline-block">
-            (二選一執行)
+            {t.dvp.chooseOne}
           </div>
         </div>
       );
@@ -81,14 +91,14 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
     if (clause.id === '6.3') {
       return (
         <div>
-          <div className="font-bold text-slate-900">48 小時</div>
-          <div className="text-[10px] text-slate-500">23°C 空氣靜置</div>
+          <div className="font-bold text-slate-900">{t.dvp.airRest48h}</div>
+          <div className="text-[10px] text-slate-500">{t.dvp.airRest48hSub}</div>
         </div>
       );
     }
     return (
       <div>
-        <div className="font-bold text-slate-900">{clause.holdTimeSec.min}–{clause.holdTimeSec.max} 秒</div>
+        <div className="font-bold text-slate-900">{clause.holdTimeSec.min}–{clause.holdTimeSec.max} {t.dvp.seconds}</div>
       </div>
     );
   };
@@ -101,7 +111,9 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
       return (
         <div>
           <div className="font-bold text-slate-900">300–330 kPa</div>
-          <div className="text-[10px] text-slate-500">水壓或氣壓 (二選一)</div>
+          <div className="text-[10px] text-slate-500">
+            {language === 'en' ? 'Hydraulic or Pneumatic (Either/Or)' : '水壓或氣壓 (二選一)'}
+          </div>
         </div>
       );
     }
@@ -109,7 +121,7 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
       return (
         <div>
           <div className="font-bold text-slate-900">80.0–88.0 kPa</div>
-          <div className="text-[10px] text-slate-500">負壓真空</div>
+          <div className="text-[10px] text-slate-500">{t.dvp.vacuumPressureLabel}</div>
         </div>
       );
     }
@@ -117,7 +129,7 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
       return (
         <div>
           <div className="font-bold text-slate-900">N/A</div>
-          <div className="text-[10px] text-slate-500">靜置48h後測6.1.1</div>
+          <div className="text-[10px] text-slate-500">{t.dvp.airRestLabel}</div>
         </div>
       );
     }
@@ -125,12 +137,12 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
       return selectedType === 'slip' ? (
         <div>
           <div className="font-bold text-blue-700">23–25 N</div>
-          <div className="text-[10px] text-slate-500">滑動型 (L1) 專用拉力</div>
+          <div className="text-[10px] text-slate-500">{t.dvp.slipForceLabel}</div>
         </div>
       ) : (
         <div>
           <div className="font-bold text-indigo-700">32–35 N</div>
-          <div className="text-[10px] text-slate-500">鎖定型 (L2) 專用拉力</div>
+          <div className="text-[10px] text-slate-500">{t.dvp.lockForceLabel}</div>
         </div>
       );
     }
@@ -138,7 +150,7 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
       return (
         <div>
           <div className="font-bold text-slate-900">0.018–0.020 N·m</div>
-          <div className="text-[10px] text-slate-500">反向旋鬆扭矩</div>
+          <div className="text-[10px] text-slate-500">{t.dvp.unscrewingTorqueLabel}</div>
         </div>
       );
     }
@@ -146,7 +158,7 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
       return (
         <div>
           <div className="font-bold text-slate-900">0.15–0.17 N·m</div>
-          <div className="text-[10px] text-slate-500">純扭矩 (無其他方向外力)</div>
+          <div className="text-[10px] text-slate-500">{t.dvp.pureTorqueLabel}</div>
         </div>
       );
     }
@@ -159,6 +171,22 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
    * - Clause 6.3: only leak test, no visual crack requirement
    */
   const renderPassCriteria = (clause: ISOClauseInfo) => {
+    if (language === 'en') {
+      if (clause.id === '6.4') {
+        return selectedType === 'slip'
+          ? 'Shall not separate from the reference connector when subjected to an axial force of 23 N to 25 N for 10 s to 15 s.'
+          : 'Shall not separate from the reference connector when subjected to an axial force of 32 N to 35 N for 10 s to 15 s.';
+      }
+      if (clause.id === '6.6') {
+        return 'Shall not override the threads or lugs when subjected to a torque of 0.15 N·m to 0.17 N·m for 5 s to 10 s, and no cocking shall occur (ISO 80369-20 Annex H.4 d).';
+      }
+      if (clause.id === '6.3') {
+        return 'Condition assembled to reference connector for 48 h per ISO 80369-20 Annex E, then meet Clause 6.1.1 leakage requirements.';
+      }
+      return clause.passCriteria;
+    }
+
+    // Chinese (Default)
     if (clause.id === '6.4') {
       return selectedType === 'slip'
         ? '在 23 N–25 N（Slip 滑動型）軸向拉力下維持 10–15 秒，接頭不得脫開分離。'
@@ -188,7 +216,7 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
               }`}
             >
               <FileSpreadsheet className="w-4 h-4" />
-              <span>📋 DVP 設計驗證矩陣表 (ISO 80369-7 Test Matrix)</span>
+              <span>{t.dvp.subtabMatrix}</span>
             </button>
 
             <button
@@ -200,17 +228,17 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
               }`}
             >
               <FileCheck className="w-4 h-4" />
-              <span>📄 ISO 80369-20 附錄 Section .5 測試報告 14 大必填項目 (a~n) 檢核</span>
+              <span>{t.dvp.subtabChecklist}</span>
             </button>
           </div>
 
           <div className="flex items-center space-x-2">
             <button
-              onClick={() => exportMedicalGradeExcelReport(config)}
+              onClick={() => exportMedicalGradeExcelReport(config, language)}
               className="flex items-center space-x-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-md transition-all cursor-pointer"
             >
               <FileSpreadsheet className="w-4 h-4" />
-              <span>📊 匯出專業 Excel 報告工作簿 (.xlsx)</span>
+              <span>{t.dvp.exportExcel}</span>
             </button>
           </div>
         </div>
@@ -221,9 +249,9 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
         <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-5 print:border-none print:shadow-none">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 pb-4 border-b border-slate-200">
             <div>
-              <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Design Verification Plan (DVP)</span>
+              <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">{t.dvp.planTitle}</span>
               <h2 className="text-xl font-extrabold text-slate-900">
-                ISO 80369-7:2021 完整設計驗證測試規範矩陣 (Test Matrix)
+                {t.dvp.matrixHeading}
               </h2>
             </div>
 
@@ -234,8 +262,8 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
                 onChange={(e) => setSelectedGender(e.target.value as ConnectorGender)}
                 className="bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 font-semibold text-slate-800 focus:ring-2 focus:ring-blue-500 focus:outline-none cursor-pointer min-h-[42px] flex-1 sm:flex-initial"
               >
-                <option value="male">♂️ 公接頭 (Male Luer)</option>
-                <option value="female">♀️ 母接頭 (Female Luer)</option>
+                <option value="male">{t.dvp.filterGenderMale}</option>
+                <option value="female">{t.dvp.filterGenderFemale}</option>
               </select>
 
               <select
@@ -243,8 +271,8 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
                 onChange={(e) => setSelectedType(e.target.value as ConnectorType)}
                 className="bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 font-semibold text-slate-800 focus:ring-2 focus:ring-blue-500 focus:outline-none cursor-pointer min-h-[42px] flex-1 sm:flex-initial"
               >
-                <option value="lock">🔒 鎖定式 (L2 Lock)</option>
-                <option value="slip">💧 滑動式 (L1 Slip)</option>
+                <option value="lock">{t.dvp.filterTypeLock}</option>
+                <option value="slip">{t.dvp.filterTypeSlip}</option>
               </select>
             </div>
           </div>
@@ -254,19 +282,19 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
             <table className="w-full text-left text-xs border-collapse">
               <thead>
                 <tr className="bg-slate-100 text-slate-800 font-bold">
-                  <th className="p-3 rounded-tl-xl border border-slate-200">條款 (Clause)</th>
-                  <th className="p-3 border border-slate-200">測試項目 (Test Title)</th>
+                  <th className="p-3 rounded-tl-xl border border-slate-200">{t.dvp.colClause}</th>
+                  <th className="p-3 border border-slate-200">{t.dvp.colTestTitle}</th>
                   <th className="p-3 border border-slate-200">
-                    <div>預裝配條件 (扭矩 / 軸向推力)</div>
-                    <span className="text-[10px] text-blue-600 font-normal block normal-case">前置準備條件</span>
+                    <div>{t.dvp.colPreAssembly}</div>
+                    <span className="text-[10px] text-blue-600 font-normal block normal-case">{t.dvp.colPreAssemblySub}</span>
                   </th>
                   <th className="p-3 border border-slate-200">
-                    <div>定量加載考驗 (壓力/拉力/扭矩)</div>
-                    <span className="text-[10px] text-indigo-700 font-normal block normal-case">實測考驗負載</span>
+                    <div>{t.dvp.colTestLoad}</div>
+                    <span className="text-[10px] text-indigo-700 font-normal block normal-case">{t.dvp.colTestLoadSub}</span>
                   </th>
-                  <th className="p-3 border border-slate-200">保持時間 (Hold Time)</th>
-                  <th className="p-3 border border-slate-200">指定金屬參考接頭</th>
-                  <th className="p-3 rounded-tr-xl border border-slate-200">允收標準 (Pass Criteria)</th>
+                  <th className="p-3 border border-slate-200">{t.dvp.colHoldTime}</th>
+                  <th className="p-3 border border-slate-200">{t.dvp.colReferenceFixture}</th>
+                  <th className="p-3 rounded-tr-xl border border-slate-200">{t.dvp.colPassCriteria}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-200 text-slate-800 font-medium">
@@ -292,17 +320,19 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
                     }
 
                     const requiredRef = getAnnexCFigure(requiredRefId);
-                    const refLabel = requiredRefId === 'C.3' 
-                      ? '母最壞情況 2.71mm' 
-                      : requiredRefId === 'C.6' 
-                      ? '公最壞情況' 
-                      : requiredRefId === 'C.5' 
-                      ? '母滑動標稱' 
-                      : requiredRefId === 'C.2' 
-                      ? '公滑動標稱' 
-                      : requiredRefId === 'C.1' 
-                      ? '母鎖定標稱 3.50mm' 
-                      : '公鎖定標稱';
+                    const refLabel = language === 'en'
+                      ? (requiredRefId === 'C.3' ? 'Female Worst-case 2.71mm'
+                        : requiredRefId === 'C.6' ? 'Male Worst-case'
+                        : requiredRefId === 'C.5' ? 'Female Slip Nominal'
+                        : requiredRefId === 'C.2' ? 'Male Slip Nominal'
+                        : requiredRefId === 'C.1' ? 'Female Lock Nominal 3.50mm'
+                        : 'Male Lock Nominal')
+                      : (requiredRefId === 'C.3' ? '母最壞情況 2.71mm'
+                        : requiredRefId === 'C.6' ? '公最壞情況'
+                        : requiredRefId === 'C.5' ? '母滑動標稱'
+                        : requiredRefId === 'C.2' ? '公滑動標稱'
+                        : requiredRefId === 'C.1' ? '母鎖定標稱 3.50mm'
+                        : '公鎖定標稱');
 
                     const isActiveClause = clause.id === config.selectedClauseId;
                     return (
@@ -317,7 +347,7 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
                           {clause.id}
                         </td>
                         <td className="p-3 border border-slate-200 font-bold">
-                          {clause.titleZh}
+                          {language === 'en' ? clause.title : clause.titleZh}
                         </td>
                         <td className="p-3 border border-slate-200 font-mono">
                           {renderPreAssembly(clause)}
@@ -349,10 +379,10 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
           <div className="mt-6 pt-4 border-t border-slate-200 space-y-3 print:hidden">
             <div className="flex items-center space-x-2">
               <span className="bg-blue-600 text-white font-mono font-bold text-xs px-2.5 py-1 rounded-md shadow-xs">
-                Clause {config.selectedClauseId} 內嵌規範圖示 (SVG CAD / 3D Render)
+                {language === 'en' ? `Clause ${config.selectedClauseId} Test Fixture Diagram` : `Clause ${config.selectedClauseId} 內嵌規範圖示 (SVG CAD)`}
               </span>
               <h3 className="font-bold text-slate-900 text-sm">
-                【{activeClauseObj?.titleZh}】對應 ISO 80369-20 實驗裝置圖解
+                【{language === 'en' ? activeClauseObj?.title : activeClauseObj?.titleZh}】{language === 'en' ? 'Apparatus & Fixture Layout' : '對應 ISO 80369-20 實驗裝置圖解'}
               </h3>
             </div>
 
@@ -370,9 +400,10 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
           </div>
 
           <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs text-slate-600 space-y-1">
-            <div className="font-bold text-slate-800">📌 DVP 審查注意事項 (Audit Notes):</div>
-            <p>1. 第 6.6 節抗過旋測試與第 6.4 節抗拉拔測試，標準強制規定必須採用 Fig.C.3 最壞情況（2.71 mm 耳翼）參考接頭。</p>
-            <p>2. 6.1/6.2 洩漏與 6.3 龜裂測試，採標稱 Fig.C.1（3.50 mm 耳翼）接頭，用以隔離密封面變量。</p>
+            <div className="font-bold text-slate-800">{t.dvp.auditNotesTitle}</div>
+            <p>{t.dvp.auditNote1}</p>
+            <p>{t.dvp.auditNote2}</p>
+            <p className="text-rose-600 font-bold mt-1">{t.dvp.auditNote3}</p>
           </div>
         </div>
       ) : (
@@ -385,24 +416,24 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
                   ISO 80369-20:2024 Section .5
                 </span>
                 <span className="bg-emerald-100 text-emerald-800 text-[12px] font-bold px-2 py-0.5 rounded-md border border-emerald-200">
-                  法規強制 14 大必填欄位 (a ~ n)
+                  {language === 'en' ? 'Mandatory 14 Reporting Items (a ~ n)' : '法規強制 14 大必填欄位 (a ~ n)'}
                 </span>
               </div>
               <h2 className="text-xl font-extrabold text-slate-900 mt-1">
-                實驗室正式測試報告 (Test Report) 14 大必備項目與範例清單
+                {t.dvp.checklistTitle}
               </h2>
               <p className="text-xs text-slate-500 mt-1">
-                依據 ISO 80369-20:2024 附錄 B.5、C.5、D.5、E.5、F.5、G.5 之嚴格規定，第三方實驗室與內部測試報告必須完整揭露下列 14 項法定內容。
+                {t.dvp.checklistDesc}
               </p>
             </div>
 
             <div className="flex flex-wrap items-center gap-2 shrink-0">
               <button
-                onClick={() => exportMedicalGradeExcelReport(config)}
+                onClick={() => exportMedicalGradeExcelReport(config, language)}
                 className="flex items-center space-x-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-md transition-all cursor-pointer"
               >
                 <FileSpreadsheet className="w-4 h-4" />
-                <span>匯出專業 Excel 報告工作簿 (.xlsx)</span>
+                <span>{t.dvp.exportExcel}</span>
               </button>
 
               <button
@@ -410,7 +441,7 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
                 className="flex items-center space-x-2 px-3 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-all cursor-pointer border border-slate-200"
               >
                 <Download className="w-4 h-4" />
-                <span>匯出 CSV</span>
+                <span>{t.dvp.exportCsv}</span>
               </button>
             </div>
           </div>
@@ -423,28 +454,32 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
               </div>
               <div>
                 <div className="flex items-center space-x-2">
-                  <span className="font-extrabold text-sm text-blue-950">{ISO20_ANNEX_A_PRECONDITIONING.titleZh}</span>
+                  <span className="font-extrabold text-sm text-blue-950">
+                    {language === 'en' ? 'Clause 4 / Section .2 Environmental Conditioning' : ISO20_ANNEX_A_PRECONDITIONING.titleZh}
+                  </span>
                   <span className="bg-blue-600 text-white font-mono text-[11px] px-2 py-0.5 rounded font-bold">{ISO20_ANNEX_A_PRECONDITIONING.standard}</span>
                 </div>
                 <p className="text-xs text-blue-900 mt-1 leading-relaxed">
-                  {ISO20_ANNEX_A_PRECONDITIONING.descriptionZh}
+                  {language === 'en' 
+                    ? 'Prior to testing, test specimens shall be conditioned for not less than 24 h at (20 ± 5) °C and (50 ± 10) % relative humidity in accordance with ISO 80369-20:2024 Clause 4 and Section .2 (B.2, C.2, D.2, E.2, F.2, G.2, H.2).'
+                    : ISO20_ANNEX_A_PRECONDITIONING.descriptionZh}
                 </p>
               </div>
             </div>
 
             <div className="flex items-center gap-3 shrink-0 bg-white/90 p-3 rounded-xl border border-blue-200 text-xs font-mono font-bold text-slate-800 shadow-2xs">
               <div className="text-center px-2">
-                <span className="text-[10px] text-slate-500 block">標準溫度</span>
-                <span className="text-blue-700 font-extrabold text-sm">23 ± 2 °C</span>
+                <span className="text-[10px] text-slate-500 block">{language === 'en' ? 'Standard Temp' : '標準溫度'}</span>
+                <span className="text-blue-700 font-extrabold text-sm">20 ± 5 °C</span>
               </div>
               <div className="h-6 w-px bg-slate-200"></div>
               <div className="text-center px-2">
-                <span className="text-[10px] text-slate-500 block">標準相對濕度</span>
-                <span className="text-indigo-700 font-extrabold text-sm">50 ± 5 % RH</span>
+                <span className="text-[10px] text-slate-500 block">{language === 'en' ? 'Relative Humidity' : '標準相對濕度'}</span>
+                <span className="text-indigo-700 font-extrabold text-sm">50 ± 10 % RH</span>
               </div>
               <div className="h-6 w-px bg-slate-200"></div>
               <div className="text-center px-2">
-                <span className="text-[10px] text-slate-500 block">前置靜置時間</span>
+                <span className="text-[10px] text-slate-500 block">{language === 'en' ? 'Conditioning Time' : '前置靜置時間'}</span>
                 <span className="text-emerald-700 font-extrabold text-sm">≥ 24 Hours</span>
               </div>
             </div>
@@ -463,23 +498,31 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
                       {item.code}
                     </span>
                     <div>
-                      <h4 className="font-extrabold text-slate-900 text-xs sm:text-sm">{item.titleZh}</h4>
-                      <span className="text-[11px] font-mono text-slate-400 font-semibold">{item.titleEn}</span>
+                      <h4 className="font-extrabold text-slate-900 text-xs sm:text-sm">
+                        {language === 'en' ? item.titleEn : item.titleZh}
+                      </h4>
+                      {language !== 'en' && (
+                        <span className="text-[11px] font-mono text-slate-400 font-semibold">{item.titleEn}</span>
+                      )}
                     </div>
                   </div>
                   <span className="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
                     <ShieldCheck className="w-3 h-3 text-emerald-600" />
-                    必填 Section .5
+                    {language === 'en' ? 'Section .5 Mandatory' : '必填 Section .5'}
                   </span>
                 </div>
 
                 <p className="text-xs text-slate-600 leading-relaxed">
-                  {item.descriptionZh}
+                  {language === 'en' ? (item.descriptionEn || item.descriptionZh) : item.descriptionZh}
                 </p>
 
                 <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-100 text-xs">
-                  <span className="font-bold text-slate-700 block mb-0.5 text-[11px]">📝 報告填寫實例 / 範例說明:</span>
-                  <span className="font-mono text-slate-800 font-semibold">{item.exampleValueZh}</span>
+                  <span className="font-bold text-slate-700 block mb-0.5 text-[11px]">
+                    {language === 'en' ? '📝 Example Value / Compliance Format:' : '📝 報告填寫實例 / 範例說明:'}
+                  </span>
+                  <span className="font-mono text-slate-800 font-semibold">
+                    {language === 'en' ? (item.exampleValueEn || item.exampleValueZh) : item.exampleValueZh}
+                  </span>
                 </div>
               </div>
             ))}
@@ -488,10 +531,19 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
           <div className="bg-amber-50 p-4 rounded-xl border border-amber-200 text-xs text-amber-900 space-y-1">
             <div className="font-bold flex items-center space-x-1.5 text-amber-950">
               <Info className="w-4 h-4 text-amber-600" />
-              <span>法規查核與認證審查注意事項 (Regulatory Compliance Warning):</span>
+              <span>{language === 'en' ? 'Regulatory Compliance & Audit Warning:' : '法規查核與認證審查注意事項 (Regulatory Compliance Warning):'}</span>
             </div>
-            <p>1. 缺少上述 a) 至 n) 任何一項內容，可能導致 TFDA、FDA (510k) 或 CE MDR 稽核員補件發問 (RFI) 或退件。</p>
-            <p>2. 第 k) 項測試系統總積 V（系統內部容積）為 ISO 80369-20:2024 新版強制揭露項目，需搭配 Figure B.1 的測定方法標註。</p>
+            {language === 'en' ? (
+              <>
+                <p>1. Omission of any item from a) through n) may result in a Request for Information (RFI) or rejection from FDA (510k), CE MDR notified bodies, or TFDA reviewers.</p>
+                <p>2. Item k) Total test system volume V is a mandatory disclosure in ISO 80369-20:2024, evaluated in accordance with Figure B.1 methodology.</p>
+              </>
+            ) : (
+              <>
+                <p>1. 缺少上述 a) 至 n) 任何一項內容，可能導致 TFDA、FDA (510k) 或 CE MDR 稽核員補件發問 (RFI) 或退件。</p>
+                <p>2. 第 k) 項測試系統總積 V（系統內部容積）為 ISO 80369-20:2024 新版強制揭露項目，需搭配 Figure B.1 的測定方法標註。</p>
+              </>
+            )}
           </div>
         </div>
       )}
