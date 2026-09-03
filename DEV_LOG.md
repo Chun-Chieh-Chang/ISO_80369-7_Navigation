@@ -1,5 +1,29 @@
 # 開發日誌 (DEV_LOG)
 
+---
+## 版本：v8.12.0 DVP 法規合规性深度修正與全域死碼清理 (2026-09-03)
+
+### 修法來源 (RCA)
+1. **6.6 抗過旋測試預裝配條件錯誤**：DVP 矩陣 6.6 節「預裝配條件」欄位錯誤標註為「直加破壞扭矩」，完全忽略 ISO 80369-20 Annex H.4 a) 強制要求之標準預裝配程序（0.08–0.12 N·m + 26.5–27.5 N，維持 5–6 秒後釋放），屬重大法規盲點。
+2. **6.1 保持時間混淆氣壓法與水壓法**：表格將 6.1.2 氣壓法（15–20 秒）與 6.1.3 水壓法（30–35 秒）合併為「15–35 秒」，違反 ISO 80369-7 6.1.1「二選一」規範。
+3. **6.3 允收標準增列法規未有之目視裂紋要求**：ISO 80369-7 6.3 唯一法定判定為「48 小時後依 6.1.1 洩漏測試合格」，表格誤增「無結構龜裂」目視要求，徒增審查爭議。
+4. **6.4 定量負載 L1/L2 數值混淆**：表格將 Slip（23–25 N）與 Lock（32–35 N）揉成「23–35 N」超大區間，若測試員以 24 N 拉拔 Lock 產品將造成嚴重測試不足。
+5. **6.6 允收標準漏掉 No cocking 判定**：ISO 80369-20 Annex H.4 d 明定須「接頭無歪斜」，表格未標註。
+6. **17 個無用圖檔累積 17.8 MB**：經掃描確認這些圖檔在任何 Source 檔案中均無引用。
+
+### 變更檔案 (MECE)
+1. **src/data/isoData.ts**：6.6 assemblyTorqueNm {0,0}→{0.08,0.12}；新增 assemblyAxialForceN；6.6 passCriteriaZh 加 No cocking；6.3 passCriteriaZh 移除目視龜裂
+2. **src/types/index.ts**：ISOClauseInfo 新增 preAssemblyHoldSec? 欄位
+3. **src/components/DvpGenerator.tsx**：新增 4 個 render helper 函數，6.1 拆分保持時間，6.4 L1/L2 動態切換，6.3/6.6 修正允收標準，Audit Note 警告
+4. **src/components/ClauseComparisonMatrix.tsx**：新增 L1/L2 切換按鈕，所有 clause 預裝配加 5-6s 釋放註記
+5. **src/utils/isoHelpers.test.ts**：新增 5 項 DVP 修正驗證測試（全 13 項通過）
+6. 刪除 17 個無用圖檔/pptx（~17.8 MB）
+
+### 確效結果 (Validation)
+- npm run test：13/13 PASS
+- npx tsc --noEmit：零錯誤
+- git push origin main：成功
+- 資安盤點：無 .env 敏感資訊
 ## 版本：v2.5 ISO 原文 PDF 核對與缺失資料補齊 (2026-08-09)
 
 ### 需求內容
