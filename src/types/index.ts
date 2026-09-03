@@ -52,6 +52,7 @@ export interface AnnexCFigureInfo {
   intendedClauses: TestClauseId[];
   isWorstCase: boolean;
   worstCaseReasonZh: string;
+  worstCaseReasonEn?: string;
   svgHighlights: {
     title: string;
     value: string;

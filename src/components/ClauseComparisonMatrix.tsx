@@ -3,9 +3,11 @@ import { ISO_TOPICS, STANDARD_CLAUSE_DETAILS } from '../data/isoTopicsData';
 import { ISO_CLAUSES } from '../data/isoData';
 import { ISOStandardFigureRenderer } from './ISOStandardFigureRenderer';
 import { getClauseSvgKey, getAnnexCFigure } from '../utils/isoHelpers';
+import { useLanguage } from '../i18n/LanguageContext';
 import { Table, Search, Download, Filter, Info, CheckCircle2, AlertTriangle, ArrowUpDown, ChevronDown, ChevronUp, Eye, Sparkles } from 'lucide-react';
 
 export const ClauseComparisonMatrix: React.FC = () => {
+  const { language, t } = useLanguage();
   const [filterType, setFilterType] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [expandedClauseId, setExpandedClauseId] = useState<string | null>(null);
@@ -27,232 +29,239 @@ export const ClauseComparisonMatrix: React.FC = () => {
     const c66Data = ISO_CLAUSES['6.6'];
     const c66Detail = STANDARD_CLAUSE_DETAILS['iso7-6.6'];
 
+    const isEn = language === 'en';
     return [
       {
         id: 'Clause 1',
-        title: 'Clause 1 適用範圍 (Scope)',
+        title: isEn ? 'Clause 1 Scope' : 'Clause 1 適用範圍 (Scope)',
         iso7: 'Clause 1',
         iso20: 'Clause 1',
         category: 'general',
-        categoryZh: '一般',
-        type: 'All Connectors',
+        categoryZh: isEn ? 'General' : '一般',
+        type: isEn ? 'All Connectors' : '所有接頭',
         assemblyTorque: '-',
         testPressure: '-',
         testForce: '-',
         testTorque: '-',
         holdTime: '-',
-        fixture: '法規審查對照表',
-        criteria: '明確界定適用於血管（Intravascular）或皮下（Subcutaneous）注射/輸液設備之小口徑魯爾連接器範疇',
-        risk: '產品預期用途劃分錯誤致審查退件'
+        fixture: isEn ? 'Regulatory Scope Matrix' : '法規審查對照表',
+        criteria: isEn 
+          ? 'Specifies small-bore connectors intended for use in intravascular or subcutaneous applications'
+          : '明確界定適用於血管（Intravascular）或皮下（Subcutaneous）注射/輸液設備之小口徑魯爾連接器範疇',
+        risk: isEn ? 'Misclassification of intended use leads to regulatory rejection' : '產品預期用途劃分錯誤致審查退件'
       },
       {
         id: 'Clause 2',
-        title: 'Clause 2 規範性引用文件 (Normative References)',
+        title: isEn ? 'Clause 2 Normative References' : 'Clause 2 規範性引用文件 (Normative References)',
         iso7: 'Clause 2',
         iso20: 'Clause 2',
         category: 'general',
-        categoryZh: '一般',
-        type: 'All Connectors',
+        categoryZh: isEn ? 'General' : '一般',
+        type: isEn ? 'All Connectors' : '所有接頭',
         assemblyTorque: '-',
         testPressure: '-',
         testForce: '-',
         testTorque: '-',
         holdTime: '-',
-        fixture: '標準追溯文件',
-        criteria: '強制引用 ISO 80369-1 (通用防錯要求) 與 ISO 80369-20 (通用測試方法) 規範版本',
-        risk: '引用被廢止之舊版 ISO 594 標準'
+        fixture: isEn ? 'Standards Traceability Register' : '標準追溯文件',
+        criteria: isEn
+          ? 'Mandatory reference to ISO 80369-1 (general requirements) and ISO 80369-20 (test methods)'
+          : '強制引用 ISO 80369-1 (通用防錯要求) 與 ISO 80369-20 (通用測試方法) 規範版本',
+        risk: isEn ? 'Citing superseded ISO 594 legacy standards' : '引用被廢止之舊版 ISO 594 標準'
       },
       {
         id: 'Clause 3',
-        title: 'Clause 3 術語與定義 (Terms & Definitions)',
+        title: isEn ? 'Clause 3 Terms & Definitions' : 'Clause 3 術語與定義 (Terms & Definitions)',
         iso7: 'Clause 3',
         iso20: 'Clause 3',
         category: 'general',
-        categoryZh: '一般',
-        type: 'All Connectors',
+        categoryZh: isEn ? 'General' : '一般',
+        type: isEn ? 'All Connectors' : '所有接頭',
         assemblyTorque: '-',
         testPressure: '-',
         testForce: '-',
         testTorque: '-',
         holdTime: '-',
-        fixture: 'DHF 專有名詞對照表',
-        criteria: '精確定義 Luer connector、Luer slip、Luer lock、Reference connector、Leak rate 等法規專有名詞',
-        risk: '圖面名詞與國際標準歧異導致審查補件'
+        fixture: isEn ? 'DHF Nomenclature Glossary' : 'DHF 專有名詞對照表',
+        criteria: isEn
+          ? 'Precise definitions for Luer connector, Luer slip, Luer lock, reference connector, leak rate'
+          : '精確定義 Luer connector、Luer slip、Luer lock、Reference connector、Leak rate 等法規專有名詞',
+        risk: isEn ? 'Inconsistent nomenclature causing regulatory RFIs' : '圖面名詞與國際標準歧異導致審查補件'
       },
       {
         id: 'Clause 4',
-        title: 'Clause 4 通用要求與預裝配程序 (General & Pre-assembly)',
+        title: isEn ? 'Clause 4 General & Pre-assembly Procedure' : 'Clause 4 通用要求與預裝配程序 (General & Pre-assembly)',
         iso7: 'Clause 4',
         iso20: 'Clause 4 & General Procedure',
         category: 'assembly',
-        categoryZh: '裝配',
-        type: 'Lock & Slip',
-        assemblyTorque: '0.08–0.12 N·m + 26.5–27.5 N 推力，維持 5–6 秒後釋放',
+        categoryZh: isEn ? 'Assembly' : '裝配',
+        type: isEn ? 'Lock & Slip' : 'Lock & Slip',
+        assemblyTorque: isEn ? '0.08–0.12 N·m + 26.5–27.5 N, hold 5–6 s then release' : '0.08–0.12 N·m + 26.5–27.5 N 推力，維持 5–6 秒後釋放',
         testPressure: '-',
         testForce: '-',
         testTorque: '-',
-        holdTime: '5 – 6 秒',
-        fixture: '校正定扭矩起子 & 彈簧推力機構',
-        criteria: '性能測試前必須執行統一標準預裝配作業，旋合時須同時施加 0.08~0.12 N·m 扭矩與 26.5~27.5 N 軸向推力持壓 5~6s 確立 6% 錐面配合，然後完全釋放外力',
-        risk: '預裝配未定量加壓致使假洩漏或螺紋損傷'
+        holdTime: isEn ? '5 – 6 s' : '5 – 6 秒',
+        fixture: isEn ? 'Calibrated Torque Driver & Axial Force Mechanism' : '校正定扭矩起子 & 彈簧推力機構',
+        criteria: isEn
+          ? 'Mandatory standard pre-assembly: simultaneously apply 0.08–0.12 N·m torque and 26.5–27.5 N axial force for 5–6 s, then release all loads prior to test'
+          : '性能測試前必須執行統一標準預裝配作業，旋合時須同時施加 0.08~0.12 N·m 扭矩與 26.5~27.5 N 軸向推力持壓 5~6s 確立 6% 錐面配合，然後完全釋放外力',
+        risk: isEn ? 'Failure to perform quantitative pre-assembly causes false leakage' : '預裝配未定量加壓致使假洩漏或螺紋損傷'
       },
       {
         id: 'Clause 5',
-        title: 'Clause 5 幾何尺寸與 6% 圓錐度驗證 (Dimensional Requirements)',
+        title: isEn ? 'Clause 5 Dimensional Requirements (6% Taper)' : 'Clause 5 幾何尺寸與 6% 圓錐度驗證 (Dimensional Requirements)',
         iso7: 'Clause 5 (Figures B.1~B.6)',
-        iso20: 'Annex A (幾何量測法)',
+        iso20: isEn ? 'Annex A (Geometric Measurement)' : 'Annex A (幾何量測法)',
         category: 'dimensional',
-        categoryZh: '尺寸',
+        categoryZh: isEn ? 'Dimensions' : '尺寸',
         type: 'Lock & Slip',
         assemblyTorque: '-',
         testPressure: '-',
         testForce: '-',
         testTorque: '-',
         holdTime: '-',
-        fixture: clause5Detail?.fixtureRequiredZh || '三次元 CMM / 6% 光學投影儀 / 通止規',
-        criteria: clause5Detail?.acceptanceCriteriaZh?.join('；') || '圓錐度 6% (1:16.667)、配合長度 ≥ 7.5mm、螺紋 Pitch 2.5mm',
-        risk: clause5Detail?.commonNonConformancesZh?.join('；') || '射出保壓不足致錐度偏離 6% 或螺紋厚度超差'
+        fixture: isEn ? 'CMM / Optical Comparator / Gauges' : (clause5Detail?.fixtureRequiredZh || '三次元 CMM / 6% 光學投影儀 / 通止規'),
+        criteria: isEn ? '6% (1:16.667) taper, engagement length >= 7.5mm, thread pitch 2.5mm' : (clause5Detail?.acceptanceCriteriaZh?.join('；') || '圓錐度 6% (1:16.667)、配合長度 ≥ 7.5mm、螺紋 Pitch 2.5mm'),
+        risk: isEn ? 'Injection sinkage or taper deviation' : (clause5Detail?.commonNonConformancesZh?.join('；') || '射出保壓不足致錐度偏離 6% 或螺紋厚度超差')
       },
       {
         id: '6.1',
-        title: '6.1 流體洩漏 (6.1.2 氣壓衰減法 vs 6.1.3 正壓液體法)',
+        title: isEn ? '6.1 Fluid Leakage (6.1.2 Decay vs 6.1.3 Liquid)' : '6.1 流體洩漏 (6.1.2 氣壓衰減法 vs 6.1.3 正壓液體法)',
         iso7: 'Clause 6.1',
-        iso20: 'Annex B (氣壓) / Annex C (水壓)',
+        iso20: isEn ? 'Annex B (Pneumatic) / Annex C (Hydraulic)' : 'Annex B (氣壓) / Annex C (水壓)',
         category: c61Data?.category || 'leakage',
-        categoryZh: '洩漏',
+        categoryZh: isEn ? 'Leakage' : '洩漏',
         type: 'Lock & Slip',
-        assemblyTorque: `${c61Data?.assemblyTorqueNm.min}–${c61Data?.assemblyTorqueNm.max} N·m + ${c61Data?.assemblyAxialForceN?.min}–${c61Data?.assemblyAxialForceN?.max} N 推力，維持 5–6 秒後釋放`,
+        assemblyTorque: isEn ? `${c61Data?.assemblyTorqueNm.min}–${c61Data?.assemblyTorqueNm.max} N·m + ${c61Data?.assemblyAxialForceN?.min}–${c61Data?.assemblyAxialForceN?.max} N, hold 5–6 s then release` : `${c61Data?.assemblyTorqueNm.min}–${c61Data?.assemblyTorqueNm.max} N·m + ${c61Data?.assemblyAxialForceN?.min}–${c61Data?.assemblyAxialForceN?.max} N 推力，維持 5–6 秒後釋放`,
         testPressure: '300–330 kPa',
         testForce: '-',
         testTorque: '-',
-        holdTime: '氣壓法 (6.1.2): 15–20 秒　/　水壓法 (6.1.3): 30–35 秒（二選一）',
-        fixture: 'Fig.C.1/C.5 (母鎖定/滑動) 或 Fig.C.4/C.2 (公鎖定/滑動)',
-        criteria: c61Data?.passCriteriaZh || '【正壓液體洩漏 (6.1.3 水壓法)】加壓 300~330 kPa 持壓 30~35s，目視無水滴滲漏滴落；【壓力衰減洩漏 (6.1.2 氣壓法)】加壓 300~330 kPa 持壓 15~20s 測 ΔP，洩漏率 ≤ 0.005 Pa·m³/s',
-        risk: c61Detail?.commonNonConformancesZh?.join('；') || '射出成型毛邊、6% 錐度縮水變形'
+        holdTime: isEn ? 'Decay (6.1.2): 15–20 s / Liquid (6.1.3): 30–35 s' : '氣壓法 (6.1.2): 15–20 秒　/　水壓法 (6.1.3): 30–35 秒（二選一）',
+        fixture: isEn ? 'Fig. C.1/C.5 (Lock/Slip) or Fig. C.4/C.2 (Lock/Slip)' : 'Fig.C.1/C.5 (母鎖定/滑動) 或 Fig.C.4/C.2 (公鎖定/滑動)',
+        criteria: isEn ? (c61Data?.passCriteria || 'Hydraulic (6.1.3): No falling drop of water over 30-35 s at 300-330 kPa. Pneumatic (6.1.2): Leakage rate <= 0.005 Pa*m3/s over 15-20 s at 300-330 kPa.') : (c61Data?.passCriteriaZh || '【正壓液體洩漏 (6.1.3 水壓法)】加壓 300~330 kPa 持壓 30~35s，目視無水滴滲漏滴落；【壓力衰減洩漏 (6.1.2 氣壓法)】加壓 300~330 kPa 持壓 15~20s 測 ΔP，洩漏率 ≤ 0.005 Pa·m³/s'),
+        risk: isEn ? 'Molding flash or taper shrink deformation' : (c61Detail?.commonNonConformancesZh?.join('；') || '射出成型毛邊、6% 錐度縮水變形')
       },
       {
         id: '6.2',
-        title: '6.2 負壓空氣洩漏 (Sub-atmospheric Air Leakage)',
+        title: isEn ? '6.2 Sub-atmospheric Air Leakage (Vacuum)' : '6.2 負壓空氣洩漏 (Sub-atmospheric Air Leakage)',
         iso7: 'Clause 6.2',
-        iso20: 'Annex D (負壓衰減) / Annex K (抽吸水下氣泡)',
+        iso20: isEn ? 'Annex D (Vacuum Decay) / Annex K (Submerged Air Bubble)' : 'Annex D (負壓衰減) / Annex K (抽吸水下氣泡)',
         category: c62Data?.category || 'leakage',
-        categoryZh: '洩漏',
+        categoryZh: isEn ? 'Leakage' : '洩漏',
         type: 'Lock & Slip',
-        assemblyTorque: `${c62Data?.assemblyTorqueNm.min}–${c62Data?.assemblyTorqueNm.max} N·m + ${c62Data?.assemblyAxialForceN?.min}–${c62Data?.assemblyAxialForceN?.max} N 推力，維持 5–6 秒後釋放`,
-        testPressure: '80.0–88.0 kPa 真空',
+        assemblyTorque: isEn ? `${c62Data?.assemblyTorqueNm.min}–${c62Data?.assemblyTorqueNm.max} N·m + ${c62Data?.assemblyAxialForceN?.min}–${c62Data?.assemblyAxialForceN?.max} N, hold 5–6 s then release` : `${c62Data?.assemblyTorqueNm.min}–${c62Data?.assemblyTorqueNm.max} N·m + ${c62Data?.assemblyAxialForceN?.min}–${c62Data?.assemblyAxialForceN?.max} N 推力，維持 5–6 秒後釋放`,
+        testPressure: isEn ? '80.0–88.0 kPa Vacuum' : '80.0–88.0 kPa 真空',
         testForce: '-',
         testTorque: '-',
-        holdTime: `${c62Data?.holdTimeSec.min}–${c62Data?.holdTimeSec.max} 秒`,
-        fixture: 'Fig.C.1/C.5 (母鎖定/滑動) 或 Fig.C.4/C.2 (公鎖定/滑動)',
-        criteria: c62Data?.passCriteriaZh || '在 80.0 kPa–88.0 kPa 負壓真空下保持 15–20 秒，空氣洩漏率不超過 0.005 Pa·m³/s (Annex D)',
-        risk: c62Detail?.commonNonConformancesZh?.join('；') || '負壓時錐面微幅收縮脫離產生微氣孔致氣栓'
+        holdTime: isEn ? `${c62Data?.holdTimeSec.min}–${c62Data?.holdTimeSec.max} s` : `${c62Data?.holdTimeSec.min}–${c62Data?.holdTimeSec.max} 秒`,
+        fixture: isEn ? 'Fig. C.1/C.5 (Lock/Slip) or Fig. C.4/C.2 (Lock/Slip)' : 'Fig.C.1/C.5 (母鎖定/滑動) 或 Fig.C.4/C.2 (公鎖定/滑動)',
+        criteria: isEn ? (c62Data?.passCriteria || 'Shall not exceed a leakage rate of 0.005 Pa*m3/s over 15-20 s at 80.0-88.0 kPa vacuum (Annex D)') : (c62Data?.passCriteriaZh || '在 80.0 kPa–88.0 kPa 負壓真空下保持 15–20 秒，空氣洩漏率不超過 0.005 Pa·m³/s (Annex D)'),
+        risk: isEn ? 'Micro-void formation during vacuum causing air embolism' : (c62Detail?.commonNonConformancesZh?.join('；') || '負壓時錐面微幅收縮脫離產生微氣孔致氣栓')
       },
       {
         id: '6.3',
-        title: '6.3 耐環境應力龜裂 (Stress Cracking)',
+        title: isEn ? '6.3 Stress Cracking (48h conditioning)' : '6.3 耐環境應力龜裂 (Stress Cracking)',
         iso7: 'Clause 6.3',
-        iso20: 'Annex E (裝配靜置 48h)',
+        iso20: isEn ? 'Annex E (48 h Assembly Hold)' : 'Annex E (裝配靜置 48h)',
         category: c63Data?.category || 'durability',
-        categoryZh: '耐久',
+        categoryZh: isEn ? 'Durability' : '耐久',
         type: 'Lock & Slip',
-        assemblyTorque: `${c63Data?.assemblyTorqueNm.min}–${c63Data?.assemblyTorqueNm.max} N·m + ${c63Data?.assemblyAxialForceN?.min}–${c63Data?.assemblyAxialForceN?.max} N 推力，維持 5–6 秒後釋放`,
+        assemblyTorque: isEn ? `${c63Data?.assemblyTorqueNm.min}–${c63Data?.assemblyTorqueNm.max} N·m + ${c63Data?.assemblyAxialForceN?.min}–${c63Data?.assemblyAxialForceN?.max} N, hold 5–6 s then release` : `${c63Data?.assemblyTorqueNm.min}–${c63Data?.assemblyTorqueNm.max} N·m + ${c63Data?.assemblyAxialForceN?.min}–${c63Data?.assemblyAxialForceN?.max} N 推力，維持 5–6 秒後釋放`,
         testPressure: '-',
         testForce: '-',
         testTorque: '-',
-        holdTime: '≥ 48 小時',
-        fixture: 'Fig.C.1/C.5 (母鎖定/滑動) 或 Fig.C.4/C.2 (公鎖定/滑動)',
-        criteria: '依 6.1.1 執行洩漏測試並合格即可（法規無目視裂紋要求）',
-        risk: c63Detail?.commonNonConformancesZh?.join('；') || 'PC/PMMA 材質射出殘留內應力高，受長效過盈應力作用發生爆裂'
+        holdTime: isEn ? '≥ 48 Hours' : '≥ 48 小時',
+        fixture: isEn ? 'Fig. C.1/C.5 (Lock/Slip) or Fig. C.4/C.2 (Lock/Slip)' : 'Fig.C.1/C.5 (母鎖定/滑動) 或 Fig.C.4/C.2 (公鎖定/滑動)',
+        criteria: isEn ? 'Meet the requirements of Clause 6.1.1 after 48 h assembly hold per ISO 80369-20 Annex E (No visual crack requirement in ISO standard)' : '依 6.1.1 執行洩漏測試並合格即可（法規無目視裂紋要求）',
+        risk: isEn ? 'Residual injection stress causing delayed hoop cracking' : (c63Detail?.commonNonConformancesZh?.join('；') || 'PC/PMMA 材質射出殘留內應力高，受長效過盈應力作用發生爆裂')
       },
       {
         id: '6.4',
-        title: '6.4 抗軸向負載分離 (Resistance to Separation from Axial Load)',
+        title: isEn ? '6.4 Resistance to Separation from Axial Load' : '6.4 抗軸向負載分離 (Resistance to Separation from Axial Load)',
         iso7: 'Clause 6.4',
         iso20: 'Annex F',
         category: c64Data?.category || 'mechanical',
-        categoryZh: '機械',
+        categoryZh: isEn ? 'Mechanical' : '機械',
         type: `Lock (${c64Data?.testForceN?.max || 35}N) / Slip (${c64Data?.testForceN?.min || 23}N)`,
-        assemblyTorque: `${c64Data?.assemblyTorqueNm.min}–${c64Data?.assemblyTorqueNm.max} N·m + ${c64Data?.assemblyAxialForceN?.min}–${c64Data?.assemblyAxialForceN?.max} N 推力，維持 5–6 秒後釋放`,
+        assemblyTorque: isEn ? `${c64Data?.assemblyTorqueNm.min}–${c64Data?.assemblyTorqueNm.max} N·m + ${c64Data?.assemblyAxialForceN?.min}–${c64Data?.assemblyAxialForceN?.max} N, hold 5–6 s then release` : `${c64Data?.assemblyTorqueNm.min}–${c64Data?.assemblyTorqueNm.max} N·m + ${c64Data?.assemblyAxialForceN?.min}–${c64Data?.assemblyAxialForceN?.max} N 推力，維持 5–6 秒後釋放`,
         testPressure: '-',
         testForce: selectedType === 'slip' ? '23–25 N (Slip/L1)' : '32–35 N (Lock/L2)',
         testTorque: '-',
-        holdTime: `${c64Data?.holdTimeSec.min}–${c64Data?.holdTimeSec.max} 秒`,
-        fixture: 'Fig.C.3/C.5 (母鎖定最壞/滑動) 或 Fig.C.6/C.2 (公鎖定最壞/滑動)',
-        criteria: c64Data?.passCriteriaZh || '在 23 N–25 N（Slip/L1）或 32 N–35 N（Lock/L2）軸向拉力下維持 10–15 秒，接頭不得脫開分離',
-        risk: c64Detail?.commonNonConformancesZh?.join('；') || '螺紋咬合深度不足，耳翼被直接剪切拉平'
+        holdTime: isEn ? `${c64Data?.holdTimeSec.min}–${c64Data?.holdTimeSec.max} s` : `${c64Data?.holdTimeSec.min}–${c64Data?.holdTimeSec.max} 秒`,
+        fixture: isEn ? 'Fig. C.3/C.5 (Lock worst-case / Slip) or Fig. C.6/C.2 (Lock worst-case / Slip)' : 'Fig.C.3/C.5 (母鎖定最壞/滑動) 或 Fig.C.6/C.2 (公鎖定最壞/滑動)',
+        criteria: isEn ? (c64Data?.passCriteria || 'Shall remain assembled without separation while subjected to axial load for 10-15 s.') : (c64Data?.passCriteriaZh || '在 23 N–25 N（Slip/L1）或 32 N–35 N（Lock/L2）軸向拉力下維持 10–15 秒，接頭不得脫開分離'),
+        risk: isEn ? 'Insufficient thread engagement depth leading to sheared lugs' : (c64Detail?.commonNonConformancesZh?.join('；') || '螺紋咬合深度不足，耳翼被直接剪切拉平')
       },
       {
         id: '6.5',
-        title: '6.5 抗旋鬆分離 (Resistance to Separation from Unscrewing)',
+        title: isEn ? '6.5 Resistance to Separation from Unscrewing' : '6.5 抗旋鬆分離 (Resistance to Separation from Unscrewing)',
         iso7: 'Clause 6.5',
-        iso20: 'Annex G (反旋) / Annex I (拆卸力)',
+        iso20: isEn ? 'Annex G (Unscrewing) / Annex I (Removal Force)' : 'Annex G (反旋) / Annex I (拆卸力)',
         category: c65Data?.category || 'mechanical',
-        categoryZh: '機械',
+        categoryZh: isEn ? 'Mechanical' : '機械',
         type: 'Lock only',
-        assemblyTorque: `${c65Data?.assemblyTorqueNm.min}–${c65Data?.assemblyTorqueNm.max} N·m + ${c65Data?.assemblyAxialForceN?.min}–${c65Data?.assemblyAxialForceN?.max} N 推力，維持 5–6 秒後釋放`,
+        assemblyTorque: isEn ? `${c65Data?.assemblyTorqueNm.min}–${c65Data?.assemblyTorqueNm.max} N·m + ${c65Data?.assemblyAxialForceN?.min}–${c65Data?.assemblyAxialForceN?.max} N, hold 5–6 s then release` : `${c65Data?.assemblyTorqueNm.min}–${c65Data?.assemblyTorqueNm.max} N·m + ${c65Data?.assemblyAxialForceN?.min}–${c65Data?.assemblyAxialForceN?.max} N 推力，維持 5–6 秒後釋放`,
         testPressure: '-',
         testForce: '-',
-        testTorque: `${c65Data?.testTorqueNm?.min || 0.018}–${c65Data?.testTorqueNm?.max || 0.020} N·m (反向)`,
-        holdTime: `${c65Data?.holdTimeSec.min}–${c65Data?.holdTimeSec.max} 秒`,
-        fixture: c65Detail?.fixtureRequiredZh || 'Fig.C.1 (母) / Fig.C.4 (公)',
-        criteria: c65Data?.passCriteriaZh || '裝配後施加 0.018 N·m–0.020 N·m 的反向旋鬆扭矩維持 10–15 秒，接頭不得自行旋鬆脫開',
-        risk: c65Detail?.commonNonConformancesZh?.join('；') || '材料表面太滑（脫模劑/潤滑劑過量）致自鎖失敗'
+        testTorque: `${c65Data?.testTorqueNm?.min || 0.018}–${c65Data?.testTorqueNm?.max || 0.020} N·m` + (isEn ? ' (Reverse)' : ' (反向)'),
+        holdTime: isEn ? `${c65Data?.holdTimeSec.min}–${c65Data?.holdTimeSec.max} s` : `${c65Data?.holdTimeSec.min}–${c65Data?.holdTimeSec.max} 秒`,
+        fixture: isEn ? 'Fig. C.1 (Female) / Fig. C.4 (Male)' : (c65Detail?.fixtureRequiredZh || 'Fig.C.1 (母) / Fig.C.4 (公)'),
+        criteria: isEn ? (c65Data?.passCriteria || 'Shall not separate from the reference connector when subjected to an unscrewing torque of between 0.018 N·m and 0.020 N·m for 10–15 s.') : (c65Data?.passCriteriaZh || '裝配後施加 0.018 N·m–0.020 N·m 的反向旋鬆扭矩維持 10–15 秒，接頭不得自行旋鬆脫開'),
+        risk: isEn ? 'Excessive mold release agents causing self-loosening' : (c65Detail?.commonNonConformancesZh?.join('；') || '材料表面太滑（脫模劑/潤滑劑過量）致自鎖失敗')
       },
       {
         id: '6.6',
-        title: '6.6 抗過載滑牙測試 (Resistance to Overriding)',
+        title: isEn ? '6.6 Resistance to Overriding' : '6.6 抗過載滑牙測試 (Resistance to Overriding)',
         iso7: 'Clause 6.6',
         iso20: 'Annex H',
         category: c66Data?.category || 'mechanical',
-        categoryZh: '機械',
+        categoryZh: isEn ? 'Mechanical' : '機械',
         type: 'Lock only',
-        // CRITICAL FIX: must use full pre-assembly procedure (ISO 80369-20 Annex H.4 a), NOT direct torque
-        assemblyTorque: `${c66Data?.assemblyTorqueNm.min || 0.08}–${c66Data?.assemblyTorqueNm.max || 0.12} N·m + ${c66Data?.assemblyAxialForceN?.min || 26.5}–${c66Data?.assemblyAxialForceN?.max || 27.5} N 推力，維持 5–6 秒後釋放`,
+        assemblyTorque: isEn ? `${c66Data?.assemblyTorqueNm.min || 0.08}–${c66Data?.assemblyTorqueNm.max || 0.12} N·m + ${c66Data?.assemblyAxialForceN?.min || 26.5}–${c66Data?.assemblyAxialForceN?.max || 27.5} N, hold 5–6 s then release (ISO 80369-20 Annex H.4 a)` : `${c66Data?.assemblyTorqueNm.min || 0.08}–${c66Data?.assemblyTorqueNm.max || 0.12} N·m + ${c66Data?.assemblyAxialForceN?.min || 26.5}–${c66Data?.assemblyAxialForceN?.max || 27.5} N 推力，維持 5–6 秒後釋放`,
         testPressure: '-',
         testForce: '-',
         testTorque: `${c66Data?.testTorqueNm?.min || 0.15}–${c66Data?.testTorqueNm?.max || 0.17} N·m`,
-        holdTime: `${c66Data?.holdTimeSec.min}–${c66Data?.holdTimeSec.max} 秒`,
-        fixture: c66Detail?.fixtureRequiredZh || 'Fig.C.3 (2.71mm 窄耳翼最壞情況) / Fig.C.6',
-        // CRITICAL FIX: add No cocking per ISO 80369-20 Annex H.4 d
-        criteria: `${c66Data?.passCriteriaZh || '施加 0.15 N·m–0.17 N·m 破壞性扭矩維持 5–10 秒，螺紋或耳翼不得越過滑脫（不滑牙）'}，且接頭無歪斜 (No cocking)（ISO 80369-20 Annex H.4 d）`,
-        risk: c66Detail?.commonNonConformancesZh?.join('；') || 'PP 等低剛性材料環向膨脹 (Hoop Expansion) 脫牙'
+        holdTime: isEn ? `${c66Data?.holdTimeSec.min}–${c66Data?.holdTimeSec.max} s` : `${c66Data?.holdTimeSec.min}–${c66Data?.holdTimeSec.max} 秒`,
+        fixture: isEn ? 'Fig. C.3 (2.71mm narrow lug worst-case) / Fig. C.6' : (c66Detail?.fixtureRequiredZh || 'Fig.C.3 (2.71mm 窄耳翼最壞情況) / Fig.C.6'),
+        criteria: isEn ? 'Threads/lugs shall not override reference connector and show no cocking under 0.15–0.17 N·m torque for 5–10 s (ISO 80369-20 Annex H.4 d)' : `${c66Data?.passCriteriaZh || '施加 0.15 N·m–0.17 N·m 破壞性扭矩維持 5–10 秒，螺紋或耳翼不得越過滑脫（不滑牙）'}，且接頭無歪斜 (No cocking)（ISO 80369-20 Annex H.4 d）`,
+        risk: isEn ? 'Polymer hoop expansion leading to thread override' : (c66Detail?.commonNonConformancesZh?.join('；') || 'PP 等低剛性材料環向膨脹 (Hoop Expansion) 脫牙')
       },
       {
         id: 'Annex C',
-        title: 'Annex C 金屬標準參考連接器 (Reference Connectors)',
+        title: isEn ? 'Annex C Standard Reference Connectors' : 'Annex C 金屬標準參考連接器 (Reference Connectors)',
         iso7: 'Annex C (Figures C.1~C.6)',
         iso20: 'General Apparatus Section 4',
         category: 'assembly',
-        categoryZh: '夾具',
+        categoryZh: isEn ? 'Fixtures' : '夾具',
         type: 'Fig.C.1 ~ Fig.C.6',
         assemblyTorque: '-',
         testPressure: '-',
         testForce: '-',
         testTorque: '-',
         holdTime: '-',
-        fixture: '硬化不鏽鋼參考夾具 (ISO: Hardened SS / 實務: 17-4PH ≥45HRC 或 316氮化)',
-        criteria: '符合 ISO Annex C 精密金屬測試夾具 (硬化處理/Ra≤0.8μm)，Fig.C.3 具備 2.71mm 極限最壞情況耳翼',
-        risk: '未定期校正參考夾具尺寸導致全盤測試結果無效'
+        fixture: isEn ? 'Hardened SS (17-4PH >=45HRC, Stavax ESR, Ra <= 0.8um)' : '硬化不鏽鋼參考夾具 (ISO: Hardened SS / 實務: 17-4PH ≥45HRC 或 316氮化)',
+        criteria: isEn ? 'Complies with ISO 80369-7 Annex C reference connectors; Fig. C.3 has 2.71mm worst-case lug' : '符合 ISO Annex C 精密金屬測試夾具 (硬化處理/Ra≤0.8μm)，Fig.C.3 具備 2.71mm 極限最壞情況耳翼',
+        risk: isEn ? 'Failure to calibrate fixtures voids all verification data' : '未定期校正參考夾具尺寸導致全盤測試結果無效'
       },
       {
         id: 'Annex A/D/E',
-        title: 'Annex A / D / E 原理說明、防錯評估與測試總覽',
+        title: isEn ? 'Annex A / D / E Rationales, Non-interchangeability & Test Matrix' : 'Annex A / D / E 原理說明、防錯評估與測試總覽',
         iso7: 'Annex A, D, E',
-        iso20: 'Annex J (修訂歷史)',
+        iso20: isEn ? 'Annex J (Revision History)' : 'Annex J (修訂歷史)',
         category: 'general',
-        categoryZh: '一般',
-        type: 'All Connectors',
+        categoryZh: isEn ? 'General' : '一般',
+        type: isEn ? 'All Connectors' : '所有接頭',
         assemblyTorque: '-',
         testPressure: '-',
         testForce: '-',
         testTorque: '-',
         holdTime: '-',
-        fixture: '法規綜合說明文件',
-        criteria: '提供測試參數臨床原理 (Annex A)、跨領域 3D 碰撞防誤接評估 (Annex D) 及完整測試矩陣 (Annex E)',
-        risk: '風險管理文件中漏引 Annex A 科學說明'
+        fixture: isEn ? 'Regulatory Guidance & Standards Register' : '法規綜合說明文件',
+        criteria: isEn ? 'Clinical rationales (Annex A), 3D non-interchangeability CAD evaluation (Annex D), and test matrix (Annex E)' : '提供測試參數臨床原理 (Annex A)、跨領域 3D 碰撞防誤接評估 (Annex D) 及完整測試矩陣 (Annex E)',
+        risk: isEn ? 'Missing scientific justifications in risk management files' : '風險管理文件中漏引 Annex A 科學說明'
       }
     ];
-  }, [selectedType]);
+  }, [selectedType, language]);
 
   const filteredClauses = clausesList.filter(c => {
     let matchesCat = false;
@@ -285,7 +294,9 @@ export const ClauseComparisonMatrix: React.FC = () => {
   });
 
   const exportCSV = () => {
-    const headers = ['條文號', 'ISO 80369-7 條文', 'ISO 80369-20 附錄', '適用類型', '預裝配條件 (扭矩 / 軸向推力)', '定量加載考驗 (壓力/拉力/扭矩)', '保持時間', '指定金屬夾具', '合格標準'];
+    const headers = language === 'en'
+      ? ['Clause', 'ISO 80369-7 Clause', 'ISO 80369-20 Annex', 'Type', 'Pre-assembly (Torque / Axial)', 'Test Load (Pressure/Force/Torque)', 'Hold Time', 'Reference Fixture', 'PASS Criteria']
+      : ['條文號', 'ISO 80369-7 條文', 'ISO 80369-20 附錄', '適用類型', '預裝配條件 (扭矩 / 軸向推力)', '定量加載考驗 (壓力/拉力/扭矩)', '保持時間', '指定金屬夾具', '合格標準'];
     const rows = clausesList.map(c => [
       c.id,
       c.iso7,
@@ -302,7 +313,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement('a');
     link.setAttribute('href', encodedUri);
-    link.setAttribute('download', 'ISO_80369_Comparison_Matrix.csv');
+    link.setAttribute('download', language === 'en' ? 'ISO_80369_Comparison_Matrix.csv' : 'ISO_80369_條文對照矩陣.csv');
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -317,14 +328,14 @@ export const ClauseComparisonMatrix: React.FC = () => {
             <div className="flex items-center space-x-2.5">
               <span className="bg-emerald-50 text-emerald-800 border border-emerald-200 text-[13px] font-bold px-3 py-1 rounded-lg flex items-center gap-1.5 shadow-2xs">
                 <Table className="w-4 h-4 text-emerald-600" />
-                標準雙向對照矩陣
+                {t.comparisonMatrix.badge}
               </span>
               <h2 className="text-xl font-bold text-slate-900 tracking-tight">
-                ISO 80369-7 (條文) vs ISO 80369-20 (測試細則) 橫向對照與內嵌圖表矩陣
+                {t.comparisonMatrix.title}
               </h2>
             </div>
             <p className="text-[13px] text-slate-500 mt-1">
-              可一目瞭然比較 ISO 80369-7 規範要求與 ISO 80369-20 實驗室測試方法，點擊任一列即可在下方**直接展開內嵌規範 SVG CAD 向量圖表與裝置圖解**。
+              {t.comparisonMatrix.subtitle}
             </p>
           </div>
 
@@ -333,20 +344,20 @@ export const ClauseComparisonMatrix: React.FC = () => {
             className="flex items-center space-x-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-sm shadow-emerald-600/20 transition-all shrink-0 cursor-pointer"
           >
             <Download className="w-4 h-4" />
-            <span>匯出 CSV 對照表</span>
+            <span>{t.comparisonMatrix.exportCsv}</span>
           </button>
         </div>
 
         {/* Type filter for 6.4 L1/L2 differentiation */}
         <div className="flex items-center gap-2 pt-2">
-          <span className="text-xs text-slate-500 font-semibold">測試類型篩選（影響 6.4 拉力數值）：</span>
+          <span className="text-xs text-slate-500 font-semibold">{t.comparisonMatrix.filterTypeLabel}</span>
           <button
             onClick={() => setSelectedType('lock')}
             className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all shrink-0 cursor-pointer min-h-[36px] flex items-center ${
               selectedType === 'lock' ? 'bg-blue-600 text-white shadow-xs font-bold' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
             }`}
           >
-            🔒 鎖定式 (L2)
+            {t.comparisonMatrix.filterLock}
           </button>
           <button
             onClick={() => setSelectedType('slip')}
@@ -354,22 +365,22 @@ export const ClauseComparisonMatrix: React.FC = () => {
               selectedType === 'slip' ? 'bg-blue-600 text-white shadow-xs font-bold' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
             }`}
           >
-            💧 滑動式 (L1)
+            {t.comparisonMatrix.filterSlip}
           </button>
         </div>
 
         {/* Filter & Search */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-3 border-t border-slate-100/80">
           <div className="flex flex-wrap items-center gap-1.5 py-1 w-full sm:w-auto">
-            <span className="text-slate-400 font-semibold text-xs shrink-0">篩選:</span>
+            <span className="text-slate-400 font-semibold text-xs shrink-0">{t.comparisonMatrix.filterLabel}</span>
             {[
-              { id: 'all', label: '全部條文 All' },
-              { id: 'general', label: '📘 通用與預裝配' },
-              { id: 'dimensional', label: '📐 尺寸與夾具' },
-              { id: 'leakage', label: '💧 洩漏與氣密' },
-              { id: 'mechanical', label: '⚡ 機械強度' },
-              { id: 'durability', label: '🛡️ 耐久環境' },
-              { id: 'assembly', label: '🔧 治具配件' }
+              { id: 'all', label: t.comparisonMatrix.catAll },
+              { id: 'general', label: t.comparisonMatrix.catGeneral },
+              { id: 'dimensional', label: t.comparisonMatrix.catDimensional },
+              { id: 'leakage', label: t.comparisonMatrix.catLeakage },
+              { id: 'mechanical', label: t.comparisonMatrix.catMechanical },
+              { id: 'durability', label: t.comparisonMatrix.catEndurance },
+              { id: 'assembly', label: t.comparisonMatrix.catFixtures }
             ].map(f => (
               <button
                 key={f.id}
@@ -388,7 +399,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
               <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
-                placeholder="搜尋矩陣條文..."
+                placeholder={t.comparisonMatrix.searchPlaceholder}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all"
@@ -431,18 +442,18 @@ export const ClauseComparisonMatrix: React.FC = () => {
                     className="p-2 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-xl text-xs font-bold shrink-0 flex items-center space-x-1 border border-blue-200 cursor-pointer min-h-[36px]"
                   >
                     <Eye className="w-3.5 h-3.5" />
-                    <span>{isExpanded ? '收合圖表' : '圖解'}</span>
+                    <span>{isExpanded ? t.comparisonMatrix.collapseDiagram : t.comparisonMatrix.viewDiagram}</span>
                   </button>
                 </div>
 
                 {/* Standard Mapping Info */}
                 <div className="grid grid-cols-2 gap-2 text-xs font-mono">
                   <div className="bg-slate-50 p-2 rounded-xl border border-slate-100">
-                    <span className="text-slate-400 block text-[11px]">ISO 80369-7 條文:</span>
+                    <span className="text-slate-400 block text-[11px]">{language === 'en' ? 'ISO 80369-7 Clause:' : 'ISO 80369-7 條文:'}</span>
                     <strong className="text-blue-900">{clause.iso7}</strong>
                   </div>
                   <div className="bg-indigo-50/50 p-2 rounded-xl border border-indigo-100">
-                    <span className="text-indigo-500 block text-[11px]">ISO 80369-20 附錄:</span>
+                    <span className="text-indigo-500 block text-[11px]">{language === 'en' ? 'ISO 80369-20 Annex:' : 'ISO 80369-20 附錄:'}</span>
                     <strong className="text-indigo-900">{clause.iso20}</strong>
                   </div>
                 </div>
@@ -450,16 +461,16 @@ export const ClauseComparisonMatrix: React.FC = () => {
                 {/* Parameter Details Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
                   <div className="bg-blue-50/40 p-2.5 rounded-xl border border-blue-100/80">
-                    <span className="font-bold text-blue-900 block text-[11px] mb-0.5">預裝配前置條件:</span>
+                    <span className="font-bold text-blue-900 block text-[11px] mb-0.5">{language === 'en' ? 'Pre-assembly Condition:' : '預裝配前置條件:'}</span>
                     <span className="font-mono text-slate-800">{clause.assemblyTorque}</span>
                   </div>
                   <div className="bg-indigo-50/40 p-2.5 rounded-xl border border-indigo-100/80">
-                    <span className="font-bold text-indigo-900 block text-[11px] mb-0.5">實測考驗負載:</span>
-                    <span className="font-mono text-slate-800">{clause.testPressure !== '-' ? `壓力 ${clause.testPressure}` : clause.testForce !== '-' ? `拉力 ${clause.testForce}` : clause.testTorque !== '-' ? `扭矩 ${clause.testTorque}` : '-'}</span>
+                    <span className="font-bold text-indigo-900 block text-[11px] mb-0.5">{language === 'en' ? 'Applied Test Load:' : '實測考驗負載:'}</span>
+                    <span className="font-mono text-slate-800">{clause.testPressure !== '-' ? (language === 'en' ? `Pressure ${clause.testPressure}` : `壓力 ${clause.testPressure}`) : clause.testForce !== '-' ? (language === 'en' ? `Force ${clause.testForce}` : `拉力 ${clause.testForce}`) : clause.testTorque !== '-' ? (language === 'en' ? `Torque ${clause.testTorque}` : `扭矩 ${clause.testTorque}`) : '-'}</span>
                   </div>
                   <div className="bg-amber-50/40 p-2.5 rounded-xl border border-amber-100/80">
-                    <span className="font-bold text-amber-900 block text-[11px] mb-0.5">持壓時間 & 金屬夾具:</span>
-                    <span className="text-slate-800">{clause.holdTime !== '-' ? `持壓 ${clause.holdTime}` : ''} ({clause.fixture})</span>
+                    <span className="font-bold text-amber-900 block text-[11px] mb-0.5">{language === 'en' ? 'Hold Time & Fixture:' : '持壓時間 & 金屬夾具:'}</span>
+                    <span className="text-slate-800">{clause.holdTime !== '-' ? (language === 'en' ? `Hold ${clause.holdTime}` : `持壓 ${clause.holdTime}`) : ''} ({clause.fixture})</span>
                   </div>
                 </div>
 
@@ -468,14 +479,14 @@ export const ClauseComparisonMatrix: React.FC = () => {
                   <div className="flex items-start space-x-1.5 text-emerald-800 bg-emerald-50/60 p-2.5 rounded-xl border border-emerald-200/60">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                     <div>
-                      <strong className="block text-emerald-950 font-bold">Pass 合格標準:</strong>
+                      <strong className="block text-emerald-950 font-bold">{language === 'en' ? 'PASS Criteria:' : 'Pass 合格標準:'}</strong>
                       <span className="text-slate-700 leading-relaxed">{clause.criteria}</span>
                     </div>
                   </div>
                   <div className="flex items-start space-x-1.5 text-rose-800 bg-rose-50/50 p-2.5 rounded-xl border border-rose-200/60">
                     <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
                     <div>
-                      <strong className="block text-rose-950 font-bold">常見不合格風險:</strong>
+                      <strong className="block text-rose-950 font-bold">{language === 'en' ? 'Non-conformance Risk:' : '常見不合格風險:'}</strong>
                       <span className="text-slate-700 leading-relaxed">{clause.risk}</span>
                     </div>
                   </div>
@@ -487,16 +498,13 @@ export const ClauseComparisonMatrix: React.FC = () => {
                     <div className="bg-slate-50 p-3 rounded-2xl border border-slate-200 space-y-3">
                       <div className="flex items-center space-x-2 text-xs font-bold text-slate-800">
                         <Sparkles className="w-4 h-4 text-indigo-700" />
-                        <span>{clause.title} — 規範圖解</span>
+                        <span>{clause.title} — {language === 'en' ? 'CAD Diagram' : '規範圖解'}</span>
                       </div>
-                      <div className="w-full flex justify-center py-1">
+                      <div className="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-2xs">
                         <ISOStandardFigureRenderer
-                          svgKey={svgKey}
-                          titleZh={figInfo?.nameZh || clause.title}
-                          titleEn={figInfo?.name || clause.iso7}
-                          standard={figInfo?.standardOwner || 'ISO 80369-20:2024'}
-                          figureTypeZh={figInfo?.annexGroup || '測試方法圖解'}
-                          descriptionZh={figInfo?.descriptionZh || clause.criteria}
+                          figureId={svgKey}
+                          title={clause.title}
+                          standard={`${clause.iso7} / ${clause.iso20}`}
                           keyCallouts={figInfo?.svgHighlights}
                         />
                       </div>
@@ -514,22 +522,22 @@ export const ClauseComparisonMatrix: React.FC = () => {
             <table className="w-full text-left border-collapse text-[13px]">
               <thead>
               <tr className="bg-slate-50 border-b border-slate-200 text-slate-500 font-bold uppercase tracking-wider">
-                <th className="py-3 px-4 w-12 text-center">條文</th>
-                <th className="py-3 px-4 min-w-[160px]">測試名稱 & 主題</th>
-                <th className="py-3 px-4">ISO 80369-7 條文</th>
-                <th className="py-3 px-4">ISO 80369-20 附錄</th>
+                <th className="py-3 px-4 w-12 text-center">{t.comparisonMatrix.colClause}</th>
+                <th className="py-3 px-4 min-w-[160px]">{t.comparisonMatrix.colTestName}</th>
+                <th className="py-3 px-4">{t.comparisonMatrix.colIso7}</th>
+                <th className="py-3 px-4">{t.comparisonMatrix.colIso20}</th>
                 <th className="py-3 px-4">
-                  <div>預裝配條件 (扭矩 / 軸向推力)</div>
-                  <span className="text-[10px] text-blue-600 font-normal block normal-case">前置準備條件</span>
+                  <div>{t.comparisonMatrix.colPreAssembly}</div>
+                  <span className="text-[10px] text-blue-600 font-normal block normal-case">{t.comparisonMatrix.colPreAssemblySub}</span>
                 </th>
                 <th className="py-3 px-4">
-                  <div>定量加載條件 (壓力/拉力/扭矩)</div>
-                  <span className="text-[10px] text-indigo-700 font-normal block normal-case">實測考驗負載</span>
+                  <div>{t.comparisonMatrix.colTestLoad}</div>
+                  <span className="text-[10px] text-indigo-700 font-normal block normal-case">{t.comparisonMatrix.colTestLoadSub}</span>
                 </th>
-                <th className="py-3 px-4">保持時間</th>
-                <th className="py-3 px-4 min-w-[150px]">必要金屬參考夾具</th>
-                <th className="py-3 px-4 min-w-[200px]">合格 Pass 標準</th>
-                <th className="py-3 px-4 w-28 text-center">內嵌圖表</th>
+                <th className="py-3 px-4">{t.comparisonMatrix.colHoldTime}</th>
+                <th className="py-3 px-4 min-w-[150px]">{t.comparisonMatrix.colFixture}</th>
+                <th className="py-3 px-4 min-w-[200px]">{t.comparisonMatrix.colCriteria}</th>
+                <th className="py-3 px-4 w-28 text-center">{t.comparisonMatrix.colDiagram}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 text-slate-700">
@@ -548,12 +556,15 @@ export const ClauseComparisonMatrix: React.FC = () => {
                         {clause.id}
                       </td>
                       <td className="py-3 px-4 font-bold text-slate-900">
-                        {clause.title}
+                        <div>{clause.title}</div>
+                        <span className="text-[11px] font-mono text-slate-400 font-normal block mt-0.5">
+                          {clause.type}
+                        </span>
                       </td>
-                      <td className="py-3 px-4 font-mono font-semibold text-blue-800">
+                      <td className="py-3 px-4 font-mono font-bold text-blue-900 text-xs">
                         {clause.iso7}
                       </td>
-                      <td className="py-3 px-4 font-mono font-semibold text-indigo-800">
+                      <td className="py-3 px-4 font-mono text-indigo-900 text-xs font-semibold">
                         {clause.iso20}
                       </td>
                       <td className="py-3 px-4 font-mono text-slate-800">
@@ -586,7 +597,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
                           }`}
                         >
                           <Eye className="w-3.5 h-3.5" />
-                          <span>{isExpanded ? '收合' : '圖表'}</span>
+                          <span>{isExpanded ? t.comparisonMatrix.collapseDiagram : t.comparisonMatrix.viewDiagram}</span>
                           {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                         </button>
                       </td>

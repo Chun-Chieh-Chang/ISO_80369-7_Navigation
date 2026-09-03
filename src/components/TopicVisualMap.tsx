@@ -1,9 +1,12 @@
 import React, { useState, useMemo } from 'react';
 import { ISO_TOPICS, STANDARD_CLAUSE_DETAILS } from '../data/isoTopicsData';
 import { ANNEX_C_FIGURES } from '../data/isoData';
+import { useLanguage } from '../i18n/LanguageContext';
 import { Network, Sparkles, Filter, Info, ArrowRight, CheckCircle2, ShieldAlert, Layers } from 'lucide-react';
 
 export const TopicVisualMap: React.FC = () => {
+  const { language, t } = useLanguage();
+  const isEn = language === 'en';
   const [selectedTopicId, setSelectedTopicId] = useState<string>(ISO_TOPICS[0].id);
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
 
@@ -61,21 +64,21 @@ export const TopicVisualMap: React.FC = () => {
             <div className="flex items-center space-x-2.5">
               <span className="bg-indigo-50 text-indigo-800 border border-indigo-200 text-[13px] font-bold px-3 py-1 rounded-lg flex items-center gap-1.5 shadow-2xs">
                 <Network className="w-4 h-4 text-indigo-700" />
-                檢索視覺化圖表
+                {t.visualMap.badge}
               </span>
               <h2 className="text-xl font-bold text-slate-900 tracking-tight">
-                ISO 80369-7 ➔ ISO 80369-20 條文關聯脈絡圖
+                {t.visualMap.title}
               </h2>
             </div>
             <p className="text-[13px] text-slate-500 mt-1">
-              點選不同主題，可即時查看「主題 ➔ ISO 80369-7 規格條文 ➔ ISO 80369-20 測試方法 ➔ Annex C 參考金屬夾具 ➔ 定量條件與合格標準」的多維關聯流向圖。
+              {t.visualMap.subtitle}
             </p>
           </div>
         </div>
 
         {/* Topic Selector Bar */}
         <div className="mt-4 pt-3 border-t border-slate-100/80 flex flex-wrap items-center gap-2 pb-1 text-[13px]">
-          <span className="font-bold text-slate-400 shrink-0">切換主題:</span>
+          <span className="font-bold text-slate-400 shrink-0">{t.visualMap.selectTopic}</span>
           {ISO_TOPICS.map(topic => (
             <button
               key={topic.id}
@@ -86,7 +89,7 @@ export const TopicVisualMap: React.FC = () => {
                   : 'bg-slate-100/80 text-slate-600 hover:bg-slate-200/80 hover:text-slate-900'
               }`}
             >
-              {topic.titleZh.split(' ')[1] || topic.titleZh}
+              {isEn ? (topic.titleEn || topic.titleZh) : (topic.titleZh.split(' ')[1] || topic.titleZh)}
             </button>
           ))}
         </div>
@@ -102,24 +105,24 @@ export const TopicVisualMap: React.FC = () => {
           <div className="space-y-3">
             <div className="flex items-center space-x-2 text-[13px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100 pb-2">
               <span className="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
-              <span>1. 檢索主題 (Topic)</span>
+              <span>{t.visualMap.step1Title}</span>
             </div>
 
             <div className="bg-blue-50 border border-blue-300/80 rounded-2xl p-4 shadow-sm space-y-2.5">
               <span className="text-[13px] bg-blue-600 text-white font-bold px-2.5 py-0.5 rounded-md shadow-2xs">
-                {activeTopic.categoryZh}
+                {isEn ? activeTopic.category : activeTopic.categoryZh}
               </span>
               <h3 className="text-sm font-bold text-blue-950">
-                {activeTopic.titleZh}
+                {isEn ? (activeTopic.titleEn || activeTopic.titleZh) : activeTopic.titleZh}
               </h3>
               <p className="text-[13px] text-blue-900 leading-relaxed">
-                {activeTopic.shortSummaryZh}
+                {isEn ? (activeTopic.shortSummaryEn || activeTopic.shortSummaryZh) : activeTopic.shortSummaryZh}
               </p>
               
               <div className="pt-2 border-t border-blue-200/60 text-[13px] space-y-1.5 font-mono">
                 {activeTopic.keyParameters.map((kp, idx) => (
                   <div key={idx} className="flex justify-between text-blue-900">
-                    <span className="text-blue-700">{kp.label}:</span>
+                    <span className="text-blue-700">{isEn ? (kp.labelEn || kp.label) : kp.label}:</span>
                     <span className="font-bold">{kp.value} {kp.unit}</span>
                   </div>
                 ))}
@@ -136,7 +139,7 @@ export const TopicVisualMap: React.FC = () => {
           <div className="space-y-3">
             <div className="flex items-center space-x-2 text-[13px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100 pb-2">
               <span className="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
-              <span>2. ISO 80369-7 規格條文</span>
+              <span>{t.visualMap.step2Title}</span>
             </div>
 
             <div className="space-y-3">
@@ -150,14 +153,14 @@ export const TopicVisualMap: React.FC = () => {
                       ISO 7 §{item.clauseNumber}
                     </span>
                     <span className="text-[13px] text-blue-700 font-semibold bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200/60">
-                      法規要求
+                      {isEn ? 'Requirement' : '法規要求'}
                     </span>
                   </div>
                   <h4 className="text-[13px] font-bold text-slate-900">
-                    {item.titleZh}
+                    {isEn ? (item.titleEn || item.titleZh) : item.titleZh}
                   </h4>
                   <p className="text-[13px] text-slate-600 leading-relaxed">
-                    {item.objectiveZh}
+                    {isEn ? (item.objectiveEn || item.objectiveZh) : item.objectiveZh}
                   </p>
                 </div>
               ))}
@@ -173,7 +176,7 @@ export const TopicVisualMap: React.FC = () => {
           <div className="space-y-3">
             <div className="flex items-center space-x-2 text-[13px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100 pb-2">
               <span className="w-2.5 h-2.5 rounded-full bg-indigo-700"></span>
-              <span>3. ISO 80369-20 實驗方法</span>
+              <span>{t.visualMap.step3Title}</span>
             </div>
 
             <div className="space-y-3">
@@ -187,14 +190,14 @@ export const TopicVisualMap: React.FC = () => {
                       ISO 20 {item.clauseNumber}
                     </span>
                     <span className="text-[13px] text-indigo-700 font-semibold bg-indigo-100/80 px-2 py-0.5 rounded-md">
-                      測試細則
+                      {isEn ? 'Test Method' : '測試細則'}
                     </span>
                   </div>
                   <h4 className="text-[13px] font-bold text-indigo-950">
-                    {item.titleZh}
+                    {isEn ? (item.titleEn || item.titleZh) : item.titleZh}
                   </h4>
                   <p className="text-[13px] text-indigo-900 leading-relaxed">
-                    {item.objectiveZh}
+                    {isEn ? (item.objectiveEn || item.objectiveZh) : item.objectiveZh}
                   </p>
                 </div>
               ))}
@@ -210,7 +213,7 @@ export const TopicVisualMap: React.FC = () => {
           <div className="space-y-3">
             <div className="flex items-center space-x-2 text-[13px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100 pb-2">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-              <span>4. 金屬夾具與合格標準</span>
+              <span>{t.visualMap.step4Title}</span>
             </div>
 
             <div className="space-y-3">
@@ -231,11 +234,11 @@ export const TopicVisualMap: React.FC = () => {
                       Figure {fig.id}
                     </span>
                     <span className="text-[13px] font-bold text-slate-700">
-                      {fig.gender === 'male' ? '公金屬件' : '母金屬件'}
+                      {isEn ? (fig.gender === 'male' ? 'Male Fixture' : 'Female Fixture') : (fig.gender === 'male' ? '公金屬件' : '母金屬件')}
                     </span>
                   </div>
                   <p className="text-[13px] text-slate-700">
-                    {fig.descriptionZh}
+                    {isEn ? (fig.descriptionEn || fig.name) : fig.descriptionZh}
                   </p>
                 </div>
               ))}
@@ -244,17 +247,28 @@ export const TopicVisualMap: React.FC = () => {
               <div className="bg-emerald-50/80 border border-emerald-200/80 rounded-2xl p-3.5 space-y-1.5 shadow-2xs">
                 <div className="flex items-center space-x-1.5 text-emerald-800 text-[13px] font-bold">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                  <span>最終 Pass 合格判定</span>
+                  <span>{isEn ? 'Pass / Acceptance Criteria' : '最終 Pass 合格判定'}</span>
                 </div>
                 <p className="text-[13px] text-emerald-900 leading-relaxed">
-                  {activeTopic.relatedISO7Clauses.includes('6.1') && '300~330 kPa 加壓下無漏水滴落 (30~35s) 或壓降 ≤ 0.005 Pa·m³/s (15~20s)'}
-                  {activeTopic.relatedISO7Clauses.includes('6.2') && '80.0~88.0 kPa 負壓下持壓 15~20 秒，洩漏率 ≤ 0.005 Pa·m³/s'}
-                  {activeTopic.relatedISO7Clauses.includes('6.6') && '0.15~0.17 N·m 扭力下持壓 5~10 秒無滑牙脫開'}
-                  {activeTopic.relatedISO7Clauses.includes('6.4') && '23~25 N (Slip) 或 32~35 N (Lock) 軸向拉力下持壓 10~15 秒無分離'}
-                  {activeTopic.relatedISO7Clauses.includes('6.3') && '23°C 空氣靜置 48 小時 (Annex E) 無龜裂破裂，且通過 6.1.1 洩漏驗證'}
-                  {activeTopic.relatedISO7Clauses.includes('6.5') && '0.018~0.020 N·m 反向扭矩下持壓 10~15 秒維持自鎖不鬆脫'}
-                  {activeTopic.relatedISO7Clauses.includes('Clause 5.1') && '尺寸完全符合 6% 錐度規範'}
-                  {activeTopic.relatedISO7Clauses.includes('Clause 4') && '非通用介面，100% 避免跨應用誤接'}
+                  {isEn ? (
+                    activeTopic.relatedISO7Clauses.includes('6.1') ? 'No falling drop under 300-330 kPa hydraulic (30-35s) or pressure decay <= 0.005 Pa·m³/s (15-20s)' :
+                    activeTopic.relatedISO7Clauses.includes('6.2') ? 'Leakage rate <= 0.005 Pa·m³/s under 80.0-88.0 kPa vacuum for 15-20s' :
+                    activeTopic.relatedISO7Clauses.includes('6.6') ? 'No thread overriding and no cocking under 0.15-0.17 N·m torque for 5-10s' :
+                    activeTopic.relatedISO7Clauses.includes('6.4') ? 'Remain assembled without separation under 23-25 N (Slip) or 32-35 N (Lock) for 10-15s' :
+                    activeTopic.relatedISO7Clauses.includes('6.3') ? 'No cracking after 48 h assembly hold per ISO 80369-20 Annex E, and pass Clause 6.1.1' :
+                    activeTopic.relatedISO7Clauses.includes('6.5') ? 'No separation under 0.018-0.020 N·m unscrewing torque for 10-15s' :
+                    activeTopic.relatedISO7Clauses.includes('Clause 5.1') ? 'Full compliance with 6% taper geometric tolerances' :
+                    activeTopic.relatedISO7Clauses.includes('Clause 4') ? 'Non-interchangeable interface preventing misconnections' : ''
+                  ) : (
+                    activeTopic.relatedISO7Clauses.includes('6.1') ? '300~330 kPa 加壓下無漏水滴落 (30~35s) 或壓降 ≤ 0.005 Pa·m³/s (15~20s)' :
+                    activeTopic.relatedISO7Clauses.includes('6.2') ? '80.0~88.0 kPa 負壓下持壓 15~20 秒，洩漏率 ≤ 0.005 Pa·m³/s' :
+                    activeTopic.relatedISO7Clauses.includes('6.6') ? '0.15~0.17 N·m 扭力下持壓 5~10 秒無滑牙脫開' :
+                    activeTopic.relatedISO7Clauses.includes('6.4') ? '23~25 N (Slip) 或 32~35 N (Lock) 軸向拉力下持壓 10~15 秒無分離' :
+                    activeTopic.relatedISO7Clauses.includes('6.3') ? '23°C 空氣靜置 48 小時 (Annex E) 無龜裂破裂，且通過 6.1.1 洩漏驗證' :
+                    activeTopic.relatedISO7Clauses.includes('6.5') ? '0.018~0.020 N·m 反向扭矩下持壓 10~15 秒維持自鎖不鬆脫' :
+                    activeTopic.relatedISO7Clauses.includes('Clause 5.1') ? '尺寸完全符合 6% 錐度規範' :
+                    activeTopic.relatedISO7Clauses.includes('Clause 4') ? '非通用介面，100% 避免跨應用誤接' : ''
+                  )}
                 </p>
               </div>
             </div>
@@ -265,12 +279,12 @@ export const TopicVisualMap: React.FC = () => {
         <div className="bg-slate-50/90 border border-slate-200/80 rounded-2xl p-4 flex flex-col md:flex-row items-center justify-between gap-3 text-[13px] text-slate-700 shadow-2xs">
           <div className="flex items-center space-x-2 font-bold text-slate-800">
             <Sparkles className="w-4 h-4 text-blue-600" />
-            <span>目前檢索主題關聯鏈結 (Connection Chain):</span>
+            <span>{t.visualMap.chainTitle}:</span>
           </div>
 
           <div className="flex flex-wrap items-center gap-2 font-mono text-[13px]">
             <span className="bg-blue-100 text-blue-900 border border-blue-200/60 px-2.5 py-1 rounded-lg font-bold">
-              {activeTopic.titleZh.split(' ')[1] || activeTopic.titleZh}
+              {isEn ? (activeTopic.titleEn || activeTopic.titleZh) : (activeTopic.titleZh.split(' ')[1] || activeTopic.titleZh)}
             </span>
             <ArrowRight className="w-4 h-4 text-slate-400" />
             <span className="bg-blue-600 text-white px-2.5 py-1 rounded-lg font-bold shadow-2xs">
@@ -282,7 +296,7 @@ export const TopicVisualMap: React.FC = () => {
             </span>
             <ArrowRight className="w-4 h-4 text-slate-400" />
             <span className="bg-amber-600 text-white px-2.5 py-1 rounded-lg font-bold shadow-2xs">
-              夾具 {activeTopic.relatedRefConnectors.join(', ')}
+              {isEn ? `Fixtures ${activeTopic.relatedRefConnectors.join(', ')}` : `夾具 ${activeTopic.relatedRefConnectors.join(', ')}`}
             </span>
           </div>
         </div>

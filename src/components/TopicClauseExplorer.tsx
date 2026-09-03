@@ -3,6 +3,7 @@ import { ISO_TOPICS, STANDARD_CLAUSE_DETAILS } from '../data/isoTopicsData';
 import { ANNEX_C_FIGURES } from '../data/isoData';
 import { ISOTopic, StandardClauseDetail, AnnexCFigureInfo } from '../types';
 import { ISOStandardFigureRenderer } from './ISOStandardFigureRenderer';
+import { useLanguage } from '../i18n/LanguageContext';
 import { 
   Search, BookOpen, FileText, CheckCircle2, AlertTriangle, ShieldCheck, 
   ArrowRight, Copy, Check, Info, Sparkles, Filter, ExternalLink, RefreshCw,
@@ -11,6 +12,8 @@ import {
 } from 'lucide-react';
 
 export const TopicClauseExplorer: React.FC = () => {
+  const { language, t } = useLanguage();
+  const isEn = language === 'en';
   const [viewMode, setViewMode] = useState<'topics' | 'annex_tree'>('topics');
   const [selectedTopicId, setSelectedTopicId] = useState<string>(ISO_TOPICS[0].id);
   const [selectedFigureId, setSelectedFigureId] = useState<string>('B.2');
@@ -152,7 +155,17 @@ export const TopicClauseExplorer: React.FC = () => {
   // Copy structured summary to clipboard
   const handleCopySummary = () => {
     if (!currentTopic) return;
-    const summary = `【ISO 條文與規範檢索摘要 - ${currentTopic.titleZh}】
+    const isEnLang = language === 'en';
+    const summary = isEnLang
+      ? `[ISO Clause & Standard Retrieval Summary - ${currentTopic.titleEn || currentTopic.titleZh}]
+■ Related ISO 80369-7 Clauses: ${currentTopic.relatedISO7Clauses.join(', ')}
+■ Related ISO 80369-20 Annexes: ${currentTopic.relatedISO20Annexes.join(', ')}
+■ Required Reference Fixtures: ${currentTopic.relatedRefConnectors.join(', ')}
+■ Key Conditions: ${currentTopic.keyParameters.map(p => `${p.labelEn || p.label}: ${p.value} ${p.unit || ''}`).join(' | ')}
+■ Core Requirement: ${currentTopic.shortSummaryEn || currentTopic.shortSummaryZh}
+■ R&D Engineering Risk: ${currentTopic.engineeringRiskEn || currentTopic.engineeringRiskZh}
+■ Regulatory Audit Focus: ${currentTopic.auditFocusEn || currentTopic.auditFocusZh}`
+      : `【ISO 條文與規範檢索摘要 - ${currentTopic.titleZh}】
 ■ 關聯 ISO 80369-7 條文: ${currentTopic.relatedISO7Clauses.join(', ')}
 ■ 關聯 ISO 80369-20 測試方法: ${currentTopic.relatedISO20Annexes.join(', ')}
 ■ 必要參考金屬夾具: ${currentTopic.relatedRefConnectors.join(', ')}
@@ -175,14 +188,14 @@ export const TopicClauseExplorer: React.FC = () => {
             <div className="flex items-center space-x-2">
               <span className="bg-blue-100 text-blue-700 text-xs font-bold px-2.5 py-1 rounded-md flex items-center gap-1">
                 <BookOpen className="w-3.5 h-3.5" />
-                主題與條文檢索樞紐
+                {t.explorer.badge}
               </span>
               <h2 className="text-xl font-bold text-slate-900 tracking-tight">
-                ISO 80369-7 / ISO 80369-20 主題導向條文對照庫
+                {t.explorer.title}
               </h2>
             </div>
             <p className="text-xs text-slate-500 mt-1">
-              點擊特定測試主題或輸入關鍵字，即時調閱連動之 ISO 80369-7 規格條文、ISO 80369-20 實驗室測試方法、定量參數與合格判定標準。
+              {t.explorer.subtitle}
             </p>
           </div>
 
@@ -191,7 +204,7 @@ export const TopicClauseExplorer: React.FC = () => {
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder="搜尋關鍵字 (例: 300kPa, 6.6, C.3, 滑牙, 龜裂)..."
+              placeholder={t.explorer.searchPlaceholder}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all"
@@ -211,16 +224,16 @@ export const TopicClauseExplorer: React.FC = () => {
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-2 border-t border-slate-100 text-xs overflow-hidden">
           <div className="flex flex-wrap items-center gap-1.5 py-1 w-full sm:w-auto">
             <span className="text-slate-400 font-medium flex items-center gap-1 mr-1 shrink-0">
-              <Filter className="w-3.5 h-3.5" /> 分類:
+              <Filter className="w-3.5 h-3.5" /> {language === 'en' ? 'Category:' : '分類:'}
             </span>
             {[
-              { id: 'all', label: '全部主題 All' },
-              { id: 'leakage', label: '💧 洩漏氣密' },
-              { id: 'mechanical', label: '⚡ 機械強度' },
-              { id: 'durability', label: '🛡️ 耐久與環境' },
-              { id: 'dimensional', label: '📐 幾何尺寸' },
-              { id: 'assembly', label: '🔧 夾具裝配' },
-              { id: 'general', label: '🌐 通用安全' }
+              { id: 'all', label: t.explorer.catAll },
+              { id: 'leakage', label: t.explorer.catLeakage },
+              { id: 'mechanical', label: t.explorer.catMechanical },
+              { id: 'durability', label: t.explorer.catEndurance },
+              { id: 'dimensional', label: t.explorer.catDimensional },
+              { id: 'assembly', label: t.explorer.catFixtures },
+              { id: 'general', label: t.explorer.catSafety }
             ].map(cat => (
               <button
                 key={cat.id}
@@ -247,7 +260,7 @@ export const TopicClauseExplorer: React.FC = () => {
               }`}
             >
               <BookOpen className="w-3.5 h-3.5" />
-              <span>主題對照庫</span>
+              <span>{t.explorer.tabTopics}</span>
             </button>
             <button
               onClick={() => setViewMode('annex_tree')}
@@ -258,7 +271,7 @@ export const TopicClauseExplorer: React.FC = () => {
               }`}
             >
               <FolderTree className="w-3.5 h-3.5" />
-              <span>規範附件導航樹</span>
+              <span>{t.explorer.tabAnnexTree}</span>
             </button>
           </div>
         </div>
@@ -273,7 +286,7 @@ export const TopicClauseExplorer: React.FC = () => {
           }`}
         >
           <BookOpen className="w-4 h-4 text-blue-600" />
-          <span>📋 檢索主題列表 ({filteredTopics.length})</span>
+          <span>📋 {t.explorer.topicListTitle} ({filteredTopics.length})</span>
         </button>
         <button
           onClick={() => setMobileTab('detail')}
@@ -282,7 +295,7 @@ export const TopicClauseExplorer: React.FC = () => {
           }`}
         >
           <Eye className="w-4 h-4 text-white" />
-          <span>🔍 條文與測試細則</span>
+          <span>🔍 {isEn ? 'Clauses & Test Details' : '條文與測試細則'}</span>
         </button>
       </div>
 
@@ -293,24 +306,24 @@ export const TopicClauseExplorer: React.FC = () => {
         <div className={`lg:col-span-5 space-y-3 ${mobileTab === 'list' ? 'block' : 'hidden lg:block'}`}>
           {viewMode === 'topics' ? (
           <>
-            <div className="flex items-center justify-between px-1">
+              <div className="flex items-center justify-between px-1">
                 <span className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-                  <span>可檢索主題列表 ({filteredTopics.length})</span>
+                  <span>{t.explorer.topicListTitle} ({filteredTopics.length})</span>
                 </span>
-                <span className="text-xs text-slate-400">點擊主題卡片查看詳情</span>
+                <span className="text-xs text-slate-400">{t.explorer.topicListSub}</span>
               </div>
 
               <div className="space-y-2.5 max-h-[720px] overflow-y-auto pr-1">
                 {filteredTopics.length === 0 ? (
                   <div className="bg-white border border-slate-200 rounded-xl p-8 text-center text-slate-500 space-y-2">
                     <Info className="w-8 h-8 text-slate-300 mx-auto" />
-                    <p className="text-sm font-medium">未找到符合「{searchQuery}」的主題條文</p>
-                    <p className="text-xs text-slate-400">請嘗試搜尋其他關鍵字如: 300kPa, 0.17Nm, C.3, 6.1, Annex G</p>
+                    <p className="text-sm font-medium">{isEn ? `No topics match "${searchQuery}"` : `未找到符合「${searchQuery}」的主題條文`}</p>
+                    <p className="text-xs text-slate-400">{isEn ? 'Try keywords like: 300kPa, 0.17Nm, C.3, 6.1, Annex G' : '請嘗試搜尋其他關鍵字如: 300kPa, 0.17Nm, C.3, 6.1, Annex G'}</p>
                     <button
                       onClick={() => { setSearchQuery(''); setSelectedCategory('all'); }}
                       className="mt-2 px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-xs font-semibold hover:bg-blue-100 transition"
                     >
-                      重置搜尋條件
+                      {isEn ? 'Reset Filters' : '重置搜尋條件'}
                     </button>
                   </div>
                 ) : (
@@ -340,26 +353,26 @@ export const TopicClauseExplorer: React.FC = () => {
                               <h3 className={`text-sm font-bold tracking-tight ${
                                 isSelected ? 'text-blue-950 font-extrabold' : 'text-slate-800'
                               }`}>
-                                {topic.titleZh}
+                                {isEn ? (topic.titleEn || topic.titleZh) : topic.titleZh}
                               </h3>
                               <span className="text-[13px] text-slate-400 font-mono block mt-0.5">
-                                {topic.titleEn}
+                                {isEn ? topic.category : topic.titleEn}
                               </span>
                             </div>
                           </div>
 
                           <span className="text-[13px] font-semibold bg-slate-100 text-slate-600 px-2.5 py-0.5 rounded-full border border-slate-200/60 shrink-0">
-                            {topic.categoryZh}
+                            {isEn ? topic.category : topic.categoryZh}
                           </span>
                         </div>
 
                         <p className="text-[13px] text-slate-600 mt-2.5 line-clamp-2 leading-relaxed">
-                          {topic.shortSummaryZh}
+                          {isEn ? (topic.shortSummaryEn || topic.shortSummaryZh) : topic.shortSummaryZh}
                         </p>
 
                         {/* Quick Badges & Clause Connection */}
                         <div className="mt-3 pt-2.5 border-t border-slate-100 flex flex-wrap items-center gap-1.5 text-[13px]">
-                          <span className="font-semibold text-slate-400">連動條文:</span>
+                          <span className="font-semibold text-slate-400">{t.explorer.linkedClauses}</span>
                           {topic.relatedISO7Clauses.map(c => (
                             <span key={c} className="bg-blue-50 text-blue-800 border border-blue-200/80 font-mono px-2 py-0.5 rounded-lg font-bold">
                               ISO 7 §{c}
@@ -388,10 +401,10 @@ export const TopicClauseExplorer: React.FC = () => {
               <div className="flex items-center justify-between pb-2 border-b border-slate-100 text-xs">
                 <span className="font-bold text-slate-700 flex items-center gap-1.5">
                   <FolderTree className="w-4 h-4 text-blue-600" />
-                  ISO 80369 規範附件圖表導航樹
+                  {isEn ? 'ISO 80369 Standard Annex Figures Navigator' : 'ISO 80369 規範附件圖表導航樹'}
                 </span>
                 <span className="text-xs text-slate-400 font-mono">
-                  {filteredAnnexFigures.length} 幅圖表
+                  {filteredAnnexFigures.length} {isEn ? 'Figs.' : '幅圖表'}
                 </span>
               </div>
 
@@ -403,10 +416,10 @@ export const TopicClauseExplorer: React.FC = () => {
                 >
                   <span className="flex items-center gap-1.5">
                     {expandedNodes['iso7'] ? <ChevronDown className="w-4 h-4 text-blue-600" /> : <ChevronRight className="w-4 h-4 text-blue-600" />}
-                    📘 ISO 80369-7 血管小口徑接頭規範圖表
+                    📘 {isEn ? 'ISO 80369-7 Connector Standard Figures' : 'ISO 80369-7 血管小口徑接頭規範圖表'}
                   </span>
                   <span className="bg-blue-200/80 text-blue-800 text-xs px-2 py-0.5 rounded-md font-mono font-bold">
-                    {allStandardFigures.filter(f => f.annexGroup !== 'ISO 80369-20').length} 幅
+                    {allStandardFigures.filter(f => f.annexGroup !== 'ISO 80369-20').length} {isEn ? 'Figs.' : '幅'}
                   </span>
                 </button>
 
@@ -421,7 +434,7 @@ export const TopicClauseExplorer: React.FC = () => {
                       >
                         <span className="flex items-center gap-1">
                           {expandedNodes['iso7-annex-a'] ? <ChevronDown className="w-3.5 h-3.5 text-slate-400" /> : <ChevronRight className="w-3.5 h-3.5 text-slate-400" />}
-                          Annex A 防誤插幾何矩陣 (Non-Interchangeability)
+                          {isEn ? 'Annex A: Non-Interchangeability Matrix' : 'Annex A 防誤插幾何矩陣 (Non-Interchangeability)'}
                         </span>
                       </button>
                       {expandedNodes['iso7-annex-a'] && (
@@ -458,7 +471,7 @@ export const TopicClauseExplorer: React.FC = () => {
                       >
                         <span className="flex items-center gap-1">
                           {expandedNodes['iso7-annex-b'] ? <ChevronDown className="w-3.5 h-3.5 text-slate-400" /> : <ChevronRight className="w-3.5 h-3.5 text-slate-400" />}
-                          Annex B 商業產品 CAD 尺寸 (Product CAD)
+                          {isEn ? 'Annex B: Product CAD Geometry' : 'Annex B 商業產品 CAD 尺寸 (Product CAD)'}
                         </span>
                       </button>
                       {expandedNodes['iso7-annex-b'] && (
@@ -495,7 +508,7 @@ export const TopicClauseExplorer: React.FC = () => {
                       >
                         <span className="flex items-center gap-1">
                           {expandedNodes['iso7-annex-c'] ? <ChevronDown className="w-3.5 h-3.5 text-slate-400" /> : <ChevronRight className="w-3.5 h-3.5 text-slate-400" />}
-                          Annex C 測試參考金屬夾具 (Reference Gauges)
+                          {isEn ? 'Annex C: Reference Metal Gauges' : 'Annex C 測試參考金屬夾具 (Reference Gauges)'}
                         </span>
                       </button>
                       {expandedNodes['iso7-annex-c'] && (
@@ -543,10 +556,10 @@ export const TopicClauseExplorer: React.FC = () => {
                 >
                   <span className="flex items-center gap-1.5">
                     {expandedNodes['iso20'] ? <ChevronDown className="w-4 h-4 text-indigo-700" /> : <ChevronRight className="w-4 h-4 text-indigo-700" />}
-                    🔬 ISO 80369-20 實驗室測試方法機台與裝置圖表
+                    🔬 {isEn ? 'ISO 80369-20 Test Apparatus & Equipment Figures' : 'ISO 80369-20 實驗室測試方法機台與裝置圖表'}
                   </span>
                   <span className="bg-indigo-200/80 text-indigo-800 text-xs px-2 py-0.5 rounded-md font-mono font-bold">
-                    {allStandardFigures.filter(f => f.annexGroup === 'ISO 80369-20').length} 幅
+                    {allStandardFigures.filter(f => f.annexGroup === 'ISO 80369-20').length} {isEn ? 'Figs.' : '幅'}
                   </span>
                 </button>
 
@@ -587,10 +600,10 @@ export const TopicClauseExplorer: React.FC = () => {
               onClick={() => setMobileTab('list')}
               className="px-3 py-1.5 bg-blue-600 text-white font-bold rounded-lg flex items-center space-x-1.5 shadow-xs cursor-pointer min-h-[36px]"
             >
-              <span>← 返回主題列表</span>
+              <span>{isEn ? '← Back to Topics' : '← 返回主題列表'}</span>
             </button>
             <span className="text-blue-800 font-semibold truncate ml-2">
-              現正檢視：{currentTopic?.titleZh}
+              {isEn ? `Viewing: ${currentTopic?.titleEn || currentTopic?.titleZh}` : `現正檢視：${currentTopic?.titleZh}`}
             </span>
           </div>
 
@@ -607,10 +620,10 @@ export const TopicClauseExplorer: React.FC = () => {
                       </div>
                       <div>
                         <span className="text-xs font-bold text-blue-600 uppercase tracking-wide">
-                          {currentTopic.categoryZh} 主題詳情
+                          {isEn ? `${currentTopic.category} Details` : `${currentTopic.categoryZh} 主題詳情`}
                         </span>
                         <h2 className="text-lg font-bold text-slate-900">
-                          {currentTopic.titleZh}
+                          {isEn ? (currentTopic.titleEn || currentTopic.titleZh) : currentTopic.titleZh}
                         </h2>
                       </div>
                     </div>
@@ -623,30 +636,30 @@ export const TopicClauseExplorer: React.FC = () => {
                     {copiedText ? (
                       <>
                         <Check className="w-3.5 h-3.5 text-emerald-600" />
-                        <span className="text-emerald-700">已複製簡報摘要</span>
+                        <span className="text-emerald-700">{isEn ? 'Summary Copied!' : '已複製簡報摘要'}</span>
                       </>
                     ) : (
                       <>
                         <Copy className="w-3.5 h-3.5 text-slate-500" />
-                        <span>複製檢索條文摘要</span>
+                        <span>{isEn ? 'Copy Topic Summary' : '複製檢索條文摘要'}</span>
                       </>
                     )}
                   </button>
                 </div>
 
                 <p className="text-xs text-slate-700 leading-relaxed bg-slate-50 p-3.5 rounded-xl border border-slate-100">
-                  {currentTopic.detailedDescriptionZh}
+                  {isEn ? (currentTopic.detailedDescriptionEn || currentTopic.detailedDescriptionZh) : currentTopic.detailedDescriptionZh}
                 </p>
 
                 {/* Key Parameters Matrix Grid */}
                 <div>
                   <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
-                    關鍵定量條件矩陣 (Key Parameters)
+                    {t.explorer.keyParamsTitle}
                   </h4>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                     {currentTopic.keyParameters.map((param, idx) => (
                       <div key={idx} className="bg-blue-50/50 border border-blue-100 p-2.5 rounded-xl">
-                        <span className="text-xs text-slate-500 block">{param.label}</span>
+                        <span className="text-xs text-slate-500 block">{isEn ? (param.labelEn || param.label) : param.label}</span>
                         <span className="text-sm font-bold text-blue-900 font-mono mt-0.5 block">
                           {param.value} <span className="text-xs font-normal text-slate-600">{param.unit}</span>
                         </span>
@@ -665,7 +678,7 @@ export const TopicClauseExplorer: React.FC = () => {
                         </span>
                         <h4 className="text-xs font-bold text-blue-100 flex items-center gap-1.5">
                           <Activity className="w-4 h-4 text-blue-400" />
-                          壓差降極限 (&Delta;P<sub>max</sub>) 即時換算計算器
+                          {t.explorer.calculatorTitle}
                         </h4>
                       </div>
                       <span className="text-[11px] text-blue-300 font-mono">Q<sub>max</sub> = 0.005 Pa·m³/s</span>
@@ -675,7 +688,7 @@ export const TopicClauseExplorer: React.FC = () => {
                       {/* Controls */}
                       <div className="md:col-span-6 space-y-2 bg-slate-800/60 p-3 rounded-xl border border-slate-700/60">
                         <div className="flex items-center justify-between">
-                          <label className="text-slate-300 font-medium">測試系統總容積 V (mL):</label>
+                          <label className="text-slate-300 font-medium">{t.explorer.calcVolume}</label>
                           <input
                             type="number"
                             min="0.5"
@@ -687,7 +700,7 @@ export const TopicClauseExplorer: React.FC = () => {
                           />
                         </div>
                         <div className="flex items-center justify-between">
-                          <label className="text-slate-300 font-medium">持壓時間 &Delta;t (秒):</label>
+                          <label className="text-slate-300 font-medium">{t.explorer.calcTime}</label>
                           <input
                             type="number"
                             min="5"
@@ -699,29 +712,31 @@ export const TopicClauseExplorer: React.FC = () => {
                           />
                         </div>
                         <div className="text-[10px] text-slate-400 font-mono pt-1">
-                          換算公式: &Delta;P<sub>max</sub> (Pa) = (5000 × &Delta;t) / V (mL)
+                          {isEn ? 'Formula: ΔP max (Pa) = (5000 × Δt) / V (mL)' : '換算公式: ΔP max (Pa) = (5000 × Δt) / V (mL)'}
                         </div>
                       </div>
 
                       {/* Output Results */}
                       <div className="md:col-span-6 bg-blue-900/40 p-3 rounded-xl border border-blue-700/50 flex flex-col justify-between space-y-2">
-                        <span className="text-[11px] text-blue-200 font-semibold">允許最大壓力下降極限 (&Delta;P<sub>max</sub>):</span>
+                        <span className="text-[11px] text-blue-200 font-semibold">{t.explorer.calcAllowableDecay}</span>
                         <div className="grid grid-cols-3 gap-2 text-center font-mono">
                           <div className="bg-slate-900/80 p-2 rounded-lg border border-blue-500/30">
-                            <span className="text-[10px] text-slate-400 block">帕斯卡 (Pa)</span>
+                            <span className="text-[10px] text-slate-400 block">{isEn ? 'Pascal (Pa)' : '帕斯卡 (Pa)'}</span>
                             <span className="text-xs font-black text-amber-300">{Math.round((5000 * calcTime) / calcVolume).toLocaleString()}</span>
                           </div>
                           <div className="bg-slate-900/80 p-2 rounded-lg border border-blue-500/30">
-                            <span className="text-[10px] text-slate-400 block">千帕 (kPa)</span>
+                            <span className="text-[10px] text-slate-400 block">{isEn ? 'Kilopascal (kPa)' : '千帕 (kPa)'}</span>
                             <span className="text-xs font-black text-emerald-300">{((5 * calcTime) / calcVolume).toFixed(2)}</span>
                           </div>
                           <div className="bg-slate-900/80 p-2 rounded-lg border border-blue-500/30">
-                            <span className="text-[10px] text-slate-400 block">毫巴 (mbar)</span>
+                            <span className="text-[10px] text-slate-400 block">{isEn ? 'Millibar (mbar)' : '毫巴 (mbar)'}</span>
                             <span className="text-xs font-black text-sky-300">{(((5000 * calcTime) / calcVolume) / 100).toFixed(1)}</span>
                           </div>
                         </div>
                         <p className="text-[10px] text-blue-300/80 leading-tight">
-                          📌 判定原則：持壓 {calcTime}s 期間實測壓降 &Delta;P &le; {((5 * calcTime) / calcVolume).toFixed(2)} kPa &rarr; <strong className="text-emerald-400">合格 (Pass)</strong>；若 &gt; {((5 * calcTime) / calcVolume).toFixed(2)} kPa &rarr; <strong className="text-rose-400">不合格 (Fail)</strong>。
+                          {isEn 
+                            ? `📌 Criteria: during hold time ${calcTime}s, measured decay ΔP ≤ ${((5 * calcTime) / calcVolume).toFixed(2)} kPa → Pass; if > ${((5 * calcTime) / calcVolume).toFixed(2)} kPa → Fail.` 
+                            : `📌 判定原則：持壓 ${calcTime}s 期間實測壓降 ΔP ≤ ${((5 * calcTime) / calcVolume).toFixed(2)} kPa → 合格 (Pass)；若 > ${((5 * calcTime) / calcVolume).toFixed(2)} kPa → 不合格 (Fail)。`}
                         </p>
                       </div>
                     </div>
@@ -733,52 +748,67 @@ export const TopicClauseExplorer: React.FC = () => {
                   <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-4 space-y-3 shadow-xs">
                     <div className="flex items-center space-x-2 text-slate-800 text-xs font-bold border-b border-slate-200 pb-2">
                       <FileText className="w-4 h-4 text-blue-600" />
-                      <span>ISO 80369-20:2024 與 ISO 80369-7 壓差降 (&Delta;P) 物理量計算法規與技術補充指南</span>
+                      <span>{isEn ? 'ISO 80369-20:2024 & ISO 80369-7 Pressure Decay (ΔP) Technical Supplement Guide' : 'ISO 80369-20:2024 與 ISO 80369-7 壓差降 (ΔP) 物理量計算法規與技術補充指南'}</span>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                       <div className="bg-white p-3 rounded-xl border border-slate-200/60 space-y-1.5">
                         <h5 className="font-bold text-slate-800 flex items-center gap-1 text-[11px]">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-blue-600" /> 1. 壓差記錄 (&Delta;P) 4 大適用測試項目
+                          <CheckCircle2 className="w-3.5 h-3.5 text-blue-600" /> {isEn ? '1. Pressure Decay (ΔP) — 4 Applicable Test Scenarios' : '1. 壓差記錄 (ΔP) 4 大適用測試項目'}
                         </h5>
                         <ul className="list-disc list-inside text-slate-600 space-y-1 text-[11px]">
-                          <li><strong>正壓壓差降洩漏測試 (Annex B)</strong>：施加 300~330 kPa，記錄持壓 15~20s 壓力差。</li>
-                          <li><strong>次大氣壓空氣洩漏測試 (Annex D)</strong>：抽取 80~88 kPa 真空負壓，記錄持壓 15~20s 壓差。</li>
-                          <li><strong>應力龜裂隨後洩漏評估 (Annex E)</strong>：組裝放置 &ge;48h 後執行氣體壓降評估。</li>
-                          <li><strong>統計變量數據生成 (Annex J.2.1/J.2.3)</strong>：記錄實際壓降 &Delta;P，計算單側公差上限 (UTL)。</li>
+                          {isEn ? <>
+                            <li><strong>Positive Pressure Decay Leakage (Annex B)</strong>: Apply 300~330 kPa; record ΔP over 15~20 s hold.</li>
+                            <li><strong>Sub-atmospheric Air Leakage (Annex D)</strong>: Draw 80~88 kPa vacuum; record ΔP over 15~20 s.</li>
+                            <li><strong>Post Stress-Cracking Leakage Assessment (Annex E)</strong>: After ≥48 h assembly conditioning, perform gas pressure decay evaluation.</li>
+                            <li><strong>Statistical Variability Data (Annex J.2.1/J.2.3)</strong>: Record actual ΔP to compute upper tolerance limit (UTL).</li>
+                          </> : <>
+                            <li><strong>正壓壓差降洩漏測試 (Annex B)</strong>：施加 300~330 kPa，記錄持壓 15~20s 壓力差。</li>
+                            <li><strong>次大氣壓空氣洩漏測試 (Annex D)</strong>：抽取 80~88 kPa 真空負壓，記錄持壓 15~20s 壓差。</li>
+                            <li><strong>應力龜裂隨後洩漏評估 (Annex E)</strong>：組裝放置 ≥48h 後執行氣體壓降評估。</li>
+                            <li><strong>統計變量數據生成 (Annex J.2.1/J.2.3)</strong>：記錄實際壓降 ΔP，計算單側公差上限 (UTL)。</li>
+                          </>}
                         </ul>
                       </div>
 
                       <div className="bg-white p-3 rounded-xl border border-slate-200/60 space-y-1.5">
                         <h5 className="font-bold text-slate-800 flex items-center gap-1 text-[11px]">
-                          <Sparkles className="w-3.5 h-3.5 text-indigo-700" /> 2. ISO 80369-20:2024 重大技術修訂
+                          <Sparkles className="w-3.5 h-3.5 text-indigo-700" /> {isEn ? '2. ISO 80369-20:2024 Key Technical Revision' : '2. ISO 80369-20:2024 重大技術修訂'}
                         </h5>
                         <p className="text-slate-600 text-[11px] leading-relaxed">
-                          新版標準正式<strong>取消了傳統洩漏率 Q 的計算公式，改為直接記錄測試期間的壓力變化量 (&Delta;P)</strong>。此修訂大幅消除因未知的隙縫幾何通路導致的計算誤差，提升實驗室間的可重現性與量測不確定度。
+                          {isEn
+                            ? <>The new standard officially <strong>eliminates the traditional leak rate Q formula and instead directly records the pressure change (ΔP) during the test</strong>. This revision substantially reduces calculation errors caused by unknown gap geometry, improving inter-laboratory reproducibility and measurement uncertainty.</>  
+                            : <>新版標準正式<strong>取消了傳統洩漏率 Q 的計算公式，改為直接記錄測試期間的壓力變化量 (ΔP)</strong>。此修訂大幅消除因未知的隙縫幾何通路導致的計算誤差，提升實驗室間的可重現性與量測不確定度。</>}
                         </p>
                       </div>
 
                       <div className="bg-white p-3 rounded-xl border border-slate-200/60 space-y-2 md:col-span-2">
                         <h5 className="font-bold text-slate-800 flex items-center gap-1 text-[11px]">
-                          <Zap className="w-3.5 h-3.5 text-amber-500" /> 3. 測試總容積 (Test Volume V) 3 大測定方法 (Annex B.3.7 & D.3.7) 與剛性要求
+                          <Zap className="w-3.5 h-3.5 text-amber-500" /> {isEn ? '3. Test Volume (V) — 3 Determination Methods (Annex B.3.7 & D.3.7) & Rigidity Requirements' : '3. 測試總容積 (Test Volume V) 3 大測定方法 (Annex B.3.7 & D.3.7) 與剛性要求'}
                         </h5>
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px]">
                           <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-200/80 space-y-1">
-                            <strong className="text-blue-900 block font-bold">① 尺寸計算量測法 (Dimensional)</strong>
+                            <strong className="text-blue-900 block font-bold">{isEn ? '① Dimensional Calculation Method' : '① 尺寸計算量測法 (Dimensional)'}</strong>
                             <p className="text-slate-600 text-[10px] leading-relaxed">
-                              依據夾具、管路與內部閥體之 <strong>3D CAD 模型或設計圖紙</strong>直接計算內部空腔體積。無水液殘留與損壞精密電路/傳感器風險。
+                              {isEn
+                                ? <>Compute internal cavity volume directly from <strong>3D CAD models or engineering drawings</strong> of fixtures, tubing, and internal valves. No liquid residue or sensor damage risk.</>
+                                : <>依據夾具、管路與內部閥體之 <strong>3D CAD 模型或設計圖紙</strong>直接計算內部空腔體積。無水液殘留與損壞精密電路/傳感器風險。</>}
                             </p>
                           </div>
                           <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-200/80 space-y-1">
-                            <strong className="text-indigo-900 block font-bold">② 系統注水量測法 (Water Amount)</strong>
+                            <strong className="text-indigo-900 block font-bold">{isEn ? '② Water Amount Method' : '② 系統注水量測法 (Water Amount)'}</strong>
                             <p className="text-slate-600 text-[10px] leading-relaxed">
-                              裝配乾燥系統於天平稱重，緩緩注入蒸餾水並持續傾斜<strong>徹底排出氣泡</strong>對齊液面後再次稱重。以 1g ≈ 1mL 高精度換算總容積。
+                              {isEn
+                                ? <>Weigh the dry assembled system, slowly inject distilled water while tilting to <strong>fully purge air bubbles</strong>, align meniscus, then weigh again. Convert using 1 g ≈ 1 mL for total volume.</>
+                                : <>裝配乾燥系統於天平稱重，緩緩注入蒸餾水並持續傾斜<strong>徹底排出氣泡</strong>對齊液面後再次稱重。以 1g ≈ 1mL 高精度換算總容積。</>}
                             </p>
                           </div>
                           <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-200/80 space-y-1">
-                            <strong className="text-emerald-900 block font-bold">③ 組合量測法 (Combination)</strong>
+                            <strong className="text-emerald-900 block font-bold">{isEn ? '③ Combination Method' : '③ 組合量測法 (Combination)'}</strong>
                             <p className="text-slate-600 text-[10px] leading-relaxed">
-                              業界最常用做法。內部儀器傳感器與電磁閥體積由原廠提供（尺寸計算值），加總外部管路夾具之注水實測值即得正確總容積 <span className="font-mono font-bold text-slate-800">V</span>。
+                              {isEn
+                                ? <>Most common industry approach. Internal sensor and valve volumes are provided by the OEM (dimensional value); add the water-injection measured volume of external tubing/fixtures to get the correct total <span className="font-mono font-bold text-slate-800">V</span>.</>
+                                : <>業界最常用做法。內部儀器傳感器與電磁閥體積由原廠提供（尺寸計算值），加總外部管路夾具之注水實測值即得正確總容積 <span className="font-mono font-bold text-slate-800">V</span>。</>}
                             </p>
                           </div>
                         </div>
@@ -786,7 +816,9 @@ export const TopicClauseExplorer: React.FC = () => {
                         <div className="bg-amber-50/80 border border-amber-200 p-2 rounded-lg text-[10px] text-amber-900 flex items-center gap-1.5">
                           <ShieldAlert className="w-4 h-4 text-amber-600 shrink-0" />
                           <span>
-                            <strong>⚠️ 剛性防呆要求：</strong>測試儀器與管路必須使用高剛性材料 (如金屬夾具，彈性模數 &gt; 3,433 MPa)。若使用易壓力膨脹/回縮之軟膠管，測試容積 <span className="font-mono font-bold text-amber-950">V</span> 會隨壓力改變而致使壓降判定失真。
+                            {isEn
+                              ? <><strong>⚠️ Rigidity Requirement:</strong> Test instruments and tubing must use high-rigidity materials (e.g. metal fixtures, elastic modulus &gt; 3,433 MPa). Soft flexible tubing that expands under pressure will distort the test volume <span className="font-mono font-bold text-amber-950">V</span> and corrupt the pressure decay verdict.</>
+                              : <><strong>⚠️ 剛性防呆要求：</strong>測試儀器與管路必須使用高剛性材料 (如金屬夾具，彈性模數 &gt; 3,433 MPa)。若使用易壓力膨脹/回縮之軟膠管，測試容積 <span className="font-mono font-bold text-amber-950">V</span> 會隨壓力改變而致使壓降判定失真。</>}
                           </span>
                         </div>
                       </div>
@@ -799,20 +831,20 @@ export const TopicClauseExplorer: React.FC = () => {
                   <div className="bg-amber-50 border border-amber-200/80 p-3 rounded-xl space-y-1">
                     <div className="flex items-center space-x-1.5 text-amber-800 text-xs font-bold">
                       <AlertTriangle className="w-3.5 h-3.5 text-amber-600" />
-                      <span>研發防呆與材料風險 (R&D Risk)</span>
+                      <span>{isEn ? 'R&D Mistake-Proofing & Material Risks (Engineering Risk)' : '研發防呆與材料風險 (R&D Risk)'}</span>
                     </div>
                     <p className="text-xs text-amber-900 leading-relaxed">
-                      {currentTopic.engineeringRiskZh}
+                      {isEn ? (currentTopic.engineeringRiskEn || currentTopic.engineeringRiskZh) : currentTopic.engineeringRiskZh}
                     </p>
                   </div>
 
                   <div className="bg-emerald-50 border border-emerald-200/80 p-3 rounded-xl space-y-1">
                     <div className="flex items-center space-x-1.5 text-emerald-800 text-xs font-bold">
                       <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                      <span>法規審查與稽核重點 (Audit Focus)</span>
+                      <span>{isEn ? 'Regulatory Audit & Validation Focus' : '法規審查與稽核重點 (Audit Focus)'}</span>
                     </div>
                     <p className="text-xs text-emerald-900 leading-relaxed">
-                      {currentTopic.auditFocusZh}
+                      {isEn ? (currentTopic.auditFocusEn || currentTopic.auditFocusZh) : currentTopic.auditFocusZh}
                     </p>
                   </div>
                 </div>
@@ -824,10 +856,10 @@ export const TopicClauseExplorer: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center space-x-1.5">
                       <Sparkles className="w-4 h-4 text-blue-600" />
-                      <span>規範文件對應關鍵配圖與裝置結構圖 (Standard Reference Figures) ({currentTopic.figures.length})</span>
+                      <span>{isEn ? `Standard Reference Figures & Apparatus Layouts (${currentTopic.figures.length})` : `規範文件對應關鍵配圖與裝置結構圖 (Standard Reference Figures) (${currentTopic.figures.length})`}</span>
                     </h3>
                     <span className="text-xs text-blue-700 font-bold bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200">
-                      高精度 CAD / 結構向量圖解
+                      {isEn ? 'Precision CAD / Vector Diagrams' : '高精度 CAD / 結構向量圖解'}
                     </span>
                   </div>
 
@@ -854,7 +886,7 @@ export const TopicClauseExplorer: React.FC = () => {
                 <div className="flex items-center justify-between">
                   <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center space-x-1.5">
                     <FileText className="w-4 h-4 text-blue-600" />
-                    <span>對應之具體標準條文與測試細則 ({currentClauses.length})</span>
+                    <span>{isEn ? `Corresponding Standard Clauses & Test Details (${currentClauses.length})` : `對應之具體標準條文與測試細則 (${currentClauses.length})`}</span>
                   </h3>
 
                   {/* Standard toggle filter */}
@@ -863,7 +895,7 @@ export const TopicClauseExplorer: React.FC = () => {
                       onClick={() => setSelectedStandardFilter('all')}
                       className={`px-2 py-0.5 rounded ${selectedStandardFilter === 'all' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600'}`}
                     >
-                      全部標準
+                      {isEn ? 'All' : '全部標準'}
                     </button>
                     <button
                       onClick={() => setSelectedStandardFilter('iso7')}
@@ -903,7 +935,7 @@ export const TopicClauseExplorer: React.FC = () => {
                             </span>
                             <div>
                               <h4 className="text-sm font-bold text-slate-900">
-                                {clause.titleZh}
+                                {isEn ? (clause.titleEn || clause.titleZh) : clause.titleZh}
                               </h4>
                               <span className="text-xs text-slate-400 font-mono block">
                                 {clause.titleEn}
@@ -914,26 +946,26 @@ export const TopicClauseExplorer: React.FC = () => {
                           <span className={`text-xs font-semibold px-2 py-0.5 rounded-full shrink-0 ${
                             isISO7 ? 'bg-blue-50 text-blue-700 border border-blue-200' : 'bg-indigo-50 text-indigo-700 border border-indigo-200'
                           }`}>
-                            {clause.typeZh}
+                            {isEn ? (clause.typeEn || clause.typeZh) : clause.typeZh}
                           </span>
                         </div>
 
                         {/* Objective & Applies To */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                           <div className="bg-slate-50 p-3 rounded-xl border border-slate-100 space-y-0.5">
-                            <span className="text-xs font-semibold text-slate-400 block">規範核心目的 (Objective):</span>
-                            <p className="text-slate-700">{clause.objectiveZh}</p>
+                            <span className="text-xs font-semibold text-slate-400 block">{isEn ? 'Standard Objective:' : '規範核心目的 (Objective):'}</span>
+                            <p className="text-slate-700">{isEn ? (clause.objectiveEn || clause.objectiveZh) : clause.objectiveZh}</p>
                           </div>
                           <div className="bg-slate-50 p-3 rounded-xl border border-slate-100 space-y-0.5">
-                            <span className="text-xs font-semibold text-slate-400 block">適用物件產品 (Applies To):</span>
-                            <p className="text-slate-700">{clause.appliesToZh}</p>
+                            <span className="text-xs font-semibold text-slate-400 block">{isEn ? 'Applies To:' : '適用物件產品 (Applies To):'}</span>
+                            <p className="text-slate-700">{isEn ? (clause.appliesToEn || clause.appliesToZh) : clause.appliesToZh}</p>
                           </div>
                         </div>
 
                         {/* Dual-Phase Engineering Conditions: Pre-assembly vs Test Load Challenge */}
                         <div className="space-y-2">
                           <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block">
-                            量化實驗與工況條件 (Quantitative Test & Pre-assembly Conditions):
+                            {isEn ? 'Quantitative Test & Pre-assembly Conditions:' : '量化實驗與工況條件 (Quantitative Test & Pre-assembly Conditions):'}
                           </span>
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                             {/* Phase 1: Pre-assembly Condition */}
@@ -941,21 +973,21 @@ export const TopicClauseExplorer: React.FC = () => {
                               <div className="flex items-center justify-between">
                                 <span className="font-bold text-blue-900 flex items-center gap-1.5">
                                   <Wrench className="w-3.5 h-3.5 text-blue-600 shrink-0" />
-                                  階段一：前置預裝配條件 (Pre-assembly)
+                                  {isEn ? 'Phase 1: Pre-assembly Condition' : '階段一：前置預裝配條件 (Pre-assembly)'}
                                 </span>
                                 {clause.preAssembly?.status === 'direct_overload' && (
                                   <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-100 text-amber-800 border border-amber-300">
-                                    免預裝配 / 直加過載
+                                    {isEn ? 'Direct Overload' : '免預裝配 / 直加過載'}
                                   </span>
                                 )}
                                 {clause.preAssembly?.status === 'not_applicable' && (
                                   <span className="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 text-slate-600 border border-slate-200">
-                                    不適用物理裝配
+                                    {isEn ? 'N/A' : '不適用物理裝配'}
                                   </span>
                                 )}
                                 {(clause.preAssembly?.status === 'standard_lock' || clause.preAssembly?.status === 'slip') && (
                                   <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-blue-100 text-blue-800 border border-blue-200">
-                                    標準程序
+                                    {isEn ? 'Standard Procedure' : '標準程序'}
                                   </span>
                                 )}
                               </div>
@@ -963,22 +995,22 @@ export const TopicClauseExplorer: React.FC = () => {
                               {clause.preAssembly?.status === 'direct_overload' ? (
                                 <div className="bg-white/90 p-2.5 rounded-lg border border-amber-200 text-amber-950 space-y-1">
                                   <div className="font-bold text-xs flex items-center gap-1 text-amber-900">
-                                    ⚡ 直加破壞過載扭矩（無前置軸推力裝配）
+                                    {isEn ? '⚡ Direct Overload Torque (No axial pre-assembly)' : '⚡ 直加破壞過載扭矩（無前置軸推力裝配）'}
                                   </div>
                                   <p className="text-[11px] text-amber-800 leading-relaxed">
-                                    {clause.preAssembly.descriptionZh || '考核公套環極限抗滑牙能力，由未旋緊初始狀態直接連續旋緊至 0.15~0.17 N·m，不執行前置 27.5 N 軸向推力預裝配。'}
+                                    {isEn ? (clause.preAssembly.descriptionEn || 'Assess female luer thread override resistance by directly tightening to 0.15-0.17 N·m without 27.5 N pre-assembly push force.') : (clause.preAssembly.descriptionZh || '考核公套環極限抗滑牙能力，由未旋緊初始狀態直接連續旋緊至 0.15~0.17 N·m，不執行前置 27.5 N 軸向推力預裝配。')}
                                   </p>
                                 </div>
                               ) : clause.preAssembly?.status === 'not_applicable' ? (
                                 <div className="bg-white/80 p-2.5 rounded-lg border border-slate-200 text-slate-600 text-[11px] leading-relaxed">
-                                  {clause.preAssembly.descriptionZh || '幾何尺寸圖面量測或 CAD 空間防錯干涉分析，無物理預裝配程序。'}
+                                  {isEn ? (clause.preAssembly.descriptionEn || 'Dimensional CMM measurement or CAD interference analysis; no physical assembly.') : (clause.preAssembly.descriptionZh || '幾何尺寸圖面量測或 CAD 空間防錯干涉分析，無物理預裝配程序。')}
                                 </div>
                               ) : (
                                 <div className="space-y-2">
                                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 font-mono text-xs">
                                     {(clause.preAssembly?.assemblyTorqueNm || clause.quantitativeConditions.assemblyTorqueNm) && (
                                       <div className="bg-white px-2.5 py-1.5 rounded-lg border border-blue-200/80 shadow-2xs">
-                                        <span className="text-[10px] text-slate-400 block font-sans">裝配扭矩:</span>
+                                        <span className="text-[10px] text-slate-400 block font-sans">{isEn ? 'Torque:' : '裝配扭矩:'}</span>
                                         <span className="font-bold text-slate-800">
                                           {clause.preAssembly?.assemblyTorqueNm || clause.quantitativeConditions.assemblyTorqueNm}
                                         </span>
@@ -986,21 +1018,21 @@ export const TopicClauseExplorer: React.FC = () => {
                                     )}
                                     {(clause.preAssembly?.assemblyAxialForceN || clause.quantitativeConditions.assemblyAxialForceN) && (
                                       <div className="bg-white px-2.5 py-1.5 rounded-lg border border-blue-200/80 shadow-2xs">
-                                        <span className="text-[10px] text-slate-400 block font-sans">軸向推力:</span>
+                                        <span className="text-[10px] text-slate-400 block font-sans">{isEn ? 'Axial Force:' : '軸向推力:'}</span>
                                         <span className="font-bold text-slate-800">
                                           {clause.preAssembly?.assemblyAxialForceN || clause.quantitativeConditions.assemblyAxialForceN}
                                         </span>
                                       </div>
                                     )}
                                     <div className="bg-white px-2.5 py-1.5 rounded-lg border border-blue-200/80 shadow-2xs">
-                                      <span className="text-[10px] text-slate-400 block font-sans">保持時間:</span>
+                                      <span className="text-[10px] text-slate-400 block font-sans">{isEn ? 'Hold Time:' : '保持時間:'}</span>
                                       <span className="font-bold text-slate-800">
-                                        {clause.preAssembly?.holdTimeSec || '5 - 6 秒'}
+                                        {clause.preAssembly?.holdTimeSec || (isEn ? '5 - 6 s' : '5 - 6 秒')}
                                       </span>
                                     </div>
                                   </div>
                                   <p className="text-[11px] text-blue-900/80 font-sans leading-relaxed">
-                                    💡 {clause.preAssembly?.descriptionZh || '旋合時須同時施加 26.5~27.5 N 推力與 0.08~0.12 N·m 扭矩確立 6% 錐面緊密配合。'}
+                                    💡 {isEn ? (clause.preAssembly?.descriptionEn || 'Simultaneously apply 26.5~27.5 N axial force and 0.08~0.12 N·m torque for 5-6 s, then release.') : (clause.preAssembly?.descriptionZh || '旋合時須同時施加 26.5~27.5 N 推力與 0.08~0.12 N·m 扭矩確立 6% 錐面緊密配合。')}
                                   </p>
                                 </div>
                               )}
@@ -1011,47 +1043,47 @@ export const TopicClauseExplorer: React.FC = () => {
                               <div className="flex items-center justify-between">
                                 <span className="font-bold text-slate-800 flex items-center gap-1.5">
                                   <Gauge className="w-3.5 h-3.5 text-indigo-600 shrink-0" />
-                                  階段二：定量考驗負載 (Test Challenge Load)
+                                  {isEn ? 'Phase 2: Test Challenge Load' : '階段二：定量考驗負載 (Test Challenge Load)'}
                                 </span>
                                 <span className="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200">
-                                  實測考驗
+                                  {isEn ? 'Test Load' : '實測考驗'}
                                 </span>
                               </div>
 
                               <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 font-mono text-xs">
                                 {clause.quantitativeConditions.testPressureKpa && (
                                   <div className="bg-white px-2.5 py-1.5 rounded-lg border border-blue-200 shadow-2xs">
-                                    <span className="text-[10px] text-blue-600 block font-sans">測試壓力:</span>
+                                    <span className="text-[10px] text-blue-600 block font-sans">{isEn ? 'Test Pressure:' : '測試壓力:'}</span>
                                     <span className="font-bold text-blue-900">{clause.quantitativeConditions.testPressureKpa}</span>
                                   </div>
                                 )}
                                 {clause.quantitativeConditions.testTorqueNm && (
                                   <div className="bg-white px-2.5 py-1.5 rounded-lg border border-amber-200 shadow-2xs">
-                                    <span className="text-[10px] text-amber-700 block font-sans">測試扭矩:</span>
+                                    <span className="text-[10px] text-amber-700 block font-sans">{isEn ? 'Test Torque:' : '測試扭矩:'}</span>
                                     <span className="font-bold text-amber-900">{clause.quantitativeConditions.testTorqueNm}</span>
                                   </div>
                                 )}
                                 {clause.quantitativeConditions.testForceN && (
                                   <div className="bg-white px-2.5 py-1.5 rounded-lg border border-emerald-200 shadow-2xs">
-                                    <span className="text-[10px] text-emerald-700 block font-sans">測試拉力:</span>
+                                    <span className="text-[10px] text-emerald-700 block font-sans">{isEn ? 'Test Force:' : '測試拉力:'}</span>
                                     <span className="font-bold text-emerald-900">{clause.quantitativeConditions.testForceN}</span>
                                   </div>
                                 )}
                                 {clause.quantitativeConditions.holdTimeSec && (
                                   <div className="bg-white px-2.5 py-1.5 rounded-lg border border-slate-200 shadow-2xs">
-                                    <span className="text-[10px] text-slate-400 block font-sans">考驗時間:</span>
+                                    <span className="text-[10px] text-slate-400 block font-sans">{isEn ? 'Hold Time:' : '考驗時間:'}</span>
                                     <span className="font-bold text-slate-800">{clause.quantitativeConditions.holdTimeSec}</span>
                                   </div>
                                 )}
                                 {clause.quantitativeConditions.media && (
                                   <div className="bg-white px-2.5 py-1.5 rounded-lg border border-slate-200 shadow-2xs col-span-2 sm:col-span-1">
-                                    <span className="text-[10px] text-slate-400 block font-sans">試驗介質:</span>
+                                    <span className="text-[10px] text-slate-400 block font-sans">{isEn ? 'Media:' : '試驗介質:'}</span>
                                     <span className="font-bold text-slate-800 truncate block">{clause.quantitativeConditions.media}</span>
                                   </div>
                                 )}
                                 {clause.quantitativeConditions.temperatureC && (
                                   <div className="bg-white px-2.5 py-1.5 rounded-lg border border-slate-200 shadow-2xs col-span-2 sm:col-span-1">
-                                    <span className="text-[10px] text-slate-400 block font-sans">環境溫度:</span>
+                                    <span className="text-[10px] text-slate-400 block font-sans">{isEn ? 'Test Temp:' : '環境溫度:'}</span>
                                     <span className="font-bold text-slate-800 truncate block">{clause.quantitativeConditions.temperatureC}</span>
                                   </div>
                                 )}
@@ -1059,7 +1091,7 @@ export const TopicClauseExplorer: React.FC = () => {
                                   !clause.quantitativeConditions.testTorqueNm &&
                                   !clause.quantitativeConditions.testForceN && (
                                   <div className="bg-white px-2.5 py-1.5 rounded-lg border border-slate-200 col-span-2 sm:col-span-3 text-slate-500 text-[11px] font-sans">
-                                    依流程規範或 Annex B 圖面標註進行尺寸公差檢驗 / 靜態驗證。
+                                    {isEn ? 'Dimensional tolerance verification per Annex B drawings / static inspection.' : '依流程規範或 Annex B 圖面標註進行尺寸公差檢驗 / 靜態驗證。'}
                                   </div>
                                 )}
                               </div>
@@ -1071,7 +1103,7 @@ export const TopicClauseExplorer: React.FC = () => {
                         {clause.testProcedureStepsZh && clause.testProcedureStepsZh.length > 0 && (
                           <div className="space-y-1.5">
                             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block">
-                              標準實驗流程步驟 (Standard Test Procedure):
+                              {isEn ? 'Standard Test Procedure Steps:' : '標準實驗流程步驟 (Standard Test Procedure):'}
                             </span>
                             <div className="space-y-1">
                               {clause.testProcedureStepsZh.map((step, sIdx) => (
@@ -1079,7 +1111,7 @@ export const TopicClauseExplorer: React.FC = () => {
                                   <span className="w-4 h-4 rounded-full bg-slate-100 text-slate-600 font-mono text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
                                     {sIdx + 1}
                                   </span>
-                                  <span>{step}</span>
+                                  <span>{isEn ? ((clause.testProcedureStepsEn && clause.testProcedureStepsEn[sIdx]) || step) : step}</span>
                                 </div>
                               ))}
                             </div>
@@ -1090,10 +1122,10 @@ export const TopicClauseExplorer: React.FC = () => {
                         <div className="bg-emerald-50/60 border border-emerald-200/80 p-3 rounded-xl space-y-1">
                           <div className="flex items-center space-x-1.5 text-emerald-800 text-xs font-bold">
                             <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                            <span>合格判定標準 (Acceptance Criteria)</span>
+                            <span>{isEn ? 'Acceptance Criteria (Pass/Fail):' : '合格判定標準 (Acceptance Criteria)'}</span>
                           </div>
                           <ul className="list-disc list-inside text-xs text-emerald-900 space-y-0.5 font-medium">
-                            {clause.acceptanceCriteriaZh.map((crit, cIdx) => (
+                            {(isEn && clause.acceptanceCriteriaEn && clause.acceptanceCriteriaEn.length > 0 ? clause.acceptanceCriteriaEn : clause.acceptanceCriteriaZh).map((crit, cIdx) => (
                               <li key={cIdx}>{crit}</li>
                             ))}
                           </ul>
@@ -1103,10 +1135,10 @@ export const TopicClauseExplorer: React.FC = () => {
                         <div className="bg-blue-50/60 border border-blue-200/80 p-3 rounded-xl text-xs space-y-1">
                           <div className="flex items-center space-x-1.5 text-blue-900 font-bold">
                             <Sparkles className="w-3.5 h-3.5 text-blue-600" />
-                            <span>FDA 510(k) / TFDA 審查建議與注意事項</span>
+                            <span>{isEn ? 'FDA 510(k) / CE MDR Review Recommendations' : 'FDA 510(k) / TFDA 審查建議與注意事項'}</span>
                           </div>
                           <p className="text-blue-900/90 leading-relaxed">
-                            {clause.regulatoryTipZh}
+                            {isEn ? (clause.regulatoryTipEn || clause.regulatoryTipZh) : clause.regulatoryTipZh}
                           </p>
                         </div>
                       </div>
@@ -1121,7 +1153,7 @@ export const TopicClauseExplorer: React.FC = () => {
                   <div className="flex items-center justify-between border-b border-slate-100 pb-2">
                     <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center space-x-1.5">
                       <Wrench className="w-4 h-4 text-amber-500" />
-                      <span>此主題對應之 ISO 80369-7 附錄 C 金屬參考夾具 ({currentRefConnectors.length})</span>
+                      <span>{isEn ? `Corresponding ISO 80369-7 Annex C Reference Fixtures (${currentRefConnectors.length})` : `此主題對應之 ISO 80369-7 附錄 C 金屬參考夾具 (${currentRefConnectors.length})`}</span>
                     </h4>
                   </div>
 
@@ -1143,19 +1175,19 @@ export const TopicClauseExplorer: React.FC = () => {
                               Figure {fig.id}
                             </span>
                             <span className="text-xs font-bold text-slate-800">
-                              {fig.gender === 'male' ? '公金屬件' : '母金屬件'} ({fig.type === 'lock' ? 'Lock' : 'Slip'})
+                              {isEn ? (fig.gender === 'male' ? 'Male Metal' : 'Female Metal') : (fig.gender === 'male' ? '公金屬件' : '母金屬件')} ({fig.type === 'lock' ? 'Lock' : 'Slip'})
                             </span>
                           </div>
 
                           {fig.isWorstCase && (
                             <span className="text-xs bg-amber-200 text-amber-900 font-bold px-2 py-0.5 rounded-full">
-                              極限最壞情況
+                              {isEn ? 'Worst-Case Fixture' : '極限最壞情況'}
                             </span>
                           )}
                         </div>
 
                         <p className="text-xs text-slate-600 leading-relaxed">
-                          {fig.descriptionZh}
+                          {isEn ? (fig.descriptionEn || fig.name) : fig.descriptionZh}
                         </p>
 
                         <div className="bg-white p-2 rounded-lg border border-slate-200/80 text-xs space-y-0.5 font-mono">
@@ -1175,9 +1207,9 @@ export const TopicClauseExplorer: React.FC = () => {
           ) : (
             <div className="bg-white border border-slate-200 rounded-2xl p-12 text-center text-slate-500 space-y-3 shadow-xs">
               <Info className="w-10 h-10 text-slate-400 mx-auto" />
-              <h3 className="text-base font-bold text-slate-800">無符合目前主題特徵的條文內容</h3>
+              <h3 className="text-base font-bold text-slate-800">{isEn ? 'No matching clause details' : '無符合目前主題特徵的條文內容'}</h3>
               <p className="text-xs text-slate-500 max-w-sm mx-auto leading-relaxed">
-                未找到與目前分類或關鍵字完全相符的規範主題，請切換主題分類、清除關鍵字或點選左側其他主題。
+                {isEn ? 'No normative topics found matching the current search criteria. Please switch category, clear search or select another topic from the left.' : '未找到與目前分類或關鍵字完全相符的規範主題，請切換主題分類、清除關鍵字或點選左側其他主題。'}
               </p>
             </div>
           )
@@ -1197,37 +1229,37 @@ export const TopicClauseExplorer: React.FC = () => {
                     </span>
                     {currentSelectedFigure.isWorstCase && (
                       <span className="bg-rose-500 text-white text-xs font-bold px-2 py-0.5 rounded-md">
-                        Worst-Case 極限夾具
+                        {isEn ? 'Worst-Case Fixture' : 'Worst-Case 極限夾具'}
                       </span>
                     )}
                   </div>
                   <h2 className="text-lg font-bold text-slate-900 mt-1">
-                    {currentSelectedFigure.nameZh || currentSelectedFigure.name}
+                    {isEn ? currentSelectedFigure.name : (currentSelectedFigure.nameZh || currentSelectedFigure.name)}
                   </h2>
                   <span className="text-xs text-slate-400 font-mono">
-                    {currentSelectedFigure.name}
+                    {isEn ? (currentSelectedFigure.nameZh || '') : currentSelectedFigure.name}
                   </span>
                 </div>
 
                 <div className="text-right shrink-0">
                   <span className="text-xs text-slate-400 font-mono block">CAD ID: {currentSelectedFigure.id}</span>
-                  <span className="text-xs font-bold text-blue-600">ISO 80369 規範正本對照</span>
+                  <span className="text-xs font-bold text-blue-600">{isEn ? 'ISO 80369 Official Standard' : 'ISO 80369 規範正本對照'}</span>
                 </div>
               </div>
 
               <p className="text-xs text-slate-700 leading-relaxed bg-slate-50 p-3.5 rounded-xl border border-slate-100">
-                {currentSelectedFigure.descriptionZh}
+                {isEn ? (currentSelectedFigure.descriptionEn || currentSelectedFigure.descriptionZh) : currentSelectedFigure.descriptionZh}
               </p>
 
               {/* Worst-Case / Standard Rationale Callout */}
-              {currentSelectedFigure.worstCaseReasonZh && (
+              {(currentSelectedFigure.worstCaseReasonZh || currentSelectedFigure.worstCaseReasonEn) && (
                 <div className="bg-amber-50 border border-amber-200/80 p-3 rounded-xl space-y-1">
                   <div className="flex items-center space-x-1.5 text-amber-800 text-xs font-bold">
                     <AlertTriangle className="w-3.5 h-3.5 text-amber-600" />
-                    <span>法規依據與極限設計考量 (Normative Rationale)</span>
+                    <span>{isEn ? 'Normative Basis & Worst-Case Design Rationale' : '法規依據與極限設計考量 (Normative Rationale)'}</span>
                   </div>
                   <p className="text-xs text-amber-900 leading-relaxed">
-                    {currentSelectedFigure.worstCaseReasonZh}
+                    {isEn ? (currentSelectedFigure.worstCaseReasonEn || currentSelectedFigure.worstCaseReasonZh) : currentSelectedFigure.worstCaseReasonZh}
                   </p>
                 </div>
               )}
@@ -1235,7 +1267,7 @@ export const TopicClauseExplorer: React.FC = () => {
               {/* Key Callouts Grid */}
               <div>
                 <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
-                  規範幾何特徵與量測 Callouts
+                  {isEn ? 'Geometric Features & Measurement Callouts' : '規範幾何特徵與量測 Callouts'}
                 </h4>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs font-mono">
                   {currentSelectedFigure.svgHighlights.map((hl, idx) => (

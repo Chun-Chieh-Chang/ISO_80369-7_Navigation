@@ -1,6 +1,40 @@
 # 開發日誌 (DEV_LOG)
 
 ---
+## 版本：v8.16.0 全站 100% 無死角雙語化改造 — 4 大探索分頁完整國際化 (2026-09-03)
+
+### 需求來源與目標
+1. **問題根因**：用戶回報英文模式下 4 大探索分頁（雙標準對照矩陣、條文脈絡圖表、主題條文檢索、夾具庫與圖紙）仍殘留大量中文硬編碼字串，未達成 100% 雙語切換目標。
+2. **改造範疇**：全面審查並修正所有未被 `isEn ? ... : ...` 或 `t.*` 守衛的中文 JSX 字串，達成全站任意語系下零殘留中文。
+
+### 根因分析 (RCA)
+1. **第一階段實作遺漏 (RCA-01)**：4 大分頁組件在第一輪國際化時，僅對主要 Banner、標題與 Chips 進行了雙語化，但附錄導航樹、ΔP 技術補充指南、isO20 欄位中文注釋、剪貼摘要文字與型別定義（`AnnexCFigureInfo.descriptionEn`）等「第二層深度內容」未完整處理。
+2. **TypeScript 型別漏洞 (RCA-02)**：`ConnectorInspector.tsx` 引用了不存在於 `AnnexCFigureInfo` 與 `ISOClauseInfo` 型別的屬性名稱（`.descriptionEn`、`.titleEn`、`.keyPhysicsEn`、`.worstCaseReasonEn`），`tsc --noEmit` 報 5 個 TS2551 錯誤。
+
+### 矯正與預防措施 (CAPA)
+1. **TypeScript 型別補齊 (CAPA-01)**：在 `src/types/index.ts` 的 `AnnexCFigureInfo` 介面新增選用屬性 `worstCaseReasonEn?: string`，並修正 `ConnectorInspector.tsx` 的 `.descriptionEn` → `.description`、`.titleEn` → `.title`、`.keyPhysicsEn` → `.keyPhysics` 屬性參照，對齊已有的 SSOT 欄位名稱。
+2. **附錄導航樹完整雙語化 (CAPA-02)**：`TopicClauseExplorer.tsx` 中 5 個樹節點標題、計數標籤、節頭文字全面改為 `isEn ? '...' : '...'`。
+3. **ΔP 技術補充指南全語系覆蓋 (CAPA-03)**：「ISO 80369-20:2024 壓差降技術補充指南」卡片中 4 大測試項目清單、3 種容積測定法（尺寸/注水/組合）、剛性防呆警告全數實現英/中雙路渲染。
+4. **複製摘要雙語化 (CAPA-04)**：`handleCopySummary` 函式依 `language === 'en'` 分叉，輸出英文或中文摘要文本，標籤與欄位引用同步使用 `labelEn`、`shortSummaryEn`、`engineeringRiskEn`、`auditFocusEn`。
+5. **矩陣 iso20 欄位中文注釋消除 (CAPA-05)**：`ClauseComparisonMatrix.tsx` 的 6 個 `iso20` 欄位（幾何量測法、氣壓/水壓、負壓衰減、裝配靜置、反旋、修訂歷史）全面改為 `isEn ? '...' : '...'` 雙語結構。
+6. **代碼掃描防迴歸 (CAPA-06)**：實施 Python 靜態 CJK 掃描腳本，識別所有未被 `isEn` 守衛的中文字串，確保後續修訂不遺漏。
+
+### 變更檔案清單
+| 檔案 | 變更類型 | 說明 |
+|------|--------|------|
+| `src/types/index.ts` | MODIFY | 補齊 `AnnexCFigureInfo.worstCaseReasonEn?: string` |
+| `src/components/ConnectorInspector.tsx` | MODIFY | 修正型別屬性名稱錯誤；全面雙語化 |
+| `src/components/TopicClauseExplorer.tsx` | MODIFY | 剪貼摘要/附錄樹/ΔP 指南全雙語化 |
+| `src/components/ClauseComparisonMatrix.tsx` | MODIFY | iso20 欄位中文注釋全消除 |
+| `src/components/TopicVisualMap.tsx` | VERIFY | 確認已正確守衛（合格判定 `isEn ? ... : ...`） |
+
+### 確效結果 (Validation)
+- **類型檢查 (tsc --noEmit)**：0 錯誤 / 0 警告。
+- **單元測試 (vitest run)**：17/17 全部 PASS。
+- **生產打包 (vite build)**：5.42s 順利編譯，PWA 快取精確生成。
+- **靜態 CJK 掃描**：4 大組件中所有中文均已正確放置於 `isEn ? English : '中文'` 的 false branch，不存在裸露中文渲染風險。
+
+---
 ## 版本：v8.15.0 ISO 80369-20:2024 預處理大氣條件 SSOT 深度修正與 MECE 確效 (2026-09-03)
 
 ### 需求來源與目標
