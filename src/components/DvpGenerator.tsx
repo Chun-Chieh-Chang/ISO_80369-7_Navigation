@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ISO_CLAUSES, ISO20_MANDATORY_REPORT_ITEMS, ISO20_ANNEX_A_PRECONDITIONING } from '../data/isoData';
-import { ConnectorGender, ConnectorType, TestConfigState, TestClauseId } from '../types';
+import { ConnectorGender, ConnectorType, ISOClauseInfo, TestConfigState, TestClauseId } from '../types';
 import { ISOStandardFigureRenderer } from './ISOStandardFigureRenderer';
 import { getClauseSvgKey, getAnnexCFigure } from '../utils/isoHelpers';
 import { exportMedicalGradeExcelReport } from '../utils/excelExporter';
@@ -23,6 +23,94 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
   const activeClauseObj = ISO_CLAUSES[config.selectedClauseId || '6.1'];
   const activeSvgKey = getClauseSvgKey(config.selectedClauseId || '6.1');
   const activeFigInfo = getAnnexCFigure(activeSvgKey);
+
+  /**
+   * Returns the pre-assembly label for a clause.
+   * ISO 80369-20 Annex H.4 requires pre-assembly (0.08–0.12 N·m + 26.5–27.5 N, hold 5–6 s, release)
+   * for ALL tests including 6.6.  Clause 6.6 previously wrongly showed "直加破壞扭矩".
+   */
+  const renderPreAssembly = (clause: ISOClauseInfo) => {
+    if (clause.assemblyTorqueNm.max > 0) {
+      return (
+        <div>
+          <div>{clause.assemblyTorqueNm.min}–{clause.assemblyTorqueNm.max} N·m</div>
+          {clause.assemblyAxialForceN && (
+            <div className="text-[11px] text-blue-700 font-bold">
+              + {clause.assemblyAxialForceN.min}–{clause.assemblyAxialForceN.max} N (推力)
+            </div>
+          )}
+          <div className="text-[10px] text-slate-500 mt-0.5">
+            維持 5–6 秒後釋放 (ISO 80369-20 Annex H.4 a)
+          </div>
+        </div>
+      );
+    }
+    return <span className="text-rose-600 font-bold">直加破壞扭矩（需預裝配）</span>;
+  };
+
+  /**
+   * Returns the hold-time label.
+   * Clause 6.1 has two independent methods:
+   *   - 6.1.2 (pressure decay / 氣壓法): hold 15–20 s
+   *   - 6.1.3 (positive liquid pressure / 水壓法): hold 30–35 s
+   * They are "either/or" (ISO 80369-7 6.1.1).  Display both so the tester picks one.
+   */
+  const renderHoldTime = (clause: ISOClauseInfo) => {
+    if (clause.id === '6.3') return '48 小時';
+    if (clause.id === '6.1') {
+      return (
+        <div>
+          <div>氣壓法 (6.1.2): 15–20 秒</div>
+          <div>水壓法 (6.1.3): 30–35 秒</div>
+          <div className="text-[10px] text-slate-500 mt-0.5">二選一執行（ISO 80369-7 6.1.1）</div>
+        </div>
+      );
+    }
+    return `${clause.holdTimeSec.min}–${clause.holdTimeSec.max} 秒`;
+  };
+
+  /**
+   * Returns the test-load label, with L1/L2 differentiation for clause 6.4.
+   */
+  const renderTestLoad = (clause: ISOClauseInfo) => {
+    if (clause.id === '6.1') return '300–330 kPa';
+    if (clause.id === '6.2') return '80.0–88.0 kPa (真空)';
+    if (clause.id === '6.4') {
+      const min = selectedType === 'slip' ? 23 : 32;
+      const max = selectedType === 'slip' ? 25 : 35;
+      const label = selectedType === 'slip' ? 'Slip (L1)' : 'Lock (L2)';
+      return (
+        <div>
+          <div>{min}–{max} N ({label})</div>
+          <div className="text-[10px] text-slate-500">
+            Slip: 23–25 N · Lock: 32–35 N
+          </div>
+        </div>
+      );
+    }
+    if (clause.testTorqueNm) {
+      return `${clause.testTorqueNm.min}–${clause.testTorqueNm.max} N·m`;
+    }
+    if (clause.testForceN) {
+      return `${clause.testForceN.min}–${clause.testForceN.max} N`;
+    }
+    return 'N/A';
+  };
+
+  /**
+   * Returns the pass-criteria label with Clause 6.6 correction:
+   * - Append "且接頭無歪斜 (No cocking)" per ISO 80369-20 Annex H.4 d
+   * - Clause 6.3: only leak test, no visual crack requirement
+   */
+  const renderPassCriteria = (clause: ISOClauseInfo) => {
+    if (clause.id === '6.3') {
+      return '依 6.1.1 執行洩漏測試並合格即可（法規無目視裂紋要求）';
+    }
+    if (clause.id === '6.6') {
+      return `${clause.passCriteriaZh}，且接頭無歪斜 (No cocking)（ISO 80369-20 Annex H.4 d）`;
+    }
+    return clause.passCriteriaZh;
+  };
 
   const exportReportChecklistCSV = () => {
     const headers = ['項目編號', 'ISO 條款 (a~n)', '必填欄位名稱 (EN)', '必填欄位中文', '法規規範與範例說明'];
@@ -144,41 +232,38 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
                 {Object.values(ISO_CLAUSES)
                   .filter(c => c.applicableTypes.includes(selectedType))
                   .map((clause) => {
-                    // Helper to get exact standard ISO 80369-7 Annex C reference connector
                     let requiredRefId = 'C.1';
                     if (selectedGender === 'male') {
-                      // Testing Male Luer product -> Requires Female Reference Connector (C.1, C.3, or C.5)
                       if (selectedType === 'slip') {
-                        requiredRefId = 'C.5'; // Female Reference Luer Slip
+                        requiredRefId = 'C.5';
                       } else {
                         requiredRefId = (clause.id === '6.4' || clause.id === '6.6') ? 'C.3' : 'C.1';
                       }
                     } else {
-                      // Testing Female Luer product -> Requires Male Reference Connector (C.2, C.4, or C.6)
                       if (selectedType === 'slip') {
-                        requiredRefId = 'C.2'; // Male Reference Luer Slip
+                        requiredRefId = 'C.2';
                       } else {
                         requiredRefId = (clause.id === '6.4' || clause.id === '6.6') ? 'C.6' : 'C.4';
                       }
                     }
 
                     const requiredRef = getAnnexCFigure(requiredRefId);
-                    const refLabel = requiredRefId === 'C.3' 
-                      ? '母最壞情況 2.71mm' 
-                      : requiredRefId === 'C.6' 
-                      ? '公最壞情況' 
-                      : requiredRefId === 'C.5' 
-                      ? '母滑動標稱' 
-                      : requiredRefId === 'C.2' 
-                      ? '公滑動標稱' 
-                      : requiredRefId === 'C.1' 
-                      ? '母鎖定標稱 3.50mm' 
+                    const refLabel = requiredRefId === 'C.3'
+                      ? '母最壞情況 2.71mm'
+                      : requiredRefId === 'C.6'
+                      ? '公最壞情況'
+                      : requiredRefId === 'C.5'
+                      ? '母滑動標稱'
+                      : requiredRefId === 'C.2'
+                      ? '公滑動標稱'
+                      : requiredRefId === 'C.1'
+                      ? '母鎖定標稱 3.50mm'
                       : '公鎖定標稱';
 
                     const isActiveClause = clause.id === config.selectedClauseId;
                     return (
-                      <tr 
-                        key={clause.id} 
+                      <tr
+                        key={clause.id}
                         onClick={() => setSelectedClause(clause.id as TestClauseId)}
                         className={`cursor-pointer transition ${
                           isActiveClause ? 'bg-blue-50/90 font-semibold text-blue-900 border-l-4 border-l-blue-600' : 'hover:bg-slate-50'
@@ -191,24 +276,13 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
                           {clause.titleZh}
                         </td>
                         <td className="p-3 border border-slate-200 font-mono">
-                          {clause.assemblyTorqueNm.max > 0 ? (
-                            <div>
-                              <div>{clause.assemblyTorqueNm.min}–{clause.assemblyTorqueNm.max} N·m</div>
-                              {clause.assemblyAxialForceN && (
-                                <div className="text-[11px] text-blue-700 font-bold">+ {clause.assemblyAxialForceN.min}–{clause.assemblyAxialForceN.max} N (推力)</div>
-                              )}
-                            </div>
-                          ) : '直加破壞扭矩'}
+                          {renderPreAssembly(clause)}
                         </td>
                         <td className="p-3 border border-slate-200 font-mono">
-                          {clause.id === '6.1' ? '300–330 kPa' : clause.id === '6.2' ? '80.0–88.0 kPa (真空)' : clause.testTorqueNm
-                            ? `${clause.testTorqueNm.min}–${clause.testTorqueNm.max} N·m`
-                            : clause.testForceN
-                            ? `${clause.testForceN.min}–${clause.testForceN.max} N`
-                            : 'N/A'}
+                          {renderTestLoad(clause)}
                         </td>
                         <td className="p-3 border border-slate-200 font-mono">
-                          {clause.id === '6.3' ? '48 小時' : `${clause.holdTimeSec.min}–${clause.holdTimeSec.max} 秒`}
+                          {renderHoldTime(clause)}
                         </td>
                         <td className="p-3 border border-slate-200 font-bold">
                           <span className={`inline-block px-2 py-1 rounded text-xs ${
@@ -218,7 +292,7 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
                           </span>
                         </td>
                         <td className="p-3 border border-slate-200 text-slate-700 leading-tight text-xs">
-                          {clause.passCriteriaZh}
+                          {renderPassCriteria(clause)}
                         </td>
                       </tr>
                     );
@@ -255,6 +329,7 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
             <div className="font-bold text-slate-800">📌 DVP 審查注意事項 (Audit Notes):</div>
             <p>1. 第 6.6 節抗過旋測試與第 6.4 節抗拉拔測試，標準強制規定必須採用 Fig.C.3 最壞情況（2.71 mm 耳翼）參考接頭。</p>
             <p>2. 6.1/6.2 洩漏與 6.3 龜裂測試，採標稱 Fig.C.1（3.50 mm 耳翼）接頭，用以隔離密封面變量。</p>
+            <p className="text-rose-600 font-bold mt-1">⚠️ 6.6 抗過旋測試必須先執行標準預裝配程序（ISO 80369-20 Annex H.4 a）：0.08–0.12 N·m + 26.5–27.5 N 推力，維持 5–6 秒後釋放，方可施加 0.15–0.17 N·m 破壞扭矩。直加扭矩為錯誤作法。</p>
           </div>
         </div>
       ) : (

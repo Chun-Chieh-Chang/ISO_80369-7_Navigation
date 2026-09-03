@@ -45,7 +45,7 @@ export const ISO_CLAUSES: Record<string, ISOClauseInfo> = {
     requiredMaleRef: 'C.4',
     requiredFemaleRef: 'C.1',
     passCriteria: 'No evidence of stress cracking or leakage after 48h assembly on Annex C gauge at conditioned ambient air (ISO 80369-20 Annex E).',
-    passCriteriaZh: '裝配於金屬參考接頭於 23°C 空氣環境中靜置 48 小時 (ISO 80369-20 Annex E)，無結構龜裂且須通過 6.1.1 洩漏測試。',
+    passCriteriaZh: '裝配於金屬參考接頭於 23°C 空氣環境中靜置 48 小時 (ISO 80369-20 Annex E)，依 6.1.1 執行洩漏測試並合格即可（法規無目視裂紋要求）。' ,
     keyPhysics: 'Verifies environmental stress cracking resistance (ESCR) under sustained hoop stress.',
     keyPhysicsZh: '驗證塑膠材料在持續裝配環向應力與溫濕度環境作用下的抗應力龜裂（ESCR）能力與洩漏密封性。'
   },
@@ -89,13 +89,14 @@ export const ISO_CLAUSES: Record<string, ISOClauseInfo> = {
     titleZh: '6.6 抗過載（抗滑牙）測試',
     category: 'mechanical',
     applicableTypes: ['lock'],
-    assemblyTorqueNm: { min: 0, max: 0 }, // Direct torque test
+    assemblyTorqueNm: { min: 0.08, max: 0.12 }, // ISO 80369-20 Annex H.4 a pre-assembly (same as all other clauses)
     testTorqueNm: { min: 0.15, max: 0.17 }, // ISO 80369-7 Clause 6.6: 0.15-0.17 N·m
+    assemblyAxialForceN: { min: 26.5, max: 27.5 }, // ISO 80369-20 Annex H.4 a
     holdTimeSec: { min: 5, max: 10 }, // ISO 80369-7 Clause 6.6: 5-10s
     requiredMaleRef: 'C.6', // For Female Lock
     requiredFemaleRef: 'C.3', // For Male Lock (Worst-case 2.71mm)
     passCriteria: 'Shall not override threads when subjected to 0.15 N·m–0.17 N·m torque for 5 s–10 s (ISO 80369-7 Clause 6.6 / ISO 80369-20 Annex H).',
-    passCriteriaZh: '施加 0.15 N·m–0.17 N·m 破壞性扭矩維持 5–10 秒，螺紋或耳翼不得越過滑脫（不滑牙）。',
+    passCriteriaZh: '施加 0.15 N·m–0.17 N·m 破壞性扭矩維持 5–10 秒，螺紋或耳翼不得越過滑脫（不滑牙），且接頭無歪斜 (No cocking)（ISO 80369-20 Annex H.4 d）。',
     keyPhysics: 'Tests hoop expansion, creep, and worst-case 2.71mm ear shear limit under severe over-torque.',
     keyPhysicsZh: '考驗公套環在極限過鎖扭力下的抗環向膨脹、抗塑膠蠕變及對抗 C.3 窄耳翼（2.71mm）應力集中的能力。'
   }

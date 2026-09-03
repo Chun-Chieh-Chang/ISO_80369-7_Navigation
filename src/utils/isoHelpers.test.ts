@@ -85,4 +85,38 @@ describe('ISO 80369-7 & 20 Data & Helper Unit Tests', () => {
       ).resolves.toBeDefined();
     }
   });
+
+  // ─── New tests for DVP corrections (2026-09-03) ───
+
+  it('should verify Clause 6.6 has valid pre-assembly values (not 0/0)', () => {
+    const c66 = ISO_CLAUSES['6.6'];
+    expect(c66.assemblyTorqueNm.min).toBe(0.08);
+    expect(c66.assemblyTorqueNm.max).toBe(0.12);
+    expect(c66.assemblyAxialForceN?.min).toBe(26.5);
+    expect(c66.assemblyAxialForceN?.max).toBe(27.5);
+  });
+
+  it('should verify Clause 6.6 passCriteriaZh includes No cocking per Annex H.4 d', () => {
+    const c66 = ISO_CLAUSES['6.6'];
+    expect(c66.passCriteriaZh).toContain('No cocking');
+    expect(c66.passCriteriaZh).toContain('Annex H.4');
+  });
+
+  it('should verify Clause 6.3 passCriteriaZh does not mention visual crack inspection', () => {
+    const c63 = ISO_CLAUSES['6.3'];
+    expect(c63.passCriteriaZh).not.toContain('無結構龜裂');
+    expect(c63.passCriteriaZh).toContain('6.1.1');
+  });
+
+  it('should verify Clause 6.5 testTorqueNm has 3 decimal places (0.018–0.020)', () => {
+    const c65 = ISO_CLAUSES['6.5'];
+    expect(c65.testTorqueNm.min).toBe(0.018);
+    expect(c65.testTorqueNm.max).toBe(0.020);
+  });
+
+  it('should verify all clauses have assemblyTorqueNm > 0 (no direct-torque-only clause)', () => {
+    Object.values(ISO_CLAUSES).forEach(clause => {
+      expect(clause.assemblyTorqueNm.max, `${clause.id} should have assembly torque`).toBeGreaterThan(0);
+    });
+  });
 });
