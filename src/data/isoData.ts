@@ -12,8 +12,8 @@ export const ISO_CLAUSES: Record<string, ISOClauseInfo> = {
     holdTimeSec: { min: 15, max: 35 },
     requiredMaleRef: 'C.4', // For Female Lock
     requiredFemaleRef: 'C.1', // For Male Lock
-    passCriteria: 'No fluid leakage exceeding 0.005 Pa·m³/s (15–20s pressure decay) or no falling drop (30–35s water pressure) at 300 kPa–330 kPa.',
-    passCriteriaZh: '【正壓液體洩漏 (6.1.3 水壓法)】加壓 300~330 kPa 水壓持壓 30~35s，目視無水滴滲漏滴落；【壓力衰減洩漏 (6.1.2 氣壓法)】加壓 300~330 kPa 氣壓持壓 15~20s 測 ΔP，洩漏率 ≤ 0.005 Pa·m³/s。',
+    passCriteria: 'No fluid leakage exceeding 0.005 Pa·m³/s or no falling drop for 10s at 300 kPa–330 kPa.',
+    passCriteriaZh: '加壓 300 kPa–330 kPa 保持 10 秒以上，無漏水滴落，或壓降洩漏率 < 0.005 Pa·m³/s。',
     keyPhysics: 'Assesses 6% taper seal interface under nominal assembly torque.',
     keyPhysicsZh: '評估 6% 魯爾錐面在標準裝配扭矩（0.08–0.12 N·m）與推力（26.5–27.5 N）下的正壓密封性。規範允許水壓目視法（Annex C）或氣壓衰減法（Annex B）作為判定標準。'
   },
@@ -44,10 +44,10 @@ export const ISO_CLAUSES: Record<string, ISOClauseInfo> = {
     holdTimeSec: { min: 172800, max: 172800 }, // 48 hours
     requiredMaleRef: 'C.4',
     requiredFemaleRef: 'C.1',
-    passCriteria: 'No evidence of stress cracking or leakage after 48h assembly on Annex C gauge at conditioned ambient air (ISO 80369-20 Annex E).',
-    passCriteriaZh: '裝配於金屬參考接頭於 23°C 空氣環境中靜置 48 小時 (ISO 80369-20 Annex E)，依 6.1.1 執行洩漏測試並合格即可（法規無目視裂紋要求）。' ,
-    keyPhysics: 'Verifies environmental stress cracking resistance (ESCR) under sustained hoop stress.',
-    keyPhysicsZh: '驗證塑膠材料在持續裝配環向應力與溫濕度環境作用下的抗應力龜裂（ESCR）能力與洩漏密封性。'
+    passCriteria: 'Shall satisfy Clause 6.1.1 leakage requirements after 48h assembly in accordance with ISO 80369-20 Annex E.',
+    passCriteriaZh: '依 ISO 80369-20 Annex E 裝配於金屬參考接頭於環境中靜置 48 小時後，依 6.1.1 執行洩漏測試並符合其要求。',
+    keyPhysics: 'Verifies environmental stress cracking resistance (ESCR) under sustained hoop stress and subsequent pressure sealing capability.',
+    keyPhysicsZh: '驗證塑膠材料在持續環向應力與化學藥品共同作用下之抗應力龜裂（ESCR）能力，並確認 48 小時後仍具備完整正壓流體密封性能。'
   },
   '6.4': {
     id: '6.4',
@@ -89,10 +89,10 @@ export const ISO_CLAUSES: Record<string, ISOClauseInfo> = {
     titleZh: '6.6 抗過載（抗滑牙）測試',
     category: 'mechanical',
     applicableTypes: ['lock'],
-    assemblyTorqueNm: { min: 0.08, max: 0.12 }, // ISO 80369-20 Annex H.4 a pre-assembly (same as all other clauses)
-    testTorqueNm: { min: 0.15, max: 0.17 }, // ISO 80369-7 Clause 6.6: 0.15-0.17 N·m
-    assemblyAxialForceN: { min: 26.5, max: 27.5 }, // ISO 80369-20 Annex H.4 a
-    holdTimeSec: { min: 5, max: 10 }, // ISO 80369-7 Clause 6.6: 5-10s
+    assemblyTorqueNm: { min: 0.08, max: 0.12 },
+    assemblyAxialForceN: { min: 26.5, max: 27.5 },
+    testTorqueNm: { min: 0.15, max: 0.17 },
+    holdTimeSec: { min: 5, max: 10 },
     requiredMaleRef: 'C.6', // For Female Lock
     requiredFemaleRef: 'C.3', // For Male Lock (Worst-case 2.71mm)
     passCriteria: 'Shall not override threads when subjected to 0.15 N·m–0.17 N·m torque for 5 s–10 s (ISO 80369-7 Clause 6.6 / ISO 80369-20 Annex H).',

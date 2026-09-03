@@ -2,6 +2,15 @@
 
 All notable changes to the ISO 80369-7 & ISO 80369-20 Navigation App will be documented in this file.
 
+## [v8.13.0] - 2026-09-03
+
+### Golden Merge: SSOT Dual-Phase Expansion & Excel DVP Synchronization
+- **TopicClauseExplorer UI Dual-Phase Architecture**: Rebuilt quantitative condition card into Phase 1 (Pre-assembly) and Phase 2 (Test Challenge Load) horizontal layout with clear visual hierarchy, S15A dual-axis apparatus notes, and explicit status badges.
+- **Data-layer SSOT PreAssembly Enums**: Established `PreAssemblyCondition` interface and exported 4 authoritative constants (`PRE_ASSEMBLY_LOCK`, `PRE_ASSEMBLY_SLIP`, `PRE_ASSEMBLY_NOT_APPLICABLE`), binding across all 32 standard clauses in `isoTopicsData.ts`.
+- **Excel DVP Report Sync**: Updated `excelExporter.ts` (Sheet 2 DVP Matrix) to dynamically align with selected L1/L2 test forces, split hold times (15-20s vs 30-35s), 3-decimal torque precision (0.018-0.020 N·m), and Annex H.4 "No cocking" pass criteria.
+- **Code Harmonization**: Refactored `DvpGenerator.tsx` with clean render helpers (`renderPreAssembly`, `renderTestLoad`, `renderHoldTime`, `renderPassCriteria`) while maintaining high-fidelity Morandi badges and responsive layout.
+- **Testing & Asset Optimization**: Verified all 13 unit tests passing in `isoHelpers.test.ts`; PWA cache streamlined from 60.3MB down to 42.1MB.
+
 ## [v8.12.0] - 2026-09-03
 
 ### Fixed (ISO 80369-20 Annex H.4 DVP Compliance Corrections)
@@ -23,6 +32,7 @@ All notable changes to the ISO 80369-7 & ISO 80369-20 Navigation App will be doc
 
 ### Refactored
 - `DvpGenerator.tsx`: Extracted 4 pure render helper functions (`renderPreAssembly`, `renderHoldTime`, `renderTestLoad`, `renderPassCriteria`) with explicit `ISOClauseInfo` typing (fixes TS2344).
+
 
 
 ## [v8.3.0] - 2026-08-08

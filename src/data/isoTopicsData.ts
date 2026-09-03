@@ -1,4 +1,4 @@
-import { ISOTopic, StandardClauseDetail } from '../types';
+import { ISOTopic, StandardClauseDetail, PreAssemblyCondition } from '../types';
 
 export const ISO_TOPICS: ISOTopic[] = [
   {
@@ -599,6 +599,32 @@ export const ISO_TOPICS: ISOTopic[] = [
   }
 ];
 
+export const PRE_ASSEMBLY_LOCK: PreAssemblyCondition = {
+  status: 'standard_lock',
+  labelZh: '標準鎖定預裝配',
+  assemblyTorqueNm: '0.08 N·m - 0.12 N·m',
+  assemblyAxialForceN: '26.5 N - 27.5 N',
+  holdTimeSec: '5 - 6 秒',
+  descriptionZh: '旋合時須同時施加 26.5~27.5 N 軸向推力與 0.08~0.12 N·m 扭矩，維持 5~6 秒後完全釋放 (Release)，確立 6% 錐面標準貼合。',
+  apparatusZh: 'S15A 雙軸加載機構（扭矩+推力同動控制）'
+};
+
+export const PRE_ASSEMBLY_SLIP: PreAssemblyCondition = {
+  status: 'slip',
+  labelZh: '滑動推入預裝配',
+  assemblyTorqueNm: '≤ 0.10 N·m (微旋)',
+  assemblyAxialForceN: '26.5 N - 27.5 N',
+  holdTimeSec: '5 - 6 秒',
+  descriptionZh: '軸向施加 26.5~27.5 N 推力同時微旋（不超過 90°），維持 5~6 秒後完全釋放 (Release)，確立錐度自鎖。',
+  apparatusZh: '定軸推力加載裝置'
+};
+
+export const PRE_ASSEMBLY_NOT_APPLICABLE: PreAssemblyCondition = {
+  status: 'not_applicable',
+  labelZh: '不適用預裝配',
+  descriptionZh: '此為標準導引、尺寸規範或金屬夾具定義，無需執行前置預裝配。'
+};
+
 export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
   'iso7-clause-1': {
     id: 'iso7-clause-1',
@@ -1108,6 +1134,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
   },
   'iso20-annex-h': {
     id: 'iso20-annex-h',
+    preAssembly: PRE_ASSEMBLY_LOCK,
     standard: 'ISO 80369-20:2024',
     clauseNumber: 'Annex H',
     titleEn: 'Test Method for Resistance to Overriding',
@@ -1117,16 +1144,18 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     objectiveZh: '詳細規範使用扭矩試驗機施加 0.15~0.17 N·m 扭矩的控制速率與數據擷取頻率。',
     appliesToZh: '具螺紋鎖定功能之小口徑連接器',
     quantitativeConditions: {
+      assemblyTorqueNm: '0.08 N·m - 0.12 N·m',
+      assemblyAxialForceN: '26.5 N - 27.5 N',
       testTorqueNm: '0.15 - 0.17 N·m (目標 0.16 N·m)',
       holdTimeSec: '5 - 10 秒',
       temperatureC: '15°C - 30°C'
     },
     fixtureRequiredZh: 'ISO 80369-7 Fig.C.3 (母鎖定最壞情況金屬件) 或 C.6',
     testProcedureStepsZh: [
-      '將 C.3 金屬夾具固定於自動扭矩測試儀之伺服馬達夾頭。',
-      '設定旋轉轉速為 3.0 rpm ± 0.5 rpm。',
-      '啟動馬達旋緊至扭矩達 0.16 N·m，觸發定扭矩保持模式。',
-      '持續監測 5~10 秒內扭矩衰減曲線，若扭矩驟降 > 30% 判定為滑牙失敗。'
+      '【預裝配階段】依 Annex H.4 a) 1)，將受測接頭與金屬夾具旋合至 0.08~0.12 N·m，並同時施加 26.5~27.5 N 軸推力持壓 5~6 秒後釋放，確立過盈定位。',
+      '【過載加載階段】將 C.3 金屬夾具固定於自動扭矩測試儀之伺服馬達夾頭，設定旋轉轉速為 3.0 rpm ± 0.5 rpm（或 ≤ 10 rpm）。',
+      '【定扭矩保持】啟動馬達旋緊至扭矩達 0.15~0.17 N·m（目標 0.16 N·m），觸發定扭矩保持模式維持 5~10 秒（不得施加額外輔助外力）。',
+      '【數據監測與判定】持續監測 5~10 秒內扭矩衰減曲線，若扭矩驟降 > 30% 判定為滑牙失敗；卸載後檢查金屬夾具耳翼無塑膠刮屑沾黏。'
     ],
     acceptanceCriteriaZh: [
       '保持 5~10 秒期間扭矩曲線平穩無斷崖式下降。',
@@ -1134,9 +1163,10 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     ],
     commonNonConformancesZh: [
       '手動旋緊速率不穩定，瞬間衝擊扭矩超過 0.20 N·m 導致誤判。',
+      '未執行前置預裝配導致初始錐面未就位，偏心旋轉致螺牙早發性剪切。',
       'C.3 金屬夾具耳翼經多次測試後磨損變圓，未定期驗收直角特徵。'
     ],
-    regulatoryTipZh: 'DVP 測試計畫書需隨附扭矩-時間（Torque vs Time）實時曲線圖作為審查佐證。'
+    regulatoryTipZh: '【法規防雷指引】DVP 測試計畫書必須明確載明 Step a) 1) 之預裝配作業，切勿因簡化機台操作而誤報為「免裝配直接過載」，否則將遭審查官判定為方法偏離 (Method Deviation)。'
   },
   'iso7-6.4': {
     id: 'iso7-6.4',

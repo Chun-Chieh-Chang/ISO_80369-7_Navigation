@@ -125,7 +125,7 @@ export interface ISOTopicFigure {
   figureType: 'apparatus' | 'connector_cad' | 'fixture' | 'mechanism' | 'analysis';
   figureTypeZh: string;
   descriptionZh: string;
-  selectionReasonZh?: string;
+  selectionReasonZh?: string; // 入選此主題之法規與第一性原理關聯邏輯說明
   svgKey: string;
   keyCallouts?: { id: string; labelZh: string; valueZh: string }[];
 }
@@ -149,6 +149,16 @@ export interface ISOTopic {
   figures?: ISOTopicFigure[];
 }
 
+export interface PreAssemblyCondition {
+  status: 'standard_lock' | 'slip' | 'direct_overload' | 'not_applicable' | 'custom';
+  labelZh: string;
+  assemblyTorqueNm?: string;
+  assemblyAxialForceN?: string;
+  holdTimeSec?: string;
+  descriptionZh?: string;
+  apparatusZh?: string;
+}
+
 export interface StandardClauseDetail {
   id: string;
   standard: 'ISO 80369-7:2021' | 'ISO 80369-20:2015' | 'ISO 80369-20:2024' | string;
@@ -159,6 +169,7 @@ export interface StandardClauseDetail {
   typeZh: string;
   objectiveZh: string;
   appliesToZh: string;
+  preAssembly?: PreAssemblyCondition;
   quantitativeConditions: {
     assemblyTorqueNm?: string;
     assemblyAxialForceN?: string;

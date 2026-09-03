@@ -24,6 +24,9 @@
 - npx tsc --noEmit：零錯誤
 - git push origin main：成功
 - 資安盤點：無 .env 敏感資訊
+
+---
+
 ## 版本：v2.5 ISO 原文 PDF 核對與缺失資料補齊 (2026-08-09)
 
 ### 需求內容
@@ -1910,6 +1913,72 @@
 - `npm run lint` (`tsc --noEmit`)：零錯誤 PASS
 - `npm run test` (`vitest run`)：8/8 PASS
 - `npm run build` (`vite build`)：成功打包 PASS (built in 5.62s)
+
+---
+
+## 版本：v8.12.0 基於 SSOT 原則水平展開前置預裝配條件與實測考驗負載 (2026-09-03)
+
+### 需求內容 (Requirement)
+依據使用者對於 SSOT (Single Source of Truth) 與防呆原則之要求，檢討現行個別測試項目（如 §6.6 抗過載與 Annex H）卡片中僅包含定量加載考驗（0.15~0.17 N·m），而缺少「前置預裝配條件（Pre-assembly Condition）」之水平展開呈現，導致操作者與審查官無法直觀判定該條文之裝配前置要求（或直加過載特性）。
+
+### 根因分析 (RCA)
+1. **語意混合與欄位缺漏**：在 `TopicClauseExplorer.tsx` 原架構中，單一網格將預裝配扭矩與測試壓力/拉力/扭矩混排在同一個容器中，且 `assemblyAxialForceN` (26.5~27.5 N) 雖定義於型別卻未被渲染。
+2. **免裝配條文未顯式宣告**：§6.6 抗過載規範與 Annex H 在 ISO 標準中為「由未裝配初始狀態直加破壞過載扭矩（免 27.5 N 軸向推力裝配）」，但卡片對此未加任何說明，導致使用者易質疑是「系統漏載資料」還是「無需裝配」。
+3. **資料重複性風險 (SSOT 防禦)**：若在數十個條文中以硬編碼字串各自展開，未來標準修訂時易導致發散，必須於資料層建立統一語意參照常數。
+
+### 矯正與預防措施 (CAPA)
+1. **資料層 SSOT 封裝**：
+   - 在 `src/types/index.ts` 擴充 `PreAssemblyCondition` 介面，並於 `StandardClauseDetail` 增加 `preAssembly?: PreAssemblyCondition;`。
+   - 在 `src/data/isoTopicsData.ts` 建立 4 大標準預裝配常數 (`PRE_ASSEMBLY_LOCK`, `PRE_ASSEMBLY_SLIP`, `PRE_ASSEMBLY_DIRECT_OVERLOAD`, `PRE_ASSEMBLY_NOT_APPLICABLE`)，全域 32 條文全面關聯 SSOT 物件。
+2. **UI 雙工況維度水平展開**：
+   - 在 `TopicClauseExplorer.tsx` 將量化條件重構為雙卡片水平展開架構：
+     - **階段一：前置預裝配條件 (Pre-assembly)**：以標準程序徽章清晰列出裝配扭矩 (0.08~0.12 N·m)、軸向推力 (26.5~27.5 N)、保持時間 (5~6s) 與雙軸機構指引；在 §6.6 與 Annex H 明確以琥珀色標籤警示「⚡ 直加過載破壞扭矩（免預裝配軸向推力）」。
+     - **階段二：定量考驗負載 (Test Challenge Load)**：以實測考驗徽章完整呈現測試壓力、測試扭矩、測試拉力、持壓時間與介質。
+3. **響應式排版防禦**：支援桌面端左右並排與 375px 移動端單欄自適應，邊距符合 4px 格點系統，色彩符合莫蘭迪高級灰規範。
+
+### 變更檔案 (MECE)
+1. [src/types/index.ts](file:///d:/Self-developed_Apps/ISO_80369-7_Navigation/src/types/index.ts)：[MODIFY] 新增 `PreAssemblyCondition` 型別並整合至 `StandardClauseDetail`。
+2. [src/data/isoTopicsData.ts](file:///d:/Self-developed_Apps/ISO_80369-7_Navigation/src/data/isoTopicsData.ts)：[MODIFY] 匯出 4 類 SSOT 預裝配常數，32 個條文全面綁定預裝配規格，補全遺漏之 `assemblyAxialForceN`。
+3. [src/components/TopicClauseExplorer.tsx](file:///d:/Self-developed_Apps/ISO_80369-7_Navigation/src/components/TopicClauseExplorer.tsx)：[MODIFY] 條文卡片重構為階段一（預裝配）與階段二（實測考驗）雙工況水平展開面板。
+4. [DEV_LOG.md](file:///d:/Self-developed_Apps/ISO_80369-7_Navigation/DEV_LOG.md)：[MODIFY] 新增 v8.12.0 開發日誌與 RCA/CAPA。
+
+### 確效結果 (Validation)
+- `npm run lint` (`tsc --noEmit`)：零錯誤 PASS
+- `npm run test` (`vitest run`)：8/8 PASS
+- `npm run build` (`vite build`)：成功打包 PASS (built in 4.98s)
+
+---
+
+## [2026-09-03] - v8.13.0 DVP 設計驗證矩陣極限法規符合性校正與 5 大致命工程誤區清零
+
+### 需求背景 (Requirement)
+用戶深度檢視 DVP 設計驗證矩陣（`DvpGenerator.tsx` 與相關資料層），指出專案中存在極其典型「只讀 Part 7，漏看 Part 20」之 6.6 預裝配誤區，以及其他 4 項極為嚴重的數值混淆、操作缺漏與法規盲點（6.4 負載混淆 23-35N、6.1 保持時間混淆 15-35s、預裝配全表漏掉「維持 5~6 秒後釋放」、6.3 出現法規無要求之「無結構龜裂」主觀標準、6.5 遺失第三位小數精度 0.02 N·m）。
+
+### 根因分析 (RCA - Root Cause Analysis)
+1. **§6.6 抗過載預裝配誤區**：編寫者僅閱讀 ISO 80369-7:2021 §6.6 本文，見 0.15~0.17 N·m 即直覺以為是直接加載，忽略了條文引用的 ISO 80369-20:2024 Annex H.4 a) 1) 明文強制必須先以 0.08~0.12 N·m + 26.5~27.5 N 軸推力維持 5~6 秒後完全釋放，確立 6% 錐面定位。若跳過此步驟，初始咬合深度不確定，極易製造假失敗。
+2. **§6.4 負載區間 23-35 N 揉雜放水**：將滑動型（23-25N）與鎖定型（32-35N）合併顯示，若使用者選擇鎖定型卻僅拉 24N 即判定合格，產生嚴重驗證不足漏洞。
+3. **§6.1 持壓時間合併 15-35 秒**：將氣壓壓降法（15-20s）與水壓滴漏法（30-35s）兩項獨立「二選一」測試的時間混為一談，現場操作極易導致方法違規。
+4. **預裝配缺少「釋放」動作標註**：若未強調「維持 5~6 秒後完全釋放外力 (Release)」，自動化機台在後續測試中若持續施加 27.5 N 頂壓，將人為增加密封度與摩擦力，產生作弊假合格。
+5. **§6.3 主觀字眼風險**：標準僅要求 48 小時後依 6.1.1 測洩漏合格，額外增加「目視無結構龜裂」會引來稽核員追問檢驗放大倍率與主觀基準。
+6. **§6.5 計量學精度遺失**：0.02 N·m 遺失千分位，在 ISO 17025 計量體系下寬容度放大一倍，必須為 0.018~0.020 N·m。
+
+### 矯正與預防措施 (CAPA - Corrective & Preventive Action)
+1. **DVP 矩陣動態過濾與精度校正 (`DvpGenerator.tsx`)**：
+   - 預裝配欄位統一補上「0.08–0.12 N·m + 26.5–27.5 N (推力) 維持 5–6 秒後釋放 (Release)」徽章。
+   - 6.4 依下拉選單（`selectedType`）動態過濾：選擇鎖定型顯式 `32–35 N (鎖定型專用拉力)`，選擇滑動型顯式 `23–25 N (滑動型專用拉力)`；允收標準文字同步動態過濾，杜絕混淆。
+   - 6.1 保持時間清晰拆解為：氣壓法 15–20 秒 / 水壓法 30–35 秒（二選一執行）。
+   - 6.3 允收標準精準對齊條文，移除「無結構龜裂」主觀字眼，改為「依 ISO 80369-20 Annex E 靜置 48 小時後，依 6.1.1 執行洩漏測試並符合其要求」。
+   - 6.5 嚴格維持三位小數精度 `0.018–0.020 N·m`。
+   - 6.6 預裝配補齊標準程序，考驗負載標註「純扭矩 (無其他方向外力)」，允收標準依 Annex H.4 d 補齊「接頭無歪斜 (No cocking)」法定判定項。
+2. **底層資料模型全面對齊 (`isoData.ts`, `isoTopicsData.ts`, `excelExporter.ts`, `ClauseComparisonMatrix.tsx`)**：
+   - 全面同步 DVP Excel 匯出模組與比對矩陣，確保匯出之報表與螢幕顯示 100% 吻合。
+
+### 確效結果 (Validation)
+- `npm run lint` (`tsc --noEmit`)：零錯誤 PASS
+- `npm run test` (`vitest run`)：13/13 單元測試 PASS（包含雲端新增之 5 項 DVP 專屬測試防護網）
+- `npm run build` (`vite build`)：生產打包成功 PASS (PWA 快取由 60.3MB 降至 42.1MB，成功瘦身 18.2MB)
+- `Playwright / Browser Subagent`：端到端截圖驗收完全跑通，各欄位數值與動態過濾完美呈現，Console 零錯誤。
+- `Golden Merge`：完成雲端優點（Clean Code 函式封裝、5 項單元測試、18MB 廢棄資產清理）與本地優點（全站 32 條文卡片雙工況展示、Excel 匯出對齊）之無損黃金融合。
 
 
 

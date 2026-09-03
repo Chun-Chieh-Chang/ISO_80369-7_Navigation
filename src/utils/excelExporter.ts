@@ -222,22 +222,22 @@ export const exportMedicalGradeExcelReport = async (config: TestConfigState) => 
     }
 
     const requiredRef = getAnnexCFigure(requiredRefId);
-    const torqueStr = clause.assemblyTorqueNm ? `${clause.assemblyTorqueNm.min}–${clause.assemblyTorqueNm.max} N·m` : '';
-    const forceStr = clause.assemblyAxialForceN ? `${clause.assemblyAxialForceN.min}–${clause.assemblyAxialForceN.max} N` : '';
-    const preAssemblyStr = (torqueStr && forceStr)
-      ? `${torqueStr} + ${forceStr}`
-      : clause.id === '6.6'
-      ? '直加破壞性過載扭矩 (無拉力預裝配)'
-      : (torqueStr || forceStr || 'N/A');
+    const preAssemblyStr = '0.08–0.12 N·m + 26.5–27.5 N (維持 5–6 秒後釋放)';
 
     let activeLoadStr = 'N/A';
-    if (clause.id === '6.1') activeLoadStr = '300–330 kPa (正壓)';
+    if (clause.id === '6.1') activeLoadStr = '300–330 kPa (水壓法或氣壓法二選一)';
     else if (clause.id === '6.2') activeLoadStr = '80.0–88.0 kPa (真空負壓)';
-    else if (clause.testTorqueNm) activeLoadStr = `${clause.testTorqueNm.min}–${clause.testTorqueNm.max} N·m (扭矩)`;
-    else if (clause.testForceN) activeLoadStr = `${clause.testForceN.min}–${clause.testForceN.max} N (拉力)`;
+    else if (clause.id === '6.3') activeLoadStr = 'N/A (靜置48h後測6.1.1)';
+    else if (clause.id === '6.4') activeLoadStr = (config.connectorType === 'slip') ? '23–25 N (滑動型拉力)' : '32–35 N (鎖定型拉力)';
+    else if (clause.id === '6.5') activeLoadStr = '0.018–0.020 N·m (反向旋鬆扭矩)';
+    else if (clause.id === '6.6') activeLoadStr = '0.15–0.17 N·m (純扭矩，無其他方向外力)';
+    else if (clause.testTorqueNm) activeLoadStr = `${clause.testTorqueNm.min}–${clause.testTorqueNm.max} N·m`;
+    else if (clause.testForceN) activeLoadStr = `${clause.testForceN.min}–${clause.testForceN.max} N`;
 
-    const holdTimeStr = clause.id === '6.3'
-      ? '48 小時 (23°C 空氣)'
+    const holdTimeStr = clause.id === '6.1'
+      ? '氣壓法 15–20 秒 / 水壓法 30–35 秒 (二選一)'
+      : clause.id === '6.3'
+      ? '48 小時 (23°C 空氣靜置)'
       : clause.holdTimeSec
       ? `${clause.holdTimeSec.min}–${clause.holdTimeSec.max} 秒`
       : 'N/A';
@@ -252,7 +252,13 @@ export const exportMedicalGradeExcelReport = async (config: TestConfigState) => 
       holdTimeStr,
       `Fig.${requiredRefId} (${requiredRef?.nameZh || ''})`,
       requiredRef?.isWorstCase ? '★ 強制最壞情況 (2.71mm 窄耳翼極限)' : '標稱標準接頭 (3.50mm 耳翼)',
-      clause.passCriteriaZh
+      (clause.id === '6.4'
+        ? (config.connectorType === 'slip' ? '在 23 N–25 N（Slip 滑動型）軸向拉力下維持 10–15 秒，接頭不得脫開分離。' : '在 32 N–35 N（Lock 鎖定型）軸向拉力下維持 10–15 秒，接頭不得脫開分離。')
+        : clause.id === '6.6'
+        ? '施加 0.15 N·m–0.17 N·m 破壞性扭矩維持 5–10 秒，螺紋或耳翼不得越過滑脫（不滑牙），且接頭無歪斜 (No cocking)（ISO 80369-20 Annex H.4 d）。'
+        : clause.id === '6.3'
+        ? '依 ISO 80369-20 Annex E 裝配於金屬參考接頭於環境中靜置 48 小時後，依 6.1.1 執行洩漏測試並符合其要求。'
+        : clause.passCriteriaZh)
     ];
 
     values.forEach((val, i) => {

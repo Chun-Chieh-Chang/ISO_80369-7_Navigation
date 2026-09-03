@@ -7,7 +7,7 @@ import {
   Search, BookOpen, FileText, CheckCircle2, AlertTriangle, ShieldCheck, 
   ArrowRight, Copy, Check, Info, Sparkles, Filter, ExternalLink, RefreshCw,
   Droplets, Wind, Zap, ArrowDownUp, RotateCw, ShieldAlert, Ruler, Wrench, Layers3, Layers, Activity,
-  FolderTree, ChevronRight, ChevronDown, Tag, Eye, FileCode
+  FolderTree, ChevronRight, ChevronDown, Tag, Eye, FileCode, Gauge
 } from 'lucide-react';
 
 export const TopicClauseExplorer: React.FC = () => {
@@ -930,48 +930,140 @@ export const TopicClauseExplorer: React.FC = () => {
                           </div>
                         </div>
 
-                        {/* Quantitative Conditions Table */}
-                        <div className="space-y-1.5">
+                        {/* Dual-Phase Engineering Conditions: Pre-assembly vs Test Load Challenge */}
+                        <div className="space-y-2">
                           <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block">
-                            量化實驗條件 (Quantitative Test Conditions):
+                            量化實驗與工況條件 (Quantitative Test & Pre-assembly Conditions):
                           </span>
-                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs font-mono">
-                            {clause.quantitativeConditions.assemblyTorqueNm && (
-                              <div className="bg-slate-50 px-2.5 py-1.5 rounded-lg border border-slate-200">
-                                <span className="text-xs text-slate-400 block">預裝配扭矩:</span>
-                                <span className="font-bold text-slate-800">{clause.quantitativeConditions.assemblyTorqueNm}</span>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                            {/* Phase 1: Pre-assembly Condition */}
+                            <div className="bg-blue-50/40 border border-blue-100 rounded-xl p-3 flex flex-col justify-between space-y-2">
+                              <div className="flex items-center justify-between">
+                                <span className="font-bold text-blue-900 flex items-center gap-1.5">
+                                  <Wrench className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                                  階段一：前置預裝配條件 (Pre-assembly)
+                                </span>
+                                {clause.preAssembly?.status === 'direct_overload' && (
+                                  <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-100 text-amber-800 border border-amber-300">
+                                    免預裝配 / 直加過載
+                                  </span>
+                                )}
+                                {clause.preAssembly?.status === 'not_applicable' && (
+                                  <span className="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 text-slate-600 border border-slate-200">
+                                    不適用物理裝配
+                                  </span>
+                                )}
+                                {(clause.preAssembly?.status === 'standard_lock' || clause.preAssembly?.status === 'slip') && (
+                                  <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-blue-100 text-blue-800 border border-blue-200">
+                                    標準程序
+                                  </span>
+                                )}
                               </div>
-                            )}
-                            {clause.quantitativeConditions.testPressureKpa && (
-                              <div className="bg-blue-50 px-2.5 py-1.5 rounded-lg border border-blue-200">
-                                <span className="text-xs text-blue-600 block">測試壓力:</span>
-                                <span className="font-bold text-blue-900">{clause.quantitativeConditions.testPressureKpa}</span>
+
+                              {clause.preAssembly?.status === 'direct_overload' ? (
+                                <div className="bg-white/90 p-2.5 rounded-lg border border-amber-200 text-amber-950 space-y-1">
+                                  <div className="font-bold text-xs flex items-center gap-1 text-amber-900">
+                                    ⚡ 直加破壞過載扭矩（無前置軸推力裝配）
+                                  </div>
+                                  <p className="text-[11px] text-amber-800 leading-relaxed">
+                                    {clause.preAssembly.descriptionZh || '考核公套環極限抗滑牙能力，由未旋緊初始狀態直接連續旋緊至 0.15~0.17 N·m，不執行前置 27.5 N 軸向推力預裝配。'}
+                                  </p>
+                                </div>
+                              ) : clause.preAssembly?.status === 'not_applicable' ? (
+                                <div className="bg-white/80 p-2.5 rounded-lg border border-slate-200 text-slate-600 text-[11px] leading-relaxed">
+                                  {clause.preAssembly.descriptionZh || '幾何尺寸圖面量測或 CAD 空間防錯干涉分析，無物理預裝配程序。'}
+                                </div>
+                              ) : (
+                                <div className="space-y-2">
+                                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 font-mono text-xs">
+                                    {(clause.preAssembly?.assemblyTorqueNm || clause.quantitativeConditions.assemblyTorqueNm) && (
+                                      <div className="bg-white px-2.5 py-1.5 rounded-lg border border-blue-200/80 shadow-2xs">
+                                        <span className="text-[10px] text-slate-400 block font-sans">裝配扭矩:</span>
+                                        <span className="font-bold text-slate-800">
+                                          {clause.preAssembly?.assemblyTorqueNm || clause.quantitativeConditions.assemblyTorqueNm}
+                                        </span>
+                                      </div>
+                                    )}
+                                    {(clause.preAssembly?.assemblyAxialForceN || clause.quantitativeConditions.assemblyAxialForceN) && (
+                                      <div className="bg-white px-2.5 py-1.5 rounded-lg border border-blue-200/80 shadow-2xs">
+                                        <span className="text-[10px] text-slate-400 block font-sans">軸向推力:</span>
+                                        <span className="font-bold text-slate-800">
+                                          {clause.preAssembly?.assemblyAxialForceN || clause.quantitativeConditions.assemblyAxialForceN}
+                                        </span>
+                                      </div>
+                                    )}
+                                    <div className="bg-white px-2.5 py-1.5 rounded-lg border border-blue-200/80 shadow-2xs">
+                                      <span className="text-[10px] text-slate-400 block font-sans">保持時間:</span>
+                                      <span className="font-bold text-slate-800">
+                                        {clause.preAssembly?.holdTimeSec || '5 - 6 秒'}
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <p className="text-[11px] text-blue-900/80 font-sans leading-relaxed">
+                                    💡 {clause.preAssembly?.descriptionZh || '旋合時須同時施加 26.5~27.5 N 推力與 0.08~0.12 N·m 扭矩確立 6% 錐面緊密配合。'}
+                                  </p>
+                                </div>
+                              )}
+                            </div>
+
+                            {/* Phase 2: Test Challenge Load */}
+                            <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 flex flex-col justify-between space-y-2">
+                              <div className="flex items-center justify-between">
+                                <span className="font-bold text-slate-800 flex items-center gap-1.5">
+                                  <Gauge className="w-3.5 h-3.5 text-indigo-600 shrink-0" />
+                                  階段二：定量考驗負載 (Test Challenge Load)
+                                </span>
+                                <span className="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200">
+                                  實測考驗
+                                </span>
                               </div>
-                            )}
-                            {clause.quantitativeConditions.testTorqueNm && (
-                              <div className="bg-amber-50 px-2.5 py-1.5 rounded-lg border border-amber-200">
-                                <span className="text-xs text-amber-700 block">測試扭矩:</span>
-                                <span className="font-bold text-amber-900">{clause.quantitativeConditions.testTorqueNm}</span>
+
+                              <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 font-mono text-xs">
+                                {clause.quantitativeConditions.testPressureKpa && (
+                                  <div className="bg-white px-2.5 py-1.5 rounded-lg border border-blue-200 shadow-2xs">
+                                    <span className="text-[10px] text-blue-600 block font-sans">測試壓力:</span>
+                                    <span className="font-bold text-blue-900">{clause.quantitativeConditions.testPressureKpa}</span>
+                                  </div>
+                                )}
+                                {clause.quantitativeConditions.testTorqueNm && (
+                                  <div className="bg-white px-2.5 py-1.5 rounded-lg border border-amber-200 shadow-2xs">
+                                    <span className="text-[10px] text-amber-700 block font-sans">測試扭矩:</span>
+                                    <span className="font-bold text-amber-900">{clause.quantitativeConditions.testTorqueNm}</span>
+                                  </div>
+                                )}
+                                {clause.quantitativeConditions.testForceN && (
+                                  <div className="bg-white px-2.5 py-1.5 rounded-lg border border-emerald-200 shadow-2xs">
+                                    <span className="text-[10px] text-emerald-700 block font-sans">測試拉力:</span>
+                                    <span className="font-bold text-emerald-900">{clause.quantitativeConditions.testForceN}</span>
+                                  </div>
+                                )}
+                                {clause.quantitativeConditions.holdTimeSec && (
+                                  <div className="bg-white px-2.5 py-1.5 rounded-lg border border-slate-200 shadow-2xs">
+                                    <span className="text-[10px] text-slate-400 block font-sans">考驗時間:</span>
+                                    <span className="font-bold text-slate-800">{clause.quantitativeConditions.holdTimeSec}</span>
+                                  </div>
+                                )}
+                                {clause.quantitativeConditions.media && (
+                                  <div className="bg-white px-2.5 py-1.5 rounded-lg border border-slate-200 shadow-2xs col-span-2 sm:col-span-1">
+                                    <span className="text-[10px] text-slate-400 block font-sans">試驗介質:</span>
+                                    <span className="font-bold text-slate-800 truncate block">{clause.quantitativeConditions.media}</span>
+                                  </div>
+                                )}
+                                {clause.quantitativeConditions.temperatureC && (
+                                  <div className="bg-white px-2.5 py-1.5 rounded-lg border border-slate-200 shadow-2xs col-span-2 sm:col-span-1">
+                                    <span className="text-[10px] text-slate-400 block font-sans">環境溫度:</span>
+                                    <span className="font-bold text-slate-800 truncate block">{clause.quantitativeConditions.temperatureC}</span>
+                                  </div>
+                                )}
+                                {!clause.quantitativeConditions.testPressureKpa &&
+                                  !clause.quantitativeConditions.testTorqueNm &&
+                                  !clause.quantitativeConditions.testForceN && (
+                                  <div className="bg-white px-2.5 py-1.5 rounded-lg border border-slate-200 col-span-2 sm:col-span-3 text-slate-500 text-[11px] font-sans">
+                                    依流程規範或 Annex B 圖面標註進行尺寸公差檢驗 / 靜態驗證。
+                                  </div>
+                                )}
                               </div>
-                            )}
-                            {clause.quantitativeConditions.testForceN && (
-                              <div className="bg-emerald-50 px-2.5 py-1.5 rounded-lg border border-emerald-200">
-                                <span className="text-xs text-emerald-700 block">測試拉力:</span>
-                                <span className="font-bold text-emerald-900">{clause.quantitativeConditions.testForceN}</span>
-                              </div>
-                            )}
-                            {clause.quantitativeConditions.holdTimeSec && (
-                              <div className="bg-slate-50 px-2.5 py-1.5 rounded-lg border border-slate-200">
-                                <span className="text-xs text-slate-400 block">保持時間:</span>
-                                <span className="font-bold text-slate-800">{clause.quantitativeConditions.holdTimeSec}</span>
-                              </div>
-                            )}
-                            {clause.quantitativeConditions.media && (
-                              <div className="bg-slate-50 px-2.5 py-1.5 rounded-lg border border-slate-200">
-                                <span className="text-xs text-slate-400 block">介質:</span>
-                                <span className="font-bold text-slate-800">{clause.quantitativeConditions.media}</span>
-                              </div>
-                            )}
+                            </div>
                           </div>
                         </div>
 
