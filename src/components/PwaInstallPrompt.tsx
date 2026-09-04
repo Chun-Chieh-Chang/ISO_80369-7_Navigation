@@ -19,8 +19,10 @@ export const PwaInstallPrompt: React.FC = () => {
     window.addEventListener('offline', handleOffline);
 
     // Listen for PWA Before Install Prompt (Chrome / Android / Edge)
+    // Note: Do NOT call e.preventDefault() here — let Chrome show its native
+    // install prompt naturally. We only use the event to support the manual
+    // "Install to Home Screen" button as a fallback.
     const handleBeforeInstall = (e: Event) => {
-      e.preventDefault();
       setDeferredPrompt(e);
       setShowPrompt(true);
     };

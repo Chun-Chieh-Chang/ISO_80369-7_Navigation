@@ -28,8 +28,7 @@ export default defineConfig(() => {
           'apple-touch-icon.png',
           'pwa-192x192.png',
           'pwa-512x512.png',
-          'iso_80369_7_material_evaluation_matrix.html',
-          'assets/**/*'
+          'iso_80369_7_material_evaluation_matrix.html'
         ],
         manifest: {
           name: 'ISO 80369-7 & 20 Medical Small-Bore Connector Validation Navigator',
