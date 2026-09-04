@@ -301,6 +301,15 @@
       flex: 1;
     }
 
+    /* 專屬美學黃金比例網格 (42% : 58% 視覺重量平衡) */
+    .grid-asym-42-58 {
+      display: grid;
+      grid-template-columns: 0.9fr 1.15fr;
+      gap: 22px;
+      align-items: stretch;
+      flex: 1;
+    }
+
     /* 高階質感卡片 (Specular High-End Surface) */
     .card {
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.94) 100%);
@@ -1074,7 +1083,7 @@
         grid-template-columns: repeat(3, 1fr);
         gap: 12px;
       }
-      .grid-asym-6-4, .grid-asym-4-6 {
+      .grid-asym-6-4, .grid-asym-4-6, .grid-asym-42-58 {
         grid-template-columns: 1fr 1fr;
         gap: 14px;
       }
@@ -1099,7 +1108,7 @@
       .slide-title {
         font-size: 19px;
       }
-      .grid-2, .grid-3, .grid-4, .grid-asym-6-4, .grid-asym-4-6, .real-product-grid, .process-steps-grid {
+      .grid-2, .grid-3, .grid-4, .grid-asym-6-4, .grid-asym-4-6, .grid-asym-42-58, .real-product-grid, .process-steps-grid {
         grid-template-columns: 1fr;
         gap: 12px;
       }
@@ -1168,18 +1177,29 @@
         <p class="slide-subtitle">把話說透：醫院裡的管子是怎麼靠「長得不一樣、想插錯都插不進」，默默守護我們每一次輸液的安全？</p>
       </div>
       <div class="slide-body">
-        <div class="grid-2">
-          <!-- 左側核心介紹卡片 -->
-          <div class="card card-accent-blue" style="justify-content:space-between; padding:22px 26px;">
+        <div class="grid-asym-42-58">
+          <!-- 左側核心介紹卡片 (適度擴充資訊層次，達到視覺重量平衡) -->
+          <div class="card card-accent-blue" style="justify-content:space-between; padding:24px 28px;">
             <div>
               <div class="metaphor-badge" style="font-size:13.5px; padding:4px 12px;">生活中天天遇到</div>
               <h3 class="card-title" style="font-size:20px; margin:10px 0 8px;">💡 醫療界的 Type-C 與專用插頭革命</h3>
-              <p class="card-text" style="font-size:15px; line-height:1.75;">
-                想像一下：如果你家裡的高壓烤箱電線、瓦斯管、飲水機水龍頭，全部共用同一種接頭，隨便抓起來就能互插，這有多嚇人？<br><br>
-                在過去的幾十年裡，醫院各科室的管子就真的長得一模一樣！ISO 80369 這套國際標準，就是全世界工程師聯手推動的標準化工程：讓不同用途的管子各走各的路，從物理上杜絕插錯的可能。
+              <p class="card-text" style="font-size:14.5px; line-height:1.7;">
+                想像一下：如果家裡的高壓烤箱電線、瓦斯管、飲水機水龍頭，全部共用同一種接頭，隨便抓起來就能互插，這有多嚇人？<br><br>
+                在過去的幾十年裡，醫院各科室的管子就真的長得一模一樣！ISO 80369 國際標準化工程，就是要讓不同用途的管子各走各的路，從物理形狀上徹底杜絕插錯通道的可能。
               </p>
+
+              <!-- 左側補充特徵條列，平衡右側雙卡片的視覺重量 -->
+              <div style="margin-top:14px; display:flex; flex-direction:column; gap:8px; background:#F8FAFC; border:1px solid #E2E8F0; padding:12px 14px; border-radius:8px;">
+                <div style="font-size:13.5px; color:#1E3A8A; font-weight:700;">🔑 為什麼這套標準能守護每次打點滴？</div>
+                <div style="font-size:13px; color:#334155; line-height:1.55;">
+                  • <strong>物理專用防呆</strong>：不同系統尺寸天生互斥，閉著眼睛也插不進<br>
+                  • <strong>微米自然密封</strong>：6% 錐面冷壓貼合，免橡皮圈也滴水不漏<br>
+                  • <strong>機械抗脫防護</strong>：帶鎖螺帽轉半圈牢牢扣住，病人翻身扯不脫
+                </div>
+              </div>
             </div>
-            <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
+
+            <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
               <span style="background:#EFF6FF; color:#1D4ED8; font-size:13px; font-weight:700; padding:6px 12px; border-radius:6px; border:1px solid #BFDBFE;">📐 -7：告訴你管子長什麼樣</span>
               <span style="background:#ECFDF5; color:#047857; font-size:13px; font-weight:700; padding:6px 12px; border-radius:6px; border:1px solid #A7F3D0;">🔬 -20：鐵面無私的及格大考</span>
               <span style="background:#FEF3C7; color:#B45309; font-size:13px; font-weight:700; padding:6px 12px; border-radius:6px; border:1px solid #FDE68A;">🛡️ 物理防呆：想插錯都插不進</span>
