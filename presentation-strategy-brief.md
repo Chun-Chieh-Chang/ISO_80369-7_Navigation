@@ -89,7 +89,7 @@
    - `iso_80369_7_female_panel_mount_ilb7.jpg`：ILB7 系列面板穿孔式母接頭（外六角固定螺母與儀器機殼裝配）。
    - `iso_80369_7_male_bond_in_bnp7.jpg`：BNP7 系列膠合端公接頭（導管溶劑膠合端與大流孔設計）。
    - `iso_80369_7_check_valve_cv7.jpg`：CV7 系列醫療止回閥接頭組件（展示臨床一體式接頭裝配）。
-2. **Merit Medical OEM Catalog 線上電子書 (`https://heyzine.com/flip-book/65b254743e.html#page/82`)**：
-   - 深入展示第 82 頁至 90 頁醫療器材接頭、旋栓（Stopcocks）、歧管（Manifolds）實體產品照片。
-   - 投影片頂部導航列、封面、第 5 頁與第 11 頁均配置專屬連結按鈕，讓受眾具象感受 ISO 80369-7 標準轉化為成熟商業產品的強大生命力。
+2. **凱益股份有限公司 (Mouldex Co., Ltd.) 醫療器材接頭產品專區 (`https://www.mouldex.com.tw/Productinformation/24869`)**：
+   - 深入展示醫療器材塑膠零組件大廠針對 ISO 80369-7 規格生產的實體產品線：包含固定式與旋轉螺帽公魯爾 (Male Luer Lock / Rotating Nut)、公滑套 (Male Luer Slip)、母魯爾轉接頭 (Female Adapter)、倒鉤接頭 (Barbed Connectors)、雙通/三通/四通歧管 (Bi/Tri/T/Y/Quadfuse Connectors)、防護端蓋 (FLL/MLL Caps) 與加藥注射閥座 (Injection Port/Site)。
+   - 投影片頂部導航列、封面、第 5 頁（Tab 4）與第 11 頁均配置專屬連結按鈕，讓受眾具象感受 ISO 80369-7 標準轉化為成熟商業產品的強大生命力。
 

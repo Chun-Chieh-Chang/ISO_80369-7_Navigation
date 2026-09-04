@@ -1,15 +1,16 @@
 # 開發日誌 (DEV_LOG)
 
 ---
-## 版本：v8.19.0 實體醫療接頭產品照片替換與 Merit Medical OEM 國際型錄深度整合 (2026-09-04)
+## 版本：v8.19.0 實體醫療接頭產品照片替換與 凱益 Mouldex 實體型錄深度整合 (2026-09-04)
 
 ### 需求來源與目標
 1. **捨棄手繪示意圖示**：依據用戶要求，造訪 `https://www.industrialspec.com/shop/medical-products/iso-80369-7-intravascular-connectors.html`，提取該站真實 ISO 80369-7 規格接頭照片並放入投影片中，徹底捨棄自行建立的向量示意圖形（SVGs）。
-2. **整合國際實體型錄**：將 `https://heyzine.com/flip-book/65b254743e.html#page/82` (Merit Medical OEM Catalog 第 82 頁) 寫進投影片頂部導航列、封面、第 5 頁核心解碼與第 11 頁產業閉環中，讓受眾透過真實電子書翻閱，具象感受 ISO 標準與商品化醫療器械之間的緊密關聯。
+2. **整合凱益實體接頭型錄**：將 `https://www.mouldex.com.tw/Productinformation/24869`（凱益股份有限公司 Mouldex Co., Ltd. 醫療接頭產品專區）寫進投影片頂部導航列、封面、第 5 頁核心解碼與第 11 頁產業閉環中，讓受眾透過台灣醫療器材零組件大廠的真實商品專區，具象感受 ISO 標準與商品化醫療器械之間的緊密關聯。
+3. **零依賴獨立運行保證**：構建自包含單一 HTML 檔案 `public/slides-standalone.html`（所有實體接頭照片與 CAD 藍圖 100% Base64 內嵌），支援完全離線、免伺服器雙擊直接運行。
 
 ### 根因分析 (RCA)
 1. **示意圖缺乏工業質感 (RCA-01)**：原本使用自繪之二維向量簡圖（SVG #2, #3, #4, #5），雖然幾何結構正確，但在非專業受眾眼中依然停留在「抽象手繪」層次，無法直觀體會真實醫療級聚丙烯 (PP) 與聚碳酸酯 (PC) 注塑成品的高階質感。
-2. **標準與臨床商品鏈接缺乏具體載體 (RCA-02)**：說明 ISO 80369-7 轉化為市場產品時，若缺乏國際器械大廠的商品目錄對照，局外人難以想像標準在工業界量產時的真實樣貌（如旋轉公鎖、歧管、止回閥等衍生產品）。
+2. **標準與臨床商品鏈接缺乏具體載體 (RCA-02)**：說明 ISO 80369-7 轉化為市場產品時，若缺乏醫療零組件大廠的商品目錄對照，局外人難以想像標準在工業界量產時的真實樣貌（如固定公鎖、旋轉螺帽公鎖、母轉接頭、四通歧管等衍生產品）。
 
 ### 矯正與預防措施 (CAPA)
 1. **抓取並本地化 Industrial Spec 實體組件照片 (CAPA-01)**：
@@ -21,36 +22,39 @@
      - `iso_80369_7_check_valve_cv7.jpg` (CV7 系列醫療止回閥組件)
      - `iso_80369_7_check_valve_lcv.jpg` (LCV 系列醫療止回閥)
 2. **全面替換自繪圖示並重構投影片版面 (CAPA-02)**：
-   - **Slide 1 (封面)**：移除手繪 SVG，改以真實公母魯爾鎖定接頭實體照片對照展台，清晰標註 6% 外錐、右旋內螺紋套環與雙耳翼特徵，並提供 Merit OEM Catalog 連結橫幅。
+   - **Slide 1 (封面)**：移除手繪 SVG，改以真實公母魯爾鎖定接頭實體照片對照展台，清晰標註 6% 外錐、右旋內螺紋套環與雙耳翼特徵，並提供 凱益 (Mouldex) 產品專區連結橫幅。
    - **Slide 4 (多標準幾何防呆)**：移除自繪方塊 SVG，引入 CV7 止回閥實體組件，與 ENFit (粗錐口 Ø5.4mm) 及 NRFit (細錐口 Ø3.2mm) 進行結構化卡片對照。
    - **Slide 5 (7 號幾何解碼)**：徹底移除 `#assembly-svg`，建構 4 大分頁系統：
      - Tab 1: 實體接頭深度解構（4 款真實產品卡片，支援點擊 Lightbox 放大微觀檢視）。
      - Tab 2: ISO 80369-7 圖 B.3 公接頭 CAD 官方圖紙。
      - Tab 3: ISO 80369-7 圖 B.6 母接頭凸耳 CAD 官方圖紙。
-     - Tab 4: Merit Medical OEM 實體型錄 (p.82 翻頁查閱) 專屬導讀與直達入口。
-   - **Slide 11 (產業協同閉環)**：移除 SVG 流程圖，改為現代化四階段響應式卡片，將 Merit OEM 型錄作為商業落地與臨床產品目錄之實證載體。
-3. **頂部全域型錄入口 (CAPA-03)**：在 App Header 右上方新增專屬精品按鈕 `📖 實體接頭型錄 (p.82)`，演講過程中隨時可一鍵另開新視窗對照翻閱。
-4. **清理過時腳本與防迴歸確效 (CAPA-04)**：
-   - 移除舊版裝配動畫的殘留 JavaScript 監聽代碼，杜絕任何 `ReferenceError`。
-   - 執行 Vitest 單元測試 (17/17 通過) 與 Vite 生產打包 (5.19s 完成)。
+     - Tab 4: 凱益 Mouldex 醫療接頭實體型錄專屬導讀與直達入口。
+   - **Slide 11 (產業協同閉環)**：移除 SVG 流程圖，改為現代化四階段響應式卡片，將 凱益 Mouldex 接頭專區作為商業落地與臨床產品目錄之實證載體。
+3. **頂部全域型錄入口 (CAPA-03)**：在 App Header 右上方新增專屬精品按鈕 `📖 實體接頭型錄 (凱益 Mouldex)`，演講過程中隨時可一鍵另開新視窗對照查閱。
+4. **自包含單一檔案獨立運行與 PWA 防迴歸 (CAPA-04)**：
+   - 建立 `public/slides-standalone.html`，圖片全數 Base64 內嵌，拔除網路線與伺服器雙擊直接秒開。
+   - 調整 `vite.config.ts` 中的 Workbox 快取規則，設定 `globIgnores: ['**/slides-standalone.html']`，消除大檔案快取上限報錯。
+   - 執行 Vitest 單元測試 (17/17 通過) 與 Vite 生產打包 (4.96s 完成)。
    - 使用 `browser_subagent` 在全新瀏覽器分頁中進行完整端到端操作與控制台檢查，確認 Console 輸出 **0 錯誤 / 0 警告（100% Clean）**。
 
 ### 變更檔案清單
 | 檔案 | 變更類型 | 說明 |
 |------|--------|------|
 | `public/assets/real_connectors/*.jpg` | NEW | 6 款 Industrial Spec 真實 ISO 80369-7 醫療接頭高解析攝影圖片 |
-| `public/slides/index.html` | MODIFY | 捨棄手繪 SVG，整合實體照片、型錄按鈕、Tab 4 導引與現代化 CSS 卡片 |
+| `public/slides/index.html` | MODIFY | 整合實體照片、Mouldex 連結、Tab 4 導引與現代化 CSS 卡片 |
 | `public/slides.html` | MODIFY | 根目錄直開鏡像同步更新 |
-| `presentation-strategy-brief.md` | MODIFY | 增補實體產品圖像與 Merit OEM Catalog 對照體系說明 |
+| `public/slides-standalone.html` | NEW | 100% Base64 內嵌之單一 HTML 自包含離線獨立運行投影片 |
+| `vite.config.ts` | MODIFY | Workbox 排除 standalone 檔案快取防報錯 |
+| `presentation-strategy-brief.md` | MODIFY | 增補實體產品圖像與 凱益 Mouldex 實體專區對照體系說明 |
 | `DEV_LOG.md` | MODIFY | 記錄 v8.19.0 開發日誌 |
 
 ### 確效結果 (Validation)
-- **單元測試 (npm test)**：17 passed (transform 87ms, test 13ms)。
-- **生產建置 (npm run build)**：靜態資源打包完整，PWA 快取 73 個項目生成正常。
+- **單元測試 (npm test)**：17 passed (transform 90ms, test 12ms)。
+- **生產建置 (npm run build)**：4.96s 打包完成，PWA 快取生成正常。
 - **瀏覽器端端審查 (browser_subagent)**：
   - 新分頁載入控制台日誌檢測：`The console logs are empty.` (0 錯誤)。
   - Slide 1、Slide 4、Slide 5、Slide 11 真實圖片載入無 404，Lightbox 放大檢視流暢。
-  - Tab 4 切換順暢，Merit Medical OEM Catalog (p.82) 連結可正常開啟。
+  - Tab 4 切換順暢，凱益 Mouldex (`https://www.mouldex.com.tw/Productinformation/24869`) 連結可正常開啟。
 
 ---
 ## 版本：v8.18.0 ISO 80369-7 與 ISO 80369-20 局外人通俗科普大師投影片系統 — 多工具協同與深度工程確效全解 (2026-09-04)
