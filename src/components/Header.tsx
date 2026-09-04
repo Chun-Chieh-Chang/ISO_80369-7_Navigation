@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookOpen, Network, Table, Wrench, FileSpreadsheet, FileText, Globe } from 'lucide-react';
+import { BookOpen, Network, Table, Wrench, FileSpreadsheet, FileText, Globe, Presentation } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageContext';
 import { TestConfigState } from '../types';
 
@@ -18,7 +18,8 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
     { id: 'visual-map', label: t.nav.visualMap, icon: Network },
     { id: 'comparison-matrix', label: t.nav.comparisonMatrix, icon: Table },
     { id: 'connectors', label: t.nav.connectors, icon: Wrench },
-    { id: 'dvp-report', label: t.nav.dvpReport, icon: FileSpreadsheet },
+      { id: 'dvp-report', label: t.nav.dvpReport, icon: FileSpreadsheet },
+      { id: 'presentation', label: t.nav.presentation, icon: Presentation },
   ];
 
   return (
@@ -71,6 +72,20 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
         <div className="flex items-center overflow-x-auto no-scrollbar gap-1.5 sm:gap-2 pb-2 pt-1 border-t border-slate-100/80 scroll-smooth">
           {tabs.map((tab) => {
             const Icon = tab.icon;
+            if (tab.id === 'presentation') {
+              return (
+                <a
+                  key={tab.id}
+                  href={`${import.meta.env.BASE_URL}slides-standalone.html`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-2 px-3 sm:px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap shrink-0 min-h-[44px] cursor-pointer touch-target bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-200/80 hover:border-amber-300 shadow-2xs"
+                >
+                  <Icon className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-amber-600" />
+                  <span>{tab.label}</span>
+                </a>
+              );
+            }
             const isActive = activeTab === tab.id;
             return (
               <button
