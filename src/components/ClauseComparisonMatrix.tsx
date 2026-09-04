@@ -8,6 +8,7 @@ import { Table, Search, Download, Filter, Info, CheckCircle2, AlertTriangle, Arr
 
 export const ClauseComparisonMatrix: React.FC = () => {
   const { language, t } = useLanguage();
+  const isEn = language === 'en';
   const [filterType, setFilterType] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [expandedClauseId, setExpandedClauseId] = useState<string | null>(null);
@@ -498,13 +499,17 @@ export const ClauseComparisonMatrix: React.FC = () => {
                     <div className="bg-slate-50 p-3 rounded-2xl border border-slate-200 space-y-3">
                       <div className="flex items-center space-x-2 text-xs font-bold text-slate-800">
                         <Sparkles className="w-4 h-4 text-indigo-700" />
-                        <span>{clause.title} — {language === 'en' ? 'CAD Diagram' : '規範圖解'}</span>
+                        <span>{clause.title} — {language === 'en' ? 'Standard CAD Blueprint' : '規範圖解'}</span>
                       </div>
                       <div className="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-2xs">
                         <ISOStandardFigureRenderer
-                          figureId={svgKey}
-                          title={clause.title}
-                          standard={`${clause.iso7} / ${clause.iso20}`}
+                          svgKey={svgKey}
+                          titleZh={figInfo?.nameZh || clause.title}
+                          titleEn={figInfo?.name || clause.iso7}
+                          standard={figInfo?.standardOwner || `${clause.iso7} / ${clause.iso20}`}
+                          figureTypeZh={figInfo?.annexGroup || (isEn ? 'Test Method Diagram' : '測試方法圖解')}
+                          descriptionZh={figInfo?.descriptionZh || clause.criteria}
+                          descriptionEn={figInfo?.description || clause.criteria}
                           keyCallouts={figInfo?.svgHighlights}
                         />
                       </div>
@@ -611,12 +616,12 @@ export const ClauseComparisonMatrix: React.FC = () => {
                             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pb-3 border-b border-slate-100">
                               <div className="flex items-center space-x-2">
                                 <span className="bg-indigo-100 text-indigo-800 font-mono font-bold text-xs px-2.5 py-1 rounded-md border border-indigo-200">
-                                  {clause.iso7} 內嵌規範圖示 (SVG CAD / 3D Render)
+                                  {isEn ? `${clause.iso7} Embedded CAD Blueprint` : `${clause.iso7} 內嵌規範圖示 (SVG CAD / 3D Render)`}
                                 </span>
-                                <h4 className="font-bold text-slate-900 text-sm">{clause.title} — 規範實驗裝置與 CAD 圖解</h4>
+                                <h4 className="font-bold text-slate-900 text-sm">{clause.title} — {isEn ? 'Standard Test Apparatus & CAD Blueprint' : '規範實驗裝置與 CAD 圖解'}</h4>
                               </div>
                               <span className="text-xs text-slate-400 font-mono">
-                                研發防呆風險: <strong className="text-rose-600 font-sans">{clause.risk}</strong>
+                                {isEn ? 'R&D Risk: ' : '研發防呆風險: '}<strong className="text-rose-600 font-sans">{clause.risk}</strong>
                               </span>
                             </div>
 
@@ -627,8 +632,9 @@ export const ClauseComparisonMatrix: React.FC = () => {
                                 titleZh={figInfo?.nameZh || clause.title}
                                 titleEn={figInfo?.name || clause.iso7}
                                 standard={figInfo?.standardOwner || 'ISO 80369-20:2024'}
-                                figureTypeZh={figInfo?.annexGroup || '測試方法圖解'}
+                                figureTypeZh={figInfo?.annexGroup || (isEn ? 'Test Method Diagram' : '測試方法圖解')}
                                 descriptionZh={figInfo?.descriptionZh || clause.criteria}
+                                descriptionEn={figInfo?.description || clause.criteria}
                                 keyCallouts={figInfo?.svgHighlights}
                               />
                             </div>

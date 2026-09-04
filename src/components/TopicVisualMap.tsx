@@ -4,6 +4,16 @@ import { ANNEX_C_FIGURES } from '../data/isoData';
 import { useLanguage } from '../i18n/LanguageContext';
 import { Network, Sparkles, Filter, Info, ArrowRight, CheckCircle2, ShieldAlert, Layers } from 'lucide-react';
 
+import { 
+  getTopicShortSummary, 
+  getClauseObjective, 
+  getClauseAppliesTo, 
+  getClauseTitle, 
+  getClauseType, 
+  translateHighlightText, 
+  formatUnit 
+} from '../utils/i18nHelpers';
+
 export const TopicVisualMap: React.FC = () => {
   const { language, t } = useLanguage();
   const isEn = language === 'en';
@@ -21,14 +31,28 @@ export const TopicVisualMap: React.FC = () => {
     const iso7 = activeTopic.relatedISO7Clauses.map(clauseNum => {
       const sanitized = clauseNum.toLowerCase().replace('clause ', '').trim().replace(/\s+/g, '-');
       const key = `iso7-${sanitized}`;
-      return STANDARD_CLAUSE_DETAILS[key] || {
+      const detail = STANDARD_CLAUSE_DETAILS[key];
+      if (detail) {
+        return {
+          ...detail,
+          titleEn: detail.titleEn || getClauseTitle(detail, true),
+          objectiveEn: detail.objectiveEn || getClauseObjective(detail, true),
+          appliesToEn: detail.appliesToEn || getClauseAppliesTo(detail, true),
+          typeEn: detail.typeEn || getClauseType(detail, true)
+        };
+      }
+      return {
         id: key,
         standard: 'ISO 80369-7:2021',
         clauseNumber: clauseNum,
         titleZh: `第 ${clauseNum} 節 規範`,
+        titleEn: `Clause ${clauseNum} Specification`,
         typeZh: '規格條文',
+        typeEn: 'Requirement',
         objectiveZh: activeTopic.shortSummaryZh,
+        objectiveEn: getTopicShortSummary(activeTopic, true),
         appliesToZh: '公/母魯爾鎖定與滑動接頭',
+        appliesToEn: 'Male & Female Luer Lock and Slip Connectors',
         quantitativeConditions: {},
         acceptanceCriteriaZh: []
       };
@@ -37,14 +61,28 @@ export const TopicVisualMap: React.FC = () => {
     const iso20 = activeTopic.relatedISO20Annexes.map(annexName => {
       const sanitized = annexName.toLowerCase().trim().replace(/\s+/g, '-');
       const key = `iso20-${sanitized}`;
-      return STANDARD_CLAUSE_DETAILS[key] || {
+      const detail = STANDARD_CLAUSE_DETAILS[key];
+      if (detail) {
+        return {
+          ...detail,
+          titleEn: detail.titleEn || getClauseTitle(detail, true),
+          objectiveEn: detail.objectiveEn || getClauseObjective(detail, true),
+          appliesToEn: detail.appliesToEn || getClauseAppliesTo(detail, true),
+          typeEn: detail.typeEn || getClauseType(detail, true)
+        };
+      }
+      return {
         id: key,
         standard: 'ISO 80369-20:2024',
         clauseNumber: annexName,
         titleZh: `${annexName} 實驗室測試細則`,
+        titleEn: `${annexName} Test Method`,
         typeZh: '測試方法',
+        typeEn: 'Test Method',
         objectiveZh: `驗證 ${annexName} 之標準測試流程與儀器要求`,
+        objectiveEn: `Standard laboratory test procedure and apparatus requirements for ${annexName}`,
         appliesToZh: '所有小口徑連接器',
+        appliesToEn: 'All Small-Bore Connectors',
         quantitativeConditions: {},
         acceptanceCriteriaZh: []
       };
@@ -116,14 +154,14 @@ export const TopicVisualMap: React.FC = () => {
                 {isEn ? (activeTopic.titleEn || activeTopic.titleZh) : activeTopic.titleZh}
               </h3>
               <p className="text-[13px] text-blue-900 leading-relaxed">
-                {isEn ? (activeTopic.shortSummaryEn || activeTopic.shortSummaryZh) : activeTopic.shortSummaryZh}
+                {getTopicShortSummary(activeTopic, isEn)}
               </p>
               
               <div className="pt-2 border-t border-blue-200/60 text-[13px] space-y-1.5 font-mono">
                 {activeTopic.keyParameters.map((kp, idx) => (
                   <div key={idx} className="flex justify-between text-blue-900">
-                    <span className="text-blue-700">{isEn ? (kp.labelEn || kp.label) : kp.label}:</span>
-                    <span className="font-bold">{kp.value} {kp.unit}</span>
+                    <span className="text-blue-700">{isEn ? (kp.labelEn || translateHighlightText(kp.label, true)) : kp.label}:</span>
+                    <span className="font-bold">{isEn ? (kp.valueEn || translateHighlightText(kp.value, true)) : kp.value} {formatUnit(kp.unit, isEn)}</span>
                   </div>
                 ))}
               </div>

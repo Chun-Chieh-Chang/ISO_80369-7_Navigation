@@ -55,7 +55,9 @@ export interface AnnexCFigureInfo {
   worstCaseReasonEn?: string;
   svgHighlights: {
     title: string;
+    titleEn?: string;
     value: string;
+    valueEn?: string;
   }[];
   svgKey?: string;
 }
@@ -67,6 +69,7 @@ export interface PlasticMaterial {
   yieldStrengthMpa: number;
   creepResistanceScore: 'Low' | 'Medium' | 'High' | 'Very High';
   recommendationZh: string;
+  recommendationEn?: string;
 }
 
 export interface TestConfigState {
@@ -101,7 +104,9 @@ export interface ComplianceAuditResult {
   calculatedSafetyFactor: number;
   calculatedCreepRisk: 'Low' | 'Moderate' | 'High' | 'Critical (Override Imminent)';
   issuesZh: string[];
+  issuesEn?: string[];
   recommendationsZh: string[];
+  recommendationsEn?: string[];
 }
 
 export interface FailureModeInfo {
@@ -125,10 +130,13 @@ export interface ISOTopicFigure {
   standard: string;
   figureType: 'apparatus' | 'connector_cad' | 'fixture' | 'mechanism' | 'analysis';
   figureTypeZh: string;
+  figureTypeEn?: string;
   descriptionZh: string;
-  selectionReasonZh?: string; // 入選此主題之法規與第一性原理關聯邏輯說明
+  descriptionEn?: string;
+  selectionReasonZh?: string;
+  selectionReasonEn?: string;
   svgKey: string;
-  keyCallouts?: { id: string; labelZh: string; valueZh: string }[];
+  keyCallouts?: { id: string; labelZh: string; labelEn?: string; valueZh: string; valueEn?: string }[];
 }
 
 export interface ISOTopic {
@@ -137,15 +145,20 @@ export interface ISOTopic {
   titleEn: string;
   category: TopicCategory;
   categoryZh: string;
+  categoryEn?: string;
   iconName: string;
   shortSummaryZh: string;
+  shortSummaryEn?: string;
   detailedDescriptionZh: string;
-  keyParameters: { label: string; value: string; unit?: string }[];
+  detailedDescriptionEn?: string;
+  keyParameters: { label: string; labelEn?: string; value: string; unit?: string; unitEn?: string }[];
   relatedISO7Clauses: string[];
   relatedISO20Annexes: string[];
   relatedRefConnectors: AnnexCFigureId[];
   engineeringRiskZh: string;
+  engineeringRiskEn?: string;
   auditFocusZh: string;
+  auditFocusEn?: string;
   tags: string[];
   figures?: ISOTopicFigure[];
 }
@@ -171,8 +184,11 @@ export interface StandardClauseDetail {
   titleZh: string;
   type: 'requirement' | 'test_method' | 'reference_fixture' | 'general_principle';
   typeZh: string;
+  typeEn?: string;
   objectiveZh: string;
+  objectiveEn?: string;
   appliesToZh: string;
+  appliesToEn?: string;
   preAssembly?: PreAssemblyCondition;
   quantitativeConditions: {
     assemblyTorqueNm?: string;
@@ -189,10 +205,15 @@ export interface StandardClauseDetail {
     [key: string]: string | undefined;
   };
   fixtureRequiredZh: string;
+  fixtureRequiredEn?: string;
   testProcedureStepsZh: string[];
+  testProcedureStepsEn?: string[];
   acceptanceCriteriaZh: string[];
+  acceptanceCriteriaEn?: string[];
   commonNonConformancesZh: string[];
+  commonNonConformancesEn?: string[];
   regulatoryTipZh: string;
+  regulatoryTipEn?: string;
 }
 
 export interface StandardMappingNode {

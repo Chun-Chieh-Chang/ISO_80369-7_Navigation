@@ -4,6 +4,7 @@ import { AnnexCFigureId, TestConfigState } from '../types';
 import { ISOStandardFigureRenderer } from './ISOStandardFigureRenderer';
 import { useLanguage } from '../i18n/LanguageContext';
 import { Eye, ShieldAlert, Layers, Ruler, FileCode, CheckCircle2 } from 'lucide-react';
+import { getFigureWorstCaseReason, getFigureDescription, translateHighlightText } from '../utils/i18nHelpers';
 
 interface ConnectorInspectorProps {
   config: TestConfigState;
@@ -120,12 +121,11 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
                 ? (selectedFig.annexGroup === 'Annex A' ? 'Non-interchangeability Matrix' : selectedFig.annexGroup === 'Annex B' ? 'Product CAD Geometry' : 'Metal Reference Fixture')
                 : (selectedFig.annexGroup === 'Annex A' ? '防誤插幾何矩陣' : selectedFig.annexGroup === 'Annex B' ? '產品 CAD 幾何圖' : '金屬參考夾具件')
             }
-            descriptionZh={isEn ? (selectedFig.description || selectedFig.descriptionZh) : selectedFig.descriptionZh}
-            keyCallouts={selectedFig.svgHighlights.map((hl, idx) => ({
-              id: `callout-${idx}`,
-              labelZh: hl.title,
-              valueZh: hl.value
-            }))}
+            descriptionZh={selectedFig.descriptionZh}
+            descriptionEn={getFigureDescription(selectedFig, true)}
+            selectionReasonZh={selectedFig.worstCaseReasonZh}
+            selectionReasonEn={getFigureWorstCaseReason(selectedFig, true)}
+            keyCallouts={selectedFig.svgHighlights}
           />
         </div>
 
@@ -149,15 +149,15 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
               <div className="font-bold text-slate-900 flex items-center gap-1">
                 <Ruler className="w-3.5 h-3.5 text-blue-600" /> {isEn ? 'Drawing Function & Objective:' : '圖號功能與適用目的：'}
               </div>
-              <p>{isEn ? (selectedFig.description || selectedFig.descriptionZh) : selectedFig.descriptionZh}</p>
+              <p>{getFigureDescription(selectedFig, isEn)}</p>
             </div>
 
             {/* Key Specs Highlights */}
             <div className="grid grid-cols-2 gap-2 text-xs">
               {selectedFig.svgHighlights.map((hl, idx) => (
                 <div key={idx} className="bg-slate-100/80 p-2.5 rounded-xl border border-slate-200">
-                  <div className="text-xs text-slate-500 font-medium">{hl.title}</div>
-                  <div className="font-bold text-slate-900 mt-0.5 font-mono">{hl.value}</div>
+                  <div className="text-xs text-slate-500 font-medium">{isEn ? (hl.titleEn || translateHighlightText(hl.title, true)) : hl.title}</div>
+                  <div className="font-bold text-slate-900 mt-0.5 font-mono">{isEn ? (hl.valueEn || translateHighlightText(hl.value, true)) : hl.value}</div>
                 </div>
               ))}
             </div>
@@ -196,7 +196,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
               <h4 className="font-bold text-amber-950 flex items-center gap-1.5">
                 <ShieldAlert className="w-4 h-4 text-amber-600" /> {isEn ? 'Geometric Engineering Philosophy & Design Rationale' : '幾何工程哲學與設計考量 (Engineering Rationale)'}
               </h4>
-              <p className="text-amber-900 leading-relaxed">{isEn ? (selectedFig.worstCaseReasonEn || selectedFig.worstCaseReasonZh) : selectedFig.worstCaseReasonZh}</p>
+              <p className="text-amber-900 leading-relaxed">{getFigureWorstCaseReason(selectedFig, isEn)}</p>
             </div>
           </div>
         </div>

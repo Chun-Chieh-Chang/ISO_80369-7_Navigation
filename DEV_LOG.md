@@ -1,6 +1,44 @@
 # 開發日誌 (DEV_LOG)
 
 ---
+## 版本：v8.17.0 英文模式零死角徹底國際化 — 100% 消除殘留中文字串與動態參數翻譯 (2026-09-04)
+
+### 需求來源與目標
+1. **問題根因**：用戶回報英文模式並不徹底，英文模式下仍出現中文，要求達到零死角（100% Zero-Blindspot Bilingual）。
+2. **目標**：在 `?lang=en` 英文模式下，全站 5 大分頁、卡片、導航樹、試驗步驟、合格標準、定量條件、PWA 提示均無任何中文外洩，達成 100% 專業 ISO 標準英文呈現。
+
+### 根因分析 (RCA)
+1. **PWA 組件硬編碼 (RCA-01)**：`PwaInstallPrompt.tsx` 橫幅與離線提示卡片完全硬編碼為中文，未接入 `useLanguage()` 與語系翻譯機制。
+2. **動態試驗步驟與合格判據缺失英文 SSOT (RCA-02)**：`isoTopicsData.ts` 中 32 條 ISO 條文僅定義中文之 `testProcedureSteps` 與 `acceptanceCriteria`，缺乏英文定義，導致組件渲染時回退顯示中文陣列。
+3. **附錄導航樹與圖紙副標題洩漏 (RCA-03)**：`TopicClauseExplorer.tsx` 附錄樹第 1271 行在 `isEn` 時顯示了灰色的 `currentSelectedFigure.nameZh` 中文副標題；`ISOStandardFigureRenderer.tsx` 舊邏輯在 `isEn` 時副標題亦重複渲染中文名稱。
+4. **定量條件與關鍵參數未經雙語轉換 (RCA-04)**：條文卡片中的 `param.value` 以及定量條件字串（如 `50 N (對撞推力)`、`≥ 24 小時`、`水滴法/壓降法`、`水或空氣`、`真空負壓`）為中文，未經專用轉換器映射。
+5. **語系字典重複贅字 (RCA-05)**：`translations.ts` 中的 `catAll` 與 `filterAll` 存在 `'All Clauses All'` 與 `'All Drawings All'` 贅字。
+
+### 矯正與預防措施 (CAPA)
+1. **核心翻譯輔助函式庫擴充 (CAPA-01)**：在 `src/utils/i18nHelpers.ts` 擴充 `TERM_DICTIONARY_EN`（涵蓋所有 183 個條文/夾具標籤、數值與名詞），新增 `translateQuantitativeCondition`、`getClauseTestProcedureSteps` 與 `getClauseAcceptanceCriteria`，從架構層根治動態文字缺失英文的問題。
+2. **PWA 提示組件雙語化 (CAPA-02)**：`PwaInstallPrompt.tsx` 引入 `useLanguage()`，離線橫幅、PWA 安裝提示標題、副標題與所有按鈕（「安裝至桌面」、「稍後提醒」等）全面雙語化。
+3. **副標題外洩根治 (CAPA-03)**：重構 `ISOStandardFigureRenderer.tsx` 與 `TopicClauseExplorer.tsx` 的副標題渲染邏輯，英文模式下完全隱藏中文副標題。
+4. **定量條件與步驟全面雙語渲染 (CAPA-04)**：在 `TopicClauseExplorer.tsx` 中使用 `translateQuantitativeCondition` 包覆所有 8 大定量參數數值（裝配扭矩、軸向推力、持壓時間、試驗壓力、試驗扭矩、試驗拉力、試驗介質、溫度），並以 `getClauseTestProcedureSteps` 與 `getClauseAcceptanceCriteria` 保證步驟與合格判定 100% 英文呈現。
+5. **贅字清理與版本標記 (CAPA-05)**：修正 `translations.ts` 中的贅字，並將版本更新為 `v8.17.0 零死角國際雙語版` (`v8.17.0 Zero-Blindspot Bilingual Edition`) 與 `package.json` 版本對齊。
+6. **防迴歸確效管線 (CAPA-06)**：執行自動化檢查（`npm run lint`、`npm run test`）與瀏覽器端審查（`browser_subagent` DOM 節點審查），確認所有可見文字節點無中文外洩。
+
+### 變更檔案清單
+| 檔案 | 變更類型 | 說明 |
+|------|--------|------|
+| `src/utils/i18nHelpers.ts` | MODIFY | 擴充字典，新增定量條件、試驗步驟與合格判據的英文解析器 |
+| `src/components/PwaInstallPrompt.tsx` | MODIFY | 引入 `useLanguage()`，離線與安裝提示全雙語化 |
+| `src/components/ISOStandardFigureRenderer.tsx` | MODIFY | 消除英文模式下的中文副標題，整合通用字典 |
+| `src/components/TopicVisualMap.tsx` | MODIFY | 關鍵參數值雙語翻譯防護 |
+| `src/components/TopicClauseExplorer.tsx` | MODIFY | 消除附錄樹中文副標題，定量條件/步驟/判據全雙語化 |
+| `src/i18n/translations.ts` | MODIFY | 修正贅字，升級版本標記至 v8.17.0 |
+| `package.json` | MODIFY | 升級版本號至 8.17.0 |
+
+### 確效結果 (Validation)
+- **TypeScript 類型檢查 (tsc --noEmit)**：0 錯誤 / 0 警告通過。
+- **單元測試 (vitest run)**：17/17 全部 PASS (14ms)。
+- **瀏覽器端 DOM 掃描**：全站 5 大導航分頁（Clause Explorer、Clause Network、Comparison Matrix、Reference Fixtures、DVP Test Matrix）及 Annex Tree 導航樹可見 UI 文字節點 100% 英文，零中文殘留。
+
+---
 ## 版本：v8.16.0 全站 100% 無死角雙語化改造 — 4 大探索分頁完整國際化 (2026-09-03)
 
 ### 需求來源與目標

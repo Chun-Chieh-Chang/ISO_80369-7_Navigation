@@ -38,6 +38,15 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }
   };
 
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.title = language === 'en'
+        ? 'ISO 80369-7 & 20 Medical Small-Bore Connectors Verification Navigation System'
+        : 'ISO 80369-7 醫療器材小口徑連接器標準驗證導航系統';
+      document.documentElement.lang = language === 'en' ? 'en' : 'zh-TW';
+    }
+  }, [language]);
+
   const t = TRANSLATIONS[language];
 
   return (

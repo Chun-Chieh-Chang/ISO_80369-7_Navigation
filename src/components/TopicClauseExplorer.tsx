@@ -10,6 +10,24 @@ import {
   Droplets, Wind, Zap, ArrowDownUp, RotateCw, ShieldAlert, Ruler, Wrench, Layers3, Layers, Activity,
   FolderTree, ChevronRight, ChevronDown, Tag, Eye, FileCode, Gauge
 } from 'lucide-react';
+import { 
+  getTopicShortSummary, 
+  getTopicDetailedDescription, 
+  getTopicEngineeringRisk, 
+  getTopicAuditFocus, 
+  getClauseObjective, 
+  getClauseAppliesTo, 
+  getClauseTitle, 
+  getClauseType,
+  getClauseRegulatoryTip,
+  getClauseTestProcedureSteps,
+  getClauseAcceptanceCriteria,
+  translateQuantitativeCondition,
+  getFigureWorstCaseReason, 
+  getFigureDescription, 
+  translateHighlightText, 
+  formatUnit 
+} from '../utils/i18nHelpers';
 
 export const TopicClauseExplorer: React.FC = () => {
   const { language, t } = useLanguage();
@@ -161,7 +179,7 @@ export const TopicClauseExplorer: React.FC = () => {
 ■ Related ISO 80369-7 Clauses: ${currentTopic.relatedISO7Clauses.join(', ')}
 ■ Related ISO 80369-20 Annexes: ${currentTopic.relatedISO20Annexes.join(', ')}
 ■ Required Reference Fixtures: ${currentTopic.relatedRefConnectors.join(', ')}
-■ Key Conditions: ${currentTopic.keyParameters.map(p => `${p.labelEn || p.label}: ${p.value} ${p.unit || ''}`).join(' | ')}
+■ Key Conditions: ${currentTopic.keyParameters.map(p => `${p.labelEn || translateHighlightText(p.label, true)}: ${p.valueEn || translateHighlightText(p.value, true)} ${formatUnit(p.unit, true)}`).join(' | ')}
 ■ Core Requirement: ${currentTopic.shortSummaryEn || currentTopic.shortSummaryZh}
 ■ R&D Engineering Risk: ${currentTopic.engineeringRiskEn || currentTopic.engineeringRiskZh}
 ■ Regulatory Audit Focus: ${currentTopic.auditFocusEn || currentTopic.auditFocusZh}`
@@ -367,7 +385,7 @@ export const TopicClauseExplorer: React.FC = () => {
                         </div>
 
                         <p className="text-[13px] text-slate-600 mt-2.5 line-clamp-2 leading-relaxed">
-                          {isEn ? (topic.shortSummaryEn || topic.shortSummaryZh) : topic.shortSummaryZh}
+                          {getTopicShortSummary(topic, isEn)}
                         </p>
 
                         {/* Quick Badges & Clause Connection */}
@@ -648,7 +666,7 @@ export const TopicClauseExplorer: React.FC = () => {
                 </div>
 
                 <p className="text-xs text-slate-700 leading-relaxed bg-slate-50 p-3.5 rounded-xl border border-slate-100">
-                  {isEn ? (currentTopic.detailedDescriptionEn || currentTopic.detailedDescriptionZh) : currentTopic.detailedDescriptionZh}
+                  {getTopicDetailedDescription(currentTopic, isEn)}
                 </p>
 
                 {/* Key Parameters Matrix Grid */}
@@ -659,9 +677,9 @@ export const TopicClauseExplorer: React.FC = () => {
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                     {currentTopic.keyParameters.map((param, idx) => (
                       <div key={idx} className="bg-blue-50/50 border border-blue-100 p-2.5 rounded-xl">
-                        <span className="text-xs text-slate-500 block">{isEn ? (param.labelEn || param.label) : param.label}</span>
+                        <span className="text-xs text-slate-500 block">{isEn ? (param.labelEn || translateHighlightText(param.label, true)) : param.label}</span>
                         <span className="text-sm font-bold text-blue-900 font-mono mt-0.5 block">
-                          {param.value} <span className="text-xs font-normal text-slate-600">{param.unit}</span>
+                          {isEn ? (param.valueEn || translateHighlightText(param.value, true)) : param.value} <span className="text-xs font-normal text-slate-600">{formatUnit(param.unit, isEn)}</span>
                         </span>
                       </div>
                     ))}
@@ -834,7 +852,7 @@ export const TopicClauseExplorer: React.FC = () => {
                       <span>{isEn ? 'R&D Mistake-Proofing & Material Risks (Engineering Risk)' : '研發防呆與材料風險 (R&D Risk)'}</span>
                     </div>
                     <p className="text-xs text-amber-900 leading-relaxed">
-                      {isEn ? (currentTopic.engineeringRiskEn || currentTopic.engineeringRiskZh) : currentTopic.engineeringRiskZh}
+                      {getTopicEngineeringRisk(currentTopic, isEn)}
                     </p>
                   </div>
 
@@ -844,7 +862,7 @@ export const TopicClauseExplorer: React.FC = () => {
                       <span>{isEn ? 'Regulatory Audit & Validation Focus' : '法規審查與稽核重點 (Audit Focus)'}</span>
                     </div>
                     <p className="text-xs text-emerald-900 leading-relaxed">
-                      {isEn ? (currentTopic.auditFocusEn || currentTopic.auditFocusZh) : currentTopic.auditFocusZh}
+                      {getTopicAuditFocus(currentTopic, isEn)}
                     </p>
                   </div>
                 </div>
@@ -937,16 +955,18 @@ export const TopicClauseExplorer: React.FC = () => {
                               <h4 className="text-sm font-bold text-slate-900">
                                 {isEn ? (clause.titleEn || clause.titleZh) : clause.titleZh}
                               </h4>
-                              <span className="text-xs text-slate-400 font-mono block">
-                                {clause.titleEn}
-                              </span>
+                              {!isEn && (
+                                <span className="text-xs text-slate-400 font-mono block">
+                                  {clause.titleEn}
+                                </span>
+                              )}
                             </div>
                           </div>
 
                           <span className={`text-xs font-semibold px-2 py-0.5 rounded-full shrink-0 ${
                             isISO7 ? 'bg-blue-50 text-blue-700 border border-blue-200' : 'bg-indigo-50 text-indigo-700 border border-indigo-200'
                           }`}>
-                            {isEn ? (clause.typeEn || clause.typeZh) : clause.typeZh}
+                            {getClauseType(clause, isEn)}
                           </span>
                         </div>
 
@@ -954,11 +974,11 @@ export const TopicClauseExplorer: React.FC = () => {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                           <div className="bg-slate-50 p-3 rounded-xl border border-slate-100 space-y-0.5">
                             <span className="text-xs font-semibold text-slate-400 block">{isEn ? 'Standard Objective:' : '規範核心目的 (Objective):'}</span>
-                            <p className="text-slate-700">{isEn ? (clause.objectiveEn || clause.objectiveZh) : clause.objectiveZh}</p>
+                            <p className="text-slate-700">{getClauseObjective(clause, isEn)}</p>
                           </div>
                           <div className="bg-slate-50 p-3 rounded-xl border border-slate-100 space-y-0.5">
                             <span className="text-xs font-semibold text-slate-400 block">{isEn ? 'Applies To:' : '適用物件產品 (Applies To):'}</span>
-                            <p className="text-slate-700">{isEn ? (clause.appliesToEn || clause.appliesToZh) : clause.appliesToZh}</p>
+                            <p className="text-slate-700">{getClauseAppliesTo(clause, isEn)}</p>
                           </div>
                         </div>
 
@@ -1012,7 +1032,7 @@ export const TopicClauseExplorer: React.FC = () => {
                                       <div className="bg-white px-2.5 py-1.5 rounded-lg border border-blue-200/80 shadow-2xs">
                                         <span className="text-[10px] text-slate-400 block font-sans">{isEn ? 'Torque:' : '裝配扭矩:'}</span>
                                         <span className="font-bold text-slate-800">
-                                          {clause.preAssembly?.assemblyTorqueNm || clause.quantitativeConditions.assemblyTorqueNm}
+                                          {translateQuantitativeCondition(clause.preAssembly?.assemblyTorqueNm || clause.quantitativeConditions.assemblyTorqueNm, isEn)}
                                         </span>
                                       </div>
                                     )}
@@ -1020,14 +1040,14 @@ export const TopicClauseExplorer: React.FC = () => {
                                       <div className="bg-white px-2.5 py-1.5 rounded-lg border border-blue-200/80 shadow-2xs">
                                         <span className="text-[10px] text-slate-400 block font-sans">{isEn ? 'Axial Force:' : '軸向推力:'}</span>
                                         <span className="font-bold text-slate-800">
-                                          {clause.preAssembly?.assemblyAxialForceN || clause.quantitativeConditions.assemblyAxialForceN}
+                                          {translateQuantitativeCondition(clause.preAssembly?.assemblyAxialForceN || clause.quantitativeConditions.assemblyAxialForceN, isEn)}
                                         </span>
                                       </div>
                                     )}
                                     <div className="bg-white px-2.5 py-1.5 rounded-lg border border-blue-200/80 shadow-2xs">
                                       <span className="text-[10px] text-slate-400 block font-sans">{isEn ? 'Hold Time:' : '保持時間:'}</span>
                                       <span className="font-bold text-slate-800">
-                                        {clause.preAssembly?.holdTimeSec || (isEn ? '5 - 6 s' : '5 - 6 秒')}
+                                        {translateQuantitativeCondition(clause.preAssembly?.holdTimeSec || (isEn ? '5 - 6 s' : '5 - 6 秒'), isEn)}
                                       </span>
                                     </div>
                                   </div>
@@ -1054,37 +1074,49 @@ export const TopicClauseExplorer: React.FC = () => {
                                 {clause.quantitativeConditions.testPressureKpa && (
                                   <div className="bg-white px-2.5 py-1.5 rounded-lg border border-blue-200 shadow-2xs">
                                     <span className="text-[10px] text-blue-600 block font-sans">{isEn ? 'Test Pressure:' : '測試壓力:'}</span>
-                                    <span className="font-bold text-blue-900">{clause.quantitativeConditions.testPressureKpa}</span>
+                                    <span className="font-bold text-blue-900">
+                                      {translateQuantitativeCondition(clause.quantitativeConditions.testPressureKpa, isEn)}
+                                    </span>
                                   </div>
                                 )}
                                 {clause.quantitativeConditions.testTorqueNm && (
                                   <div className="bg-white px-2.5 py-1.5 rounded-lg border border-amber-200 shadow-2xs">
                                     <span className="text-[10px] text-amber-700 block font-sans">{isEn ? 'Test Torque:' : '測試扭矩:'}</span>
-                                    <span className="font-bold text-amber-900">{clause.quantitativeConditions.testTorqueNm}</span>
+                                    <span className="font-bold text-amber-900">
+                                      {translateQuantitativeCondition(clause.quantitativeConditions.testTorqueNm, isEn)}
+                                    </span>
                                   </div>
                                 )}
                                 {clause.quantitativeConditions.testForceN && (
                                   <div className="bg-white px-2.5 py-1.5 rounded-lg border border-emerald-200 shadow-2xs">
                                     <span className="text-[10px] text-emerald-700 block font-sans">{isEn ? 'Test Force:' : '測試拉力:'}</span>
-                                    <span className="font-bold text-emerald-900">{clause.quantitativeConditions.testForceN}</span>
+                                    <span className="font-bold text-emerald-900">
+                                      {translateQuantitativeCondition(clause.quantitativeConditions.testForceN, isEn)}
+                                    </span>
                                   </div>
                                 )}
                                 {clause.quantitativeConditions.holdTimeSec && (
                                   <div className="bg-white px-2.5 py-1.5 rounded-lg border border-slate-200 shadow-2xs">
                                     <span className="text-[10px] text-slate-400 block font-sans">{isEn ? 'Hold Time:' : '考驗時間:'}</span>
-                                    <span className="font-bold text-slate-800">{clause.quantitativeConditions.holdTimeSec}</span>
+                                    <span className="font-bold text-slate-800">
+                                      {translateQuantitativeCondition(clause.quantitativeConditions.holdTimeSec, isEn)}
+                                    </span>
                                   </div>
                                 )}
                                 {clause.quantitativeConditions.media && (
                                   <div className="bg-white px-2.5 py-1.5 rounded-lg border border-slate-200 shadow-2xs col-span-2 sm:col-span-1">
                                     <span className="text-[10px] text-slate-400 block font-sans">{isEn ? 'Media:' : '試驗介質:'}</span>
-                                    <span className="font-bold text-slate-800 truncate block">{clause.quantitativeConditions.media}</span>
+                                    <span className="font-bold text-slate-800 truncate block">
+                                      {translateQuantitativeCondition(clause.quantitativeConditions.media, isEn)}
+                                    </span>
                                   </div>
                                 )}
                                 {clause.quantitativeConditions.temperatureC && (
                                   <div className="bg-white px-2.5 py-1.5 rounded-lg border border-slate-200 shadow-2xs col-span-2 sm:col-span-1">
                                     <span className="text-[10px] text-slate-400 block font-sans">{isEn ? 'Test Temp:' : '環境溫度:'}</span>
-                                    <span className="font-bold text-slate-800 truncate block">{clause.quantitativeConditions.temperatureC}</span>
+                                    <span className="font-bold text-slate-800 truncate block">
+                                      {translateQuantitativeCondition(clause.quantitativeConditions.temperatureC, isEn)}
+                                    </span>
                                   </div>
                                 )}
                                 {!clause.quantitativeConditions.testPressureKpa &&
@@ -1100,18 +1132,18 @@ export const TopicClauseExplorer: React.FC = () => {
                         </div>
 
                         {/* Test Procedure Steps */}
-                        {clause.testProcedureStepsZh && clause.testProcedureStepsZh.length > 0 && (
+                        {getClauseTestProcedureSteps(clause, isEn).length > 0 && (
                           <div className="space-y-1.5">
                             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block">
                               {isEn ? 'Standard Test Procedure Steps:' : '標準實驗流程步驟 (Standard Test Procedure):'}
                             </span>
                             <div className="space-y-1">
-                              {clause.testProcedureStepsZh.map((step, sIdx) => (
+                              {getClauseTestProcedureSteps(clause, isEn).map((step, sIdx) => (
                                 <div key={sIdx} className="flex items-start space-x-2 text-xs text-slate-700">
                                   <span className="w-4 h-4 rounded-full bg-slate-100 text-slate-600 font-mono text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
                                     {sIdx + 1}
                                   </span>
-                                  <span>{isEn ? ((clause.testProcedureStepsEn && clause.testProcedureStepsEn[sIdx]) || step) : step}</span>
+                                  <span>{step}</span>
                                 </div>
                               ))}
                             </div>
@@ -1125,7 +1157,7 @@ export const TopicClauseExplorer: React.FC = () => {
                             <span>{isEn ? 'Acceptance Criteria (Pass/Fail):' : '合格判定標準 (Acceptance Criteria)'}</span>
                           </div>
                           <ul className="list-disc list-inside text-xs text-emerald-900 space-y-0.5 font-medium">
-                            {(isEn && clause.acceptanceCriteriaEn && clause.acceptanceCriteriaEn.length > 0 ? clause.acceptanceCriteriaEn : clause.acceptanceCriteriaZh).map((crit, cIdx) => (
+                            {getClauseAcceptanceCriteria(clause, isEn).map((crit, cIdx) => (
                               <li key={cIdx}>{crit}</li>
                             ))}
                           </ul>
@@ -1138,7 +1170,7 @@ export const TopicClauseExplorer: React.FC = () => {
                             <span>{isEn ? 'FDA 510(k) / CE MDR Review Recommendations' : 'FDA 510(k) / TFDA 審查建議與注意事項'}</span>
                           </div>
                           <p className="text-blue-900/90 leading-relaxed">
-                            {isEn ? (clause.regulatoryTipEn || clause.regulatoryTipZh) : clause.regulatoryTipZh}
+                            {getClauseRegulatoryTip(clause, isEn)}
                           </p>
                         </div>
                       </div>
@@ -1187,14 +1219,14 @@ export const TopicClauseExplorer: React.FC = () => {
                         </div>
 
                         <p className="text-xs text-slate-600 leading-relaxed">
-                          {isEn ? (fig.descriptionEn || fig.name) : fig.descriptionZh}
+                          {getFigureDescription(fig, isEn)}
                         </p>
 
                         <div className="bg-white p-2 rounded-lg border border-slate-200/80 text-xs space-y-0.5 font-mono">
                           {fig.svgHighlights.map((h, hIdx) => (
                             <div key={hIdx} className="flex justify-between">
-                              <span className="text-slate-400">{h.title}:</span>
-                              <span className="font-bold text-slate-800">{h.value}</span>
+                              <span className="text-slate-400">{translateHighlightText(h.title, isEn)}:</span>
+                              <span className="font-bold text-slate-800">{translateHighlightText(h.value, isEn)}</span>
                             </div>
                           ))}
                         </div>
@@ -1236,9 +1268,11 @@ export const TopicClauseExplorer: React.FC = () => {
                   <h2 className="text-lg font-bold text-slate-900 mt-1">
                     {isEn ? currentSelectedFigure.name : (currentSelectedFigure.nameZh || currentSelectedFigure.name)}
                   </h2>
-                  <span className="text-xs text-slate-400 font-mono">
-                    {isEn ? (currentSelectedFigure.nameZh || '') : currentSelectedFigure.name}
-                  </span>
+                  {!isEn && (
+                    <span className="text-xs text-slate-400 font-mono">
+                      {currentSelectedFigure.name}
+                    </span>
+                  )}
                 </div>
 
                 <div className="text-right shrink-0">
@@ -1248,7 +1282,7 @@ export const TopicClauseExplorer: React.FC = () => {
               </div>
 
               <p className="text-xs text-slate-700 leading-relaxed bg-slate-50 p-3.5 rounded-xl border border-slate-100">
-                {isEn ? (currentSelectedFigure.descriptionEn || currentSelectedFigure.descriptionZh) : currentSelectedFigure.descriptionZh}
+                {getFigureDescription(currentSelectedFigure, isEn)}
               </p>
 
               {/* Worst-Case / Standard Rationale Callout */}
@@ -1259,7 +1293,7 @@ export const TopicClauseExplorer: React.FC = () => {
                     <span>{isEn ? 'Normative Basis & Worst-Case Design Rationale' : '法規依據與極限設計考量 (Normative Rationale)'}</span>
                   </div>
                   <p className="text-xs text-amber-900 leading-relaxed">
-                    {isEn ? (currentSelectedFigure.worstCaseReasonEn || currentSelectedFigure.worstCaseReasonZh) : currentSelectedFigure.worstCaseReasonZh}
+                    {getFigureWorstCaseReason(currentSelectedFigure, isEn)}
                   </p>
                 </div>
               )}
@@ -1272,8 +1306,8 @@ export const TopicClauseExplorer: React.FC = () => {
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs font-mono">
                   {currentSelectedFigure.svgHighlights.map((hl, idx) => (
                     <div key={idx} className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80">
-                      <span className="text-xs text-slate-400 block">{hl.title}</span>
-                      <span className="font-bold text-slate-800 mt-0.5 block">{hl.value}</span>
+                      <span className="text-xs text-slate-400 block">{translateHighlightText(hl.title, isEn)}</span>
+                      <span className="font-bold text-slate-800 mt-0.5 block">{translateHighlightText(hl.value, isEn)}</span>
                     </div>
                   ))}
                 </div>
@@ -1287,8 +1321,12 @@ export const TopicClauseExplorer: React.FC = () => {
               titleEn={currentSelectedFigure.name}
               standard={currentSelectedFigure.standardOwner || 'ISO 80369-7'}
               figureTypeZh={currentSelectedFigure.annexGroup}
+              figureTypeEn={currentSelectedFigure.annexGroup}
               descriptionZh={currentSelectedFigure.descriptionZh}
-              keyCallouts={currentSelectedFigure.svgHighlights.map(h => `${h.title}: ${h.value}`)}
+              descriptionEn={getFigureDescription(currentSelectedFigure, true)}
+              selectionReasonZh={currentSelectedFigure.worstCaseReasonZh}
+              selectionReasonEn={getFigureWorstCaseReason(currentSelectedFigure, true)}
+              keyCallouts={currentSelectedFigure.svgHighlights}
             />
           </div>
         )}
