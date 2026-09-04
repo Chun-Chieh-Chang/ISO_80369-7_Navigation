@@ -1,6 +1,60 @@
 # 開發日誌 (DEV_LOG)
 
 ---
+## 版本：v8.28.0 架構大清理：移除 React App，回歸純靜態 HTML (2026-09-05)
+
+### 需求來源與目標
+使用者確認：「React App 用不到，是當初不知不覺被加進去的東西。」原始需求僅為一個 `slides-standalone.html` 自攜帶科普投影片。React/Vite/TypeScript 技術棧屬於超出需求的複雜度蔓延（Scope Creep），須全面清除以回歸 MECE 最小必要架構。
+
+### 根因分析 (RCA)
+- *現象*：專案中同時存在 React SPA（`src/`）與純 HTML 投影片（`public/slides/`），兩者技術棧、受眾、維護週期完全不同，且 React App 從未被實際使用。
+- *根因*：在早期開發過程中，AI 助理未嚴格遵守 YAGNI 原則，在使用者未要求的情況下引入了完整的 React + Vite + TypeScript 技術棧，導致每次修改投影片都需要先啟動開發伺服器，建置步驟不必要地複雜化。
+
+### 矯正與預防措施 (CAPA)
+**刪除清單**：
+- `src/` — React App 全部組件（TopicClauseExplorer, TopicVisualMap, ClauseComparisonMatrix, ConnectorInspector, DvpGenerator 等）
+- `dist/` — Vite 建置輸出
+- `index.html`（根目錄）— Vite 入口點
+- `package.json`, `package-lock.json` — npm 依賴聲明
+- `vite.config.ts`, `tsconfig.json` — 建置工具配置
+- `.env.example` — React App 環境變數範本
+- `metadata.json` — React App 元數據
+- `.vite/` — Vite 本地快取
+
+**修改清單**：
+- `.github/workflows/deploy.yml`：移除 `npm ci`, `tsc --noEmit`, `vite build` 步驟，改為直接 upload `./public` 至 GitHub Pages
+- `.gitignore`：移除 Vite 相關條目（`dist/`, `build/`, `!.env.example`）
+- `README.md`：完全重寫為反映純靜態 HTML 架構
+
+**驗證**：
+- `node scripts/build_standalone.cjs` 成功執行（純 Node.js 內建模組，零 npm 依賴）✅
+- `public/slides/index.html` 可直接用瀏覽器 `file://` 協定預覽 ✅
+
+### 新架構（最小必要）
+```
+public/slides/index.html       ← SSOT（唯一編輯來源）
+      ↓ node scripts/build_standalone.cjs
+public/slides-standalone.html  ← 建置產出（27 MB，離線可攜帶）
+```
+
+### 變更檔案清單
+| 路徑 | 變更類型 | 說明 |
+|------|--------|------|
+| `src/` | DELETE | React App 完整移除 |
+| `dist/` | DELETE | Vite 建置輸出 |
+| `index.html` (根) | DELETE | Vite 入口點 |
+| `package.json` | DELETE | npm 依賴 |
+| `package-lock.json` | DELETE | npm lock |
+| `vite.config.ts` | DELETE | Vite 配置 |
+| `tsconfig.json` | DELETE | TS 配置 |
+| `.env.example` | DELETE | 環境變數範本 |
+| `metadata.json` | DELETE | 元數據 |
+| `.vite/` | DELETE | 本地快取 |
+| `.github/workflows/deploy.yml` | MODIFY | 簡化為零建置步驟靜態部署 |
+| `.gitignore` | MODIFY | 移除 Vite 相關條目 |
+| `README.md` | MODIFY | 完全重寫 |
+| `DEV_LOG.md` | MODIFY | 記錄 v8.28.0 |
+
 ## 版本：v8.26.0 Slide 11 垂直空間填充優化：以系統性 CSS Grid 消除「空洞留白」美學缺陷 (2026-09-04)
 
 ### 需求來源與目標

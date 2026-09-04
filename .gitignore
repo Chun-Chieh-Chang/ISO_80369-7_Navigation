@@ -1,13 +1,15 @@
+# 依賴與建置產出（不進版控）
 node_modules/
-build/
-dist/
-coverage/
+
+# 系統檔案
 .DS_Store
 *.log
-.env*
-!.env.example
 
-# Local confidential ISO standards directory (Do not commit or upload)
+# 環境變數
+.env*
+
+# 本地保密 ISO 標準原文（不可上傳）
 isodoc/
-# Agnes skill files
+
+# IDE / Agent 設定
 .agnes/
