@@ -242,6 +242,134 @@ export const CLAUSE_I18N: Record<string, ClauseI18nData> = {
     typeEn: 'Test Method',
     fixtureRequiredEn: 'Water bath viewing chamber with vacuum aspiration source',
     regulatoryTipEn: 'Ensure illuminated magnification is provided for bubble identification.'
+  },
+  'iso7-annex-a': {
+    titleEn: 'Rationale and Guidance',
+    objectiveEn: 'Details the clinical and scientific rationale for key test parameters: 300 kPa pressure, 35 N axial pull force, and 0.17 N·m torque limits.',
+    appliesToEn: 'R&D design validation and risk management documentation',
+    typeEn: 'Requirement',
+    fixtureRequiredEn: 'Technical background documentation',
+    regulatoryTipEn: 'Best reference when preparing ISO 14971 risk analysis reports to justify safety margins to notified bodies.'
+  },
+  'iso7-annex-b': {
+    titleEn: 'Dimensional Drawings for Luer Connectors',
+    objectiveEn: 'Provides complete CAD dimensions and tolerance matrices for male and female Luer lock and slip connectors (Fig.B.1 to B.6).',
+    appliesToEn: 'Mold design and production full-dimensional inspection',
+    typeEn: 'Requirement',
+    fixtureRequiredEn: 'CMM and optical projector / vision measuring system',
+    regulatoryTipEn: 'Full 2D dimensional annotation and 3D envelope drawing required as 510(k) / CE MDR attachment.'
+  },
+  'iso7-annex-c': {
+    titleEn: 'Reference Connectors (Fig.C.1 to C.6)',
+    objectiveEn: 'Provides precise 3D geometry and material specifications for 6 standardized hardened stainless steel reference connectors as the globally unified test basis.',
+    appliesToEn: 'All ISO 80369-7 physical and mechanical performance tests',
+    typeEn: 'Reference Fixture',
+    fixtureRequiredEn: 'C.1 (Female Lock Nominal 3.50mm), C.2 (Male Slip), C.3 (Female Worst-case 2.71mm), C.4 (Male Lock), C.5 (Female Slip), C.6 (Male Worst-case)',
+    regulatoryTipEn: 'FDA 510(k) reviews commonly require calibration certificates and dimensional traceability records for reference connectors.'
+  },
+  'iso7-annex-d': {
+    titleEn: 'Assessment of Non-interchangeability',
+    objectiveEn: 'Specifies 3D CAD envelope simulation and physical forced-mating tests to verify non-interchangeability with other medical small-bore connector families.',
+    appliesToEn: 'Novel and derivative small-bore connector designs',
+    typeEn: 'Requirement',
+    fixtureRequiredEn: 'CAD collision analysis software and physical interference test fixture',
+    regulatoryTipEn: 'Non-interchangeability test report is a mandatory focus item for FDA 510(k) and TFDA regulatory reviews.'
+  },
+  'iso7-annex-e': {
+    titleEn: 'Summary of Testing Requirements',
+    objectiveEn: 'Provides a summary matrix of all required test clauses for each connector gender (male/female) and type (lock/slip).',
+    appliesToEn: 'DVP&R test plan design',
+    typeEn: 'Requirement',
+    fixtureRequiredEn: 'Test plan matrix / DVP&R document',
+    regulatoryTipEn: 'Core reference table when drafting DVP&R test plans — ensure full clause coverage per connector type.'
+  },
+  'iso7-clause-5': {
+    titleEn: 'Dimensional Requirements for Luer Connectors',
+    objectiveEn: 'Precisely specifies the 6% taper (1:16.667), engagement length (≥7.5 mm), and thread pitch for male and female Luer connectors to ensure global interoperability.',
+    appliesToEn: 'All ISO 80369-7 Luer lock and slip connectors',
+    typeEn: 'Specification Clause',
+    fixtureRequiredEn: 'CMM, optical projector, and standard ring/plug gauges',
+    regulatoryTipEn: 'FDA 510(k) review requires a Full Dimensional Inspection Report (FAIR) referencing Fig.B.1–B.6 tolerances.'
+  },
+  'iso20-clause-1': {
+    titleEn: 'Scope of Common Test Methods',
+    objectiveEn: 'Defines the scope of common laboratory test methods applicable to all ISO 80369 series small-bore connectors.',
+    appliesToEn: 'ISO 80369-2, -3, -5, -6, -7 all application domains',
+    typeEn: 'Test Method',
+    fixtureRequiredEn: 'ISO 17025 accredited laboratory quality system',
+    regulatoryTipEn: 'Laboratory ISO 17025 accreditation is expected for regulatory submissions to FDA, CE MDR, and TFDA.'
+  },
+  'iso20-clause-2': {
+    titleEn: 'Normative References',
+    objectiveEn: 'Lists fundamental measurement and metrology standards required for instrument calibration and traceability in laboratory test execution.',
+    appliesToEn: 'Laboratory instrument calibration and environmental control',
+    typeEn: 'Test Method',
+    fixtureRequiredEn: 'Instrument calibration certificates with national standard traceability',
+    regulatoryTipEn: 'Calibration reports with national standard traceability must be attached during regulatory audits.'
+  },
+  'iso20-clause-3': {
+    titleEn: 'Terms and Definitions',
+    objectiveEn: 'Defines key testing terminology: Test sample, Assembly, Leak rate, Pre-assembly, and other standard-specific terms used throughout ISO 80369-20.',
+    appliesToEn: 'Laboratory test reports and data records',
+    typeEn: 'Test Method',
+    fixtureRequiredEn: 'Test report terminology review checklist',
+    regulatoryTipEn: 'Consistent and unambiguous nomenclature is the foundation of regulatory report quality and audit compliance.'
+  },
+  'iso20-clause-4': {
+    titleEn: 'General Requirements & Test Conditions',
+    objectiveEn: 'Specifies mandatory preconditioning (20±5°C, 50±10% RH, ≥24 h) and fixture requirements applicable to all ISO 80369-20 annex test methods.',
+    appliesToEn: 'All ISO 80369-20 annex test methods',
+    typeEn: 'Test Method',
+    fixtureRequiredEn: 'Temperature and humidity controlled conditioning chamber',
+    regulatoryTipEn: 'Preconditioning of hygroscopic materials (e.g. Nylon PA) is a mandatory regulatory audit focus item.'
+  },
+  'iso20-annex-a': {
+    titleEn: 'Test Methods for Dimensional Attributes',
+    objectiveEn: 'Specifies standard measurement conditions for verifying geometric dimensions using gauges (Go/No-Go) and precision coordinate measuring equipment.',
+    appliesToEn: 'All ISO 80369 series connectors',
+    typeEn: 'Test Method',
+    fixtureRequiredEn: 'Go/No-Go gauges, CMM, or optical vision measuring system at 20±2°C metrology room',
+    regulatoryTipEn: 'Dimensional measurement reports must reference calibrated equipment and comply with GD&T per ISO 14405.'
+  },
+  'iso20-annex-i': {
+    titleEn: 'Disconnection by Unscrewing Test Method',
+    objectiveEn: 'Evaluates the maximum peak disconnection torque when unscrewing and separating the connector, ensuring clinical ease of disconnection for healthcare workers.',
+    appliesToEn: 'Luer lock connectors requiring frequent manual disconnection',
+    typeEn: 'Test Method',
+    fixtureRequiredEn: 'Fig.C.1 (Female Lock) or Fig.C.4 (Male Lock) reference connector; calibrated low-torque instrument',
+    regulatoryTipEn: 'Key metric for Human Factors Engineering (Usability Engineering per IEC 62366) evaluation and FDA submission.'
+  },
+  'iso7-clause-1': {
+    titleEn: 'Scope of ISO 80369-7',
+    objectiveEn: 'Defines that ISO 80369-7 applies to small-bore Luer connectors used in intravascular or subcutaneous medical applications.',
+    appliesToEn: 'All IV infusion lines, syringes, indwelling needles, stopcocks, and catheter connector interfaces',
+    typeEn: 'Requirement',
+    fixtureRequiredEn: 'Regulatory applicability review checklist',
+    regulatoryTipEn: 'First step for 510(k)/CE submissions: confirm regulatory classification and scope of applicable standard.'
+  },
+  'iso7-clause-2': {
+    titleEn: 'Normative References',
+    objectiveEn: 'Lists indispensable normative references for ISO 80369-7 testing: ISO 80369-1 (general non-interchangeability) and ISO 80369-20 (common test methods).',
+    appliesToEn: 'ISO 80369-1 and ISO 80369-20 current editions',
+    typeEn: 'Requirement',
+    fixtureRequiredEn: 'Standards traceability records',
+    regulatoryTipEn: 'FDA and EU MDR now mandate full transition to ISO 80369 series; citing superseded ISO 594 is non-compliant.'
+  },
+  'iso7-clause-3': {
+    titleEn: 'Terms and Definitions',
+    objectiveEn: 'Precisely defines core terminology: Luer connector, Luer slip, Luer lock, reference connector, leak rate, and other standard-specific terms.',
+    appliesToEn: 'All Luer connector technical documents and engineering drawings',
+    typeEn: 'Requirement',
+    fixtureRequiredEn: 'Specification document review',
+    regulatoryTipEn: 'Align DHF (Design History File) nomenclature table with Clause 3 definitions to prevent regulatory RFIs.'
+  },
+  'iso20-general-procedure': {
+    titleEn: 'Standard Pre-assembly Method Across All Annexes',
+    objectiveEn: 'Standardizes the pre-assembly torque and axial push force procedure required before all Annex B–I performance tests.',
+    appliesToEn: 'All ISO 80369-20 performance test annexes',
+    typeEn: 'Test Method',
+    fixtureRequiredEn: 'Calibrated automatic torque driver and spring axial force mechanism',
+    regulatoryTipEn: 'Automated torque test systems must include real-time assembly force curve records for regulatory submissions.'
   }
 };
 
