@@ -1,6 +1,14 @@
 {
-  "name": "ISO 80369-7 & ISO 80369-20 Clause Retrieval & Visual Navigation System",
-  "description": "Topic-based visual clause search and retrieval system for ISO 80369-7 and ISO 80369-20 medical connector standards with interactive topic mapping, test parameters, and light theme interface.",
+  "name": "ISO 80369-7 & 20 Medical Connector Navigation System",
+  "description": "Interactive React SPA for clause search, DVP generation, and connector inspection — plus static HTML slides for ISO 80369-7 & ISO 80369-20 medical small-bore connector standards.",
   "requestFramePermissions": [],
-  "majorCapabilities": []
+  "majorCapabilities": [
+    "Bilingual (zh/en) clause explorer with real-time filtering",
+    "DVP (Design Verification Plan) test matrix generator with Excel export",
+    "Connector inspector with ISO standard figure renderer",
+    "Clause comparison matrix with L1/L2 type filtering",
+    "Topic-to-clause visual map for rapid standard navigation",
+    "Progressive Web App (PWA) with offline cache",
+    "Static presentation slides (public/slides/) for educational use"
+  ]
 }

@@ -2,90 +2,67 @@
 
 All notable changes to the ISO 80369-7 & ISO 80369-20 Navigation App will be documented in this file.
 
-## [v8.23.0] - 2026-09-04
+## [v8.29.0] - 2026-09-05
 
-### Interactive Slides Refactoring, SSOT Validation & Responsive Layout Perfection
-- **SSOT Parameter Alignment & Fabrication Purge**:
-  - Validated all 12 slides against official `ISO 80369-7:2021` and `ISO 80369-20:2024`.
-  - Fixed pre-assembly hold time (5s~6s), positive pressure hold times (liquid 30s~35s, air 15s~20s), axial pull load ranges (slip 23N~25N, lock 32N~35N), and stress cracking dry hold time (≥48h at ambient 15°C~30°C, 10%~70% RH).
-  - Purged hyperbolic language and replaced non-standard terms with engineering terminology (`裝配預緊應力`).
-- **Responsive Viewport Adaptation & Layout Balancing**:
-  - Eliminated awkward bottom empty space by expanding `.slide` min-height to fill available viewport (`calc(100vh - 170px)`).
-  - Enlarged connector product preview images to 210px and upgraded typography to 14.5px~16.5px with comfortable line-height (1.65~1.75).
-  - Added dynamic breakpoint `@media (max-height: 760px)` and badge `white-space: nowrap` for zero content cutoff across mobile, laptop (1366x768), and desktop (1920x1080).
-- **Author Attribution & Mouldex Quick Portal**:
-  - Added author metadata capsule: `Created by Wesley Chang, QC Dept. @Mouldex, Sept-2026.` to Slide 1 header and Slide 12 closing banner.
-  - Positioned persistent header portal button `🏭 凱益 Mouldex 接頭專區 ↗`.
-- **Standalone Single-File Inlining**:
-  - Compiled self-contained bundle `public/slides-standalone.html` (27.05 MB) with all assets Base64-inlined for offline presentation.
+### MECE Asset Cleanup & Documentation Synchronization
+- **Duplicate Asset Removal (MECE)**: Eliminated redundant `public/slides/assets/real_connectors/` (6 JPGs, ~213 KB) — canonical source is `public/assets/real_connectors/`.
+- **Orphaned Image Purge**: Removed 9 unused images not referenced by `public/slides/index.html`:
+  - `blueprint/page_{1,2,11,12,13,14}.png` (6 files, ~6 MB)
+  - `testing_blueprint/test_page_{2,3}.png` (2 files, ~8 MB)
+- **Documentation Alignment**:
+  - `README.md`: Rewritten to reflect dual-architecture (React SPA + Static Slides).
+  - `CHANGELOG.md`: Completed missing entries for v8.24.0–v8.28.2.
+  - `package.json`: Version bump 8.17.0 → 8.29.0.
+  - `metadata.json`: Updated description to match current feature set.
+- **Estimated disk savings**: ~18 MB (orphaned blueprint/testing images).
+- **Tests**: 17/17 unit tests passing ✅ (zero regression).
 
-## [v8.15.0] - 2026-09-03
+## [v8.28.2] - 2026-09-05
 
-### SSOT Alignment: ISO 80369-20:2024 Preconditioning & MECE Audit
-- **Preconditioning SSOT Alignment**:
-  - `DvpGenerator.tsx`: Corrected the legacy preconditioning banner from `(23 ± 2) °C` / `(50 ± 5) % RH` to official ISO 80369-20:2024 Clause 4 / Section .2 specifications: `(20 ± 5) °C` and `(50 ± 10) % RH`.
-  - `excelExporter.ts`: Restructured Sheet 3 to `ISO 80369-20:2024 Clause 4 & Section .2 Preconditioning Specification` (`Preconditioning Specs`), explicitly detailing sample preconditioning `(20 ± 5) °C`, humidity `(50 ± 10) % RH`, and ambient test environment range (`15 °C ~ 30 °C`, `10 % ~ 70 % RH`).
-  - `isoData.ts`: Updated 14 Mandatory Elements item e) to cite Clause 4 / Section .2 with standardized example value `20.5 °C, 52.0% RH`.
-- **SSOT Unit Test Guard**: Added explicit automated assertion in `isoHelpers.test.ts` verifying `ISO20_ANNEX_A_PRECONDITIONING` has `tempC.target === 20`, `tempC.tolerance === 5`, `rhPercent.target === 50`, `rhPercent.tolerance === 10` (17/17 tests passing).
-- **MECE Navigation Validation**: Verified 5 main tabs and dual-tier filters satisfy mutual exclusivity and collective exhaustiveness across small-bore Luer connector design verification domains.
+### React App Restoration
+- **Critical Revert**: Restored React interactive application (`src/`, `package.json`, `vite.config.ts`, etc.) from v8.27.0 base.
+- The React SPA is the primary feature (clause search, DVP generator, connector inspector, bilingual i18n).
+- Static slides (`public/slides/`) remain as supplementary visual content.
+- GitHub Pages workflow re-enabled with full Vite build pipeline.
 
-## [v8.14.0] - 2026-09-03
+## [v8.28.1] - 2026-09-05
 
-### International Bilingual Architecture & Full English Export
-- **Lightweight i18n Context (Zero Dependency)**: Built custom React `LanguageContext` + TypeScript dictionary (`src/i18n/LanguageContext.tsx`, `src/i18n/translations.ts`) supporting instantaneous `zh` ⇄ `en` toggle with `localStorage` persistence and `?lang=en` URL parameter auto-detection.
-- **Top Header & Navigation Localization**: Integrated sleek `[🌐 English / 繁體中文]` switcher into `Header.tsx`, dynamically translating title, subtitle, version badge, and all 5 main navigation tabs.
-- **DVP Matrix & 14 Reporting Items Full English Interface**:
-  - `DvpGenerator.tsx`: Subtab navigation, filter dropdowns (Male/Female, Lock/Slip), table headers, pre-assembly conditions, applied loads, hold times, reference fixtures, and acceptance criteria fully localized.
-  - Section .5 Test Report 14 Mandatory Elements cards dynamically display official English descriptions (`descriptionEn`) and verified example values (`exampleValueEn`).
-  - Added bilingual CSV export (`exportReportChecklistCSV`) generating localized filenames and column headers.
-- **Medical-Grade Excel Bilingual Workbook Export (`excelExporter.ts`)**:
-  - Function signature accepts `(config: TestConfigState, language: 'zh' | 'en' = 'zh')`.
-  - When in English mode, exports `ISO_80369_7_Design_Verification_Plan_Report_{date}.xlsx` with 3 fully translated A4 landscape worksheets: `ISO20 Report 14 Items`, `DVP Test Matrix`, and `Preconditioning Specs`.
-- **Validation & Automated Tests**: Added 3 new unit tests to `src/utils/isoHelpers.test.ts` (16/16 tests passing, 100% clean typecheck and production build).
+### Root Index Redirect
+- Added `public/index.html` that auto-redirects (0 s meta-refresh) to `./slides/`.
+- Provides a landing card with "ISO 80369 醫療接頭救命科普堂" branding and a CTA button.
 
-## [v8.13.0] - 2026-09-03
+## [v8.28.0] - 2026-09-05
 
-### Golden Merge: SSOT Dual-Phase Expansion & Excel DVP Synchronization
-- **TopicClauseExplorer UI Dual-Phase Architecture**: Rebuilt quantitative condition card into Phase 1 (Pre-assembly) and Phase 2 (Test Challenge Load) horizontal layout with clear visual hierarchy, S15A dual-axis apparatus notes, and explicit status badges.
-- **Data-layer SSOT PreAssembly Enums**: Established `PreAssemblyCondition` interface and exported 4 authoritative constants (`PRE_ASSEMBLY_LOCK`, `PRE_ASSEMBLY_SLIP`, `PRE_ASSEMBLY_NOT_APPLICABLE`), binding across all 32 standard clauses in `isoTopicsData.ts`.
-- **Excel DVP Report Sync**: Updated `excelExporter.ts` (Sheet 2 DVP Matrix) to dynamically align with selected L1/L2 test forces, split hold times (15-20s vs 30-35s), 3-decimal torque precision (0.018-0.020 N·m), and Annex H.4 "No cocking" pass criteria.
-- **Code Harmonization**: Refactored `DvpGenerator.tsx` with clean render helpers (`renderPreAssembly`, `renderTestLoad`, `renderHoldTime`, `renderPassCriteria`) while maintaining high-fidelity Morandi badges and responsive layout.
-- **Testing & Asset Optimization**: Verified all 13 unit tests passing in `isoHelpers.test.ts`; PWA cache streamlined from 60.3MB down to 42.1MB.
+### Architecture Simplification — Static-Only Mode
+- **Removed** React SPA: `src/`, `index.html` (Vite entry), `package.json`, `vite.config.ts`, `tsconfig.json`, `.env.example`, `metadata.json`.
+- **Simplified** `.github/workflows/deploy.yml` to zero-build static deployment (`./public` → GitHub Pages).
+- **Updated** `.gitignore` and `README.md` to reflect pure-static architecture.
+- **Note**: This was reverted in v8.28.2 after the React app was identified as core functionality.
 
-## [v8.12.0] - 2026-09-03
+## [v8.27.0] - 2026-09-04
 
-### Fixed (ISO 80369-20 Annex H.4 DVP Compliance Corrections)
-- **Clause 6.6 Pre-assembly**: Changed `assemblyTorqueNm` from {min:0, max:0} to {min:0.08, max:0.12} and added `assemblyAxialForceN: {min:26.5, max:27.5}` per ISO 80369-20 Annex H.4 a).
-- **Clause 6.6 Pass Criteria**: Added "No cocking" (接頭無歪斜) per ISO 80369-20 Annex H.4 d).
-- **Clause 6.3 Pass Criteria**: Removed subjective "no visible cracks" visual inspection; now correctly states "comply with 6.1.1 leakage test only" per ISO 80369-7 6.3 text.
-- **Clause 6.1 Hold Time**: Split display into Pressure Decay (6.1.2): 15–20s and Liquid Pressure (6.1.3): 30–35s with "choose one" note per ISO 80369-7 6.1.1 either/or.
-- **Clause 6.4 Test Force**: Added L1/L2 type filter so Slip shows 23–25 N and Lock shows 32–35 N (was incorrectly merged as 23–35 N).
-- **All Clauses Pre-assembly**: Added "Hold 5–6s then release" note to every clause's pre-assembly display.
-- **DVP Audit Note**: Added prominent warning that 6.6 direct torque is incorrect.
+### Slide 2 Visual Balance Fix
+- Increased `feature-list` gap: 10 px → 18 px for breathing room between items.
+- Upgraded `feature-item` typography: font-size 15 → 15.5 px, line-height 1.6 → 1.75.
+- Enlarged `feature-bullet`: 24 → 28 px diameter, font-weight 800 → 900.
+- Improved Slide 2 right-card text density; Slide 7 benefits proportionally.
+- Rebuilt `slides-standalone.html` (27.1 MB).
 
-### Added
-- 5 new unit tests in `isoHelpers.test.ts` covering all DVP corrections (13 total tests, all passing).
-- `preAssemblyHoldSec` optional field in `ISOClauseInfo` type.
-- L1/L2 type filter toggle in `ClauseComparisonMatrix` component.
+## [v8.26.0] - 2026-09-04
 
-### Removed
-- 17 unused image/PPTX assets (~17.8 MB): orphaned diagram renders, blueprint page 15, testing blueprint pages 1 & 6, plus 2 root-level PPTX and PNG files.
+### Slide 11 Vertical Balance + MECE Cleanup
+- **Layout fix**: Changed `slide-body` from Flex-column to CSS Grid (`auto 1fr`) so bottom 3-card row fills remaining height, eliminating hollow whitespace gap.
+- **Typography upgrade**: Step titles 16 → 17 px / 800 → 900 wt; card titles 18 → 19 px; body text 13.5 → 15 px.
+- **Header spacing**: Tightened `margin-bottom` 18 → 12 px, `padding-bottom` 14 → 10 px.
+- **MECE**: Deleted unauthorized copy `public/slides.html` (violated SSOT principle).
+- **Standalone rebuild**: `slides-standalone.html` regenerated (27.1 MB).
 
-### Refactored
-- `DvpGenerator.tsx`: Extracted 4 pure render helper functions (`renderPreAssembly`, `renderHoldTime`, `renderTestLoad`, `renderPassCriteria`) with explicit `ISOClauseInfo` typing (fixes TS2344).
+## [v8.24.0] - 2026-09-04
 
+### Build MECE Enforcement
+- Added `build:standalone` npm script (`scripts/build_standalone.cjs`).
+- Added Vite plugin in `vite.config.ts` that automatically removes `dist/slides-standalone.html` after build to prevent bundling the 27 MB offline bundle into GitHub Pages artifact.
+- Added `package.json` dependency on `node` (already available, no new npm packages).
 
-
-## [v8.3.0] - 2026-08-08
-
-### Updated (ISO 80369-20:2024 Annex B.4 Tab Label & Pressure Decay Curve Image Integration)
-- **Tab Label Customization**: Customized the second tab label for `ISO 80369-20:2024 Annex B.4` (`ISO20-FIG-B2`) to display as **「壓降測試曲線圖」** (Pressure Decay Test Curve Plot).
-- **Correct Image Asset Integration**: Embedded `壓力衰檢測試說明.png` (Deconstructing the Four Stages of Pressure Decay Test: Fill, Stabilize, Test, Exhaust) into `public/assets/diagrams/pressure_decay_explanation.png` for Annex B.4.
-
-## [v8.2.0] - 2026-08-08
-
-### Refactored & Purified (Removal of 3D/HD Photorealistic Render Mode)
-- **UI Simplification & Standard Blueprint Focus**: Removed the redundant `3D/HD 精密重構圖` tab option and associated asset code from `ISOStandardFigureRenderer.tsx`.
-- **Pure Dual Blueprint Mode**: Streamlined the renderer display mode to 2 official engineering blueprint tabs:
-  1. 📐 **ISO 80369-7 幾何尺寸藍圖** (`official_blueprint`)
-  2. ⚡ **ISO 80369-20 實驗架設藍圖** (`testing_blueprint`)
+---
+*Earlier changelog entries (v8.1.0–v8.23.0) are preserved in git history and DEV_LOG.md.*

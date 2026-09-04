@@ -1,51 +1,61 @@
-# ISO 80369-7 醫療接頭救命科普堂
+# ISO 80369-7 & ISO 80369-20 醫療接頭導航系統
 
-> 一份通俗易懂的科普投影片，把 ISO 80369-7 與 ISO 80369-20 兩本醫療器材標準講成每個人都能聽懂的生命工程故事。
+> 雙模式架構：互動式 React SPA（條款檢索、DVP 生成、接頭檢視）＋ 靜態投影片（科普教育）。
 
 ---
 
-## 📂 專案結構
+## 🏗️ 專案架構
 
 ```
 ISO_80369-7_Navigation/
+├── src/                        ← React SPA 主程式（Clause Explorer, DVP Generator …）
+│   ├── components/             ← 8 個互動組件
+│   ├── data/                   ← ISO 標準條款資料（單一事實來源 SSOT）
+│   ├── i18n/                   ← 中英雙語翻譯字典
+│   └── utils/                  ← Excel 匯出、i18n 輔助、單元測試
 ├── public/
 │   ├── slides/
-│   │   ├── index.html              ← ✏️ 唯一編輯來源（SSOT）
-│   │   └── assets/ → (symlink)
-│   ├── assets/                     ← 圖片資源（實體）
-│   └── slides-standalone.html      ← 📦 自攜帶單檔（27 MB，含圖 base64）
+│   │   ├── index.html          ← ✏️ 靜態投影片（SSOT，直接編輯）
+│   │   └── assets/             ← 投影片圖片資源
+│   ├── assets/                 ← React App 共用圖片資源
+│   └── slides-standalone.html  ← 📦 離線單檔（base64 內嵌，27 MB）
 ├── scripts/
-│   └── build_standalone.cjs        ← 建置工具
-├── .github/
-│   └── workflows/deploy.yml        ← GitHub Pages 自動部署
-└── DEV_LOG.md
+│   ├── build_standalone.cjs    ← 靜態投影片離線打包工具（零 npm 依賴）
+│   └── generate_icons.cjs      ← PWA 圖示生成工具
+├── .github/workflows/deploy.yml ← GitHub Pages 自動部署（Vite + PWA）
+├── package.json                ← v8.29.0
+├── CHANGELOG.md                ← 完整版本歷程
+└── DEV_LOG.md                  ← 技術決策日誌
 ```
 
 ---
 
 ## 🚀 使用方式
 
-### 本地預覽
+### 開發環境（React SPA）
+
+```bash
+npm install
+npm run dev          # localhost:3000
+npm run build        # production dist/
+npm run test         # vitest — 17 tests passing ✅
+npm run lint         # tsc --noEmit
+```
+
+### 靜態投影片（無框架依賴）
 
 直接用瀏覽器開啟：
-
 ```
-D:\...\public\slides\index.html
+public/slides/index.html
 ```
 
-或使用任意靜態伺服器（如 VS Code Live Server）。
-
-### 重建獨立單檔
-
-編輯完 `public/slides/index.html` 後，執行：
+### 重建離線單檔
 
 ```bash
 node scripts/build_standalone.cjs
 ```
-
 輸出：`public/slides-standalone.html`（圖片全部 base64 內嵌，可離線攜帶）
-
-**注意**：此腳本僅使用 Node.js 內建模組（`fs`、`path`），**無需 npm install**。
+> ⚠️ 此腳本僅使用 Node.js 內建模組（`fs`、`path`），**無需 npm install**。
 
 ---
 
@@ -53,12 +63,13 @@ node scripts/build_standalone.cjs
 
 GitHub Pages 自動部署（每次推送 main 分支後觸發）：
 
-- 投影片：`https://Chun-Chieh-Chang.github.io/ISO_80369-7_Navigation/slides/`
-- 離線單檔：`https://Chun-Chieh-Chang.github.io/ISO_80369-7_Navigation/slides-standalone.html`
+- **React SPA**：`https://Chun-Chieh-Chang.github.io/ISO_80369-7_Navigation/`
+- **靜態投影片**：`https://Chun-Chieh-Chang.github.io/ISO_80369-7_Navigation/slides/`
+- **離線單檔**：`https://Chun-Chieh-Chang.github.io/ISO_80369-7_Navigation/slides-standalone.html`
 
 ---
 
-## 📋 投影片內容大綱
+## 📋 投影片內容大綱（12 頁）
 
 | 頁次 | 主題 |
 |------|------|
@@ -77,4 +88,25 @@ GitHub Pages 自動部署（每次推送 main 分支後觸發）：
 
 ---
 
-*本專案為純靜態 HTML，無需任何前端框架或建置工具即可預覽。*
+## 🔒 敏感資料說明
+
+| 路徑 | 狀態 | 說明 |
+|------|------|------|
+| `isodoc/` | 🚫 .gitignore | ISO 原廠標準 PDF，不入库（版權限制） |
+| `.env*` | 🚫 .gitignore | 環境變數範本（`.env.example` 除外） |
+| `.agnes/` | 🚫 .gitignore | AI 助手快取檔案 |
+
+---
+
+## 🧪 單元測試覆蓋
+
+```bash
+npm run test
+```
+
+- **17/17 tests passing** ✅
+- 涵蓋：Clause 6.1–6.6 數據校驗、i18n 字典完整性、Excel 匯出（zh/en）、ISO 80369-20 預條件規格
+
+---
+
+*Created by Wesley Chang, QC Dept. @Mouldex · v8.29.0 · 2026-09-05*
