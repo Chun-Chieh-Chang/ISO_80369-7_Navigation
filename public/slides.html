@@ -1,0 +1,2330 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>揭開醫療接頭的「救命鎖」：ISO 80369-7 與 ISO 80369-20 通俗全解</title>
+  <meta name="description" content="給非醫療器材領域局外人的通俗科普演講：深入淺出拆解 ISO 80369-7 與 ISO 80369-20 兩大國際標準的防呆哲學、真實工程藍圖與物理極限確效。">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <style>
+    /* ==========================================================================
+       CSS Design System - High-End Light Palette (Color Master Palette)
+       ========================================================================== */
+    :root {
+      --bg-base: #F9FAFB;         /* Cool Gray 50 - 減少眼部疲勞基底 */
+      --surface: #FFFFFF;         /* Pure White - 提升內容層級 */
+      --surface-subtle: #F3F4F6;  /* Gray 100 */
+      --text-primary: #111827;    /* Gray 900 - 極致清晰度 */
+      --text-secondary: #374151;  /* Gray 700 - 良好對比次級文字 */
+      --text-muted: #6B7280;      /* Gray 500 */
+      --brand: #2563EB;           /* Royal Blue 600 - CTA & Accent */
+      --brand-hover: #1D4ED8;     /* Royal Blue 700 */
+      --brand-light: #EFF6FF;     /* Blue 50 */
+      --brand-border: #BFDBFE;    /* Blue 200 */
+      --success: #10B981;         /* Emerald 500 - 安全與成功 */
+      --success-light: #ECFDF5;   /* Emerald 50 */
+      --danger: #EF4444;          /* Red 500 - 警示與錯接破壞 */
+      --danger-light: #FEF2F2;    /* Red 50 */
+      --warning: #F59E0B;         /* Amber 500 */
+      --warning-light: #FFFBEB;   /* Amber 50 */
+      --border: #E5E7EB;          /* Gray 200 - 雅緻微邊框 */
+      --border-strong: #CBD5E1;   /* Slate 300 */
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-full: 9999px;
+      --transition-fast: 0.15s ease;
+      --transition-normal: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.5;
+      font-size: 16px;
+      overflow-x: hidden;
+      user-select: none;
+    }
+
+    /* 頂部進度條 */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--brand), #60A5FA);
+      width: 8.3%;
+      z-index: 100;
+      transition: width var(--transition-normal);
+    }
+
+    /* 頂部導航列 */
+    header.app-header {
+      height: 60px;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 90;
+    }
+
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text-primary);
+    }
+
+    .brand-badge {
+      background: var(--brand-light);
+      color: var(--brand);
+      border: 1px solid var(--brand-border);
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-icon {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-sm);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all var(--transition-fast);
+    }
+
+    .btn-icon:hover {
+      background: var(--surface-subtle);
+      color: var(--text-primary);
+      border-color: #CBD5E1;
+    }
+
+    .btn-icon.active {
+      background: var(--brand-light);
+      color: var(--brand);
+      border-color: var(--brand-border);
+    }
+
+    /* 幻燈片主要視窗容器 */
+    main.deck-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      max-width: 1340px;
+      margin: 0 auto;
+      width: 100%;
+      min-height: calc(100vh - 130px);
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 34px 40px;
+      box-shadow: var(--shadow-lg);
+      animation: fadeInSlide 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      min-height: 610px;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .slide.active {
+      display: flex;
+    }
+
+    @keyframes fadeInSlide {
+      from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.995);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* 投影片頭部 */
+    .slide-header {
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+
+    .slide-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--brand-light);
+      color: var(--brand);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      margin-bottom: 8px;
+    }
+
+    .slide-title {
+      font-size: 24.5px;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+
+    .slide-subtitle {
+      font-size: 14.5px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* 投影片核心內容區 */
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    /* 網格卡片佈局 */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .card-accent-blue {
+      border-left: 4px solid var(--brand);
+      background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+    }
+
+    .card-accent-emerald {
+      border-left: 4px solid var(--success);
+      background: linear-gradient(180deg, #FFFFFF 0%, #F0FDF4 100%);
+    }
+
+    .card-accent-red {
+      border-left: 4px solid var(--danger);
+      background: linear-gradient(180deg, #FFFFFF 0%, #FEF2F2 100%);
+    }
+
+    .card-accent-amber {
+      border-left: 4px solid var(--warning);
+      background: linear-gradient(180deg, #FFFFFF 0%, #FFFBEB 100%);
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-text {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* 定量參數表格 */
+    .param-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    .param-table th, .param-table td {
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      text-align: left;
+    }
+
+    .param-table th {
+      background: var(--surface-subtle);
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .param-table td {
+      color: var(--text-secondary);
+    }
+
+    .param-highlight {
+      font-family: monospace;
+      font-weight: 700;
+      color: var(--brand);
+    }
+
+    .param-pass {
+      color: var(--success);
+      font-weight: 700;
+    }
+
+    /* 突出比喻與重點提示 */
+    .metaphor-badge {
+      display: inline-block;
+      background: #FEF3C7;
+      color: #92400E;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+      width: fit-content;
+    }
+
+    /* 資訊列表 */
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .feature-bullet {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--brand-light);
+      color: var(--brand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10.5px;
+      font-weight: 800;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* 資訊圖表容器 */
+    .diagram-container {
+      background: #F8FAFC;
+      border: 1px solid #CBD5E1;
+      border-radius: var(--radius-md);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      min-height: 240px;
+    }
+
+    .diagram-svg {
+      max-width: 100%;
+      height: auto;
+      overflow: visible;
+    }
+
+    /* 動態裝配操作列 */
+    .anim-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: #FFFFFF;
+      padding: 6px 12px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 10px;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .anim-btn {
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      padding: 5px 12px;
+      border-radius: var(--radius-full);
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all var(--transition-fast);
+    }
+
+    .anim-btn:hover {
+      background: #E2E8F0;
+      color: var(--text-primary);
+    }
+
+    .anim-btn.active {
+      background: var(--brand);
+      color: #FFFFFF;
+      border-color: var(--brand);
+      box-shadow: 0 2px 4px rgba(37, 99, 235, 0.25);
+    }
+
+    /* 標籤頁按鈕 */
+    .view-tabs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .view-tab-btn {
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-secondary);
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all var(--transition-fast);
+    }
+
+    .view-tab-btn:hover {
+      background: var(--surface-subtle);
+      color: var(--text-primary);
+    }
+
+    .view-tab-btn.active {
+      background: var(--brand-light);
+      color: var(--brand);
+      border-color: var(--brand-border);
+    }
+
+    /* 藍圖圖片展示卡片 */
+    .blueprint-preview-box {
+      width: 100%;
+      height: 220px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      cursor: zoom-in;
+    }
+
+    .blueprint-img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .blueprint-zoom-badge {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(15, 23, 42, 0.75);
+      color: #FFFFFF;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      backdrop-filter: blur(4px);
+    }
+
+    /* 測試項目點擊查看夾具彈窗卡片 */
+    .test-clickable-card {
+      cursor: pointer;
+      position: relative;
+    }
+
+    .test-clickable-card:hover {
+      border-color: var(--brand);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.12);
+    }
+
+    .test-preview-link {
+      margin-top: auto;
+      font-size: 12px;
+      color: var(--brand);
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding-top: 6px;
+    }
+
+    /* 投影片底部資訊 */
+    .slide-footer {
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+    }
+
+    .footer-metaphor {
+      font-weight: 600;
+      color: var(--brand);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* 底部導覽控制列 */
+    footer.app-controls {
+      height: 64px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      position: sticky;
+      bottom: 0;
+      z-index: 90;
+    }
+
+    .nav-buttons {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-nav {
+      height: 44px;
+      padding: 0 18px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-primary);
+      transition: all var(--transition-fast);
+    }
+
+    .btn-nav:hover:not(:disabled) {
+      background: var(--surface-subtle);
+      border-color: #CBD5E1;
+    }
+
+    .btn-nav:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .btn-nav.primary {
+      background: var(--brand);
+      color: #FFFFFF;
+      border-color: var(--brand);
+    }
+
+    .btn-nav.primary:hover:not(:disabled) {
+      background: var(--brand-hover);
+      border-color: var(--brand-hover);
+    }
+
+    .slide-counter {
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* 快捷鍵提示 */
+    .keyboard-tips {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    kbd {
+      background: var(--surface-subtle);
+      border: 1px solid #CBD5E1;
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-family: monospace;
+      font-size: 11px;
+      color: var(--text-secondary);
+      box-shadow: 0 1px 0 rgba(0,0,0,0.1);
+    }
+
+    /* 演講者抽屜 (Notes Drawer) */
+    .notes-drawer {
+      position: fixed;
+      bottom: 64px;
+      left: 0;
+      right: 0;
+      background: #FFFFFF;
+      border-top: 2px solid var(--brand);
+      box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.12);
+      max-height: 280px;
+      overflow-y: auto;
+      padding: 20px 24px;
+      z-index: 85;
+      display: none;
+      animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .notes-drawer.open {
+      display: block;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .notes-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .notes-title {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--brand);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .notes-content {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      background: var(--surface-subtle);
+      padding: 16px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+
+    .notes-content strong {
+      color: var(--text-primary);
+    }
+
+    /* 彈窗 (Lightbox & Overview Modal) */
+    .overview-modal, .lightbox-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(8px);
+      z-index: 150;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+    }
+
+    .overview-modal.open, .lightbox-modal.open {
+      display: flex;
+    }
+
+    .overview-window, .lightbox-window {
+      background: var(--surface);
+      width: 100%;
+      max-width: 1000px;
+      max-height: 90vh;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-xl);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .overview-header, .lightbox-header {
+      padding: 16px 22px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .overview-grid {
+      padding: 22px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 14px;
+      overflow-y: auto;
+    }
+
+    .overview-card {
+      border: 2px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      background: var(--surface);
+    }
+
+    .overview-card:hover {
+      border-color: var(--brand);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .overview-card.current {
+      border-color: var(--brand);
+      background: var(--brand-light);
+    }
+
+    .overview-card-num {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--brand);
+      margin-bottom: 3px;
+    }
+
+    .overview-card-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+
+    .lightbox-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-y: auto;
+      background: #0F172A;
+    }
+
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 72vh;
+      object-fit: contain;
+      border-radius: var(--radius-sm);
+    }
+
+    
+    /* 頂部型錄連結按鈕 */
+    .btn-catalog {
+      background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
+      color: #1D4ED8;
+      border: 1px solid #BFDBFE;
+      height: 38px;
+      padding: 0 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: all var(--transition-fast);
+      box-shadow: 0 1px 2px rgba(37, 99, 235, 0.08);
+    }
+    .btn-catalog:hover {
+      background: #DBEAFE;
+      color: #1E40AF;
+      border-color: #93C5FD;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.15);
+    }
+
+    /* 實體產品卡片展示 (Industrial Spec & Merit OEM) */
+    .real-product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      width: 100%;
+    }
+
+    .real-product-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition-normal);
+      cursor: zoom-in;
+    }
+
+    .real-product-card:hover {
+      border-color: var(--brand);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .real-product-img-box {
+      width: 100%;
+      height: 140px;
+      background: #F8FAFC;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      border-bottom: 1px solid var(--border);
+      padding: 8px;
+    }
+
+    .real-product-img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      transition: transform 0.25s ease;
+    }
+
+    .real-product-card:hover .real-product-img {
+      transform: scale(1.05);
+    }
+
+    .real-product-info {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 6px;
+    }
+
+    .real-product-badge {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--brand);
+      background: var(--brand-light);
+      padding: 2px 6px;
+      border-radius: 4px;
+      width: fit-content;
+    }
+
+    .real-product-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.35;
+    }
+
+    .real-product-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+
+    /* Merit OEM 型錄導引卡片 */
+    .catalog-cta-card {
+      background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%);
+      border: 1.5px solid #86EFAC;
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .catalog-cta-btn {
+      background: #059669;
+      color: #FFFFFF;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: all var(--transition-fast);
+      box-shadow: 0 2px 4px rgba(5, 150, 105, 0.2);
+    }
+
+    .catalog-cta-btn:hover {
+      background: #047857;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(5, 150, 105, 0.3);
+    }
+
+    /* 流程步驟卡片 (取代 Slide 11 SVG) */
+    .process-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      width: 100%;
+    }
+
+    .process-step-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .process-step-num {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--brand-light);
+      color: var(--brand);
+      font-size: 13px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* 響應式優化 (Mobile First 適配 375px) */
+    @media (max-width: 768px) {
+      header.app-header {
+        padding: 0 16px;
+      }
+      .brand-title span:last-child {
+        display: none;
+      }
+      main.deck-container {
+        padding: 10px;
+        min-height: auto;
+      }
+      .slide {
+        padding: 18px 14px;
+        min-height: auto;
+      }
+      .slide-title {
+        font-size: 19px;
+      }
+      .grid-2, .grid-3, .grid-4, .real-product-grid, .process-steps-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      footer.app-controls {
+        padding: 0 16px;
+      }
+      .keyboard-tips {
+        display: none;
+      }
+      .btn-nav span {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部進度條 -->
+  <div id="progress-bar"></div>
+
+  <!-- 頂部導航列 -->
+  <header class="app-header">
+    <div class="brand-title">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#2563EB"/>
+      </svg>
+      <span>ISO 80369 通俗大師講堂</span>
+      <span class="brand-badge">高精度工程解密版</span>
+    </div>
+
+    <div class="header-actions">
+      <a href="https://heyzine.com/flip-book/65b254743e.html#page/82" target="_blank" rel="noopener noreferrer" class="btn-catalog" title="查閱 Merit Medical OEM 醫療器材接頭實體型錄 (第 82 頁起)">
+        📖 實體接頭型錄 (p.82)
+      </a>
+      <button class="btn-icon" id="btn-toggle-notes" title="切換演講者備忘錄 (N)">
+        📝
+      </button>
+      <button class="btn-icon" id="btn-overview" title="投影片總覽縮圖 (O)">
+        🗂️
+      </button>
+      <button class="btn-icon" id="btn-fullscreen" title="全螢幕切換 (F)">
+        ⛶
+      </button>
+      <a href="../index.html" class="btn-icon" title="返回工程導航主系統" style="text-decoration:none;">
+        🏠
+      </a>
+    </div>
+  </header>
+
+  <!-- 幻燈片主容器 (共 12 頁深入全解) -->
+  <main class="deck-container">
+
+    <!-- Slide 01: 封面 -->
+    <section class="slide active" data-slide="1">
+      <div class="slide-header">
+        <div class="slide-tag">序幕・通俗導引</div>
+        <h1 class="slide-title">揭開醫療接頭的「救命鎖」：ISO 80369-7 與 ISO 80369-20 通俗全解</h1>
+        <p class="slide-subtitle">向局外人講透：醫療器械如何靠「插不進去」的物理防呆與極限考驗，守護每一位患者的生命底線</p>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-accent-blue" style="justify-content:center;">
+            <div class="metaphor-badge">生活化隱喻</div>
+            <h3 class="card-title">💡 醫療界的 Type-C 與專用插頭革命</h3>
+            <p class="card-text">
+              如果你家裡的 220V 烤箱高壓電線、瓦斯管、飲用水龍頭都長著一模一樣的接頭，會發生什麼災難？<br><br>
+              在過去的醫院裡，這種「致命的萬能通用」確實存在了數十年！ISO 80369 國際標準就是為了解決這個隱形殺手而誕生的一場全球防呆革命。
+            </p>
+            <div style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
+              <span style="background:#EFF6FF; color:#1D4ED8; font-size:12px; font-weight:700; padding:3px 8px; border-radius:4px; border:1px solid #BFDBFE;">📐 ISO 80369-7 規格藍圖</span>
+              <span style="background:#ECFDF5; color:#047857; font-size:12px; font-weight:700; padding:3px 8px; border-radius:4px; border:1px solid #A7F3D0;">🔬 ISO 80369-20 八大物理大考</span>
+              <span style="background:#FEF3C7; color:#B45309; font-size:12px; font-weight:700; padding:3px 8px; border-radius:4px; border:1px solid #FDE68A;">🛡️ 物理防呆 Poke-Yoke</span>
+            </div>
+          </div>
+
+          <div class="card" style="background:#FFFFFF; border:1px solid var(--border); padding:16px; display:flex; flex-direction:column; justify-content:space-between; gap:12px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); padding-bottom:8px;">
+              <span style="font-size:13.5px; font-weight:700; color:var(--text-primary); display:flex; align-items:center; gap:6px;">
+                📸 實體醫療器材接頭對照 (Industrial Spec 實體產品)
+              </span>
+              <span style="font-size:11px; background:#EFF6FF; color:#1D4ED8; padding:2px 8px; border-radius:4px; font-weight:600;">ISO 80369-7 規格</span>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <!-- 公接頭 -->
+              <div class="real-product-card" onclick="openLightbox('../assets/real_connectors/iso_80369_7_male_luer_ciml7.jpg', 'ISO 80369-7 公魯爾鎖定接頭 (Male Luer Lock - CIML7 Series)')">
+                <div class="real-product-img-box" style="height:125px;">
+                  <img class="real-product-img" src="../assets/real_connectors/iso_80369_7_male_luer_ciml7.jpg" onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src='./assets/real_connectors/iso_80369_7_male_luer_ciml7.jpg';}" alt="ISO 80369-7 公接頭">
+                  <div class="blueprint-zoom-badge">🔍 點擊放大</div>
+                </div>
+                <div class="real-product-info" style="padding:8px 10px;">
+                  <div class="real-product-badge">公接頭 (Male Luer Lock)</div>
+                  <div class="real-product-title" style="font-size:12.5px;">CIML7 系列公鎖介面</div>
+                  <div class="real-product-desc" style="font-size:11.5px;">
+                    • <strong>6% 外錐體</strong>：基底外徑 Ø3.97mm<br>
+                    • <strong>右旋內螺紋套環</strong>：導程 5.0mm<br>
+                    • <strong>倒鉤軟管端</strong>：緊密嵌合輸液管路
+                  </div>
+                </div>
+              </div>
+
+              <!-- 母接頭 -->
+              <div class="real-product-card" onclick="openLightbox('../assets/real_connectors/iso_80369_7_female_luer_cfl7.jpg', 'ISO 80369-7 母魯爾雙耳接頭 (Female Luer with Ears - CFL7 Series)')">
+                <div class="real-product-img-box" style="height:125px;">
+                  <img class="real-product-img" src="../assets/real_connectors/iso_80369_7_female_luer_cfl7.jpg" onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src='./assets/real_connectors/iso_80369_7_female_luer_cfl7.jpg';}" alt="ISO 80369-7 母接頭">
+                  <div class="blueprint-zoom-badge">🔍 點擊放大</div>
+                </div>
+                <div class="real-product-info" style="padding:8px 10px;">
+                  <div class="real-product-badge" style="background:#ECFDF5; color:#047857;">母接頭 (Female Luer)</div>
+                  <div class="real-product-title" style="font-size:12.5px;">CFL7 系列母鎖介面</div>
+                  <div class="real-product-desc" style="font-size:11.5px;">
+                    • <strong>雙側鎖定直角凸耳</strong>：弦長≥2.71mm<br>
+                    • <strong>6% 內錐孔</strong>：深度≥7.5mm 內錐座<br>
+                    • <strong>冷壓密封</strong>：無橡膠圈承受 300 kPa
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Merit Medical OEM Catalog 連結橫幅 -->
+            <div class="catalog-cta-card" style="margin-top:0; padding:10px 14px; background:#EFF6FF; border-color:#BFDBFE;">
+              <div>
+                <div style="font-size:12.5px; font-weight:700; color:#1D4ED8;">📖 翻閱 Merit Medical OEM 實體產品型錄</div>
+                <div style="font-size:11.5px; color:#4B5563;">第 82 頁起收錄各類真實接頭、旋栓與歧管，具象感受標準與產品關聯</div>
+              </div>
+              <a href="https://heyzine.com/flip-book/65b254743e.html#page/82" target="_blank" rel="noopener noreferrer" class="catalog-cta-btn" style="background:#2563EB; font-size:12px; padding:6px 12px;">
+                點擊翻閱 (p.82) ↗
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span class="footer-metaphor">🔑 核心觀念：不靠護理人員的謹小慎微，靠幾何結構物理互斥杜絕犯錯</span>
+        <span>第 1 / 12 頁</span>
+      </div>
+      <aside class="notes-data" style="display:none;">
+        各位朋友好！歡迎來到這場特別為「局外人」準備的醫療標準通俗全解。請大家看右側卡片，我們直接展示了 Industrial Spec 出產的 ISO 80369-7 真實公母魯爾鎖定接頭組件，不再是抽象的示意圖，並且上方導航列與卡片都提供了 Merit Medical OEM Catalog 第 82 頁的線上電子書翻頁連結。這場分享我們不堆砌晦澀名詞，而是用大家身邊最熟悉的「插頭與插座」、「建築藍圖與抗震驗收」，帶你輕鬆吃透這兩項標準到底保護了我們什麼！
+      </aside>
+    </section>
+
+    <!-- Slide 02: 致命插錯 -->
+    <section class="slide" data-slide="2">
+      <div class="slide-header">
+        <div class="slide-tag" style="background:var(--danger-light); color:var(--danger);">痛點起源・真實慘劇</div>
+        <h2 class="slide-title">細微的插錯，代價是生命：輸液管錯接胃管的悲劇根源</h2>
+        <p class="slide-subtitle">在繁重昏暗的病房中，任何依賴「人為注意」的防護，都有失靈的一天</p>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-accent-red">
+            <h3 class="card-title">⚠️ 真實發生的醫療隱形殺手</h3>
+            <ul class="feature-list">
+              <li class="feature-item">
+                <div class="feature-bullet" style="background:#FEE2E2; color:#DC2626;">1</div>
+                <div><strong>靜脈點滴（IV）</strong>：直通心臟與全身血液，只能輸注純淨生理鹽水與無菌藥物。</div>
+              </li>
+              <li class="feature-item">
+                <div class="feature-bullet" style="background:#FEE2E2; color:#DC2626;">2</div>
+                <div><strong>腸胃餵食管（Enteral）</strong>：注入稠厚的牛奶、流質營養液，進入胃腸消化。</div>
+              </li>
+              <li class="feature-item">
+                <div class="feature-bullet" style="background:#FEE2E2; color:#DC2626;">3</div>
+                <div><strong>如果兩根管子長得一樣</strong>：疲憊的夜班護士一旦將高濃度的營養牛奶誤插進靜脈管路，乳糜微粒會立刻堵死肺部血管，造成致命的肺栓塞！</div>
+              </li>
+            </ul>
+          </div>
+          <div class="card card-accent-amber">
+            <div class="metaphor-badge">認知偏差</div>
+            <h3 class="card-title">❌ 常見誤解：「加強護士培訓、貼顯眼標籤就行了吧？」</h3>
+            <p class="card-text">
+              <strong>答案是：絕對不夠！</strong><br>
+              墨菲定律告訴我們：只要客觀上有插錯的可能，哪怕概率只有十萬分之一，在每年數十億次的醫療操作中，悲劇就一定會發生。<br><br>
+              <strong>「不要挑戰人性疲勞的極限，要讓物理世界直接拒絕錯誤。」</strong> 這就是 ISO 委員會發起標準改革的最初動機。
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span class="footer-metaphor" style="color:var(--danger);">🚨 致命痛點：依賴護理人員「肉眼辨識」是脆弱的，錯誤需要被物理阻斷</span>
+        <span>第 2 / 12 頁</span>
+      </div>
+      <aside class="notes-data" style="display:none;">
+        在醫療事故統計中，管路錯接（Tubing Misconnection）曾奪走過無數無辜生命。想像一下，一名重症患者身上插著七八根管子：呼吸機、靜脈輸液、胃管、導尿管、硬膜外鎮痛。夜裡光線昏暗，護士連續值班 12 小時極度疲勞。如果胃管的接頭和靜脈針的接頭能互相插得進去，那悲劇就是時間問題。牛奶打進血管，肺部會瞬間栓塞。這不是護士不盡職，而是工程設計給了犯錯的空間！
+      </aside>
+    </section>
+
+    <!-- Slide 03: 歷史原罪 -->
+    <section class="slide" data-slide="3">
+      <div class="slide-header">
+        <div class="slide-tag">歷史溯源・萬能魯爾</div>
+        <h2 class="slide-title">一個太成功的發明，成了醫院的歷史陷阱：傳統魯爾（Luer）的泛濫</h2>
+        <p class="slide-subtitle">1890年代的精妙機械發明，因為太過通用，反而造成了全院系統的互穿風險</p>
+      </div>
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card card-accent-blue">
+            <h3 class="card-title">🎩 魯爾接頭的傳奇誕生</h3>
+            <p class="card-text">
+              19世紀末，德國儀表匠 Hermann Luer 發現：將公頭和母頭做成 <strong>6% 的微小錐度</strong>，兩個塑膠或玻璃件輕輕一推一旋，靠摩擦力就能達到水密密封，連針筒都不漏水！
+            </p>
+          </div>
+          <div class="card card-accent-amber">
+            <h3 class="card-title">💣 「太好用」引發的泛濫</h3>
+            <p class="card-text">
+              因為這個設計太便宜、太好用，後來的血壓計廠商、呼吸面罩廠商、腸胃管廠商、麻醉脊髓穿刺廠商，全部拿魯爾接頭來用！
+            </p>
+          </div>
+          <div class="card card-accent-red">
+            <h3 class="card-title">🔓 萬能鑰匙的危險</h3>
+            <p class="card-text">
+              全醫院所有的管道，全部變成了同一把萬能鑰匙。胃管可以插進血管針，氧氣管可以接上靜脈輸液針，形成了系統性的醫療隱患。
+            </p>
+          </div>
+        </div>
+        <div class="card" style="background:#F1F5F9; border:none; margin-top:8px;">
+          <p style="font-size:14.5px; color:#334155; text-align:center;">
+            <strong>形象比喻：</strong>就像全世界所有的防盜門、金庫、保險箱和單車鎖，全部都共用同一款扁平鑰匙——便利到了極致，安全也就徹底歸零！
+          </p>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span class="footer-metaphor">🕰️ 歷史啟示：通用標準若跨越了安全邊界，便利就會異化為風險</span>
+        <span>第 3 / 12 頁</span>
+      </div>
+      <aside class="notes-data" style="display:none;">
+        魯爾接頭（Luer Connector）本身是非常偉大的發明，6% 錐度的幾何自鎖非常優雅。但問題就出在它「太好用了」。所有的醫療設備研發人員圖方便，全拿它做接口。結果幾十年過去，醫院裡各個功能完全不同、壓力不同、甚至打入不同人體組織的管道，全被連成了一張混亂的網。這就像你家的燃氣管道居然能插進飲水機一樣荒唐！
+      </aside>
+    </section>
+
+    <!-- Slide 04: 頂層破局 -->
+    <section class="slide" data-slide="4">
+      <div class="slide-header">
+        <div class="slide-tag" style="background:var(--success-light); color:var(--success);">體系破局・物理防呆</div>
+        <h2 class="slide-title">「物理防呆」勝過萬次叮囑：ISO 80369 家族的專用通道哲學</h2>
+        <p class="slide-subtitle">幾何互斥：尺寸過大無法進入、尺寸過小無法密封、螺紋反向無法咬合</p>
+      </div>
+      <div class="slide-body">
+        <div class="grid-3" style="gap:16px;">
+            <!-- ISO 80369-7 血管/皮下 -->
+            <div class="card card-accent-blue test-clickable-card" onclick="openLightbox('../assets/real_connectors/iso_80369_7_check_valve_cv7.jpg', 'ISO 80369-7 止回閥組件 (CV7 Series Diaphragm Check Valve)')">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                <span class="real-product-badge">專屬血液通道</span>
+                <span style="font-size:11px; color:#1D4ED8; font-weight:700;">Part 7 核心</span>
+              </div>
+              <h4 style="font-size:14.5px; font-weight:700; color:#1E40AF; margin-bottom:6px;">ISO 80369-7 血管與皮下</h4>
+              <div style="height:100px; background:#F8FAFC; border-radius:6px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:8px; border:1px solid var(--border);">
+                <img src="../assets/real_connectors/iso_80369_7_check_valve_cv7.jpg" onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src='./assets/real_connectors/iso_80369_7_check_valve_cv7.jpg';}" style="max-width:100%; max-height:100%; object-fit:contain;" alt="ISO 80369-7 止回閥接頭實體照片">
+              </div>
+              <p class="card-text" style="font-size:12.5px;">
+                • <strong>標準 6% 錐度</strong>：公錐基底 Ø3.97mm<br>
+                • <strong>雙頭右旋螺紋</strong>：導程 5.0mm，防脫咬死<br>
+                • <strong>微觀冷壓自鎖</strong>：耐受 300 kPa 輸液壓
+              </p>
+            </div>
+
+            <!-- ISO 80369-3 腸胃營養餵食 -->
+            <div class="card card-accent-amber">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                <span class="real-product-badge" style="background:#FEF3C7; color:#B45309;">直徑大 35%</span>
+                <span style="font-size:11px; color:#B45309; font-weight:700;">Part 3 ENFit</span>
+              </div>
+              <h4 style="font-size:14.5px; font-weight:700; color:#92400E; margin-bottom:6px;">ISO 80369-3 腸胃餵食管</h4>
+              <div style="height:100px; background:#FFFBEB; border-radius:6px; display:flex; flex-direction:column; align-items:center; justify-content:center; margin-bottom:8px; border:1px solid #FDE68A; padding:8px; text-align:center;">
+                <div style="font-size:24px;">🚫 📐</div>
+                <div style="font-size:12px; font-weight:800; color:#92400E;">專用粗錐口 Ø5.4 mm</div>
+              </div>
+              <p class="card-text" style="font-size:12.5px;">
+                • <strong>物理阻斷</strong>：錐口外徑比血管接頭大 35%<br>
+                • <strong>反向螺紋鎖定</strong>：杜絕誤旋咬合<br>
+                • <strong>絕對防呆</strong>：粗管硬懟也進不去靜脈針！
+              </p>
+            </div>
+
+            <!-- ISO 80369-6 神經麻醉 -->
+            <div class="card card-accent-emerald" style="border-left-color:#7C3AED;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                <span class="real-product-badge" style="background:#EDE9FE; color:#6D28D9;">直徑縮小 20%</span>
+                <span style="font-size:11px; color:#6D28D9; font-weight:700;">Part 6 NRFit</span>
+              </div>
+              <h4 style="font-size:14.5px; font-weight:700; color:#5B21B6; margin-bottom:6px;">ISO 80369-6 神經麻醉管</h4>
+              <div style="height:100px; background:#FAF5FF; border-radius:6px; display:flex; flex-direction:column; align-items:center; justify-content:center; margin-bottom:8px; border:1px solid #DDD6FE; padding:8px; text-align:center;">
+                <div style="font-size:24px;">🔒 🛡️</div>
+                <div style="font-size:12px; font-weight:800; color:#5B21B6;">專用細錐口 Ø3.2 mm</div>
+              </div>
+              <p class="card-text" style="font-size:12.5px;">
+                • <strong>微細錐孔</strong>：直徑小 20%，附專用隔離凸環<br>
+                • <strong>無法建立密封</strong>：誤碰血管接頭只會晃動漏液<br>
+                • <strong>守護脊髓</strong>：絕無可能打錯高危神經藥物
+              </p>
+            </div>
+          </div>
+        <div class="card card-accent-emerald">
+          <h3 class="card-title">🛡️ 防呆哲學（Poke-Yoke）：把安全做進幾何形狀裡</h3>
+          <p class="card-text">
+            ISO 80369 的終極思路很簡單：<strong>「不同管道，形狀絕對不同」</strong>。<br>
+            胃管做成大粗錐度反向牙、脊髓針做小20%並加裝物理隔離。即使一個完全不懂醫學的人，想閉著眼睛把它們插錯，也根本插不進去！
+          </p>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span class="footer-metaphor">🔌 專用插座理念：如同手機 Type-C 永遠插不進三孔電源插座</span>
+        <span>第 4 / 12 頁</span>
+      </div>
+      <aside class="notes-data" style="display:none;">
+        國際標準化組織出手了！這就是 ISO 80369 系列。他們做了件功德無量的事：全院接頭大分家！腸胃管拿走 Part 3（ENFit），中樞神經拿走 Part 6（NRFit），而把最古老、最龐大的靜脈血管輸液，留給了 Part 7。大家看這三張對比卡片：最左邊是我們真實的 ISO 80369-7 血管止回閥組件（CV7 系列），6% 錐度 Ø3.97mm；中間是腸胃餵食 ENFit，直徑足足大了 35%，根本塞不進血管針；右邊是麻醉神經 NRFit，故意縮小 20% 還加了隔離環，誤碰只會空晃漏水。這就是幾何防呆的魅力！
+      </aside>
+    </section>
+
+    <!-- Slide 05: 7號解碼 -->
+    <section class="slide" data-slide="5">
+      <div class="slide-header">
+        <div class="slide-tag">核心規範・7號主角</div>
+        <h2 class="slide-title">靜脈血管的守門人：ISO 80369-7 的 6% 錐度與雙耳螺紋密碼</h2>
+        <p class="slide-subtitle">微觀幾何剖面與真實裝配動態演示：如何在不靠橡膠圈的情況下實現 300 kPa 絕對滴水不漏？</p>
+      </div>
+      <div class="slide-body">
+        <div class="view-tabs">
+          <button class="view-tab-btn active" id="tab-btn-real">📷 實體接頭深度解構 (Industrial Spec 實體照片)</button>
+          <button class="view-tab-btn" id="tab-btn-bp-male">📐 ISO 80369-7 圖 B.3 公接頭 CAD 官方圖紙</button>
+          <button class="view-tab-btn" id="tab-btn-bp-female">📐 ISO 80369-7 圖 B.6 母接頭耳翼 CAD 官方圖紙</button>
+          <button class="view-tab-btn" id="tab-btn-catalog">📖 Merit Medical OEM 實體型錄 (p.82 翻頁查閱)</button>
+        </div>
+
+        <!-- Tab 1: 實體接頭深度圖解展台 (Industrial Spec 實拍組件) -->
+        <div id="view-real-container">
+          <div class="real-product-grid">
+            <!-- 1. 公鎖 CIML7 -->
+            <div class="real-product-card" onclick="openLightbox('../assets/real_connectors/iso_80369_7_male_luer_ciml7.jpg', 'ISO 80369-7 公魯爾鎖定接頭 (Male Luer Lock - CIML7 Series)')">
+              <div class="real-product-img-box">
+                <img class="real-product-img" src="../assets/real_connectors/iso_80369_7_male_luer_ciml7.jpg" onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src='./assets/real_connectors/iso_80369_7_male_luer_ciml7.jpg';}" alt="CIML7 系列公接頭">
+                <div class="blueprint-zoom-badge">🔍 點擊放大</div>
+              </div>
+              <div class="real-product-info">
+                <div class="real-product-badge">Clause 5.2 公鎖定接頭</div>
+                <div class="real-product-title">CIML7 系列公魯爾鎖接頭</div>
+                <div class="real-product-desc">
+                  • <strong>6% 外錐</strong>：基底直徑 Ø3.97mm，長度 7.5~10.5mm<br>
+                  • <strong>雙頭右旋螺紋套環</strong>：螺距 P=2.5mm，導程 5.0mm<br>
+                  • <strong>倒鉤軟管端</strong>：緊密嵌合 1/8"~1/16" 輸液軟管
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. 母鎖 CFL7 -->
+            <div class="real-product-card" onclick="openLightbox('../assets/real_connectors/iso_80369_7_female_luer_cfl7.jpg', 'ISO 80369-7 母魯爾雙耳接頭 (Female Luer with Ears - CFL7 Series)')">
+              <div class="real-product-img-box">
+                <img class="real-product-img" src="../assets/real_connectors/iso_80369_7_female_luer_cfl7.jpg" onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src='./assets/real_connectors/iso_80369_7_female_luer_cfl7.jpg';}" alt="CFL7 系列母接頭">
+                <div class="blueprint-zoom-badge">🔍 點擊放大</div>
+              </div>
+              <div class="real-product-info">
+                <div class="real-product-badge" style="background:#ECFDF5; color:#047857;">Clause 5.4 母鎖定接頭</div>
+                <div class="real-product-title">CFL7 系列母魯爾雙耳接頭</div>
+                <div class="real-product-desc">
+                  • <strong>直角外凸耳 (Ear Lugs)</strong>：弦長 Y ≥ 2.71mm<br>
+                  • <strong>6% 內錐孔</strong>：深度 ≥ 7.5mm，微觀冷壓水密密封<br>
+                  • <strong>醫療級 PP / PC</strong>：耐受高黏度藥物與化療藥品
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. 面板穿孔 ILB7 -->
+            <div class="real-product-card" onclick="openLightbox('../assets/real_connectors/iso_80369_7_female_panel_mount_ilb7.jpg', 'ISO 80369-7 面板固定式母接頭 (Panel Mount - ILB7 Series)')">
+              <div class="real-product-img-box">
+                <img class="real-product-img" src="../assets/real_connectors/iso_80369_7_female_panel_mount_ilb7.jpg" onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src='./assets/real_connectors/iso_80369_7_female_panel_mount_ilb7.jpg';}" alt="ILB7 系列面板穿孔母接頭">
+                <div class="blueprint-zoom-badge">🔍 點擊放大</div>
+              </div>
+              <div class="real-product-info">
+                <div class="real-product-badge" style="background:#FEF3C7; color:#B45309;">儀器機殼面板安裝</div>
+                <div class="real-product-title">ILB7 面板固定式母接頭</div>
+                <div class="real-product-desc">
+                  • <strong>外六角鎖緊螺母</strong>：穿透儀器機殼鎖死<br>
+                  • <strong>強化承載基座</strong>：承受臨床 ≥35 N 頻繁插拔拉力<br>
+                  • <strong>標準介面</strong>：前置標準母魯爾，後接內部導管
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. 膠合公接頭 BNP7 -->
+            <div class="real-product-card" onclick="openLightbox('../assets/real_connectors/iso_80369_7_male_bond_in_bnp7.jpg', 'ISO 80369-7 膠合端公接頭 (Male Luer Bond-In Port - BNP7 Series)')">
+              <div class="real-product-img-box">
+                <img class="real-product-img" src="../assets/real_connectors/iso_80369_7_male_bond_in_bnp7.jpg" onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src='./assets/real_connectors/iso_80369_7_male_bond_in_bnp7.jpg';}" alt="BNP7 膠合端公接頭">
+                <div class="blueprint-zoom-badge">🔍 點擊放大</div>
+              </div>
+              <div class="real-product-info">
+                <div class="real-product-badge" style="background:#EDE9FE; color:#6D28D9;">導管溶劑膠合端</div>
+                <div class="real-product-title">BNP7 膠合端公接頭</div>
+                <div class="real-product-desc">
+                  • <strong>管路溶劑黏合槽</strong>：專用 PVC/TPU 膠合承窩<br>
+                  • <strong>前置 6% 公錐</strong>：符合條文 5.1/5.2 幾何公差<br>
+                  • <strong>大流通口徑</strong>：最小內徑 ≥1.4mm，降低溶血風險
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 4: Merit Medical OEM 型錄翻頁查閱 -->
+        <div id="view-catalog-container" style="display:none;">
+          <div class="card" style="background:#FFFFFF; border:1.5px solid #BFDBFE; padding:24px;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap;">
+              <div style="flex:1; min-width:280px;">
+                <span class="real-product-badge" style="font-size:12px; padding:3px 8px;">📖 全球醫療接頭實體型錄大觀</span>
+                <h3 style="font-size:18px; font-weight:800; color:#1E40AF; margin:10px 0 8px;">
+                  Merit Medical OEM Catalog（第 82 頁起）實體組件全覽
+                </h3>
+                <p style="font-size:13.5px; color:#374151; line-height:1.7;">
+                  ISO 80369-7 絕非紙上幾何標準，而是全球百億美元醫療器材製造的生命線！在 <strong>Merit Medical OEM 目錄第 82 頁至 90 頁</strong>中，完整呈現了各類醫療級接頭的實體商品群：
+                </p>
+                <ul class="feature-list" style="margin-top:12px;">
+                  <li class="feature-item">
+                    <div class="feature-bullet">✓</div>
+                    <div><strong>固定公鎖與旋轉公鎖 (Fixed & Rotating Luer Locks)</strong>：臨床防軟管扭轉的旋轉螺套專利設計。</div>
+                  </li>
+                  <li class="feature-item">
+                    <div class="feature-bullet">✓</div>
+                    <div><strong>雙通/三通旋栓與四通歧管 (Stopcocks & Manifolds)</strong>：多路靜脈輸液的精密切換核心。</div>
+                  </li>
+                  <li class="feature-item">
+                    <div class="feature-bullet">✓</div>
+                    <div><strong>彩色標記與防脫蓋帽 (Caps & Plugs)</strong>：臨床無菌密封與專用識別體系。</div>
+                  </li>
+                </ul>
+              </div>
+
+              <div style="background:#F8FAFC; border:1px solid var(--border); border-radius:12px; padding:18px; width:300px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:12px;">
+                <div style="font-size:36px;">📑</div>
+                <div style="font-weight:700; font-size:14px; color:#111827;">線上翻頁電子書<br><span style="color:#2563EB; font-size:12px;">https://heyzine.com/flip-book/65b254743e.html#page/82</span></div>
+                <p style="font-size:12px; color:#6B7280;">點擊立即另開新視窗，身臨其境翻閱全球醫療器械大廠的實體產品規格！</p>
+                <a href="https://heyzine.com/flip-book/65b254743e.html#page/82" target="_blank" rel="noopener noreferrer" class="catalog-cta-btn" style="width:100%; justify-content:center;">
+                  開啟電子型錄 (p.82) ↗
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="view-bp-male-container" style="display:none;">
+          <div class="diagram-container" style="background:#FFFFFF; min-height:260px;">
+            <div class="blueprint-preview-box" onclick="openLightbox('../assets/blueprint/page_3.png', 'ISO 80369-7 圖 B.3 — 具固定套環之公魯爾鎖定接頭 (L2)')">
+              <img class="blueprint-img" src="../assets/blueprint/page_3.png" onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src='./assets/blueprint/page_3.png';}" alt="公魯爾鎖定接頭 CAD 圖紙">
+              <div class="blueprint-zoom-badge">🔍 點擊放大檢視微米級幾何尺寸</div>
+            </div>
+            <p style="font-size:13px; color:#4B5563; margin-top:8px; text-align:center;">
+              <strong>規範核心：</strong>公錐長度 7.5~10.5mm，內螺紋雙頭右旋，螺距 P=2.5mm，導程 5.0mm，牙根徑 Ø7.9~8.1mm。
+            </p>
+          </div>
+        </div>
+
+        <div id="view-bp-female-container" style="display:none;">
+          <div class="diagram-container" style="background:#FFFFFF; min-height:260px;">
+            <div class="blueprint-preview-box" onclick="openLightbox('../assets/blueprint/page_6.png', 'ISO 80369-7 圖 B.6 — 具備直角凸耳之母 Luer Lock 接頭 (L2) - 變體 A')">
+              <img class="blueprint-img" src="../assets/blueprint/page_6.png" onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src='./assets/blueprint/page_6.png';}" alt="母魯爾鎖定接頭凸耳 CAD 圖紙">
+              <div class="blueprint-zoom-badge">🔍 點擊放大檢視微米級幾何尺寸</div>
+            </div>
+            <p style="font-size:13px; color:#4B5563; margin-top:8px; text-align:center;">
+              <strong>規範核心：</strong>凸耳大徑 Ø7.73~7.83mm，末端弦長 Y 最小 2.71mm（防止抗拉拔試驗時從螺紋滑脫）。
+            </p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card card-accent-blue">
+            <h3 class="card-title">🔍 6% 錐度的微觀自鎖原理</h3>
+            <p class="card-text">
+              <strong>為什麼不需要橡膠圈？</strong> 6% 錐度（每前進 10mm 直徑變化 0.6mm）是機械摩擦自鎖的黃金角度。在旋緊頂壓時，塑料錐面在微觀上產生均勻的環向拉伸應力與彈性貼合，自然形成一道分子級別的流體密封阻隔帶！
+            </p>
+          </div>
+          <div class="card card-accent-emerald">
+            <h3 class="card-title">🔒 雙頭螺紋與耳翼的防脫落協同</h3>
+            <p class="card-text">
+              母接頭的兩隻耳朵（凸耳弦長 ≥2.71mm）旋入公接頭的雙頭右旋螺槽，旋轉 90° 即完成鎖死。即使管路受到劇烈甩動或外力拉扯，螺紋承載面（25°~30° 角）會死死咬住耳翼，確保滴水不漏、扯而不脫。
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span class="footer-metaphor">📐 幾何精髓：ISO 80369-7 規定了精確到 0.01 毫米的尺寸，差一點就無法互配</span>
+        <span>第 5 / 12 頁</span>
+      </div>
+      <aside class="notes-data" style="display:none;">
+        現在請大家看畫面上來自 Industrial Spec 的 4 款真實醫療器械接頭照片！這不是手工繪製的簡圖，而是真實出廠的醫療注塑組件：第一張是 CIML7 公接頭，清楚看到外層的雙頭螺紋套環和中間 6% 的透明公錐；第二張是 CFL7 母接頭，頂部有兩隻直角凸耳，也就是鎖定用的耳朵；第三張是穿孔固定在輸液泵或監護儀機殼上的面板母接頭；第四張是專門用溶劑膠合在軟管上的膠合接頭。點擊上方的 Tab，我們不僅能查看 ISO 官方圖 B.3 和圖 B.6 的微米級工程圖紙，還能直接點擊第四個 Tab 翻閱 Merit Medical OEM 目錄第 82 頁起的海量真實產品群，具象感受標準是如何轉化為救命器械的！
+      </aside>
+    </section>
+
+    <!-- Slide 06: 關係舉例篇 (用戶專門要求：舉例講透 -7 與 -20 關係) -->
+    <section class="slide" data-slide="6">
+      <div class="slide-header">
+        <div class="slide-tag" style="background:#EDE9FE; color:#6D28D9;">體系大解密・生動舉例</div>
+        <h2 class="slide-title">一張表吃透 -7 與 -20 的關係：三大生動生活與工程舉例</h2>
+        <p class="slide-subtitle">為什麼不能只用一本規範寫到底？「設計藍圖」與「極限考場」如何分工協同？</p>
+      </div>
+      <div class="slide-body">
+        <div class="grid-3">
+          <!-- 舉例 1：考駕照 -->
+          <div class="card card-accent-blue">
+            <div class="metaphor-badge">生活比喻</div>
+            <h3 class="card-title">🚗 舉例一：考駕照</h3>
+            <p class="card-text">
+              • <strong>ISO 80369-7（駕駛人手冊）</strong>：規定「你開的必須是自小客車，倒車入庫輪胎不能壓黃線，必須在 30 秒內倒進去（合格門檻）」。<br><br>
+              • <strong>ISO 80369-20（監理站感應考場）</strong>：不教你開車，也不管你是誰，它專門提供「紅外線壓線感應器、標準雷達測速儀、統一考官扣分系統（測試方法）」。
+            </p>
+          </div>
+          <!-- 舉例 2：NCAP 碰撞測試 -->
+          <div class="card card-accent-emerald">
+            <div class="metaphor-badge">工業比喻</div>
+            <h3 class="card-title">🛡️ 舉例二：汽車碰撞測試 (NCAP)</h3>
+            <p class="card-text">
+              • <strong>ISO 80369-7（車輛安全法規）</strong>：規定「轎車防撞樑尺寸與高度、乘員頭部在 50km/h 撞擊下承受加速度不得大於 60G」。<br><br>
+              • <strong>ISO 80369-20（撞擊試驗室規程）</strong>：規定「牽引鋼纜速度精度、碰撞假人身上 48 個壓力傳感器的校準方式、高速攝影機幀率」。
+            </p>
+          </div>
+          <!-- 舉例 3：醫療實務 -->
+          <div class="card card-accent-amber">
+            <div class="metaphor-badge">醫療器械實務</div>
+            <h3 class="card-title">🏥 舉例三：醫療器械上市審批</h3>
+            <p class="card-text">
+              • <strong>ISO 80369-7（研發工程圖紙）</strong>：廠家翻開 -7，畫出 3.97mm 錐頭，定出「必須承受 35N 拉力和 300 kPa 水壓」。<br><br>
+              • <strong>ISO 80369-20（檢測所大考）</strong>：國家檢測所翻開 -20，拿出 Annex C 不鏽鋼標準夾具，按照 Annex F 勻速拉伸並出具法定確效報告！
+            </p>
+          </div>
+        </div>
+
+        <div class="card" style="background:#F8FAFC; border:1px solid #CBD5E1; padding:16px;">
+          <h4 style="font-size:14.5px; font-weight:700; color:#1E293B; margin-bottom:8px;">
+            ⚖️ 總結對偶關係：沒有 -7，-20 不知考誰；沒有 -20，-7 只是紙上空談
+          </h4>
+          <p style="font-size:13.5px; color:#475569; line-height:1.6;">
+            <strong>如果只有 ISO 80369-7</strong>：每個廠家都在自己實驗室隨便用手拉一下、隨便拿水管沖一下，都號稱自己合格，監管局根本無法驗證真偽；<br>
+            <strong>如果只有 ISO 80369-20</strong>：實驗室擁有全世界最精密的壓力機和測漏儀，卻不知道到底該給靜脈針施加 35N 還是 100N，群龍無首。<br>
+            <strong>兩者合璧</strong>：-7 定義「身份、外貌與能力合格線」，-20 提供「全球無爭議的考卷與度量衡」！
+          </p>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span class="footer-metaphor">🤝 雙劍合璧：-7 是「憲法與藍圖」，-20 是「考官與天平」</span>
+        <span>第 6 / 12 頁</span>
+      </div>
+      <aside class="notes-data" style="display:none;">
+        這個頁面是很多局外人甚至很多剛入行的工程師最容易困惑的地方：為什麼非要分成兩個標準？為什麼不寫在一本書裡？這三個生動的舉例大家一聽就懂！第一，就像考駕照，-7 是告訴你倒車入庫不能壓線，-20 是監理站地面上的紅外線傳感器；第二，就像汽車撞擊測試，-7 規定轎車撞了不能死人，-20 規定試驗假人和牽引導軌的校準精度；第三，在醫療器械公司裡，研發工程師拿著 -7 去開模具，而檢驗工程師拿著 -20 的考卷去第三方機構做測試。分開寫的好處是：-20 的通用測試方法，不僅考 -7 的靜脈接頭，還能去考 -3 的胃管接頭和 -6 的麻醉接頭，節約了全人類的法規成本！
+      </aside>
+    </section>
+
+    <!-- Slide 07: 測試前置核心：標準裝配程序 (SOP) -->
+    <section class="slide" data-slide="7">
+      <div class="slide-header">
+        <div class="slide-tag">測試細節・前置條件</div>
+        <h2 class="slide-title">測試第一步：標準裝配程序（SOP）——為什麼連「擰緊動作」都要嚴格量化？</h2>
+        <p class="slide-subtitle">任何測試如果不先標準化「裝配的手勁」，所有數據都是毫無意義的偽科學</p>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-accent-blue">
+            <h3 class="card-title">⚙️ ISO 80369-20 規定的標準裝配三要素</h3>
+            <table class="param-table">
+              <thead>
+                <tr>
+                  <th>裝配參數</th>
+                  <th>規範定量標準</th>
+                  <th>物理意義與測試目的</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>軸向推力 (Axial Force)</strong></td>
+                  <td class="param-highlight">26.5 N ～ 27.5 N</td>
+                  <td>模擬醫護人員單手全力對準插入力道（約 2.7 公斤）</td>
+                </tr>
+                <tr>
+                  <td><strong>裝配扭矩 (Assembly Torque)</strong></td>
+                  <td class="param-highlight">0.08 N·m ～ 0.12 N·m</td>
+                  <td>旋轉鎖緊時的標準手勁（約大拇指與食指舒適扭緊極限）</td>
+                </tr>
+                <tr>
+                  <td><strong>保載時間 (Hold Time)</strong></td>
+                  <td class="param-highlight">15 秒 ～ 35 秒</td>
+                  <td>使塑料分子充分釋放瞬時彈性，進入穩定摩擦貼合狀態</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card card-accent-emerald">
+            <h3 class="card-title">🔩 Annex C 剛性金屬標準件（Reference Fixtures）</h3>
+            <p class="card-text">
+              測試塑膠接頭時，<strong>絕對不能拿另一個塑膠接頭去互配！</strong><br>
+              因為兩個塑膠件會互相遷就變形，掩蓋尺寸缺陷。ISO 80369-20 強制要求使用**極度堅硬的不鏽鋼金屬夾具**進行最壞情況考驗：
+            </p>
+            <ul class="feature-list" style="margin-top:6px;">
+              <li class="feature-item">
+                <div class="feature-bullet">C.1</div>
+                <div><strong>圖 C.1 公參考接頭</strong>：高硬度不鏽鋼（洛氏硬度 HRC ≥ 50），表面粗糙度 Ra ≤ 0.8 µm。</div>
+              </li>
+              <li class="feature-item">
+                <div class="feature-bullet">C.3</div>
+                <div><strong>圖 C.3 最壞情況母參考接頭</strong>：耳翼寬度刻意做成極限窄的 <strong>2.71 mm</strong>，專門拿來考驗公接頭螺紋會不會被拉脫滑牙！</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card card-accent-amber" style="background:#FFFBEB;">
+          <p style="font-size:13.5px; color:#92400E;">
+            <strong>測試底層邏輯：</strong>「先統一考生的起跑線，再發卷子」。如果張三用 5N 輕輕插上去測漏水，李四用 50N 暴力頂上去測漏水，測試結果就完全不具備可比性。這就是為什麼 ISO 標準花了大篇幅先鎖死裝配推力（27.5N）與扭矩（0.1 N·m）。
+          </p>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span class="footer-metaphor">📏 嚴謹前置：27.5 N 軸向推力 + 0.10 N·m 扭矩，定義了全球統一的裝配起點</span>
+        <span>第 7 / 12 頁</span>
+      </div>
+      <aside class="notes-data" style="display:none;">
+        很多局外人以為做測試就是把管子接上儀器按個開關。大錯特錯！ISO 80369-20 最精髓的地方，是它對「裝配動作」的極端嚴格規定。大家想，不同護士的手勁差很大，男護士力氣大、女護士力氣小，如果測試時隨便一插，那數據還有什麼客觀性？所以規範規定：必須用機器精確施加 27.5 牛頓的推力和 0.1 牛米的扭矩，而且必須保持 15 到 35 秒！更狠的是，測試時不允許拿塑膠跟塑膠配，必須拿硬度極高的不鏽鋼金屬夾具去硬懟塑膠件。如果塑膠接頭在鋼夾具面前都能通過測試，那日常臨床中它就絕不可能翻車！
+      </aside>
+    </section>
+
+    <!-- Slide 08: 核心測試極限剖析（一）：正壓漏液 vs 負壓漏氣 -->
+    <section class="slide" data-slide="8">
+      <div class="slide-header">
+        <div class="slide-tag">測試深度・密封考驗</div>
+        <h2 class="slide-title">密封雙子星：300 kPa 正壓防噴射漏液 vs 88 kPa 負壓防致命氣栓</h2>
+        <p class="slide-subtitle">ISO 80369-7 Clause 6.1 & 6.2 / ISO 80369-20 Annex B, C, D 深度技術規格</p>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <!-- 正壓漏液 -->
+          <div class="card card-accent-blue test-clickable-card" onclick="openLightbox('../assets/testing_blueprint/test_page_4.png', 'ISO 80369-20 Layout 1: 正壓衰減與流體洩漏測試裝置圖')">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <h3 class="card-title" style="color:#1E40AF;">💧 條文 6.1 流體正壓洩漏測試</h3>
+              <span class="param-highlight" style="font-size:12px;">Annex B / C</span>
+            </div>
+            <table class="param-table">
+              <tr>
+                <td style="width:30%;"><strong>測試目標</strong></td>
+                <td>驗證接頭在心臟收縮壓、高壓輸液泵、推注高黏度顯影劑時的耐正壓密封性。</td>
+              </tr>
+              <tr>
+                <td><strong>定量條件</strong></td>
+                <td>注水加壓至 <span class="param-highlight">300 kPa ～ 330 kPa</span>（約 3.0~3.3 個大氣壓），溫度 (20±2)°C。</td>
+              </tr>
+              <tr>
+                <td><strong>試驗時間</strong></td>
+                <td>升壓維持不少於 15 秒，嚴格保壓觀測至少 <span class="param-highlight">10 秒</span>。</td>
+              </tr>
+              <tr>
+                <td><strong>合格判據</strong></td>
+                <td><span class="param-pass">零滴漏（No falling drop）</span>，或氣壓衰減壓降率 <span class="param-highlight">≤ 0.005 Pa·m³/s</span>。</td>
+              </tr>
+            </table>
+            <div class="test-preview-link">🔍 點擊檢視 Layout 1 正壓水壓測試管路圖面 ›</div>
+          </div>
+
+          <!-- 負壓漏氣 -->
+          <div class="card card-accent-emerald test-clickable-card" onclick="openLightbox('../assets/testing_blueprint/test_page_5.png', 'ISO 80369-20 Layout 2: 負壓抽吸空氣洩漏測試裝置圖')">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <h3 class="card-title" style="color:#065F46;">💨 條文 6.2 負壓空氣洩漏測試</h3>
+              <span class="param-highlight" style="font-size:12px;">Annex D</span>
+            </div>
+            <table class="param-table">
+              <tr>
+                <td style="width:30%;"><strong>測試目標</strong></td>
+                <td>模擬護士拿針筒回抽抽血、或真空負壓引流時，空氣是否會經由接頭縫隙逆吸入管路。</td>
+              </tr>
+              <tr>
+                <td><strong>定量條件</strong></td>
+                <td>真空泵抽吸至負壓 <span class="param-highlight">80.0 kPa ～ 88.0 kPa</span>（近乎深真空狀態）。</td>
+              </tr>
+              <tr>
+                <td><strong>試驗時間</strong></td>
+                <td>連續負壓抽取保持 <span class="param-highlight">15 秒 ～ 20 秒</span>。</td>
+              </tr>
+              <tr>
+                <td><strong>合格判據</strong></td>
+                <td>氣體吸入洩漏率 <span class="param-highlight">≤ 0.005 Pa·m³/s</span>（絕不允許氣體進入！）。</td>
+              </tr>
+            </table>
+            <div class="test-preview-link">🔍 點擊檢視 Layout 2 負壓真空抽吸測試管路圖面 ›</div>
+          </div>
+        </div>
+
+        <div class="card card-accent-red" style="background:#FEF2F2; padding:12px 18px;">
+          <p style="font-size:13.5px; color:#991B1B;">
+            <strong>🚨 為什麼負壓測試比正壓更要命？</strong><br>
+            正壓漏液頂多藥水滴在床單上；但如果負壓漏氣，哪怕只是吸進去 <strong>0.5 毫升的微小氣泡</strong>，隨著後續輸液直接打進靜脈，就會在右心房和肺動脈形成巨大的空氣栓塞（Air Embolism），病患會在幾分鐘內窒息心跳驟停！
+          </p>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span class="footer-metaphor">💧💨 密封守則：正壓 300 kPa 滴水不漏，負壓 88 kPa 絕無氣栓</span>
+        <span>第 8 / 12 頁</span>
+      </div>
+      <aside class="notes-data" style="display:none;">
+        這頁我們來看具體測試的第一組：正壓與負壓。大家注意看數據：正壓要加到 300 到 330 千帕，這是什麼概念？相當於自行車高壓輪胎甚至汽車輪胎的氣壓！一般人體靜脈血壓只有十幾千帕，為什麼要測 300 千帕？因為造影檢查推注高黏度顯影劑時，高壓推注泵會瞬間產生巨大壓力，不測 300 千帕接頭就會當場爆開噴射！而第二個負壓測試更是重中之重，抽 80 到 88 千帕的深真空，如果漏進去一點點空氣，空氣栓塞直接要人命。大家隨時可以點擊這兩個卡片，看看 ISO 官方規範規定的截止閥、壓力計與密封腔是怎麼佈局的。
+      </aside>
+    </section>
+
+    <!-- Slide 09: 核心測試極限剖析（二）：三大機械力學極限 -->
+    <section class="slide" data-slide="9">
+      <div class="slide-header">
+        <div class="slide-tag">測試深度・機械力學</div>
+        <h2 class="slide-title">機械三大極限考驗：抗 35N 強拉拔、抗 0.02 N·m 自鬆、抗 0.17 N·m 粗暴滑牙</h2>
+        <p class="slide-subtitle">ISO 80369-7 Clause 6.4, 6.5, 6.6 / ISO 80369-20 Annex F, G, H 深度技術規格</p>
+      </div>
+      <div class="slide-body">
+        <div class="grid-3">
+          <!-- 6.4 抗拉拔 -->
+          <div class="card card-accent-blue test-clickable-card" onclick="openLightbox('../assets/testing_blueprint/test_page_8.png', 'ISO 80369-20 Layout 5: 軸向負載分離抵抗測試 (35N 拉拔試驗機)')">
+            <h3 class="card-title" style="font-size:15px; color:#1E40AF;">🧗 6.4 抗軸向拉力分離</h3>
+            <table class="param-table">
+              <tr>
+                <td><strong>拉力負載</strong></td>
+                <td>Slip: <span class="param-highlight">23-25 N</span><br>Lock: <span class="param-highlight">32-35 N</span></td>
+              </tr>
+              <tr>
+                <td><strong>施力速率</strong></td>
+                <td>約 <span class="param-highlight">10 N/s</span> 勻速加載</td>
+              </tr>
+              <tr>
+                <td><strong>維持時間</strong></td>
+                <td>持續猛拉 <span class="param-highlight">10s ～ 15s</span></td>
+              </tr>
+              <tr>
+                <td><strong>合格判據</strong></td>
+                <td><span class="param-pass">螺紋不剪切脫開</span>，保持鎖定。</td>
+              </tr>
+            </table>
+            <p class="card-text" style="font-size:12px; margin-top:4px;">
+              <strong>臨床情境：</strong>重症病人譫妄翻身拉扯、轉床移轉時管線被猛烈絆住，絕不許脫開！
+            </p>
+            <div class="test-preview-link">🔍 點擊檢視 35N 拉力測試裝置 ›</div>
+          </div>
+
+          <!-- 6.5 抗自鬆 -->
+          <div class="card card-accent-emerald test-clickable-card" onclick="openLightbox('../assets/testing_blueprint/test_page_9.png', 'ISO 80369-20 Layout 6: 旋開分離抵抗測試 (反向旋鬆扭矩裝置)')">
+            <h3 class="card-title" style="font-size:15px; color:#065F46;">🔄 6.5 抗反向旋鬆分離</h3>
+            <table class="param-table">
+              <tr>
+                <td><strong>反向扭矩</strong></td>
+                <td>施加 <span class="param-highlight">0.018～0.020 N·m</span> 逆擰微扭矩</td>
+              </tr>
+              <tr>
+                <td><strong>軸向拉力</strong></td>
+                <td><span class="param-highlight">Axial force = 0</span>（純旋扭無外拉）</td>
+              </tr>
+              <tr>
+                <td><strong>維持時間</strong></td>
+                <td>持續施加 <span class="param-highlight">10s ～ 15s</span></td>
+              </tr>
+              <tr>
+                <td><strong>合格判據</strong></td>
+                <td><span class="param-pass">不得完全旋鬆分離</span>。</td>
+              </tr>
+            </table>
+            <p class="card-text" style="font-size:12px; margin-top:4px;">
+              <strong>臨床情境：</strong>管路隨著病患呼吸、輸液晃動自轉時，不能自行逆向解鎖。
+            </p>
+            <div class="test-preview-link">🔍 點擊檢視 旋鬆測試裝置 ›</div>
+          </div>
+
+          <!-- 6.6 抗滑牙 -->
+          <div class="card card-accent-red test-clickable-card" onclick="openLightbox('../assets/testing_blueprint/test_page_10.png', 'ISO 80369-20 Layout 7: 抗過載滑牙與破壞性扭矩測試')">
+            <h3 class="card-title" style="font-size:15px; color:#991B1B;">💪 6.6 抗過載（滑牙）</h3>
+            <table class="param-table">
+              <tr>
+                <td><strong>破壞扭矩</strong></td>
+                <td>施加 <span class="param-highlight">0.15～0.17 N·m</span>（正常值 1.7 倍）</td>
+              </tr>
+              <tr>
+                <td><strong>關鍵夾具</strong></td>
+                <td>金屬 C.3 窄耳翼（<span class="param-highlight">2.71mm</span> 極限窄）</td>
+              </tr>
+              <tr>
+                <td><strong>維持時間</strong></td>
+                <td>死命超扭維持 <span class="param-highlight">5s ～ 10s</span></td>
+              </tr>
+              <tr>
+                <td><strong>合格判據</strong></td>
+                <td><span class="param-pass">不得滑牙越過螺紋</span>，無歪斜 (No cocking)。</td>
+              </tr>
+            </table>
+            <p class="card-text" style="font-size:12px; margin-top:4px;">
+              <strong>臨床情境：</strong>急診情急之下雙手死命猛擰，塑料套環不膨脹爆裂、螺紋不滑牙！
+            </p>
+            <div class="test-preview-link">🔍 點擊檢視 抗過載滑牙測試裝置 ›</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span class="footer-metaphor">🏋️ 力學三關：拉不脫（35N）、晃不鬆（0.02N·m）、擰不裂（0.17N·m）</span>
+        <span>第 9 / 12 頁</span>
+      </div>
+      <aside class="notes-data" style="display:none;">
+        這三個力學測試是魯爾鎖定接頭最硬核的品質分水嶺。第一個抗拉，35 牛頓相當於拿接頭吊起一袋 3.5 公斤的大米懸空晃蕩 15 秒，螺紋絕不能崩脫；第二個抗旋鬆，給一個微小的反向倒擰力，看看錐面摩擦力能不能自鎖，如果接頭晃著晃著自己鬆開了，藥水漏一地那就是事故；第三個抗過載滑牙，大家生活中有沒有擰螺絲擰滑牙的經驗？塑膠接頭最怕的就是大力出奇蹟，急診護士一使勁，套環塑料膨脹，螺牙越過去了（Override），整顆接頭歪掉，直接報廢。ISO 規範用 0.17 牛米的粗暴扭矩去折磨它，保證哪怕蠻力狂擰也絕對不滑牙、不歪斜！
+      </aside>
+    </section>
+
+    <!-- Slide 10: 核心測試極限剖析（三）：48小時應力龜裂與 50N 物理防呆不互插 -->
+    <section class="slide" data-slide="10">
+      <div class="slide-header">
+        <div class="slide-tag">測試深度・環境與防呆</div>
+        <h2 class="slide-title">時間與空間的考驗：48小時環境應力龜裂 vs 50N 物理防呆互斥確效</h2>
+        <p class="slide-subtitle">ISO 80369-7 Clause 6.3 & Annex A / ISO 80369-20 Annex E & Annex J</p>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <!-- 6.3 應力龜裂 -->
+          <div class="card card-accent-amber test-clickable-card" onclick="openLightbox('../assets/testing_blueprint/test_page_7.png', 'ISO 80369-20 Layout 4: 應力開裂測試環境箱 (Environmental Chamber ≥48h)')">
+            <h3 class="card-title">🧪 條文 6.3 耐環境應力開裂 (Stress Cracking)</h3>
+            <p class="card-text">
+              塑料在高應力狀態下會產生**「蠕變（Creep）」**與微觀晶格解離。特別是接觸到醫用消毒酒精、化療藥物、脂質乳劑時，極易自發脆斷！
+            </p>
+            <table class="param-table">
+              <tr>
+                <td style="width:30%;"><strong>裝配前置</strong></td>
+                <td>以標準裝配條件 (27.5N + 0.1Nm) 裝配於不鏽鋼剛性金屬夾具。</td>
+              </tr>
+              <tr>
+                <td><strong>環境箱條件</strong></td>
+                <td>放入環境試驗箱，溫度 (20±2)°C，<strong>靜置不少於整整 48 小時</strong>。</td>
+              </tr>
+              <tr>
+                <td><strong>嚴苛終檢</strong></td>
+                <td>48 小時後，<strong>不重新擰緊</strong>，直接在原裝配狀態下執行 <strong>6.1 正壓漏水測試</strong>，仍必須通過！</td>
+              </tr>
+            </table>
+            <div class="test-preview-link">🔍 點擊檢視 Layout 4 應力開裂試驗環境室圖面 ›</div>
+          </div>
+
+          <!-- Annex A 物理防呆互插確效 -->
+          <div class="card card-accent-emerald">
+            <h3 class="card-title">🚫 Annex A 幾何防呆互斥試驗 (Non-interconnectable)</h3>
+            <p class="card-text">
+              光在紙面上畫不同尺寸不算數，必須在實驗室用真實金屬夾具進行<strong>「暴力對撞測試」</strong>！
+            </p>
+            <table class="param-table">
+              <tr>
+                <td style="width:30%;"><strong>對撞測試夾具</strong></td>
+                <td>拿 Annex C 不鏽鋼金屬公接頭，去硬懟 Part 3 (餵食)、Part 6 (神經) 金屬母座。</td>
+              </tr>
+              <tr>
+                <td><strong>對撞破壞力</strong></td>
+                <td>施加高達 <span class="param-highlight">50 N 軸向推力</span>（近 5.1 公斤全力重壓）+ <span class="param-highlight">0.12 N·m 旋轉扭矩</span>。</td>
+              </tr>
+              <tr>
+                <td><strong>合格判據</strong></td>
+                <td><span class="param-pass">絕對無法連通！</span>錐面不進入、螺紋不咬合、且通入正壓水壓時<strong>洩漏率 100%</strong>（無法形成任何密閉）。</td>
+              </tr>
+            </table>
+            <div style="font-size:12px; color:#047857; margin-top:8px;">
+              <strong>鐵證如山：</strong>用真實物理夾具證明「即便用 50N 暴力，也絕對插不進去」。
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-accent-blue" style="background:#F0F9FF;">
+          <p style="font-size:13.5px; color:#0369A1; text-align:center;">
+            <strong>測試哲學昇華：</strong>「耐得住 48 小時的漫長等待，經得起 50 牛頓的暴力強攻」——這才是一個合格醫療接頭的真實底氣！
+          </p>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span class="footer-metaphor">⏳🛡️ 終極考驗：48 小時不裂縫，50 N 暴力強插零相容</span>
+        <span>第 10 / 12 頁</span>
+      </div>
+      <aside class="notes-data" style="display:none;">
+        這頁的兩項測試直接決定了產品能不能長期服役。很多人不知道，塑膠產品剛出廠時好好的，但被金屬夾具撐開、套上螺紋後，塑膠內部是有巨大應力的。就像一根拉緊的皮筋，如果放上 48 小時，再加上醫院消毒水的揮發，很多劣質塑膠會啪的一聲直接裂成兩半！所以 -7 規定必須在環境箱裡硬扛 48 小時，拿出來後還得測漏水，一滴都不能漏！而右邊的 Annex A 更是防呆的終極驗收：拿 50 牛頓的力氣，把血管針死命往胃管座裡懟，必須從物理上證明兩者絕對互斥。這兩項測試徹底封死了所有潛在的意外通道！
+      </aside>
+    </section>
+
+    <!-- Slide 11: 研發到上市全流程：ISO 80369-7 與 -20 在產業鏈中的協同閉環 -->
+    <section class="slide" data-slide="11">
+      <div class="slide-header">
+        <div class="slide-tag">產業全景・價值閉環</div>
+        <h2 class="slide-title">研發到上市全流程：ISO 80369-7 與 ISO 80369-20 的產業協同閉環</h2>
+        <p class="slide-subtitle">醫療器械企業如何將兩本標準轉化為全球通行的產品質量護城河？</p>
+      </div>
+      <div class="slide-body">
+        <div class="process-steps-grid">
+          <!-- 階段 1 -->
+          <div class="process-step-item" style="border-top:3px solid #2563EB;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <div class="process-step-num">1</div>
+              <span class="real-product-badge">研發設計</span>
+            </div>
+            <h4 style="font-size:14.5px; font-weight:700; color:#1E40AF;">依據 ISO 80369-7</h4>
+            <p style="font-size:12.5px; color:#4B5563; line-height:1.5;">
+              • 輸入 6% 錐度微米級 CAD 圖面<br>
+              • 雙頭右旋螺紋建模 (導程 5.0mm)<br>
+              • 醫療級 PP/PC 注塑模具精工製造
+            </p>
+          </div>
+
+          <!-- 階段 2 -->
+          <div class="process-step-item" style="border-top:3px solid #10B981;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <div class="process-step-num" style="background:#ECFDF5; color:#059669;">2</div>
+              <span class="real-product-badge" style="background:#ECFDF5; color:#047857;">實驗室大考</span>
+            </div>
+            <h4 style="font-size:14.5px; font-weight:700; color:#065F46;">依據 ISO 80369-20</h4>
+            <p style="font-size:12.5px; color:#4B5563; line-height:1.5;">
+              • Annex C 洛氏硬度 HRC≥50 不鏽鋼剛性夾具<br>
+              • 300 kPa 正壓防漏 / 88 kPa 負壓防氣栓<br>
+              • 35 N 拉拔抗分離 / 48h 應力防開裂
+            </p>
+          </div>
+
+          <!-- 階段 3 -->
+          <div class="process-step-item" style="border-top:3px solid #F59E0B;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <div class="process-step-num" style="background:#FFFBEB; color:#D97706;">3</div>
+              <span class="real-product-badge" style="background:#FFFBEB; color:#B45309;">法規准入</span>
+            </div>
+            <h4 style="font-size:14.5px; font-weight:700; color:#92400E;">FDA / CE MDR / TFDA</h4>
+            <p style="font-size:12.5px; color:#4B5563; line-height:1.5;">
+              • 遞交第三方法定檢測確效報告<br>
+              • 全球醫療監管機構標準互認<br>
+              • 獲准綠色通道快速上市
+            </p>
+          </div>
+
+          <!-- 階段 4 -->
+          <div class="process-step-item" style="border-top:3px solid #7C3AED;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <div class="process-step-num" style="background:#EDE9FE; color:#6D28D9;">4</div>
+              <span class="real-product-badge" style="background:#EDE9FE; color:#6D28D9;">實體商品線</span>
+            </div>
+            <h4 style="font-size:14.5px; font-weight:700; color:#5B21B6;">商業落地與臨床目錄</h4>
+            <p style="font-size:12.5px; color:#4B5563; line-height:1.5;">
+              • 如 <a href="https://heyzine.com/flip-book/65b254743e.html#page/82" target="_blank" style="color:#2563EB; font-weight:700;">Merit OEM 型錄 (p.82)</a> 與 Industrial Spec 系列<br>
+              • 臨床護理零心智負擔、防呆無死角<br>
+              • 守護全球千百萬患者靜脈生命線
+            </p>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="card card-accent-blue">
+            <h4 class="card-title" style="font-size:14.5px;">🏥 臨床醫護端：零心智負擔</h4>
+            <p class="card-text" style="font-size:13px;">
+              夜班醫護不再需要靠肉眼在幾根透明軟管中苦苦辨識，物理防呆讓錯接根本插不進去，徹底消除心理高壓。
+            </p>
+          </div>
+          <div class="card card-accent-emerald">
+            <h4 class="card-title" style="font-size:14.5px;">🏭 製造廠商端：全球通配無阻</h4>
+            <p class="card-text" style="font-size:13px;">
+              有了 -7 的尺寸和 -20 的方法，產品能與全球 160 多個國家的注射器與留置針 100% 互配，消除跨國貿易壁壘。
+            </p>
+          </div>
+          <div class="card card-accent-amber">
+            <h4 class="card-title" style="font-size:14.5px;">📜 監管機構端：法定唯一度量衡</h4>
+            <p class="card-text" style="font-size:13px;">
+              美國 FDA、歐盟 MDR、中國 NMPA 統一採信 -20 的確效數據，杜絕企業自說自話，形成監管共識。
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span class="footer-metaphor">🌐 產業閉環：標準賦能製造，製造守護臨床，法規鑄就信任</span>
+        <span>第 11 / 12 頁</span>
+      </div>
+      <aside class="notes-data" style="display:none;">
+        這張流程圖總結了整個醫療器械產業鏈的閉環。大家看：研發時拿 -7 開模，生產出來拿 -20 考驗，拿到合格報告送去美國 FDA 或中國藥監局審批，最後送到醫院護士的手中。正因為這套閉環無比嚴密，我們每個人走進醫院打針輸液時，才能享受到全世界最高水準的工程安全保障。
+      </aside>
+    </section>
+
+    <!-- Slide 12: 總結展望 -->
+    <section class="slide" data-slide="12">
+      <div class="slide-header">
+        <div class="slide-tag" style="background:var(--brand-light); color:var(--brand);">結語・敬畏生命</div>
+        <h2 class="slide-title">小接頭，大工程：用極致的工程智慧守護每一次心跳</h2>
+        <p class="slide-subtitle">醫療的安全，不在於人類永不犯錯的奇蹟，而在於工程師將安全固化在物理幾何裡的智慧</p>
+      </div>
+      <div class="slide-body">
+        <div class="card card-accent-blue" style="padding:26px; background:linear-gradient(135deg, #FFFFFF 0%, #EFF6FF 100%);">
+          <h3 style="font-size:21px; font-weight:800; color:#1E3A8A; margin-bottom:14px; text-align:center;">
+            💡 帶走這三句核心心法
+          </h3>
+          <div class="grid-3" style="margin-top:14px;">
+            <div style="background:#FFFFFF; padding:16px; border-radius:10px; border:1px solid #BFDBFE;">
+              <div style="font-size:26px; margin-bottom:6px;">1️⃣</div>
+              <strong style="color:#1E3A8A; font-size:15px;">幾何防呆高於警惕</strong>
+              <p style="font-size:13px; color:#475569; margin-top:6px;">不依賴肉眼識別，依靠幾何尺寸互斥（大者進不去、小者無法鎖緊）從物理源頭徹底阻斷錯接。</p>
+            </div>
+            <div style="background:#FFFFFF; padding:16px; border-radius:10px; border:1px solid #A7F3D0;">
+              <div style="font-size:26px; margin-bottom:6px;">2️⃣</div>
+              <strong style="color:#065F46; font-size:15px;">-7 是產品標準（出題與定及格線）</strong>
+              <p style="font-size:13px; color:#475569; margin-top:6px;">規定血管接頭微米級尺寸（6%錐度/雙耳翼），明訂合格指標（如耐壓 ≥300 kPa、抗拉 ≥35 N），並要求必須依 -20 的方法檢驗。</p>
+            </div>
+            <div style="background:#FFFFFF; padding:16px; border-radius:10px; border:1px solid #FDE68A;">
+              <div style="font-size:26px; margin-bottom:6px;">3️⃣</div>
+              <strong style="color:#92400E; font-size:15px;">-20 是方法標準（考官與統一度量衡）</strong>
+              <p style="font-size:13px; color:#475569; margin-top:6px;">不設定具體產品及格線，而是制定統一的測試 SOP（標準不鏽鋼夾具、加壓管路、加載速率），作為檢驗 -7 指標的法定度量工具。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span class="footer-metaphor">❤️ 致敬所有在微米之間守護生命的醫療工程師</span>
+        <span>第 12 / 12 頁（全篇完）</span>
+      </div>
+      <aside class="notes-data" style="display:none;">
+        好，各位朋友，今天這場通俗科普到這裡就要告一段落了。最後我想留給大家一句話：好的工程設計，就像空氣一樣——當它完美運作時，你甚至感受不到它的存在；但一旦它缺失，生命就會窒息。下次當你在醫院看到那一根根透明的輸液管、那一個個晶瑩剔透的小接頭時，希望你能想起今天的故事：那不僅僅是一塊幾分錢的塑料，那是全球幾百位頂尖科學家與工程師，用幾十年的時間，為我們每個人築起的最溫柔、也最堅固的救命之鎖。謝謝大家！
+      </aside>
+    </section>
+
+  </main>
+
+  <!-- 圖片放大檢視 Modal (Lightbox) -->
+  <div class="lightbox-modal" id="lightbox-modal">
+    <div class="lightbox-window">
+      <div class="lightbox-header">
+        <h3 id="lightbox-title" style="font-size:16px; font-weight:700; color:var(--text-primary);">ISO 官方規範工程圖紙檢視</h3>
+        <button class="btn-icon" id="btn-close-lightbox">✕</button>
+      </div>
+      <div class="lightbox-body">
+        <img id="lightbox-img" class="lightbox-img" src="" alt="放大圖紙">
+      </div>
+    </div>
+  </div>
+
+  <!-- 演講者抽屜 (Notes Drawer) -->
+  <div class="notes-drawer" id="notes-drawer">
+    <div class="notes-header">
+      <div class="notes-title">
+        <span>🎤 演講者通俗逐字講稿（局外人視角提示）</span>
+      </div>
+      <button class="btn-icon" id="btn-close-notes" style="width:28px; height:28px; font-size:12px;">✕</button>
+    </div>
+    <div class="notes-content" id="notes-text">
+      <!-- 動態載入當前頁面講稿 -->
+    </div>
+  </div>
+
+  <!-- 底部控制面板 -->
+  <footer class="app-controls">
+    <div class="nav-buttons">
+      <button class="btn-nav" id="btn-prev" title="上一頁 (← / PageUp)">
+        <span>← 上一頁</span>
+      </button>
+      <button class="btn-nav primary" id="btn-next" title="下一頁 (→ / 空白鍵 / PageDown)">
+        <span>下一頁 →</span>
+      </button>
+      <div class="slide-counter">
+        <span id="current-slide-num">1</span> / <span id="total-slide-num">12</span>
+      </div>
+    </div>
+
+    <div class="keyboard-tips">
+      <span>導航：<kbd>←</kbd> <kbd>→</kbd> <kbd>Space</kbd></span>
+      <span>講稿：<kbd>N</kbd></span>
+      <span>縮圖：<kbd>O</kbd></span>
+      <span>全螢幕：<kbd>F</kbd></span>
+    </div>
+  </footer>
+
+  <!-- 縮圖總覽彈窗 (Overview Modal) -->
+  <div class="overview-modal" id="overview-modal">
+    <div class="overview-window">
+      <div class="overview-header">
+        <h3 style="font-size:16px; font-weight:700;">📑 投影片導航總覽（按 Esc 或點擊跳轉）</h3>
+        <button class="btn-icon" id="btn-close-overview">✕</button>
+      </div>
+      <div class="overview-grid" id="overview-grid">
+        <!-- 動態生成縮圖卡片 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 投影片播放邏輯 Runtime腳本 (原生零依賴) -->
+  <script>
+    (function () {
+      let currentSlide = 1;
+      const slides = document.querySelectorAll('.slide');
+      const totalSlides = slides.length;
+      
+      const btnPrev = document.getElementById('btn-prev');
+      const btnNext = document.getElementById('btn-next');
+      const currentNumDisplay = document.getElementById('current-slide-num');
+      const totalNumDisplay = document.getElementById('total-slide-num');
+      const progressBar = document.getElementById('progress-bar');
+      
+      const notesDrawer = document.getElementById('notes-drawer');
+      const notesText = document.getElementById('notes-text');
+      const btnToggleNotes = document.getElementById('btn-toggle-notes');
+      const btnCloseNotes = document.getElementById('btn-close-notes');
+      
+      const overviewModal = document.getElementById('overview-modal');
+      const overviewGrid = document.getElementById('overview-grid');
+      const btnOverview = document.getElementById('btn-overview');
+      const btnCloseOverview = document.getElementById('btn-close-overview');
+      const btnFullscreen = document.getElementById('btn-fullscreen');
+
+      // Lightbox 彈窗
+      const lightboxModal = document.getElementById('lightbox-modal');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const lightboxTitle = document.getElementById('lightbox-title');
+      const btnCloseLightbox = document.getElementById('btn-close-lightbox');
+
+      window.openLightbox = function(src, title) {
+        lightboxImg.src = src;
+        lightboxImg.onerror = function() {
+          if (!this.dataset.retried) {
+            this.dataset.retried = 1;
+            this.src = src.startsWith('../') ? src.replace('../', './') : '../' + src;
+          }
+        };
+        lightboxTitle.textContent = title;
+        lightboxModal.classList.add('open');
+      };
+
+      function closeLightbox() {
+        lightboxModal.classList.remove('open');
+      }
+
+      btnCloseLightbox.addEventListener('click', closeLightbox);
+      lightboxModal.addEventListener('click', (e) => {
+        if (e.target === lightboxModal) closeLightbox();
+      });
+
+      totalNumDisplay.textContent = totalSlides;
+
+      // 建立總覽列表
+      function buildOverviewGrid() {
+        overviewGrid.innerHTML = '';
+        slides.forEach((slide, index) => {
+          const num = index + 1;
+          const title = slide.querySelector('.slide-title')?.textContent || `Slide ${num}`;
+          const card = document.createElement('div');
+          card.className = `overview-card ${num === currentSlide ? 'current' : ''}`;
+          card.innerHTML = `
+            <div class="overview-card-num">第 ${num} 頁</div>
+            <div class="overview-card-title">${title}</div>
+          `;
+          card.addEventListener('click', () => {
+            goToSlide(num);
+            closeOverview();
+          });
+          overviewGrid.appendChild(card);
+        });
+      }
+
+      function updateSlide() {
+        slides.forEach((slide, index) => {
+          if (index + 1 === currentSlide) {
+            slide.classList.add('active');
+            // 更新講稿
+            const notes = slide.querySelector('.notes-data');
+            notesText.innerHTML = notes ? notes.innerHTML : '本頁暫無特殊備忘。';
+          } else {
+            slide.classList.remove('active');
+          }
+        });
+
+        // 更新計數與按鈕
+        currentNumDisplay.textContent = currentSlide;
+        btnPrev.disabled = (currentSlide === 1);
+        btnNext.disabled = (currentSlide === totalSlides);
+        
+        // 更新進度條
+        const progressPercent = (currentSlide / totalSlides) * 100;
+        progressBar.style.width = progressPercent + '%';
+
+        // 重新繪製總覽高亮
+        buildOverviewGrid();
+      }
+
+      function goToSlide(target) {
+        if (target >= 1 && target <= totalSlides) {
+          currentSlide = target;
+          updateSlide();
+          window.scrollTo(0, 0);
+        }
+      }
+
+      function nextSlide() {
+        if (currentSlide < totalSlides) {
+          goToSlide(currentSlide + 1);
+        }
+      }
+
+      function prevSlide() {
+        if (currentSlide > 1) {
+          goToSlide(currentSlide - 1);
+        }
+      }
+
+      function toggleNotes() {
+        notesDrawer.classList.toggle('open');
+        btnToggleNotes.classList.toggle('active', notesDrawer.classList.contains('open'));
+      }
+
+      function toggleOverview() {
+        overviewModal.classList.toggle('open');
+      }
+
+      function closeOverview() {
+        overviewModal.classList.remove('open');
+      }
+
+      function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      }
+
+      // 事件監聽綁定
+      btnNext.addEventListener('click', nextSlide);
+      btnPrev.addEventListener('click', prevSlide);
+      btnToggleNotes.addEventListener('click', toggleNotes);
+      btnCloseNotes.addEventListener('click', () => {
+        notesDrawer.classList.remove('open');
+        btnToggleNotes.classList.remove('active');
+      });
+      btnOverview.addEventListener('click', toggleOverview);
+      btnCloseOverview.addEventListener('click', closeOverview);
+      btnFullscreen.addEventListener('click', toggleFullscreen);
+
+      overviewModal.addEventListener('click', (e) => {
+        if (e.target === overviewModal) closeOverview();
+      });
+
+      // 鍵盤導航綁定
+      window.addEventListener('keydown', (e) => {
+        if (lightboxModal.classList.contains('open')) {
+          if (e.key === 'Escape') closeLightbox();
+          return;
+        }
+
+        if (overviewModal.classList.contains('open')) {
+          if (e.key === 'Escape') closeOverview();
+          return;
+        }
+
+        switch (e.key) {
+          case 'ArrowRight':
+          case ' ':
+          case 'PageDown':
+            e.preventDefault();
+            nextSlide();
+            break;
+          case 'ArrowLeft':
+          case 'PageUp':
+            e.preventDefault();
+            prevSlide();
+            break;
+          case 'Home':
+            e.preventDefault();
+            goToSlide(1);
+            break;
+          case 'End':
+            e.preventDefault();
+            goToSlide(totalSlides);
+            break;
+          case 'n':
+          case 'N':
+            e.preventDefault();
+            toggleNotes();
+            break;
+          case 'o':
+          case 'O':
+            e.preventDefault();
+            toggleOverview();
+            break;
+          case 'f':
+          case 'F':
+            e.preventDefault();
+            toggleFullscreen();
+            break;
+          case 'Escape':
+            if (notesDrawer.classList.contains('open')) {
+              notesDrawer.classList.remove('open');
+              btnToggleNotes.classList.remove('active');
+            }
+            break;
+        }
+      });
+
+      // 觸控滑動手勢支援 (Mobile Touch Swipe)
+      let touchStartX = 0;
+      let touchEndX = 0;
+      document.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      document.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+      }, { passive: true });
+
+      function handleSwipe() {
+        const threshold = 50;
+        if (touchEndX < touchStartX - threshold) {
+          nextSlide(); // 向左滑，下一頁
+        }
+        if (touchEndX > touchStartX + threshold) {
+          prevSlide(); // 向右滑，上一頁
+        }
+      }
+
+      // =======================================================================
+      // Slide 5 專用：動態裝配控制與視圖切換邏輯
+      // =======================================================================
+      const tabBtnReal = document.getElementById('tab-btn-real');
+      const tabBtnBpMale = document.getElementById('tab-btn-bp-male');
+      const tabBtnBpFemale = document.getElementById('tab-btn-bp-female');
+      const tabBtnCatalog = document.getElementById('tab-btn-catalog');
+      
+      const viewRealContainer = document.getElementById('view-real-container');
+      const viewBpMaleContainer = document.getElementById('view-bp-male-container');
+      const viewBpFemaleContainer = document.getElementById('view-bp-female-container');
+      const viewCatalogContainer = document.getElementById('view-catalog-container');
+
+      function switchSlide5Tab(activeTab) {
+        if (!tabBtnReal) return;
+        tabBtnReal.classList.toggle('active', activeTab === 'real');
+        tabBtnBpMale.classList.toggle('active', activeTab === 'male');
+        tabBtnBpFemale.classList.toggle('active', activeTab === 'female');
+        tabBtnCatalog.classList.toggle('active', activeTab === 'catalog');
+
+        viewRealContainer.style.display = (activeTab === 'real') ? 'block' : 'none';
+        viewBpMaleContainer.style.display = (activeTab === 'male') ? 'block' : 'none';
+        viewBpFemaleContainer.style.display = (activeTab === 'female') ? 'block' : 'none';
+        viewCatalogContainer.style.display = (activeTab === 'catalog') ? 'block' : 'none';
+      }
+
+      if (tabBtnReal) {
+        tabBtnReal.addEventListener('click', () => switchSlide5Tab('real'));
+        tabBtnBpMale.addEventListener('click', () => switchSlide5Tab('male'));
+        tabBtnBpFemale.addEventListener('click', () => switchSlide5Tab('female'));
+        tabBtnCatalog.addEventListener('click', () => switchSlide5Tab('catalog'));
+      }
+      // 初始化載入第一頁
+      updateSlide();
+    })();
+  </script>
+</body>
+</html>
