@@ -1,5 +1,6 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
+import fs from 'fs';
 import path from 'path';
 import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
@@ -10,6 +11,16 @@ export default defineConfig(() => {
     plugins: [
       react(),
       tailwindcss(),
+      {
+        name: 'clean-dist-standalone',
+        closeBundle() {
+          const distStandalone = path.resolve(__dirname, 'dist', 'slides-standalone.html');
+          if (fs.existsSync(distStandalone)) {
+            fs.unlinkSync(distStandalone);
+            console.log('⚡ [MECE] Cleaned 27MB standalone offline file from dist/ to avoid redundancy.');
+          }
+        }
+      },
       VitePWA({
         registerType: 'autoUpdate',
         includeAssets: [

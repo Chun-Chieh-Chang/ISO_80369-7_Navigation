@@ -1,6 +1,40 @@
 # 開發日誌 (DEV_LOG)
 
 ---
+## 版本：v8.24.0 MECE 架構優化：消除 dist/ 27MB 離線單檔冗餘與防版本脫節防線 (2026-09-04)
+
+### 需求來源與目標
+使用者指出「`D:\Self-developed_Apps\ISO_80369-7_Navigation\dist 也有 slides-standalone.html，是否違反 MECE`」，指示採納方案 A：徹底清理 `dist/` 中的離線單檔冗餘，並透過建置鉤子杜絕版本偏差，落實 MECE（相互獨立、完全窮盡）架構原則。
+
+### 根因分析 (RCA)
+1. **靜態資源自動複製行為 (RCA-01)**：
+   - *現象*：執行 `npm run build` 時，Vite 將 `public/` 內所有檔案（含 27.05 MB 的 `slides-standalone.html`）無差別複製到 `dist/`。
+   - *根因*：Vite 的 `publicDir` 預設行為是完整遞迴複製。但 `slides-standalone.html` 本身設計為「自包含離線攜帶單檔」，在 Web 線上部署中實際使用的是輕量按需載入的 `slides/index.html`（122 KB），複製到 `dist/` 徒增 27 MB 打包與部署傳輸成本。
+2. **建置時差導致 Stale File 與認知混淆 (RCA-02)**：
+   - *現象*：`public/slides-standalone.html` 在 22:49 已更新為最新版，但 `dist/slides-standalone.html` 仍停留在 22:38 的舊建置時間點。
+   - *根因*：當工程師僅重新編譯單檔而未重新執行全專案 `npm run build` 時，`dist/` 內的檔案即淪為過期死檔案，使用者若誤點 `dist/` 檔案會產生「沒有更新」之錯誤判斷，實質違反單一真理來源 (SSOT) 與 MECE 原則。
+
+### 矯正與預防措施 (CAPA)
+1. **即刻清理本地 `dist/` 殘留 (CAPA-01)**：
+   - 清除本地過期 `dist/` 資料夾，釋放 27MB+ 磁碟空間。
+2. **Vite 構建自動排除鉤子 (CAPA-02)**：
+   - 在 `vite.config.ts` 插件鏈中加入 `clean-dist-standalone` 生命週期鉤子（`closeBundle`），在 Vite 打包完成後自動移除 `dist/slides-standalone.html`。
+   - 確保 `dist/` 保持純淨輕量，僅包含線上部署所需的靜態站點，杜絕重複存放與版本脫節。
+3. **明確化單檔建置指令 (CAPA-03)**：
+   - 於 `package.json` 加入 `"build:standalone": "node scripts/build_standalone.cjs"`，確立離線單檔由專屬指令維護的標準流程。
+4. **驗證跑通 (CAPA-04)**：
+   - 執行 `npm run build`，控制台明確顯示 `⚡ [MECE] Cleaned 27MB standalone offline file from dist/ to avoid redundancy.`。
+   - 驗證 `Test-Path 'dist/slides-standalone.html'` 為 `False`，而輕量網頁版 `dist/slides/index.html` 完好存在。
+   - 運行 `npm run lint` 與 `npm run test`（17 項單元測試 100% 通過）。
+
+### 變更檔案清單
+| 檔案 | 變更類型 | 說明 |
+|------|--------|------|
+| `vite.config.ts` | MODIFY | 新增 `clean-dist-standalone` 插件，打包後自動排除 `dist/slides-standalone.html` |
+| `package.json` | MODIFY | 新增 `"build:standalone"` 腳本指令 |
+| `DEV_LOG.md` | MODIFY | 記錄 v8.24.0 MECE 優化之 RCA/CAPA 與驗證記錄 |
+
+---
 ## 版本：v8.23.0 視窗自適應佈局重構、移除指令誤植標籤、消滅空洞留白與作者資訊署名 (2026-09-04)
 
 ### 需求來源與目標
