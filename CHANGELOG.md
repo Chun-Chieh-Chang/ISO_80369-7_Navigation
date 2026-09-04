@@ -2,6 +2,23 @@
 
 All notable changes to the ISO 80369-7 & ISO 80369-20 Navigation App will be documented in this file.
 
+## [v8.23.0] - 2026-09-04
+
+### Interactive Slides Refactoring, SSOT Validation & Responsive Layout Perfection
+- **SSOT Parameter Alignment & Fabrication Purge**:
+  - Validated all 12 slides against official `ISO 80369-7:2021` and `ISO 80369-20:2024`.
+  - Fixed pre-assembly hold time (5s~6s), positive pressure hold times (liquid 30s~35s, air 15s~20s), axial pull load ranges (slip 23N~25N, lock 32N~35N), and stress cracking dry hold time (≥48h at ambient 15°C~30°C, 10%~70% RH).
+  - Purged hyperbolic language and replaced non-standard terms with engineering terminology (`裝配預緊應力`).
+- **Responsive Viewport Adaptation & Layout Balancing**:
+  - Eliminated awkward bottom empty space by expanding `.slide` min-height to fill available viewport (`calc(100vh - 170px)`).
+  - Enlarged connector product preview images to 210px and upgraded typography to 14.5px~16.5px with comfortable line-height (1.65~1.75).
+  - Added dynamic breakpoint `@media (max-height: 760px)` and badge `white-space: nowrap` for zero content cutoff across mobile, laptop (1366x768), and desktop (1920x1080).
+- **Author Attribution & Mouldex Quick Portal**:
+  - Added author metadata capsule: `Created by Wesley Chang, QC Dept. @Mouldex, Sept-2026.` to Slide 1 header and Slide 12 closing banner.
+  - Positioned persistent header portal button `🏭 凱益 Mouldex 接頭專區 ↗`.
+- **Standalone Single-File Inlining**:
+  - Compiled self-contained bundle `public/slides-standalone.html` (27.05 MB) with all assets Base64-inlined for offline presentation.
+
 ## [v8.15.0] - 2026-09-03
 
 ### SSOT Alignment: ISO 80369-20:2024 Preconditioning & MECE Audit

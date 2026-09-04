@@ -28,6 +28,10 @@
 - **⚖️ 雙標準對照矩陣 (Comparison Matrix)**：一目瞭然比較 ISO 7 與 ISO 20 之間的定量裝配扭力、加壓/加力數值、持壓時間與指定金屬夾具，支援 CSV 匯出與手機端條文卡片檢視 (Mobile Card Mode)。
 - **🔧 規範圖號庫與校驗認證卡 (Connector Inspector & Reference Standards)**：收錄完整 Fig.A.1 ~ K.1 規範圖號，提供高精細向量圖表渲染，並整合 ISO 80369-7:2021 Annex C 金屬參考接頭（含最壞情況 C.3/C.6）4 大製造、幾何公差、校驗與認證規範。
 - **🕸️ 條文脈絡圖表 (Visual Map)**：視覺化展現條文間的跨領域防錯 (Non-interchangeability) 網絡與試驗依賴關係，在手機端自動適配為垂直引導步驟卡片。
+- **📽️ ISO 80369 通俗全解互動投影片 (Interactive Slides & Standalone Bundle)**：
+  - 收錄共 12 頁深度科普投影片（`public/slides/index.html`），以平易近人的生活化語言解析 6% 錐度密封、防呆互斥、高壓防漏與力學極限試驗。
+  - 支援無依賴單檔版（`public/slides-standalone.html`），將所有真實產品照片與規範 CAD 圖紙以 Base64 內聯，可單檔攜帶至任何無網路環境開啟。
+  - 頂部導航列常駐「🏭 凱益 Mouldex 接頭專區 ↗」傳送門，並署名 `Created by Wesley Chang, QC Dept. @Mouldex, Sept-2026`。
 - **📲 醫療級 PWA 離線應用程式 (Progressive Web App)**：支援 Android / iOS 手機一鍵「新增至主畫面」獨立全屏運行，內建 Workbox 自動預快取，支援實驗室斷網環境 100% 離線檢視。
 
 ---
