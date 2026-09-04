@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build-and-deploy:
+  deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -34,11 +34,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Software Validation (Type Check)
-        run: npx tsc --noEmit
+      - name: Run unit tests
+        run: npx vitest run
 
-      - name: Build production bundle
+      - name: Build production bundle (React SPA)
         run: npx vite build
+
+      - name: Copy slides-standalone.html to dist root
+        run: cp public/slides-standalone.html dist/slides-standalone.html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
