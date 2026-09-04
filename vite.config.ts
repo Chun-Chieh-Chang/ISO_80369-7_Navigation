@@ -53,7 +53,8 @@ export default defineConfig(() => {
         workbox: {
           globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
           globIgnores: ['**/slides-standalone.html'],
-          maximumFileSizeToCacheInBytes: 15 * 1024 * 1024 // 15MB for blueprint assets
+          maximumFileSizeToCacheInBytes: 15 * 1024 * 1024, // 15MB for blueprint assets
+          navigateFallbackDenylist: [/.*\/slides(\/.*)?$/, /^\/slides(\/.*)?$/, /slides-standalone\.html/]
         }
       })
     ],

@@ -1,6 +1,35 @@
 # 開發日誌 (DEV_LOG)
 
 ---
+## 版本：v8.30.0 投影片導航修復：Workbox Service Worker 攔截排除與導航直達 (2026-09-05)
+
+### 需求來源與目標
+使用者反映點擊導航欄之「🎬 投影片演示」按鈕時，並未能如預期在新分頁開啟投影片，而是發生跳到錯誤路徑（跳回原首頁）或無反應之問題。目標是精確定位根本原因，確保點擊後能以最流暢、零阻礙的方式在新分頁開啟投影片。
+
+### 根因分析 (RCA)
+1. **Workbox Service Worker 導航回退攔截 (Navigation Fallback Interception)**：
+   - 專案整合了 `vite-plugin-pwa`，Workbox 預設會為單頁應用 (SPA) 註冊全域導航攔截規則：`NavigationRoute(createHandlerBoundToURL("index.html"))`。
+   - 由於未在配置中指定 `navigateFallbackDenylist`，當使用者點擊按鈕於新分頁發起對 `/slides/` 的導航請求（`mode: 'navigate'`）時，Service Worker 將其判定為 SPA 內部路由跳轉，強制返回了 SPA 的 `index.html`（首頁），導致使用者「跳到錯誤路徑（跳回首頁）」。
+2. **直達路徑精確性與巨量檔案困境**：
+   - 線上部署版本一度指向 `slides/slides-standalone.html`，該檔案大小高達 27 MB，在線上環境加載緩慢且存在快取衝突。
+3. **歷史遺留檔案 (MECE 違規)**：
+   - 歷史版本（v8.28.1）於 `public/index.html` 留存了重定向 stub，與根目錄 `index.html` 產生職責重疊與潛在干擾。
+
+### 矯正與預防措施 (CAPA)
+1. **配置 Workbox 排除名單 (navigateFallbackDenylist)**：
+   - 於 `vite.config.ts` 中的 `VitePWA.workbox` 加入：
+     `navigateFallbackDenylist: [/.*\/slides(\/.*)?$/, /^\/slides(\/.*)?$/, /slides-standalone\.html/]`
+   - 經打包後檢查 `dist/sw.js`，確認 Service Worker 導航規則已明確排除所有投影片相關路徑，杜絕回退攔截。
+2. **更新導航直達路徑**：
+   - 於 `src/components/Header.tsx` 將 `tab.id === 'presentation'` 之超連結明確設為 `${import.meta.env.BASE_URL}slides/index.html`，直達輕量化 SSOT 投影片（約 120 KB），避免伺服器目錄 trailing slash 重定向。
+3. **MECE 清理**：
+   - 刪除無效之 `public/index.html`，維持架構單一真理源。
+4. **確效驗證**：
+   - `npm run lint` 通過（0 error）。
+   - `npm test` 通過（17/17 測試案例 PASS，零副作用迴歸）。
+   - `npm run build` 通過，確認 `dist/sw.js` 包含正確之 `denylist` 規則。
+
+---
 ## 版本：v8.28.0 架構大清理：移除 React App，回歸純靜態 HTML (2026-09-05)
 
 ### 需求來源與目標

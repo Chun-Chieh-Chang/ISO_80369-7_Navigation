@@ -2,6 +2,23 @@
 
 All notable changes to the ISO 80369-7 & ISO 80369-20 Navigation App will be documented in this file.
 
+## [v8.30.0] - 2026-09-05
+
+### Presentation Entry Navigation & Service Worker Interception Fix
+- **Root Cause (RCA)**:
+  1. **Workbox Navigation Fallback Interception**: `vite-plugin-pwa` registered a catch-all `NavigationRoute(createHandlerBoundToURL("index.html"))` without a denylist. When users clicked "🎬 投影片演示" to open the slides in a new tab, the Service Worker intercepted the navigation request and returned the SPA `index.html` (the app homepage) instead of the actual slide deck.
+  2. **Direct Link Precision**: The previous navigation link pointed to `slides/slides-standalone.html` (a 27 MB monolithic file) or directory root, which suffered from path ambiguities and caching conflicts.
+  3. **Orphan Artifact**: `public/index.html` (a historical redirect stub from v8.28.1) existed alongside the root `index.html`, violating MECE architecture principles.
+- **Corrective & Preventive Action (CAPA)**:
+  1. Configured `navigateFallbackDenylist: [/.*\/slides(\/.*)?$/, /^\/slides(\/.*)?$/, /slides-standalone\.html/]` in `vite.config.ts`, ensuring Service Worker completely bypasses slide URLs and allows direct navigation.
+  2. Updated `Header.tsx` presentation link to `${import.meta.env.BASE_URL}slides/index.html` for instant loading of the lightweight (~120 KB) slide deck in a new tab.
+  3. Removed redundant `public/index.html` to eliminate potential static routing collisions.
+- **Verification**:
+  - `dist/sw.js` inspected: confirmed `{denylist:[...]}` generated correctly.
+  - `npm run lint`: PASS (0 errors).
+  - `npm test`: 17/17 PASS (zero regression).
+  - `npm run build`: PASS.
+
 ## [v8.29.0] - 2026-09-05
 
 ### MECE Asset Cleanup & Documentation Synchronization
