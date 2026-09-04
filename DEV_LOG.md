@@ -1,6 +1,78 @@
 # 開發日誌 (DEV_LOG)
 
 ---
+## 版本：v8.26.0 Slide 11 垂直空間填充優化：以系統性 CSS Grid 消除「空洞留白」美學缺陷 (2026-09-04)
+
+### 需求來源與目標
+使用者在連續 Checkpoint 回報後指出：Slide 11「這一頁的留白區域，感覺空、感覺輕，可以用放大字體或是調整排版來平衡」，並強調「不要頭痛醫頭腳痛醫腳、說哪改哪，要舉一反三」，要求系統性解決頁面垂直空間不平衡問題。
+
+### 根因分析 (RCA)
+1. **Flex-in-Flex 垂直填充失效 (RCA-01)**：
+   - *現象*：`slide-body`（`flex:1`）內有兩個子元素：`process-steps-grid`（auto height）和 `grid-3`（auto height），兩者合計高度小於 `flex:1` 容器，導致底部出現明顯空洞留白。
+   - *根因*：`slide-body` 使用 `flex-direction:column; justify-content:flex-start`，子元素不會自動擴張填充剩餘空間；`grid-3` 雖然加了 `flex:1`，但這在 flexbox 語境中依賴父容器有明確高度，而 `slide-body` 的高度本身由 flex parent（`.slide`）決定，形成 flex 垂直填充信號傳遞斷鏈。
+2. **視覺字體重量不足 (RCA-02)**：
+   - *現象*：流程步驟卡片標題 `font-size:16px; font-weight:800`、正文 `font-size:13.5px` 在整頁 700px+ 高度空間中顯得偏小，加重了空曠感。
+
+### 矯正與預防措施 (CAPA)
+1. **採用 CSS Grid row 架構取代 Flex column (CAPA-01)**：
+   - 將 Slide 11 的 `slide-body` 從 `display:flex; flex-direction:column; gap:16px` 改為 `display:grid; grid-template-rows: auto 1fr; gap:12px; min-height:0`。
+   - `auto` row 對應 `process-steps-grid`（4 欄流程卡，自然高度）；`1fr` row 對應 `grid-3`（3 張大卡，填滿剩餘 100% 高度），徹底消除底部空洞。
+2. **提升流程卡字體重量 (CAPA-02)**：
+   - 步驟標題：`font-size: 16px → 17px`、`font-weight: 800 → 900`、新增 `letter-spacing:-0.01em`。
+   - 步驟正文：`font-size: 13.5px → 14px`、`line-height: 1.6 → 1.65`。
+3. **提升下方大卡字體重量 (CAPA-03)**：
+   - 卡片標題：`font-size: 18px → 19px`、新增 `letter-spacing:-0.01em`。
+   - 卡片正文：`font-size: 14.5px → 15px`、`line-height: 1.65 → 1.7`。
+   - 核對欄位字體：`font-size: 13.5px → 14px`、gap `8px → 10px`。
+4. **收緊 Header 佔用空間 (CAPA-04)**：
+   - Slide 11 `slide-header` 的 `margin-bottom: 18px → 12px`、`padding-bottom: 14px → 10px`，將節省的空間還給內容區。
+
+### 防迴歸設計
+- 本次修改僅透過 **inline style** 覆蓋 Slide 11 的 `slide-body` 與 `slide-header`，不改動全域 `.slide-body`、`.grid-3`、`.card` CSS，確保其他所有 Slide 的既有佈局 100% 不受影響（零副作用防禦）。
+
+### 變更檔案清單
+| 檔案 | 變更類型 | 說明 |
+|------|--------|------|
+| `public/slides/index.html` | MODIFY | Slide 11 `slide-body` 改 Grid 架構；步驟卡與大卡字體升級；Header 間距收緊 |
+| `public/slides.html` | MODIFY | 鏡像同步 |
+| `DEV_LOG.md` | MODIFY | 記錄 v8.26.0 垂直填充優化 RCA/CAPA |
+
+## 版本：v8.25.0 消除重複入口冗餘：確立頂部導覽列為單一真理來源 (SSOT) 並移除 Slide 5 Tab 4 (2026-09-04)
+
+### 需求來源與目標
+使用者提供截圖並明確指出：「`兩個通向同一網址的入口，顯得冗餘(違反 MECE)，講很多次了`」。指在 Slide 5 畫面上，頂部導覽列已存在 `🏭 凱益 Mouldex 接頭專區 ↗` 按鈕，而下方 Slide 5 的 Tab 列又配置了 `📖 走進製造現場：凱益 Mouldex 醫療接頭實物專區`，兩者同時出現在同一螢幕且均導向 `https://www.mouldex.com.tw/Productinformation/24869`，造成視覺與邏輯上的雙重冗餘，嚴重違反 MECE 原則。
+
+### 根因分析 (RCA)
+- *現象*：在 Slide 5（尺寸與公差結構全解）中，畫面頂部右上角有全域按鈕，Tab 列中又有第 4 個按鈕，點擊後內容僅為純文字外鏈卡片。
+- *根因*：在整合實體產品型錄時，未嚴格遵守「全域控制 vs 區域內容」的職責邊界，過度重複插入同一外部連結；Slide 5 本身的核心職責是展示「真實接頭實拍照」與「ISO 官方 CAD 藍圖」，硬塞一個單純跳轉型錄的 Tab，既稀釋了技術圖紙的專業度，又造成同一螢幕上兩個重複入口的冗餘。
+
+### 矯正與預防措施 (CAPA)
+1. **徹底移除 Slide 5 Tab 4 冗餘入口 (CAPA-01)**：
+   - 自 Slide 5 移除 `<button class="view-tab-btn" id="tab-btn-catalog">`。
+   - 刪除其對應的 `#view-catalog-container` DOM 節點。
+   - Slide 5 回歸純粹聚焦的 3 大技術分頁：
+     1. `📷 看得見摸得著：4 款真實打點滴接頭實拍照`
+     2. `📐 官方精密圖紙：公接頭（帶外螺帽的公插頭）`
+     3. `📐 官方精密圖紙：母接頭（帶兩隻小耳朵的母座）`
+2. **清理 JavaScript 依賴鏈 (CAPA-02)**：
+   - 移除 `switchSlide5Tab` 中對 `tab-btn-catalog` 及 `view-catalog-container` 之 DOM 查詢與事件監聽，確保代碼健壯零報錯。
+3. **對齊演講者講稿 (CAPA-03)**：
+   - 將 Slide 5 演講者備忘錄中的引導詞由「點擊第四個 Tab」修正為「若需查閱商業量產成品，可隨時點擊頂部右上角的『凱益 Mouldex 接頭專區』按鈕」，確立頂部全域按鈕為唯一的真理來源（SSOT）。
+4. **全端同構與編譯驗證 (CAPA-04)**：
+   - 同步 `public/slides/index.html` -> `public/slides.html` -> `public/slides-standalone.html`（27.05 MB）。
+   - 運行 `npm run build`，確認自動觸發 MECE 清理並排除了 `dist/slides-standalone.html`。
+   - 透過瀏覽器實際於 Slide 5 截圖驗證，確認 Tab 列已由 4 顆精簡為 3 顆，畫面清爽大器，零控制台報錯。
+   - `npm run lint` 與 `npm run test`（17 項單元測試 100% 通過）。
+
+### 變更檔案清單
+| 檔案 | 變更類型 | 說明 |
+|------|--------|------|
+| `public/slides/index.html` | MODIFY | 移除 Slide 5 Tab 4 按鈕、容器與 JS 邏輯，校正備忘錄引導語 |
+| `public/slides.html` | MODIFY | 鏡像同步最新投影片代碼 |
+| `public/slides-standalone.html` | MODIFY | 重新編譯產出無依賴 27 MB 單檔投影片 |
+| `DEV_LOG.md` | MODIFY | 記錄 v8.25.0 消除重複入口冗餘之 RCA/CAPA 與驗證記錄 |
+
+---
 ## 版本：v8.24.0 MECE 架構優化：消除 dist/ 27MB 離線單檔冗餘與防版本脫節防線 (2026-09-04)
 
 ### 需求來源與目標

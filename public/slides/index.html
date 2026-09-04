@@ -301,13 +301,38 @@
       flex: 1;
     }
 
-    /* 專屬美學黃金比例網格 (42% : 58% 視覺重量平衡) */
+    /* 專屬美學黃金比例網格 (42% : 58% 視覺重量平衡 - 主述在右) */
     .grid-asym-42-58 {
       display: grid;
       grid-template-columns: 0.9fr 1.15fr;
       gap: 22px;
       align-items: stretch;
       flex: 1;
+    }
+
+    /* 專屬美學黃金比例網格 (58% : 42% 視覺重量平衡 - 主述在左) */
+    .grid-asym-58-42 {
+      display: grid;
+      grid-template-columns: 1.15fr 0.9fr;
+      gap: 22px;
+      align-items: stretch;
+      flex: 1;
+    }
+
+    /* 縱向均勻填充多卡容器 (消滅局部空洞留白，保證與相鄰整卡 100% 齊平對稱) */
+    .stacked-cards-col {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      height: 100%;
+      flex: 1;
+    }
+
+    .stacked-cards-col > .card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     /* 高階質感卡片 (Specular High-End Surface) */
@@ -1271,31 +1296,43 @@
       </div>
       <div class="slide-body">
         <div class="grid-2">
-          <div class="card card-accent-red">
-            <h3 class="card-title">⚠️ 病房裡真實發生過的驚險瞬間</h3>
-            <ul class="feature-list">
-              <li class="feature-item">
-                <div class="feature-bullet" style="background:#FEE2E2; color:#DC2626;">1</div>
-                <div><strong>血管打點滴（IV）</strong>：管子直接連著心臟和大腦血液，只能進清澈乾淨的生理食鹽水或無菌藥物。</div>
-              </li>
-              <li class="feature-item">
-                <div class="feature-bullet" style="background:#FEE2E2; color:#DC2626;">2</div>
-                <div><strong>腸胃餵食管（Enteral）</strong>：管子裡打的是濃稠的營養奶粉、流質食物，是直接送進肚子消化的。</div>
-              </li>
-              <li class="feature-item">
-                <div class="feature-bullet" style="background:#FEE2E2; color:#DC2626;">3</div>
-                <div><strong>要是兩根管子長得一樣</strong>：疲憊不堪的夜班護理師一旦在昏暗中看花眼，把濃稠的牛奶誤插進點滴管，濃稠的奶糜會瞬間阻塞肺部微血管，幾分鐘內病患就會窒息危及性命！</div>
-              </li>
-            </ul>
+          <div class="card card-accent-red" style="justify-content:space-between;">
+            <div>
+              <h3 class="card-title">⚠️ 病房裡真實發生過的驚險瞬間</h3>
+              <ul class="feature-list" style="margin-top:10px;">
+                <li class="feature-item">
+                  <div class="feature-bullet" style="background:#FEE2E2; color:#DC2626;">1</div>
+                  <div><strong>血管打點滴（IV）</strong>：管子直接連著心臟和大腦血液，只能進清澈乾淨的生理食鹽水或無菌藥物。</div>
+                </li>
+                <li class="feature-item">
+                  <div class="feature-bullet" style="background:#FEE2E2; color:#DC2626;">2</div>
+                  <div><strong>腸胃餵食管（Enteral）</strong>：管子裡打的是濃稠的營養奶粉、流質食物，是直接送進肚子消化的。</div>
+                </li>
+                <li class="feature-item">
+                  <div class="feature-bullet" style="background:#FEE2E2; color:#DC2626;">3</div>
+                  <div><strong>要是兩根管子長得一樣</strong>：疲憊不堪的夜班護理師一旦在昏暗中看花眼，把濃稠的牛奶誤插進點滴管，濃稠的奶糜會瞬間阻塞肺部微血管，幾分鐘內病患就會窒息危及性命！</div>
+                </li>
+              </ul>
+            </div>
+            <div style="background:#FEF2F2; border:1px solid #FECACA; border-radius:8px; padding:10px 14px; font-size:13px; color:#991B1B; display:flex; align-items:center; gap:8px;">
+              <span>🚨</span>
+              <span><strong>血淋淋的教訓：</strong>管路錯接從不是個別護理師的粗心問題，而是接頭幾何相容性留下的致命後門。</span>
+            </div>
           </div>
-          <div class="card card-accent-amber">
-            <div class="metaphor-badge">常見誤區</div>
-            <h3 class="card-title">❌ 常聽人說：「叫護理師多注意、多貼幾張貼紙不就好了？」</h3>
-            <p class="card-text">
-              <strong>答案是：真的不夠！</strong><br>
-              墨菲定律告訴我們：只要客觀上還插得進去，哪怕十萬次裡只有一次疏忽，在全世界每年幾十億次的輸液操作中，悲劇就一定會發生。<br><br>
-              <strong>「護理師也是肉身凡胎，不要考驗人疲憊的極限；讓實體形狀替我們把好這道關！」</strong> 這就是標準發起改革最根本的初衷。
-            </p>
+          <div class="card card-accent-amber" style="justify-content:space-between;">
+            <div>
+              <div class="metaphor-badge">常見誤區</div>
+              <h3 class="card-title" style="margin-top:10px;">❌ 常聽人說：「叫護理師多注意、多貼幾張貼紙不就好了？」</h3>
+              <p class="card-text" style="margin-top:10px;">
+                <strong>答案是：真的不夠！</strong><br>
+                墨菲定律告訴我們：只要客觀上還插得進去，哪怕十萬次裡只有一次疏忽，在全世界每年幾十億次的輸液操作中，悲劇就一定會發生。<br><br>
+                <strong>「護理師也是肉身凡胎，不要考驗人疲憊的極限；讓實體形狀替我們把好這道關！」</strong> 這就是標準發起改革最根本的初衷。
+              </p>
+            </div>
+            <div style="background:#FFFBEB; border:1px solid #FDE68A; border-radius:8px; padding:10px 14px; font-size:13px; color:#92400E; display:flex; align-items:center; gap:8px;">
+              <span>💡</span>
+              <span><strong>本質防呆理念：</strong>防呆（Poka-Yoke）的真諦是把安全直接刻進物理幾何裡，徹底消滅犯錯機會。</span>
+            </div>
           </div>
         </div>
       </div>
@@ -1316,40 +1353,52 @@
         <p class="slide-subtitle">百年前發明的 6% 斜角實在太好用了，結果所有廠商全都拿去用，最後亂成了一鍋粥</p>
       </div>
       <div class="slide-body">
-        <div class="grid-asym-6-4">
-          <!-- 左側 60%：歷史演進雙階梯 -->
-          <div style="display:flex; flex-direction:column; gap:16px;">
+        <div class="grid-asym-58-42">
+          <!-- 左側 58%：歷史演進雙階梯 (均勻縱向拉滿，徹底消除底部空洞) -->
+          <div class="stacked-cards-col">
             <div class="card card-accent-blue">
-              <div style="display:flex; justify-content:space-between; align-items:center;">
-                <h3 class="card-title">🎩 魯爾工程師的錐度發明</h3>
-                <span class="metric-chip">1890s 摩擦錐度自鎖</span>
+              <div>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <h3 class="card-title">🎩 魯爾工程師的錐度發明</h3>
+                  <span class="metric-chip">1890s 摩擦錐度自鎖</span>
+                </div>
+                <p class="card-text" style="margin-top:8px;">
+                  130年前，德國儀器製造者魯爾採用了精妙的錐度配合幾何：把接頭做成 <strong>6% 的微小斜角</strong>（每前進 1 公分粗細只差 0.6 毫米）。兩截塑料或玻璃輕輕推入旋緊，不用橡皮圈，靠塑料表面本身的均勻貼合就能做到滴水不漏，連極細的針筒都不滲水！
+                </p>
               </div>
-              <p class="card-text">
-                130年前，德國儀器製造者魯爾採用了精妙的錐度配合幾何：把接頭做成 <strong>6% 的微小斜角</strong>（每前進 1 公分粗細只差 0.6 毫米）。兩截塑料或玻璃輕輕推入旋緊，不用橡皮圈，靠塑料表面本身的均勻貼合就能做到滴水不漏，連極細的針筒都不滲水！
-              </p>
+              <div style="background:#EFF6FF; border:1px solid #BFDBFE; border-radius:8px; padding:10px 14px; font-size:13px; color:#1E40AF; display:flex; align-items:center; gap:8px;">
+                <span>📐</span>
+                <span><strong>微米自鎖原理：</strong>微小錐面產生巨大正向摩擦緊壓，達成「無橡皮圈純塑料自鎖密封」。</span>
+              </div>
             </div>
 
             <div class="card card-accent-amber">
-              <div style="display:flex; justify-content:space-between; align-items:center;">
-                <h3 class="card-title">💣 「太好用」引發的跨科室大亂套</h3>
-                <span class="metric-chip" style="background:#FFFBEB; color:#B45309; border-color:#FDE68A;">全院通配大隱患</span>
+              <div>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <h3 class="card-title">💣 「太好用」引發的跨科室大亂套</h3>
+                  <span class="metric-chip" style="background:#FFFBEB; color:#B45309; border-color:#FDE68A;">全院通配大隱患</span>
+                </div>
+                <p class="card-text" style="margin-top:8px;">
+                  因為這個設計太便宜、太好拔插，後續幾十年間，量血壓的、吸氧氣的、肚子餵飯的、背後打麻藥的，全院上下所有醫療器材廠商，全圖省事拿這款接頭來用，完全沒留安全退路！
+                </p>
               </div>
-              <p class="card-text">
-                因為這個設計太便宜、太好拔插，後續幾十年間，量血壓的、吸氧氣的、肚子餵飯的、背後打麻藥的，全院上下所有醫療器材廠商，全圖省事拿這款接頭來用，完全沒留安全退路！
-              </p>
+              <div style="background:#FFFBEB; border:1px solid #FDE68A; border-radius:8px; padding:10px 14px; font-size:13px; color:#92400E; display:flex; align-items:center; gap:8px;">
+                <span>💥</span>
+                <span><strong>混亂代價：</strong>不同科室、不同壓力、不同藥物的管路，全能互相插合，埋下全院互穿地雷。</span>
+              </div>
             </div>
           </div>
 
-          <!-- 右側 40%：深色高對比焦點警示卡 (The Master Key Paradox) -->
+          <!-- 右側 42%：深色高對比焦點警示卡 (The Master Key Paradox) -->
           <div class="card card-hero-focus" style="justify-content:space-between; padding:22px;">
             <div>
               <div class="metaphor-badge" style="background:rgba(239, 68, 68, 0.2); color:#FCA5A5; border:1px solid rgba(239, 68, 68, 0.4);">
                 可怕的連鎖反應
               </div>
-              <h3 class="card-title" style="margin-top:10px; font-size:20px;">
+              <h3 class="card-title" style="margin-top:12px; font-size:20px;">
                 🔓 萬能鑰匙的危險：當所有門都共用同一把鎖
               </h3>
-              <p class="card-text" style="margin-top:10px; font-size:14.5px; line-height:1.7;">
+              <p class="card-text" style="margin-top:12px; font-size:14.5px; line-height:1.7;">
                 這下壞了：醫院裡幾十種打進不同身體部位的液體和氣體，全連成了同一種接口。<br><br>
                 <strong>形象比喻：</strong>就像全世界的防盜門、瓦斯閥門、自行車鎖，全部共用同一款扁平小鑰匙。看似方便到了極致，安全卻徹底歸零！
               </p>
@@ -1484,7 +1533,6 @@
           <button class="view-tab-btn active" id="tab-btn-real">📷 看得見摸得著：4 款真實打點滴接頭實拍照</button>
           <button class="view-tab-btn" id="tab-btn-bp-male">📐 官方精密圖紙：公接頭（帶外螺帽的公插頭）</button>
           <button class="view-tab-btn" id="tab-btn-bp-female">📐 官方精密圖紙：母接頭（帶兩隻小耳朵的母座）</button>
-          <button class="view-tab-btn" id="tab-btn-catalog">📖 走進製造現場：凱益 Mouldex 醫療接頭實物專區</button>
         </div>
 
         <!-- Tab 1: 實體接頭深度圖解展台 (Industrial Spec 實拍組件) -->
@@ -1560,49 +1608,7 @@
           </div>
         </div>
 
-        <!-- Tab 4: 凱益 Mouldex 醫療接頭產品專區 -->
-        <div id="view-catalog-container" style="display:none;">
-          <div class="card" style="background:#FFFFFF; border:1.5px solid #BFDBFE; padding:24px;">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap;">
-              <div style="flex:1; min-width:280px;">
-                <span class="real-product-badge" style="font-size:12px; padding:3px 8px;">🏭 扎根臨床的台灣精密製造</span>
-                <h3 style="font-size:18px; font-weight:800; color:#1E40AF; margin:10px 0 8px;">
-                  守護生命的微米力量：凱益 (Mouldex) 醫療器材接頭實體產品全覽
-                </h3>
-                <p style="font-size:13.5px; color:#374151; line-height:1.7;">
-                  ISO 80369-7 絕非紙上冷冰冰的法規，而是每天在病房默默守護病患的真實塑膠組件！在 <strong>凱益股份有限公司 (Mouldex) 醫療接頭專區</strong> 中，你可以親眼看到這些經過高壓與拉力嚴格考驗的合格產品：
-                </p>
-                <ul class="feature-list" style="margin-top:12px;">
-                  <li class="feature-item">
-                    <div class="feature-bullet">✓</div>
-                    <div><strong>固定公鎖與旋轉螺帽公魯爾</strong>：旋轉順暢不打結，換藥推注時管線不扭曲。</div>
-                  </li>
-                  <li class="feature-item">
-                    <div class="feature-bullet">✓</div>
-                    <div><strong>母魯爾轉接頭與無螺牙滑套</strong>：急診快速推藥一秒對準，分秒必爭。</div>
-                  </li>
-                  <li class="feature-item">
-                    <div class="feature-bullet">✓</div>
-                    <div><strong>三通、四通分岐閥與倒鉤管路</strong>：多種點滴藥水同時輸注的交通十字路口。</div>
-                  </li>
-                  <li class="feature-item">
-                    <div class="feature-bullet">✓</div>
-                    <div><strong>無菌保護帽與加藥口</strong>：替病人的管路戴上安全帽，杜絕外界細菌入侵。</div>
-                  </li>
-                </ul>
-              </div>
 
-              <div style="background:#F8FAFC; border:1px solid var(--border); border-radius:12px; padding:18px; width:300px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:12px;">
-                <div style="font-size:36px;">🏭</div>
-                <div style="font-weight:700; font-size:14px; color:#111827;">凱益 Mouldex 產品專區<br><span style="color:#2563EB; font-size:12px; word-break:break-all;">https://www.mouldex.com.tw/Productinformation/24869</span></div>
-                <p style="font-size:12px; color:#6B7280;">點擊立即另開新視窗，親身查閱專業醫療器材精密零組件製造商的實體產品規格！</p>
-                <a href="https://www.mouldex.com.tw/Productinformation/24869" target="_blank" rel="noopener noreferrer" class="catalog-cta-btn" style="width:100%; justify-content:center;">
-                  前往 Mouldex 接頭專區 ↗
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <div id="view-bp-male-container" style="display:none;">
           <div class="diagram-container" style="background:#FFFFFF; min-height:260px;">
@@ -1648,7 +1654,7 @@
         <span>第 5 / 12 頁</span>
       </div>
       <aside class="notes-data" style="display:none;">
-        現在請大家看畫面上來自 Industrial Spec 的 4 款真實醫療接頭照片！這不是手工繪製的簡圖，而是真實出廠的醫療注塑組件：第一張是 CIML7 公接頭，清楚看到外層的螺紋套環和中間 6% 的透明公錐；第二張是 CFL7 母接頭，頂部有兩隻直角小耳朵，也就是鎖定用的耳朵；第三張是穿孔固定在點滴幫浦機殼上的面板母接頭；第四張是專門用溶劑膠合在軟管上的膠合接頭。點擊上方的 Tab，我們不僅能查看 ISO 官方圖 B.3 和圖 B.6 的微米級工程圖紙，還能直接點擊第四個 Tab 翻閱 凱益股份有限公司 (Mouldex) 接頭專區的實體產品系列，具象感受標準是如何轉化為病房裡的救命器械的！
+        現在請大家看畫面上來自 Industrial Spec 的 4 款真實醫療接頭照片！這不是手工繪製的簡圖，而是真實出廠的醫療注塑組件：第一張是 CIML7 公接頭，清楚看到外層的螺紋套環和中間 6% 的透明公錐；第二張是 CFL7 母接頭，頂部有兩隻直角小耳朵，也就是鎖定用的耳朵；第三張是穿孔固定在點滴幫浦機殼上的面板母接頭；第四張是專門用溶劑膠合在軟管上的膠合接頭。點擊上方的 Tab，我們能隨時切換查看 ISO 官方圖 B.3 和圖 B.6 的微米級工程圖紙；若需查閱商業量產成品，可隨時點擊頂部右上角的「凱益 Mouldex 接頭專區」按鈕，具象感受標準是如何轉化為病房裡的救命器械的！
       </aside>
     </section>
 
@@ -1660,8 +1666,8 @@
         <p class="slide-subtitle">為什麼要分成兩本書？「出考題的設計師」與「鐵面無私的考官」如何默契合作？</p>
       </div>
       <div class="slide-body">
-        <div class="grid-asym-4-6">
-          <!-- 左側 40%：通俗入門核心錨點與哲學本質 -->
+        <div class="grid-asym-42-58">
+          <!-- 左側 42%：通俗入門核心錨點與哲學本質 -->
           <div class="card card-hero-focus" style="justify-content:space-between; padding:22px;">
             <div>
               <div class="metaphor-badge" style="background:rgba(59, 130, 246, 0.25); color:#93C5FD; border:1px solid rgba(59, 130, 246, 0.4);">
@@ -1690,37 +1696,44 @@
             </div>
           </div>
 
-          <!-- 右側 60%：工程標準與醫療實務雙階梯 -->
-          <div style="display:flex; flex-direction:column; gap:14px;">
+          <!-- 右側 58%：工程標準與醫療實務三階梯 (均勻縱向拉滿，徹底消除底部空洞) -->
+          <div class="stacked-cards-col">
             <!-- 舉例 2：NCAP 碰撞測試 -->
             <div class="card card-accent-emerald">
-              <div style="display:flex; justify-content:space-between; align-items:center;">
-                <h3 class="card-title" style="font-size:17px;">🛡️ 舉例二：汽車安全撞擊測試 (NCAP)</h3>
-                <span class="metric-chip" style="background:#ECFDF5; color:#047857; border-color:#A7F3D0;">工業界大考</span>
+              <div>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <h3 class="card-title" style="font-size:16.5px;">🛡️ 舉例二：汽車安全撞擊測試 (NCAP)</h3>
+                  <span class="metric-chip" style="background:#ECFDF5; color:#047857; border-color:#A7F3D0;">工業界大考</span>
+                </div>
+                <p class="card-text" style="font-size:13.5px; margin-top:6px;">
+                  • <strong>ISO 80369-7（造車標準）</strong>：規定「保險桿鋼材有多厚、時速 50 公里撞擊時車內假人受傷數值不能超標」。<br>
+                  • <strong>ISO 80369-20（撞擊實驗室）</strong>：規定「牽引鋼索用什麼速度拉、假人身上 40 個感應器怎麼校準、高速攝影機用多少幀率記錄」。
+                </p>
               </div>
-              <p class="card-text" style="font-size:14px;">
-                • <strong>ISO 80369-7（造車標準）</strong>：規定「保險桿鋼材有多厚、時速 50 公里撞擊時車內假人受傷數值不能超標」。<br>
-                • <strong>ISO 80369-20（撞擊實驗室）</strong>：規定「牽引鋼索用什麼速度拉、假人身上 40 個感應器怎麼校準、高速攝影機用多少幀率記錄」。
-              </p>
             </div>
 
             <!-- 舉例 3：醫療實務 -->
             <div class="card card-accent-blue">
-              <div style="display:flex; justify-content:space-between; align-items:center;">
-                <h3 class="card-title" style="font-size:17px;">🏥 舉例三：醫療器材工廠的真實日常</h3>
-                <span class="metric-chip">工廠到病房</span>
+              <div>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <h3 class="card-title" style="font-size:16.5px;">🏥 舉例三：醫療器材工廠的真實日常</h3>
+                  <span class="metric-chip">工廠到病房</span>
+                </div>
+                <p class="card-text" style="font-size:13.5px; margin-top:6px;">
+                  • <strong>ISO 80369-7（工廠研發藍圖）</strong>：工廠工程師翻開 -7，畫出尺寸，定下「要能承受 35 牛頓拉力和 300 千帕水壓」。<br>
+                  • <strong>ISO 80369-20（第三方標準檢驗室）</strong>：檢驗工程師翻開 -20，拿出標準不鏽鋼量規夾具，一板一眼依序加壓拉載，出具全球通用的合格報告！
+                </p>
               </div>
-              <p class="card-text" style="font-size:14px;">
-                • <strong>ISO 80369-7（工廠研發藍圖）</strong>：工廠工程師翻開 -7，畫出尺寸，定下「要能承受 35 牛頓拉力和 300 千帕水壓」。<br>
-                • <strong>ISO 80369-20（第三方標準檢驗室）</strong>：檢驗工程師翻開 -20，拿出標準不鏽鋼量規夾具，一板一眼依序加壓拉載，出具全球通用的合格報告！
-              </p>
             </div>
 
             <!-- 綜合價值提示 -->
-            <div class="card" style="background:#F8FAFC; border:1px solid #CBD5E1; padding:12px 16px;">
-              <p style="font-size:13.5px; color:#334155; line-height:1.55; margin:0;">
-                <strong>💡 聰明省錢的巧思：</strong>-20 這套公認的嚴格考場（Annex B 到 L），不僅用來考 Part 7 血管接頭，連 Part 3 胃管、Part 6 麻醉管都一起用它考，全世界不用為每種管子重複買昂貴的實驗儀器！
-              </p>
+            <div class="card card-accent-amber" style="background:#FFFBEB; border:1px solid #FDE68A; padding:14px 18px; justify-content:center;">
+              <div style="display:flex; align-items:center; gap:12px;">
+                <span style="font-size:24px; flex-shrink:0;">💡</span>
+                <p style="font-size:13.5px; color:#92400E; line-height:1.6; margin:0;">
+                  <strong>聰明省錢的巧思：</strong>-20 這套公認的嚴格考場（Annex B 到 L），不僅考 Part 7 血管接頭，連 Part 3 胃管、Part 6 麻醉管都一起用它考，全世界不用為每種管子重複買昂貴的實驗儀器！
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -2071,88 +2084,159 @@
 
     <!-- Slide 11: 研發到上市全流程：ISO 80369-7 與 -20 在產業鏈中的協同閉環 -->
     <section class="slide" data-slide="11">
-      <div class="slide-header">
+      <div class="slide-header" style="margin-bottom:12px; padding-bottom:10px;">
         <div class="slide-tag">生命防護網・從圖紙到病房</div>
         <h2 class="slide-title">一根救命管子的誕生旅程：從一張工程圖紙，到病床邊的踏實安心</h2>
         <p class="slide-subtitle">這兩本標準是怎麼串起開模工廠、檢驗所、監管部門，最後把安全送到每個人身邊的？</p>
       </div>
-      <div class="slide-body">
+      <div class="slide-body" style="display:grid; grid-template-rows: auto 1fr; gap:12px; min-height:0;">
         <div class="process-steps-grid">
           <!-- 階段 1 -->
-          <div class="process-step-item" style="border-top:3px solid #2563EB;">
+          <div class="process-step-item" style="border-top:4px solid #2563EB; padding:18px 20px;">
             <div style="display:flex; justify-content:space-between; align-items:center;">
-              <div class="process-step-num">1</div>
-              <span class="real-product-badge">精密開模</span>
+              <div class="process-step-num" style="width:34px; height:34px; font-size:16px; font-weight:900;">1</div>
+              <span class="real-product-badge" style="font-size:12.5px; padding:4px 10px;">精密開模</span>
             </div>
-            <h4 style="font-size:14.5px; font-weight:700; color:#1E40AF;">看著 ISO 80369-7 設計</h4>
-            <p style="font-size:12.5px; color:#4B5563; line-height:1.5;">
-              • 輸入精確到 0.01 毫米的 6% 斜角尺寸<br>
-              • 雕琢雙螺旋螺牙與防脫落卡榫<br>
-              • 用高純度醫療級 PP/PC 塑膠注塑成型
+            <h4 style="font-size:17px; font-weight:900; color:#1E40AF; margin:8px 0 6px; letter-spacing:-0.01em;">看著 ISO 80369-7 設計</h4>
+            <p style="font-size:14px; color:#374151; line-height:1.65; margin:0;">
+              • 輸入精確到 0.01mm 的 6% 斜角尺寸<br>
+              • 雕琢雙螺旋鎖定螺牙與防脫耳翼<br>
+              • 高純度醫療級 PP/PC 塑膠精密注塑
             </p>
           </div>
 
           <!-- 階段 2 -->
-          <div class="process-step-item" style="border-top:3px solid #10B981;">
+          <div class="process-step-item" style="border-top:4px solid #10B981; padding:18px 20px;">
             <div style="display:flex; justify-content:space-between; align-items:center;">
-              <div class="process-step-num" style="background:#ECFDF5; color:#059669;">2</div>
-              <span class="real-product-badge" style="background:#ECFDF5; color:#047857;">考場受檢</span>
+              <div class="process-step-num" style="width:34px; height:34px; font-size:16px; font-weight:900; background:#ECFDF5; color:#059669;">2</div>
+              <span class="real-product-badge" style="font-size:12.5px; padding:4px 10px; background:#ECFDF5; color:#047857;">考場受檢</span>
             </div>
-            <h4 style="font-size:14.5px; font-weight:700; color:#065F46;">接受 ISO 80369-20 大考</h4>
-            <p style="font-size:12.5px; color:#4B5563; line-height:1.5;">
-              • 送進檢驗所，以 Annex C 金屬標準件受試<br>
+            <h4 style="font-size:17px; font-weight:900; color:#065F46; margin:8px 0 6px; letter-spacing:-0.01em;">接受 ISO 80369-20 大考</h4>
+            <p style="font-size:14px; color:#374151; line-height:1.65; margin:0;">
+              • 送進檢驗所，以 Annex C 金屬件受試<br>
               • 扛過 330 kPa 正壓防漏與 88 kPa 抽真空<br>
-              • 經受 35 N 軸向拉力考驗，耐受 48 小時緊繃靜置
+              • 經受 35 N 軸向拉力，耐受 48h 緊繃靜置
             </p>
           </div>
 
           <!-- 階段 3 -->
-          <div class="process-step-item" style="border-top:3px solid #F59E0B;">
+          <div class="process-step-item" style="border-top:4px solid #F59E0B; padding:18px 20px;">
             <div style="display:flex; justify-content:space-between; align-items:center;">
-              <div class="process-step-num" style="background:#FFFBEB; color:#D97706;">3</div>
-              <span class="real-product-badge" style="background:#FFFBEB; color:#B45309;">官方認可</span>
+              <div class="process-step-num" style="width:34px; height:34px; font-size:16px; font-weight:900; background:#FFFBEB; color:#D97706;">3</div>
+              <span class="real-product-badge" style="font-size:12.5px; padding:4px 10px; background:#FFFBEB; color:#B45309;">官方認可</span>
             </div>
-            <h4 style="font-size:14.5px; font-weight:700; color:#92400E;">各國監管單位點頭放行</h4>
-            <p style="font-size:12.5px; color:#4B5563; line-height:1.5;">
+            <h4 style="font-size:17px; font-weight:900; color:#92400E; margin:8px 0 6px; letter-spacing:-0.01em;">各國監管單位點頭放行</h4>
+            <p style="font-size:14px; color:#374151; line-height:1.65; margin:0;">
               • 拿出符合 -20 規範的公正檢驗報告<br>
-              • 美國 FDA、歐盟 CE、台灣食藥署全面互認<br>
+              • 美國 FDA、歐盟 CE、台灣 TFDA 全面互認<br>
               • 取得正式醫療器材上市許可證書
             </p>
           </div>
 
           <!-- 階段 4 -->
-          <div class="process-step-item" style="border-top:3px solid #7C3AED;">
+          <div class="process-step-item" style="border-top:4px solid #7C3AED; padding:18px 20px;">
             <div style="display:flex; justify-content:space-between; align-items:center;">
-              <div class="process-step-num" style="background:#EDE9FE; color:#6D28D9;">4</div>
-              <span class="real-product-badge" style="background:#EDE9FE; color:#6D28D9;">病房守護</span>
+              <div class="process-step-num" style="width:34px; height:34px; font-size:16px; font-weight:900; background:#EDE9FE; color:#6D28D9;">4</div>
+              <span class="real-product-badge" style="font-size:12.5px; padding:4px 10px; background:#EDE9FE; color:#6D28D9;">病房守護</span>
             </div>
-            <h4 style="font-size:14.5px; font-weight:700; color:#5B21B6;">走進病房守護每次輸液</h4>
-            <p style="font-size:12.5px; color:#4B5563; line-height:1.5;">
-              • 批量生產走進全球醫院（公接頭、母座、三通歧管）<br>
+            <h4 style="font-size:17px; font-weight:900; color:#5B21B6; margin:8px 0 6px; letter-spacing:-0.01em;">走進病房守護每次輸液</h4>
+            <p style="font-size:14px; color:#374151; line-height:1.65; margin:0;">
+              • 批量生產走進全球醫院（公鎖、母座、歧管）<br>
               • 護理師閉著眼睛也插不進錯誤管道<br>
               • 默默守護無數患者打點滴的安全防線
             </p>
           </div>
         </div>
 
-        <div class="grid-3">
-          <div class="card card-accent-blue">
-            <h4 class="card-title" style="font-size:14.5px;">🏥 第一線護理師：心裡踏實、零負擔</h4>
-            <p class="card-text" style="font-size:13px;">
-              上大夜班身心疲憊時，再也不用瞇著眼睛在幾條透明管子裡猜來猜去；尺寸形狀不一樣，想插錯都插不進，心裡踏實不慌張。
-            </p>
+        <div class="grid-3" style="align-content:stretch; min-height:0;">
+          <!-- 護理師卡片 -->
+          <div class="card card-accent-blue" style="justify-content:space-between; padding:22px 24px;">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="metaphor-badge" style="background:#EFF6FF; color:#1D4ED8; border-color:#BFDBFE;">臨床守護者</span>
+                <span class="metric-chip">心裡踏實</span>
+              </div>
+              <h3 class="card-title" style="font-size:19px; color:#1E40AF; margin-top:10px; letter-spacing:-0.01em;">
+                🏥 第一線護理師：心裡踏實、零焦慮
+              </h3>
+              <p class="card-text" style="font-size:15px; line-height:1.7; color:#334155; margin-top:10px;">
+                上大夜班身心俱疲時，再也不必瞇著眼睛在幾條透明管子裡提心吊膽猜來猜去；尺寸形狀天生互斥，想插錯都插不進，心裡踏實不慌張。
+              </p>
+              <div style="margin-top:14px; display:flex; flex-direction:column; gap:10px; font-size:14px; color:#4B5563;">
+                <div style="display:flex; align-items:flex-start; gap:6px;">
+                  <span style="color:#2563EB; font-weight:700;">✓</span>
+                  <span><strong>告別肉眼辨識：</strong>把防呆交給幾何物理，徹底釋放專注力。</span>
+                </div>
+                <div style="display:flex; align-items:flex-start; gap:6px;">
+                  <span style="color:#2563EB; font-weight:700;">✓</span>
+                  <span><strong>秒速推注吻合：</strong>標準 6% 錐度一推即密封，搶救分秒必爭。</span>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top:16px; background:#EFF6FF; border:1px solid #BFDBFE; border-radius:8px; padding:12px 14px; font-size:13.5px; color:#1E40AF; display:flex; align-items:center; gap:8px;">
+              <span>💖</span>
+              <span><strong>臨床價值：</strong>把安全交給幾何，把溫柔留給病人。</span>
+            </div>
           </div>
-          <div class="card card-accent-emerald">
-            <h4 class="card-title" style="font-size:14.5px;">🏭 醫療器材工廠：走出國門、暢行無阻</h4>
-            <p class="card-text" style="font-size:13px;">
-              工廠按照標準尺寸做，不管是美國的注射器還是日本的留置針，一插就合、完全通配，不需要為每個國家單獨改模具。
-            </p>
+
+          <!-- 工廠卡片 -->
+          <div class="card card-accent-emerald" style="justify-content:space-between; padding:22px 24px;">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="metaphor-badge" style="background:#ECFDF5; color:#047857; border-color:#A7F3D0;">製造端先鋒</span>
+                <span class="metric-chip" style="background:#ECFDF5; color:#047857; border-color:#A7F3D0;">全球通配</span>
+              </div>
+              <h3 class="card-title" style="font-size:19px; color:#065F46; margin-top:10px; letter-spacing:-0.01em;">
+                🏭 醫療器材工廠：走出國門、暢行全球
+              </h3>
+              <p class="card-text" style="font-size:15px; line-height:1.7; color:#334155; margin-top:10px;">
+                工廠依 -7 標準公差開模，無論是歐美留置針還是日本輸液幫浦，一插就合、完全通配，不需要為每個國家單獨修改昂貴模具。
+              </p>
+              <div style="margin-top:14px; display:flex; flex-direction:column; gap:10px; font-size:14px; color:#4B5563;">
+                <div style="display:flex; align-items:flex-start; gap:6px;">
+                  <span style="color:#059669; font-weight:700;">✓</span>
+                  <span><strong>全球規格相容：</strong>一套模具通行全球，大幅降低研發開模成本。</span>
+                </div>
+                <div style="display:flex; align-items:flex-start; gap:6px;">
+                  <span style="color:#059669; font-weight:700;">✓</span>
+                  <span><strong>嚴苛試驗背書：</strong>出廠扛過 -20 大考，耐壓耐拉拔，客訴客退歸零。</span>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top:16px; background:#ECFDF5; border:1px solid #A7F3D0; border-radius:8px; padding:12px 14px; font-size:13.5px; color:#047857; display:flex; align-items:center; gap:8px;">
+              <span>🚀</span>
+              <span><strong>產業價值：</strong>標準即世界通行證，暢行全球 100+ 國。</span>
+            </div>
           </div>
-          <div class="card card-accent-amber">
-            <h4 class="card-title" style="font-size:14.5px;">📜 衛生監管部門：一把尺量到底、公道明白</h4>
-            <p class="card-text" style="font-size:13px;">
-              各國審批官員不聽花言巧語，只看有沒有按照 -20 標準完成檢驗；全世界用同一把尺，清清楚楚、公正透明。
-            </p>
+
+          <!-- 監管部門卡片 -->
+          <div class="card card-accent-amber" style="justify-content:space-between; padding:22px 24px;">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="metaphor-badge" style="background:#FFFBEB; color:#B45309; border-color:#FDE68A;">法規與監管</span>
+                <span class="metric-chip" style="background:#FFFBEB; color:#B45309; border-color:#FDE68A;">一把尺量到底</span>
+              </div>
+              <h3 class="card-title" style="font-size:19px; color:#92400E; margin-top:10px; letter-spacing:-0.01em;">
+                📜 衛生監管部門：一把尺量到底、公道透明
+              </h3>
+              <p class="card-text" style="font-size:15px; line-height:1.7; color:#334155; margin-top:10px;">
+                各國審批官員不聽花言巧語，只看有沒有依 -20 規範在實驗室如實加壓受試；全世界用同一把公正的物理尺量到底，審查透明、科學明白。
+              </p>
+              <div style="margin-top:14px; display:flex; flex-direction:column; gap:10px; font-size:14px; color:#4B5563;">
+                <div style="display:flex; align-items:flex-start; gap:6px;">
+                  <span style="color:#D97706; font-weight:700;">✓</span>
+                  <span><strong>客觀數據說話：</strong>拒絕自由心證，以 Annex B~L 嚴格數據定生死。</span>
+                </div>
+                <div style="display:flex; align-items:flex-start; gap:6px;">
+                  <span style="color:#D97706; font-weight:700;">✓</span>
+                  <span><strong>跨國審批互認：</strong>FDA、CE、TFDA 報告同源，加速優質醫材上市。</span>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top:16px; background:#FFFBEB; border:1px solid #FDE68A; border-radius:8px; padding:12px 14px; font-size:13.5px; color:#92400E; display:flex; align-items:center; gap:8px;">
+              <span>⚖️</span>
+              <span><strong>監管價值：</strong>科學築基公道透明，為全民健康嚴格把關。</span>
+            </div>
           </div>
         </div>
       </div>
@@ -2552,31 +2636,26 @@
       const tabBtnReal = document.getElementById('tab-btn-real');
       const tabBtnBpMale = document.getElementById('tab-btn-bp-male');
       const tabBtnBpFemale = document.getElementById('tab-btn-bp-female');
-      const tabBtnCatalog = document.getElementById('tab-btn-catalog');
       
       const viewRealContainer = document.getElementById('view-real-container');
       const viewBpMaleContainer = document.getElementById('view-bp-male-container');
       const viewBpFemaleContainer = document.getElementById('view-bp-female-container');
-      const viewCatalogContainer = document.getElementById('view-catalog-container');
 
       function switchSlide5Tab(activeTab) {
         if (!tabBtnReal) return;
         tabBtnReal.classList.toggle('active', activeTab === 'real');
         tabBtnBpMale.classList.toggle('active', activeTab === 'male');
         tabBtnBpFemale.classList.toggle('active', activeTab === 'female');
-        tabBtnCatalog.classList.toggle('active', activeTab === 'catalog');
 
         viewRealContainer.style.display = (activeTab === 'real') ? 'block' : 'none';
         viewBpMaleContainer.style.display = (activeTab === 'male') ? 'block' : 'none';
         viewBpFemaleContainer.style.display = (activeTab === 'female') ? 'block' : 'none';
-        viewCatalogContainer.style.display = (activeTab === 'catalog') ? 'block' : 'none';
       }
 
       if (tabBtnReal) {
         tabBtnReal.addEventListener('click', () => switchSlide5Tab('real'));
         tabBtnBpMale.addEventListener('click', () => switchSlide5Tab('male'));
         tabBtnBpFemale.addEventListener('click', () => switchSlide5Tab('female'));
-        tabBtnCatalog.addEventListener('click', () => switchSlide5Tab('catalog'));
       }
       // 初始化載入第一頁
       updateSlide();
