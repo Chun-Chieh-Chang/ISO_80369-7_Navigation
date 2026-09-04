@@ -891,7 +891,9 @@ export const TopicClauseExplorer: React.FC = () => {
                         standard={fig.standard}
                         figureTypeZh={fig.figureTypeZh}
                         descriptionZh={fig.descriptionZh}
+                        descriptionEn={fig.descriptionEn}
                         selectionReasonZh={fig.selectionReasonZh}
+                        selectionReasonEn={fig.selectionReasonEn}
                         keyCallouts={fig.keyCallouts}
                       />
                     ))}

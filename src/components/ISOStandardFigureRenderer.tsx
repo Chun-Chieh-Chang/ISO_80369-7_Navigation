@@ -71,7 +71,10 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
     if (lower.includes('機構') || lower.includes('防誤插') || lower.includes('annex a')) {
       return 'Misconnection Mechanism';
     }
-    return figureTypeZh;
+    if (lower.includes('測試曲線') || lower.includes('curve') || lower.includes('pressure decay')) {
+      return 'Pressure Decay Curve';
+    }
+    return 'Specification Figure';
   };
 
   const effectiveFigureType = getEffectiveFigureType();

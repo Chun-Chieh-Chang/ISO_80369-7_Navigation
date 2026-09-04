@@ -21,9 +21,9 @@ export default defineConfig(() => {
           'assets/**/*'
         ],
         manifest: {
-          name: 'ISO 80369-7 & 20 醫療器材小口徑連接器標準驗證導航系統',
-          short_name: 'ISO80369導航',
-          description: '醫療級魯爾連接器主題檢索、規範條文對照、實驗室測試細則與最壞情況夾具導航 App',
+          name: 'ISO 80369-7 & 20 Medical Small-Bore Connector Validation Navigator',
+          short_name: 'ISO80369 Nav',
+          description: 'Medical-grade Luer connector topic search, clause comparison, laboratory test procedures, and worst-case fixture navigation app',
           theme_color: '#2563eb',
           background_color: '#0f172a',
           display: 'standalone',

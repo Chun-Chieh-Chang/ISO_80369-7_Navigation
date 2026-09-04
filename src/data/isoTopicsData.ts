@@ -34,13 +34,15 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureType: 'apparatus',
         figureTypeZh: '測試裝置示意圖',
         descriptionZh: '本圖展示 ISO 80369-20 Annex B 氣壓衰減洩漏試驗架構，包含加壓源、精密調壓閥 (±0.3% 精度感測器)、截止閥 S1、金屬參考夾具 (Fig.C.1/C.4) 與受測魯爾接頭。加壓至 300~330 kPa 保持 15~20 秒量測壓力衰減量 ΔP。',
+        descriptionEn: 'Illustrates the ISO 80369-20 Annex B pneumatic pressure decay leakage test apparatus, including the pressure source, precision pressure regulator (±0.3% accuracy sensor), stop valve S1, metal reference fixture (Fig.C.1/C.4), and the Luer connector under test. Pressurized to 300–330 kPa and held for 15–20 s to measure pressure drop ΔP.',
         selectionReasonZh: '🛠️ [物理測試架設藍圖] 入選原因：本圖為 ISO 80369-20 Annex B 氣壓衰減洩漏測試之實體儀器與管路架構圖。正壓流體洩漏 (6.1) 可採用此方法進行高精度自動化定量判定，故納入作為試驗設備與閥門控制指引。',
+        selectionReasonEn: '🛠️ [Physical Test Apparatus Blueprint] Rationale: This is the physical instrument and piping schematic for ISO 80369-20 Annex B pneumatic pressure decay leakage testing. Positive-pressure fluid leakage (Clause 6.1) can be quantitatively verified with high precision using this method, making it the definitive reference for test equipment and valve control.',
         svgKey: 'ISO20-FIG-B1',
         keyCallouts: [
-          { id: 'p_test', labelZh: '測試壓力範圍', valueZh: '300 ~ 330 kPa' },
-          { id: 'gauge_acc', labelZh: '感測器精度', valueZh: '±0.3%' },
-          { id: 'hold_time', labelZh: '氣壓持壓時間', valueZh: '15 ~ 20 秒' },
-          { id: 'pass_criteria', labelZh: '判定基準', valueZh: '洩漏率 ≤ 0.005 Pa·m³/s' }
+          { id: 'p_test', labelZh: '測試壓力範圍', labelEn: 'Test Pressure Range', valueZh: '300 ~ 330 kPa', valueEn: '300 ~ 330 kPa' },
+          { id: 'gauge_acc', labelZh: '感測器精度', labelEn: 'Sensor Accuracy', valueZh: '±0.3%', valueEn: '±0.3%' },
+          { id: 'hold_time', labelZh: '氣壓持壓時間', labelEn: 'Pneumatic Hold Time', valueZh: '15 ~ 20 秒', valueEn: '15 ~ 20 s' },
+          { id: 'pass_criteria', labelZh: '判定基準', labelEn: 'Pass Criterion', valueZh: '洩漏率 ≤ 0.005 Pa·m³/s', valueEn: 'Leak rate ≤ 0.005 Pa·m³/s' }
         ]
       },
       {
@@ -51,13 +53,15 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureType: 'analysis',
         figureTypeZh: '測試曲線分析圖',
         descriptionZh: '本附圖精確對照 ISO 80369-20 Annex B.4 條文，解構正壓氣壓衰減測試儀器執行的四個關鍵階段：充氣 (Fill 0~5s, 對應 B.4 c)、穩定 (Stabilize 5~15s, 熱平衡與材料蠕變隔離)、測試持壓 (Test 15~35s, 對應 B.4 d/e 量測 ΔP) 與排氣 (Exhaust 35s+)，並標示出 300~330 kPa 目標壓力視窗。',
+        descriptionEn: 'Cross-referenced with ISO 80369-20 Annex B.4, this diagram deconstructs the four key phases of the pneumatic pressure decay test: Fill (0–5 s, per B.4 c), Stabilize (5–15 s, thermal equilibration and creep isolation), Test (15–35 s, per B.4 d/e measuring ΔP), and Exhaust (35 s+), with the 300–330 kPa target pressure window indicated.',
         selectionReasonZh: '📈 [數據曲線分析圖] 入選原因：本圖為 Annex B.4 測試執行的 4 階段時間-壓力動態響應曲線 (Fill-Stabilize-Test-Exhaust)，提供控制充氣持壓 15~20s 與評估 ΔP 壓降 (極限洩漏率 ≤ 0.005 Pa·m³/s) 之物理數據判讀依據。',
+        selectionReasonEn: '📈 [Data Curve Analysis] Rationale: This diagram shows the 4-phase time-pressure dynamic response curve (Fill-Stabilize-Test-Exhaust) for Annex B.4 test execution, providing the physical data interpretation basis for controlling the 15–20 s hold time and evaluating ΔP pressure drop (limiting leak rate ≤ 0.005 Pa·m³/s).',
         svgKey: 'ISO20-FIG-B2',
         keyCallouts: [
-          { id: 'fill', labelZh: '1. 充氣 (Fill)', valueZh: '0~5s (對應 Annex B.4 c 施加壓力)' },
-          { id: 'stabilize', labelZh: '2. 穩定 (Stabilize)', valueZh: '5~15s (隔離氣源、熱平衡與蠕變穩定)' },
-          { id: 'test', labelZh: '3. 測試 (Test)', valueZh: '15~35s (對應 Annex B.4 d/e 測量 ΔP)' },
-          { id: 'exhaust', labelZh: '4. 排氣 (Exhaust)', valueZh: '35s 後 (測試結束釋放壓力)' }
+          { id: 'fill', labelZh: '1. 充氣 (Fill)', labelEn: '1. Fill', valueZh: '0~5s (對應 Annex B.4 c 施加壓力)', valueEn: '0–5 s (per Annex B.4 c — apply pressure)' },
+          { id: 'stabilize', labelZh: '2. 穩定 (Stabilize)', labelEn: '2. Stabilize', valueZh: '5~15s (隔離氣源、熱平衡與蠕變穩定)', valueEn: '5–15 s (isolate pressure source; thermal & creep equilibrium)' },
+          { id: 'test', labelZh: '3. 測試 (Test)', labelEn: '3. Test', valueZh: '15~35s (對應 Annex B.4 d/e 測量 ΔP)', valueEn: '15–35 s (per Annex B.4 d/e — measure ΔP)' },
+          { id: 'exhaust', labelZh: '4. 排氣 (Exhaust)', labelEn: '4. Exhaust', valueZh: '35s 後 (測試結束釋放壓力)', valueEn: 'After 35 s (release pressure, end of test)' }
         ]
       },
       {
@@ -68,13 +72,15 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureType: 'apparatus',
         figureTypeZh: '測試裝置示意圖',
         descriptionZh: '展示 ISO 80369-20 Annex C 水壓滴落測試裝置。使用去離子水填充水槽，經由 300~330 kPa 空氣加壓，水平固定夾具與受測接頭，下方鋪設乾燥無塵紙，在 30~35 秒持壓過程中目視檢驗錐面配合處是否有水滴形成或落於紙上。',
+        descriptionEn: 'Illustrates the ISO 80369-20 Annex C falling-drop liquid leakage test apparatus. De-aerated water fills the reservoir, pressurized to 300–330 kPa via air. The fixture and DUT connector are clamped horizontally, with dry absorbent paper placed underneath. During the 30–35 s hold period, the taper interface is visually inspected for water drop formation or dripping onto the paper.',
         selectionReasonZh: '🛠️ [物理測試架設藍圖] 入選原因：本圖為 ISO 80369-20 Annex C 水壓滴落測試之裝置示意圖。正壓流體洩漏 (6.1) 可採用此目視法於 300~330 kPa 下持壓 30~35s，提供水槽加壓與無塵紙水痕檢驗設定指引。',
+        selectionReasonEn: '🛠️ [Physical Test Apparatus Blueprint] Rationale: This depicts the ISO 80369-20 Annex C water-pressure falling-drop test apparatus. For positive-pressure fluid leakage (Clause 6.1), this visual method applies 300–330 kPa for 30–35 s, providing setup guidance for the pressurized reservoir and dry-paper drip inspection.',
         svgKey: 'ISO20-FIG-C1',
         keyCallouts: [
-          { id: 'media', labelZh: '測試介質', valueZh: '去離子水 De-aerated Water' },
-          { id: 'press', labelZh: '施加水壓', valueZh: '300 ~ 330 kPa' },
-          { id: 'hold', labelZh: '水壓保持時間', valueZh: '30 ~ 35 秒' },
-          { id: 'paper', labelZh: '水滴檢測方式', valueZh: '乾燥拭紙無水痕擴散' }
+          { id: 'media', labelZh: '測試介質', labelEn: 'Test Medium', valueZh: '去離子水 De-aerated Water', valueEn: 'De-aerated Water' },
+          { id: 'press', labelZh: '施加水壓', labelEn: 'Applied Pressure', valueZh: '300 ~ 330 kPa', valueEn: '300 ~ 330 kPa' },
+          { id: 'hold', labelZh: '水壓保持時間', labelEn: 'Hydraulic Hold Time', valueZh: '30 ~ 35 秒', valueEn: '30 ~ 35 s' },
+          { id: 'paper', labelZh: '水滴檢測方式', labelEn: 'Drip Detection Method', valueZh: '乾燥拭紙無水痕擴散', valueEn: 'Dry absorbent paper — no water stain spread' }
         ]
       },
       {
@@ -85,12 +91,14 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureType: 'connector_cad',
         figureTypeZh: '接頭幾何 CAD 圖',
         descriptionZh: '詳細呈現 6% 魯爾公錐體與母錐座配合處之 CAD 斷面圖。標記公錐小端直徑 (Ød 3.970~4.035 mm)、母錐大端內徑 (ØD 4.225~4.270 mm) 及 1:16.667 (雙邊 3.436°) 錐度角，證明防漏取決於微觀錐面靜摩擦緊密過盈配合。',
+        descriptionEn: 'Detailed CAD cross-section of the 6% Luer male cone and female socket mating interface. Labels the male cone minor diameter (Ød 3.970–4.035 mm), female socket major bore (ØD 4.225–4.270 mm), and 1:16.667 taper angle (bilateral 3.436°), demonstrating that leak-tightness relies on microscopic taper static-friction interference fit.',
         selectionReasonZh: '🎯 [受測實體幾何規範] 入選原因：本圖為 ISO 80369-7 Fig.B.1 (6% 公魯爾錐體)，屬於 6.1 流體洩漏測試實施時的實體受測對象。6.1 液體防漏完全取決於 6% 微觀錐面靜摩擦過盈配合（Ød 3.970~4.035 mm），故納入作為產品端幾何驗證基準。',
+        selectionReasonEn: '🎯 [Physical Connector Geometry Specification] Rationale: This is ISO 80369-7 Fig.B.1 (6% male Luer cone), the physical DUT geometry during Clause 6.1 fluid leakage testing. Liquid sealing depends entirely on the 6% micro-taper static-friction interference fit (Ød 3.970–4.035 mm), making it the baseline for product geometric verification.',
         svgKey: 'ISO7-FIG-B1',
         keyCallouts: [
-          { id: 'taper', labelZh: '圓錐斜率', valueZh: '6% (1 : 16.667)' },
-          { id: 'length', labelZh: '配合長度', valueZh: '≥ 7.5 mm' },
-          { id: 'angle', labelZh: '半錐角度 α', valueZh: '1.718°' }
+          { id: 'taper', labelZh: '圓錐斜率', labelEn: 'Taper Ratio', valueZh: '6% (1 : 16.667)', valueEn: '6% (1 : 16.667)' },
+          { id: 'length', labelZh: '配合長度', labelEn: 'Engagement Length', valueZh: '≥ 7.5 mm', valueEn: '≥ 7.5 mm' },
+          { id: 'angle', labelZh: '半錐角度 α', labelEn: 'Half-cone Angle α', valueZh: '1.718°', valueEn: '1.718°' }
         ]
       }
     ]
@@ -125,13 +133,15 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureType: 'apparatus',
         figureTypeZh: '測試裝置示意圖',
         descriptionZh: '忠實還原 ISO 80369-20 Figure D.1 官方線圖。管路與組件於【乾燥狀態】下運作。標示：1. 密封端件、2. 受測接頭、3. 金屬參考件 (C.2/C.4)、4. 隔離閥 (stop-valve)、5. 真空源 (-88.0 kPa)、6. 壓力計 (manometer)、7. 測試體積、8. 體積達成裝置。透由壓力計數值衰減進行定量驗證 (≤ 0.005 Pa·m³/s)。',
+        descriptionEn: 'Faithfully reproduces the official ISO 80369-20 Figure D.1 line drawing. System operates in a dry state. Labeled components: 1. End cap, 2. Connector under test, 3. Metal reference connector (C.2/C.4), 4. Stop valve, 5. Vacuum source (−88.0 kPa), 6. Manometer, 7. Test volume, 8. Volume-setting device. Quantitative leakage verification (≤ 0.005 Pa·m³/s) is performed by monitoring the manometer reading decay.',
         selectionReasonZh: '🛠️ [物理測試架設藍圖 - 乾式定量壓力計] 入選原因：本圖為 ISO 80369-20 Annex D Figure D.1 官方原圖。測試介質為純空氣（乾燥狀態），透由壓力計 (標示 6) 精密記錄負壓絕對變化量，屬於定量驗證 (Variable Test)。',
+        selectionReasonEn: '🛠️ [Physical Test Apparatus Blueprint — Dry Quantitative Manometer] Rationale: This is the official Figure D.1 from ISO 80369-20 Annex D. The test medium is pure air (dry state); the manometer (item 6) precisely records the absolute negative-pressure change as a quantitative (variable) verification.',
         svgKey: 'ISO20-FIG-D1',
         keyCallouts: [
-          { id: 'key_1_2', labelZh: '1-2. 受測接頭與密封', valueZh: 'Key 1 (Sealing) & Key 2 (Connector Under Test)' },
-          { id: 'key_3', labelZh: '3. 參考金屬件', valueZh: 'Key 3 (Reference Connector C.2 / C.4)' },
-          { id: 'key_4_5', labelZh: '4-5. 隔離閥與真空源', valueZh: 'Key 4 (Stop-valve) & Key 5 (Vacuum Source)' },
-          { id: 'key_6_8', labelZh: '6-8. 壓力計與測試體積', valueZh: 'Key 6 (Manometer) & Key 7/8 (Test Volume Device)' }
+          { id: 'key_1_2', labelZh: '1-2. 受測接頭與密封', labelEn: 'Items 1–2: End Cap & DUT', valueZh: 'Key 1 (Sealing) & Key 2 (Connector Under Test)', valueEn: 'Key 1 (Sealing) & Key 2 (Connector Under Test)' },
+          { id: 'key_3', labelZh: '3. 參考金屬件', labelEn: 'Item 3: Reference Connector', valueZh: 'Key 3 (Reference Connector C.2 / C.4)', valueEn: 'Key 3 (Reference Connector C.2 / C.4)' },
+          { id: 'key_4_5', labelZh: '4-5. 隔離閥與真空源', labelEn: 'Items 4–5: Stop Valve & Vacuum', valueZh: 'Key 4 (Stop-valve) & Key 5 (Vacuum Source)', valueEn: 'Key 4 (Stop-valve) & Key 5 (Vacuum Source)' },
+          { id: 'key_6_8', labelZh: '6-8. 壓力計與測試體積', labelEn: 'Items 6–8: Manometer & Volume', valueZh: 'Key 6 (Manometer) & Key 7/8 (Test Volume Device)', valueEn: 'Key 6 (Manometer) & Key 7/8 (Test Volume Device)' }
         ]
       },
       {
@@ -142,13 +152,15 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureType: 'apparatus',
         figureTypeZh: '測試裝置示意圖',
         descriptionZh: '忠實還原 ISO 80369-20 Figure K.1 官方線圖。受測件內部【注滿水】。標示：1. 密封端件、2. 注水受測接头、3. 注水參考接頭、4. 透明圓筒水槽容器 (填充 1/3 水)、5. 壓力計、6. 快速閥門、7. 真空幫浦。抽真空 20 秒目視水槽內是否有連續氣泡流 (定性驗證)。',
+        descriptionEn: 'Faithfully reproduces the official ISO 80369-20 Figure K.1 line drawing. Connectors under test are filled with water. Labeled components: 1. End cap, 2. Water-filled DUT connector, 3. Water-filled reference connector, 4. Transparent cylindrical water vessel (filled to 1/3), 5. Manometer, 6. Quick-acting valve, 7. Vacuum pump. Vacuum is applied for 20 s while visually inspecting for continuous bubble streams inside the vessel (qualitative pass/fail).',
         selectionReasonZh: '🛠️ [物理測試架設藍圖 - 濕式水下目視氣泡] 入選原因：本圖為 ISO 80369-20 Annex K Figure K.1 官方原圖。核心特徵為接頭內部注滿水 (Key 2/3)，並垂直連接上方透明圓筒水槽 (Key 4)，以目視氣泡流判定 Pass/Fail (定性測試)，貼合臨床液體抽吸情境。',
+        selectionReasonEn: '🛠️ [Physical Test Apparatus Blueprint — Wet Visual Bubble Inspection] Rationale: This is the official Figure K.1 from ISO 80369-20 Annex K. The key feature is that both connectors are water-filled (items 2/3) and vertically connected to the overhead transparent cylindrical vessel (item 4), with pass/fail determined by visible bubble flow — a qualitative test closely mirroring clinical fluid aspiration scenarios.',
         svgKey: 'ISO20-FIG-K1',
         keyCallouts: [
-          { id: 'key_1_3', labelZh: '1-3. 注水接頭組裝', valueZh: 'Key 1 (Sealing) & Key 2/3 (Connectors Filled with Water)' },
-          { id: 'key_4', labelZh: '4. 透明圓筒水槽', valueZh: 'Key 4 (Cylindrical Vessel Filled 1/3 Capacity with Water)' },
-          { id: 'key_5_6', labelZh: '5-6. 壓力計與快速閥', valueZh: 'Key 5 (Manometer) & Key 6 (Stop Valve)' },
-          { id: 'key_7', labelZh: '7. 真空幫浦源', valueZh: 'Key 7 (Vacuum Pump Source — -88.0 kPa)' }
+          { id: 'key_1_3', labelZh: '1-3. 注水接頭組裝', labelEn: 'Items 1–3: Water-filled Assembly', valueZh: 'Key 1 (Sealing) & Key 2/3 (Connectors Filled with Water)', valueEn: 'Key 1 (Sealing) & Key 2/3 (Connectors Filled with Water)' },
+          { id: 'key_4', labelZh: '4. 透明圓筒水槽', labelEn: 'Item 4: Transparent Vessel', valueZh: 'Key 4 (Cylindrical Vessel Filled 1/3 Capacity with Water)', valueEn: 'Key 4 (Cylindrical Vessel Filled 1/3 with Water)' },
+          { id: 'key_5_6', labelZh: '5-6. 壓力計與快速閥', labelEn: 'Items 5–6: Manometer & Quick Valve', valueZh: 'Key 5 (Manometer) & Key 6 (Stop Valve)', valueEn: 'Key 5 (Manometer) & Key 6 (Stop Valve)' },
+          { id: 'key_7', labelZh: '7. 真空幫浦源', labelEn: 'Item 7: Vacuum Pump', valueZh: 'Key 7 (Vacuum Pump Source — -88.0 kPa)', valueEn: 'Key 7 (Vacuum Pump Source — −88.0 kPa)' }
         ]
       }
     ]
@@ -183,13 +195,15 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureType: 'apparatus',
         figureTypeZh: '測試裝置示意圖',
         descriptionZh: '展示 ISO 80369-20 Annex H 過載扭矩測試機台與受測公鎖定接頭在 0.15~0.17 N·m 高扭矩下的力學受力圖。受測公套環在對接 C.3 (2.71mm 窄耳翼) 時，斜面分力產生強烈環向應力 (Hoop Stress)，若剛性不足將致套環膨脹而跳牙。',
+        descriptionEn: 'Shows the ISO 80369-20 Annex H overriding torque test rig and the mechanical force diagram of the male lock connector under 0.15–0.17 N·m high torque. When the male collar engages C.3 (2.71 mm narrow lugs), inclined-plane force components generate intense hoop stress, which will cause the collar to expand and strip the thread if material stiffness is insufficient.',
         selectionReasonZh: '🛠️ [物理測試架設藍圖] 入選原因：本圖為 ISO 80369-20 Annex H 抗過載扭矩測試機台。6.6 過載滑牙測試施加 0.15~0.17 N·m 破壞性扭矩，本圖解構環向張應力 (Hoop Stress) 致使套環膨脹跳牙之受力機構。',
+        selectionReasonEn: '🛠️ [Physical Test Apparatus Blueprint] Rationale: This is the ISO 80369-20 Annex H overriding torque test rig. Clause 6.6 applies a destructive torque of 0.15–0.17 N·m; this diagram deconstructs the hoop tensile stress (σθ) mechanism that causes collar expansion and thread stripping.',
         svgKey: 'ISO20-FIG-H1',
         keyCallouts: [
-          { id: 'torque', labelZh: '過載破壞扭矩', valueZh: '0.15 ~ 0.17 N·m' },
-          { id: 'rpm', labelZh: '伺服馬達轉速', valueZh: '3.0 rpm ± 0.5 rpm' },
-          { id: 'fixture', labelZh: '最壞情況夾具', valueZh: 'Fig.C.3 (2.71mm 耳翼)' },
-          { id: 'mechanic', labelZh: '應力失效模式', valueZh: '環向張應力 σθ > 材料屈服極限' }
+          { id: 'torque', labelZh: '過載破壞扭矩', labelEn: 'Overriding Destructive Torque', valueZh: '0.15 ~ 0.17 N·m', valueEn: '0.15 ~ 0.17 N·m' },
+          { id: 'rpm', labelZh: '伺服馬達轉速', labelEn: 'Servo Motor Speed', valueZh: '3.0 rpm ± 0.5 rpm', valueEn: '3.0 rpm ± 0.5 rpm' },
+          { id: 'fixture', labelZh: '最壞情況夾具', labelEn: 'Worst-case Fixture', valueZh: 'Fig.C.3 (2.71mm 耳翼)', valueEn: 'Fig.C.3 (2.71 mm lugs)' },
+          { id: 'mechanic', labelZh: '應力失效模式', labelEn: 'Stress Failure Mode', valueZh: '環向張應力 σθ > 材料屈服極限', valueEn: 'Hoop tensile stress σθ > material yield limit' }
         ]
       },
       {
@@ -200,11 +214,13 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureType: 'connector_cad',
         figureTypeZh: '接頭幾何 CAD 圖',
         descriptionZh: 'CAD 幾何剖面圖說明 ISO 80369-7 雙頭內螺紋 (Pitch 2.5mm，角度 25°~30°) 旋合咬合時之接觸面與頂部投影量 c (2.1mm)。',
+        descriptionEn: 'CAD cross-section illustrating the contact surface and cone projection c (2.1 mm) when the ISO 80369-7 double-start internal thread (Pitch 2.5 mm, angle 25°–30°) engages.',
         selectionReasonZh: '🎯 [受測實體幾何規範] 入選原因：本圖為 ISO 80369-7 Fig.B.3 (公鎖定固定環螺紋)，屬於 6.6 過載滑牙測試的受測實體對象，提供螺紋節距 (2.5mm) 與錐體投影量 (c ≥ 2.1mm) 咬合幾何依據。',
+        selectionReasonEn: '🎯 [Physical Connector Geometry Specification] Rationale: This is ISO 80369-7 Fig.B.3 (male lock fixed collar thread), the physical DUT geometry for Clause 6.6 overriding torque testing, providing the thread pitch (2.5 mm) and cone projection (c ≥ 2.1 mm) engagement geometry basis.',
         svgKey: 'ISO7-FIG-B3',
         keyCallouts: [
-          { id: 'pitch', labelZh: '螺紋節距 Pitch', valueZh: '2.5 mm' },
-          { id: 'proj', labelZh: '錐體投影量 c', valueZh: '≥ 2.1 mm' }
+          { id: 'pitch', labelZh: '螺紋節距 Pitch', labelEn: 'Thread Pitch', valueZh: '2.5 mm', valueEn: '2.5 mm' },
+          { id: 'proj', labelZh: '錐體投影量 c', labelEn: 'Cone Projection c', valueZh: '≥ 2.1 mm', valueEn: '≥ 2.1 mm' }
         ]
       }
     ]
@@ -239,12 +255,14 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureType: 'apparatus',
         figureTypeZh: '測試裝置示意圖',
         descriptionZh: '展現 ISO 80369-20 Annex F 軸向拉力分離測試。定速 10 N/s 垂直施力至 35 N (Lock) 或 25 N (Slip)，持壓 10~15 秒，驗證受測接頭螺紋或錐面抗強拉拔能力，防止輸液管路拉扯斷開。',
+        descriptionEn: 'Demonstrates the ISO 80369-20 Annex F axial separation pull-off test. Force is applied at a constant rate of 10 N/s vertically up to 35 N (Lock) or 25 N (Slip) and held for 10–15 s to verify the DUT connector\'s thread or taper resistance to strong pull-out forces, preventing IV line disconnection.',
         selectionReasonZh: '🛠️ [物理測試架設藍圖] 入選原因：本圖為 ISO 80369-20 Annex F 萬能拉力機軸向分離測試架構。6.4 軸向負載分離測試需定速 10 N/s 施加 35 N (Lock) 或 25 N (Slip) 拉力持壓 10~15s，本圖提供抗拉脫測試裝置指引。',
+        selectionReasonEn: '🛠️ [Physical Test Apparatus Blueprint] Rationale: This is the ISO 80369-20 Annex F universal testing machine axial separation apparatus. Clause 6.4 axial load separation testing requires applying 35 N (Lock) or 25 N (Slip) at 10 N/s and holding for 10–15 s; this diagram provides pull-out test setup guidance.',
         svgKey: 'ISO20-FIG-F1',
         keyCallouts: [
-          { id: 'f_lock', labelZh: '鎖定型軸向拉力', valueZh: '35 N (10~15秒)' },
-          { id: 'f_slip', labelZh: '滑動型軸向拉力', valueZh: '25 N (10~15秒)' },
-          { id: 'rate', labelZh: '拉力加載速率', valueZh: '10 N/s' }
+          { id: 'f_lock', labelZh: '鎖定型軸向拉力', labelEn: 'Lock Axial Pull Force', valueZh: '35 N (10~15秒)', valueEn: '35 N (10–15 s)' },
+          { id: 'f_slip', labelZh: '滑動型軸向拉力', labelEn: 'Slip Axial Pull Force', valueZh: '25 N (10~15秒)', valueEn: '25 N (10–15 s)' },
+          { id: 'rate', labelZh: '拉力加載速率', labelEn: 'Force Loading Rate', valueZh: '10 N/s', valueEn: '10 N/s' }
         ]
       }
     ]
@@ -278,11 +296,13 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureType: 'apparatus',
         figureTypeZh: '測試裝置示意圖',
         descriptionZh: '對比 ISO 80369-20 Annex G (反向旋鬆 0.02 N·m 防振動解鎖) 與 Annex I (拆卸扭矩峰值量測) 雙軌規範。解析 6% 錐度摩擦自鎖力學與臨床人因易拆性之平衡。',
+        descriptionEn: 'Compares the dual-track normative requirements of ISO 80369-20 Annex G (reverse unscrewing at 0.02 N·m — vibration-induced self-loosening prevention) and Annex I (peak disconnection torque measurement). Analyzes the balance between 6% taper friction self-locking mechanics and clinical ergonomic ease of disconnection.',
         selectionReasonZh: '🛠️ [物理測試架設藍圖] 入選原因：本圖對比 ISO 80369-20 Annex G (反向旋鬆 0.02 N·m 防振動解鎖) 與 Annex I (拆卸扭矩峰值) 雙軌試驗架構。6.5 抗旋鬆測試評估 6% 圓錐靜摩擦自鎖力，本圖提供試驗指引。',
+        selectionReasonEn: '🛠️ [Physical Test Apparatus Blueprint] Rationale: This diagram compares the ISO 80369-20 Annex G (reverse unscrewing at 0.02 N·m — vibration-induced self-loosening prevention) and Annex I (peak disconnection torque) dual-track test apparatus. Clause 6.5 unscrewing resistance evaluates 6% taper static-friction self-locking, and this diagram provides the test setup reference.',
         svgKey: 'ISO20-FIG-G1',
         keyCallouts: [
-          { id: 'annex_g', labelZh: 'Annex G 反旋扭矩', valueZh: '0.018 ~ 0.020 N·m' },
-          { id: 'annex_i', labelZh: 'Annex I 拆卸靜置', valueZh: '10 ~ 15 分鐘後量測峰值' }
+          { id: 'annex_g', labelZh: 'Annex G 反旋扭矩', labelEn: 'Annex G Reverse Torque', valueZh: '0.018 ~ 0.020 N·m', valueEn: '0.018 ~ 0.020 N·m' },
+          { id: 'annex_i', labelZh: 'Annex I 拆卸靜置', labelEn: 'Annex I Disconnection Dwell', valueZh: '10 ~ 15 分鐘後量測峰值', valueEn: 'Measure peak torque after 10–15 min dwell' }
         ]
       }
     ]
@@ -316,12 +336,14 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureType: 'apparatus',
         figureTypeZh: '測試裝置示意圖',
         descriptionZh: '說明 ISO 80369-20 Annex E 試驗。組裝件裝配於金屬參考接頭於 23°C 空氣環境中靜置 48 小時，驗證環向應力下無龜裂破裂，並需通過 Annex B/C 洩漏測試。',
+        descriptionEn: 'Describes the ISO 80369-20 Annex E test procedure. Assembled connectors are mounted on metal reference connectors and held in 23°C ambient air for 48 hours to verify absence of cracking or fracture under hoop stress, followed by the Annex B/C leakage test.',
         selectionReasonZh: '🛠️ [物理測試架設藍圖] 入選原因：本圖為 ISO 80369-20 Annex E 48小時應力龜裂試驗架構。6.3 應力龜裂測試將裝配件於 23°C 空氣中靜置 48 小時，本圖提供環境靜置與試驗檢驗設定指引。',
+        selectionReasonEn: '🛠️ [Physical Test Apparatus Blueprint] Rationale: This depicts the ISO 80369-20 Annex E 48-hour stress cracking test setup. Clause 6.3 stress cracking testing holds assemblies in 23°C ambient air for 48 h; this diagram provides the environmental conditioning and inspection setup guidance.',
         svgKey: 'ISO20-FIG-E1',
         keyCallouts: [
-          { id: 'media', labelZh: '試驗條件', valueZh: '23°C 空氣環境 48h (ISO標準)' },
-          { id: 'time', labelZh: '浸泡靜置時間', valueZh: '≥ 48 小時' },
-          { id: 'temp', labelZh: '環境溫度', valueZh: '20°C ~ 30°C' }
+          { id: 'media', labelZh: '試驗條件', labelEn: 'Test Conditions', valueZh: '23°C 空氣環境 48h (ISO標準)', valueEn: '23°C ambient air, 48 h (ISO standard)' },
+          { id: 'time', labelZh: '浸泡靜置時間', labelEn: 'Conditioning Duration', valueZh: '≥ 48 小時', valueEn: '≥ 48 hours' },
+          { id: 'temp', labelZh: '環境溫度', labelEn: 'Ambient Temperature', valueZh: '20°C ~ 30°C', valueEn: '20°C ~ 30°C' }
         ]
       }
     ]
@@ -356,11 +378,13 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureType: 'connector_cad',
         figureTypeZh: '接頭幾何 CAD 圖',
         descriptionZh: '展現 6% 圓錐 (1:16.667，單邊 α=1.718°) 幾何尺寸圖。標記小端直徑 (Ød 3.970~4.035mm)、最小配合長度 7.5mm 與倒角規格。',
+        descriptionEn: 'Shows the 6% taper (1:16.667, half-angle α = 1.718°) geometry diagram. Labels the minor-end diameter (Ød 3.970–4.035 mm), minimum engagement length 7.5 mm, and chamfer specifications.',
         selectionReasonZh: '🎯 [受測實體幾何規範] 入選原因：本圖合併 6% 魯爾公錐 (Fig.B.1) 與母錐 (Fig.B.2) 幾何 CAD 尺寸，屬於 ISO 80369-7 第 5 章幾何尺寸與圓錐斜率 (1:16.667) 之核心產品檢驗基準。',
+        selectionReasonEn: '🎯 [Physical Connector Geometry Specification] Rationale: This diagram combines the 6% male Luer cone (Fig.B.1) and female socket (Fig.B.2) CAD geometry, serving as the core product inspection reference for ISO 80369-7 Clause 5 dimensional requirements and taper ratio (1:16.667).',
         svgKey: 'ISO7-FIG-B1-B2',
         keyCallouts: [
-          { id: 'ratio', labelZh: '錐度斜率', valueZh: '1 : 16.667 (6%)' },
-          { id: 'min_l', labelZh: '最小長度 e', valueZh: '≥ 7.5 mm' }
+          { id: 'ratio', labelZh: '錐度斜率', labelEn: 'Taper Ratio', valueZh: '1 : 16.667 (6%)', valueEn: '1 : 16.667 (6%)' },
+          { id: 'min_l', labelZh: '最小長度 e', labelEn: 'Minimum Length e', valueZh: '≥ 7.5 mm', valueEn: '≥ 7.5 mm' }
         ]
       },
       {
@@ -371,11 +395,13 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureType: 'connector_cad',
         figureTypeZh: '接頭幾何 CAD 圖',
         descriptionZh: 'CAD 圖面標註公鎖定雙頭螺紋 (Pitch 2.5mm) 與母耳翼 (標稱 3.50mm) 配合，標註核心參數 c ≥ 2.1mm 及 t ≤ 3.2mm。',
+        descriptionEn: 'CAD drawing annotating the male lock double-start thread (Pitch 2.5 mm) and female lug (nominal 3.50 mm) engagement, with key parameters c ≥ 2.1 mm and t ≤ 3.2 mm labeled.',
         selectionReasonZh: '🎯 [受測實體幾何規範] 入選原因：本圖合併公鎖定雙頭螺紋 (Fig.B.3) 與母耳翼 (Fig.B.6) 幾何 CAD 尺寸，屬於 ISO 80369-7 第 5 章雙頭螺紋 (Pitch 2.5mm) 與咬合幾何 (c ≥ 2.1mm) 之驗證依據。',
+        selectionReasonEn: '🎯 [Physical Connector Geometry Specification] Rationale: This combines the male lock double-start thread (Fig.B.3) and female lug (Fig.B.6) CAD geometry, providing the ISO 80369-7 Clause 5 verification basis for thread pitch (2.5 mm) and engagement geometry (c ≥ 2.1 mm).',
         svgKey: 'ISO7-FIG-B3-B6',
         keyCallouts: [
-          { id: 'p', labelZh: '雙頭螺紋 pitch', valueZh: '2.5 mm' },
-          { id: 'c', labelZh: '錐體投影量 c', valueZh: '≥ 2.1 mm' }
+          { id: 'p', labelZh: '雙頭螺紋 pitch', labelEn: 'Double-start Thread Pitch', valueZh: '2.5 mm', valueEn: '2.5 mm' },
+          { id: 'c', labelZh: '錐體投影量 c', labelEn: 'Cone Projection c', valueZh: '≥ 2.1 mm', valueEn: '≥ 2.1 mm' }
         ]
       },
       {
@@ -386,12 +412,14 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureType: 'connector_cad',
         figureTypeZh: '接頭幾何 CAD 圖',
         descriptionZh: '呈現 ISO 80369-7 Figure B.7 母魯爾鎖定接頭【直角凸耳變體 B】之 CAD 幾何尺寸與切向圓角公差。規範耳翼外徑 (ØD 7.70~7.90mm)、耳翼厚度 (t 1.40~1.70mm) 與 360° 圓角細節。',
+        descriptionEn: 'Presents the CAD geometry and tangential radius tolerances of ISO 80369-7 Figure B.7 female Luer lock connector Variant B (right-angle lugs). Specifies lug OD (ØD 7.70–7.90 mm), lug thickness (t 1.40–1.70 mm), and 360° radius details.',
         selectionReasonZh: '🎯 [受測實體幾何規範] 入選原因：本圖為 ISO 80369-7 Fig.B.7 (母鎖定凸耳變體 B)，規範常見於射出成型藥液輸送管路接頭的倒角/圓角耳翼尺寸，提供 5.2 母鎖定接頭幾何檢驗依據。',
+        selectionReasonEn: '🎯 [Physical Connector Geometry Specification] Rationale: This is ISO 80369-7 Fig.B.7 (female lock lug Variant B), specifying the chamfered/radiused lug dimensions common in injection-molded IV line connectors, providing the Clause 5.2 female lock connector geometry inspection basis.',
         svgKey: 'ISO7-FIG-B7',
         keyCallouts: [
-          { id: 'dia', labelZh: '耳翼外徑 ØD', valueZh: '7.70 ~ 7.90 mm' },
-          { id: 'thick', labelZh: '耳翼厚度 t', valueZh: '1.40 ~ 1.70 mm' },
-          { id: 'variant', labelZh: '幾何特徵', valueZh: '變體 B (Variant B 圓角凸耳)' }
+          { id: 'dia', labelZh: '耳翼外徑 ØD', labelEn: 'Lug OD ØD', valueZh: '7.70 ~ 7.90 mm', valueEn: '7.70 ~ 7.90 mm' },
+          { id: 'thick', labelZh: '耳翼厚度 t', labelEn: 'Lug Thickness t', valueZh: '1.40 ~ 1.70 mm', valueEn: '1.40 ~ 1.70 mm' },
+          { id: 'variant', labelZh: '幾何特徵', labelEn: 'Geometry Feature', valueZh: '變體 B (Variant B 圓角凸耳)', valueEn: 'Variant B (radiused right-angle lugs)' }
         ]
       },
       {
@@ -402,12 +430,14 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureType: 'connector_cad',
         figureTypeZh: '接頭幾何 CAD 圖',
         descriptionZh: '呈現 ISO 80369-7 Figure B.8 母魯爾鎖定接頭【直角凸耳變體 C】之 CAD 幾何尺寸與雙翼/外展圓弧公差。規範耳翼翼寬 (ØH 11.50~12.50mm) 與結構幾何加強區。',
+        descriptionEn: 'Presents the CAD geometry and bilateral wing-arc tolerances of ISO 80369-7 Figure B.8 female Luer lock connector Variant C (right-angle lugs). Specifies wing span OD (ØH 11.50–12.50 mm) and structural reinforcement geometry.',
         selectionReasonZh: '🎯 [受測實體幾何規範] 入選原因：本圖為 ISO 80369-7 Fig.B.8 (母鎖定凸耳變體 C)，規範翅膀翼型 (Winged) 便於臨床人員旋緊手握之大尺寸耳翼幾何，提供 5.2 母鎖定接頭幾何檢驗依據。',
+        selectionReasonEn: '🎯 [Physical Connector Geometry Specification] Rationale: This is ISO 80369-7 Fig.B.8 (female lock lug Variant C), specifying the winged lug geometry for clinical ease of grip during tightening, providing the Clause 5.2 female lock connector geometry inspection basis.',
         svgKey: 'ISO7-FIG-B8',
         keyCallouts: [
-          { id: 'wing_width', labelZh: '雙翼外徑 ØH', valueZh: '11.50 ~ 12.50 mm' },
-          { id: 'thick', labelZh: '耳翼厚度 t', valueZh: '1.40 ~ 1.70 mm' },
-          { id: 'variant', labelZh: '幾何特徵', valueZh: '變體 C (Variant C 翅膀雙翼)' }
+          { id: 'wing_width', labelZh: '雙翼外徑 ØH', labelEn: 'Wing Span OD ØH', valueZh: '11.50 ~ 12.50 mm', valueEn: '11.50 ~ 12.50 mm' },
+          { id: 'thick', labelZh: '耳翼厚度 t', labelEn: 'Lug Thickness t', valueZh: '1.40 ~ 1.70 mm', valueEn: '1.40 ~ 1.70 mm' },
+          { id: 'variant', labelZh: '幾何特徵', labelEn: 'Geometry Feature', valueZh: '變體 C (Variant C 翅膀雙翼)', valueEn: 'Variant C (winged bilateral lugs)' }
         ]
       }
     ]
@@ -442,11 +472,13 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureType: 'fixture',
         figureTypeZh: '參考金屬件',
         descriptionZh: '硬化不鏽鋼高精密度法規測試專用金屬參考件 (Fig.C.1~C.6，一般 316 須經表面氮化防磨損咬死；鋼規常選 17-4PH/440C ≥45 HRC)。詳細解析 C.1 標稱件與 C.3 Worst-case 最壞情況件之幾何差異。',
+        descriptionEn: 'High-precision hardened stainless steel reference gauges for regulatory testing (Fig.C.1–C.6; standard 316 SS requires surface nitriding to prevent galling; 17-4PH/440C at ≥45 HRC are preferred). Detailed analysis of geometric differences between the C.1 nominal fixture and the C.3 worst-case fixture.',
         selectionReasonZh: '📐 [標準參考金屬夾具] 入選原因：本圖展現 ISO 80369-7 附錄 C 硬化不鏽鋼測試專用金屬參考件 (C.1~C.6)，對比 C.1 標稱件與 C.3 Worst-case (2.71mm 耳翼) 最壞情況件，提供法規測試夾具依據。',
+        selectionReasonEn: '📐 [Standard Reference Metal Fixture] Rationale: This diagram presents the ISO 80369-7 Annex C hardened stainless steel test reference gauges (C.1–C.6), contrasting the C.1 nominal piece with the C.3 worst-case (2.71 mm lug) piece, providing the normative test fixture basis.',
         svgKey: 'ISO7-FIG-C3',
         keyCallouts: [
-          { id: 'material', labelZh: '夾具材質', valueZh: 'ISO: Hardened SS / 17-4PH(≥45HRC) 或 316(須氮化)' },
-          { id: 'roughness', labelZh: '表面粗糙度', valueZh: 'Ra ≤ 0.8 μm' }
+          { id: 'material', labelZh: '夾具材質', labelEn: 'Fixture Material', valueZh: 'ISO: Hardened SS / 17-4PH(≥45HRC) 或 316(須氮化)', valueEn: 'ISO: Hardened SS / 17-4PH (≥45 HRC) or 316 (nitriding required)' },
+          { id: 'roughness', labelZh: '表面粗糙度', labelEn: 'Surface Roughness', valueZh: 'Ra ≤ 0.8 μm', valueEn: 'Ra ≤ 0.8 μm' }
         ]
       }
     ]
@@ -481,13 +513,15 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureType: 'apparatus',
         figureTypeZh: '測試裝置示意圖',
         descriptionZh: '示範國際標竿 ISO 80369-20 雙軸同時裝配裝置（如 Enersol S15A 原理）。利用垂直低摩擦線性導軌掛載 27.5 N 校正重錘垂直下壓，同時搭配頂部高精度 0.12 N·m 定扭矩輪旋轉，完全消除手持裝配的歪斜與傾角誤差。',
+        descriptionEn: 'Demonstrates the ISO 80369-20 biaxial simultaneous assembly device (e.g., Enersol S15A concept). A 27.5 N calibrated dead-weight is suspended on a vertical low-friction linear rail to provide the downward axial force, while a precision 0.12 N·m torque wheel rotates simultaneously, completely eliminating the cocking and off-axis error of hand-tightening.',
         selectionReasonZh: '🛠️ [物理測試架設藍圖] 入選原因：本圖為 ISO 80369-20 通用預裝配程序雙軸同時加載裝置 (如 Enersol S15A 原理)。所有性能測試前均需以 27.5 N 軸向力與 0.12 N·m 扭矩預裝配 5~6s，本圖提供機構指引。',
+        selectionReasonEn: '🛠️ [Physical Test Apparatus Blueprint] Rationale: This is the ISO 80369-20 general pre-assembly procedure biaxial simultaneous loading device (e.g., Enersol S15A concept). All performance tests require pre-assembly at 27.5 N axial force and 0.12 N·m torque for 5–6 s; this diagram provides the mechanism guidance.',
         svgKey: 'ISO20-FIG-J1',
         keyCallouts: [
-          { id: 'pre_t', labelZh: '預裝配扭矩 (Assembly Torque)', valueZh: '0.08 ~ 0.12 N·m' },
-          { id: 'pre_f', labelZh: '預裝配軸向推力 (Axial Force)', valueZh: '26.5 ~ 27.5 N' },
-          { id: 'pre_hold', labelZh: '持壓穩定時間 (Hold Time)', valueZh: '5 ~ 6 秒' },
-          { id: 'pre_mech', labelZh: '機構設計 (Biaxial Mechanism)', valueZh: '無摩擦線性導軌 + 校正重錘' }
+          { id: 'pre_t', labelZh: '預裝配扭矩 (Assembly Torque)', labelEn: 'Assembly Torque', valueZh: '0.08 ~ 0.12 N·m', valueEn: '0.08 ~ 0.12 N·m' },
+          { id: 'pre_f', labelZh: '預裝配軸向推力 (Axial Force)', labelEn: 'Axial Assembly Force', valueZh: '26.5 ~ 27.5 N', valueEn: '26.5 ~ 27.5 N' },
+          { id: 'pre_hold', labelZh: '持壓穩定時間 (Hold Time)', labelEn: 'Hold Time', valueZh: '5 ~ 6 秒', valueEn: '5 ~ 6 s' },
+          { id: 'pre_mech', labelZh: '機構設計 (Biaxial Mechanism)', labelEn: 'Biaxial Mechanism', valueZh: '無摩擦線性導軌 + 校正重錘', valueEn: 'Frictionless linear rail + calibrated dead-weight' }
         ]
       }
     ]
@@ -521,12 +555,14 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureType: 'mechanism',
         figureTypeZh: '物理機構/失效原理圖',
         descriptionZh: '解析 ISO 80369 家族化尺寸互斥矩陣：血管 (Luer -7)、腸餵 (ENFit -3)、神經軸麻醉 (NRFit -6) 與呼吸 (-2) 之幾何隔絕防呆原理。',
+        descriptionEn: 'Analyzes the ISO 80369 family dimensional exclusion matrix: vascular (Luer -7), enteral (ENFit -3), neuraxial anesthesia (NRFit -6), and respiratory (-2) — geometric isolation and non-interchangeability principles.',
         selectionReasonZh: '📈 [防錯對接幾何矩陣] 入選原因：本圖展示 ISO 80369 家族化小口徑連接器防誤插矩陣 (血管-7、腸餵-3、神經軸-6、呼吸-2)，屬於 ISO 80369-7 Clause 4 跨領域防錯安全邏輯圖解。',
+        selectionReasonEn: '📈 [Non-interchangeability Geometric Matrix] Rationale: This diagram presents the ISO 80369 family small-bore connector non-interchangeability matrix (vascular -7, enteral -3, neuraxial -6, respiratory -2), serving as the graphic illustration for ISO 80369-7 Clause 4 cross-application anti-misconnection safety logic.',
         svgKey: 'ISO7-FIG-A1',
         keyCallouts: [
-          { id: 'luer', labelZh: 'ISO 80369-7', valueZh: '血管/皮下注射 (6% Luer)' },
-          { id: 'enfit', labelZh: 'ISO 80369-3', valueZh: '腸道餵食 (ENFit 反向鎖定)' },
-          { id: 'nrfit', labelZh: 'ISO 80369-6', valueZh: '神經軸麻醉 (20% 大錐度 NRFit)' }
+          { id: 'luer', labelZh: 'ISO 80369-7', labelEn: 'ISO 80369-7', valueZh: '血管/皮下注射 (6% Luer)', valueEn: 'Vascular / Subcutaneous (6% Luer)' },
+          { id: 'enfit', labelZh: 'ISO 80369-3', labelEn: 'ISO 80369-3', valueZh: '腸道餵食 (ENFit 反向鎖定)', valueEn: 'Enteral Feeding (ENFit reverse-lock)' },
+          { id: 'nrfit', labelZh: 'ISO 80369-6', labelEn: 'ISO 80369-6', valueZh: '神經軸麻醉 (20% 大錐度 NRFit)', valueEn: 'Neuraxial Anesthesia (20% large-taper NRFit)' }
         ]
       }
     ]
