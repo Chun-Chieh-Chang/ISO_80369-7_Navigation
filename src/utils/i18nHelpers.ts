@@ -47,7 +47,7 @@ export const TOPIC_I18N: Record<string, TopicI18nData> = {
   'axial-separation': {
     shortSummaryEn: 'Applies 23-25 N (Slip) or 32-35 N (Lock) axial pull force for 10-15 s to ensure no separation from reference fixture.',
     detailedDescriptionEn: 'Simulates tensile tension exerted by infusion line tugging or patient posture shifts. Evaluates connector retention strength following standard pre-assembly (0.08 to 0.12 N·m torque + 26.5 to 27.5 N axial push held for 5-6 s). Slip connectors undergo 23-25 N axial pull; Lock connectors undergo 32-35 N axial pull at 10 N/s ramp rate, held for 10-15 s.',
-    engineeringRiskEn: 'Inadequate collar thread root radius generates excessive stress concentration, leading to catastrophic thread shear fracture under 35 N axial pull.',
+    engineeringRiskEn: 'Inadequate collar thread root radius generates excessive stress concentration, leading to catastrophic thread shear fracture under 32 to 35 N axial pull on lock connectors.',
     auditFocusEn: 'Verify pull rate (<= 10 N/s) on universal testing machine and verify zero axial separation displacement.'
   },
   'unscrewing-separation': {
@@ -57,10 +57,10 @@ export const TOPIC_I18N: Record<string, TopicI18nData> = {
     auditFocusEn: 'Examine torque gauge sensitivity in low-torque range (0.001 N·m resolution) and ensure torque application direction is strictly perpendicular to connector axis.'
   },
   'stress-cracking': {
-    shortSummaryEn: 'Assembles connectors to reference fixtures and conditions in air at 23 deg C for 48 h (Annex E) to evaluate environmental stress cracking.',
-    detailedDescriptionEn: 'Evaluates residual internal stress and chemical compatibility of polymer materials following assembly. Medical plastic Luer components often experience high residual hoop stresses when assembled to rigid metal reference connectors. Under ISO 80369-20 Annex E, specimens are held assembled at 23 +/- 2 deg C for >= 48 h, then immediately examined under optical magnification for micro-cracks and subjected to Clause 6.1 leakage re-testing.',
-    engineeringRiskEn: 'Amorphous polymers (e.g. polycarbonate, acrylic) without proper annealing are highly susceptible to environmental stress cracking under sustained strain and lipid/drug exposure.',
-    auditFocusEn: 'Inspect environmental chamber temperature log (23 +/- 2 deg C continuously for 48 h) and review post-conditioning 6.1 leakage pass/fail data.'
+    shortSummaryEn: 'Assembles connectors to reference fixtures and conditions in air at 15 to 30 deg C (recommended 23 deg C) for 48 h (Annex E) to evaluate mechanical stress cracking.',
+    detailedDescriptionEn: 'Evaluates sustained assembly hoop stress and creep resistance of polymer materials following assembly. Medical plastic Luer components experience high residual hoop stresses when assembled to rigid metal reference fixtures. Under ISO 80369-20 Annex E, specimens are held assembled at 15 to 30 deg C (recommended 23 +/- 2 deg C) for >= 48 h in air, then subjected to Clause 6.1.1 positive-pressure fluid leakage testing.',
+    engineeringRiskEn: 'Amorphous polymers (e.g. polycarbonate, acrylic) without proper annealing or design are susceptible to stress cracking under sustained assembly hoop strain.',
+    auditFocusEn: 'Inspect chamber temperature log (15 to 30 deg C / 23 +/- 2 deg C continuously for 48 h) and review post-conditioning Clause 6.1.1 leakage pass/fail verification data.'
   },
   'dimensional-taper': {
     shortSummaryEn: 'Inspects 6% (1:16.667) Luer taper geometry, socket depth, thread pitch, and lug envelope dimensions per Annex B drawings.',
@@ -100,7 +100,7 @@ export const TOPIC_I18N: Record<string, TopicI18nData> = {
   },
   'annexes-rationale-summary': {
     shortSummaryEn: 'Summarizes ISO standard rationale, design history, clinical justification for test limits, and ISO 80369-20:2024 revision updates.',
-    detailedDescriptionEn: 'Synthesizes clinical and engineering justifications behind ISO 80369-7 requirements. Details why 300 kPa was selected as the pressure limit (covering clinical infusion pump maximum operating pressures), why 35 N represents clinical pulling resistance, and documents the transition from legacy ISO 594-1/2 to ISO 80369-7 and ISO 80369-20:2024.',
+    detailedDescriptionEn: 'Synthesizes clinical and engineering justifications behind ISO 80369-7 requirements. Details why 300–330 kPa was selected as the pressure limit (covering clinical infusion pump maximum operating pressures), why 32–35 N (Lock) and 23–25 N (Slip) represent clinical pulling resistance, and documents the transition from legacy ISO 594-1/2 to ISO 80369-7 and ISO 80369-20:2024.',
     engineeringRiskEn: 'Designing connectors without understanding clinical force limits leads to over-designed bulky fittings or under-designed prone-to-failure products.',
     auditFocusEn: 'Ensure risk management files (ISO 14971) cite ISO 80369-7 Annex rationales when establishing clinical hazard mitigations.'
   }
@@ -245,7 +245,7 @@ export const CLAUSE_I18N: Record<string, ClauseI18nData> = {
   },
   'iso7-annex-a': {
     titleEn: 'Rationale and Guidance',
-    objectiveEn: 'Details the clinical and scientific rationale for key test parameters: 300 kPa pressure, 35 N axial pull force, and 0.17 N·m torque limits.',
+    objectiveEn: 'Details the clinical and scientific rationale for key test parameters: 300–330 kPa pressure, 32–35 N / 23–25 N axial pull force, and 0.15–0.17 N·m torque limits.',
     appliesToEn: 'R&D design validation and risk management documentation',
     typeEn: 'Requirement',
     fixtureRequiredEn: 'Technical background documentation',
@@ -455,8 +455,8 @@ export const FIGURE_I18N: Record<string, FigureI18nData> = {
     descriptionEn: 'ISO 80369-20 Figure D.1: Testing apparatus layout for sub-atmospheric air leakage under vacuum decay, showing vacuum pump, shut-off valve, and negative pressure transducer.'
   },
   'ISO20-E.1': {
-    worstCaseReasonEn: 'Environmental stress cracking test setup schematic.',
-    descriptionEn: 'ISO 80369-20 Annex E stress cracking test procedure schematic: assembled connector conditioning in controlled chamber at 23 deg C for >= 48 h.'
+    worstCaseReasonEn: 'Stress cracking test setup schematic.',
+    descriptionEn: 'ISO 80369-20 Annex E stress cracking test procedure schematic: assembled connector conditioning in air at 15 to 30 deg C (recommended 23 deg C) for >= 48 h, followed by Clause 6.1.1 fluid leakage testing.'
   },
   'ISO20-F.1': {
     worstCaseReasonEn: 'Universal tensile testing machine setup for axial pull load separation tests.',
@@ -1007,8 +1007,8 @@ export const getClauseAcceptanceCriteria = (clause: any, isEn: boolean): string[
   }
   if (id === 'iso7-6.3' || id === '6.3') {
     return [
-      'No evidence of stress cracking or crazing after 48 h assembly hold at 23 °C.',
-      'Subsequently meets the fluid leakage requirements of Clause 6.1.1 at 300–330 kPa.'
+      'Statutory Acceptance: Shall meet the requirements of Clause 6.1.1 (positive-pressure fluid leakage at 300 to 330 kPa) after 48 h assembly hold.',
+      'Engineering Observation: No evidence of stress cracking, crazing, or burst failure on visual inspection.'
     ];
   }
   if (id === 'iso7-6.4' || id === '6.4') {

@@ -2,6 +2,33 @@
 
 All notable changes to the ISO 80369-7 & ISO 80369-20 Navigation App will be documented in this file.
 
+## [v8.39.0] - 2026-09-05
+
+### Standards Harmonization & SSOT Regulatory Alignment: Fixed 4 Contradictions on Clause 6.3 & Annex E
+- **Root Cause (RCA)**:
+  - User conducted a thorough, first-principles critique of the cards for `ISO 80369-7:2021 §6.3` and `ISO 80369-20:2024 Annex E`, identifying 4 core contradictions resulting from mixed drafting sources:
+    1. *Fatal Acceptance Criteria Violation*: Clause 6.3 cards permitted 6.2 vacuum leakage verification. ISO 80369-7:2021 §6.3 strictly mandates compliance with 6.1.1 (positive-pressure fluid leakage). Vacuum closes micro-cracks rather than opening them.
+    2. *Temperature Contradiction*: Temperature was inconsistent across cards (`20°C - 30°C` vs `15°C - 30°C`, with step 2 specifying `23°C` and step 3 specifying `20-30°C`). Standard temperature range in ISO 80369-20:2024 Annex E.2.2 is `15 °C to 30 °C` (with standard lab conditioning at `23 ± 2 °C, 50% RH`).
+    3. *Title Mislabeling*: "Environmental (耐環境)" was incorrectly prefixed to Clause 6.3. The standard title is strictly "Stress cracking" (evaluating assembly hoop stress creep in air, unlike ESCR chemical immersion tests).
+    4. *Acceptance Criteria Hierarchy*: Both cards prioritized visual inspection ("目視無裂紋"). By standard, the sole statutory acceptance criterion is passing 6.1.1 fluid leakage; visual inspection is an engineering observation record (Annex E.5.h).
+- **Corrective & Preventive Action (CAPA)**:
+  - **Data Cleansing (`src/data/isoTopicsData.ts`)**:
+    - Purged Clause 6.2 vacuum leakage references from `iso7-6.3` procedures; strictly mandated Clause 6.1.1 positive-pressure fluid leakage (Annex B or Annex C).
+    - Unified conditioning temperature to `15°C - 30°C (建議 23 ± 2°C)` across `iso7-6.3`, `iso20-annex-e`, and `topic-stress-cracking`.
+    - Corrected titles to "6.3 應力龜裂規範條文 (Stress Cracking Requirement)".
+    - Segregated acceptance criteria into statutory standards (`通過 6.1.1 正壓流體洩漏測試`) and engineering observation records (`顯微目視無微裂紋、龜裂或爆裂`).
+    - Purged false "chemical media" references from objectives.
+    - Harmonized Clause 6.4 axial separation pull force across all topics and figures to include both Lock (32~35 N) and Slip (23~25 N) tolerances.
+  - **Matrix & Data Core (`src/data/isoData.ts` & `src/components/ClauseComparisonMatrix.tsx`)**:
+    - Purged legacy "hold for 10s" placeholder in Clause 6.1 data model; fully aligned to Clause 6.1.2 (15~20 s for pressure decay) and Clause 6.1.3 (30~35 s for falling drop).
+    - Updated Clause 6.3 data models, physics descriptions, and matrix display headers to "6.3 應力龜裂 (Stress Cracking)".
+  - **Localization Dictionary (`src/utils/i18nHelpers.ts`)**:
+    - Harmonized English summaries, risk descriptions, and criteria helpers with the normative requirements across Clauses 6.1, 6.3, and 6.4.
+  - **Presentation Slides (`public/slides/index.html` & `public/slides-standalone.html`)**:
+    - Harmonized Slides 7, 9, 10, and 11 to reflect exact normative tolerances (`32~35 N / 23~25 N`, `300~330 kPa`, `80~88 kPa`, `0.15~0.17 N·m`), eliminating single-point approximations.
+    - Recompiled `public/slides-standalone.html` (27.18 MB).
+- **Verification**: `npm test` 17/17 PASS, `npm run lint` PASS, `npm run build` PASS.
+
 ## [v8.38.1] - 2026-09-05
 
 ### UI/UX & MECE Layout Optimization: Deduplicated Author Signature on Slide 12

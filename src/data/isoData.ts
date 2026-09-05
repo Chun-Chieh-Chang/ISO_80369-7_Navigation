@@ -9,13 +9,13 @@ export const ISO_CLAUSES: Record<string, ISOClauseInfo> = {
     applicableTypes: ['lock', 'slip'],
     assemblyTorqueNm: { min: 0.08, max: 0.12 },
     assemblyAxialForceN: { min: 26.5, max: 27.5 },
-    holdTimeSec: { min: 15, max: 35 },
+    holdTimeSec: { min: 15, max: 35 }, // 15-20s for pressure decay (6.1.2); 30-35s for falling drop (6.1.3)
     requiredMaleRef: 'C.4', // For Female Lock
     requiredFemaleRef: 'C.1', // For Male Lock
-    passCriteria: 'No fluid leakage exceeding 0.005 Pa·m³/s or no falling drop for 10s at 300 kPa–330 kPa.',
-    passCriteriaZh: '加壓 300 kPa–330 kPa 保持 10 秒以上，無漏水滴落，或壓降洩漏率 < 0.005 Pa·m³/s。',
-    keyPhysics: 'Assesses 6% taper seal interface under nominal assembly torque.',
-    keyPhysicsZh: '評估 6% 魯爾錐面在標準裝配扭矩（0.08–0.12 N·m）與推力（26.5–27.5 N）下的正壓密封性。規範允許水壓目視法（Annex C）或氣壓衰減法（Annex B）作為判定標準。'
+    passCriteria: 'Pneumatic method (6.1.2): Leakage rate shall not exceed 0.005 Pa·m³/s under 300 kPa–330 kPa over 15 s–20 s. Liquid method (6.1.3): No falling drop of water under 300 kPa–330 kPa over 30 s–35 s.',
+    passCriteriaZh: '【氣壓衰減法 (6.1.2)】於 300 kPa–330 kPa 保持 15–20 秒，洩漏率 ≤ 0.005 Pa·m³/s。或【正壓液體落滴法 (6.1.3)】於 300 kPa–330 kPa 保持 30–35 秒，無足形成或滴落之水滴。',
+    keyPhysics: 'Assesses 6% taper seal interface under standard pre-assembly.',
+    keyPhysicsZh: '評估 6% 魯爾錐面在標準預裝配（鎖定型: 0.08–0.12 N·m + 26.5–27.5 N; 滑動型: 26.5–27.5 N 微旋 ≤90°）下的正壓密封性。法規明訂以氣壓衰減法 (6.1.2) 或液體落滴法 (6.1.3) 驗證。'
   },
   '6.2': {
     id: '6.2',
@@ -44,10 +44,10 @@ export const ISO_CLAUSES: Record<string, ISOClauseInfo> = {
     holdTimeSec: { min: 172800, max: 172800 }, // 48 hours
     requiredMaleRef: 'C.4',
     requiredFemaleRef: 'C.1',
-    passCriteria: 'Shall satisfy Clause 6.1.1 leakage requirements after 48h assembly in accordance with ISO 80369-20 Annex E.',
-    passCriteriaZh: '依 ISO 80369-20 Annex E 裝配於金屬參考接頭於環境中靜置 48 小時後，依 6.1.1 執行洩漏測試並符合其要求。',
-    keyPhysics: 'Verifies environmental stress cracking resistance (ESCR) under sustained hoop stress and subsequent pressure sealing capability.',
-    keyPhysicsZh: '驗證塑膠材料在持續環向應力與化學藥品共同作用下之抗應力龜裂（ESCR）能力，並確認 48 小時後仍具備完整正壓流體密封性能。'
+    passCriteria: 'Shall satisfy Clause 6.1.1 fluid leakage requirements after 48h assembly hold in air in accordance with ISO 80369-20 Annex E.',
+    passCriteriaZh: '依 ISO 80369-20 Annex E 裝配於金屬參考接頭於室溫空氣中靜置至少 48 小時後，依 6.1.1 執行正壓流體洩漏測試並符合其要求（排除 6.2 負壓測試）。',
+    keyPhysics: 'Verifies stress cracking resistance under sustained assembly hoop stress in air and subsequent positive-pressure fluid sealing capability (Clause 6.1.1).',
+    keyPhysicsZh: '驗證塑膠魯爾接頭在標準裝配持續過盈環向應力作用下於空氣中靜置 48 小時之抗應力龜裂能力，並確認隨後仍具備 6.1.1 正壓流體密封性能（排除負壓測試）。'
   },
   '6.4': {
     id: '6.4',
@@ -436,15 +436,15 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
     annexGroup: 'ISO 80369-20',
     name: 'Stress Cracking Test Setup (Conditioned Air)',
     nameZh: 'ISO 80369-20 Annex E 48小時應力龜裂試驗圖',
-    description: 'ISO 80369-20 Annex E environmental stress cracking test setup under 48-hour conditioned air.',
-    descriptionZh: 'ISO 80369-20 Annex E 試驗圖，組裝件裝配於金屬參考接頭於 23°C 空氣環境中靜置 48 小時，驗證環向應力下無龜裂破裂，並需通過 Annex B/C 洩漏測試。',
+    description: 'ISO 80369-20 Annex E stress cracking test setup under 48-hour conditioned air (15–30 °C).',
+    descriptionZh: 'ISO 80369-20 Annex E 試驗圖，組裝件裝配於金屬參考接頭於 15–30°C 空氣環境中靜置 48 小時，驗證環向應力下無開裂，並需通過 Annex B/C (6.1.1) 正壓洩漏測試。',
     intendedClauses: ['6.3'],
     isWorstCase: false,
     worstCaseReasonZh: '驗證高應力區在持續裝配應力下之抗龜裂能力與洩漏密封性。',
     svgHighlights: [
-      { title: '試驗條件', value: '23°C 空氣 48h (ISO標準)' },
+      { title: '試驗條件', value: '15–30°C 空氣 48h (ISO標準)' },
       { title: '靜置時間', value: '≥ 48 小時' },
-      { title: '環境溫度', value: '20°C ~ 30°C' }
+      { title: '環境溫度', value: '15°C ~ 30°C (建議 23°C)' }
     ],
     svgKey: 'ISO20-FIG-E1'
   },

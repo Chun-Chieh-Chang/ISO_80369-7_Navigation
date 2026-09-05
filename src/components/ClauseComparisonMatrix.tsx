@@ -161,7 +161,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
       },
       {
         id: '6.3',
-        title: isEn ? '6.3 Stress Cracking (48h conditioning)' : '6.3 耐環境應力龜裂 (Stress Cracking)',
+        title: isEn ? '6.3 Stress Cracking (48h conditioning)' : '6.3 應力龜裂 (Stress Cracking)',
         iso7: 'Clause 6.3',
         iso20: isEn ? 'Annex E (48 h Assembly Hold)' : 'Annex E (裝配靜置 48h)',
         category: c63Data?.category || 'durability',

@@ -245,7 +245,7 @@ export const ISO_TOPICS: ISOTopic[] = [
     relatedRefConnectors: ['C.3', 'C.6', 'C.2', 'C.5'],
     engineeringRiskZh: '公鎖定套環螺紋咬合深度不夠、螺牙倒角過大或耳翼剪切強度不足導致螺牙被直接拉平。',
     auditFocusZh: '拉力機對心精度（避免偏心拉扯），夾具同軸度與同心度偏差。',
-    tags: ['35N', '軸向拉力', '脫離', '6.4', 'Annex F'],
+    tags: ['32-35N', '23-25N', '軸向拉力', '脫離', '6.4', 'Annex F'],
     figures: [
       {
         id: 'ISO20-FIG-F1',
@@ -254,15 +254,15 @@ export const ISO_TOPICS: ISOTopic[] = [
         standard: 'ISO 80369-20:2024 Annex F',
         figureType: 'apparatus',
         figureTypeZh: '測試裝置示意圖',
-        descriptionZh: '展現 ISO 80369-20 Annex F 軸向拉力分離測試。定速 10 N/s 垂直施力至 35 N (Lock) 或 25 N (Slip)，持壓 10~15 秒，驗證受測接頭螺紋或錐面抗強拉拔能力，防止輸液管路拉扯斷開。',
-        descriptionEn: 'Demonstrates the ISO 80369-20 Annex F axial separation pull-off test. Force is applied at a constant rate of 10 N/s vertically up to 35 N (Lock) or 25 N (Slip) and held for 10–15 s to verify the DUT connector\'s thread or taper resistance to strong pull-out forces, preventing IV line disconnection.',
-        selectionReasonZh: '🛠️ [物理測試架設藍圖] 入選原因：本圖為 ISO 80369-20 Annex F 萬能拉力機軸向分離測試架構。6.4 軸向負載分離測試需定速 10 N/s 施加 35 N (Lock) 或 25 N (Slip) 拉力持壓 10~15s，本圖提供抗拉脫測試裝置指引。',
-        selectionReasonEn: '🛠️ [Physical Test Apparatus Blueprint] Rationale: This is the ISO 80369-20 Annex F universal testing machine axial separation apparatus. Clause 6.4 axial load separation testing requires applying 35 N (Lock) or 25 N (Slip) at 10 N/s and holding for 10–15 s; this diagram provides pull-out test setup guidance.',
+        descriptionZh: '展現 ISO 80369-20 Annex F 軸向拉力分離測試。定速 ≤ 10 N/s 垂直施力至 32~35 N (Lock) 或 23~25 N (Slip)，持壓 10~15 秒，驗證受測接頭螺紋或錐面抗強拉拔能力，防止輸液管路拉扯斷開。',
+        descriptionEn: 'Demonstrates the ISO 80369-20 Annex F axial separation pull-off test. Force is applied at a constant rate of <= 10 N/s vertically up to 32–35 N (Lock) or 23–25 N (Slip) and held for 10–15 s to verify the DUT connector\'s thread or taper resistance to strong pull-out forces, preventing IV line disconnection.',
+        selectionReasonZh: '🛠️ [物理測試架設藍圖] 入選原因：本圖為 ISO 80369-20 Annex F 萬能拉力機軸向分離測試架構。6.4 軸向負載分離測試需定速 ≤ 10 N/s 施加 32~35 N (Lock) 或 23~25 N (Slip) 拉力持壓 10~15s，本圖提供抗拉脫測試裝置指引。',
+        selectionReasonEn: '🛠️ [Physical Test Apparatus Blueprint] Rationale: This is the ISO 80369-20 Annex F universal testing machine axial separation apparatus. Clause 6.4 axial load separation testing requires applying 32–35 N (Lock) or 23–25 N (Slip) at <= 10 N/s and holding for 10–15 s; this diagram provides pull-out test setup guidance.',
         svgKey: 'ISO20-FIG-F1',
         keyCallouts: [
-          { id: 'f_lock', labelZh: '鎖定型軸向拉力', labelEn: 'Lock Axial Pull Force', valueZh: '35 N (10~15秒)', valueEn: '35 N (10–15 s)' },
-          { id: 'f_slip', labelZh: '滑動型軸向拉力', labelEn: 'Slip Axial Pull Force', valueZh: '25 N (10~15秒)', valueEn: '25 N (10–15 s)' },
-          { id: 'rate', labelZh: '拉力加載速率', labelEn: 'Force Loading Rate', valueZh: '10 N/s', valueEn: '10 N/s' }
+          { id: 'f_lock', labelZh: '鎖定型軸向拉力', labelEn: 'Lock Axial Pull Force', valueZh: '32 ~ 35 N (10~15秒)', valueEn: '32–35 N (10–15 s)' },
+          { id: 'f_slip', labelZh: '滑動型軸向拉力', labelEn: 'Slip Axial Pull Force', valueZh: '23 ~ 25 N (10~15秒)', valueEn: '23–25 N (10–15 s)' },
+          { id: 'rate', labelZh: '拉力加載速率', labelEn: 'Force Loading Rate', valueZh: '≤ 10 N/s', valueEn: '≤ 10 N/s' }
         ]
       }
     ]
@@ -310,23 +310,23 @@ export const ISO_TOPICS: ISOTopic[] = [
   {
     id: 'stress-cracking',
     titleZh: '6. 應力龜裂測試 (Stress Cracking & Annex E)',
-    titleEn: 'Environmental Stress Cracking (ESCR)',
+    titleEn: 'Stress Cracking (48h Assembly Hold)',
     category: 'durability',
     categoryZh: '耐久性與環境',
     iconName: 'ShieldAlert',
-    shortSummaryZh: '裝配於參考接頭於 23°C 空氣中靜置 48 小時 (Annex E)，驗證無應力龜裂與洩漏。',
-    detailedDescriptionZh: 'ISO 80369-7 6.3 與 ISO 80369-20 Annex E 規範：將接頭裝配於金屬參考接頭上，於 23°C 空氣中靜置 48 小時後評估洩漏與結構無應力龜裂狀況。',
+    shortSummaryZh: '裝配於參考接頭於 15–30°C 空氣中靜置 48 小時 (Annex E)，以 6.1.1 正壓流體洩漏驗證無龜裂洩漏。',
+    detailedDescriptionZh: 'ISO 80369-7 6.3 與 ISO 80369-20 Annex E 規範：將接頭裝配於金屬參考接頭上，於 15–30°C (建議 23 ± 2°C) 空氣中組裝靜置 48 小時後，依 6.1.1 正壓流體洩漏測試評估密封性（排除 6.2 負壓測試）。',
     keyParameters: [
       { label: '測試靜置時間 Duration', value: '48', unit: '小時' },
-      { label: '試驗環境 Ambient Environment', value: '23°C 空氣靜置 48h (ISO標準)' },
-      { label: '環境溫度 Temperature', value: '20 - 30', unit: '°C' }
+      { label: '試驗環境 Ambient Environment', value: '15–30°C 空氣靜置 48h (建議 23°C)' },
+      { label: '環境溫度 Temperature', value: '15 - 30', unit: '°C' }
     ],
     relatedISO7Clauses: ['6.3'],
     relatedISO20Annexes: ['Annex E'],
     relatedRefConnectors: ['C.1', 'C.4'],
-    engineeringRiskZh: 'PC 或 Polycarbonate 材料對過盈應力較為敏感，若射出成型分子內應力過高，極易在 24 小時內發生龜裂爆裂。',
-    auditFocusZh: '顯微鏡觀察倍率（≥ 10x），殘留應力檢驗（偏光應力分析）。',
-    tags: ['48小時', '23°C空氣', 'ESCR', '應力龜裂', '6.3', 'Annex E'],
+    engineeringRiskZh: 'PC 或 Polycarbonate 材料對過盈裝配應力較為敏感，若射出成型殘留內應力過高，極易在 24–48 小時內發生應力開裂爆破。',
+    auditFocusZh: '6.1.1 正壓流體洩漏（氣壓衰減或水壓落滴）為法定唯一合格判定依據；殘留應力可輔以偏光儀分析。',
+    tags: ['48小時', '15-30°C空氣', '應力龜裂', '6.3', 'Annex E'],
     figures: [
       {
         id: 'ISO20-FIG-E1',
@@ -335,15 +335,15 @@ export const ISO_TOPICS: ISOTopic[] = [
         standard: 'ISO 80369-20:2024 Annex E',
         figureType: 'apparatus',
         figureTypeZh: '測試裝置示意圖',
-        descriptionZh: '說明 ISO 80369-20 Annex E 試驗。組裝件裝配於金屬參考接頭於 23°C 空氣環境中靜置 48 小時，驗證環向應力下無龜裂破裂，並需通過 Annex B/C 洩漏測試。',
-        descriptionEn: 'Describes the ISO 80369-20 Annex E test procedure. Assembled connectors are mounted on metal reference connectors and held in 23°C ambient air for 48 hours to verify absence of cracking or fracture under hoop stress, followed by the Annex B/C leakage test.',
-        selectionReasonZh: '🛠️ [物理測試架設藍圖] 入選原因：本圖為 ISO 80369-20 Annex E 48小時應力龜裂試驗架構。6.3 應力龜裂測試將裝配件於 23°C 空氣中靜置 48 小時，本圖提供環境靜置與試驗檢驗設定指引。',
-        selectionReasonEn: '🛠️ [Physical Test Apparatus Blueprint] Rationale: This depicts the ISO 80369-20 Annex E 48-hour stress cracking test setup. Clause 6.3 stress cracking testing holds assemblies in 23°C ambient air for 48 h; this diagram provides the environmental conditioning and inspection setup guidance.',
+        descriptionZh: '說明 ISO 80369-20 Annex E 試驗。組裝件裝配於金屬參考接頭於 15–30°C 空氣環境中靜置 48 小時，驗證環向裝配應力下無開裂，並需通過 Annex B/C (6.1.1) 正壓洩漏測試。',
+        descriptionEn: 'Describes the ISO 80369-20 Annex E test procedure. Assembled connectors are mounted on metal reference connectors and held in 15–30°C ambient air for 48 hours to verify absence of cracking under hoop stress, followed by the positive-pressure leakage test.',
+        selectionReasonZh: '🛠️ [物理測試架設藍圖] 入選原因：本圖為 ISO 80369-20 Annex E 48小時應力龜裂試驗架構。6.3 應力龜裂測試將裝配件於空氣中靜置 48 小時，本圖提供環境靜置與試驗檢驗設定指引。',
+        selectionReasonEn: '🛠️ [Physical Test Apparatus Blueprint] Rationale: This depicts the ISO 80369-20 Annex E 48-hour stress cracking test setup. Clause 6.3 stress cracking testing holds assemblies in 15–30°C ambient air for 48 h; this diagram provides the environmental conditioning and inspection setup guidance.',
         svgKey: 'ISO20-FIG-E1',
         keyCallouts: [
-          { id: 'media', labelZh: '試驗條件', labelEn: 'Test Conditions', valueZh: '23°C 空氣環境 48h (ISO標準)', valueEn: '23°C ambient air, 48 h (ISO standard)' },
-          { id: 'time', labelZh: '浸泡靜置時間', labelEn: 'Conditioning Duration', valueZh: '≥ 48 小時', valueEn: '≥ 48 hours' },
-          { id: 'temp', labelZh: '環境溫度', labelEn: 'Ambient Temperature', valueZh: '20°C ~ 30°C', valueEn: '20°C ~ 30°C' }
+          { id: 'media', labelZh: '試驗條件', labelEn: 'Test Conditions', valueZh: '15–30°C 空氣環境 48h (ISO標準)', valueEn: '15–30°C ambient air, 48 h (ISO standard)' },
+          { id: 'time', labelZh: '裝配靜置時間', labelEn: 'Conditioning Duration', valueZh: '≥ 48 小時', valueEn: '≥ 48 hours' },
+          { id: 'temp', labelZh: '環境溫度', labelEn: 'Ambient Temperature', valueZh: '15°C ~ 30°C (建議 23°C)', valueEn: '15°C ~ 30°C (Recommended 23°C)' }
         ]
       }
     ]
@@ -620,7 +620,7 @@ export const ISO_TOPICS: ISOTopic[] = [
     categoryZh: '通用法規與安全',
     iconName: 'FileText',
     shortSummaryZh: '彙整 ISO 80369-7 Annex A 原理技術背景、Annex D 跨領域非互換性評估、Annex E 測試要求矩陣及 ISO 80369-20 Annex J 修訂說明。',
-    detailedDescriptionZh: '本單元彙整兩份 ISO 規範之附錄說明性章節：ISO 80369-7 Annex A 提供各項性能測試參數（如 300 kPa 水壓、35N 軸向拉力、0.17 N·m 扭矩）之科學原理與臨床設計背景；Annex D 詳細規範防誤接物理試驗與 CAD 包絡面評估流程；Annex E 提供完整的測試矩陣彙總；ISO 80369-20 Annex J 則記載通用試驗方法之歷年修訂說明。',
+    detailedDescriptionZh: '本單元彙整兩份 ISO 規範之附錄說明性章節：ISO 80369-7 Annex A 提供各項性能測試參數（如 300~330 kPa 水壓、32~35 N (Slip 23~25 N) 軸向拉力、0.15~0.17 N·m 扭矩）之科學原理與臨床設計背景；Annex D 詳細規範防誤接物理試驗與 CAD 包絡面評估流程；Annex E 提供完整的測試矩陣彙總；ISO 80369-20 Annex J 則記載通用試驗方法之歷年修訂說明。',
     keyParameters: [
       { label: '原理附錄 Rationale Annex', value: 'ISO 80369-7 Annex A' },
       { label: '評估附錄 Assessment Annex', value: 'ISO 80369-7 Annex D' },
@@ -740,7 +740,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     titleZh: '附錄 A 標準條文原理與技術背景說明',
     type: 'requirement',
     typeZh: '法規要求條文',
-    objectiveZh: '詳細闡述 300 kPa 測試壓力、35 N 拉力及 0.17 N·m 扭矩等參數之臨床科學依據。',
+    objectiveZh: '詳細闡述 300~330 kPa 測試壓力、32~35 N (Slip 23~25 N) 拉力及 0.15~0.17 N·m 扭矩等參數之臨床科學依據。',
     appliesToZh: '研發設計驗證與風險管理報告',
     quantitativeConditions: {},
     fixtureRequiredZh: '技術背景說明書',
@@ -960,7 +960,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     objectiveZh: '驗證公母魯爾接頭在承受標準內部液壓時，配合錐面不應有水滴滲漏現象。',
     appliesToZh: '公鎖定（Male Lock）、母鎖定（Female Lock）、公滑動（Male Slip）、母滑動（Female Slip）',
     quantitativeConditions: {
-      assemblyTorqueNm: '0.08 N·m - 0.12 N·m',
+      assemblyTorqueNm: '0.08 N·m - 0.12 N·m (Lock) / ≤ 0.10 N·m (Slip 微旋 ≤90°)',
       assemblyAxialForceN: '26.5 N - 27.5 N',
       testPressureKpa: '300 kPa - 330 kPa',
       holdTimeSec: '30 - 35 秒 (水滴法) / 15 - 20 秒 (壓降法)',
@@ -969,10 +969,10 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     },
     fixtureRequiredZh: 'Fig.C.1 (母標稱) 或 Fig.C.4 (公標稱)',
     testProcedureStepsZh: [
-      '使用 0.08–0.12 N·m 扭矩與 26.5–27.5 N 軸向推力將受測物與鋼製參考夾具旋合。',
-      '向系統內注滿測試水，排出內部所有氣泡（水滴法）。',
+      '依標準預裝配程序將受測物與鋼製參考夾具裝配：鎖定型施加 0.08~0.12 N·m 扭矩與 26.5~27.5 N 軸向推力；滑動型施加 26.5~27.5 N 軸向推力並微旋 ≤90°（扭矩 ≤ 0.10 N·m），持壓 5~6 秒後釋放。',
+      '向系統內注滿測試水，排出內部所有氣泡（水滴法）；或注入乾燥空氣（壓降法）。',
       '平穩加壓至 300–330 kPa。',
-      '維持壓力 30–35 秒，目視檢查是否有水滴形成或滴落。'
+      '維持壓力：水滴法 30–35 秒（目視無水滴形成或脫落）；壓降法 15–20 秒（記錄壓降換算洩漏率）。'
     ],
     acceptanceCriteriaZh: [
       '【正壓水壓滴落法 (Annex C)】於 300 kPa–330 kPa 水壓持壓 30–35 秒，目視配合錐面與表面無水滴形成或滴落。',
@@ -1222,13 +1222,14 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     },
     fixtureRequiredZh: 'Fig.C.3 (公受測物) 或 Fig.C.6 (母受測物)',
     testProcedureStepsZh: [
-      '依標準程序施加 0.08~0.12 N·m 扭矩與 26.5~27.5 N 軸向推力（維持 5~6 秒後釋放）裝配受測物與參考夾具。',
-      '將組裝件安裝至拉力試驗機上，確保同軸度。',
-      '以 10 N/s 速率施加軸向拉力至 35 N（或 Slip 25 N）。',
-      '維持指定拉力 10 至 15 秒。'
+      '依標準程序將受測物裝配於參考夾具上（鎖定型施加 0.08~0.12 N·m 扭矩與 26.5~27.5 N 推力；滑動型施加 26.5~27.5 N 推力微旋 ≤90°，維持 5~6 秒）。',
+      '將組裝件安裝至拉力試驗機上，確保載荷施加方向與接頭幾何軸線同軸（防止偏心彎矩）。',
+      '以 ≤ 10 N/s 速率加載軸向拉力：鎖定型加載至 32 N ~ 35 N；滑動型加載至 23 N ~ 25 N。',
+      '維持指定拉力載荷 10 至 15 秒。'
     ],
     acceptanceCriteriaZh: [
-      '在 35 N 拉力下保持 10–15 秒，接頭不得脫開分離或從錐面拔出。'
+      '【鎖定型接頭 (Lock)】在 32 N 至 35 N 軸向拉力下維持 10–15 秒，接頭與參考夾具不得脫開分離。',
+      '【滑動型接頭 (Slip)】在 23 N 至 25 N 軸向拉力下維持 10–15 秒，接頭與參考夾具不得脫開分離。'
     ],
     commonNonConformancesZh: [
       '公套環螺紋牙深不足，在軸向強拉下發生剪切失效。'
@@ -1246,19 +1247,19 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     objectiveZh: '詳細定義萬能拉力機加載速率（約 10 N/s）與軸向夾持規範。',
     appliesToZh: '所有小口徑連接器',
     quantitativeConditions: {
-      testForceN: '35 N (Lock) / 25 N (Slip)',
+      testForceN: '32 N - 35 N (Lock) / 23 N - 25 N (Slip)',
       holdTimeSec: '10 - 15 秒',
       temperatureC: '15°C - 30°C'
     },
     fixtureRequiredZh: '符合 Annex C 規範的不鏽鋼金屬測試夾具',
     testProcedureStepsZh: [
-      '裝配接頭並安裝於拉力機特製氣動夾具。',
-      '校正載荷單元（Load Cell）零點。',
-      '以 10 N/s 加載至 35 N 並維持 10~15 秒。',
-      '記錄拉力-位移（Force vs Displacement）曲線。'
+      '裝配接頭並安裝於萬能材料試驗機特製夾具，確保拉伸軸向與接頭中心線精確同軸。',
+      '校正載荷元（Load Cell）零點與位移傳感器。',
+      '以 ≤ 10 N/s 速率加載至母標準指定載荷（如 ISO 80369-7 鎖定型 32~35 N，滑動型 23~25 N），維持 10~15 秒。',
+      '即時記錄拉力-位移（Force vs Displacement）即時曲線。'
     ],
     acceptanceCriteriaZh: [
-      '密封介面未發生完全分離脫落現象。'
+      '【母標準判定】在母標準指定載荷（Lock: 32~35 N, Slip: 23~25 N）與持載時間內，密封配合面未發生完全分離脫開。'
     ],
     commonNonConformancesZh: [
       '氣動夾頭夾持力過大導致受測物本體變形。'
@@ -1360,27 +1361,28 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     titleZh: '附錄 E 應力龜裂測試方法實施細則',
     type: 'test_method',
     typeZh: '實驗室測試方法',
-    objectiveZh: '評估接頭在裝配應力下靜置 48 小時後，是否因化學介質引發微龜裂並通過隨後之氣密性測試。',
+    objectiveZh: '評估小口徑連接器在標準裝配應力下於室溫空氣中靜置至少 48 小時後，是否因環向應力引發微龜裂，並依據母標準通過隨後之正壓流體洩漏測試。',
     appliesToZh: '所有塑膠成型小口徑連接器',
     quantitativeConditions: {
       assemblyTorqueNm: '0.08 N·m - 0.12 N·m',
       assemblyAxialForceN: '26.5 N - 27.5 N',
       holdTimeHours: '≥ 48 小時',
-      temperatureC: '15°C - 30°C'
+      temperatureC: '15°C - 30°C (建議 23 ± 2°C)'
     },
     fixtureRequiredZh: 'Fig.C.1 或 Fig.C.4',
     testProcedureStepsZh: [
       '依標準程序施加 0.08~0.12 N·m 扭矩與 26.5~27.5 N 軸向推力（維持 5~6 秒後釋放）將受測物裝配於參考金屬接頭上。',
-      '在 23°C 室溫空氣環境下靜置保持至少 48 小時。',
-      '進行 Annex B 或 Annex C 流體洩漏測試驗證密封性。'
+      '於 15°C~30°C 室溫空氣環境（建議標準 23 ± 2°C, 50% RH）下組裝靜置保持至少 48 小時。',
+      '依母標準規定進行流體洩漏測試（如 ISO 80369-7 條文 6.1.1 正壓測試，對應 Annex B 氣壓衰減或 Annex C 正壓液體落滴）驗證密封性。'
     ],
     acceptanceCriteriaZh: [
-      '靜置 48 小時後進行洩漏測試 Pass，且視覺無裂紋。'
+      '【法定允收標準】完成至少 48 小時應力載荷後，通過母標準指定之流體洩漏測試（如 ISO 80369-7 條文 6.1.1）。',
+      '【試驗報告記載】依條文 E.5 記錄任何觀察到的異常特徵（如裂紋），但法定判定依據以流體密封性測試結果為準。'
     ],
     commonNonConformancesZh: [
-      'PC 材質殘留內應力高，於 48 小時靜置期間發生應力龜裂破裂。'
+      'PC 材質殘留內應力高，於 48 小時靜置期間受裝配過盈應力作用發生延遲性爆裂。'
     ],
-    regulatoryTipZh: '常與 ISO 10993 生物相容性及耐化學性測試整合執行。'
+    regulatoryTipZh: '標準明訂僅在乾燥空氣中靜置；若臨床需接觸脂質或消毒酒精，應額外進行耐化學介質應力龜裂 (ESCR) 評估，兩者不可混為一談。'
   },
   'iso7-annex-c': {
     id: 'iso7-annex-c',
@@ -1415,34 +1417,33 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     id: 'iso7-6.3',
     standard: 'ISO 80369-7:2021',
     clauseNumber: '6.3',
-    titleEn: 'Resistance to Environmental Stress Cracking Requirement',
-    titleZh: '6.3 耐環境應力龜裂規範條文',
+    titleEn: 'Stress Cracking Requirement',
+    titleZh: '6.3 應力龜裂規範條文',
     type: 'requirement',
     typeZh: '法規要求條文',
-    objectiveZh: '驗證塑膠魯爾接頭在維持預裝配過盈應力下，於 23°C 空氣環境靜置 48 小時後無結構破裂與洩漏。',
+    objectiveZh: '驗證塑膠魯爾接頭在維持標準裝配過盈應力下，於室溫空氣環境中靜置至少 48 小時後，能符合條文 6.1.1 正壓流體洩漏之密封性要求。',
     appliesToZh: '所有塑膠成型魯爾接頭 (PC, PP, Tritan, ABS 等)',
     quantitativeConditions: {
       assemblyTorqueNm: '0.08 N·m - 0.12 N·m',
       assemblyAxialForceN: '26.5 N - 27.5 N',
       holdTimeHours: '≥ 48 小時',
-      temperatureC: '20°C - 30°C',
-      media: '23°C 溫濕度控制之空氣環境 (ISO 80369-20 Annex E)'
+      temperatureC: '15°C - 30°C (建議 23 ± 2°C)',
+      media: '乾燥室溫空氣環境 (15°C - 30°C, 10% - 70% RH)'
     },
     fixtureRequiredZh: 'Fig.C.1 (母) 或 Fig.C.4 (公)',
     testProcedureStepsZh: [
-      '以 0.08–0.12 N·m 扭矩與 26.5–27.5 N 軸向推力裝配受測物與參考金屬夾具，維持 5–6 秒後釋放。',
-      '於 23°C 溫濕度控制之空氣環境中靜置。',
-      '在 20–30°C 室溫環境下靜置保持至少 48 小時。',
-      '進行 6.1 (正壓流體洩漏) 或 6.2 (負壓空氣洩漏) 驗證密封性。'
+      '以 0.08~0.12 N·m 扭矩與 26.5~27.5 N 軸向推力（維持 5~6 秒後釋放）將受測物裝配於 Annex C 參考金屬夾具上。',
+      '於 15°C~30°C 室溫空氣環境（建議標準 23 ± 2°C, 50% RH）下組裝靜置保持至少 48 小時。',
+      '依條文 6.1.1 規定進行正壓流體洩漏測試（6.1.2 氣壓正壓衰減 或 6.1.3 正壓液體落滴）驗證密封性（註：法規嚴格排除 6.2 負壓測試，因負壓會使微裂紋閉合導致誤判）。'
     ],
     acceptanceCriteriaZh: [
-      '靜置 48 小時後，目視表面無微裂紋、龜裂或爆裂現象。',
-      '隨後執行的流體洩漏測試須完全 Pass。'
+      '【法定允收標準】靜置至少 48 小時後，必須 100% 通過條文 6.1.1 正壓流體洩漏測試（無液體落滴或壓降未達臨界值）。',
+      '【工程觀察項目】靜置後記錄表面是否有微觀銀紋 (Crazing) 或開裂等異常特徵（法規合格性判定以 6.1.1 正壓流體洩漏測試為唯一法定依據）。'
     ],
     commonNonConformancesZh: [
-      'Polycarbonate (PC) 射出殘留內應力高，靜置期間發生應力爆裂。'
+      'Polycarbonate (PC) 射出殘留內應力高，靜置期間受裝配應力作用發生應力爆裂。'
     ],
-    regulatoryTipZh: '建議於模具設計階段即執行偏光應力檢驗，必要時進行 退火 (Annealing) 消除殘留應力。'
+    regulatoryTipZh: '標準嚴格限定以 6.1.1 正壓（氣壓衰減/水壓落滴）驗收，絕對不可誤用 6.2 負壓驗收；射出件殘留內應力偏高時，建議於模具開發階段進行退火 (Annealing) 與偏光應力檢驗。'
   },
   'iso7-clause-5': {
     id: 'iso7-clause-5',
