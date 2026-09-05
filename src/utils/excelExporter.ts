@@ -257,8 +257,8 @@ export const exportMedicalGradeExcelReport = async (config: TestConfigState, lan
 
     const requiredRef = getAnnexCFigure(requiredRefId);
     const preAssemblyStr = isEn
-      ? '0.08–0.12 N·m + 26.5–27.5 N (Hold 5–6 s then Release)'
-      : '0.08–0.12 N·m + 26.5–27.5 N (維持 5–6 秒後釋放)';
+      ? 'Torque: 0.08–0.12 N·m + Axial Force: 26.5–27.5 N (Hold 5–6 s then Release)'
+      : '扭矩: 0.08–0.12 N·m + 軸向推力: 26.5–27.5 N (維持 5–6 秒後釋放)';
 
     let activeLoadStr = 'N/A';
     if (clause.id === '6.1') activeLoadStr = isEn ? '300–330 kPa (Hydraulic or Pneumatic either/or)' : '300–330 kPa (水壓法或氣壓法二選一)';

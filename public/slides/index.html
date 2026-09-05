@@ -1247,7 +1247,7 @@
                     </div>
                     <div style="font-size:12.5px; color:#334155; line-height:1.55;">
                       • <strong>架設標準治具</strong>：採購 Annex C 不鏽鋼金屬件與儀表<br>
-                      • <strong>規範裝配動作</strong>：嚴格依附錄 SOP 施加 27 N 推力與 0.1 N·m<br>
+                      • <strong>規範裝配動作</strong>：嚴格依附錄 SOP 施加 26.5~27.5 N 軸向推力與 0.08~0.12 N·m 旋緊扭矩<br>
                       • <strong>全系列通用手法</strong>：全球醫用接口公認的量測標準（-2~-7 通用）
                     </div>
                   </div>
@@ -1555,137 +1555,163 @@
     <!-- Slide 05: 7號解碼 -->
     <section class="slide" data-slide="5">
       <div class="slide-header">
-        <div class="slide-tag">核心揭秘・7號主角</div>
-        <h2 class="slide-title">我們打點滴最常見的守門人：拆開來看 6% 斜角與兩隻小耳朵的精妙設計</h2>
-        <p class="slide-subtitle">不用橡皮圈也能滴水不漏：工程師是怎麼用微米級的塑膠彈性，抵擋住輪胎等級的高壓？</p>
+        <div class="slide-tag" style="background:#EFF6FF; color:#1D4ED8; border:1px solid #BFDBFE;">核心揭秘・7號主角 ｜ 凱益 (Mouldex) 實體產品展示</div>
+        <h2 class="slide-title">接頭型態的 MECE 完整圖鑑：L1 滑套型 vs L2 帶鎖型的雙軸設計</h2>
+        <p class="slide-subtitle">ISO 80369-7 法定四大基本型態：幾何極性（公 Male / 母 Female）× 鎖定機制（滑套 Slip / 帶鎖 Lock）完全窮盡</p>
       </div>
       <div class="slide-body">
         <div class="view-tabs">
-          <button class="view-tab-btn active" id="tab-btn-real">📷 看得見摸得著：4 款真實打點滴接頭實拍照</button>
-          <button class="view-tab-btn" id="tab-btn-bp-male">📐 官方精密圖紙：公接頭（帶外螺帽的公插頭）</button>
-          <button class="view-tab-btn" id="tab-btn-bp-female">📐 官方精密圖紙：母接頭（帶兩隻小耳朵的母座）</button>
+          <button class="view-tab-btn active" id="tab-btn-real">📷 凱益 (Mouldex) 實體接頭 MECE 完整圖鑑（L1 滑套 vs L2 帶鎖）</button>
+          <button class="view-tab-btn" id="tab-btn-bp-slip">📐 官方精密圖紙：L1 滑套標準（圖 B.1 公滑套 ＆ 圖 B.2 母滑套）</button>
+          <button class="view-tab-btn" id="tab-btn-bp-lock">📐 官方精密圖紙：L2 帶鎖標準（圖 B.3 公帶鎖 ＆ 圖 B.6 母帶鎖）</button>
         </div>
 
-        <!-- Tab 1: 實體接頭深度圖解展台 (Industrial Spec 實拍組件) -->
+        <!-- Tab 1: 凱益實體接頭 MECE 深度展台 -->
         <div id="view-real-container">
           <div class="real-product-grid">
-            <!-- 1. 公鎖 -->
-            <div class="real-product-card" onclick="openLightbox('../assets/real_connectors/iso_80369_7_male_luer_ciml7.jpg', 'ISO 80369-7 帶鎖公接頭 (Male Luer Lock)')">
+            <!-- 1. L1 公滑套 (Mouldex D09) -->
+            <div class="real-product-card" onclick="openLightbox('../assets/real_connectors/mouldex_male_luer_slip_d09.jpg', 'ISO 80369-7 L1 公滑套接頭 - 凱益 Mouldex D09 系列')">
               <div class="real-product-img-box reticle-box">
-                <img class="real-product-img" src="../assets/real_connectors/iso_80369_7_male_luer_ciml7.jpg" onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src='./assets/real_connectors/iso_80369_7_male_luer_ciml7.jpg';}" alt="帶鎖公接頭">
+                <img class="real-product-img" src="../assets/real_connectors/mouldex_male_luer_slip_d09.jpg" onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src='./assets/real_connectors/mouldex_male_luer_slip_d09.jpg';}" alt="L1 公滑套接頭">
                 <div class="blueprint-zoom-badge">🔍 點擊放大</div>
               </div>
               <div class="real-product-info">
-                <div class="real-product-badge">最常見的公接頭 (外螺帽鎖扣)</div>
-                <div class="real-product-title">帶鎖公接頭（點滴插頭）</div>
+                <div class="real-product-badge" style="background:#EFF6FF; color:#1D4ED8;">L1 滑套型・公頭 (圖 B.1)</div>
+                <div class="real-product-title">公滑套接頭（常規注射器推桿前端）</div>
+                <div style="font-size:12.5px; color:#6B7280; font-weight:600; margin-top:-2px;">Mouldex D09 系列實物</div>
                 <div class="real-product-desc">
-                  • <strong>6% 外斜角錐頭</strong>：光滑圓錐配合（底徑 Ø3.97mm），推進母孔就吻合<br>
-                  • <strong>雙螺旋保護外套</strong>：轉半圈就能牢牢扣住，防扯防甩<br>
-                  • <strong>軟管牢固插口</strong>：後端倒鉤緊密咬合軟管，滴水不漏
+                  • <strong>純 6% 外斜角錐頭</strong>：光滑無外螺套，基底外徑 Ø3.97mm 微米配合<br>
+                  • <strong>冷壓摩擦自鎖密封</strong>：推進母孔產生微彈性擠壓，無橡皮圈也滴水不漏<br>
+                  • <strong>凱益醫療級規格</strong>：I.D. 4.1mm / 醫用 ABS / 軸向拉拔保持力達 23~25 N
                 </div>
               </div>
             </div>
 
-            <!-- 2. 母鎖 -->
-            <div class="real-product-card" onclick="openLightbox('../assets/real_connectors/iso_80369_7_female_luer_cfl7.jpg', 'ISO 80369-7 雙耳母接頭 (Female Luer with Ears)')">
+            <!-- 2. L2 帶鎖雙耳母接頭 (Mouldex D10) -->
+            <div class="real-product-card" onclick="openLightbox('../assets/real_connectors/mouldex_female_adapter_d10.jpg', 'ISO 80369-7 L2 雙耳母接頭 - 凱益 Mouldex D10 系列')">
               <div class="real-product-img-box reticle-box">
-                <img class="real-product-img" src="../assets/real_connectors/iso_80369_7_female_luer_cfl7.jpg" onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src='./assets/real_connectors/iso_80369_7_female_luer_cfl7.jpg';}" alt="雙耳母接頭">
+                <img class="real-product-img" src="../assets/real_connectors/mouldex_female_adapter_d10.jpg" onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src='./assets/real_connectors/mouldex_female_adapter_d10.jpg';}" alt="L2 雙耳母接頭">
                 <div class="blueprint-zoom-badge">🔍 點擊放大</div>
               </div>
               <div class="real-product-info">
-                <div class="real-product-badge" style="background:#ECFDF5; color:#047857;">最常見的母接頭 (帶耳翼母座)</div>
-                <div class="real-product-title">雙耳母接頭（留置針接口）</div>
+                <div class="real-product-badge" style="background:#ECFDF5; color:#047857;">L2 帶鎖型・母頭 (圖 B.6)</div>
+                <div class="real-product-title">雙耳母接頭（留置針接口 / 轉接座）</div>
+                <div style="font-size:12.5px; color:#6B7280; font-weight:600; margin-top:-2px;">Mouldex D10 系列實物</div>
                 <div class="real-product-desc">
-                  • <strong>兩隻直角耳翼</strong>：寬度經過精密計算，正好滑進公頭螺牙裡咬合<br>
-                  • <strong>6% 內孔精準吻合</strong>：孔壁細緻光滑，一推進去就形成緊密的密封<br>
-                  • <strong>純淨醫療級塑料</strong>：耐受各類刺激性藥水，不起任何化學反應
+                  • <strong>精密直角雙耳翼</strong>：對稱耳翼弦長 Y ≥ 2.71mm，精準卡入公螺牙<br>
+                  • <strong>6% 內孔精準密封</strong>：孔深 ≥ 7.5mm，推進即可吻合緊密<br>
+                  • <strong>凱益醫療級規格</strong>：I.D. 2.7mm / 廣泛適配靜脈留置針與各類藥液通路
                 </div>
               </div>
             </div>
 
-            <!-- 3. 面板穿孔 -->
-            <div class="real-product-card" onclick="openLightbox('../assets/real_connectors/iso_80369_7_female_panel_mount_ilb7.jpg', 'ISO 80369-7 儀器面板專用母接頭 (Panel Mount)')">
+            <!-- 3. L2 固定套環公鎖 (Mouldex C09) -->
+            <div class="real-product-card" onclick="openLightbox('../assets/real_connectors/mouldex_male_luer_lock_c09.jpg', 'ISO 80369-7 L2 固定套環公鎖 - 凱益 Mouldex C09 系列')">
               <div class="real-product-img-box reticle-box">
-                <img class="real-product-img" src="../assets/real_connectors/iso_80369_7_female_panel_mount_ilb7.jpg" onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src='./assets/real_connectors/iso_80369_7_female_panel_mount_ilb7.jpg';}" alt="儀器面板專用母接頭">
+                <img class="real-product-img" src="../assets/real_connectors/mouldex_male_luer_lock_c09.jpg" onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src='./assets/real_connectors/mouldex_male_luer_lock_c09.jpg';}" alt="L2 固定套環公鎖">
                 <div class="blueprint-zoom-badge">🔍 點擊放大</div>
               </div>
               <div class="real-product-info">
-                <div class="real-product-badge" style="background:#FEF3C7; color:#B45309;">固定在機器機殼上的接口</div>
-                <div class="real-product-title">儀器面板專用母接頭</div>
+                <div class="real-product-badge" style="background:#FEF3C7; color:#B45309;">L2 帶鎖型・公頭 (圖 B.3)</div>
+                <div class="real-product-title">帶鎖公接頭（點滴管路插頭）</div>
+                <div style="font-size:12.5px; color:#6B7280; font-weight:600; margin-top:-2px;">Mouldex C09 系列實物</div>
                 <div class="real-product-desc">
-                  • <strong>螺絲穿過機殼鎖緊</strong>：推車推動、震動碰撞也絕不搖晃<br>
-                  • <strong>強化承重骨架</strong>：承受護理師成千上萬次插拔與拉扯的手勁<br>
-                  • <strong>標準統一接口</strong>：正面隨插即用，背面連著機器內部的精密幫浦
+                  • <strong>6% 外錐 + 一體鎖定螺套</strong>：雙螺旋螺紋，旋轉半圈即與母頭耳翼咬死<br>
+                  • <strong>嚴苛法規三大指標</strong>：拉脫力 32~35 N、抗自鬆 0.02 N·m、抗滑牙 0.17 N·m<br>
+                  • <strong>凱益醫療級規格</strong>：I.D. 2.0mm / 承載 300 kPa 正壓防噴射，重症點滴首選
                 </div>
               </div>
             </div>
 
-            <!-- 4. 膠合公接頭 -->
-            <div class="real-product-card" onclick="openLightbox('../assets/real_connectors/iso_80369_7_male_bond_in_bnp7.jpg', 'ISO 80369-7 軟管一體膠合公接頭 (Male Luer Bond-In Port)')">
+            <!-- 4. L2 活動旋轉套環公接頭 (Mouldex SA) -->
+            <div class="real-product-card" onclick="openLightbox('../assets/real_connectors/mouldex_male_rotating_nut_sa0145.jpg', 'ISO 80369-7 L2 旋轉螺帽公鎖 - 凱益 Mouldex SA 系列')">
               <div class="real-product-img-box reticle-box">
-                <img class="real-product-img" src="../assets/real_connectors/iso_80369_7_male_bond_in_bnp7.jpg" onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src='./assets/real_connectors/iso_80369_7_male_bond_in_bnp7.jpg';}" alt="軟管一體膠合公接頭">
+                <img class="real-product-img" src="../assets/real_connectors/mouldex_male_rotating_nut_sa0145.jpg" onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src='./assets/real_connectors/mouldex_male_rotating_nut_sa0145.jpg';}" alt="L2 旋轉套環公接頭">
                 <div class="blueprint-zoom-badge">🔍 點擊放大</div>
               </div>
               <div class="real-product-info">
-                <div class="real-product-badge" style="background:#EDE9FE; color:#6D28D9;">無縫融在軟管上的公接頭</div>
-                <div class="real-product-title">軟管一體膠合公接頭</div>
+                <div class="real-product-badge" style="background:#EDE9FE; color:#6D28D9;">L2 帶鎖型・公頭 (圖 B.4)</div>
+                <div class="real-product-title">活動旋轉套環公接頭（防扭結設計）</div>
+                <div style="font-size:12.5px; color:#6B7280; font-weight:600; margin-top:-2px;">Mouldex SA 系列 (專利旋轉環)</div>
                 <div class="real-product-desc">
-                  • <strong>一體溶接不漏液</strong>：跟輸液軟管緊密融為一體，拉扯絕不斷開<br>
-                  • <strong>前段標準 6% 錐頭</strong>：走到哪裡都能跟全世界任何留置針相配<br>
-                  • <strong>通暢順滑大孔道</strong>：內徑足夠寬敞，保護珍貴的血球細胞不受擠壓損傷
+                  • <strong>自由旋轉外鎖定螺帽</strong>：360° 獨立旋轉鎖緊，軟管絕不跟著打結扭曲<br>
+                  • <strong>臨床護理極致體驗</strong>：狹窄空間單手順暢上鎖，徹底消除管路拉扯應力<br>
+                  • <strong>凱益醫療級規格</strong>：I.D. 2.79mm / 高精度雙件式組裝，高階輸液延長管標配
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-
-
-        <div id="view-bp-male-container" style="display:none;">
-          <div class="diagram-container" style="background:#FFFFFF; min-height:260px;">
-            <div class="blueprint-preview-box" onclick="openLightbox('../assets/blueprint/page_3.png', 'ISO 80369-7 圖 B.3: 具固定套環之公魯爾鎖定接頭 (L2)')">
-              <img class="blueprint-img" src="../assets/blueprint/page_3.png" onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src='./assets/blueprint/page_3.png';}" alt="公魯爾鎖定接頭 CAD 圖紙">
-              <div class="blueprint-zoom-badge">🔍 點擊放大檢視微米級幾何尺寸</div>
+        <!-- Tab 2: 官方精密圖紙 L1 滑套標準 -->
+        <div id="view-bp-slip-container" style="display:none;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <div class="diagram-container" style="background:#FFFFFF; min-height:260px; padding:12px;">
+              <div class="blueprint-preview-box" onclick="openLightbox('../assets/blueprint/page_1.png', 'ISO 80369-7 圖 B.1: 公魯爾滑套接頭 (Male Luer Slip - L1)')">
+                <img class="blueprint-img" src="../assets/blueprint/page_1.png" onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src='./assets/blueprint/page_1.png';}" alt="公魯爾滑套接頭 CAD 圖紙">
+                <div class="blueprint-zoom-badge">🔍 點擊放大檢視微米級幾何尺寸</div>
+              </div>
+              <p style="font-size:13px; color:#4B5563; margin-top:8px; text-align:center;">
+                <strong>公滑套尺寸精髓 (圖 B.1)：</strong> 6% 外斜角錐頭（底徑 Ø3.97mm），無外螺紋套環，純靠冷壓摩擦緊固。
+              </p>
             </div>
-            <p style="font-size:13px; color:#4B5563; margin-top:8px; text-align:center;">
-              <strong>尺寸精髓：</strong>公錐長度 7.5~10.5mm，雙螺旋螺牙，轉半圈就能順暢咬緊。
-            </p>
+            <div class="diagram-container" style="background:#FFFFFF; min-height:260px; padding:12px;">
+              <div class="blueprint-preview-box" onclick="openLightbox('../assets/blueprint/page_2.png', 'ISO 80369-7 圖 B.2: 母魯爾滑套接頭 (Female Luer Slip - L1)')">
+                <img class="blueprint-img" src="../assets/blueprint/page_2.png" onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src='./assets/blueprint/page_2.png';}" alt="母魯爾滑套接頭 CAD 圖紙">
+                <div class="blueprint-zoom-badge">🔍 點擊放大檢視微米級幾何尺寸</div>
+              </div>
+              <p style="font-size:13px; color:#4B5563; margin-top:8px; text-align:center;">
+                <strong>母滑套尺寸精髓 (圖 B.2)：</strong> 6% 內孔深 ≥ 7.5mm，筒身平滑無凸耳，插到底形成均勻環狀密封面。
+              </p>
+            </div>
           </div>
         </div>
 
-        <div id="view-bp-female-container" style="display:none;">
-          <div class="diagram-container" style="background:#FFFFFF; min-height:260px;">
-            <div class="blueprint-preview-box" onclick="openLightbox('../assets/blueprint/page_6.png', 'ISO 80369-7 圖 B.6: 具備直角凸耳之母 Luer Lock 接頭 (L2) 變體 A')">
-              <img class="blueprint-img" src="../assets/blueprint/page_6.png" onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src='./assets/blueprint/page_6.png';}" alt="母魯爾鎖定接頭凸耳 CAD 圖紙">
-              <div class="blueprint-zoom-badge">🔍 點擊放大檢視微米級幾何尺寸</div>
+        <!-- Tab 3: 官方精密圖紙 L2 帶鎖標準 -->
+        <div id="view-bp-lock-container" style="display:none;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <div class="diagram-container" style="background:#FFFFFF; min-height:260px; padding:12px;">
+              <div class="blueprint-preview-box" onclick="openLightbox('../assets/blueprint/page_3.png', 'ISO 80369-7 圖 B.3: 具固定套環之公魯爾鎖定接頭 (Male Luer Lock - L2)')">
+                <img class="blueprint-img" src="../assets/blueprint/page_3.png" onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src='./assets/blueprint/page_3.png';}" alt="公魯爾鎖定接頭 CAD 圖紙">
+                <div class="blueprint-zoom-badge">🔍 點擊放大檢視微米級幾何尺寸</div>
+              </div>
+              <p style="font-size:13px; color:#4B5563; margin-top:8px; text-align:center;">
+                <strong>公鎖定尺寸精髓 (圖 B.3/B.4)：</strong> 錐長 7.5~10.5mm，內雙螺旋螺紋，支持固定套環與旋轉套環。
+              </p>
             </div>
-            <p style="font-size:13px; color:#4B5563; margin-top:8px; text-align:center;">
-              <strong>尺寸精髓：</strong>兩側小耳朵寬度至少 2.71mm，牢牢卡入公螺牙，防拉扯防滑脫。
-            </p>
+            <div class="diagram-container" style="background:#FFFFFF; min-height:260px; padding:12px;">
+              <div class="blueprint-preview-box" onclick="openLightbox('../assets/blueprint/page_6.png', 'ISO 80369-7 圖 B.6: 具備直角凸耳之母 Luer Lock 接頭 (Female Luer Lock - L2) 變體 A')">
+                <img class="blueprint-img" src="../assets/blueprint/page_6.png" onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src='./assets/blueprint/page_6.png';}" alt="母魯爾鎖定接頭凸耳 CAD 圖紙">
+                <div class="blueprint-zoom-badge">🔍 點擊放大檢視微米級幾何尺寸</div>
+              </div>
+              <p style="font-size:13px; color:#4B5563; margin-top:8px; text-align:center;">
+                <strong>母雙耳尺寸精髓 (圖 B.6)：</strong> 兩側直角小耳朵寬度 Y ≥ 2.71mm，旋轉 90° 緊扣公螺牙防滑脫。
+              </p>
+            </div>
           </div>
         </div>
 
         <div class="grid-2">
           <div class="card card-accent-blue">
-            <h3 class="card-title">🔍 為什麼連一滴水都漏不出來？（6% 斜角的小秘密）</h3>
+            <h3 class="card-title">🔍 L1 滑套型：為什麼不用螺紋也能滴水不漏？（6% 斜角摩擦自鎖）</h3>
             <p class="card-text">
-              <strong>完全不用橡皮圈：</strong> 6% 斜角（每前進 1 公分，直徑只縮小 0.6 毫米）是機械摩擦自鎖的黃金角度。當兩顆接頭輕輕一頂一擰，光滑的塑膠表面在微觀上就會像磁鐵一樣緊密貼合、產生微小彈性咬死，水分子根本鑽不過去！
+              <strong>純物理摩擦密封：</strong> 6% 斜角（每前進 1 公分，直徑只縮小 0.6 毫米）是機械摩擦自鎖的黃金角度。當公母兩顆接頭輕輕一推，光滑塑料表面在微觀上產生微小彈性抱死咬合，水分子根本鑽不過去！法規要求其軸向拉脫力必須達到 23~25 N。
             </p>
           </div>
           <div class="card card-accent-emerald">
-            <h3 class="card-title">🔒 兩隻小耳朵與雙螺紋：病人翻身也扯不開</h3>
+            <h3 class="card-title">🔒 L2 帶鎖型：為什麼重症輸液必須升級帶鎖？（雙耳與螺紋雙保險）</h3>
             <p class="card-text">
-              母接頭兩側有兩隻精巧的小耳朵，旋進公接頭的螺牙只要轉 90 度（四分之一圈）就立刻咬死。就算病人夜間翻身拉扯、或是輪椅推動扯到管線，傾斜的螺牙面會牢牢扣住耳朵，既扯不脫、也不會漏液！
+              <strong>機械防脫進化：</strong> 在 6% 錐度基礎上，公頭外加保護螺套、母頭長出兩隻直角小耳朵（弦長 Y ≥ 2.71mm）。旋轉 90 度卡入螺牙死鎖，不僅拉拔力大幅飆升至 32~35 N，更強制通過抗自鬆（0.02 N·m）與抗滑牙（0.17 N·m）考核，病人夜間翻身也扯不開！
             </p>
           </div>
         </div>
       </div>
       <div class="slide-footer">
-        <span class="footer-metaphor">📐 幾何善意：規定到 0.01 毫米的極致精準，只為了換來病床邊一秒順暢的安心</span>
+        <span class="footer-metaphor">📐 凱益 (Mouldex) 精密工藝：以微米級注塑精度嚴格落實 ISO 80369-7 標準，守護每一條生命管線</span>
         <span>第 5 / 12 頁</span>
       </div>
       <aside class="notes-data" style="display:none;">
-        現在請大家看畫面上來自真實醫療器材的 4 款真實醫療接頭照片！這不是手工繪製的簡圖，而是真實出廠的醫療注塑組件：第一張是帶鎖公接頭，清楚看到外層的螺紋套環和中間 6% 的透明公錐；第二張是雙耳母接頭，頂部有兩隻直角小耳朵，也就是鎖定用的耳朵；第三張是穿孔固定在點滴幫浦機殼上的儀器面板專用母接頭；第四張是專門用溶劑膠合在軟管上的軟管一體膠合公接頭。點擊上方的 Tab，我們能隨時切換查看 ISO 官方圖 B.3 和圖 B.6 的微米級工程圖紙；若需查閱商業量產成品，可隨時點擊頂部右上角的「凱益 Mouldex 接頭專區」按鈕，具象感受標準是如何轉化為病房裡的救命器械的！
+        現在請大家看畫面上由台灣醫療器材零組件領導廠商——凱益 (Mouldex) 出廠的 4 款代表性真實接頭照片！這完整呈現了 ISO 80369-7 最嚴格的 2×2 MECE 分類維度：左上方是 L1 公滑套（D09 系列），適用於一般注射針筒，無螺套純靠 6% 圓錐摩擦自鎖；左下方是 L2 雙耳母接頭（D10 系列），兩側有精密直角耳朵；右上方是 L2 帶鎖公接頭（C09 系列），帶有標準雙螺紋外套；右下方則是凱益極具臨床價值的專利級產品——活動旋轉套環公接頭（SA 系列，對應標準圖 B.4），外螺帽可 360 度獨立旋轉，護理師旋緊時輸液軟管絕不打結扭曲！點擊上方 Tab，我們還能隨時切換查看官方圖 B.1 至圖 B.6 的微米級工程圖紙。若需採購或深入瞭解規格，可隨時點擊頂部右上角的「凱益 Mouldex 接頭專區」！
       </aside>
     </section>
 
@@ -1752,7 +1778,7 @@
                 </div>
                 <p class="card-text" style="font-size:13.5px; margin-top:6px; line-height:1.65;">
                   • <strong>左手翻開 ISO 80369-7（設計規格）</strong>：畫出微米級公差與防呆幾何，定下「耐受 35 N 軸向拉力與 330 kPa 水壓」的及格標準。<br>
-                  • <strong>右手翻開 ISO 80369-20（試驗手法）</strong>：採購 Annex C 不鏽鋼標準件，依 SOP 精確施加 27 N + 0.1 N·m，驗證極限性能！<br>
+                  • <strong>右手翻開 ISO 80369-20（試驗手法）</strong>：採購 Annex C 不鏽鋼標準件，依 SOP 精確施加 26.5~27.5 N 軸向推力與 0.08~0.12 N·m 旋緊扭矩，驗證極限性能！<br>
                   • <strong>兩本合璧完成確效 (DVP)</strong>：不論自主測試或官方審查，唯有同時滿足兩本標準，才能為病床送上零插錯的安心保障。
                 </p>
               </div>
@@ -1839,7 +1865,7 @@
 
         <div class="card card-accent-amber" style="background:#FFFBEB;">
           <p style="font-size:13.5px; color:#92400E;">
-            <strong>🎯 第一性原理：</strong>「先統一考生的起跑線，成績才算數」。如果測試時有人施力過輕、有人過度重壓，那檢驗報告就是一張廢紙。ISO 80369-20 在進行任何洩漏或力學測試前，強制統一這套 27 N + 0.1 N·m + 5~6 秒的裝配基準。
+            <strong>🎯 第一性原理：</strong>「先統一考生的起跑線，成績才算數」。如果測試時有人施力過輕、有人過度重壓，那檢驗報告就是一張廢紙。ISO 80369-20 在進行任何洩漏或力學測試前，強制統一這套 26.5~27.5 N 軸向推力 + 0.08~0.12 N·m 旋緊扭矩 + 5~6 秒的裝配基準。
           </p>
         </div>
       </div>
@@ -2666,28 +2692,28 @@
       // Slide 5 專用：動態裝配控制與視圖切換邏輯
       // =======================================================================
       const tabBtnReal = document.getElementById('tab-btn-real');
-      const tabBtnBpMale = document.getElementById('tab-btn-bp-male');
-      const tabBtnBpFemale = document.getElementById('tab-btn-bp-female');
+      const tabBtnBpSlip = document.getElementById('tab-btn-bp-slip');
+      const tabBtnBpLock = document.getElementById('tab-btn-bp-lock');
       
       const viewRealContainer = document.getElementById('view-real-container');
-      const viewBpMaleContainer = document.getElementById('view-bp-male-container');
-      const viewBpFemaleContainer = document.getElementById('view-bp-female-container');
+      const viewBpSlipContainer = document.getElementById('view-bp-slip-container');
+      const viewBpLockContainer = document.getElementById('view-bp-lock-container');
 
       function switchSlide5Tab(activeTab) {
         if (!tabBtnReal) return;
         tabBtnReal.classList.toggle('active', activeTab === 'real');
-        tabBtnBpMale.classList.toggle('active', activeTab === 'male');
-        tabBtnBpFemale.classList.toggle('active', activeTab === 'female');
+        tabBtnBpSlip.classList.toggle('active', activeTab === 'slip');
+        tabBtnBpLock.classList.toggle('active', activeTab === 'lock');
 
         viewRealContainer.style.display = (activeTab === 'real') ? 'block' : 'none';
-        viewBpMaleContainer.style.display = (activeTab === 'male') ? 'block' : 'none';
-        viewBpFemaleContainer.style.display = (activeTab === 'female') ? 'block' : 'none';
+        viewBpSlipContainer.style.display = (activeTab === 'slip') ? 'block' : 'none';
+        viewBpLockContainer.style.display = (activeTab === 'lock') ? 'block' : 'none';
       }
 
       if (tabBtnReal) {
         tabBtnReal.addEventListener('click', () => switchSlide5Tab('real'));
-        tabBtnBpMale.addEventListener('click', () => switchSlide5Tab('male'));
-        tabBtnBpFemale.addEventListener('click', () => switchSlide5Tab('female'));
+        tabBtnBpSlip.addEventListener('click', () => switchSlide5Tab('slip'));
+        tabBtnBpLock.addEventListener('click', () => switchSlide5Tab('lock'));
       }
       // 初始化載入第一頁
       updateSlide();

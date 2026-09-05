@@ -11,3 +11,5 @@ coverage/
 isodoc/
 # Agnes skill files
 .agnes/
+# Scratch temporary directory
+scratch/

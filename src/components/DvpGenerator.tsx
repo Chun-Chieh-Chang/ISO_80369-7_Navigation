@@ -59,9 +59,12 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
    */
   const renderPreAssembly = (clause: ISOClauseInfo) => (
     <div>
-      <div>{clause.assemblyTorqueNm?.min ?? 0.08}–{clause.assemblyTorqueNm?.max ?? 0.12} N·m</div>
+      <div className="font-semibold text-slate-800">
+        <span className="text-slate-500 font-normal">{language === 'en' ? 'Torque: ' : '扭矩: '}</span>
+        {clause.assemblyTorqueNm?.min ?? 0.08}–{clause.assemblyTorqueNm?.max ?? 0.12} N·m
+      </div>
       <div className="text-[11px] text-blue-700 font-bold">
-        + 26.5–27.5 N {language === 'en' ? '(Axial Force)' : '(推力)'}
+        + <span className="font-normal text-blue-600">{language === 'en' ? 'Axial Force: ' : '軸向推力: '}</span>26.5–27.5 N
       </div>
       <div className="text-[10px] text-blue-900 font-semibold bg-blue-50 px-1.5 py-0.5 rounded mt-1 inline-block border border-blue-200">
         {t.dvp.releaseBadge}

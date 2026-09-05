@@ -1222,7 +1222,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     },
     fixtureRequiredZh: 'Fig.C.3 (公受測物) 或 Fig.C.6 (母受測物)',
     testProcedureStepsZh: [
-      '依標準程序以 0.08–0.12 N·m 裝配受測物與參考夾具。',
+      '依標準程序施加 0.08~0.12 N·m 扭矩與 26.5~27.5 N 軸向推力（維持 5~6 秒後釋放）裝配受測物與參考夾具。',
       '將組裝件安裝至拉力試驗機上，確保同軸度。',
       '以 10 N/s 速率施加軸向拉力至 35 N（或 Slip 25 N）。',
       '維持指定拉力 10 至 15 秒。'
@@ -1283,7 +1283,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     },
     fixtureRequiredZh: 'Fig.C.1 (母) 或 Fig.C.4 (公)',
     testProcedureStepsZh: [
-      '依規定以 0.08~0.12 N·m 裝配接頭與金屬件。',
+      '依規定施加 0.08~0.12 N·m 扭矩與 26.5~27.5 N 軸向推力（維持 5~6 秒後釋放）裝配接頭與金屬件。',
       '施加 0.018~0.020 N·m 的反向旋鬆扭矩。',
       '維持反向扭矩 10~15 秒，檢查接頭是否分離。'
     ],
@@ -1340,7 +1340,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     },
     fixtureRequiredZh: 'Fig.C.1 或 Fig.C.4',
     testProcedureStepsZh: [
-      '依 0.08~0.12 N·m 裝配接頭，靜置 10~15 分鐘使塑膠應力鬆弛穩定。',
+      '施加 0.08~0.12 N·m 扭矩與 26.5~27.5 N 軸向推力裝配接頭，靜置 10~15 分鐘使塑膠應力鬆弛穩定。',
       '以連續漸增扭矩旋鬆接頭，直至錐面分離脫開。',
       '記錄克服靜摩擦力之最大峰值扭矩（Peak Torque）。'
     ],
@@ -1370,7 +1370,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     },
     fixtureRequiredZh: 'Fig.C.1 或 Fig.C.4',
     testProcedureStepsZh: [
-      '依規範將接頭裝配於參考金屬接頭上。',
+      '依標準程序施加 0.08~0.12 N·m 扭矩與 26.5~27.5 N 軸向推力（維持 5~6 秒後釋放）將受測物裝配於參考金屬接頭上。',
       '在 23°C 室溫空氣環境下靜置保持至少 48 小時。',
       '進行 Annex B 或 Annex C 流體洩漏測試驗證密封性。'
     ],
@@ -1423,13 +1423,14 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     appliesToZh: '所有塑膠成型魯爾接頭 (PC, PP, Tritan, ABS 等)',
     quantitativeConditions: {
       assemblyTorqueNm: '0.08 N·m - 0.12 N·m',
+      assemblyAxialForceN: '26.5 N - 27.5 N',
       holdTimeHours: '≥ 48 小時',
       temperatureC: '20°C - 30°C',
       media: '23°C 溫濕度控制之空氣環境 (ISO 80369-20 Annex E)'
     },
     fixtureRequiredZh: 'Fig.C.1 (母) 或 Fig.C.4 (公)',
     testProcedureStepsZh: [
-      '以 0.08–0.12 N·m 裝配受測物與參考金屬夾具。',
+      '以 0.08–0.12 N·m 扭矩與 26.5–27.5 N 軸向推力裝配受測物與參考金屬夾具，維持 5–6 秒後釋放。',
       '於 23°C 溫濕度控制之空氣環境中靜置。',
       '在 20–30°C 室溫環境下靜置保持至少 48 小時。',
       '進行 6.1 (正壓流體洩漏) 或 6.2 (負壓空氣洩漏) 驗證密封性。'

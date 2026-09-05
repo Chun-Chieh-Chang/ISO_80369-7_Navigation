@@ -2,6 +2,32 @@
 
 All notable changes to the ISO 80369-7 & ISO 80369-20 Navigation App will be documented in this file.
 
+## [v8.36.0] - 2026-09-05
+
+### Standards & Commercial Alignment: MECE Connector Taxonomy, Mouldex Product Promotion & Horizontal Pre-assembly Parameter Harmonization
+- **Root Cause (RCA)**:
+  - Previous Slide 5 presented 4 sample cards that collapsed into **L2 Luer Lock**, omitting **L1 Luer Slip**. Furthermore, the user requested promoting **Mouldex Co., Ltd.** with authentic commercial images.
+  - Additionally, pre-assembly conditions in Slide 1 only specified "27 N axial force and 0.1 N·m" without the explicit physical term "Torque" and standard tolerances (26.5~27.5 N & 0.08~0.12 N·m). The user instructed: "推力之外還缺扭矩的陳述，應水平展開檢查，包含檢索介面".
+- **Corrective & Preventive Action (CAPA)**:
+  - **MECE 2x2 Taxonomy Architecture**:
+    - Cross-cutting dimensions: **Locking Mechanism** (L1 Slip vs L2 Lock) × **Gender** (Male 6% taper vs Female 6% cavity).
+    - **Quadrant 1 (L1 Male Slip, Fig B.1)**: Mouldex D09 Series (`mouldex_male_luer_slip_d09.jpg`). Smooth 6% taper, friction retention 23~25 N.
+    - **Quadrant 2 (L2 Female Lock with Ears, Fig B.6)**: Mouldex D10 Series (`mouldex_female_adapter_d10.jpg`). Rectangular lugs Y ≥ 2.71mm.
+    - **Quadrant 3 (L2 Male Lock - Fixed Collar, Fig B.3)**: Mouldex C09 Series (`mouldex_male_luer_lock_c09.jpg`). Dual internal thread, retention 32~35 N, unscrewing 0.02 N·m, overriding 0.17 N·m.
+    - **Quadrant 4 (L2 Male Lock - Rotatable Collar, Fig B.4)**: Mouldex SA Series (`mouldex_male_rotating_nut_sa0145.jpg`). 360° rotating collar preventing line kinks.
+  - **Triple-Tab Engineering Blueprint Suite**:
+    - Tab 1: 📷 **Mouldex Real Product Showcase (MECE 2×2)**.
+    - Tab 2: 📐 **Official L1 Slip Standards (Figure B.1 Male & Figure B.2 Female)**.
+    - Tab 3: 📐 **Official L2 Lock Standards (Figure B.3 Male Fixed & Figure B.6 Female Lugs)**.
+  - **Horizontal Scan & Harmonization of Pre-assembly Conditions**:
+    - **Slides**: Slide 1, Slide 7, and Slide 10 updated to `26.5~27.5 N 軸向推力與 0.08~0.12 N·m 旋緊扭矩`.
+    - **Search & Matrix UI (`ClauseComparisonMatrix.tsx`)**: All clause parameter strings updated with explicit `Torque: 0.08–0.12 N·m + Axial Force: 26.5–27.5 N, hold 5–6 s then release` (and Chinese equivalent `扭矩: 0.08–0.12 N·m + 軸向推力: 26.5–27.5 N，維持 5–6 秒後釋放`).
+    - **DVP Generator (`DvpGenerator.tsx`)**: `renderPreAssembly` explicitly displays both `Torque` and `Axial Force` labels with dedicated color-coded styling.
+    - **Data Layer (`isoTopicsData.ts`)**: Harmonized pre-assembly test steps for 6.4, 6.5, Annex I, Annex E, and added missing `assemblyAxialForceN` to 6.3.
+    - **Export Utility (`excelExporter.ts`)**: CSV/Excel export pre-assembly string harmonized with `Torque: ... + Axial Force: ...`.
+  - **Single-File Compilation**: Re-compiled `public/slides-standalone.html` (27.38 MB) with all 4 authentic Mouldex product images, blueprints, and updated pre-assembly text.
+- **Verification**: `npm test` 17/17 PASS, `npm run lint` PASS, `npm run build` PASS.
+
 ## [v8.35.0] - 2026-09-05
 
 ### UI/UX Refinement: Purge Model Prefix Codes from Slide Cards & Lightbox
