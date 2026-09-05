@@ -18,8 +18,10 @@
    - 保留藍色總結卡片中具備毛玻璃質感的作者簽名標籤，使資訊在畫面中「獨一無二且定位精確」。
 2. **單檔投影片重新編譯**：
    - 執行 `npm run build:standalone`，產出同步修正後的 `public/slides-standalone.html`。
-3. **全流程自動化確效**：
+3. **全流程自動化確效與版本基準**：
    - 執行 `npm test`（17/17 測項通過）、`npm run lint`（TypeScript 0 錯誤）、`npm run build`（生產包構建通過）。
+   - Git Commit 基準點：`2439136` (`fix(slides): deduplicate author info on Slide 12 footer for MECE compliance (v8.38.1)`)。
+   - 經使用者確認後成功推送至遠端倉庫：`git push origin main`。
 
 ---
 ## 版本：v8.38.0 實體接頭純化：Slide 4 核心防呆卡片全面換裝凱益 (Mouldex) C09 系列真品 (2026-09-05)
