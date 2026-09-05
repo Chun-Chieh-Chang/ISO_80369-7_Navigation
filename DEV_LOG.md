@@ -1,6 +1,32 @@
 # 開發日誌 (DEV_LOG)
 
 ---
+## 版本：v8.37.0 實體接頭純化：封面 Slide 1 全面換裝凱益 (Mouldex) 醫療級實物真品 (2026-09-05)
+
+### 需求來源與目標
+使用者提供 Slide 1 右側實體接頭展示卡片截圖並指示：「截圖中的圖片也改為選用 Mouldex 的產品」。
+
+### 根因分析 (RCA)
+- *現象*：雖然在 v8.36.0 中已將 Slide 5 的接頭圖鑑重構為 Mouldex 2×2 MECE 展台，但投影片 Slide 1 右側的實體接頭展示區（「看看病房裡真實的小接頭長什麼樣」）仍沿用舊版 Industrial Spec 的 3D 渲染圖檔（`iso_80369_7_male_luer_ciml7.jpg` 與 `iso_80369_7_female_luer_cfl7.jpg`，帶有圓形 ISO 80369-7 COMPLIANT 標章）。
+- *本質解構*：
+  - 投影片封面 (Slide 1) 作為受眾的第一眼焦點，必須與 Slide 5 的品牌形象高度一致，統一推廣台灣在地醫療精密注塑先驅——凱益股份有限公司 (Mouldex Co., Ltd.) 的真品實體照片。
+  - 公接頭卡片完美對應 **Mouldex C09 系列 帶鎖固定套環公接頭**（Ø3.97mm 外錐 + 內螺紋保護套環 + 倒鉤軟管口）。
+  - 母接頭卡片完美對應 **Mouldex D10 系列 雙耳母轉接座**（Y ≥ 2.71mm 直角耳翼 + 6% 內錐孔 + 冷壓密封）。
+
+### 矯正與預防措施 (CAPA)
+1. **Slide 1 標題與照片換裝**：
+   - 區塊標題由 `(Industrial Spec 實體產品)` 正式更名為 `(凱益 Mouldex 醫療級實體產品)`。
+   - 左卡片替換為 `mouldex_male_luer_lock_c09.jpg`，Lightbox 標題與 alt 標籤對齊 `ISO 80369-7 帶鎖公接頭 - 凱益 Mouldex C09 系列`。
+   - 右卡片替換為 `mouldex_female_adapter_d10.jpg`，Lightbox 標題與 alt 標籤對齊 `ISO 80369-7 雙耳母接頭 - 凱益 Mouldex D10 系列`。
+   - 演講備忘稿 (Notes) 同步更新為強調凱益 (Mouldex) 醫療級精密注塑件。
+2. **MECE 原則清理冗餘資源**：
+   - 移除全專案已無任何引用的舊版渲染檔案 `iso_80369_7_male_luer_ciml7.jpg` 與 `iso_80369_7_female_luer_cfl7.jpg`，確保圖檔無冗餘膨脹。
+3. **離線單檔重新建構**：
+   - 執行 `npm run build:standalone`，產出包含所有最新 Mouldex 實體圖檔的 `public/slides-standalone.html`（27.26 MB）。
+4. **全流程確效**：
+   - `npm test` 17/17 PASS、`npm run lint` 0 錯誤、`npm run build` 通過。
+
+---
 ## 版本：v8.36.0 標準深化與品牌推廣：MECE 2x2 矩陣重構接頭圖鑑，結合凱益 (Mouldex) 真品展示與全站預裝配參數 (推力與扭矩) 水平展開校正 (2026-09-05)
 
 ### 需求來源與目標

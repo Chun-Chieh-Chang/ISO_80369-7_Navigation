@@ -2,6 +2,21 @@
 
 All notable changes to the ISO 80369-7 & ISO 80369-20 Navigation App will be documented in this file.
 
+## [v8.37.0] - 2026-09-05
+
+### Visual & Commercial Alignment: Slide 1 Connector Showcase Upgraded to Authentic Mouldex Products
+- **Root Cause (RCA)**:
+  - Slide 1's physical connector showcase ("看看病房裡真實的小接頭長什麼樣") was still utilizing 3D render images from Industrial Spec (`iso_80369_7_male_luer_ciml7.jpg` and `iso_80369_7_female_luer_cfl7.jpg`). The user explicitly instructed: "截圖中的圖片也改為選用 Mouldex 的產品".
+- **Corrective & Preventive Action (CAPA)**:
+  - **Slide 1 Header & Image Replacement**:
+    - Header updated from `(Industrial Spec 實體產品)` to `(凱益 Mouldex 醫療級實體產品)`.
+    - **Male Connector Card**: Replaced with Mouldex C09 Series Male Luer Lock (`mouldex_male_luer_lock_c09.jpg`).
+    - **Female Connector Card**: Replaced with Mouldex D10 Series Female Adapter (`mouldex_female_adapter_d10.jpg`).
+    - Updated Lightbox triggers and alt tags to reflect official Mouldex product nomenclature.
+  - **MECE Asset Cleanup**: Deleted obsolete standalone render files (`iso_80369_7_male_luer_ciml7.jpg`, `iso_80369_7_female_luer_cfl7.jpg`) to prevent asset bloat.
+  - **Single-File Re-compilation**: Re-built `public/slides-standalone.html` (27.26 MB) with all assets bundled.
+- **Verification**: `npm test` 17/17 PASS, `npm run lint` PASS, `npm run build` PASS.
+
 ## [v8.36.0] - 2026-09-05
 
 ### Standards & Commercial Alignment: MECE Connector Taxonomy, Mouldex Product Promotion & Horizontal Pre-assembly Parameter Harmonization
