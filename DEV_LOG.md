@@ -31,8 +31,10 @@
    - 執行 `npm run build:standalone`，產出包含所有最新 Mouldex 實體圖檔的 `public/slides-standalone.html`（27.19 MB）。
 4. **策略文件與版本同步**：
    - 同步更新 `presentation-strategy-brief.md` 與 `package.json`（v8.38.0）。
-5. **全流程自動化確效**：
+5. **全流程自動化確效與版本基準**：
    - 執行 `npm test`（17/17 測項全數通過）、`npm run lint`（TypeScript 零錯誤）、`npm run build`（Vite 打包順暢）。
+   - Git Commit 基準點：`20cc70a` (`feat(refactor): complete codebase optimization & purge legacy assets to 100% Mouldex v8.38.0`)。
+   - 經使用者確認後成功推送至遠端倉庫：`git push origin main`。
 
 ---
 ## 版本：v8.37.0 實體接頭純化：封面 Slide 1 全面換裝凱益 (Mouldex) 醫療級實物真品 (2026-09-05)
