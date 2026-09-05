@@ -2,6 +2,37 @@
 
 All notable changes to the ISO 80369-7 & ISO 80369-20 Navigation App will be documented in this file.
 
+## [v8.34.0] - 2026-09-05
+
+### Developer-Centric Paradigm: Purge Artificial Testing Lab Role & Restore DVP Synergy
+- **Root Cause (RCA)**:
+  - Splitting standards by assigning -7 to manufacturers and -20 to third-party testing labs was an artificial dichotomy that obscured the objective engineering reality. In medical device R&D, the manufacturer/developer is the sole primary player who must strictly comply with **both** standards simultaneously — regardless of whether testing is conducted in-house or outsourced.
+- **Corrective & Preventive Action (CAPA)**:
+  - **Slide 1 Overhaul**:
+    - Removed third-party testing lab roles. Refocused the comparison card onto the single developer role:
+      - **📘 ISO 80369-7 (What & Criteria)**: Design basis & acceptance thresholds (micro-tolerances, non-interchangeability, 6 performance pass/fail lines).
+      - **🔬 ISO 80369-20 (How to verify)**: Test procedures & measurement SOPs (Annex C stainless steel fixtures, 27N/0.1N·m assembly SOP).
+    - Upgraded hero bar to: 「開發者合規閉環：翻開 -7 定尺寸與合格線 ⟷ 依據 -20 架治具驗證極限，兩本合璧才能完成產品的設計確效 (DVP)！」
+    - Updated Slide 1 presentation notes.
+  - **Slide 6 Alignment**:
+    - Example 3 rewritten to depict the engineer's daily practice of holding both standards in hand to achieve DVP closure.
+  - **Single-File Bundle**: Re-compiled `public/slides-standalone.html` (27.05 MB).
+- **Verification**: `npm test` 17/17 PASS, `npm run lint` PASS, `npm run build` PASS.
+
+## [v8.33.0] - 2026-09-05
+
+### Standard Purity Alignment: Complete Purge of 50 N (SSOT Traceability)
+- **Root Cause (RCA)**:
+  - Slide 10 formerly included a 50 N impact test from ISO 80369-1:2018 Annex B under the banner of "大考之三". In ISO 80369-7 and ISO 80369-20, the 50 N parameter does not exist. ISO 80369-7 Clause 5 establishes non-interchangeability primarily through **CAD dimensional and interference analysis**, rendering physical 50 N testing unnecessary in standard Luer validation. Mixing Part 1's 50 N into this deck diluted standard purity and caused professional confusion.
+- **Corrective & Preventive Action (CAPA)**:
+  - **Slide 10 Overhaul**:
+    - Purged all references to "50 N" and "ISO 80369-1 Annex B".
+    - Restructured the right card to strictly focus on **ISO 80369-7 Clause 5: Non-interchangeability via 3D CAD Spatial Interference Analysis**, highlighting that design-phase micro-tolerances render misconnection physically impossible without needing brute force.
+    - Updated Slide 10 title to: 「大考之三：組裝後緊繃靜置 ≥ 48 小時耐應力龜裂，條文 5 三維幾何物理防呆互斥！」
+    - Updated presentation notes and strategy brief.
+  - **Single-File Bundle**: Re-compiled `public/slides-standalone.html` (27.05 MB).
+- **Verification**: `npm test` 17/17 PASS, `npm run lint` PASS, `npm run build` PASS.
+
 ## [v8.32.0] - 2026-09-05
 
 ### Ecosystem Stakeholder Integration: Player Roles & 3-Way Closed Loop
