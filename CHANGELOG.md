@@ -2,6 +2,17 @@
 
 All notable changes to the ISO 80369-7 & ISO 80369-20 Navigation App will be documented in this file.
 
+## [v8.38.1] - 2026-09-05
+
+### UI/UX & MECE Layout Optimization: Deduplicated Author Signature on Slide 12
+- **Root Cause (RCA)**:
+  - On Slide 12, the author signature (`Created by Wesley Chang, QC Dept. @Mouldex, Sept-2026.`) was displayed simultaneously in the blue summary banner badge and again in the bottom slide footer immediately below it. The user identified this duplicate presentation as a violation of MECE (Mutually Exclusive, Collectively Exhaustive).
+- **Corrective & Preventive Action (CAPA)**:
+  - **Footer Deduplication**: Removed the redundant author text prefix from Slide 12's footer in `public/slides/index.html`, retaining the clean standard slide page counter `<span>第 12 / 12 頁（全篇完）</span>`.
+  - **Single Signature Placement**: The author signature is now exclusively and elegantly displayed inside the concluding glassmorphism badge on the blue manifesto card.
+  - **Standalone Rebuild**: Recompiled `public/slides-standalone.html` to reflect the clean footer layout.
+- **Verification**: `npm test` 17/17 PASS, `npm run lint` PASS, `npm run build` PASS.
+
 ## [v8.38.0] - 2026-09-05
 
 ### Visual & Commercial Alignment: Slide 4 Part 7 Core Card Upgraded to Authentic Mouldex C09 Series

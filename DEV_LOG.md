@@ -1,6 +1,27 @@
 # 開發日誌 (DEV_LOG)
 
 ---
+## 版本：v8.38.1 版面 MECE 優化：消除 Slide 12 結語卡片與頁尾作者標籤重複 (2026-09-05)
+
+### 需求來源與目標
+使用者提供 Slide 12 右下角畫面截圖並指出：「作者訊息重複，違反MECE」。
+
+### 根因分析 (RCA)
+- *現象*：在 Slide 12 結語頁面中，作者簽名 `Created by Wesley Chang, QC Dept. @Mouldex, Sept-2026.` 同時出現在上方的藍色宣示橫幅卡片右側（玻璃擬態標籤）以及正下方的 `slide-footer` 頁尾中，兩處間距僅約 20px。
+- *本質解構*：
+  - 投影片 1~11 頁的 `slide-footer` 格式高度一致，均為：`<span class="footer-metaphor">金句</span> <span>第 X / 12 頁</span>`。
+  - Slide 12 在藍色昇華卡片內部已有醒目且專屬的作者標籤，若在 footer 又重複撰寫一次作者資訊，構成視覺冗餘且違反 MECE（相互獨立、完全窮盡）中「不重疊、不重複」的核心準則。
+
+### 矯正與預防措施 (CAPA)
+1. **Slide 12 頁尾冗餘資訊剔除**：
+   - 將 `public/slides/index.html` Slide 12 頁尾簡化為：`<span>第 12 / 12 頁（全篇完）</span>`，對齊前 11 頁的頁碼規範。
+   - 保留藍色總結卡片中具備毛玻璃質感的作者簽名標籤，使資訊在畫面中「獨一無二且定位精確」。
+2. **單檔投影片重新編譯**：
+   - 執行 `npm run build:standalone`，產出同步修正後的 `public/slides-standalone.html`。
+3. **全流程自動化確效**：
+   - 執行 `npm test`（17/17 測項通過）、`npm run lint`（TypeScript 0 錯誤）、`npm run build`（生產包構建通過）。
+
+---
 ## 版本：v8.38.0 實體接頭純化：Slide 4 核心防呆卡片全面換裝凱益 (Mouldex) C09 系列真品 (2026-09-05)
 
 ### 需求來源與目標
