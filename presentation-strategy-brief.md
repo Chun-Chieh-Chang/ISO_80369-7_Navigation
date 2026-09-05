@@ -87,9 +87,8 @@
    - `mouldex_male_luer_lock_c09.jpg`：Mouldex C09 系列 帶鎖固定套環公接頭（清晰展示 6% 外錐、右旋內螺紋套環與精密倒鉤端）。
    - `mouldex_female_adapter_d10.jpg`：Mouldex D10 系列 雙耳母轉接座（清晰展示雙側直角凸耳 Ear Lugs、6% 內錐孔與冷壓密封特徵）。
    - `mouldex_male_luer_slip_d09.jpg`：Mouldex D09 系列 滑套無鎖公接頭（滑套 6% 外錐配合，ISO 80369-7 圖 B.1 標準）。
-   - `mouldex_male_rotating_nut_sa0145.jpg`：Mouldex SA 系列 專利 360° 旋轉套環公接頭（活動公鎖，ISO 80369-7 圖 B.4 標準）。
-   - `iso_80369_7_check_valve_cv7.jpg`：CV7 系列醫療止回閥接頭組件（展示臨床一體式接頭裝配）。
+    - `mouldex_male_rotating_nut_sa0145.jpg`：Mouldex SA 系列 專利 360° 旋轉套環公接頭（活動公鎖，ISO 80369-7 圖 B.4 標準）。
 2. **凱益股份有限公司 (Mouldex Co., Ltd.) 醫療器材接頭產品專區 (`https://www.mouldex.com.tw/Productinformation/24869`)**：
    - 深入展示醫療器材塑膠零組件大廠針對 ISO 80369-7 規格生產的實體產品線：包含固定式與旋轉螺帽公魯爾 (Male Luer Lock / Rotating Nut)、公滑套 (Male Luer Slip)、母魯爾轉接頭 (Female Adapter)、倒鉤接頭 (Barbed Connectors)、雙通/三通/四通歧管 (Bi/Tri/T/Y/Quadfuse Connectors)、防護端蓋 (FLL/MLL Caps) 與加藥注射閥座 (Injection Port/Site)。
-   - 投影片封面 (Slide 1)、接頭展台 (Slide 5) 與各處實物展示均全面導入 Mouldex 高清照片與產品型號，讓受眾具象感受 ISO 80369-7 標準轉化為成熟商業產品的強大生命力。
+   - 投影片封面 (Slide 1)、核心防呆卡片 (Slide 4) 與接頭展台 (Slide 5) 均全面導入 Mouldex 高清照片與產品型號，讓受眾具象感受 ISO 80369-7 標準轉化為成熟商業產品的強大生命力。
 

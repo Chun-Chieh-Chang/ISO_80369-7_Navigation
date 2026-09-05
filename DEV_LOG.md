@@ -1,6 +1,40 @@
 # 開發日誌 (DEV_LOG)
 
 ---
+## 版本：v8.38.0 實體接頭純化：Slide 4 核心防呆卡片全面換裝凱益 (Mouldex) C09 系列真品 (2026-09-05)
+
+### 需求來源與目標
+使用者提供 Slide 4 第一張卡片「ISO 80369-7 血管靜脈點滴」之畫面截圖，並明確指示：「截圖內容也改用 Mouldex 產品取代」。
+
+### 根因分析 (RCA)
+- *現象*：在 v8.36.0 與 v8.37.0 完成 Slide 5 與 Slide 1 的 Mouldex 接頭展示換裝後，Slide 4（幾何物理防呆比較）中的「ISO 80369-7 血管靜脈點滴」卡片仍殘留舊版 Industrial Spec CV7 止回閥照片（`iso_80369_7_check_valve_cv7.jpg`，帶有紫色外環與海外標章），形成視覺與品牌識別的不協調。
+- *本質解構*：
+  - 該卡片三項核心條款說明分別為：
+    1. **標準 6% 錐度**：外錐基底 Ø3.97mm，削筆尖般順滑吻合。
+    2. **雙耳朵螺旋卡榫**：順時針轉一圈牢牢咬死，防甩防脫。
+    3. **守護心臟血液**：直通大血管，絕不容許半點雜質或錯接。
+  - 此卡片最貼合、最代表性的實體產品即為台灣醫療零組件大廠 **凱益 (Mouldex) C09 系列 帶鎖公魯爾接頭 (Male Luer Lock)**，其完美呈現 Ø3.97mm 外錐體與內螺紋防脫保護套環，與文字描述達成 100% 物理對齊。
+
+### 矯正與預防措施 (CAPA)
+1. **Slide 4 核心卡片換裝**：
+   - 替換照片來源為 `../assets/real_connectors/mouldex_male_luer_lock_c09.jpg`。
+   - Lightbox 彈窗標題更新為 `ISO 80369-7 血管靜脈點滴帶鎖接頭 (凱益 Mouldex C09 系列 Male Luer Lock)`。
+   - 圖片 alt 與錯誤備援全面對齊 Mouldex C09 系列。
+2. **MECE 原則徹底掃除歷史孤兒檔案**：
+   - 徹底移除 `public/assets/real_connectors/` 中所有剩餘的非 Mouldex 舊版圖檔：
+     - `iso_80369_7_check_valve_cv7.jpg`
+     - `iso_80369_7_check_valve_lcv.jpg`
+     - `iso_80369_7_female_panel_mount_ilb7.jpg`
+     - `iso_80369_7_male_bond_in_bnp7.jpg`
+   - 接頭實物圖庫純化為 100% 凱益 (Mouldex) 產品矩陣（D09 滑套公、D10 雙耳母、C09 固定公鎖、SA0145 旋轉公鎖），達成專案檔案之「相互獨立、完全窮盡」。
+3. **離線單檔重新建構**：
+   - 執行 `npm run build:standalone`，產出包含所有最新 Mouldex 實體圖檔的 `public/slides-standalone.html`（27.19 MB）。
+4. **策略文件與版本同步**：
+   - 同步更新 `presentation-strategy-brief.md` 與 `package.json`（v8.38.0）。
+5. **全流程自動化確效**：
+   - 執行 `npm test`（17/17 測項全數通過）、`npm run lint`（TypeScript 零錯誤）、`npm run build`（Vite 打包順暢）。
+
+---
 ## 版本：v8.37.0 實體接頭純化：封面 Slide 1 全面換裝凱益 (Mouldex) 醫療級實物真品 (2026-09-05)
 
 ### 需求來源與目標

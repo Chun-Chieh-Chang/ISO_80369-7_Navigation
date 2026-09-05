@@ -2,6 +2,23 @@
 
 All notable changes to the ISO 80369-7 & ISO 80369-20 Navigation App will be documented in this file.
 
+## [v8.38.0] - 2026-09-05
+
+### Visual & Commercial Alignment: Slide 4 Part 7 Core Card Upgraded to Authentic Mouldex C09 Series
+- **Root Cause (RCA)**:
+  - Slide 4's "ISO 80369-7 血管靜脈點滴" card was still referencing a legacy Industrial Spec check valve image (`iso_80369_7_check_valve_cv7.jpg`), which conflicted with the goal of presenting a unified OEM brand identity. The user provided a screenshot of this card with the instruction: "截圖內容也改用 Mouldex 產品取代".
+- **Corrective & Preventive Action (CAPA)**:
+  - **Slide 4 Core Card Image Replacement**:
+    - Replaced `../assets/real_connectors/iso_80369_7_check_valve_cv7.jpg` with `../assets/real_connectors/mouldex_male_luer_lock_c09.jpg`.
+    - Updated Lightbox target and title to `ISO 80369-7 血管靜脈點滴帶鎖接頭 (凱益 Mouldex C09 系列 Male Luer Lock)`.
+    - Updated `alt` tag to `ISO 80369-7 血管靜脈點滴帶鎖接頭 - 凱益 Mouldex C09 系列`.
+  - **Complete MECE Asset Cleanup**:
+    - Identified and purged all remaining orphaned non-Mouldex assets in `public/assets/real_connectors/` (`iso_80369_7_check_valve_cv7.jpg`, `iso_80369_7_check_valve_lcv.jpg`, `iso_80369_7_female_panel_mount_ilb7.jpg`, `iso_80369_7_male_bond_in_bnp7.jpg`).
+    - The real connector asset library is now 100% composed of authentic Mouldex medical products (`mouldex_male_luer_lock_c09.jpg`, `mouldex_female_adapter_d10.jpg`, `mouldex_male_luer_slip_d09.jpg`, `mouldex_male_rotating_nut_sa0145.jpg`).
+  - **Single-File Re-compilation**: Re-generated `public/slides-standalone.html` (27.19 MB) with updated base64 inlined assets.
+  - **Documentation Alignment**: Synchronized `presentation-strategy-brief.md` to reflect 100% Mouldex asset library.
+- **Verification**: All automated tests pass (`17/17 PASS`), TypeScript check clean, Vite production bundle build successful.
+
 ## [v8.37.0] - 2026-09-05
 
 ### Visual & Commercial Alignment: Slide 1 Connector Showcase Upgraded to Authentic Mouldex Products
