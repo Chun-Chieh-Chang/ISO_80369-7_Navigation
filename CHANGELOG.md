@@ -2,6 +2,37 @@
 
 All notable changes to the ISO 80369-7 & ISO 80369-20 Navigation App will be documented in this file.
 
+## [v8.32.0] - 2026-09-05
+
+### Ecosystem Stakeholder Integration: Player Roles & 3-Way Closed Loop
+- **Design Intent**:
+  - Beyond explaining the technical distinction between -7 and -20, incorporate the active "Players" (Manufacturer, Testing Lab, Regulatory Authority, and Healthcare/Patients) and their 3-way closed loop dynamic.
+- **Changes**:
+  - **Slide 1**:
+    - Left comparison matrix updated to explicitly feature:
+      - 🏭 **Player 1 (Manufacturer / Candidate)**: Reads -7 to sculpt micro-tolerances, select medical plastics, and align with the 6 acceptance criteria.
+      - 🔬 **Player 2 (Third-party Testing Lab / Invigilator)**: Reads -20 to mount Annex C stainless steel fixtures, enforce 27N/0.1N·m assembly SOP, and output objective test scores.
+    - Hero bar upgraded to: 「三者動態閉環：廠商看 -7 造接頭 ➔ 檢驗所依 -20 測極限 ➔ 監管局 (FDA) 審查雙標準吻合度發照 ➔ 醫護病患安心盲插！」
+    - Slide 1 presentation notes updated to reflect player roles and closed-loop narration.
+  - **Slide 6 (Analogy Slide)**:
+    - Example 3 rewritten to align with the players: Manufacturer (Candidate) ➔ Testing Lab (Invigilator) ➔ Regulators & Clinical Staff (License & Safety Beneficiaries).
+  - **Single-File Bundle**: Re-compiled `public/slides-standalone.html` (27.05 MB) to mirror the SSOT.
+- **Verification**: `npm test` 17/17 PASS, `npm run lint` PASS, `npm run build` PASS.
+
+## [v8.31.0] - 2026-09-05
+
+### Slide 1 Cognitive Clarity: ISO 80369-7 vs -20 Relationship Restructure
+- **Root Cause (RCA)**:
+  - Previously, Slide 1 used ambiguous badges (`-7: 告訴你管子長什麼樣` vs `-20: 鐵面無私的及格大考`), which misled readers by implying -20 establishes pass/fail criteria. In reality, Clause 6 of ISO 80369-7 sets acceptance criteria (What & Criteria), while ISO 80369-20 only standardizes laboratory testing procedures (How to test) across all medical connector series.
+- **Corrective & Preventive Action (CAPA)**:
+  - Restructured the bottom of Slide 1 left card into a dual-column comparison matrix clearly articulating:
+    - **ISO 80369-7**: 專科考卷 (What & Criteria) — 血管/皮下專用，規範幾何尺寸、防呆要求與及格分數線。
+    - **ISO 80369-20**: 共用考場 (How to test) — 全系列通用，不設分數線，提供標準治具與物理量測 SOP（附錄 B~J）。
+    - **Summary Hero Bar**: 「-7 決定尺寸與驗收標準 ⟷ -20 提供共用實驗室量測手法」。
+  - Updated presentation notes for Slide 1.
+  - Re-compiled `public/slides-standalone.html` to mirror the SSOT.
+- **Verification**: `npm test` 17/17 PASS, `npm run lint` PASS, `npm run build` PASS.
+
 ## [v8.30.0] - 2026-09-05
 
 ### Presentation Entry Navigation & Service Worker Interception Fix
