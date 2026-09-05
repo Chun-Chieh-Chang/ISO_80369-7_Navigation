@@ -2,6 +2,24 @@
 
 All notable changes to the ISO 80369-7 & ISO 80369-20 Navigation App will be documented in this file.
 
+## [v8.35.0] - 2026-09-05
+
+### UI/UX Refinement: Purge Model Prefix Codes from Slide Cards & Lightbox
+- **Root Cause (RCA)**:
+  - Slide cards displayed industrial mold/catalog prefix codes (`CIML7`, `CFL7`, `ILB7`, `BNP7`) ahead of component names (e.g. `CIML7 帶鎖公接頭`). These prefixes are injection-molding vendor catalog acronyms (Coaxial Internal Male Luer, Coaxial Female Luer, Instrument Luer Bulkhead, Bond-in Port) that add cognitive noise for clinical and cross-disciplinary audiences without standard regulatory necessity.
+- **Corrective & Preventive Action (CAPA)**:
+  - **Slide 5 Card Titles & Lightbox**:
+    - `CIML7 帶鎖公接頭（點滴插頭）` ➔ `帶鎖公接頭（點滴插頭）`
+    - `CFL7 雙耳母接頭（留置針接口）` ➔ `雙耳母接頭（留置針接口）`
+    - `ILB7 儀器面板專用母接頭` ➔ `儀器面板專用母接頭`
+    - `BNP7 軟管一體膠合公接頭` ➔ `軟管一體膠合公接頭`
+    - Purged prefix codes from image `alt` attributes, lightbox parameter strings, and presentation speaker notes.
+  - **Slide 1 Alignment**:
+    - Cleaned `CIML7` and `CFL7` from hero card titles and lightbox modal headers.
+  - **Single-File Compilation**:
+    - Recompiled `public/slides-standalone.html` to mirror the pure Chinese naming system.
+- **Verification**: `npm test` 17/17 PASS, `npm run lint` PASS, `npm run build` PASS.
+
 ## [v8.34.0] - 2026-09-05
 
 ### Developer-Centric Paradigm: Purge Artificial Testing Lab Role & Restore DVP Synergy
