@@ -1,6 +1,53 @@
 # 開發日誌 (DEV_LOG)
 
 ---
+## 版本：v8.40.6 (Commit: 34f1b58 / 12bff8b) 全域圖像路徑水平審查 P0 修復 + 全專案文件同步優化 (2026-09-07)
+
+### 需求來源
+使用者觸發「**全面盤點與清理作業 5 大步驟**」，以及圖像訊息丟失水平展開審查。
+
+### 1. 診斷與根因 (RCA)
+
+```
+[P0 問題：ISO20-FIG-J1 雙模圖像完全空白]
+- getBlueprintImagePath('ISO20-FIG-J1') → null（未列入 switch）
+- getTestingBlueprintImagePath('ISO20-FIG-J1') → null（未列入 switch）
+- 結果：「標準預裝配程序」Topic 圖像區域完全空白，
+  26.5~27.5N 軸向力 + 0.08~0.12 N·m 雙軸力學架設視覺完全丟失。
+- 根因：test_page_2.png 存在於 public/testing_blueprint/ 但無任何 svgKey 映射。
+
+[文件過時：CHANGELOG / README / package.json]
+- CHANGELOG：最新只到 v8.40.4，漏記 v8.40.5 & v8.40.6
+- README：版本號停在 v8.29.0，測試數量 17（應為 20）
+- package.json：version 停在 8.40.4
+
+[GEMINI.md 編碼損壞]
+- 檔案混合 Big5（上半部）+ 破損 UTF-8（下半部），造成全文亂碼。
+- 根因：檔案以 Big5 CP950 寫入但被 UTF-8 環境讀取。
+```
+
+### 2. 矯正與預防措施 (CAPA)
+
+#### 2.1 P0 修復（Commit: 34f1b58）
+- `ISOStandardFigureRenderer.tsx`：在 `getBlueprintImagePath()` 和 `getTestingBlueprintImagePath()` 兩個函數均新增 `case 'ISO20-FIG-J1': → test_page_2.png`。
+- 孤兒圖盤點：test_page_1（封面）/ test_page_2（J1 ✅ 已映射）/ test_page_3（矩陣總覽）/ test_page_6（負壓補充）/ test_page_11（預處理條件）。
+
+#### 2.2 全專案文件同步（Commit: 12bff8b）
+- CHANGELOG.md：補填 v8.40.5 & v8.40.6 條目（壓降高保真 + P0 修復）。
+- README.md：版本 v8.29.0 → v8.40.6，測試數 17 → 20，Footer 日期對齊。
+- package.json：`"version": "8.40.4"` → `"8.40.6"`。
+
+#### 2.3 GEMINI.md 編碼修復（本地，不入 Git）
+- 以 Python `open(encoding='utf-8')` 重新寫入，修正 `諂`（U+8AC2）等字符正確性。
+- 驗證：6/6 關鍵中文術語確認正確還原。
+
+### 3. 確效 ✅
+- `tsc --noEmit`：0 錯誤。
+- 全域圖像審查：24/24 svgKey 映射完整（含 J1 修復）。
+- CHANGELOG / README / package.json：100% 對齊當前代碼狀態。
+- GitHub 推送：`34f1b58..12bff8b main → main` ✅ (2026-09-07 18:38)
+
+---
 ## 版本：v8.40.5 (Commit: df14589) 壓降測試曲線圖高保真確效 — ISO20-FIG-B2 四階段時序解構與雙模切換 (2026-09-07)
 
 ### 需求來源與目標
