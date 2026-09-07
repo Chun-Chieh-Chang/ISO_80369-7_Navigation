@@ -217,7 +217,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
           <div className="bg-slate-50 border border-slate-200 p-3.5 rounded-xl space-y-1.5">
             <strong className="text-blue-900 block font-bold text-[13px]">{isEn ? '1. Material & Hardening Requirements' : '1. 材質與硬化要求 (ISO vs 冶金學事實)'}</strong>
             <ul className="list-disc list-inside text-slate-600 space-y-1 leading-relaxed text-[11px]">
-              <li><strong>{isEn ? 'ISO Requirement:' : 'ISO 條文強制規範：'}</strong> {isEn ? 'Hardened Stainless Steel, hardened to resist wear.' : '`Hardened Stainless Steel` (硬化不鏽鋼)，且必須經硬化處理以防磨損 (`hardened to resist wear`)。'}</li>
+              <li><strong>{isEn ? 'ISO Statutory Requirement:' : 'ISO 條文法定規範：'}</strong> {isEn ? 'Corrosion-resistant rigid materials (E > 3,433 MPa, Ra ≤ 0.8 µm). In practice, hardened stainless steel is universally specified to resist wear & galling.' : '耐腐蝕剛性材料 (`corrosion-resistant rigid materials`，彈性模數 E > 3,433 MPa，關鍵面 Ra ≤ 0.8 μm)；工程實務唯一標配硬化不鏽鋼以防磨損與咬死。'}</li>
               <li><strong>Stavax® ESR</strong>: {isEn ? 'AISI 420 Mod (45~52 HRC, 200 GPa), premium medical mold steel with mirror polish & superior corrosion resistance.' : 'AISI 420 Mod (45~52 HRC, 200 GPa)，電渣重熔極高純度、鏡面拋光與優異耐蝕，為醫療鋼規高級選材！'}</li>
               <li><strong>17-4PH / 440C</strong>: {isEn ? '17-4PH (≥45 HRC) optimal balance; 440C (58~60 HRC) ultra-hard but requires immediate drying after water testing.' : '17-4PH (≥45 HRC) 綜合性佳；440C (58~60 HRC) 超硬但水測後須即時防銹。'}</li>
               <li><strong>316 SS</strong>: {isEn ? 'Raw annealed is too soft (<20 HRC) and galling prone; must be surface nitrided.' : '一般未處理退火態基材過軟 (<20 HRC) 且極易 Galling 咬死，必須經表面低溫氮化硬化才合格。'}</li>
@@ -238,6 +238,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
               <li><strong>{isEn ? 'Edge Radii:' : '邊緣圓角：'}</strong> {isEn ? 'Outer edge radius between 0.15 mm and 0.20 mm.' : '外側邊緣圓角半徑需在 0.15 mm ~ 0.20 mm。'}</li>
               <li><strong>{isEn ? 'Lead Chamfer:' : '入口倒角：'}</strong> {isEn ? 'Entry chamfer/radius R ≤ 0.5 mm.' : '入口處圓角/倒角 R ≤ 0.5 mm。'}</li>
               <li><strong>{isEn ? 'Male Length:' : '公錐長度：'}</strong> {isEn ? 'Non-interchangeability ≥ 10.5 mm; general tests ≥ 7.5 mm.' : '非相互連接測試 ≥ 10.5 mm；一般測試 ≥ 7.5 mm。'}</li>
+              <li><strong>{isEn ? 'Collar Warning (Note 2):' : '套環警示 (Note 2)：'}</strong> {isEn ? 'C.4/C.5 collar OD cannot evaluate misconnection.' : 'C.4/C.5 套環外徑不得用於防誤接檢驗。'}</li>
             </ul>
           </div>
 

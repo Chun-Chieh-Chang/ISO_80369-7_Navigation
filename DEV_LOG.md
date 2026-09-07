@@ -1,6 +1,55 @@
 # 開發日誌 (DEV_LOG)
 
 ---
+4: ## 版本：v8.40.0 (Commit: 9458d86) 國際標準 SSOT 溯源：全面修復金屬參考夾具 (Annex C) 圖面映射中斷、公差參數與投影片演示對齊 (2026-09-07)
+5: 
+6: ### 需求來源與目標
+7: 基於 SSOT 原則，調用 `isodoc/ISO_80369-7_2021_en.pdf` (Annex C、Clause 4.1、Clause 6.1~6.6) 與 `isodoc/ISO_80369-20_2024_en.pdf` 原始文檔，對「參考金屬夾具庫」及投影片演示進行全面深度審查與閉環修復：
+8: 1. **修復圖資映射中斷**：解決前端在點選 C.3、C.4、C.5、C.6 及 B.1、B.2 時，錯誤顯示「本主題無 ISO 80369-7 幾何尺寸藍圖」的失聯問題。
+9: 2. **校正法規參數與術語偏差**：
+10:    - 修正 C.4 誤寫為「外螺紋」之術語瑕疵，正名為「套環內螺紋 (Collar Internal Thread)」。
+11:    - 補充 C.6 最壞情況關鍵極限參數（Ø8.0 mm 槽底大徑、Ø7.2 mm 牙頂小徑、30° 牙面角）。
+12:    - 補充 C.2 與 C.5 錐長/孔深之雙重法定標準（一般性能測試 ≥ 7.5 mm；Clause 4.1 防誤接試驗 ≥ 10.5 mm）。
+13:    - 補充 C.4 與 C.5 Note 2 警示條款（套環外徑不得用於防誤接檢驗）。
+14:    - 精確分流 Annex C.1 法定材質文字（耐腐蝕剛性材料，E > 3,433 MPa，Ra ≤ 0.8 µm）與工程實務（硬化不鏽鋼抗磨損與抗咬死）。
+15: 3. **投影片演示 (Slide Deck) 糾錯**：
+16:    - 修正 Slide 7 誤將 C.1 標示為公頭（`C.1/C.2 鋼製公頭` ➔ `C.1 母鎖 / C.2 公滑 / C.4 公鎖 / C.5 母滑 標稱件`）的性別顛倒問題。
+17:    - 修正 Slide 7 將 C.3 標記為 `±0.03 mm` 之非標準公差，改為法定標準 `2.71 (+0.025/0 mm)`。
+18:    - 修正 Slide 6 中將 Annex C 標準夾具誤歸屬於 ISO 80369-20 的標準拼貼問題（落實 Part 7 規格與 Part 20 手法之嚴格解耦）。
+19:    - 補齊 Slide 9 中 Clause 6.6 考驗條件之公母雙向配對（公件配 C.3 窄耳翼 / 母件配 C.6 極限淺牙）。
+20:    - 重新編譯產出單檔獨立投影片 `public/slides-standalone.html`（27.19 MB）。
+21: 
+22: ### 根因分析 (RCA)
+23: - *現象 1（圖面映射遺漏）*：
+24:   - `ISOStandardFigureRenderer.tsx` 內 `getBlueprintImagePath` 在過往重構中，Switch 分支僅保留 `ISO7-FIG-C1` 與 `ISO7-FIG-C2`，未將已存在於 `public/assets/blueprint/` 的 `page_11.png` (C.3)、`page_12.png` (C.4)、`page_13.png` (C.5)、`page_14.png` (C.6)、`page_1.png` (B.1) 與 `page_2.png` (B.2) 進行映射，導致 UI 點擊後 fallback 到無圖面警告。
+25: - *現象 2（公鎖定套環內螺紋混淆）*：
+26:   - Luer Lock 系統中，公端接頭外部設有螺紋套環（Threaded Collar），其螺紋位於套環內部（內螺紋），母端接頭之突耳（Lugs）或外螺紋轉入公套環內部咬合。文字描述寫成「外螺紋」產生嚴重技術混淆。
+27: - *現象 3（投影片文字顛倒與舊公差殘留）*：
+28:   - Slide 7 快速撰寫時將 C.1 與 C.2 合併簡稱為「鋼製公頭」，忽略 C.1 實為 Female Luer Lock（母座）；且 C.3 耳翼標註了早期草稿的 `±0.03 mm`，非 ISO 80369-7:2021 正式發布之 `2.71 (+0.025/0 mm)`。
+29: 
+30: ### 矯正與預防措施 (CAPA)
+31: 1. **完善藍圖圖片映射 (`src/components/ISOStandardFigureRenderer.tsx`)**：
+32:    - 完整補齊 `ISO7-FIG-B1` (`page_1.png`)、`ISO7-FIG-B2` (`page_2.png`)、`ISO7-FIG-C3` (`page_11.png`)、`ISO7-FIG-C4` (`page_12.png`)、`ISO7-FIG-C5` (`page_13.png`)、`ISO7-FIG-C6` (`page_14.png`) 映射分支。
+33: 2. **校正資料庫 (`src/data/isoData.ts`)**：
+34:    - 修正 C.4 為「套環內螺紋 (Collar Internal Thread)」，消除外螺紋誤稱。
+35:    - 補充 C.6 關鍵極限尺寸（Ø8.0 mm 槽底大徑、Ø7.2 mm 牙頂小徑、30° 牙面角）。
+36:    - 補充 C.2 與 C.5 錐長雙標準（性能 ≥ 7.5 mm / 防誤接 ≥ 10.5 mm）。
+37:    - C.1~C.6 補齊精準公差（C.1 3.50 0/-0.025 mm, C.3 2.71 +0.025/0 mm）。
+38: 3. **完善標準指導卡片 (`src/components/ConnectorInspector.tsx`)**：
+39:    - 明確分流 ISO 法定材質要求（耐腐蝕剛性材料，E > 3,433 MPa）與工程實務（硬化不鏽鋼抗磨損）。
+40:    - 增加 Note 2 套環外徑不得用於非相互連接檢驗之重要法規提示。
+41: 4. **校正投影片演示 (`public/slides/index.html` & `public/slides-standalone.html`)**：
+42:    - Slide 6：解耦 Part 7 規格與 Part 20 手法。
+43:    - Slide 7：修復 C.1 性別倒置問題，校正 C.3 公差為 2.710~2.735 mm，補齊標稱件 (C.1/C.2/C.4/C.5) 與最壞情況件 (C.3/C.6)。
+44:    - Slide 9：補齊 6.6 考驗條件公母雙向配對（C.3 / C.6）。
+45:    - 重新編譯 `public/slides-standalone.html`（27.19 MB）。
+46: 5. **確效驗證與基準點建立**：
+47:    - `npm test` (vitest): 17/17 PASS
+48:    - `npm run lint` (tsc): 零錯誤 PASS
+49:    - `npm run build` (vite build): 5.66s 打包通過 PASS
+50:    - Git 還原基準點 Commit: `9458d86`
+
+---
 ## 版本：v8.39.0 國際標準 SSOT 溯源矯正：全面根除 ISO 80369-7 §6.3 與 ISO 80369-20 Annex E 應力龜裂 4 大矛盾與法規引用錯誤 (2026-09-05)
 
 ### 需求來源與目標

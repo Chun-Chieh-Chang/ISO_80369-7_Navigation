@@ -13,3 +13,7 @@ isodoc/
 .agnes/
 # Scratch temporary directory
 scratch/
+
+# FreeFileSync temporary sync files
+*.ffs_tmp
+*.ffs_db

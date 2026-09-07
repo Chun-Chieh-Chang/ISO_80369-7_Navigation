@@ -2,7 +2,31 @@
 
 All notable changes to the ISO 80369-7 & ISO 80369-20 Navigation App will be documented in this file.
 
-## [v8.39.0] - 2026-09-05
+## [v8.40.0] - 2026-09-07
+
+### SSOT Standards Audit & Reference Connector Integration: Full Blueprint Restoration & Slides Harmonization
+- **Root Cause (RCA)**:
+  - Deep SSOT audit against `isodoc/ISO_80369-7_2021_en.pdf` (Annex C, Clause 4.1, Clause 6) and `ISO_80369-20:2024` revealed:
+    1. *Blueprint Mapping Gap*: `ISOStandardFigureRenderer.tsx`'s `getBlueprintImagePath` omitted switch branches for `ISO7-FIG-B1`, `B2`, and `C3` through `C6`, causing the CAD blueprint renderer to display a false "no blueprint" warning when inspecting reference connectors C.3–C.6, despite official artwork (`page_11.png` to `page_14.png`) existing in `public/assets/blueprint/`.
+    2. *Terminology Inaccuracy*: Fig. C.4 male lock reference connector was mistakenly labeled with "external thread" (外螺紋). In physical reality and standard schematics, male lock connectors utilize an internal-threaded collar (套環內螺紋).
+    3. *Slide Deck Deviations*: Slide 7 inverted the gender of Fig. C.1 (`C.1/C.2 鋼製公頭` when C.1 is a female lock fixture), cited non-standard C.3 tab width tolerance (`±0.03 mm` instead of $+0.025/0\text{ mm}$), and omitted the C.6 male worst-case fixture. Slide 6 convolved Part 7 Annex C reference fixtures with Part 20 test method text.
+- **Corrective & Preventive Action (CAPA)**:
+  - **CAD Blueprint Restoration (`src/components/ISOStandardFigureRenderer.tsx`)**:
+    - Restored 100% 1-to-1 blueprint mapping for `ISO7-FIG-B1` (`page_1.png`), `B2` (`page_2.png`), `C1` (`page_9.png`), `C2` (`page_10.png`), `C3` (`page_11.png`), `C4` (`page_12.png`), `C5` (`page_13.png`), and `C6` (`page_14.png`).
+  - **Data Core Precision (`src/data/isoData.ts`)**:
+    - Renamed C.4 to "套環內螺紋 (Collar Internal Thread, Pitch 2.5 mm)".
+    - Quantified C.6 worst-case dimensions (major root $\varnothing 8\pm 0.025\text{ mm}$, minor crest $\varnothing 7.2\text{ mm}$, $30^{\circ}$ flank angles).
+    - Added dual-standard lengths to C.2 and C.5 ($\ge 7.5\text{ mm}$ for performance vs $\ge 10.5\text{ mm}$ for Clause 4.1 / ISO 80369-1 non-interchangeability).
+    - Recorded Annex C.4 & C.5 Note 2 limitation (collar OD not applicable for misconnection testing).
+  - **Fixture Inspector (`src/components/ConnectorInspector.tsx`)**:
+    - Decoupled ISO statutory material requirements (corrosion-resistant rigid materials, $E > 3,433\text{ MPa}$) from engineering best practices (hardened stainless steel to prevent galling).
+  - **Slide Deck Alignment (`public/slides/index.html` & `public/slides-standalone.html`)**:
+    - Corrected Slide 7 fixture gender pairings and C.3 tolerance ($2.710 \sim 2.735\text{ mm}$).
+    - Balanced Slide 9 Clause 6.6 fixture requirements (C.3 for male lock DUT, C.6 for female lock DUT).
+    - Recompiled `public/slides-standalone.html` (27.19 MB).
+  - **Asset Cleanup**: Removed unreferenced thumbnail scratch directories (`crop_inspect`, `thumbs`, `titleblocks`, and preview cuts), saving storage.
+- **Verification**: `npm test` 17/17 PASS, `npm run lint` PASS, `npm run build` PASS.
+
 
 ### Standards Harmonization & SSOT Regulatory Alignment: Fixed 4 Contradictions on Clause 6.3 & Annex E
 - **Root Cause (RCA)**:

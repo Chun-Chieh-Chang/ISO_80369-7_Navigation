@@ -247,14 +247,15 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
     type: 'lock',
     tabWidthMm: 3.50,
     backFlankAngleDeg: 25,
-    description: 'Female reference connector with 3.50 mm nominal tab width for general functional tests.',
-    descriptionZh: '標準母魯爾鎖定金屬參考接頭 (Fig.C.1)，具備 3.50 mm 標稱寬度凸耳，用於 6.1/6.2 洩漏、6.3 應力龜裂及 6.5 抗旋鬆測試。',
+    description: 'Female reference connector with 3.50 mm (0/-0.025 mm) nominal tab width for general functional tests and non-interconnectable characteristics.',
+    descriptionZh: '標準母魯爾鎖定金屬參考接頭 (Fig.C.1)，具備 3.50 mm (0/-0.025 mm) 標稱寬度凸耳，用於公接頭之 6.1/6.2 洩漏、6.3 應力龜裂、6.5 抗旋鬆及 4.1 防相互誤接測試。',
     intendedClauses: ['6.1', '6.2', '6.3', '6.5'],
     isWorstCase: false,
     worstCaseReasonZh: '採用標準 3.50 mm 寬度耳翼，接觸面積大、應力分佈均勻，用於提供穩定氣密配合面，避免人為干擾氣密性評估。',
     svgHighlights: [
-      { title: '耳翼寬度 (Tab Width)', value: '3.50 mm' },
-      { title: '背側角度 (Flank Angle)', value: '25°' },
+      { title: '耳翼寬度 (Tab Width)', value: '3.50 mm (0/-0.025 mm)' },
+      { title: '背側角度 (Flank Angle)', value: '25° (+2°/0°)' },
+      { title: '基準外徑 (Outer Dia)', value: 'Ø7.83 mm (0/-0.005 mm)' },
       { title: '適用受測物', value: '公魯爾鎖定 (Male Lock)' }
     ],
     svgKey: 'ISO7-FIG-C1'
@@ -266,13 +267,15 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
     name: 'Male Reference Luer Slip',
     gender: 'male',
     type: 'slip',
-    description: 'Male 6% taper reference connector for female Luer slip testing.',
-    descriptionZh: '公魯爾滑動式（Slip）參考接頭 (Fig.C.2)，專門用於測試母滑動接頭（Female Slip, L1）的密封性與拉拔力。',
+    description: 'Male 6% taper reference connector for female Luer slip testing and non-interconnectable evaluation.',
+    descriptionZh: '公魯爾滑動式（Slip）參考接頭 (Fig.C.2)，專門用於測試母滑動接頭（Female Slip, L1）的密封性與拉拔力。錐長具雙重標準：性能測試 ≥ 7.5 mm，防相互誤接試驗 ≥ 10.5 mm。',
     intendedClauses: ['6.1', '6.2', '6.3', '6.4'],
     isWorstCase: false,
     worstCaseReasonZh: '標準 6% 圓錐接頭，不具備旋緊鎖定螺紋，僅用於滑動錐面配合。',
     svgHighlights: [
       { title: '錐度 (Taper)', value: '6% (1:16.667)' },
+      { title: '公錐長度 (Length)', value: '≥ 7.5 mm (性能) / ≥ 10.5 mm (防誤接)' },
+      { title: '基準直徑 (Datum Dia)', value: 'Ø4.021 mm (+0.001/-0.004 mm)' },
       { title: '適用受測物', value: '母魯爾滑動 (Female Slip)' }
     ],
     svgKey: 'ISO7-FIG-C2'
@@ -286,14 +289,15 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
     type: 'lock',
     tabWidthMm: 2.71,
     backFlankAngleDeg: 30,
-    description: 'Female reference connector with narrowed 2.71 mm tab width and 30° flank angle for worst-case mechanical testing.',
-    descriptionZh: '最壞情況母參考接頭 (Fig.C.3)，耳翼寬度大幅縮窄至 2.71 mm（接觸面積少 22%），背角加大至 30°。專用於 6.4 抗拉拔與 6.6 抗過旋（滑牙）測試。',
+    description: 'Female reference connector with narrowed 2.71 mm (+0.025/0 mm) tab width and 30° (0°/-2°) flank angle for worst-case mechanical testing.',
+    descriptionZh: '最壞情況母參考接頭 (Fig.C.3)，耳翼寬度大幅縮窄至 2.71 mm (+0.025/0 mm，接觸面積少 22%)，背角加大至 30° (0°/-2°)。專用於 6.4 抗拉拔 (35 N) 與 6.6 抗過旋滑牙 (0.15~0.17 N·m) 測試。',
     intendedClauses: ['6.4', '6.6'],
     isWorstCase: true,
     worstCaseReasonZh: '模擬臨床極端最劣配合配件（最小材料條件 LMC）。極窄的 2.71 mm 耳翼會產生高度集中的剪切力與徑向膨脹力，是驗證機械強度的最嚴苛考驗！',
     svgHighlights: [
-      { title: '耳翼寬度 (Tab Width)', value: '2.71 mm (縮窄 22%)' },
-      { title: '背側角度 (Flank Angle)', value: '30° (外撐力更大)' },
+      { title: '耳翼寬度 (Tab Width)', value: '2.71 mm (+0.025/0 mm)' },
+      { title: '背側角度 (Flank Angle)', value: '30° (0°/-2°)' },
+      { title: '基準外徑 (Outer Dia)', value: 'Ø7.73 mm (+0.005/0 mm)' },
       { title: '特徵結構', value: '僅 2 顆對稱耳翼 ("ears")' }
     ],
     svgKey: 'ISO7-FIG-C3'
@@ -305,13 +309,15 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
     name: 'Male Reference Luer Lock (Nominal)',
     gender: 'male',
     type: 'lock',
-    description: 'Male reference connector with nominal threads for female Luer lock testing.',
-    descriptionZh: '標準公魯爾鎖定金屬參考接頭 (Fig.C.4)，用於測試母魯爾鎖定產品（Female Lock）的 6.1/6.2 洩漏、6.3 應力龜裂與 6.5 抗旋鬆性能。',
+    description: 'Male reference connector with nominal collar internal threads for female Luer lock testing.',
+    descriptionZh: '標準公魯爾鎖定金屬參考接頭 (Fig.C.4)，具備雙線 2.5 mm 螺距之套環內螺紋，用於測試母魯爾鎖定產品（Female Lock）的 6.1/6.2 洩漏、6.3 應力龜裂與 6.5 抗旋鬆性能。(註：套環外徑不可用於防誤接檢驗)',
     intendedClauses: ['6.1', '6.2', '6.3', '6.5'],
     isWorstCase: false,
-    worstCaseReasonZh: '具備標準公螺紋，提供均勻穩定的旋合介面。',
+    worstCaseReasonZh: '具備標準公鎖定套環內螺紋，提供均勻穩定的旋合介面。',
     svgHighlights: [
-      { title: '外螺紋 (Thread)', value: '標稱全螺紋/雙線螺紋' },
+      { title: '套環內螺紋 (Thread)', value: '雙線右旋 Pitch 2.5 mm' },
+      { title: '螺牙槽底/牙頂 (Dia)', value: '槽底 Ø7.9 mm / 牙頂 Ø7.0 mm' },
+      { title: '第一牙距端面 (t)', value: '3.2 mm (0/-0.05 mm)' },
       { title: '適用受測物', value: '母魯爾鎖定 (Female Lock)' }
     ],
     svgKey: 'ISO7-FIG-C4'
@@ -323,13 +329,15 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
     name: 'Female Reference Luer Slip',
     gender: 'female',
     type: 'slip',
-    description: 'Female 6% taper reference connector for male Luer slip testing.',
-    descriptionZh: '母魯爾滑動式（Slip）參考接頭 (Fig.C.5)，專門用於測試公滑動接頭（Male Slip, L1）。',
+    description: 'Female 6% taper reference connector for male Luer slip testing and non-interconnectable characteristics.',
+    descriptionZh: '母魯爾滑動式（Slip）參考接頭 (Fig.C.5)，專門用於測試公滑動接頭（Male Slip, L1）。內孔深具雙重標準：性能測試 ≥ 7.5 mm，防相互誤接試驗 ≥ 10.5 mm。(註：套環外徑不可用於防誤接檢驗)',
     intendedClauses: ['6.1', '6.2', '6.3', '6.4'],
     isWorstCase: false,
     worstCaseReasonZh: '標準母錐面金屬接頭，無螺紋。',
     svgHighlights: [
-      { title: '錐度 (Taper)', value: '6% 內錐面' },
+      { title: '內錐孔深 (Depth)', value: '≥ 7.5 mm (性能) / ≥ 10.5 mm (防誤接)' },
+      { title: '入口基準直徑 (Dia)', value: 'Ø4.247 mm (+0.001/-0.004 mm)' },
+      { title: '圓錐度 (Taper)', value: '6% (1:16.667) 內錐面' },
       { title: '適用受測物', value: '公魯爾滑動 (Male Slip)' }
     ],
     svgKey: 'ISO7-FIG-C5'
@@ -341,13 +349,15 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
     name: 'Male Reference Luer Lock (Worst-Case)',
     gender: 'male',
     type: 'lock',
-    description: 'Male reference connector with worst-case thread profile for female mechanical testing.',
-    descriptionZh: '最壞情況公參考接頭 (Fig.C.6)，具備最大極限錐度與最薄螺牙特徵，用於測試母魯爾鎖定產品的 6.4 拉拔與 6.6 過旋性能。',
+    description: 'Male reference connector with worst-case internal thread profile (Ø8.0 mm root / Ø7.2 mm crest / 30° flank angle) for female mechanical testing.',
+    descriptionZh: '最壞情況公參考接頭 (Fig.C.6)，具備最大螺紋槽底大徑 (Ø8.0 mm)、最淺牙頂小徑 (Ø7.2 mm) 與 30° 陡峭牙面角，螺牙最薄最易滑脫。專用於考驗母鎖定接頭的 6.4 拉拔與 6.6 過旋滑牙性能。',
     intendedClauses: ['6.4', '6.6'],
     isWorstCase: true,
     worstCaseReasonZh: '專為考驗母接頭外側螺紋或耳翼強度設計的最壞幾何配合件。',
     svgHighlights: [
-      { title: '螺紋特徵', value: '最壞情況極限牙型' },
+      { title: '螺牙槽底大徑 (Major)', value: 'Ø8.0 ±0.025 mm (比 C.4 大)' },
+      { title: '螺牙牙頂小徑 (Minor)', value: 'Ø7.2 mm (0/-0.005 mm，極薄牙)' },
+      { title: '螺牙面角 (Flank Angle)', value: '30° (0°/-5°，比 C.4 陡峭)' },
       { title: '適用受測物', value: '母魯爾鎖定 (Female Lock)' }
     ],
     svgKey: 'ISO7-FIG-C6'

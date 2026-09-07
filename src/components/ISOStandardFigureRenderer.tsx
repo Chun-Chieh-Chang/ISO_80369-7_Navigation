@@ -87,6 +87,12 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
     const cleanBase = baseUrl.endsWith('/') ? baseUrl : baseUrl + '/';
     
     switch (key) {
+      case 'ISO7-FIG-B1':
+      case 'ISO7-FIG-SML':
+        return `${cleanBase}assets/blueprint/page_1.png`;
+      case 'ISO7-FIG-B2':
+      case 'ISO7-FIG-B1-B2':
+        return `${cleanBase}assets/blueprint/page_2.png`;
       case 'ISO7-FIG-B3':
         return `${cleanBase}assets/blueprint/page_3.png`;
       case 'ISO7-FIG-B4':
@@ -107,6 +113,15 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
         return `${cleanBase}assets/blueprint/page_9.png`;
       case 'ISO7-FIG-C2':
         return `${cleanBase}assets/blueprint/page_10.png`;
+      case 'ISO7-FIG-C3':
+      case 'ISO7-FIG-C1-C3':
+        return `${cleanBase}assets/blueprint/page_11.png`;
+      case 'ISO7-FIG-C4':
+        return `${cleanBase}assets/blueprint/page_12.png`;
+      case 'ISO7-FIG-C5':
+        return `${cleanBase}assets/blueprint/page_13.png`;
+      case 'ISO7-FIG-C6':
+        return `${cleanBase}assets/blueprint/page_14.png`;
       default:
         return null;
     }
