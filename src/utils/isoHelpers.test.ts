@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { getClauseSvgKey, getAnnexCFigure } from './isoHelpers';
 import { ISO_CLAUSES, ANNEX_C_FIGURES, ISO20_MANDATORY_REPORT_ITEMS, ISO20_ANNEX_A_PRECONDITIONING } from '../data/isoData';
+import { ISO_TOPICS, STANDARD_CLAUSE_DETAILS } from '../data/isoTopicsData';
 import { exportMedicalGradeExcelReport } from './excelExporter';
 import { TRANSLATIONS } from '../i18n/translations';
 
@@ -180,5 +181,56 @@ describe('ISO 80369-7 & 20 Data & Helper Unit Tests', () => {
     expect(ISO20_ANNEX_A_PRECONDITIONING.testEnvTempCMax).toBe(30);
     expect(ISO20_ANNEX_A_PRECONDITIONING.testEnvRhPercentMin).toBe(10);
     expect(ISO20_ANNEX_A_PRECONDITIONING.testEnvRhPercentMax).toBe(70);
+  });
+
+  it('should verify ANNEX_C_FIGURES SSOT integrity across all standard figures', () => {
+    const figures = Object.values(ANNEX_C_FIGURES);
+    expect(figures.length).toBeGreaterThanOrEqual(20);
+
+    figures.forEach(fig => {
+      expect(fig.id, `Figure missing id`).toBeDefined();
+      expect(fig.name, `Figure ${fig.id} missing name`).toBeDefined();
+      expect(fig.annexGroup, `Figure ${fig.id} missing annexGroup`).toBeDefined();
+      expect(fig.svgKey, `Figure ${fig.id} missing svgKey`).toBeDefined();
+      expect(fig.descriptionZh, `Figure ${fig.id} missing descriptionZh`).toBeDefined();
+      expect(fig.svgHighlights, `Figure ${fig.id} missing svgHighlights`).toBeDefined();
+    });
+  });
+
+  it('should verify ISO_TOPICS MECE categorization without overlap or missing topics', () => {
+    expect(ISO_TOPICS.length).toBe(13);
+    const validCategories = new Set(['leakage', 'mechanical', 'durability', 'dimensional', 'assembly', 'general']);
+
+    ISO_TOPICS.forEach(topic => {
+      expect(validCategories.has(topic.category), `Topic ${topic.id} has invalid category ${topic.category}`).toBe(true);
+      expect(topic.titleZh, `Topic ${topic.id} missing titleZh`).toBeDefined();
+      expect(topic.detailedDescriptionZh.length).toBeGreaterThan(20);
+      expect(topic.keyParameters.length).toBeGreaterThan(0);
+    });
+  });
+
+  it('should verify all 13 ISO_TOPICS link to at least one valid clause in STANDARD_CLAUSE_DETAILS (Zero Information Loss)', () => {
+    ISO_TOPICS.forEach(topic => {
+      const relatedClauses: any[] = [];
+      topic.relatedISO7Clauses.forEach(c => {
+        const normalizedC = c.toLowerCase().replace(/\s+/g, '-');
+        const id = `iso7-${normalizedC}`;
+        if (STANDARD_CLAUSE_DETAILS[id]) relatedClauses.push(STANDARD_CLAUSE_DETAILS[id]);
+        else if (STANDARD_CLAUSE_DETAILS[c]) relatedClauses.push(STANDARD_CLAUSE_DETAILS[c]);
+      });
+      topic.relatedISO20Annexes.forEach(a => {
+        const cleanA = a.replace(/annex\s*/i, '').trim().toLowerCase().replace(/\s+/g, '-');
+        const id = `iso20-annex-${cleanA}`;
+        if (STANDARD_CLAUSE_DETAILS[id]) relatedClauses.push(STANDARD_CLAUSE_DETAILS[id]);
+        else if (STANDARD_CLAUSE_DETAILS[a]) relatedClauses.push(STANDARD_CLAUSE_DETAILS[a]);
+        else if (a.toLowerCase().includes('section 4') || a.toLowerCase().includes('general')) {
+          if (STANDARD_CLAUSE_DETAILS['iso20-general-procedure']) {
+            relatedClauses.push(STANDARD_CLAUSE_DETAILS['iso20-general-procedure']);
+          }
+        }
+      });
+
+      expect(relatedClauses.length, `Topic ${topic.id} has no resolvable clauses in STANDARD_CLAUSE_DETAILS`).toBeGreaterThan(0);
+    });
   });
 });

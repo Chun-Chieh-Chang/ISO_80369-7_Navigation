@@ -214,6 +214,7 @@ export interface StandardClauseDetail {
   commonNonConformancesEn?: string[];
   regulatoryTipZh: string;
   regulatoryTipEn?: string;
+  figureKey?: string;
 }
 
 export interface StandardMappingNode {

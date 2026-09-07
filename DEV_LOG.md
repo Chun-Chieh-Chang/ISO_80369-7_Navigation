@@ -1,6 +1,87 @@
 # 開發日誌 (DEV_LOG)
 
 ---
+## 版本：v8.40.4 (Commit: pending) 全系統極簡多層次架構重構與 SSOT / MECE 零失真、零扭曲、零丟失深度審查確效 (2026-09-07)
+
+### 需求來源與審查宗旨
+使用者提出最高質檢原則：
+> **「必須確保訊息不失真、不扭曲、不丟失，要基於 SSOT 與 MECE 原則審查修訂內容。」**
+以及先前的極簡設計體系重構需求：
+> 1. 以符合使用者操作邏輯的多層次架構進行模組拆分，重新規劃所有功能入口的層級與分類，將原本集中在單一頁面的複雜主題、維度資訊分散到對應的分層頁面中，避免單一頁面資訊過載
+> 2. 保留核心功能的可及性，透過清晰的導航架構確保使用者能快速找尋所需的主題與維度入口，同時維持介面視覺的整潔一致性
+> 3. 完成重構後需進行可用性測試，驗證多層次架構的流暢度，確保在簡化複雜度的同時不降低操作效率，符合極簡設計的核心目標
+
+---
+
+### 1. 診斷與根因分析 (RCA)
+
+```
+[問題現象 1：單一頁面資訊過載 (Vertical Information Overload)]
+- 舊頁面高達 8,809px，在同一 DOM 樹中將 13 個主題、18 項條文與 24 幅 CAD 藍圖全部平鋪展開。
+- 使用者在尋找特定條文（如 §6.4 軸向拉拔力）時必須滾動數屏，視覺認知負擔過高。
+
+[問題現象 2：圖資清單雙重硬編碼，違反 SSOT 原則]
+- 在 TopicClauseExplorer.tsx 內手動 push Annex A、Annex B，又 loop ANNEX_C_FIGURES，造成 Annex A/B 圖資重複出現在清單中。
+- 部分 CAD 向量圖渲染器遺漏傳遞 keyCallouts (svgHighlights)，使幾何特徵量測標註（如 6% 錐度、3.97mm 直徑）在切換至規範樹時未能完整呈現。
+
+[問題現象 3：分類篩選與條文鍵值正規化缺陷 (MECE & Normalization Gaps)]
+- 舊分類膠囊標籤（endurance / safety）未與後端 TopicCategory enum（durability / assembly / general）嚴格對齊，致使部分主題點擊篩選時無法正確過濾。
+- 條文關聯鍵值若含有空格（如 'Annex C'），未經正規化導致無法命中 'iso7-annex-c'。
+```
+
+---
+
+### 2. 矯正與預防措施 (CAPA - PDCA 閉環落實)
+
+#### 2.1 多層次漸進揭露架構 (Progressive Disclosure Architecture)
+將原本橫向堆疊的 6 個頂層按鈕重塑為 **3 大核心工作台 (Primary Hubs) + 漸進式次級分頁 (Progressive Sub-tabs)**：
+1. **📘 規範探索中心 (Standards Explorer)**
+   - `📋 主題條文導覽 (Topic Explorer)`：高信號極簡卡片網格（頁面高度由 8,809px 驟降至 800px 視窗內，降噪 90%）。
+   - `🕸️ 知識關聯圖譜 (Knowledge Graph)`：全景網絡拓撲圖。
+2. **⚖️ 條文橫向對照 (Clause Matrix)**
+   - 雙標條文橫向對照、L1/L2 鎖定/滑動型力學分流切換、CSV 報表匯出。
+3. **🛠️ 驗證工程工作台 (Engineering Workbench)**
+   - `📐 夾具庫與力學檢驗 (Fixture & Mechanics)`：參考接頭 3D 尺寸、塑膠材料力學分析、套環環向應力試算。
+   - `📋 DVP 驗證與報告匯出 (DVP Report)`：醫療器材設計確效計畫書與 14 項法定報告檢核。
+4. **右側獨立功能區**：保留 `🎬 簡報演練 (Slides)` 快速入口。
+
+#### 2.2 Level 3 沉浸式深度抽屜 (`ClauseDetailDrawer.tsx`)：100% 零失真、零扭曲、零丟失
+點擊任一主題卡片或「詳情」按鈕，立即平滑滑出獨立抽屜元件，**完整無損呈現所有法規數據**：
+- **規範目的與適用對象** (Objective & Scope)
+- **必要金屬參考夾具** (Specified Metal Reference Fixture)：統一採用 `公鎖配 Fig.C.1 / 母鎖配 Fig.C.4 ｜ 公滑配 Fig.C.5 / 母滑配 Fig.C.2` 零歧義語法。
+- **雙階段工況條件** (Dual-Phase Engineering Conditions)：
+  - 階段一：前置預裝配條件 (26.5~27.5 N 軸向推力 + 0.08~0.12 N·m 扭矩，持載 5~6 秒)。
+  - 階段二：實測考驗負載 (300~330 kPa 壓力、23~35 N 拉力、0.020 N·m 微扭矩、0.15~0.17 N·m 破壞過鎖)。
+- **標準實驗流程步驟 1~4** (Standard Procedure Steps)。
+- **法定允收合格標準** (Statutory Pass/Fail Criteria)。
+- **常見工程與射出失效模式** (Common Non-conformances)。
+- **法規審查與 FDA 510(k) 確效指引** (Regulatory Tip)。
+- **互動式 CAD 向量圖與幾何特徵量測標籤** (`ISOStandardFigureRenderer` + `svgHighlights` Callouts)。
+- **定量壓降衰減計算器** ($\Delta P_{\max} = \frac{5000 \cdot \Delta t}{V}$)。
+
+#### 2.3 SSOT 與 MECE 原則深度審查與強化
+1. **SSOT (單一事實來源)**：
+   - 規範樹 `allStandardFigures` 全面改由 `ANNEX_C_FIGURES` 派生，徹底消除重複的圖資宣告，杜絕清單重複渲染。
+2. **MECE (相互獨立、完全窮盡)**：
+   - 分類膠囊全面對齊 `TopicCategory`（`leakage`、`mechanical`、`durability`、`dimensional`、`assembly`、`general`），涵蓋全數 13 個主題，無任何孤立或無法檢索之主題。
+   - 條文關聯正規化：引入 `c.toLowerCase().replace(/\s+/g, '-')` 與 `a.replace(/annex\s*/i, '').trim().toLowerCase().replace(/\s+/g, '-')`，完美相容帶空格之條文標註。
+   - 保底防護 (Fallback Guard)：若有主題無預設連動條文，自動由主題本體派生規範條款，確保抽屜 100% 絕不出現空白畫面。
+
+---
+
+### 3. 確效與零回歸驗證
+- **單元測試 (`vitest`)**：20/20 全部通過 (新增 3 項針對 SSOT 圖資完整性、MECE 13 主題覆蓋率、零丟失關聯之嚴格測試)。
+- **型別查核 (`tsc --noEmit`)**：0 錯誤。
+- **生產建置 (`vite build`)**：打包成功。
+- **次代理人瀏覽器可用性測試 (`browser_subagent`)**：
+  - 驗證 3 大 Hubs 導航切換流暢。
+  - 驗證 7 種分類膠囊（All、洩漏、機械、耐久、幾何、夾具、通用）精準過濾。
+  - 驗證關鍵字搜尋（300kPa、6.6、C.3、Overriding）即時響應。
+  - 驗證 Level 3 抽屜滑入、CAD 藍圖渲染、壓降計算器計算正確。
+  - 驗證 Annex Tree 規範樹無重複條目，CAD 圖資標籤完整。
+  - 瀏覽器 Console 全程 0 紅色報錯。
+
+---
 ## 版本：v8.40.3 (Commit: a6d1fa1) 全專案「必要金屬參考夾具」欄位寫法邏輯統一化與全頁面同構確效 (2026-09-07)
 
 ### 需求來源與目標

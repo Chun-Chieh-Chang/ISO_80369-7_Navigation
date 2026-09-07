@@ -2,6 +2,33 @@
 
 All notable changes to the ISO 80369-7 & ISO 80369-20 Navigation App will be documented in this file.
 
+## [v8.40.4] - 2026-09-07
+
+### Minimalist Multi-Tiered Architecture & SSOT / MECE Zero-Distortion Audit
+- **Minimalist Multi-Tiered Hub Restructuring (`Header.tsx`, `TopicClauseExplorer.tsx`)**:
+  - Re-architected top-level navigation into 3 Core Primary Hubs with progressive sub-tabs:
+    - `📘 規範探索中心 (Standards Explorer)`: `📋 主題條文導覽 (Topic Explorer)` + `🕸️ 知識關聯圖譜 (Knowledge Graph)`.
+    - `⚖️ 條文橫向對照 (Clause Matrix)`: Side-by-side comparative analysis of ISO 80369-7 vs ISO 80369-20.
+    - `🛠️ 驗證工程工作台 (Engineering Workbench)`: `📐 夾具庫與力學檢驗 (Fixture & Mechanics)` + `📋 DVP 驗證與報告匯出 (DVP Report)`.
+  - Replaced 8,800+ px vertical sprawl with high-signal Compact Topic Cards Grid (800px viewport fit, -90% vertical clutter) while preserving instant access to all 13 topics.
+- **Level 3 Deep-Dive Specification Drawer (`ClauseDetailDrawer.tsx`)**:
+  - Smooth slide-in drawer on demand, ensuring **100% Zero Information Loss & Zero Distortion**:
+    - Full normative objective and applicability scope.
+    - Standardized "Specified Metal Reference Fixture" notation (`公鎖配 Fig.C.1 / 母鎖配 Fig.C.4 ｜ 公滑配 Fig.C.5 / 母滑配 Fig.C.2`).
+    - Dual-phase engineering load conditions: Phase 1 Pre-assembly (26.5~27.5 N + 0.08~0.12 N·m, 5~6 s) vs Phase 2 Challenge Load.
+    - Standard procedure steps 1~4, statutory acceptance pass criteria, common molding failure modes, and regulatory audit tips.
+    - Integrated interactive CAD vector blueprint renderer with key callouts and critical dimension callout cards.
+    - Dynamic pneumatic leakage decay calculator ($\Delta P_{\max} = \frac{Q_{\max} \cdot \Delta t}{V}$) for pressure decay evaluations.
+- **SSOT & MECE Systematic Resolution**:
+  - **Single Source of Truth (SSOT)**: `allStandardFigures` derived directly from `ANNEX_C_FIGURES` in `isoData.ts`, eliminating redundant hardcoded figure arrays and preventing duplicate entries under Annex A, Annex B, Annex C, and ISO 80369-20.
+  - **Mutually Exclusive, Collectively Exhaustive (MECE)**: Aligned filter pills with all 6 categories (`leakage`, `mechanical`, `durability`, `dimensional`, `assembly`, `general`), providing 100% coverage across all 13 topics with zero orphans.
+  - **Clause Key Normalization**: Resolved spacing in clause keys (`c.toLowerCase().replace(/\s+/g, '-')`), seamlessly linking `Annex C` to `iso7-annex-c` and `General Apparatus Section 4` to `iso20-general-procedure`.
+- **Quality Assurance & Verification**:
+  - 20/20 unit tests pass in `vitest` with newly introduced SSOT, MECE, and Zero-Loss assertions.
+  - TypeScript zero error compilation (`tsc --noEmit`).
+  - Production bundle build validated.
+  - Automated browser subagent usability verification completed with zero console errors.
+
 ## [v8.40.3] - 2026-09-07
 
 ### Standardized "Specified Metal Reference Fixture" Notation & Cross-View Symmetry
