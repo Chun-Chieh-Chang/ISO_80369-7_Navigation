@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ISOTopic, StandardClauseDetail } from '../types';
 import { ISOStandardFigureRenderer } from './ISOStandardFigureRenderer';
 import { useLanguage } from '../i18n/LanguageContext';
@@ -43,14 +43,20 @@ export const ClauseDetailDrawer: React.FC<ClauseDetailDrawerProps> = ({
   const { language, t } = useLanguage();
   const isEn = language === 'en';
   const [copied, setCopied] = useState(false);
+  const [selectedFigureKey, setSelectedFigureKey] = useState<string | null>(null);
 
   // Pressure Decay Calculator State
   const [calcVolume, setCalcVolume] = useState<number>(8.5);
   const [calcTime, setCalcTime] = useState<number>(20);
 
+  useEffect(() => {
+    setSelectedFigureKey(null);
+  }, [activeClauseId, topic?.id]);
+
   if (!isOpen || !topic) return null;
 
   const activeClause = relatedClauses.find(c => c.id === activeClauseId) || relatedClauses[0];
+  const effectiveFigureKey = selectedFigureKey || activeClause?.figureKey || topic?.figures?.[0]?.svgKey;
 
   const handleCopy = () => {
     if (!activeClause) return;
@@ -409,24 +415,48 @@ ${isEn ? 'Acceptance Criteria' : '法定允收標準'}: ${getClauseAcceptanceCri
                 </div>
               )}
 
-              {/* Embedded ISO Figure Renderer (If figure available for this clause) */}
-              {activeClause.figureKey && (() => {
-                const figInfo = getAnnexCFigure(activeClause.figureKey);
+              {/* Embedded ISO Figure Renderer (If figure available for this clause or topic) */}
+              {effectiveFigureKey && (() => {
+                const figInfo = getAnnexCFigure(effectiveFigureKey);
+                const topicFig = topic.figures?.find(f => f.svgKey === effectiveFigureKey || f.id === effectiveFigureKey);
                 return (
                   <div className="pt-2 space-y-3">
-                    <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block">
-                      {isEn ? 'Standard Apparatus CAD Blueprint & Vector Render:' : '規範實驗裝置與 CAD 向量圖解:'}
-                    </span>
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                      <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block">
+                        {isEn ? 'Standard Apparatus CAD Blueprint & Testing Curve:' : '規範實驗裝置、CAD 藍圖與測試動態曲線:'}
+                      </span>
+                      {topic.figures && topic.figures.length > 1 && (
+                        <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+                          {topic.figures.map(fig => {
+                            const isFigActive = effectiveFigureKey === fig.svgKey || effectiveFigureKey === fig.id;
+                            return (
+                              <button
+                                key={fig.id}
+                                onClick={() => setSelectedFigureKey(fig.svgKey)}
+                                className={`px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center space-x-1 shrink-0 cursor-pointer ${
+                                  isFigActive
+                                    ? 'bg-blue-600 text-white shadow-xs'
+                                    : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200'
+                                }`}
+                              >
+                                <span>{fig.svgKey === 'ISO20-FIG-B2' ? '📈' : '📐'}</span>
+                                <span className="font-mono">{fig.id}</span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
                     <div className="bg-slate-50 p-3 rounded-2xl border border-slate-200 flex justify-center">
                       <ISOStandardFigureRenderer
-                        svgKey={activeClause.figureKey}
-                        titleZh={figInfo?.nameZh || getClauseTitle(activeClause, false)}
-                        titleEn={figInfo?.name || getClauseTitle(activeClause, true)}
-                        standard={figInfo?.standardOwner || activeClause.standard}
-                        figureTypeZh={figInfo?.annexGroup || "規範裝置 CAD 圖解"}
-                        descriptionZh={figInfo?.descriptionZh || getClauseObjective(activeClause, false)}
-                        descriptionEn={figInfo?.description || getClauseObjective(activeClause, true)}
-                        keyCallouts={figInfo?.svgHighlights}
+                        svgKey={effectiveFigureKey}
+                        titleZh={figInfo?.nameZh || topicFig?.titleZh || getClauseTitle(activeClause, false)}
+                        titleEn={figInfo?.name || topicFig?.titleEn || getClauseTitle(activeClause, true)}
+                        standard={figInfo?.standardOwner || topicFig?.standard || activeClause.standard}
+                        figureTypeZh={figInfo?.annexGroup || topicFig?.figureTypeZh || "規範圖解"}
+                        descriptionZh={figInfo?.descriptionZh || topicFig?.descriptionZh || getClauseObjective(activeClause, false)}
+                        descriptionEn={figInfo?.description || topicFig?.descriptionEn || getClauseObjective(activeClause, true)}
+                        keyCallouts={figInfo?.svgHighlights || topicFig?.keyCallouts}
                       />
                     </div>
 

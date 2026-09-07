@@ -982,7 +982,8 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       '塑膠模具分模線毛邊（Parting Line Flash）導致錐面環狀密封點被切斷。',
       '射出成型保壓不足造成 6% 錐度縮水變形（Ovality/Sink marks）。'
     ],
-    regulatoryTipZh: 'FDA 510(k) 審查重點：須明確列出預裝配扭矩（0.08-0.12 N·m）與測試壓力數據，且測試樣本數一般要求 n ≥ 30。'
+    regulatoryTipZh: 'FDA 510(k) 審查重點：須明確列出預裝配扭矩（0.08-0.12 N·m）與測試壓力數據，且測試樣本數一般要求 n ≥ 30。',
+    figureKey: 'ISO20-FIG-B2'
   },
   'iso20-annex-b': {
     id: 'iso20-annex-b',
@@ -1015,7 +1016,8 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       '測試系統內部氣體熱脹冷縮造成假性壓力上升或驟降。',
       '自動化測試機台閥門微洩漏干擾數據。'
     ],
-    regulatoryTipZh: 'ISO 80369-20:2024 版已將「壓力衰減 ΔP」直接作為合格判定基準，取代舊版繁瑣的公式換算。'
+    regulatoryTipZh: 'ISO 80369-20:2024 版已將「壓力衰減 ΔP」直接作為合格判定基準，取代舊版繁瑣的公式換算。',
+    figureKey: 'ISO20-FIG-B2'
   },
   'iso20-annex-c': {
     id: 'iso20-annex-c',

@@ -1,7 +1,50 @@
 # 開發日誌 (DEV_LOG)
 
 ---
-## 版本：v8.40.4 (Commit: pending) 全系統極簡多層次架構重構與 SSOT / MECE 零失真、零扭曲、零丟失深度審查確效 (2026-09-07)
+## 版本：v8.40.5 (Commit: pending) 壓降測試曲線圖高保真確效 — ISO20-FIG-B2 四階段時序解構與雙模切換 (2026-09-07)
+
+### 需求來源與目標
+使用者提出高保真要求：
+> **「壓降測試曲線圖很重要，須確保訊息不會丟失，而且高保真」**
+
+### 1. 診斷與根因分析 (RCA)
+
+```
+[問題現象：ISO20-FIG-B2 僅有靜態圖無法充分傳達時序量測邏輯]
+- 原本 ISO20-FIG-B2 僅連結至靜態圖檔，缺乏對 4 個獨立測試階段的明確時序解構。
+- 使用者無法從單一曲線圖直接辨識「充氣 → 穩定 → 測試 → 排氣」各階段的時間窗與物理意義。
+- 壓降測試的合格判據 Qmax ≤ 0.005 Pa·m³/s 與目標壓力 300~330 kPa 散落在文字描述中，欠缺視覺化整合。
+```
+
+### 2. 矯正與預防措施 (CAPA)
+
+#### 2.1 雙模圖像切換 (Dual-Mode Image Toggling)
+- **Official Blueprint 模式**：對應 `pressure_decay_explanation.png`（5.88 MB 高解析官方解說圖）。
+- **Testing Curve 模式**：對應 `iso20_pressure_decay_four_stages.png`（1.62 MB 4 階段曲線圖）。
+- `ISOStandardFigureRenderer.tsx` 透過 `displayMode` state 管理切換，並以 `useEffect` 實現 svgKey 變更時的自動 fallback 保護。
+
+#### 2.2 四階段時序卡片 (High-Fidelity 4-Stage Timeline Panel)
+
+| 階段 | 時間窗 | 物理機制 | 對應條文 |
+| :--- | :--- | :--- | :--- |
+| **1. 充氣 Fill** | 0 ~ 5 s | 氣源快速充氣至 300~330 kPa 目標壓力視窗，建立基礎測試應力 | Annex B.4 c |
+| **2. 穩定 Stabilize** | 5 ~ 15 s | 關閉截止閥 S1，靜置 ~10 s 消除絕熱壓縮熱效應與高分子錐面微蠕變應力 | Annex B.4 c-d |
+| **3. 測試 Test** | 15 ~ 35 s | 高精度感測器 (±0.3%) 持壓 15~20 s 連續記錄 ΔP，判定合格性 | Annex B.4 d/e |
+| **4. 排氣 Exhaust** | 35 s+ | 開啟排氣閥安全釋放管路壓縮氣體，卸除受測接頭，完成單次循環 | — |
+
+**法定判定指標**（嵌入面板頂端）：`Qmax ≤ 0.005 Pa·m³/s ｜ Target: 300~330 kPa`
+
+#### 2.3 技術精準性防禦
+- 嚴格區分「前置預裝配持載 5~6 秒」(ISO 80369-20 附錄 D/F/G/H) 與「測試持壓 15~20 秒」(Annex B.4 d)，兩者絕不混淆。
+- 按照 AGENTS.md 規定，`Crack Closure Effect`：負壓無法測出環向拉伸應力龜裂漏氣，因此標準唯一指定正壓 300~330 kPa（§6.3 應力龜裂）。
+
+### 3. 確效
+- 兩個圖檔均確認存在：`pressure_decay_explanation.png` (5.88 MB) 與 `iso20_pressure_decay_four_stages.png` (1.62 MB)。
+- 代碼靜態審查：雙模切換邏輯、4 階段時序卡片、全螢幕 Zoom Modal 均確認實裝完整。
+- 待瀏覽器配額恢復後執行最終視覺截圖確認。
+
+---
+## 版本：v8.40.4 (Commit: a93a922) 全系統極簡多層次架構重構與 SSOT / MECE 零失真、零扭曲、零丟失深度審查確效 (2026-09-07)
 
 ### 需求來源與審查宗旨
 使用者提出最高質檢原則：

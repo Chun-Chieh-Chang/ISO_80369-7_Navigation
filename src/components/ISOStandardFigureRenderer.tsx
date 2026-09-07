@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Zap, Info, Maximize2, ShieldAlert, CheckCircle2, Sliders, Droplets, Wind, 
   RotateCw, ArrowDownUp, Ruler, Sparkles, Eye, RefreshCw, Tag, HelpCircle, X, Activity, FileText
@@ -122,6 +122,8 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
         return `${cleanBase}assets/blueprint/page_13.png`;
       case 'ISO7-FIG-C6':
         return `${cleanBase}assets/blueprint/page_14.png`;
+      case 'ISO20-FIG-B2':
+        return `${cleanBase}assets/diagrams/pressure_decay_explanation.png`;
       default:
         return null;
     }
@@ -135,7 +137,7 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
       case 'ISO20-FIG-B1':
         return `${cleanBase}assets/testing_blueprint/test_page_4.png`;
       case 'ISO20-FIG-B2':
-        return `${cleanBase}assets/diagrams/pressure_decay_explanation.png`;
+        return `${cleanBase}assets/diagrams/iso20_pressure_decay_four_stages.png`;
       case 'ISO20-FIG-C1':
         return `${cleanBase}assets/testing_blueprint/test_page_5.png`;
       case 'ISO20-FIG-D1':
@@ -163,6 +165,14 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
     if (currentTestingBlueprintPath) return 'testing_blueprint';
     return 'official_blueprint';
   });
+
+  useEffect(() => {
+    if (displayMode === 'official_blueprint' && !currentBlueprintPath && currentTestingBlueprintPath) {
+      setDisplayMode('testing_blueprint');
+    } else if (displayMode === 'testing_blueprint' && !currentTestingBlueprintPath && currentBlueprintPath) {
+      setDisplayMode('official_blueprint');
+    }
+  }, [effectiveSvgKey, currentBlueprintPath, currentTestingBlueprintPath, displayMode]);
 
   const [showZoomModal, setShowZoomModal] = useState(false);
   const [zoomImageSrc, setZoomImageSrc] = useState<string>('');
@@ -234,7 +244,9 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
             >
               <Ruler className="w-3.5 h-3.5" />
               <span>
-                {isEn ? 'ISO 80369-7 Blueprint' : 'ISO 80369-7 幾何尺寸藍圖'} {!currentBlueprintPath && (isEn ? '(N/A)' : '(無圖面)')}
+                {effectiveSvgKey === 'ISO20-FIG-B2'
+                  ? (isEn ? 'Detailed Breakdown (4K)' : '壓降測試完整解析圖 (4K 高保真)')
+                  : (isEn ? 'ISO 80369-7 Blueprint' : 'ISO 80369-7 幾何尺寸藍圖')} {!currentBlueprintPath && (isEn ? '(N/A)' : '(無圖面)')}
               </span>
             </button>
             <button
@@ -243,7 +255,7 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
               title={
                 currentTestingBlueprintPath 
                   ? (effectiveSvgKey === 'ISO20-FIG-B2' 
-                      ? (isEn ? "View pressure decay curve diagram" : "檢視壓降測試曲線圖") 
+                      ? (isEn ? "View 4-stage dynamic pressure decay curve" : "檢視四階段壓力-時間動態曲線圖") 
                       : (isEn ? "View ISO 80369-20 Test Setup Blueprint" : "檢視 ISO 80369-20 實驗架設藍圖"))
                   : (isEn ? "Textual or general clause; no dedicated testing setup blueprint" : "本條文屬於文字規範或一般說明，無專屬圖面")
               }
@@ -258,7 +270,7 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
               <Activity className="w-3.5 h-3.5" />
               <span>
                 {effectiveSvgKey === 'ISO20-FIG-B2' 
-                  ? (isEn ? 'Pressure Decay Curve' : '壓降測試曲線圖') 
+                  ? (isEn ? '4-Stage Dynamic Curve' : '四階段動態曲線圖') 
                   : (isEn ? 'ISO 80369-20 Setup Blueprint' : 'ISO 80369-20 實驗架設藍圖')} {!currentTestingBlueprintPath && (isEn ? '(N/A)' : '(無圖面)')}
               </span>
             </button>
@@ -425,6 +437,80 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
             <p className="text-slate-700 leading-relaxed text-[13px]">
               {isEn ? (selectionReasonEn || selectionReasonZh) : selectionReasonZh}
             </p>
+          </div>
+        )}
+
+        {/* Specific High-Fidelity Timeline for Pressure Decay Testing (ISO20-FIG-B2) */}
+        {effectiveSvgKey === 'ISO20-FIG-B2' && (
+          <div className="mt-4 w-full bg-slate-900 text-white p-4 rounded-2xl border border-blue-500/40 shadow-xl space-y-3">
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-700/80 pb-2.5">
+              <div className="flex items-center space-x-2">
+                <span className="px-2 py-0.5 rounded bg-blue-600 text-white font-mono font-bold text-[11px]">
+                  ISO 80369-20:2024 §Annex B.4
+                </span>
+                <h4 className="text-xs font-bold text-blue-200 flex items-center gap-1.5">
+                  <Activity className="w-4 h-4 text-blue-400" />
+                  {isEn ? 'Deconstructed 4-Stage Pressure Decay Cycle' : '氣壓衰減測試完整四階段時序解構'}
+                </h4>
+              </div>
+              <span className="text-[11px] font-mono text-emerald-400 font-bold">
+                Q<sub>max</sub> ≤ 0.005 Pa·m³/s ｜ Target: 300~330 kPa
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 text-xs font-sans">
+              {/* Stage 1 */}
+              <div className="bg-slate-800/80 p-3 rounded-xl border border-blue-500/30 space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-blue-300">1. 充氣 (Fill)</span>
+                  <span className="font-mono text-[11px] text-blue-400 font-bold">0 ~ 5 s</span>
+                </div>
+                <p className="text-[11px] text-slate-300 leading-relaxed">
+                  {isEn 
+                    ? 'Connect pressure source and rapid-fill test circuit to 300~330 kPa target window (Annex B.4 c).' 
+                    : '氣源快速充氣至 300~330 kPa 目標壓力視窗，建立基礎測試應力 (對應 Annex B.4 c)。'}
+                </p>
+              </div>
+
+              {/* Stage 2 */}
+              <div className="bg-slate-800/80 p-3 rounded-xl border border-amber-500/30 space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-amber-300">2. 穩定 (Stabilize)</span>
+                  <span className="font-mono text-[11px] text-amber-400 font-bold">5 ~ 15 s</span>
+                </div>
+                <p className="text-[11px] text-slate-300 leading-relaxed">
+                  {isEn 
+                    ? 'Isolate pressure source. Wait ~10s for adiabatic thermal equilibrium and polymer viscoelastic creep relaxation.' 
+                    : '關閉截止閥 S1。靜置約 10 秒隔離絕熱壓縮熱效應，並待高分子錐面初生微蠕變應力平緩。'}
+                </p>
+              </div>
+
+              {/* Stage 3 */}
+              <div className="bg-slate-800/80 p-3 rounded-xl border border-emerald-500/30 space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-emerald-300">3. 測試 (Test)</span>
+                  <span className="font-mono text-[11px] text-emerald-400 font-bold">15 ~ 35 s</span>
+                </div>
+                <p className="text-[11px] text-slate-300 leading-relaxed">
+                  {isEn 
+                    ? 'Precision differential sensor (±0.3%) records ΔP over 15~20s hold period. Pass if leak decay rate ≤ 0.005 Pa·m³/s.' 
+                    : '持壓 15~20 秒，高精度感測器 (±0.3%) 連續記錄壓降 ΔP (對應 Annex B.4 d/e)，判定合格性。'}
+                </p>
+              </div>
+
+              {/* Stage 4 */}
+              <div className="bg-slate-800/80 p-3 rounded-xl border border-purple-500/30 space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-purple-300">4. 排氣 (Exhaust)</span>
+                  <span className="font-mono text-[11px] text-purple-400 font-bold">35 s+</span>
+                </div>
+                <p className="text-[11px] text-slate-300 leading-relaxed">
+                  {isEn 
+                    ? 'Open exhaust valve, vent pressurized air safely, and prepare system for next specimen cycle.' 
+                    : '開啟排氣閥安全釋放管路內部壓縮氣體，卸除受測接頭，完成單次循環測試。'}
+                </p>
+              </div>
+            </div>
           </div>
         )}
 
