@@ -2,6 +2,26 @@
 
 All notable changes to the ISO 80369-7 & ISO 80369-20 Navigation App will be documented in this file.
 
+## [v8.40.1] - 2026-09-07
+
+### SSOT Alignment: Restore Fig. C.6 Worst-Case Fixture in Clause 6.6 Comparison Matrix
+- **Root Cause (RCA)**:
+  - In the "ISO 80369-7 vs ISO 80369-20 Comparison Matrix" (`ClauseComparisonMatrix.tsx`), the fixture column for Clause 6.6 was sourced directly from `STANDARD_CLAUSE_DETAILS['iso7-6.6'].fixtureRequiredZh`, which only specified `Fig.C.3 母參考接頭（2.71 mm 窄耳翼最壞情況夾具）`.
+  - Under ISO 80369-7:2021 Clause 6.6, overriding resistance applies to both male and female Luer lock connectors:
+    - Male lock DUT pairs with Fig. C.3 (female reference connector with 2.71 mm worst-case narrow lugs).
+    - Female lock DUT pairs with Fig. C.6 (male reference connector with worst-case internal thread).
+  - Consequently, the UI table omitted Fig. C.6, leading to incomplete regulatory test guidance for female Luer lock components.
+- **Corrective & Preventive Action (CAPA)**:
+  - **Single Source of Truth (`src/data/isoTopicsData.ts`)**:
+    - Updated `iso7-6.6` and `iso20-annex-h` `fixtureRequiredZh` to explicitly state: `Fig.C.3 母參考接頭（公件受測：2.71 mm 窄耳翼） / Fig.C.6 公參考接頭（母件受測：最壞情況淺牙螺紋）`.
+    - Broadened `appliesToZh` to include both male and female Luer lock connectors.
+    - Updated procedure steps and criteria to reflect both Fig. C.3 and Fig. C.6.
+  - **Comparison Matrix (`src/components/ClauseComparisonMatrix.tsx`)**:
+    - Updated Clause 6.6 and Annex C rows to explicitly display both Fig. C.3 and Fig. C.6 in both English and Traditional Chinese modes.
+  - **Data Physics & i18n (`src/data/isoData.ts`, `src/utils/i18nHelpers.ts`, `src/i18n/translations.ts`)**:
+    - Harmonized key physics notes, English translation mappings, and DVP audit checklist notes to state dual male/female worst-case pairings.
+- **Verification**: Browser verification passed with screenshot, `npm test` 17/17 PASS, `npm run lint` PASS, `npm run build` PASS.
+
 ## [v8.40.0] - 2026-09-07
 
 ### SSOT Standards Audit & Reference Connector Integration: Full Blueprint Restoration & Slides Harmonization

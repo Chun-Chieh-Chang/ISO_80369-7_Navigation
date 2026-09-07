@@ -97,8 +97,8 @@ export const ISO_CLAUSES: Record<string, ISOClauseInfo> = {
     requiredFemaleRef: 'C.3', // For Male Lock (Worst-case 2.71mm)
     passCriteria: 'Shall not override threads when subjected to 0.15 N·m–0.17 N·m torque for 5 s–10 s (ISO 80369-7 Clause 6.6 / ISO 80369-20 Annex H).',
     passCriteriaZh: '施加 0.15 N·m–0.17 N·m 破壞性扭矩維持 5–10 秒，螺紋或耳翼不得越過滑脫（不滑牙），且接頭無歪斜 (No cocking)（ISO 80369-20 Annex H.4 d）。',
-    keyPhysics: 'Tests hoop expansion, creep, and worst-case 2.71mm ear shear limit under severe over-torque.',
-    keyPhysicsZh: '考驗公套環在極限過鎖扭力下的抗環向膨脹、抗塑膠蠕變及對抗 C.3 窄耳翼（2.71mm）應力集中的能力。'
+    keyPhysics: 'Tests hoop expansion, creep, and worst-case ear/thread shear limit under severe over-torque (Male tests with Fig.C.3, Female tests with Fig.C.6).',
+    keyPhysicsZh: '考驗鎖定套環在極限過鎖扭力下的抗環向膨脹、抗塑膠蠕變及抗剪切越過能力：公受測件配 Fig.C.3（2.71mm 窄耳翼），母受測件配 Fig.C.6（極限淺牙公螺紋）。'
   }
 };
 

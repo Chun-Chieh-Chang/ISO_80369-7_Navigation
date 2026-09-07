@@ -223,7 +223,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
         testForce: '-',
         testTorque: `${c66Data?.testTorqueNm?.min || 0.15}–${c66Data?.testTorqueNm?.max || 0.17} N·m`,
         holdTime: isEn ? `${c66Data?.holdTimeSec.min}–${c66Data?.holdTimeSec.max} s` : `${c66Data?.holdTimeSec.min}–${c66Data?.holdTimeSec.max} 秒`,
-        fixture: isEn ? 'Fig. C.3 (2.71mm narrow lug worst-case) / Fig. C.6' : (c66Detail?.fixtureRequiredZh || 'Fig.C.3 (2.71mm 窄耳翼最壞情況) / Fig.C.6'),
+        fixture: isEn ? 'Fig. C.3 (Male: 2.71mm narrow lug) / Fig. C.6 (Female: worst-case thread)' : (c66Detail?.fixtureRequiredZh || 'Fig.C.3 (公件: 2.71mm 窄耳翼) / Fig.C.6 (母件: 最壞情況公螺紋)'),
         criteria: isEn ? 'Threads/lugs shall not override reference connector and show no cocking under 0.15–0.17 N·m torque for 5–10 s (ISO 80369-20 Annex H.4 d)' : `${c66Data?.passCriteriaZh || '施加 0.15 N·m–0.17 N·m 破壞性扭矩維持 5–10 秒，螺紋或耳翼不得越過滑脫（不滑牙）'}，且接頭無歪斜 (No cocking)（ISO 80369-20 Annex H.4 d）`,
         risk: isEn ? 'Polymer hoop expansion leading to thread override' : (c66Detail?.commonNonConformancesZh?.join('；') || 'PP 等低剛性材料環向膨脹 (Hoop Expansion) 脫牙')
       },
@@ -241,7 +241,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
         testTorque: '-',
         holdTime: '-',
         fixture: isEn ? 'Hardened SS (17-4PH >=45HRC, Stavax ESR, Ra <= 0.8um)' : '硬化不鏽鋼參考夾具 (ISO: Hardened SS / 實務: 17-4PH ≥45HRC 或 316氮化)',
-        criteria: isEn ? 'Complies with ISO 80369-7 Annex C reference connectors; Fig. C.3 has 2.71mm worst-case lug' : '符合 ISO Annex C 精密金屬測試夾具 (硬化處理/Ra≤0.8μm)，Fig.C.3 具備 2.71mm 極限最壞情況耳翼',
+        criteria: isEn ? 'Complies with ISO 80369-7 Annex C reference connectors; Fig. C.3 has 2.71mm worst-case lug; Fig. C.6 has worst-case thread' : '符合 ISO Annex C 精密金屬測試夾具 (硬化處理/Ra≤0.8μm)，Fig.C.3 具備 2.71mm 最壞情況窄耳翼，Fig.C.6 具備最壞情況公螺紋',
         risk: isEn ? 'Failure to calibrate fixtures voids all verification data' : '未定期校正參考夾具尺寸導致全盤測試結果無效'
       },
       {

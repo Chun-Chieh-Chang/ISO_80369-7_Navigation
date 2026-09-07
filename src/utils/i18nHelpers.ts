@@ -152,7 +152,7 @@ export const CLAUSE_I18N: Record<string, ClauseI18nData> = {
     objectiveEn: 'Verify that Luer lock threads and lugs do not strip, override, or cock under 0.15 to 0.17 N·m destructive over-torque held for 5-10 s.',
     appliesToEn: 'Male & female Luer lock connectors only',
     typeEn: 'Requirement',
-    fixtureRequiredEn: 'Fig.C.3 (Female 2.71 mm narrow lug worst-case fixture)',
+    fixtureRequiredEn: 'Fig.C.3 (Male test: 2.71 mm narrow lug worst-case) / Fig.C.6 (Female test: worst-case thread)',
     regulatoryTipEn: 'Standard strictly mandates pre-assembly (0.08-0.12 N·m + 27.5 N push for 5-6 s) prior to applying 0.17 N·m overriding torque. Over-tightening directly is non-compliant deviation.'
   },
   'iso7-clause-4': {
@@ -563,6 +563,11 @@ export const TERM_DICTIONARY_EN: Record<string, string> = {
   '最壞情況夾具': 'Worst-Case Fixture',
   '極限夾具 Critical Fixture': 'Critical Fixture',
   'Fig.C.3 (2.71mm 耳翼)': 'Fig. C.3 (2.71mm narrow lug)',
+  'Fig.C.3 (公件) / Fig.C.6 (母件)': 'Fig. C.3 (Male) / Fig. C.6 (Female)',
+  'Fig.C.3 (公件受測) / Fig.C.6 (母件受測)': 'Fig. C.3 (Male test) / Fig. C.6 (Female test)',
+  'Fig.C.3 (公受測) / Fig.C.6 (母受測)': 'Fig. C.3 (Male) / Fig. C.6 (Female)',
+  'Fig.C.3 (公受測物最壞情況) / Fig.C.6 (母受測物最壞情況)': 'Fig. C.3 (Male worst-case) / Fig. C.6 (Female worst-case)',
+  'Fig.C.3 (公件: 2.71mm 窄耳翼) / Fig.C.6 (母件: 最壞情況公螺紋)': 'Fig. C.3 (Male: 2.71mm narrow lug) / Fig. C.6 (Female: worst-case thread)',
   '材質要求 Material': 'Material Requirement',
   '表面粗糙度 Surface Finish': 'Surface Roughness (Ra ≤ 0.8 µm)',
   '表面粗糙度': 'Surface Roughness (Ra)',

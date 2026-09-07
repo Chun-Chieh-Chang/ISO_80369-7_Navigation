@@ -177,15 +177,15 @@ export const ISO_TOPICS: ISOTopic[] = [
     keyParameters: [
       { label: '測試扭矩 Test Torque', value: '0.15 - 0.17', unit: 'N·m' },
       { label: '保持時間 Hold Time', value: '5 - 10', unit: '秒' },
-      { label: '極限夾具 Critical Fixture', value: 'Fig.C.3 (2.71mm 耳翼)' },
+      { label: '極限夾具 Critical Fixture', value: 'Fig.C.3 (公件) / Fig.C.6 (母件)' },
       { label: '失敗模式 Failure Mode', value: '環向應力膨脹 (Hoop Expansion) 滑脫' }
     ],
     relatedISO7Clauses: ['6.6'],
     relatedISO20Annexes: ['Annex H'],
     relatedRefConnectors: ['C.3', 'C.6'],
     engineeringRiskZh: '材料剛性不足（如標準 PP 彈性模數 < 1200 MPa）會因斜面分力產生高額環向應力使套環膨脹，導致 2.71mm 耳翼瞬間跳牙。',
-    auditFocusZh: '扭矩感測器轉速限制（扭矩施加速率控制）、C.3 金屬夾具耳翼磨損狀態校正。',
-    tags: ['0.17Nm', '滑牙', 'C.3', '環向應力', '6.6', 'Annex H'],
+    auditFocusZh: '扭矩感測器轉速限制（扭矩施加速率控制）、C.3/C.6 金屬夾具螺紋與耳翼磨損狀態校正。',
+    tags: ['0.17Nm', '滑牙', 'C.3', 'C.6', '環向應力', '6.6', 'Annex H'],
     figures: [
       {
         id: 'ISO20-FIG-H1',
@@ -194,15 +194,15 @@ export const ISO_TOPICS: ISOTopic[] = [
         standard: 'ISO 80369-20:2024 Annex H',
         figureType: 'apparatus',
         figureTypeZh: '測試裝置示意圖',
-        descriptionZh: '展示 ISO 80369-20 Annex H 過載扭矩測試機台與受測公鎖定接頭在 0.15~0.17 N·m 高扭矩下的力學受力圖。受測公套環在對接 C.3 (2.71mm 窄耳翼) 時，斜面分力產生強烈環向應力 (Hoop Stress)，若剛性不足將致套環膨脹而跳牙。',
-        descriptionEn: 'Shows the ISO 80369-20 Annex H overriding torque test rig and the mechanical force diagram of the male lock connector under 0.15–0.17 N·m high torque. When the male collar engages C.3 (2.71 mm narrow lugs), inclined-plane force components generate intense hoop stress, which will cause the collar to expand and strip the thread if material stiffness is insufficient.',
+        descriptionZh: '展示 ISO 80369-20 Annex H 過載扭矩測試機台與受測公鎖定接頭在 0.15~0.17 N·m 高扭矩下的力學受力圖。受測公套環在對接 C.3 (2.71mm 窄耳翼) 時，斜面分力產生強烈環向應力 (Hoop Stress)，若剛性不足將致套環膨脹而跳牙；母鎖定接頭則對接 C.6 最壞情況公螺紋考核抗剪切越過強度。',
+        descriptionEn: 'Shows the ISO 80369-20 Annex H overriding torque test rig and the mechanical force diagram under 0.15–0.17 N·m high torque. Male lock engages C.3 (2.71 mm narrow lugs) inducing hoop stress, while female lock engages C.6 worst-case male thread to test shear override resistance.',
         selectionReasonZh: '🛠️ [物理測試架設藍圖] 入選原因：本圖為 ISO 80369-20 Annex H 抗過載扭矩測試機台。6.6 過載滑牙測試施加 0.15~0.17 N·m 破壞性扭矩，本圖解構環向張應力 (Hoop Stress) 致使套環膨脹跳牙之受力機構。',
         selectionReasonEn: '🛠️ [Physical Test Apparatus Blueprint] Rationale: This is the ISO 80369-20 Annex H overriding torque test rig. Clause 6.6 applies a destructive torque of 0.15–0.17 N·m; this diagram deconstructs the hoop tensile stress (σθ) mechanism that causes collar expansion and thread stripping.',
         svgKey: 'ISO20-FIG-H1',
         keyCallouts: [
           { id: 'torque', labelZh: '過載破壞扭矩', labelEn: 'Overriding Destructive Torque', valueZh: '0.15 ~ 0.17 N·m', valueEn: '0.15 ~ 0.17 N·m' },
           { id: 'rpm', labelZh: '伺服馬達轉速', labelEn: 'Servo Motor Speed', valueZh: '3.0 rpm ± 0.5 rpm', valueEn: '3.0 rpm ± 0.5 rpm' },
-          { id: 'fixture', labelZh: '最壞情況夾具', labelEn: 'Worst-case Fixture', valueZh: 'Fig.C.3 (2.71mm 耳翼)', valueEn: 'Fig.C.3 (2.71 mm lugs)' },
+          { id: 'fixture', labelZh: '最壞情況夾具', labelEn: 'Worst-case Fixture', valueZh: 'Fig.C.3 (公受測) / Fig.C.6 (母受測)', valueEn: 'Fig.C.3 (for Male) / Fig.C.6 (for Female)' },
           { id: 'mechanic', labelZh: '應力失效模式', labelEn: 'Stress Failure Mode', valueZh: '環向張應力 σθ > 材料屈服極限', valueEn: 'Hoop tensile stress σθ > material yield limit' }
         ]
       },
@@ -1144,29 +1144,30 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     titleZh: '6.6 抗過載（抗滑牙）規範條文',
     type: 'requirement',
     typeZh: '法規要求條文',
-    objectiveZh: '考核公魯爾鎖定套環在承受 0.15~0.17 N·m 破壞性高扭矩時，能否抵抗環向應力膨脹與耳翼剪切，防止滑牙脫開。',
-    appliesToZh: '公魯爾鎖定（Male Luer Lock）及具備旋合螺紋之組件',
+    objectiveZh: '考核魯爾鎖定接頭在承受 0.15~0.17 N·m 破壞性高扭矩時，能否抵抗環向應力膨脹、耳翼剪切與螺紋越過，防止滑牙脫開。',
+    appliesToZh: '所有魯爾鎖定接頭（公鎖定 Male Lock 與母鎖定 Female Lock）',
     quantitativeConditions: {
       testTorqueNm: '0.15 N·m - 0.17 N·m',
       holdTimeSec: '5 秒 - 10 秒',
       temperatureC: '20°C - 30°C'
     },
-    fixtureRequiredZh: 'Fig.C.3 母參考接頭（2.71 mm 窄耳翼最壞情況夾具）',
+    fixtureRequiredZh: 'Fig.C.3 母參考接頭（公件受測：2.71 mm 窄耳翼） / Fig.C.6 公參考接頭（母件受測：最壞情況淺牙螺紋）',
     testProcedureStepsZh: [
-      '將受測公鎖定接頭對準 Fig.C.3 金屬參考夾具。',
+      '依受測品型別對準專用金屬最壞情況夾具：受測公鎖定接頭對準 Fig.C.3（2.71 mm 窄耳翼）；受測母鎖定接頭對準 Fig.C.6（最壞情況公螺紋）。',
       '以不超過 10 rpm 轉速連續旋緊，直至扭矩達到 0.15–0.17 N·m。',
       '在 0.15–0.17 N·m 扭矩下保持 5 至 10 秒。',
-      '檢視螺紋是否發生滑脫（Overriding）、耳翼跳牙或套環破裂。'
+      '檢視螺紋或耳翼是否發生滑脫（Overriding）、跳牙、歪斜 (Cocking) 或套環破裂。'
     ],
     acceptanceCriteriaZh: [
-      '在 0.15–0.17 N·m 下維持 5–10 秒，螺紋不得跳牙、滑脫或斷裂。',
+      '在 0.15–0.17 N·m 下維持 5–10 秒，螺紋或耳翼不得越過、跳牙、滑脫或斷裂，且組件無歪斜 (No cocking)。',
       '受測物套環不得產生肉眼可見之塑性裂痕。'
     ],
     commonNonConformancesZh: [
       '選用 PP（標準聚丙烯）等低剛性材料，高扭力下套環受斜面分力影響膨脹（Hoop Expansion），2.71mm 窄耳翼瞬間脫開。',
-      'T-Port 或 Stopcock 分叉結構剛性不均勻產生橢圓化（Ovalization）。'
+      'T-Port 或 Stopcock 分叉結構剛性不均勻產生橢圓化（Ovalization）。',
+      '母鎖定耳翼根部抗剪切截面積不足，在 Fig.C.6 鋼製淺牙下發生局部剪切脫落。'
     ],
-    regulatoryTipZh: '此條文為法規退件率最高項目！建議優先選用 PC、Tritan 或加厚公套環壁厚（≥ 1.2mm）。'
+    regulatoryTipZh: '此條文為法規退件率最高項目！建議公端優先選用高剛性 PC/Tritan 或加厚套環（≥ 1.2mm），母端耳翼根部需強化抗剪截面。'
   },
   'iso20-annex-h': {
     id: 'iso20-annex-h',
@@ -1186,12 +1187,12 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       holdTimeSec: '5 - 10 秒',
       temperatureC: '15°C - 30°C'
     },
-    fixtureRequiredZh: 'ISO 80369-7 Fig.C.3 (母鎖定最壞情況金屬件) 或 C.6',
+    fixtureRequiredZh: 'Fig.C.3 母參考接頭（公受測物最壞情況） / Fig.C.6 公參考接頭（母受測物最壞情況）',
     testProcedureStepsZh: [
       '【預裝配階段】依 Annex H.4 a) 1)，將受測接頭與金屬夾具旋合至 0.08~0.12 N·m，並同時施加 26.5~27.5 N 軸推力持壓 5~6 秒後釋放，確立過盈定位。',
-      '【過載加載階段】將 C.3 金屬夾具固定於自動扭矩測試儀之伺服馬達夾頭，設定旋轉轉速為 3.0 rpm ± 0.5 rpm（或 ≤ 10 rpm）。',
+      '【過載加載階段】將專用金屬夾具（公件配 C.3 / 母件配 C.6）固定於自動扭矩測試儀之伺服馬達夾頭，設定旋轉轉速為 3.0 rpm ± 0.5 rpm（或 ≤ 10 rpm）。',
       '【定扭矩保持】啟動馬達旋緊至扭矩達 0.15~0.17 N·m（目標 0.16 N·m），觸發定扭矩保持模式維持 5~10 秒（不得施加額外輔助外力）。',
-      '【數據監測與判定】持續監測 5~10 秒內扭矩衰減曲線，若扭矩驟降 > 30% 判定為滑牙失敗；卸載後檢查金屬夾具耳翼無塑膠刮屑沾黏。'
+      '【數據監測與判定】持續監測 5~10 秒內扭矩衰減曲線，若扭矩驟降 > 30% 判定為滑牙失敗；卸載後檢查金屬夾具耳翼或螺紋無塑膠刮屑沾黏與歪斜。'
     ],
     acceptanceCriteriaZh: [
       '保持 5~10 秒期間扭矩曲線平穩無斷崖式下降。',
