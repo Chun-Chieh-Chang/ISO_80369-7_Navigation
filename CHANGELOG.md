@@ -2,6 +2,30 @@
 
 All notable changes to the ISO 80369-7 & ISO 80369-20 Navigation App will be documented in this file.
 
+## [v8.40.6] - 2026-09-07
+
+### Horizontal Info-Loss Audit & P0 Fix: ISO20-FIG-J1 Missing Image
+- **Root Cause Identified (RCA)**: Systematic horizontal audit across all 25+ svgKey mappings revealed `ISO20-FIG-J1` (Pre-assembly Biaxial Device) had `null` image paths in **both** `getBlueprintImagePath()` and `getTestingBlueprintImagePath()`, causing a blank figure panel in the "Standard Pre-assembly Procedure" topic — complete visual information loss.
+- **Fix (`ISOStandardFigureRenderer.tsx`)**: Added `case 'ISO20-FIG-J1'` → `test_page_2.png` (axial 26.5~27.5N + torque 0.08~0.12 N·m biaxial device diagram) in both switch functions.
+- **Orphan Image Identification**: Catalogued 5 orphan `test_page_*.png` files; confirmed `test_page_2.png` is the correct Fig.J image; flagged `test_page_6.png` (vacuum leakage supplement) and `test_page_11.png` (preconditioning conditions) as reserved for future topics.
+- **Audit Result**: 14/14 ISO7 blueprint figures ✅ + 10/10 ISO20 testing figures ✅ (including J1 now fixed). TypeScript `tsc --noEmit` zero errors.
+
+## [v8.40.5] - 2026-09-07
+
+### High-Fidelity Pressure Decay Curve (ISO20-FIG-B2) — 4-Stage Timeline & Dual-Mode Toggle
+- **Dual-Mode Image Toggling (`ISOStandardFigureRenderer.tsx`)**:
+  - **Official Blueprint mode**: Routes to `pressure_decay_explanation.png` (5.88 MB high-resolution diagram).
+  - **Testing Curve mode**: Routes to `iso20_pressure_decay_four_stages.png` (1.62 MB 4-stage curve).
+  - Auto-fallback via `useEffect` when `svgKey` changes between display modes.
+- **High-Fidelity 4-Stage Timeline Panel**: Embedded below the figure for ISO20-FIG-B2, showing:
+  - Stage 1 Fill (0~5 s): Rapid pressurization to 300~330 kPa target window.
+  - Stage 2 Stabilize (5~15 s): Isolate source, ~10 s for adiabatic equilibrium & viscoelastic creep relaxation.
+  - Stage 3 Test (15~35 s): Precision sensor (±0.3%) records ΔP over 15~20 s hold (Annex B.4 d/e).
+  - Stage 4 Exhaust (35 s+): Vent pressurized circuit, remove DUT, complete cycle.
+- **Statutory Pass Criteria Header**: `Qmax ≤ 0.005 Pa·m³/s | Target: 300~330 kPa` pinned to the panel top.
+- **figureKey mapping**: `iso7-6.1` and `iso20-annex-b` topics now carry `figureKey: 'ISO20-FIG-B2'`.
+- **User Confirmed**: Visual rendering verified by user at 2026-09-07 18:07, PDCA loop closed.
+
 ## [v8.40.4] - 2026-09-07
 
 ### Minimalist Multi-Tiered Architecture & SSOT / MECE Zero-Distortion Audit

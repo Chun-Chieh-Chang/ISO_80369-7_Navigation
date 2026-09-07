@@ -23,7 +23,7 @@ ISO_80369-7_Navigation/
 │   ├── build_standalone.cjs    ← 靜態投影片離線打包工具（零 npm 依賴）
 │   └── generate_icons.cjs      ← PWA 圖示生成工具
 ├── .github/workflows/deploy.yml ← GitHub Pages 自動部署（Vite + PWA）
-├── package.json                ← v8.40.0
+├── package.json                ← v8.40.6
 ├── CHANGELOG.md                ← 完整版本歷程
 └── DEV_LOG.md                  ← 技術決策日誌
 ```
@@ -38,7 +38,7 @@ ISO_80369-7_Navigation/
 npm install
 npm run dev          # localhost:3000
 npm run build        # production dist/
-npm run test         # vitest — 17 tests passing ✅
+npm run test         # vitest — 20 tests passing ✅
 npm run lint         # tsc --noEmit
 ```
 
@@ -105,9 +105,9 @@ GitHub Pages 自動部署（每次推送 main 分支後觸發）：
 npm run test
 ```
 
-- **17/17 tests passing** ✅
-- 涵蓋：Clause 6.1–6.6 數據校驗、i18n 字典完整性、Excel 匯出（zh/en）、ISO 80369-20 預條件規格
+- **20/20 tests passing** ✅
+- 涵蓋：Clause 6.1–6.6 數據校驗、i18n 字典完整性、Excel 匯出（zh/en）、ISO 80369-20 預條件規格、SSOT 圖資完整性、MECE 13 主題覆蓋率、零丟失條文關聯
 
 ---
 
-*Created by Wesley Chang, QC Dept. @Mouldex · v8.29.0 · 2026-09-05*
+*Created by Wesley Chang, QC Dept. @Mouldex · v8.40.6 · 2026-09-07*
