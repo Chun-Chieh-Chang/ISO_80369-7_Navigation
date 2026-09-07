@@ -124,6 +124,8 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
         return `${cleanBase}assets/blueprint/page_14.png`;
       case 'ISO20-FIG-B2':
         return `${cleanBase}assets/diagrams/pressure_decay_explanation.png`;
+      case 'ISO20-FIG-J1':
+        return `${cleanBase}assets/testing_blueprint/test_page_2.png`;
       default:
         return null;
     }
@@ -152,6 +154,8 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
         return `${cleanBase}assets/testing_blueprint/test_page_9.png`;
       case 'ISO20-FIG-H1':
         return `${cleanBase}assets/testing_blueprint/test_page_10.png`;
+      case 'ISO20-FIG-J1':
+        return `${cleanBase}assets/testing_blueprint/test_page_2.png`;
       default:
         return null;
     }
