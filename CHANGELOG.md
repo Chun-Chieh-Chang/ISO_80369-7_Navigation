@@ -2,6 +2,26 @@
 
 All notable changes to the ISO 80369-7 & ISO 80369-20 Navigation App will be documented in this file.
 
+## [v8.40.2] - 2026-09-07
+
+### Horizontal First Audit & Full Typology Coverage: Clauses 6.1 through 6.5 Fixture Completeness
+- **Root Cause (RCA)**:
+  - *Data Fragmentation*: Technical metadata was split across `isoData.ts` (physics model), `isoTopicsData.ts` (prose details), and `ClauseComparisonMatrix.tsx` (view table).
+  - *Male/Lock Bias*: Historical manual inputs focused primarily on male lock failures (e.g. hoop expansion), inadvertently omitting slip counter-fixtures (Fig. C.2 / Fig. C.5) and female pairings from `fixtureRequiredZh` in Clauses 6.1, 6.2, 6.3, and 6.4.
+  - *Lack of Horizontal Traceability Scan*: When Clause 6.6 / Slide 9 was amended in earlier versions, cross-clause audit was not systematically run across all clause definitions in `isoTopicsData.ts`.
+- **Corrective & Preventive Action (CAPA)**:
+  - **Full Typology Fixture Coverage (`src/data/isoTopicsData.ts`)**:
+    - `iso7-6.1` (Fluid Leakage): `Fig.C.1 (母鎖定: 公鎖受測) / Fig.C.4 (公鎖定: 母鎖受測) / Fig.C.5 (母滑動: 公滑受測) / Fig.C.2 (公滑動: 母滑受測)`.
+    - `iso7-6.2` (Sub-atmospheric Leakage): Harmonized across all Lock and Slip fixtures.
+    - `iso7-6.3` (Stress Cracking): Harmonized across all Lock and Slip fixtures.
+    - `iso7-6.4` (Axial Separation): Explicitly decoupled Lock worst-case (C.3/C.6) from Slip nominal (C.5/C.2).
+    - `iso7-6.5` (Unscrewing): Explicitly labeled male DUT to Fig. C.1 and female DUT to Fig. C.4.
+  - **Comparison Matrix Harmonization (`src/components/ClauseComparisonMatrix.tsx`)**:
+    - Standardized Clause 6.5 fixture display to explicitly differentiate male/female DUT counter-fixtures in both EN and ZH locales.
+  - **Physics Precision (`src/data/isoData.ts`)**:
+    - Updated Clause 6.4 physics rationale to encompass both 23–25 N (Slip with C.5/C.2) and 32–35 N (Lock with C.3/C.6).
+- **Verification**: `npm test` 17/17 PASS, `npm run lint` PASS, `npm run build` PASS.
+
 ## [v8.40.1] - 2026-09-07
 
 ### SSOT Alignment: Restore Fig. C.6 Worst-Case Fixture in Clause 6.6 Comparison Matrix

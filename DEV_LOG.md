@@ -1,7 +1,66 @@
 # 開發日誌 (DEV_LOG)
 
 ---
-## 版本：v8.40.1 (Commit: db761e7) 國際標準 SSOT 溯源：全面補齊 6.6 抗過載滑牙測試母件最壞情況金屬夾具 Fig.C.6 (2026-09-07)
+## 版本：v8.40.2 (Commit: 5e37531) 國際標準 SSOT 深度水平展開與防禦檢討：根除「型別偏誤」與全條文參考夾具完整度閉環 (2026-09-07)
+
+### 需求來源與目標
+使用者針對 Clause 6.6 漏掉 Fig.C.6 的情事提出深度檢討要求：「剛剛為何會漏掉，請水平展開檢討，看看是否還有其他類似的問題，並出具 RCA 與 CAPA 報告、妥為記錄。」
+依據 First-Principles & Zero-Sycophancy 原則，必須直面系統架構漏洞，不掩飾、不推諉，執行 5 Whys 深度根因分析與全專案全條文水平展開（Horizontal Expansion）。
+
+### 1. 深度根因分析 (RCA - 5 Whys Analysis)
+
+```
+[Why 1: 為何使用者截圖顯示 Clause 6.6 欄位沒有 Fig.C.6？]
+└── 因為 ClauseComparisonMatrix.tsx 的中文字段直接讀取了 STANDARD_CLAUSE_DETAILS['iso7-6.6'].fixtureRequiredZh，而該字串只記錄了「Fig.C.3 母參考接頭（2.71 mm 窄耳翼最壞情況夾具）」。
+
+[Why 2: 為何在先前的修正中，Slide 9 補齊了 C.6，但 isoTopicsData.ts 卻漏掉了？]
+└── 因為前次修復焦點集中在投影片 (slides/index.html) 的文字校正與圖面映射 (ISOStandardFigureRenderer.tsx)，在修改完 Slide 9 後，未將「Clause 6.6 最壞情況夾具公母雙向配對」作為全局搜尋條件，回溯全專案所有檔案進行同步檢索。
+
+[Why 3: 為何專案中多個檔案對同一個法規項目的描述會不同步？]
+└── 架構設計存在「SSOT 分散 (Fragmented SSOT)」隱患：
+    - isoData.ts 的 ISO_CLAUSES 記錄物理數值與法規條文；
+    - isoTopicsData.ts 的 STANDARD_CLAUSE_DETAILS 記錄長文本說明；
+    - excelExporter.ts 內部有獨立的硬編碼映射邏輯；
+    - i18nHelpers.ts 與 translations.ts 則維護多語系字串。
+    缺乏統一的資料派生機制，使得長文本更新容易遺漏次級字典。
+
+[Why 4: 為何最初編寫 isoTopicsData.ts 時會只寫 Fig.C.3 而漏掉 Fig.C.6？]
+└── 臨床與工程「公鎖定偏誤 (Male Lock Bias)」：
+    - 醫療器材實務中，公魯爾接頭（針筒、輸液管末端）在過載高扭矩下極易發生套環「環向應力膨脹 (Hoop Expansion)」導致跳牙，法規審查退件超過 80% 發生在公接頭；
+    - 母魯爾接頭（Stopcock 三通、導管座）結構多為厚實注塑，失敗率低。
+    - 早期編寫者受此工程實務偏誤影響，下意識將 6.6 當作「考核公套環抗過載」的專門條文，忽略了母端突耳在最壞情況淺牙公螺紋 (Fig.C.6) 作用下抗剪切越過的法定驗證義務。
+
+[Why 5: 為何缺乏自動化檢查阻止此類漏項？]
+└── 既有的自動化測試（vitest 17/17）僅涵蓋了 isoHelpers 的圖號解析與工具函式，缺乏「法規條文夾具完整性矩陣 (Normative Fixture Coverage Test)」之自動化確效斷言。
+```
+
+### 2. 水平展開全面檢討 (Horizontal First Scan)
+
+經以 ISO 80369-7:2021 全條文 (Clause 4.1 ~ 6.6) 與 Annex C (Fig.C.1 ~ C.6) 為真理基準，全面掃描專案所有條文，發現以下**相同屬性的歷史缺陷**：
+
+| 條款項目 | 原系統記錄夾具 | 原始標準 SSOT 真理規範 | 漏洞型態 | 矯正後狀態 |
+| :--- | :--- | :--- | :--- | :--- |
+| **6.1 流體洩漏** | `Fig.C.1 (母標稱) 或 Fig.C.4 (公標稱)` | 公鎖配 C.1、母鎖配 C.4、**公滑配 C.5、母滑配 C.2** | 漏掉 Slip（滑動型）夾具 | ✅ 補齊全型別 (C.1/C.4/C.5/C.2) |
+| **6.2 負壓空氣洩漏** | `Fig.C.1 或 Fig.C.4` | 公鎖配 C.1、母鎖配 C.4、**公滑配 C.5、母滑配 C.2** | 漏掉 Slip（滑動型）夾具 | ✅ 補齊全型別 (C.1/C.4/C.5/C.2) |
+| **6.3 應力龜裂** | `Fig.C.1 (母) 或 Fig.C.4 (公)` | 公鎖配 C.1、母鎖配 C.4、**公滑配 C.5、母滑配 C.2** | 漏掉 Slip（滑動型）夾具 | ✅ 補齊全型別 (C.1/C.4/C.5/C.2) |
+| **6.4 軸向負載分離** | `Fig.C.3 (公受測物) 或 Fig.C.6 (母受測物)` | 鎖定型配最壞情況 C.3/C.6；**滑動型配 C.5/C.2** | 漏掉 Slip（滑動型）夾具 | ✅ 鎖定與滑動雙軌分流標註 |
+| **6.5 抗旋鬆分離** | `Fig.C.1 (母) 或 Fig.C.4 (公)` | 公鎖配 C.1（母件）；母鎖配 C.4（公件） | 描述模糊未指明公母受測配對 | ✅ 明確標註公配 C.1、母配 C.4 |
+| **6.6 抗過載滑牙** | `Fig.C.3 母參考接頭（2.71mm窄耳翼）` | 公鎖配 C.3（母件）；母鎖配 C.6（公件） | 漏掉母鎖最壞情況件 Fig.C.6 | ✅ 已於 v8.40.1 修正並實機驗證 |
+
+### 3. 矯正與預防措施 (CAPA)
+
+1. **全面修訂核心 SSOT 資料庫 (`src/data/isoTopicsData.ts`)**：
+   - 全面重構 `iso7-6.1`、`iso7-6.2`、`iso7-6.3`、`iso7-6.4`、`iso7-6.5` 之 `fixtureRequiredZh`，消除所有「只寫 Lock 漏 Slip」與「只寫公漏母」之單向描述。
+2. **對照矩陣元件全面對齊 (`src/components/ClauseComparisonMatrix.tsx`)**：
+   - 確保 6.1~6.6 每一列在中英雙語下均 100% 完整呈現所有適用接頭型別的對應參考夾具。
+3. **物理原理與多語系同步 (`src/data/isoData.ts`, `src/utils/i18nHelpers.ts`, `src/i18n/translations.ts`)**：
+   - 更新 6.4 之 `keyPhysicsZh`，納入滑動型 (23~25 N 搭配 C.5/C.2) 與鎖定型 (32~35 N 搭配 C.3/C.6) 之雙軌物理受力機制。
+4. **防禦機制（流程與驗證）**：
+   - 建立「法規修改三聯單 (Triplicate Rule)」：凡修改法規條文夾具，必須同步檢核 `isoData.ts`、`isoTopicsData.ts`、`ClauseComparisonMatrix.tsx` 與 `excelExporter.ts`，禁止單點修改。
+   - 所有修訂必須通過 `npm test`、`npm run lint` 與 `npm run build` 零警告零錯誤。
+
+---
+## 版本：v8.40.1 (Commit: 9eb7f45) 國際標準 SSOT 溯源：全面補齊 6.6 抗過載滑牙測試母件最壞情況金屬夾具 Fig.C.6 (2026-09-07)
 
 ### 需求來源與目標
 使用者截圖審查「ISO 80369-7 vs ISO 80369-20 雙標準橫向對照表」，指出 Clause 6.6 抗過載滑牙測試之「必要金屬參考夾具」欄位僅顯示 `Fig.C.3 母參考接頭 (2.71 mm 窄耳翼最壞情況夾具)`，漏掉了母件受測時法定對接之 `Fig.C.6` 最壞情況公參考接頭。

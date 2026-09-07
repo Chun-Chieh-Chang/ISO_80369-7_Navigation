@@ -967,7 +967,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       temperatureC: '15°C - 30°C',
       media: '水或空氣'
     },
-    fixtureRequiredZh: 'Fig.C.1 (母標稱) 或 Fig.C.4 (公標稱)',
+    fixtureRequiredZh: 'Fig.C.1 (母鎖定: 公鎖受測) / Fig.C.4 (公鎖定: 母鎖受測) / Fig.C.5 (母滑動: 公滑受測) / Fig.C.2 (公滑動: 母滑受測)',
     testProcedureStepsZh: [
       '依標準預裝配程序將受測物與鋼製參考夾具裝配：鎖定型施加 0.08~0.12 N·m 扭矩與 26.5~27.5 N 軸向推力；滑動型施加 26.5~27.5 N 軸向推力並微旋 ≤90°（扭矩 ≤ 0.10 N·m），持壓 5~6 秒後釋放。',
       '向系統內注滿測試水，排出內部所有氣泡（水滴法）；或注入乾燥空氣（壓降法）。',
@@ -1065,7 +1065,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       testPressureKpa: '80.0 kPa - 88.0 kPa (真空負壓)',
       holdTimeSec: '15 秒 - 20 秒'
     },
-    fixtureRequiredZh: 'Fig.C.1 或 Fig.C.4',
+    fixtureRequiredZh: 'Fig.C.1 (母鎖定: 公鎖受測) / Fig.C.4 (公鎖定: 母鎖受測) / Fig.C.5 (母滑動: 公滑受測) / Fig.C.2 (公滑動: 母滑受測)',
     testProcedureStepsZh: [
       '依 Annex J 旋緊裝配受測物與金屬夾具。',
       '連接真空抽氣系統，抽出內部空氣至 80.0~88.0 kPa 負壓。',
@@ -1221,7 +1221,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       testForceN: '32 N - 35 N (Lock) / 23 N - 25 N (Slip)',
       holdTimeSec: '10 秒 - 15 秒'
     },
-    fixtureRequiredZh: 'Fig.C.3 (公受測物) 或 Fig.C.6 (母受測物)',
+    fixtureRequiredZh: 'Fig.C.3 (母鎖定最壞: 公鎖受測) / Fig.C.6 (公鎖定最壞: 母鎖受測) / Fig.C.5 (母滑動: 公滑受測) / Fig.C.2 (公滑動: 母滑受測)',
     testProcedureStepsZh: [
       '依標準程序將受測物裝配於參考夾具上（鎖定型施加 0.08~0.12 N·m 扭矩與 26.5~27.5 N 推力；滑動型施加 26.5~27.5 N 推力微旋 ≤90°，維持 5~6 秒）。',
       '將組裝件安裝至拉力試驗機上，確保載荷施加方向與接頭幾何軸線同軸（防止偏心彎矩）。',
@@ -1283,7 +1283,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       testTorqueNm: '0.018 N·m - 0.020 N·m (反向)',
       holdTimeSec: '10 秒 - 15 秒'
     },
-    fixtureRequiredZh: 'Fig.C.1 (母) 或 Fig.C.4 (公)',
+    fixtureRequiredZh: 'Fig.C.1 母參考接頭（公鎖定受測） / Fig.C.4 公參考接頭（母鎖定受測）',
     testProcedureStepsZh: [
       '依規定施加 0.08~0.12 N·m 扭矩與 26.5~27.5 N 軸向推力（維持 5~6 秒後釋放）裝配接頭與金屬件。',
       '施加 0.018~0.020 N·m 的反向旋鬆扭矩。',
@@ -1431,7 +1431,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       temperatureC: '15°C - 30°C (建議 23 ± 2°C)',
       media: '乾燥室溫空氣環境 (15°C - 30°C, 10% - 70% RH)'
     },
-    fixtureRequiredZh: 'Fig.C.1 (母) 或 Fig.C.4 (公)',
+    fixtureRequiredZh: 'Fig.C.1 (母鎖定: 公鎖受測) / Fig.C.4 (公鎖定: 母鎖受測) / Fig.C.5 (母滑動: 公滑受測) / Fig.C.2 (公滑動: 母滑受測)',
     testProcedureStepsZh: [
       '以 0.08~0.12 N·m 扭矩與 26.5~27.5 N 軸向推力（維持 5~6 秒後釋放）將受測物裝配於 Annex C 參考金屬夾具上。',
       '於 15°C~30°C 室溫空氣環境（建議標準 23 ± 2°C, 50% RH）下組裝靜置保持至少 48 小時。',

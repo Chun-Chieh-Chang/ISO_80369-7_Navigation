@@ -63,8 +63,8 @@ export const ISO_CLAUSES: Record<string, ISOClauseInfo> = {
     requiredFemaleRef: 'C.3', // For Male Lock (Worst-case 2.71mm)
     passCriteria: 'Shall not separate when subjected to 23 N–25 N (Slip) or 32 N–35 N (Lock) axial tension for 10 s–15 s (ISO 80369-7 Clause 6.4 / ISO 80369-20 Annex F).',
     passCriteriaZh: '在 23 N–25 N（Slip滑動型）或 32 N–35 N（Lock鎖定型）軸向拉力下維持 10–15 秒，接頭不得脫開分離。',
-    keyPhysics: 'Tests mechanical lock thread shear strength under worst-case narrow ear engagement.',
-    keyPhysicsZh: '使用最壞情況窄耳翼（C.3）測試螺紋在軸向強拉力下的剪切抗拉拔強度。'
+    keyPhysics: 'Tests axial retention strength under tension: Lock connectors pair with worst-case fixtures (Male DUT to Fig.C.3; Female DUT to Fig.C.6 at 32-35 N); Slip connectors pair with nominal fixtures (Male DUT to Fig.C.5; Female DUT to Fig.C.2 at 23-25 N).',
+    keyPhysicsZh: '考核軸向拉拔抗脫開強度：鎖定型接頭配最壞情況夾具（公受測件配 Fig.C.3 窄耳翼、母受測件配 Fig.C.6 淺牙螺紋，拉力 32~35 N）；滑動型接頭配標稱滑動夾具（公受測件配 Fig.C.5、母受測件配 Fig.C.2，拉力 23~25 N）。'
   },
   '6.5': {
     id: '6.5',

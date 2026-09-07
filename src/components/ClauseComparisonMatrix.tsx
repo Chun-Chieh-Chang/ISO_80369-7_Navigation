@@ -206,7 +206,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
         testForce: '-',
         testTorque: `${c65Data?.testTorqueNm?.min || 0.018}–${c65Data?.testTorqueNm?.max || 0.020} N·m` + (isEn ? ' (Reverse)' : ' (反向)'),
         holdTime: isEn ? `${c65Data?.holdTimeSec.min}–${c65Data?.holdTimeSec.max} s` : `${c65Data?.holdTimeSec.min}–${c65Data?.holdTimeSec.max} 秒`,
-        fixture: isEn ? 'Fig. C.1 (Female) / Fig. C.4 (Male)' : (c65Detail?.fixtureRequiredZh || 'Fig.C.1 (母) / Fig.C.4 (公)'),
+        fixture: isEn ? 'Fig. C.1 (Female Lock: for Male) / Fig. C.4 (Male Lock: for Female)' : (c65Detail?.fixtureRequiredZh || 'Fig.C.1 母參考接頭（公鎖定受測） / Fig.C.4 公參考接頭（母鎖定受測）'),
         criteria: isEn ? (c65Data?.passCriteria || 'Shall not separate from the reference connector when subjected to an unscrewing torque of between 0.018 N·m and 0.020 N·m for 10–15 s.') : (c65Data?.passCriteriaZh || '裝配後施加 0.018 N·m–0.020 N·m 的反向旋鬆扭矩維持 10–15 秒，接頭不得自行旋鬆脫開'),
         risk: isEn ? 'Excessive mold release agents causing self-loosening' : (c65Detail?.commonNonConformancesZh?.join('；') || '材料表面太滑（脫模劑/潤滑劑過量）致自鎖失敗')
       },
