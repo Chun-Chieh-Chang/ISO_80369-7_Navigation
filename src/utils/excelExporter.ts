@@ -215,8 +215,8 @@ export const exportMedicalGradeExcelReport = async (config: TestConfigState, lan
 
   // Row 4: Column Headers
   const headers2 = isEn
-    ? ['Clause', 'Test Title', 'ISO 80369-7', 'ISO 80369-20', 'Pre-assembly Condition', 'Applied Test Load', 'Hold Time', 'Specified Reference Fixture', 'Worst-Case Geometry Requirement', 'Acceptance Pass Criteria']
-    : ['條款編號', '測試項目名稱', 'ISO 80369-7 條文', 'ISO 80369-20 附錄', '預裝配條件 (扭矩 / 軸推力)', '定量加載考驗負載', '規定保持時間 (Hold Time)', '指定金屬參考接頭', '最壞情況幾何判定', '法規允收標準 (Pass Criteria)'];
+    ? ['Clause', 'Test Title', 'ISO 80369-7', 'ISO 80369-20', 'Pre-assembly Condition', 'Applied Test Load', 'Hold Time', 'Specified Metal Reference Fixture', 'Worst-Case Geometry Requirement', 'Acceptance Pass Criteria']
+    : ['條款編號', '測試項目名稱', 'ISO 80369-7 條文', 'ISO 80369-20 附錄', '預裝配條件 (扭矩 / 軸推力)', '定量加載考驗負載', '規定保持時間 (Hold Time)', '必要金屬參考夾具', '最壞情況幾何判定', '法規允收標準 (Pass Criteria)'];
 
   const headerRow2 = ws2.getRow(4);
   headerRow2.height = 30;

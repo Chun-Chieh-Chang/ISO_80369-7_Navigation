@@ -102,7 +102,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
         testForce: '-',
         testTorque: '-',
         holdTime: isEn ? '5 – 6 s' : '5 – 6 秒',
-        fixture: isEn ? 'Calibrated Torque Driver & Axial Force Mechanism' : '校正定扭矩起子 & 彈簧推力機構',
+        fixture: isEn ? 'Calibrated Torque Driver (0.08–0.12 N·m) & Axial Force Rig (26.5–27.5 N)' : '校正定扭矩起子 (0.08~0.12 N·m) & 軸向推力機構 (26.5~27.5 N)',
         criteria: isEn
           ? 'Mandatory standard pre-assembly: simultaneously apply 0.08–0.12 N·m torque and 26.5–27.5 N axial force for 5–6 s, then release all loads prior to test'
           : '性能測試前必須執行統一標準預裝配作業，旋合時須同時施加 0.08~0.12 N·m 扭矩與 26.5~27.5 N 軸向推力持壓 5~6s 確立 6% 錐面配合，然後完全釋放外力',
@@ -121,7 +121,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
         testForce: '-',
         testTorque: '-',
         holdTime: '-',
-        fixture: isEn ? 'CMM / Optical Comparator / Gauges' : (clause5Detail?.fixtureRequiredZh || '三次元 CMM / 6% 光學投影儀 / 通止規'),
+        fixture: isEn ? 'CMM / Optical Comparator / Gauges (No Annex C Fixture)' : '三次元 CMM / 6% 光學投影儀 / 通止規 (無附錄 C 夾具)',
         criteria: isEn ? '6% (1:16.667) taper, engagement length >= 7.5mm, thread pitch 2.5mm' : (clause5Detail?.acceptanceCriteriaZh?.join('；') || '圓錐度 6% (1:16.667)、配合長度 ≥ 7.5mm、螺紋 Pitch 2.5mm'),
         risk: isEn ? 'Injection sinkage or taper deviation' : (clause5Detail?.commonNonConformancesZh?.join('；') || '射出保壓不足致錐度偏離 6% 或螺紋厚度超差')
       },
@@ -138,7 +138,9 @@ export const ClauseComparisonMatrix: React.FC = () => {
         testForce: '-',
         testTorque: '-',
         holdTime: isEn ? 'Decay (6.1.2): 15–20 s / Liquid (6.1.3): 30–35 s' : '氣壓法 (6.1.2): 15–20 秒　/　水壓法 (6.1.3): 30–35 秒（二選一）',
-        fixture: isEn ? 'Fig. C.1/C.5 (Lock/Slip) or Fig. C.4/C.2 (Lock/Slip)' : 'Fig.C.1/C.5 (母鎖定/滑動) 或 Fig.C.4/C.2 (公鎖定/滑動)',
+        fixture: isEn
+          ? 'Male Lock: Fig. C.1 / Female Lock: Fig. C.4 | Male Slip: Fig. C.5 / Female Slip: Fig. C.2'
+          : '公鎖配 Fig.C.1 / 母鎖配 Fig.C.4 ｜ 公滑配 Fig.C.5 / 母滑配 Fig.C.2',
         criteria: isEn ? (c61Data?.passCriteria || 'Hydraulic (6.1.3): No falling drop of water over 30-35 s at 300-330 kPa. Pneumatic (6.1.2): Leakage rate <= 0.005 Pa*m3/s over 15-20 s at 300-330 kPa.') : (c61Data?.passCriteriaZh || '【正壓液體洩漏 (6.1.3 水壓法)】加壓 300~330 kPa 持壓 30~35s，目視無水滴滲漏滴落；【壓力衰減洩漏 (6.1.2 氣壓法)】加壓 300~330 kPa 持壓 15~20s 測 ΔP，洩漏率 ≤ 0.005 Pa·m³/s'),
         risk: isEn ? 'Molding flash or taper shrink deformation' : (c61Detail?.commonNonConformancesZh?.join('；') || '射出成型毛邊、6% 錐度縮水變形')
       },
@@ -155,7 +157,9 @@ export const ClauseComparisonMatrix: React.FC = () => {
         testForce: '-',
         testTorque: '-',
         holdTime: isEn ? `${c62Data?.holdTimeSec.min}–${c62Data?.holdTimeSec.max} s` : `${c62Data?.holdTimeSec.min}–${c62Data?.holdTimeSec.max} 秒`,
-        fixture: isEn ? 'Fig. C.1/C.5 (Lock/Slip) or Fig. C.4/C.2 (Lock/Slip)' : 'Fig.C.1/C.5 (母鎖定/滑動) 或 Fig.C.4/C.2 (公鎖定/滑動)',
+        fixture: isEn
+          ? 'Male Lock: Fig. C.1 / Female Lock: Fig. C.4 | Male Slip: Fig. C.5 / Female Slip: Fig. C.2'
+          : '公鎖配 Fig.C.1 / 母鎖配 Fig.C.4 ｜ 公滑配 Fig.C.5 / 母滑配 Fig.C.2',
         criteria: isEn ? (c62Data?.passCriteria || 'Shall not exceed a leakage rate of 0.005 Pa*m3/s over 15-20 s at 80.0-88.0 kPa vacuum (Annex D)') : (c62Data?.passCriteriaZh || '在 80.0 kPa–88.0 kPa 負壓真空下保持 15–20 秒，空氣洩漏率不超過 0.005 Pa·m³/s (Annex D)'),
         risk: isEn ? 'Micro-void formation during vacuum causing air embolism' : (c62Detail?.commonNonConformancesZh?.join('；') || '負壓時錐面微幅收縮脫離產生微氣孔致氣栓')
       },
@@ -172,7 +176,9 @@ export const ClauseComparisonMatrix: React.FC = () => {
         testForce: '-',
         testTorque: '-',
         holdTime: isEn ? '≥ 48 Hours' : '≥ 48 小時',
-        fixture: isEn ? 'Fig. C.1/C.5 (Lock/Slip) or Fig. C.4/C.2 (Lock/Slip)' : 'Fig.C.1/C.5 (母鎖定/滑動) 或 Fig.C.4/C.2 (公鎖定/滑動)',
+        fixture: isEn
+          ? 'Male Lock: Fig. C.1 / Female Lock: Fig. C.4 | Male Slip: Fig. C.5 / Female Slip: Fig. C.2'
+          : '公鎖配 Fig.C.1 / 母鎖配 Fig.C.4 ｜ 公滑配 Fig.C.5 / 母滑配 Fig.C.2',
         criteria: isEn ? 'Meet the requirements of Clause 6.1.1 after 48 h assembly hold per ISO 80369-20 Annex E (No visual crack requirement in ISO standard)' : '依 6.1.1 執行洩漏測試並合格即可（法規無目視裂紋要求）',
         risk: isEn ? 'Residual injection stress causing delayed hoop cracking' : (c63Detail?.commonNonConformancesZh?.join('；') || 'PC/PMMA 材質射出殘留內應力高，受長效過盈應力作用發生爆裂')
       },
@@ -189,7 +195,9 @@ export const ClauseComparisonMatrix: React.FC = () => {
         testForce: selectedType === 'slip' ? '23–25 N (Slip/L1)' : '32–35 N (Lock/L2)',
         testTorque: '-',
         holdTime: isEn ? `${c64Data?.holdTimeSec.min}–${c64Data?.holdTimeSec.max} s` : `${c64Data?.holdTimeSec.min}–${c64Data?.holdTimeSec.max} 秒`,
-        fixture: isEn ? 'Fig. C.3/C.5 (Lock worst-case / Slip) or Fig. C.6/C.2 (Lock worst-case / Slip)' : 'Fig.C.3/C.5 (母鎖定最壞/滑動) 或 Fig.C.6/C.2 (公鎖定最壞/滑動)',
+        fixture: isEn
+          ? 'Male Lock: Fig. C.3 (Worst-case) / Female Lock: Fig. C.6 (Worst-case) | Male Slip: Fig. C.5 / Female Slip: Fig. C.2'
+          : '公鎖配 Fig.C.3 (窄耳翼最壞) / 母鎖配 Fig.C.6 (淺牙最壞) ｜ 公滑配 Fig.C.5 / 母滑配 Fig.C.2',
         criteria: isEn ? (c64Data?.passCriteria || 'Shall remain assembled without separation while subjected to axial load for 10-15 s.') : (c64Data?.passCriteriaZh || '在 23 N–25 N（Slip/L1）或 32 N–35 N（Lock/L2）軸向拉力下維持 10–15 秒，接頭不得脫開分離'),
         risk: isEn ? 'Insufficient thread engagement depth leading to sheared lugs' : (c64Detail?.commonNonConformancesZh?.join('；') || '螺紋咬合深度不足，耳翼被直接剪切拉平')
       },
@@ -206,7 +214,9 @@ export const ClauseComparisonMatrix: React.FC = () => {
         testForce: '-',
         testTorque: `${c65Data?.testTorqueNm?.min || 0.018}–${c65Data?.testTorqueNm?.max || 0.020} N·m` + (isEn ? ' (Reverse)' : ' (反向)'),
         holdTime: isEn ? `${c65Data?.holdTimeSec.min}–${c65Data?.holdTimeSec.max} s` : `${c65Data?.holdTimeSec.min}–${c65Data?.holdTimeSec.max} 秒`,
-        fixture: isEn ? 'Fig. C.1 (Female Lock: for Male) / Fig. C.4 (Male Lock: for Female)' : (c65Detail?.fixtureRequiredZh || 'Fig.C.1 母參考接頭（公鎖定受測） / Fig.C.4 公參考接頭（母鎖定受測）'),
+        fixture: isEn
+          ? 'Male Lock: Fig. C.1 (Nominal) / Female Lock: Fig. C.4 (Nominal) (Lock only)'
+          : '公鎖配 Fig.C.1 (母標稱件) / 母鎖配 Fig.C.4 (公標稱件) (僅限鎖定型)',
         criteria: isEn ? (c65Data?.passCriteria || 'Shall not separate from the reference connector when subjected to an unscrewing torque of between 0.018 N·m and 0.020 N·m for 10–15 s.') : (c65Data?.passCriteriaZh || '裝配後施加 0.018 N·m–0.020 N·m 的反向旋鬆扭矩維持 10–15 秒，接頭不得自行旋鬆脫開'),
         risk: isEn ? 'Excessive mold release agents causing self-loosening' : (c65Detail?.commonNonConformancesZh?.join('；') || '材料表面太滑（脫模劑/潤滑劑過量）致自鎖失敗')
       },
@@ -223,7 +233,9 @@ export const ClauseComparisonMatrix: React.FC = () => {
         testForce: '-',
         testTorque: `${c66Data?.testTorqueNm?.min || 0.15}–${c66Data?.testTorqueNm?.max || 0.17} N·m`,
         holdTime: isEn ? `${c66Data?.holdTimeSec.min}–${c66Data?.holdTimeSec.max} s` : `${c66Data?.holdTimeSec.min}–${c66Data?.holdTimeSec.max} 秒`,
-        fixture: isEn ? 'Fig. C.3 (Male: 2.71mm narrow lug) / Fig. C.6 (Female: worst-case thread)' : (c66Detail?.fixtureRequiredZh || 'Fig.C.3 (公件: 2.71mm 窄耳翼) / Fig.C.6 (母件: 最壞情況公螺紋)'),
+        fixture: isEn
+          ? 'Male Lock: Fig. C.3 (2.71mm Worst-case) / Female Lock: Fig. C.6 (Worst-case) (Lock only)'
+          : '公鎖配 Fig.C.3 (2.71mm 窄耳翼最壞) / 母鎖配 Fig.C.6 (淺牙螺紋最壞) (僅限鎖定型)',
         criteria: isEn ? 'Threads/lugs shall not override reference connector and show no cocking under 0.15–0.17 N·m torque for 5–10 s (ISO 80369-20 Annex H.4 d)' : `${c66Data?.passCriteriaZh || '施加 0.15 N·m–0.17 N·m 破壞性扭矩維持 5–10 秒，螺紋或耳翼不得越過滑脫（不滑牙）'}，且接頭無歪斜 (No cocking)（ISO 80369-20 Annex H.4 d）`,
         risk: isEn ? 'Polymer hoop expansion leading to thread override' : (c66Detail?.commonNonConformancesZh?.join('；') || 'PP 等低剛性材料環向膨脹 (Hoop Expansion) 脫牙')
       },
@@ -240,7 +252,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
         testForce: '-',
         testTorque: '-',
         holdTime: '-',
-        fixture: isEn ? 'Hardened SS (17-4PH >=45HRC, Stavax ESR, Ra <= 0.8um)' : '硬化不鏽鋼參考夾具 (ISO: Hardened SS / 實務: 17-4PH ≥45HRC 或 316氮化)',
+        fixture: isEn ? 'Hardened SS Precision Fixtures (E > 3,433 MPa, Ra ≤ 0.8 µm / 17-4PH ≥45 HRC or Nitrided 316)' : '硬化不鏽鋼精密夾具 (ISO: E > 3,433 MPa, Ra ≤ 0.8 µm / 實務: 17-4PH ≥45 HRC 或 316 氮化)',
         criteria: isEn ? 'Complies with ISO 80369-7 Annex C reference connectors; Fig. C.3 has 2.71mm worst-case lug; Fig. C.6 has worst-case thread' : '符合 ISO Annex C 精密金屬測試夾具 (硬化處理/Ra≤0.8μm)，Fig.C.3 具備 2.71mm 最壞情況窄耳翼，Fig.C.6 具備最壞情況公螺紋',
         risk: isEn ? 'Failure to calibrate fixtures voids all verification data' : '未定期校正參考夾具尺寸導致全盤測試結果無效'
       },

@@ -967,7 +967,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       temperatureC: '15°C - 30°C',
       media: '水或空氣'
     },
-    fixtureRequiredZh: 'Fig.C.1 (母鎖定: 公鎖受測) / Fig.C.4 (公鎖定: 母鎖受測) / Fig.C.5 (母滑動: 公滑受測) / Fig.C.2 (公滑動: 母滑受測)',
+    fixtureRequiredZh: '公鎖配 Fig.C.1 / 母鎖配 Fig.C.4 ｜ 公滑配 Fig.C.5 / 母滑配 Fig.C.2',
     testProcedureStepsZh: [
       '依標準預裝配程序將受測物與鋼製參考夾具裝配：鎖定型施加 0.08~0.12 N·m 扭矩與 26.5~27.5 N 軸向推力；滑動型施加 26.5~27.5 N 軸向推力並微旋 ≤90°（扭矩 ≤ 0.10 N·m），持壓 5~6 秒後釋放。',
       '向系統內注滿測試水，排出內部所有氣泡（水滴法）；或注入乾燥空氣（壓降法）。',
@@ -1001,7 +1001,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       holdTimeSec: '15 - 20 秒',
       temperatureC: '15°C - 30°C (溫濕度預處理: 20±5°C, 50±10% RH ≥24小時)'
     },
-    fixtureRequiredZh: '符合 ISO 80369-7 附錄 C 的高硬度不鏽鋼鋼規夾具',
+    fixtureRequiredZh: '公鎖配 Fig.C.1 / 母鎖配 Fig.C.4 ｜ 公滑配 Fig.C.5 / 母滑配 Fig.C.2',
     testProcedureStepsZh: [
       '受測物於 20±5°C、相對濕度 50±10% 環境下預處理至少 24 小時（吸濕性材料）。',
       '依標準程序施加 0.08~0.12 N·m 扭矩與 26.5~27.5 N 軸向推力旋合，保持 5~6 秒。',
@@ -1034,7 +1034,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       holdTimeSec: '30 - 35 秒',
       media: '蒸餾水/飲用水 (可添加亞甲藍色素)'
     },
-    fixtureRequiredZh: 'Fig.C.1 (母) 或 Fig.C.4 (公)',
+    fixtureRequiredZh: '公鎖配 Fig.C.1 / 母鎖配 Fig.C.4 ｜ 公滑配 Fig.C.5 / 母滑配 Fig.C.2',
     testProcedureStepsZh: [
       '以 0.08~0.12 N·m 扭矩與 26.5~27.5 N 推力將受測物與參考夾具旋合。',
       '向系統內注滿水並徹底排出氣泡，保持組裝件軸線水平。',
@@ -1065,7 +1065,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       testPressureKpa: '80.0 kPa - 88.0 kPa (真空負壓)',
       holdTimeSec: '15 秒 - 20 秒'
     },
-    fixtureRequiredZh: 'Fig.C.1 (母鎖定: 公鎖受測) / Fig.C.4 (公鎖定: 母鎖受測) / Fig.C.5 (母滑動: 公滑受測) / Fig.C.2 (公滑動: 母滑受測)',
+    fixtureRequiredZh: '公鎖配 Fig.C.1 / 母鎖配 Fig.C.4 ｜ 公滑配 Fig.C.5 / 母滑配 Fig.C.2',
     testProcedureStepsZh: [
       '依 Annex J 旋緊裝配受測物與金屬夾具。',
       '連接真空抽氣系統，抽出內部空氣至 80.0~88.0 kPa 負壓。',
@@ -1093,7 +1093,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       testPressureKpa: '80.0 - 88.0 kPa (真空負壓)',
       holdTimeSec: '15 - 20 秒'
     },
-    fixtureRequiredZh: '符合 ISO 80369-7 附錄 C 金屬參考件',
+    fixtureRequiredZh: '公鎖配 Fig.C.1 / 母鎖配 Fig.C.4 ｜ 公滑配 Fig.C.5 / 母滑配 Fig.C.2',
     testProcedureStepsZh: [
       '乾式旋合裝配後封閉端點。',
       '施加 80~88 kPa 負壓真空並關閥。',
@@ -1151,7 +1151,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       holdTimeSec: '5 秒 - 10 秒',
       temperatureC: '20°C - 30°C'
     },
-    fixtureRequiredZh: 'Fig.C.3 母參考接頭（公件受測：2.71 mm 窄耳翼） / Fig.C.6 公參考接頭（母件受測：最壞情況淺牙螺紋）',
+    fixtureRequiredZh: '公鎖配 Fig.C.3 (2.71mm 窄耳翼最壞) / 母鎖配 Fig.C.6 (淺牙螺紋最壞) (僅限鎖定型)',
     testProcedureStepsZh: [
       '依受測品型別對準專用金屬最壞情況夾具：受測公鎖定接頭對準 Fig.C.3（2.71 mm 窄耳翼）；受測母鎖定接頭對準 Fig.C.6（最壞情況公螺紋）。',
       '以不超過 10 rpm 轉速連續旋緊，直至扭矩達到 0.15–0.17 N·m。',
@@ -1187,7 +1187,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       holdTimeSec: '5 - 10 秒',
       temperatureC: '15°C - 30°C'
     },
-    fixtureRequiredZh: 'Fig.C.3 母參考接頭（公受測物最壞情況） / Fig.C.6 公參考接頭（母受測物最壞情況）',
+    fixtureRequiredZh: '公鎖配 Fig.C.3 (2.71mm 窄耳翼最壞) / 母鎖配 Fig.C.6 (淺牙螺紋最壞) (僅限鎖定型)',
     testProcedureStepsZh: [
       '【預裝配階段】依 Annex H.4 a) 1)，將受測接頭與金屬夾具旋合至 0.08~0.12 N·m，並同時施加 26.5~27.5 N 軸推力持壓 5~6 秒後釋放，確立過盈定位。',
       '【過載加載階段】將專用金屬夾具（公件配 C.3 / 母件配 C.6）固定於自動扭矩測試儀之伺服馬達夾頭，設定旋轉轉速為 3.0 rpm ± 0.5 rpm（或 ≤ 10 rpm）。',
@@ -1221,7 +1221,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       testForceN: '32 N - 35 N (Lock) / 23 N - 25 N (Slip)',
       holdTimeSec: '10 秒 - 15 秒'
     },
-    fixtureRequiredZh: 'Fig.C.3 (母鎖定最壞: 公鎖受測) / Fig.C.6 (公鎖定最壞: 母鎖受測) / Fig.C.5 (母滑動: 公滑受測) / Fig.C.2 (公滑動: 母滑受測)',
+    fixtureRequiredZh: '公鎖配 Fig.C.3 (窄耳翼最壞) / 母鎖配 Fig.C.6 (淺牙最壞) ｜ 公滑配 Fig.C.5 / 母滑配 Fig.C.2',
     testProcedureStepsZh: [
       '依標準程序將受測物裝配於參考夾具上（鎖定型施加 0.08~0.12 N·m 扭矩與 26.5~27.5 N 推力；滑動型施加 26.5~27.5 N 推力微旋 ≤90°，維持 5~6 秒）。',
       '將組裝件安裝至拉力試驗機上，確保載荷施加方向與接頭幾何軸線同軸（防止偏心彎矩）。',
@@ -1252,7 +1252,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       holdTimeSec: '10 - 15 秒',
       temperatureC: '15°C - 30°C'
     },
-    fixtureRequiredZh: '符合 Annex C 規範的不鏽鋼金屬測試夾具',
+    fixtureRequiredZh: '公鎖配 Fig.C.3 (窄耳翼最壞) / 母鎖配 Fig.C.6 (淺牙最壞) ｜ 公滑配 Fig.C.5 / 母滑配 Fig.C.2',
     testProcedureStepsZh: [
       '裝配接頭並安裝於萬能材料試驗機特製夾具，確保拉伸軸向與接頭中心線精確同軸。',
       '校正載荷元（Load Cell）零點與位移傳感器。',
@@ -1283,7 +1283,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       testTorqueNm: '0.018 N·m - 0.020 N·m (反向)',
       holdTimeSec: '10 秒 - 15 秒'
     },
-    fixtureRequiredZh: 'Fig.C.1 母參考接頭（公鎖定受測） / Fig.C.4 公參考接頭（母鎖定受測）',
+    fixtureRequiredZh: '公鎖配 Fig.C.1 (母標稱件) / 母鎖配 Fig.C.4 (公標稱件) (僅限鎖定型)',
     testProcedureStepsZh: [
       '依規定施加 0.08~0.12 N·m 扭矩與 26.5~27.5 N 軸向推力（維持 5~6 秒後釋放）裝配接頭與金屬件。',
       '施加 0.018~0.020 N·m 的反向旋鬆扭矩。',
@@ -1311,7 +1311,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       testTorqueNm: '0.018 - 0.020 N·m',
       holdTimeSec: '10 - 15 秒'
     },
-    fixtureRequiredZh: 'Fig.C.1 或 Fig.C.4',
+    fixtureRequiredZh: '公鎖配 Fig.C.1 (母標稱件) / 母鎖配 Fig.C.4 (公標稱件) (僅限鎖定型)',
     testProcedureStepsZh: [
       '按標準裝配後，施加指定反向扭矩並維持 10~15 秒。',
       '檢查接頭是否分離。'
@@ -1340,7 +1340,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       restTimeMin: '10 - 15 分鐘 (靜置貼合)',
       maxAllowedUnscrewingTorque: '按產品規格上限 (例: ≤ 0.24 N·m)'
     },
-    fixtureRequiredZh: 'Fig.C.1 或 Fig.C.4',
+    fixtureRequiredZh: '公鎖配 Fig.C.1 (母標稱件) / 母鎖配 Fig.C.4 (公標稱件) (僅限鎖定型)',
     testProcedureStepsZh: [
       '施加 0.08~0.12 N·m 扭矩與 26.5~27.5 N 軸向推力裝配接頭，靜置 10~15 分鐘使塑膠應力鬆弛穩定。',
       '以連續漸增扭矩旋鬆接頭，直至錐面分離脫開。',
@@ -1370,7 +1370,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       holdTimeHours: '≥ 48 小時',
       temperatureC: '15°C - 30°C (建議 23 ± 2°C)'
     },
-    fixtureRequiredZh: 'Fig.C.1 或 Fig.C.4',
+    fixtureRequiredZh: '公鎖配 Fig.C.1 / 母鎖配 Fig.C.4 ｜ 公滑配 Fig.C.5 / 母滑配 Fig.C.2',
     testProcedureStepsZh: [
       '依標準程序施加 0.08~0.12 N·m 扭矩與 26.5~27.5 N 軸向推力（維持 5~6 秒後釋放）將受測物裝配於參考金屬接頭上。',
       '於 15°C~30°C 室溫空氣環境（建議標準 23 ± 2°C, 50% RH）下組裝靜置保持至少 48 小時。',
@@ -1398,7 +1398,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     quantitativeConditions: {
       temperatureC: '20°C - 30°C'
     },
-    fixtureRequiredZh: 'C.1 (母標稱), C.2 (公滑動), C.3 (母最壞情況), C.4 (公標稱), C.5 (母滑動), C.6 (公最壞情況)',
+    fixtureRequiredZh: '硬化不鏽鋼精密夾具 (ISO: E > 3,433 MPa, Ra ≤ 0.8 µm / 實務: 17-4PH ≥45 HRC 或 316 氮化)',
     testProcedureStepsZh: [
       '檢驗金屬件校正證書，確認錐度 6% 及耳翼寬度（C.1: 3.50mm / C.3: 2.71mm）。',
       '每次測試前以無塵布清潔金屬表面。',
@@ -1431,7 +1431,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       temperatureC: '15°C - 30°C (建議 23 ± 2°C)',
       media: '乾燥室溫空氣環境 (15°C - 30°C, 10% - 70% RH)'
     },
-    fixtureRequiredZh: 'Fig.C.1 (母鎖定: 公鎖受測) / Fig.C.4 (公鎖定: 母鎖受測) / Fig.C.5 (母滑動: 公滑受測) / Fig.C.2 (公滑動: 母滑受測)',
+    fixtureRequiredZh: '公鎖配 Fig.C.1 / 母鎖配 Fig.C.4 ｜ 公滑配 Fig.C.5 / 母滑配 Fig.C.2',
     testProcedureStepsZh: [
       '以 0.08~0.12 N·m 扭矩與 26.5~27.5 N 軸向推力（維持 5~6 秒後釋放）將受測物裝配於 Annex C 參考金屬夾具上。',
       '於 15°C~30°C 室溫空氣環境（建議標準 23 ± 2°C, 50% RH）下組裝靜置保持至少 48 小時。',
@@ -1459,7 +1459,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     quantitativeConditions: {
       temperatureC: '20°C - 30°C'
     },
-    fixtureRequiredZh: 'CMM 三次元量測儀、投影儀與標準環規塞規',
+    fixtureRequiredZh: '三次元 CMM / 6% 光學投影儀 / 通止規 (無附錄 C 夾具)',
     testProcedureStepsZh: [
       '使用 3D CMM 或高精度光學投影儀量測公錐體小端直徑與斜率。',
       '測量母錐座開口直徑、最大與最小配合長度。',
@@ -1511,7 +1511,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     quantitativeConditions: {
       temperatureC: '20°C ± 2°C (標準計量室溫)'
     },
-    fixtureRequiredZh: 'ISO 80369-7 標準環規、塞規與三次元 CMM',
+    fixtureRequiredZh: '三次元 CMM / 6% 光學投影儀 / 通止規 (無附錄 C 夾具)',
     testProcedureStepsZh: [
       '將試驗品於 20°C 計量室靜置恒溫平衡。',
       '使用光學探針量測錐度 6% 斜率與軸向深度。',
@@ -1540,7 +1540,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       testForceN: '26.5 - 27.5 N (軸向推力)',
       holdTimeSec: '5 - 6 秒'
     },
-    fixtureRequiredZh: '校正自動裝配扭矩起子與彈簧推力機構',
+    fixtureRequiredZh: '校正定扭矩起子 (0.08~0.12 N·m) & 軸向推力機構 (26.5~27.5 N)',
     testProcedureStepsZh: [
       '清潔受測物與金屬參考夾具錐面。',
       '以 0.08–0.12 N·m 扭矩與 26.5–27.5 N 軸向推力結合。',

@@ -17,6 +17,7 @@ import {
   getTopicAuditFocus, 
   getClauseObjective, 
   getClauseAppliesTo, 
+  getClauseFixture,
   getClauseTitle, 
   getClauseType,
   getClauseRegulatoryTip,
@@ -983,6 +984,24 @@ export const TopicClauseExplorer: React.FC = () => {
                             <p className="text-slate-700">{getClauseAppliesTo(clause, isEn)}</p>
                           </div>
                         </div>
+
+                        {/* Specified Metal Reference Fixture */}
+                        {getClauseFixture(clause, isEn) && (
+                          <div className="bg-amber-50/70 p-3 rounded-xl border border-amber-200/90 space-y-1">
+                            <div className="flex items-center justify-between">
+                              <span className="text-xs font-bold text-amber-900 flex items-center gap-1.5">
+                                <Wrench className="w-3.5 h-3.5 text-amber-700 shrink-0" />
+                                {isEn ? 'Specified Metal Reference Fixture:' : '必要金屬參考夾具 (Specified Metal Reference Fixture):'}
+                              </span>
+                              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-300">
+                                ISO 80369-7 Annex C
+                              </span>
+                            </div>
+                            <p className="text-xs font-semibold text-amber-950 leading-relaxed font-mono">
+                              {getClauseFixture(clause, isEn)}
+                            </p>
+                          </div>
+                        )}
 
                         {/* Dual-Phase Engineering Conditions: Pre-assembly vs Test Load Challenge */}
                         <div className="space-y-2">

@@ -2,7 +2,34 @@
 
 All notable changes to the ISO 80369-7 & ISO 80369-20 Navigation App will be documented in this file.
 
-## [v8.40.2] - 2026-09-07
+## [v8.40.3] - 2026-09-07
+
+### Standardized "Specified Metal Reference Fixture" Notation & Cross-View Symmetry
+- **Root Cause & Notation Ambiguity Resolution**:
+  - Previously, fixture descriptions suffered from subject-object confusion (e.g. using `Fig.C.1 (母鎖定)` which led users to wonder if the fixture or the DUT is female).
+  - Column headers varied between views (`必要金屬參考夾具` in matrix vs `指定金屬參考接頭` in DVP generator and Excel export).
+  - The Topic Clause Explorer detail cards lacked an explicit, dedicated card for the required reference fixture.
+- **Unified Standardized Grammar (SSOT)**:
+  - Strict DUT-oriented pairing: `[受測物] 配 [夾具號] (特徵) ｜ [滑動型分流]`
+  - **Clause 6.1 / 6.2 / 6.3 & ISO 20 Annex B, C, D, E**:
+    - ZH: `公鎖配 Fig.C.1 / 母鎖配 Fig.C.4 ｜ 公滑配 Fig.C.5 / 母滑配 Fig.C.2`
+    - EN: `Male Lock: Fig. C.1 / Female Lock: Fig. C.4 | Male Slip: Fig. C.5 / Female Slip: Fig. C.2`
+  - **Clause 6.4 & ISO 20 Annex F**:
+    - ZH: `公鎖配 Fig.C.3 (窄耳翼最壞) / 母鎖配 Fig.C.6 (淺牙最壞) ｜ 公滑配 Fig.C.5 / 母滑配 Fig.C.2`
+    - EN: `Male Lock: Fig. C.3 (Worst-case) / Female Lock: Fig. C.6 (Worst-case) | Male Slip: Fig. C.5 / Female Slip: Fig. C.2`
+  - **Clause 6.5 & ISO 20 Annex G, I**:
+    - ZH: `公鎖配 Fig.C.1 (母標稱件) / 母鎖配 Fig.C.4 (公標稱件) (僅限鎖定型)`
+    - EN: `Male Lock: Fig. C.1 (Nominal) / Female Lock: Fig. C.4 (Nominal) (Lock only)`
+  - **Clause 6.6 & ISO 20 Annex H**:
+    - ZH: `公鎖配 Fig.C.3 (2.71mm 窄耳翼最壞) / 母鎖配 Fig.C.6 (淺牙螺紋最壞) (僅限鎖定型)`
+    - EN: `Male Lock: Fig. C.3 (2.71mm Worst-case) / Female Lock: Fig. C.6 (Worst-case) (Lock only)`
+- **Cross-View Horizontal Realignment**:
+  - **`ClauseComparisonMatrix.tsx`**: Fully refreshed with synchronized bilingual strings.
+  - **`TopicClauseExplorer.tsx`**: Added dedicated amber glassmorphic card for `必要金屬參考夾具 (Specified Metal Reference Fixture)` across all clauses.
+  - **`isoTopicsData.ts`**: All 18 clauses/annexes updated to strictly follow the unified notation.
+  - **`i18nHelpers.ts`**: `CLAUSE_I18N` updated with 100% symmetric English strings.
+  - **`translations.ts` & `excelExporter.ts`**: Harmonized column headers to `必要金屬參考夾具` / `Specified Metal Reference Fixture`.
+- **Verification**: `vitest` (17/17 tests pass), `tsc --noEmit` (0 errors), `vite build` (success), browser subagent smoke test (0 console errors).
 
 ### Horizontal First Audit & Full Typology Coverage: Clauses 6.1 through 6.5 Fixture Completeness
 - **Root Cause (RCA)**:

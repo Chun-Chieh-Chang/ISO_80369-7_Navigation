@@ -157,7 +157,7 @@ export const TRANSLATIONS = {
       colTestLoad: '定量加載考驗 (壓力/拉力/扭矩)',
       colTestLoadSub: '實測考驗負載',
       colHoldTime: '保持時間 (Hold Time)',
-      colReferenceFixture: '指定金屬參考接頭',
+      colReferenceFixture: '必要金屬參考夾具',
       colPassCriteria: '允收標準 (Pass Criteria)',
       releaseBadge: '維持 5–6 秒後釋放 (Release)',
       pressureDecay: '氣壓法：',

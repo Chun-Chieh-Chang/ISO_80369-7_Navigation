@@ -1,6 +1,61 @@
 # 開發日誌 (DEV_LOG)
 
 ---
+## 版本：v8.40.3 (Commit: Pending) 全專案「必要金屬參考夾具」欄位寫法邏輯統一化與全頁面同構確效 (2026-09-07)
+
+### 需求來源與目標
+使用者提出關鍵質檢要求：「**檢查 "必要金屬參考夾具" 欄位的寫法邏輯是否一致，各頁面所有欄位是否也是符合這樣的要求**」。
+本版本針對全專案所有視圖頁面（橫向對照矩陣、主題條文檢索、設計驗證規範 DVP 產生器、Excel 匯出器、國際化多語系字典）進行徹底的「欄位命名一致性」與「內容語法邏輯一致性」水平掃描與閉環修正。
+
+### 1. 寫法邏輯混亂現況診斷與 RCA
+
+```
+[問題現象 1：主客體混淆 (Subject-Object Ambiguity)]
+- 舊寫法 A：`Fig.C.1 (母鎖定) / Fig.C.4 (公鎖定)`
+- 舊寫法 B：`Fig.C.3 母參考接頭（公件受測：2.71 mm 窄耳翼） / Fig.C.6 公參考接頭（母件受測：最壞情況淺牙螺紋）`
+- 根本原因：寫法 A 的「母鎖定」是指「夾具性別」；寫法 B 則是以「受測物性別」為主體。兩種視角交替使用，導致醫工與法規人員難以辨識括號內的公/母究竟是指夾具還是指產品本身。
+
+[問題現象 2：欄位標題未對齊 (Column Header Discrepancy)]
+- 橫向對照表叫「必要金屬參考夾具」
+- DVP 產生器叫「指定金屬參考接頭」
+- Excel 匯出表叫「指定金屬參考接頭」
+- 根本原因：不同模組由不同工程師或在不同版本獨立新增，未統一使用單一事實來源 (SSOT) 字典。
+
+[問題現象 3：檢索詳情卡片缺失專用欄位 (Missing Dedicated Field in Topic Explorer)]
+- 在 TopicClauseExplorer.tsx 展開條文時，僅顯示 Objective, Applies To, Pre-assembly 與 Test Load，缺乏獨立顯式的「必要金屬參考夾具」區塊。
+```
+
+### 2. 矯正與預防措施 (CAPA - Unified Grammar Standard)
+
+#### 2.1 制定全系統統一語法規範 (SSOT Notation Standard)
+採用**受測物導向 (DUT-Oriented)**、結構化分流、括號註記特徵之零歧義語法：
+**`[受測物型別] 配 [標準夾具編號] (夾具特徵/最壞情況) ｜ [滑動型分流]`**
+
+| 條文項目 | 統一標準中文寫法 (fixtureRequiredZh) | 統一標準英文寫法 (fixtureRequiredEn) |
+| :--- | :--- | :--- |
+| **6.1 流體洩漏 / 6.2 氣體洩漏 / 6.3 應力龜裂 (及 ISO 20 Annex B, C, D, E)** | `公鎖配 Fig.C.1 / 母鎖配 Fig.C.4 ｜ 公滑配 Fig.C.5 / 母滑配 Fig.C.2` | `Male Lock: Fig. C.1 / Female Lock: Fig. C.4 \| Male Slip: Fig. C.5 / Female Slip: Fig. C.2` |
+| **6.4 軸向分離 (及 ISO 20 Annex F)** | `公鎖配 Fig.C.3 (窄耳翼最壞) / 母鎖配 Fig.C.6 (淺牙最壞) ｜ 公滑配 Fig.C.5 / 母滑配 Fig.C.2` | `Male Lock: Fig. C.3 (Worst-case) / Female Lock: Fig. C.6 (Worst-case) \| Male Slip: Fig. C.5 / Female Slip: Fig. C.2` |
+| **6.5 抗旋鬆 (及 ISO 20 Annex G, I)** | `公鎖配 Fig.C.1 (母標稱件) / 母鎖配 Fig.C.4 (公標稱件) (僅限鎖定型)` | `Male Lock: Fig. C.1 (Nominal) / Female Lock: Fig. C.4 (Nominal) (Lock only)` |
+| **6.6 抗過載 (及 ISO 20 Annex H)** | `公鎖配 Fig.C.3 (2.71mm 窄耳翼最壞) / 母鎖配 Fig.C.6 (淺牙螺紋最壞) (僅限鎖定型)` | `Male Lock: Fig. C.3 (2.71mm Worst-case) / Female Lock: Fig. C.6 (Worst-case) (Lock only)` |
+| **Clause 4 (防呆互斥)** | `3D CAD 碰撞防呆模型與物理互接試驗機` | `Non-interchangeability CAD collision models & physical lockout fixtures` |
+| **Clause 5 / Annex A (幾何尺寸)** | `三次元 CMM / 6% 光學投影儀 / 通止規 (無附錄 C 夾具)` | `CMM / 6% Optical Projector / Gauges (No Annex C Fixture)` |
+| **Annex C (參考接頭總覽)** | `硬化不鏽鋼精密夾具 (ISO: E > 3,433 MPa, Ra ≤ 0.8 µm / 實務: 17-4PH ≥45 HRC 或 316 氮化)` | `Hardened stainless steel precision fixtures (ISO: E > 3,433 MPa, Ra ≤ 0.8 µm / Practical: 17-4PH ≥45 HRC or nitrided 316)` |
+
+#### 2.2 全頁面水平同構展開
+1. **`ClauseComparisonMatrix.tsx`**：全表格「必要金屬參考夾具」欄位全部對齊新語法標準。
+2. **`isoTopicsData.ts`**：所有 18 個條文主題之 `fixtureRequiredZh` 100% 統一。
+3. **`i18nHelpers.ts`**：`CLAUSE_I18N` 字典之 `fixtureRequiredEn` 100% 嚴格同構對應。
+4. **`translations.ts`**：DVP 表頭 `colReferenceFixture` 由「指定金屬參考接頭」統一為「必要金屬參考夾具」。
+5. **`excelExporter.ts`**：Sheet 2 表頭統一為「必要金屬參考夾具 (Specified Metal Reference Fixture)」。
+6. **`TopicClauseExplorer.tsx`**：在條文展開卡片內新增專屬琥珀色毛玻璃卡片【必要金屬參考夾具 (Specified Metal Reference Fixture)】，全域所有頁面完全齊全且同構。
+
+### 3. 確效與零回歸驗證
+- 單元測試：`npm test` 17/17 PASS
+- 型別查核：`npx tsc --noEmit` 0 error
+- 生產建置：`npm run build` PASS
+- 瀏覽器動態實測：Console 無任何紅色報錯，各分頁欄位一致性 100% 符合法規 SSOT 要求。
+
+---
 ## 版本：v8.40.2 (Commit: 5e37531) 國際標準 SSOT 深度水平展開與防禦檢討：根除「型別偏誤」與全條文參考夾具完整度閉環 (2026-09-07)
 
 ### 需求來源與目標

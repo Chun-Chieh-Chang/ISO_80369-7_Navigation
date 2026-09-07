@@ -112,7 +112,7 @@ export const CLAUSE_I18N: Record<string, ClauseI18nData> = {
     objectiveEn: 'Verify that assembled Luer connectors exhibit no liquid leakage under 300-330 kPa positive pressure (Falling drop: no drop in 30-35 s / Pressure decay: rate <= 0.005 Pa·m3/s in 15-20 s).',
     appliesToEn: 'Male & female Luer lock and slip connectors (vascular & subcutaneous)',
     typeEn: 'Requirement',
-    fixtureRequiredEn: 'Fig.C.1 (Female Lock) / Fig.C.2 (Male Slip) / Fig.C.4 (Male Lock) / Fig.C.5 (Female Slip)',
+    fixtureRequiredEn: 'Male Lock: Fig. C.1 / Female Lock: Fig. C.4 | Male Slip: Fig. C.5 / Female Slip: Fig. C.2',
     regulatoryTipEn: 'Mandatory core test for FDA 510(k) and CE MDR submissions. Disclose test medium (water or air) and pressure decay system volume V.'
   },
   'iso7-6.2': {
@@ -120,7 +120,7 @@ export const CLAUSE_I18N: Record<string, ClauseI18nData> = {
     objectiveEn: 'Verify that assembled Luer connectors prevent air ingress under 80.0 to 88.0 kPa vacuum negative pressure (Annex D vacuum decay or Annex K aspiration).',
     appliesToEn: 'Male & female Luer lock and slip connectors',
     typeEn: 'Requirement',
-    fixtureRequiredEn: 'Fig.C.1 / Fig.C.2 / Fig.C.4 / Fig.C.5 standard reference fixtures',
+    fixtureRequiredEn: 'Male Lock: Fig. C.1 / Female Lock: Fig. C.4 | Male Slip: Fig. C.5 / Female Slip: Fig. C.2',
     regulatoryTipEn: 'Critical for blood line access and syringe infusion sets to prevent clinical air embolism.'
   },
   'iso7-6.3': {
@@ -128,7 +128,7 @@ export const CLAUSE_I18N: Record<string, ClauseI18nData> = {
     objectiveEn: 'Verify that connectors assembled to reference fixtures do not exhibit micro-cracking after 48 h room temperature conditioning, and subsequently pass Clause 6.1 leakage test.',
     appliesToEn: 'Male & female Luer lock and slip connectors made of polymer materials',
     typeEn: 'Requirement',
-    fixtureRequiredEn: 'Fig.C.1 / Fig.C.2 / Fig.C.4 / Fig.C.5',
+    fixtureRequiredEn: 'Male Lock: Fig. C.1 / Female Lock: Fig. C.4 | Male Slip: Fig. C.5 / Female Slip: Fig. C.2',
     regulatoryTipEn: 'Pay special attention to molded residual hoop stresses in polycarbonate and acrylic transparent luer fittings.'
   },
   'iso7-6.4': {
@@ -136,7 +136,7 @@ export const CLAUSE_I18N: Record<string, ClauseI18nData> = {
     objectiveEn: 'Verify that assembled connectors remain joined without separation under 23-25 N (Slip) or 32-35 N (Lock) axial pull force held for 10-15 s.',
     appliesToEn: 'Male & female Luer lock and slip connectors',
     typeEn: 'Requirement',
-    fixtureRequiredEn: 'Fig.C.3 (Male Lock worst-case) / Fig.C.6 (Female Lock worst-case) / Fig.C.2 / Fig.C.5',
+    fixtureRequiredEn: 'Male Lock: Fig. C.3 (Worst-case) / Female Lock: Fig. C.6 (Worst-case) | Male Slip: Fig. C.5 / Female Slip: Fig. C.2',
     regulatoryTipEn: 'For male lock connectors, testing MUST pair with Fig.C.3 (2.71 mm narrow lug worst-case fixture).'
   },
   'iso7-6.5': {
@@ -144,7 +144,7 @@ export const CLAUSE_I18N: Record<string, ClauseI18nData> = {
     objectiveEn: 'Verify that threaded Luer lock connections remain locked without unscrewing when subjected to 0.018 to 0.020 N·m reverse torque for 10-15 s.',
     appliesToEn: 'Male & female Luer lock connectors only',
     typeEn: 'Requirement',
-    fixtureRequiredEn: 'Fig.C.1 (Female Lock) / Fig.C.4 (Male Lock)',
+    fixtureRequiredEn: 'Male Lock: Fig. C.1 (Nominal) / Female Lock: Fig. C.4 (Nominal) (Lock only)',
     regulatoryTipEn: 'Validates self-locking taper friction to avoid spontaneous disconnection under patient movements.'
   },
   'iso7-6.6': {
@@ -152,7 +152,7 @@ export const CLAUSE_I18N: Record<string, ClauseI18nData> = {
     objectiveEn: 'Verify that Luer lock threads and lugs do not strip, override, or cock under 0.15 to 0.17 N·m destructive over-torque held for 5-10 s.',
     appliesToEn: 'Male & female Luer lock connectors only',
     typeEn: 'Requirement',
-    fixtureRequiredEn: 'Fig.C.3 (Male test: 2.71 mm narrow lug worst-case) / Fig.C.6 (Female test: worst-case thread)',
+    fixtureRequiredEn: 'Male Lock: Fig. C.3 (2.71mm Worst-case) / Female Lock: Fig. C.6 (Worst-case) (Lock only)',
     regulatoryTipEn: 'Standard strictly mandates pre-assembly (0.08-0.12 N·m + 27.5 N push for 5-6 s) prior to applying 0.17 N·m overriding torque. Over-tightening directly is non-compliant deviation.'
   },
   'iso7-clause-4': {
@@ -176,7 +176,7 @@ export const CLAUSE_I18N: Record<string, ClauseI18nData> = {
     objectiveEn: 'Standard procedure for quantitative positive pressure leakage testing via pneumatic pressure decay (Delta P).',
     appliesToEn: 'All medical small-bore connectors',
     typeEn: 'Test Method',
-    fixtureRequiredEn: 'ISO 80369-7 Annex C reference connectors',
+    fixtureRequiredEn: 'Male Lock: Fig. C.1 / Female Lock: Fig. C.4 | Male Slip: Fig. C.5 / Female Slip: Fig. C.2',
     regulatoryTipEn: 'ISO 80369-20:2024 mandates disclosing system internal test volume V.'
   },
   'iso20-annex-c': {
@@ -184,7 +184,7 @@ export const CLAUSE_I18N: Record<string, ClauseI18nData> = {
     objectiveEn: 'Standard procedure for qualitative hydraulic leakage testing via falling water drop observation.',
     appliesToEn: 'All medical small-bore connectors',
     typeEn: 'Test Method',
-    fixtureRequiredEn: 'Annex C reference connectors with water supply',
+    fixtureRequiredEn: 'Male Lock: Fig. C.1 / Female Lock: Fig. C.4 | Male Slip: Fig. C.5 / Female Slip: Fig. C.2',
     regulatoryTipEn: 'Ensure complete de-aeration of test circuit prior to 30 s pressure hold.'
   },
   'iso20-annex-d': {
@@ -192,7 +192,7 @@ export const CLAUSE_I18N: Record<string, ClauseI18nData> = {
     objectiveEn: 'Quantitative vacuum decay test method applying 80.0 to 88.0 kPa negative pressure.',
     appliesToEn: 'All small-bore connectors',
     typeEn: 'Test Method',
-    fixtureRequiredEn: 'Vacuum manifold and Annex C reference fixtures',
+    fixtureRequiredEn: 'Male Lock: Fig. C.1 / Female Lock: Fig. C.4 | Male Slip: Fig. C.5 / Female Slip: Fig. C.2',
     regulatoryTipEn: 'Calibrate vacuum sensor within valid calibration interval.'
   },
   'iso20-annex-e': {
@@ -200,7 +200,7 @@ export const CLAUSE_I18N: Record<string, ClauseI18nData> = {
     objectiveEn: 'Standard environmental conditioning method: 48 h assembly hold at 23 deg C prior to leakage testing.',
     appliesToEn: 'Polymer small-bore connectors',
     typeEn: 'Test Method',
-    fixtureRequiredEn: 'Annex C hardened metal reference fixtures',
+    fixtureRequiredEn: 'Male Lock: Fig. C.1 / Female Lock: Fig. C.4 | Male Slip: Fig. C.5 / Female Slip: Fig. C.2',
     regulatoryTipEn: 'Environmental chamber log must demonstrate uninterrupted 23 +/- 2 deg C temperature control.'
   },
   'iso20-annex-f': {
@@ -208,7 +208,7 @@ export const CLAUSE_I18N: Record<string, ClauseI18nData> = {
     objectiveEn: 'Tensile test procedure applying axial pull force at <= 10 N/s rate up to designated load.',
     appliesToEn: 'All small-bore connectors',
     typeEn: 'Test Method',
-    fixtureRequiredEn: 'Universal testing machine with axial alignment grips',
+    fixtureRequiredEn: 'Male Lock: Fig. C.3 (Worst-case) / Female Lock: Fig. C.6 (Worst-case) | Male Slip: Fig. C.5 / Female Slip: Fig. C.2',
     regulatoryTipEn: 'Inspect tensile load cell calibration and alignment verification records.'
   },
   'iso20-annex-g': {
@@ -216,7 +216,7 @@ export const CLAUSE_I18N: Record<string, ClauseI18nData> = {
     objectiveEn: 'Torsional test procedure applying reverse unscrewing torque of 0.020 N·m for 10-15 s.',
     appliesToEn: 'Threaded small-bore connectors',
     typeEn: 'Test Method',
-    fixtureRequiredEn: 'Calibrated low-torque testing instrument',
+    fixtureRequiredEn: 'Male Lock: Fig. C.1 (Nominal) / Female Lock: Fig. C.4 (Nominal) (Lock only)',
     regulatoryTipEn: 'Verify low-range torque resolution (<= 0.001 N·m).'
   },
   'iso20-annex-h': {
@@ -224,7 +224,7 @@ export const CLAUSE_I18N: Record<string, ClauseI18nData> = {
     objectiveEn: 'Destructive torsional test procedure applying 0.15-0.17 N·m torque following mandatory pre-assembly.',
     appliesToEn: 'Threaded lock connectors',
     typeEn: 'Test Method',
-    fixtureRequiredEn: 'Figure C.3 (Female worst-case 2.71 mm lug) fixture',
+    fixtureRequiredEn: 'Male Lock: Fig. C.3 (2.71mm Worst-case) / Female Lock: Fig. C.6 (Worst-case) (Lock only)',
     regulatoryTipEn: 'Document both pre-assembly conditions and final destructive torque hold parameters.'
   },
   'iso20-annex-j': {
@@ -264,7 +264,7 @@ export const CLAUSE_I18N: Record<string, ClauseI18nData> = {
     objectiveEn: 'Provides precise 3D geometry and material specifications for 6 standardized hardened stainless steel reference connectors as the globally unified test basis.',
     appliesToEn: 'All ISO 80369-7 physical and mechanical performance tests',
     typeEn: 'Reference Fixture',
-    fixtureRequiredEn: 'C.1 (Female Lock Nominal 3.50mm), C.2 (Male Slip), C.3 (Female Worst-case 2.71mm), C.4 (Male Lock), C.5 (Female Slip), C.6 (Male Worst-case)',
+    fixtureRequiredEn: 'Hardened stainless steel precision fixtures (ISO: E > 3,433 MPa, Ra ≤ 0.8 µm / Practical: 17-4PH ≥45 HRC or nitrided 316)',
     regulatoryTipEn: 'FDA 510(k) reviews commonly require calibration certificates and dimensional traceability records for reference connectors.'
   },
   'iso7-annex-d': {
@@ -288,7 +288,7 @@ export const CLAUSE_I18N: Record<string, ClauseI18nData> = {
     objectiveEn: 'Precisely specifies the 6% taper (1:16.667), engagement length (≥7.5 mm), and thread pitch for male and female Luer connectors to ensure global interoperability.',
     appliesToEn: 'All ISO 80369-7 Luer lock and slip connectors',
     typeEn: 'Specification Clause',
-    fixtureRequiredEn: 'CMM, optical projector, and standard ring/plug gauges',
+    fixtureRequiredEn: 'CMM / 6% Optical Projector / Gauges (No Annex C Fixture)',
     regulatoryTipEn: 'FDA 510(k) review requires a Full Dimensional Inspection Report (FAIR) referencing Fig.B.1–B.6 tolerances.'
   },
   'iso20-clause-1': {
@@ -328,7 +328,7 @@ export const CLAUSE_I18N: Record<string, ClauseI18nData> = {
     objectiveEn: 'Specifies standard measurement conditions for verifying geometric dimensions using gauges (Go/No-Go) and precision coordinate measuring equipment.',
     appliesToEn: 'All ISO 80369 series connectors',
     typeEn: 'Test Method',
-    fixtureRequiredEn: 'Go/No-Go gauges, CMM, or optical vision measuring system at 20±2°C metrology room',
+    fixtureRequiredEn: 'CMM / 6% Optical Projector / Gauges (No Annex C Fixture)',
     regulatoryTipEn: 'Dimensional measurement reports must reference calibrated equipment and comply with GD&T per ISO 14405.'
   },
   'iso20-annex-i': {
@@ -336,7 +336,7 @@ export const CLAUSE_I18N: Record<string, ClauseI18nData> = {
     objectiveEn: 'Evaluates the maximum peak disconnection torque when unscrewing and separating the connector, ensuring clinical ease of disconnection for healthcare workers.',
     appliesToEn: 'Luer lock connectors requiring frequent manual disconnection',
     typeEn: 'Test Method',
-    fixtureRequiredEn: 'Fig.C.1 (Female Lock) or Fig.C.4 (Male Lock) reference connector; calibrated low-torque instrument',
+    fixtureRequiredEn: 'Male Lock: Fig. C.1 (Nominal) / Female Lock: Fig. C.4 (Nominal) (Lock only)',
     regulatoryTipEn: 'Key metric for Human Factors Engineering (Usability Engineering per IEC 62366) evaluation and FDA submission.'
   },
   'iso7-clause-1': {
@@ -368,7 +368,7 @@ export const CLAUSE_I18N: Record<string, ClauseI18nData> = {
     objectiveEn: 'Standardizes the pre-assembly torque and axial push force procedure required before all Annex B–I performance tests.',
     appliesToEn: 'All ISO 80369-20 performance test annexes',
     typeEn: 'Test Method',
-    fixtureRequiredEn: 'Calibrated automatic torque driver and spring axial force mechanism',
+    fixtureRequiredEn: 'Calibrated Torque Driver (0.08–0.12 N·m) & Axial Force Rig (26.5–27.5 N)',
     regulatoryTipEn: 'Automated torque test systems must include real-time assembly force curve records for regulatory submissions.'
   }
 };
