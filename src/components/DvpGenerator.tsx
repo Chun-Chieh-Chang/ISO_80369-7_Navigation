@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { ISO_CLAUSES, ISO20_MANDATORY_REPORT_ITEMS, ISO20_PRECONDITIONING, ISO20_REPORT_ELEMENT_COUNTS, ISO20_EDITION_NOTE } from '../data/isoData';
 import { ConnectorGender, ConnectorType, TestConfigState, TestClauseId, ISOClauseInfo } from '../types';
 import { ISOStandardFigureRenderer } from './ISOStandardFigureRenderer';

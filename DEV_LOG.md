@@ -1,6 +1,75 @@
 # 開發日誌 (DEV_LOG)
 
 ---
+## 版本：v8.41.0 (Commit: TBD) UI/UX 全面重設計 + Excel 匯出整合 + 全面盤點清理 (2026-09-08)
+
+### 需求來源
+使用者啟動 5 大步驟全面盤點：(1) 盤點與死碼清理 (2) 文件同步 (3) SSOT/MECE 整合 (4) 建立 Git 基準點 (5) 推送 GitHub。
+
+### 1. 診斷與根因 (RCA)
+
+```
+[死碼：dvp.exportCsv 翻譯 key 殘留]
+- DvpGenerator.tsx CSV 按鈕已於 v8.19.2 移除，但 translations.ts 的
+  dvp.exportCsv (ZH + EN) 未同步刪除，形成孤立 key。
+
+[Header UI 設計不符要求]
+- 使用者回饋：「帶有 AI 塑料味」— 全白 3 層 Header、filled pill active 狀態、
+  animate-pulse 裝飾點、font-mono 氾濫，均為 SaaS 預設模板特徵。
+
+[CSV 按鈕分散問題]
+- DvpGenerator：Excel + CSV 兩個獨立按鈕；ClauseComparisonMatrix：CSV 按鈕。
+  使用者要求整合，保持單一出口。
+```
+
+### 2. 矯正與預防措施 (CAPA)
+
+#### v8.19.0 — Header 全面重設計
+- 三層白色架構 → 兩層：深海軍藍品牌欄（#0D1B2E, 52px）+ 白色導航列（44px）
+- Active 狀態：filled blue pill → `border-b-2 border-blue-600` 底線（出版/文件工具感）
+- 移除：animate-pulse 裝飾綠點、font-mono 全域應用、Hub tab 內嵌 badge
+- index.css：body background #EFF2F6、heading letter-spacing -0.015em、
+  .tech-value class（mono 字型僅用於測量值）、精簡 .premium-card 陰影
+
+#### v8.19.1 — 移除 Mouldex 外部連結按鈕
+
+#### v8.19.2 — DvpGenerator CSV 整合進 Excel
+- 移除：exportReportChecklistCSV() 函數 + Download 按鈕
+- excelExporter.ts：加入 Sheet 4「報告要件檢核表 (.5)」
+  - 14 項 ISO 80369-20 必填項目、雙語欄位、✓ 已確認欄、藍色標頭、交替底色
+  - A4 Landscape page setup + autoFilter
+
+#### v8.19.3 — ClauseComparisonMatrix CSV → Excel
+- exportCSV() → exportExcel()，使用 ExcelJS 輸出原生 .xlsx
+- 格式：深藍標題列、藍色欄標頭、交替底色資料列、A4 Landscape、autoFilter
+- 按鈕圖示 Download → FileSpreadsheet
+- 翻譯：「匯出 CSV 對照表」→「匯出 Excel 對照表」
+
+#### v8.41.0 — 全面盤點清理
+- 刪除死碼：translations.ts dvp.exportCsv (ZH + EN)
+- 確認有效資源：iso_80369_7_material_evaluation_matrix.html（ConnectorInspector 引用）
+- 確認有效資源：slides-standalone.html（25.9MB 離線包，不屬孤立文件）
+- package.json：8.40.6 → 8.41.0
+- CHANGELOG.md / DEV_LOG.md：補齊今日所有條目
+
+### 3. 驗收標準 (Acceptance Criteria)
+- [ ] `npm run lint` (`tsc --noEmit`) — 0 errors
+- [ ] `npm run test` (`vitest run`) — all PASS
+- [ ] `npm run build` — PASS, 0 errors
+- [ ] translations.ts 無 dvp.exportCsv 殘留
+- [ ] package.json version === "8.41.0"
+- [ ] CHANGELOG / DEV_LOG 已補齊今日條目
+- [ ] Git commit 原子化，Push 至 GitHub
+
+### 4. 驗證結果 (Validation)
+- `npm run lint` (`tsc --noEmit`) — ✅ 0 errors
+- `npm run test` (`vitest run`) — ✅ 52/52 PASS (2 test files)
+- `npm run build` (`vite build`) — ✅ PASS, 1694 modules, built in 6.21s
+- BOM 汙染：DvpGenerator.tsx / ClauseComparisonMatrix.tsx / package.json — 全數清除
+- 死碼 `dvp.exportCsv` (ZH + EN) — 已從 translations.ts 移除
+- package.json version === "8.41.0" — ✅
+
+---
 ## 版本：v8.40.6 (Commit: 34f1b58 / 12bff8b) 全域圖像路徑水平審查 P0 修復 + 全專案文件同步優化 (2026-09-07)
 
 ### 需求來源

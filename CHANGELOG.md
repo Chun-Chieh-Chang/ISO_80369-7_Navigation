@@ -2,6 +2,36 @@
 
 All notable changes to the ISO 80369-7 & ISO 80369-20 Navigation App will be documented in this file.
 
+## [v8.41.0] - 2026-09-08
+
+### UI/UX Redesign — Header, Excel Export Consolidation & Dead Code Cleanup
+
+#### Header Redesign (v8.19.0)
+- **Two-tier dark brand bar**: Replaced 3-tier white header with dark navy brand bar (`#0D1B2E`, 52px) + white nav strip (44px). Breaks from generic SaaS white-header pattern.
+- **Editorial underline active state**: Hub tabs now use `border-b-2 border-blue-600` underline instead of filled blue pill — more document/editorial feel aligned with ISO standards tooling.
+- **Removed decorative noise**: Eliminated `animate-pulse` dot, `font-mono` on meta labels, sub-badges on hub tabs, and heavy sub-tab container.
+- **Added** `FlaskConical` icon for Workbench hub.
+- **`index.css`**: Body background `#EFF2F6` (cooler precision grey); heading `letter-spacing: -0.015em`; simplified `.premium-card` shadow; `.tech-value` class scoping mono font to measurement values only.
+
+#### Button Cleanup (v8.19.1)
+- **Removed** Mouldex external link button from brand bar — reduces chrome clutter.
+
+#### Excel Export Consolidation (v8.19.2)
+- **DvpGenerator**: `exportReportChecklistCSV()` function and standalone CSV button removed.
+- **`excelExporter.ts`**: Sheet 4 added — `'報告要件檢核表 (.5)' / 'Report Checklist (.5)'` — all 14 ISO 80369-20 mandatory items with bilingual fields, checkmark column, blue header, alternating row fill.
+- Result: Single Excel workbook now contains all 4 sheets (Annex B.5 Items, DVP Matrix, Preconditioning, Report Checklist).
+
+#### Comparison Matrix Excel Upgrade (v8.19.3)
+- **`ClauseComparisonMatrix.tsx`**: `exportCSV()` → `exportExcel()` using ExcelJS native `.xlsx` workbook.
+- Format: navy title row, blue column headers, alternating data rows, A4 Landscape, autoFilter.
+- **Translation**: `'匯出 CSV 對照表'` → `'匯出 Excel 對照表'` / `'Export CSV Matrix'` → `'Export Excel Matrix'`.
+
+#### Codebase Audit & Dead Code Removal (v8.41.0)
+- **Removed** dead translation keys `dvp.exportCsv` (ZH + EN) — CSV button was removed in v8.19.2 but keys lingered.
+- **Confirmed** `iso_80369_7_material_evaluation_matrix.html` is active (linked from `ConnectorInspector.tsx:335`).
+- **Confirmed** `slides-standalone.html` is an intentional offline bundle (not orphaned).
+- **Version bump**: `8.40.6` → `8.41.0`.
+
 ## [v8.40.6] - 2026-09-07
 
 ### Horizontal Info-Loss Audit & P0 Fix: ISO20-FIG-J1 Missing Image

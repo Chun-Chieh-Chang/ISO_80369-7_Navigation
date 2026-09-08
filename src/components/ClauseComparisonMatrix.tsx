@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { ISO_TOPICS, STANDARD_CLAUSE_DETAILS } from '../data/isoTopicsData';
 import { ISO_CLAUSES } from '../data/isoData';
 import { ISOStandardFigureRenderer } from './ISOStandardFigureRenderer';
@@ -335,7 +335,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
     ws.columns = isEn
       ? [{ key: 'id', width: 10 }, { key: 'iso7', width: 26 }, { key: 'iso20', width: 18 }, { key: 'type', width: 14 }, { key: 'asm', width: 30 }, { key: 'load', width: 22 }, { key: 'hold', width: 14 }, { key: 'fixture', width: 20 }, { key: 'criteria', width: 48 }]
       : [{ key: 'id', width: 10 }, { key: 'iso7', width: 26 }, { key: 'iso20', width: 18 }, { key: 'type', width: 14 }, { key: 'asm', width: 32 }, { key: 'load', width: 24 }, { key: 'hold', width: 12 }, { key: 'fixture', width: 20 }, { key: 'criteria', width: 50 }];
-    const thinBorder = { top: { style: 'thin', color: { argb: 'E2E8F0' } }, left: { style: 'thin', color: { argb: 'E2E8F0' } }, bottom: { style: 'thin', color: { argb: 'E2E8F0' } }, right: { style: 'thin', color: { argb: 'E2E8F0' } } };
+    const thinBorder: Partial<ExcelJS.Borders> = { top: { style: 'thin', color: { argb: 'E2E8F0' } }, left: { style: 'thin', color: { argb: 'E2E8F0' } }, bottom: { style: 'thin', color: { argb: 'E2E8F0' } }, right: { style: 'thin', color: { argb: 'E2E8F0' } } };
     ws.mergeCells('A1:I1');
     const t1 = ws.getCell('A1');
     t1.value = isEn ? '  ISO 80369-7 vs ISO 80369-20 Cross Comparison Matrix' : '  ISO 80369-7 (條文) vs ISO 80369-20 (測試細則) 橫向對照矩陣';
