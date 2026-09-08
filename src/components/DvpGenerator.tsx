@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { ISO_CLAUSES, ISO20_MANDATORY_REPORT_ITEMS, ISO20_PRECONDITIONING, ISO20_REPORT_ELEMENT_COUNTS, ISO20_EDITION_NOTE } from '../data/isoData';
 import { ConnectorGender, ConnectorType, TestConfigState, TestClauseId, ISOClauseInfo } from '../types';
 import { ISOStandardFigureRenderer } from './ISOStandardFigureRenderer';
 import { getClauseSvgKey, getAnnexCFigure, getRequiredReferenceConnector, getReferenceConnectorLabel, getPreAssemblySpec } from '../utils/isoHelpers';
 import { exportMedicalGradeExcelReport } from '../utils/excelExporter';
 import { useLanguage } from '../i18n/LanguageContext';
-import { FileSpreadsheet, Eye, Info, FileCheck, Download, Calendar, ShieldCheck, Thermometer, FileText } from 'lucide-react';
+import { FileSpreadsheet, Eye, Info, FileCheck, Calendar, ShieldCheck, Thermometer, FileText } from 'lucide-react';
 
 interface DvpGeneratorProps {
   config: TestConfigState;
@@ -25,32 +25,6 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
   const activeClauseObj = ISO_CLAUSES[config.selectedClauseId || '6.1'];
   const activeSvgKey = getClauseSvgKey(config.selectedClauseId || '6.1');
   const activeFigInfo = getAnnexCFigure(activeSvgKey);
-
-  const exportReportChecklistCSV = () => {
-    const isEn = language === 'en';
-    const headers = isEn
-      ? ['Item', 'ISO Clause (a~n)', 'Field Name (EN)', 'Regulatory Requirement & Details', 'Example Value / Format']
-      : ['項目編號', 'ISO 條款 (a~n)', '必填欄位名稱 (EN)', '必填欄位中文', '法規規範與範例說明'];
-
-    const rows = ISO20_MANDATORY_REPORT_ITEMS.map(item => [
-      item.code,
-      `Section .5 (${item.id})`,
-      `"${item.titleEn}"`,
-      isEn ? `"${item.descriptionEn || item.descriptionZh}"` : `"${item.titleZh}"`,
-      isEn ? `"${item.exampleValueEn || item.exampleValueZh}"` : `"${item.exampleValueZh}"`
-    ]);
-
-    const csvContent = '\uFEFF' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = isEn
-      ? `ISO_80369_20_Test_Report_14_Mandatory_Elements.csv`
-      : `ISO_80369_20_測試報告_14大必填項目檢核表.csv`;
-    link.click();
-    URL.revokeObjectURL(url);
-  };
 
   /**
    * Pre-assembly for the selected connector style.
@@ -491,13 +465,6 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
                 <span>{t.dvp.exportExcel}</span>
               </button>
 
-              <button
-                onClick={exportReportChecklistCSV}
-                className="flex items-center space-x-2 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-sm font-bold transition-all cursor-pointer border border-slate-200"
-              >
-                <Download className="w-4 h-4" />
-                <span>{t.dvp.exportCsv}</span>
-              </button>
             </div>
           </div>
 

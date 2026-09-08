@@ -1,5 +1,5 @@
 import ExcelJS from 'exceljs';
-import { ISO20_MANDATORY_REPORT_ITEMS, ISO20_PRECONDITIONING, ISO_CLAUSES } from '../data/isoData';
+import { ISO20_MANDATORY_REPORT_ITEMS, ISO20_PRECONDITIONING, ISO_CLAUSES, MandatoryReportItem } from '../data/isoData';
 import { TestConfigState } from '../types';
 import { getRequiredReferenceConnector, formatPreAssembly } from './isoHelpers';
 
@@ -405,6 +405,95 @@ export const exportMedicalGradeExcelReport = async (config: TestConfigState, lan
   });
 
   ws3.autoFilter = `A3:E${3 + annexARows.length}`;
+
+  // ==========================================
+  // SHEET 4: ISO 80369-20 Section .5 — 14 Mandatory Test Report Items Checklist
+  // ==========================================
+  const sheet4Name = isEn ? 'Report Checklist (.5)' : '報告要件檢核表 (.5)';
+  const ws4 = workbook.addWorksheet(sheet4Name);
+  configureA4LandscapePageSetup(ws4);
+
+  ws4.columns = [
+    { header: '', key: 'code',   width: 8 },
+    { header: '', key: 'clause', width: 18 },
+    { header: '', key: 'titleEn', width: isEn ? 30 : 26 },
+    { header: '', key: 'titleZh', width: isEn ? 0 : 22 },
+    { header: '', key: 'desc',   width: 50 },
+    { header: '', key: 'example', width: 36 },
+    { header: '', key: 'check',  width: 12 },
+  ];
+
+  ws4.mergeCells('A1:G1');
+  const titleCell4 = ws4.getCell('A1');
+  titleCell4.value = isEn
+    ? '  ISO 80369-20:2024 Section .5 — 14 Mandatory Test Report Items Checklist'
+    : '  ISO 80369-20:2024 Section .5 — 14 大必填欄位報告要件檢核表';
+  titleCell4.font = { name: 'Segoe UI', size: 12, bold: true, color: { argb: 'FFFFFF' } };
+  titleCell4.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: '0F172A' } };
+  titleCell4.alignment = { vertical: 'middle', horizontal: 'left' };
+  ws4.getRow(1).height = 32;
+
+  const subTitle4 = ws4.getRow(2);
+  subTitle4.height = 18;
+  ws4.mergeCells('A2:G2');
+  const subCell4 = ws4.getCell('A2');
+  subCell4.value = isEn
+    ? '  Each test report for ISO 80369-20 must include ALL items below (a–n). Tick the ✓ column before submission.'
+    : '  每份 ISO 80369-20 測試報告均須包含以下全部項目 (a~n)。提交前請逐項在 ✓ 欄位勾選確認。';
+  subCell4.font = { name: 'Segoe UI', size: 9, italic: true, color: { argb: '475569' } };
+  subCell4.alignment = { vertical: 'middle', horizontal: 'left' };
+
+  const headers4 = isEn
+    ? ['Item', 'ISO Clause', 'Field Name (EN)', 'Regulatory Requirement & Details', 'Example Value / Format', '✓ Checked']
+    : ['項目', 'ISO 條款', '必填欄位名稱 (EN)', '法規規範與必填說明', '範例值 / 格式', '✓ 已確認'];
+
+  const headerRow4 = ws4.getRow(3);
+  headerRow4.height = 28;
+  const colCount4 = isEn ? 6 : 7;
+  headers4.forEach((text, i) => {
+    const cell = headerRow4.getCell(i + 1);
+    cell.value = text;
+    cell.font = { name: 'Segoe UI', size: 9.5, bold: true, color: { argb: 'FFFFFF' } };
+    cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: '2563EB' } };
+    cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+    cell.border = {
+      bottom: { style: 'medium', color: { argb: '1D4ED8' } },
+      right: { style: 'thin', color: { argb: '64748B' } }
+    };
+  });
+
+  ISO20_MANDATORY_REPORT_ITEMS.forEach((item: MandatoryReportItem, idx: number) => {
+    const rowNum = idx + 4;
+    const row = ws4.getRow(rowNum);
+    row.height = 36;
+    const bgFill = idx % 2 === 0 ? 'FFFFFF' : 'F8FAFC';
+
+    const rowData = isEn
+      ? [item.code, `Section .5 (${item.id})`, item.titleEn, item.descriptionEn || item.descriptionZh, item.exampleValueEn || item.exampleValueZh, '']
+      : [item.code, `Section .5 (${item.id})`, item.titleEn, item.descriptionZh, item.exampleValueZh, ''];
+
+    rowData.forEach((val, i) => {
+      const cell = row.getCell(i + 1);
+      cell.value = val;
+      cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: bgFill } };
+      cell.alignment = { vertical: 'middle', wrapText: true };
+      cell.border = thinBorder;
+
+      if (i === 0) {
+        cell.font = { name: 'Segoe UI', size: 10, bold: true, color: { argb: '1E293B' } };
+        cell.alignment = { vertical: 'middle', horizontal: 'center' };
+      } else if (i === 2) {
+        cell.font = { name: 'Segoe UI', size: 9, bold: true, color: { argb: '1E3A8A' } };
+      } else if (i === rowData.length - 1) {
+        cell.alignment = { vertical: 'middle', horizontal: 'center' };
+        cell.font = { name: 'Segoe UI', size: 12, color: { argb: '16A34A' } };
+      } else {
+        cell.font = { name: 'Segoe UI', size: 9, color: { argb: '334155' } };
+      }
+    });
+  });
+
+  ws4.autoFilter = `A3:F${3 + ISO20_MANDATORY_REPORT_ITEMS.length}`;
 
   // Download binary .xlsx file in browser
   if (typeof window !== 'undefined' && typeof document !== 'undefined') {
