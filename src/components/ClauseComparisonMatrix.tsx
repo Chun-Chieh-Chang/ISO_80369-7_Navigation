@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { ISO_TOPICS, STANDARD_CLAUSE_DETAILS } from '../data/isoTopicsData';
 import { ISO_CLAUSES } from '../data/isoData';
 import { ISOStandardFigureRenderer } from './ISOStandardFigureRenderer';
@@ -6,7 +6,8 @@ import { getClauseSvgKey, getAnnexCFigure, formatClauseFixtureMatrix, formatPreA
 import { useLanguage } from '../i18n/LanguageContext';
 import { ClauseDetailDrawer } from './ClauseDetailDrawer';
 import { useClauseDetailDrawer, findTopicForClause } from '../hooks/useClauseDetailDrawer';
-import { Table, Search, Download, Filter, Info, CheckCircle2, AlertTriangle, ArrowUpDown, ChevronDown, ChevronUp, Eye, Sparkles, BookOpen } from 'lucide-react';
+import { Table, Search, FileSpreadsheet, Filter, Info, CheckCircle2, AlertTriangle, ArrowUpDown, ChevronDown, ChevronUp, Eye, Sparkles, BookOpen } from 'lucide-react';
+import ExcelJS from 'exceljs';
 
 /** Shape of one derived comparison-matrix row (SSOT projection of ISO_CLAUSES). */
 interface MatrixClauseRow {
@@ -323,30 +324,71 @@ export const ClauseComparisonMatrix: React.FC = () => {
     return matchesCat && matchesSearch;
   });
 
-  const exportCSV = () => {
-    const headers = language === 'en'
-      ? ['Clause', 'ISO 80369-7 Clause', 'ISO 80369-20 Annex', 'Type', 'Pre-assembly (Torque / Axial)', 'Test Load (Pressure/Force/Torque)', 'Hold Time', 'Reference Fixture', 'PASS Criteria']
-      : ['條文號', 'ISO 80369-7 條文', 'ISO 80369-20 附錄', '適用類型', '預裝配條件 (扭矩 / 軸向推力)', '定量加載考驗 (壓力/拉力/扭矩)', '保持時間', '指定金屬夾具', '合格標準'];
-    const rows = clausesList.map(c => [
-      c.id,
-      c.iso7,
-      c.iso20,
-      c.type,
-      c.assemblyTorque,
-      c.testPressure !== '-' ? c.testPressure : (c.testTorque !== '-' ? c.testTorque : c.testForce),
-      c.holdTime,
-      c.fixture,
-      `"${c.criteria}"`
-    ]);
-
-    const csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement('a');
-    link.setAttribute('href', encodedUri);
-    link.setAttribute('download', language === 'en' ? 'ISO_80369_Comparison_Matrix.csv' : 'ISO_80369_條文對照矩陣.csv');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const exportExcel = async () => {
+    const isEn = language === 'en';
+    const wb = new ExcelJS.Workbook();
+    wb.creator = 'ISO 80369 Navigation System';
+    wb.created = new Date();
+    const wsName = isEn ? 'Comparison Matrix' : '條文對照矩陣';
+    const ws = wb.addWorksheet(wsName);
+    ws.pageSetup = { paperSize: 9, orientation: 'landscape', fitToPage: true, fitToWidth: 1, fitToHeight: 0, margins: { left: 0.4, right: 0.4, top: 0.5, bottom: 0.5, header: 0.3, footer: 0.3 } };
+    ws.columns = isEn
+      ? [{ key: 'id', width: 10 }, { key: 'iso7', width: 26 }, { key: 'iso20', width: 18 }, { key: 'type', width: 14 }, { key: 'asm', width: 30 }, { key: 'load', width: 22 }, { key: 'hold', width: 14 }, { key: 'fixture', width: 20 }, { key: 'criteria', width: 48 }]
+      : [{ key: 'id', width: 10 }, { key: 'iso7', width: 26 }, { key: 'iso20', width: 18 }, { key: 'type', width: 14 }, { key: 'asm', width: 32 }, { key: 'load', width: 24 }, { key: 'hold', width: 12 }, { key: 'fixture', width: 20 }, { key: 'criteria', width: 50 }];
+    const thinBorder = { top: { style: 'thin', color: { argb: 'E2E8F0' } }, left: { style: 'thin', color: { argb: 'E2E8F0' } }, bottom: { style: 'thin', color: { argb: 'E2E8F0' } }, right: { style: 'thin', color: { argb: 'E2E8F0' } } };
+    ws.mergeCells('A1:I1');
+    const t1 = ws.getCell('A1');
+    t1.value = isEn ? '  ISO 80369-7 vs ISO 80369-20 Cross Comparison Matrix' : '  ISO 80369-7 (條文) vs ISO 80369-20 (測試細則) 橫向對照矩陣';
+    t1.font = { name: 'Segoe UI', size: 13, bold: true, color: { argb: 'FFFFFF' } };
+    t1.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: '0F172A' } };
+    t1.alignment = { vertical: 'middle', horizontal: 'left' };
+    ws.getRow(1).height = 34;
+    ws.mergeCells('A2:I2');
+    const t2 = ws.getCell('A2');
+    t2.value = isEn ? `  Generated: ${new Date().toISOString().split('T')[0]} · ISO 80369-7:2021 · ISO 80369-20:2024` : `  匯出日期：${new Date().toISOString().split('T')[0]} · ISO 80369-7:2021 · ISO 80369-20:2024`;
+    t2.font = { name: 'Segoe UI', size: 9, italic: true, color: { argb: '94A3B8' } };
+    t2.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: '0F172A' } };
+    t2.alignment = { vertical: 'middle', horizontal: 'left' };
+    ws.getRow(2).height = 18;
+    const hdrs = isEn
+      ? ['Clause', 'ISO 80369-7 Clause', 'ISO 80369-20 Annex', 'Type', 'Pre-assembly Condition', 'Test Load', 'Hold Time', 'Reference Fixture', 'PASS Criteria']
+      : ['條文號', 'ISO 80369-7 條文', 'ISO 80369-20 附錄', '適用類型', '預裝配條件', '定量加載考驗', '保持時間', '指定金屬夾具', '合格 PASS 標準'];
+    const hRow = ws.getRow(3);
+    hRow.height = 28;
+    hdrs.forEach((text, i) => {
+      const cell = hRow.getCell(i + 1);
+      cell.value = text;
+      cell.font = { name: 'Segoe UI', size: 9.5, bold: true, color: { argb: 'FFFFFF' } };
+      cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: '2563EB' } };
+      cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+      cell.border = { bottom: { style: 'medium', color: { argb: '1D4ED8' } }, right: { style: 'thin', color: { argb: '64748B' } } };
+    });
+    clausesList.forEach((c, idx) => {
+      const rowNum = idx + 4;
+      const row = ws.getRow(rowNum);
+      row.height = 32;
+      const bg = idx % 2 === 0 ? 'FFFFFF' : 'F8FAFC';
+      const testLoad = c.testPressure !== '-' ? c.testPressure : (c.testTorque !== '-' ? c.testTorque : c.testForce);
+      [c.id, c.iso7, c.iso20, c.type, c.assemblyTorque, testLoad, c.holdTime, c.fixture, c.criteria].forEach((val, i) => {
+        const cell = row.getCell(i + 1);
+        cell.value = val;
+        cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: bg } };
+        cell.alignment = { vertical: 'middle', wrapText: true };
+        cell.border = thinBorder;
+        if (i === 0) { cell.font = { name: 'Segoe UI', size: 9.5, bold: true, color: { argb: '1E3A8A' } }; cell.alignment = { vertical: 'middle', horizontal: 'center' }; }
+        else if (i === 8) { cell.font = { name: 'Segoe UI', size: 8.5, color: { argb: '334155' } }; }
+        else { cell.font = { name: 'Segoe UI', size: 9, color: { argb: '1E293B' } }; }
+      });
+    });
+    ws.autoFilter = `A3:I${3 + clausesList.length}`;
+    const buffer = await wb.xlsx.writeBuffer();
+    const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = isEn ? 'ISO_80369_Comparison_Matrix.xlsx' : 'ISO_80369_條文對照矩陣.xlsx';
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   return (
@@ -370,10 +412,10 @@ export const ClauseComparisonMatrix: React.FC = () => {
           </div>
 
           <button
-            onClick={exportCSV}
+            onClick={exportExcel}
             className="flex items-center space-x-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-sm shadow-emerald-600/20 transition-all shrink-0 cursor-pointer"
           >
-            <Download className="w-4 h-4" />
+            <FileSpreadsheet className="w-4 h-4" />
             <span>{t.comparisonMatrix.exportCsv}</span>
           </button>
         </div>
