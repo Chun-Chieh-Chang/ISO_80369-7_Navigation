@@ -1,9 +1,10 @@
 import React, { useState, useMemo } from 'react';
-import { ISO_TOPICS, STANDARD_CLAUSE_DETAILS } from '../data/isoTopicsData';
+import { ISO_TOPICS } from '../data/isoTopicsData';
 import { ANNEX_C_FIGURES } from '../data/isoData';
-import { ISOTopic, StandardClauseDetail, AnnexCFigureInfo } from '../types';
+import { AnnexCFigureInfo } from '../types';
 import { ISOStandardFigureRenderer } from './ISOStandardFigureRenderer';
 import { ClauseDetailDrawer } from './ClauseDetailDrawer';
+import { useClauseDetailDrawer } from '../hooks/useClauseDetailDrawer';
 import { useLanguage } from '../i18n/LanguageContext';
 import { 
   Search, BookOpen, FileText, CheckCircle2, AlertTriangle, ShieldCheck, 
@@ -29,10 +30,8 @@ export const TopicClauseExplorer: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   
-  // Detail Drawer States (Level 3 Deep Dive)
-  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
-  const [drawerTopic, setDrawerTopic] = useState<ISOTopic | null>(null);
-  const [drawerActiveClauseId, setDrawerActiveClauseId] = useState<string | null>(null);
+  // Detail Drawer (Level 3 Deep Dive) - shared with the comparison matrix
+  const drawer = useClauseDetailDrawer();
 
   // Figure Tree States
   const [selectedFigureId, setSelectedFigureId] = useState<string>('B.2');
@@ -127,92 +126,6 @@ export const TopicClauseExplorer: React.FC = () => {
       );
     });
   }, [allStandardFigures, searchQuery]);
-
-  // Open Level 3 Detail Drawer for a topic
-  const handleOpenTopicDetails = (topic: ISOTopic, defaultClauseId?: string) => {
-    setDrawerTopic(topic);
-    
-    // Resolve clause ID
-    if (defaultClauseId) {
-      setDrawerActiveClauseId(defaultClauseId);
-    } else if (topic.relatedISO7Clauses.length > 0) {
-      const normalizedC = topic.relatedISO7Clauses[0].toLowerCase().replace(/\s+/g, '-');
-      const id = `iso7-${normalizedC}`;
-      setDrawerActiveClauseId(STANDARD_CLAUSE_DETAILS[id] ? id : (STANDARD_CLAUSE_DETAILS[topic.relatedISO7Clauses[0]] ? topic.relatedISO7Clauses[0] : null));
-    } else if (topic.relatedISO20Annexes.length > 0) {
-      const cleanA = topic.relatedISO20Annexes[0].replace(/annex\s*/i, '').trim().toLowerCase().replace(/\s+/g, '-');
-      const id = `iso20-annex-${cleanA}`;
-      setDrawerActiveClauseId(STANDARD_CLAUSE_DETAILS[id] ? id : null);
-    } else {
-      setDrawerActiveClauseId(null);
-    }
-    
-    setIsDrawerOpen(true);
-  };
-
-  // Helper to extract related clauses for drawer (100% Zero Information Loss & Normalization)
-  const drawerRelatedClauses = useMemo(() => {
-    if (!drawerTopic) return [];
-    const list: StandardClauseDetail[] = [];
-
-    // Normalize and match ISO 7 clauses
-    drawerTopic.relatedISO7Clauses.forEach(c => {
-      const normalizedC = c.toLowerCase().replace(/\s+/g, '-');
-      const id = `iso7-${normalizedC}`;
-      if (STANDARD_CLAUSE_DETAILS[id]) {
-        list.push(STANDARD_CLAUSE_DETAILS[id]);
-      } else if (STANDARD_CLAUSE_DETAILS[c]) {
-        list.push(STANDARD_CLAUSE_DETAILS[c]);
-      } else if (STANDARD_CLAUSE_DETAILS[normalizedC]) {
-        list.push(STANDARD_CLAUSE_DETAILS[normalizedC]);
-      }
-    });
-
-    // Normalize and match ISO 20 annexes
-    drawerTopic.relatedISO20Annexes.forEach(a => {
-      const cleanA = a.replace(/annex\s*/i, '').trim().toLowerCase().replace(/\s+/g, '-');
-      const id = `iso20-annex-${cleanA}`;
-      if (STANDARD_CLAUSE_DETAILS[id]) {
-        list.push(STANDARD_CLAUSE_DETAILS[id]);
-      } else if (STANDARD_CLAUSE_DETAILS[a]) {
-        list.push(STANDARD_CLAUSE_DETAILS[a]);
-      } else if (a.toLowerCase().includes('section 4') || a.toLowerCase().includes('general')) {
-        if (STANDARD_CLAUSE_DETAILS['iso20-general-procedure']) {
-          list.push(STANDARD_CLAUSE_DETAILS['iso20-general-procedure']);
-        }
-      }
-    });
-
-    // Fallback: If no related clause matched, create a synthesized clause from topic itself so drawer is never empty
-    if (list.length === 0) {
-      list.push({
-        id: `topic-${drawerTopic.id}`,
-        standard: 'ISO 80369-7 / ISO 80369-20',
-        clauseNumber: drawerTopic.relatedISO7Clauses[0] || 'Specification',
-        titleEn: drawerTopic.titleEn,
-        titleZh: drawerTopic.titleZh,
-        type: 'requirement',
-        typeZh: drawerTopic.categoryZh,
-        objectiveZh: drawerTopic.detailedDescriptionZh,
-        appliesToZh: drawerTopic.shortSummaryZh,
-        quantitativeConditions: {},
-        fixtureRequiredZh: drawerTopic.relatedRefConnectors.map(c => `Fig.${c}`).join(', ') || '依受測件型別指定',
-        testProcedureStepsZh: [
-          '檢驗受測樣品與金屬參考夾具規格。',
-          '執行溫濕度環境預調理與依規裝配。',
-          '依照標準規範執行考驗負載並判定。'
-        ],
-        acceptanceCriteriaZh: [
-          '符合 ISO 80369 系列標準法定合格門檻。'
-        ],
-        commonNonConformancesZh: [drawerTopic.engineeringRiskZh],
-        regulatoryTipZh: drawerTopic.auditFocusZh,
-        figureKey: drawerTopic.figures?.[0]?.svgKey
-      });
-    }
-
-    return list;
-  }, [drawerTopic]);
 
   const selectedFigure = allStandardFigures.find(f => f.id === selectedFigureId) || allStandardFigures[0];
 
@@ -330,7 +243,7 @@ export const TopicClauseExplorer: React.FC = () => {
             filteredTopics.map((topic) => (
               <div
                 key={topic.id}
-                onClick={() => handleOpenTopicDetails(topic)}
+                onClick={() => drawer.openTopic(topic)}
                 className="group bg-white hover:bg-blue-50/20 border border-slate-200 hover:border-blue-300 rounded-2xl p-4 sm:p-5 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between space-y-4 cursor-pointer relative"
               >
                 {/* Topic Header: Icon, Category Badge & Title */}
@@ -397,11 +310,11 @@ export const TopicClauseExplorer: React.FC = () => {
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleOpenTopicDetails(topic);
+                      drawer.openTopic(topic);
                     }}
-                    className="flex items-center space-x-1 px-3 py-1.5 rounded-xl font-bold bg-blue-50 group-hover:bg-blue-600 text-blue-700 group-hover:text-white transition shrink-0 min-h-[32px]"
+                    className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl font-bold bg-blue-50 group-hover:bg-blue-600 text-blue-700 group-hover:text-white transition shrink-0 min-h-[36px] border border-blue-200 group-hover:border-blue-600"
                   >
-                    <span>{isEn ? 'Inspect' : '詳情'}</span>
+                    <span>{t.figureTier.fullLabel}</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
@@ -684,12 +597,12 @@ export const TopicClauseExplorer: React.FC = () => {
 
       {/* Level 3: Deep-Dive Specification Drawer (100% Zero Information Loss) */}
       <ClauseDetailDrawer
-        isOpen={isDrawerOpen}
-        onClose={() => setIsDrawerOpen(false)}
-        topic={drawerTopic}
-        relatedClauses={drawerRelatedClauses}
-        activeClauseId={drawerActiveClauseId}
-        setActiveClauseId={setDrawerActiveClauseId}
+        isOpen={drawer.isOpen}
+        onClose={drawer.close}
+        topic={drawer.topic}
+        relatedClauses={drawer.relatedClauses}
+        activeClauseId={drawer.activeClauseId}
+        setActiveClauseId={drawer.setActiveClauseId}
       />
 
     </div>

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { ISO_CLAUSES, ISO20_MANDATORY_REPORT_ITEMS, ISO20_ANNEX_A_PRECONDITIONING } from '../data/isoData';
+import { ISO_CLAUSES, ISO20_MANDATORY_REPORT_ITEMS, ISO20_PRECONDITIONING, ISO20_REPORT_ELEMENT_COUNTS, ISO20_EDITION_NOTE } from '../data/isoData';
 import { ConnectorGender, ConnectorType, TestConfigState, TestClauseId, ISOClauseInfo } from '../types';
 import { ISOStandardFigureRenderer } from './ISOStandardFigureRenderer';
-import { getClauseSvgKey, getAnnexCFigure } from '../utils/isoHelpers';
+import { getClauseSvgKey, getAnnexCFigure, getRequiredReferenceConnector, getReferenceConnectorLabel, getPreAssemblySpec } from '../utils/isoHelpers';
 import { exportMedicalGradeExcelReport } from '../utils/excelExporter';
 import { useLanguage } from '../i18n/LanguageContext';
 import { FileSpreadsheet, Eye, Info, FileCheck, Download, Calendar, ShieldCheck, Thermometer, FileText } from 'lucide-react';
@@ -53,24 +53,53 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
   };
 
   /**
-   * Returns the pre-assembly label for a clause.
-   * ISO 80369-20 Annex H.4 requires pre-assembly (0.08–0.12 N·m + 26.5–27.5 N, hold 5–6 s, release)
-   * for ALL tests including 6.6.
+   * Pre-assembly for the selected connector style.
+   *
+   * ISO 80369-20:2024, X.4 b) gives two DIFFERENT sequences and the order is reversed
+   * between them, so this cell follows the connector type the user selected:
+   *   1) slip - axial force 26,5-27,5 N first, then rotate <= 90 deg with torque <= 0,10 N.m
+   *   2) lock - collar torque 0,08-0,12 N.m first, then axial force 26,5-27,5 N
+   * Both hold 5 s to 6 s and then release.
    */
-  const renderPreAssembly = (clause: ISOClauseInfo) => (
-    <div>
-      <div className="font-semibold text-slate-800">
-        <span className="text-slate-500 font-normal">{language === 'en' ? 'Torque: ' : '扭矩: '}</span>
-        {clause.assemblyTorqueNm?.min ?? 0.08}–{clause.assemblyTorqueNm?.max ?? 0.12} N·m
+  const renderPreAssembly = (_clause: ISOClauseInfo) => {
+    const p = getPreAssemblySpec(selectedType);
+    const isSlip = p.connectorType === 'slip';
+
+    const step = (n: number, label: string, value: string, accent: boolean) => (
+      <div className={accent ? 'text-[11px] text-blue-700 font-bold' : 'font-semibold text-slate-800'}>
+        <span className="text-slate-400 font-normal mr-0.5">{n}.</span>
+        <span className={`font-normal ${accent ? 'text-blue-600' : 'text-slate-500'}`}>{label}: </span>
+        <span className="font-mono">{value}</span>
       </div>
-      <div className="text-[11px] text-blue-700 font-bold">
-        + <span className="font-normal text-blue-600">{language === 'en' ? 'Axial Force: ' : '軸向推力: '}</span>26.5–27.5 N
+    );
+
+    const axial = `${p.axialForceN.min}–${p.axialForceN.max} N`;
+    const torque = isSlip
+      ? `≤ ${p.torqueNm.max.toFixed(2)} N·m`
+      : `${p.torqueNm.min?.toFixed(2)}–${p.torqueNm.max.toFixed(2)} N·m`;
+
+    return (
+      <div>
+        {isSlip ? (
+          <>
+            {step(1, t.dvp.preAsmStepAxial, axial, false)}
+            {step(2, `${t.dvp.preAsmStepRotate} ≤ ${p.maxRotationDeg}° (${t.dvp.preAsmSlipTorqueCap})`, torque, true)}
+          </>
+        ) : (
+          <>
+            {step(1, t.dvp.preAsmStepTorque, torque, false)}
+            {step(2, t.dvp.preAsmStepAxial, axial, true)}
+          </>
+        )}
+        <div className="text-[10px] text-blue-900 font-semibold bg-blue-50 px-1.5 py-0.5 rounded mt-1 inline-block border border-blue-200">
+          {t.dvp.releaseBadge}
+        </div>
+        {isSlip && (
+          <div className="text-[10px] text-amber-700 mt-1 leading-snug">{t.dvp.preAsmOrderNote}</div>
+        )}
       </div>
-      <div className="text-[10px] text-blue-900 font-semibold bg-blue-50 px-1.5 py-0.5 rounded mt-1 inline-block border border-blue-200">
-        {t.dvp.releaseBadge}
-      </div>
-    </div>
-  );
+    );
+  };
 
   /**
    * Returns the hold-time label.
@@ -234,16 +263,6 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
               <span>{t.dvp.subtabChecklist}</span>
             </button>
           </div>
-
-          <div className="flex items-center space-x-2">
-            <button
-              onClick={() => exportMedicalGradeExcelReport(config, language)}
-              className="flex items-center space-x-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-md transition-all cursor-pointer"
-            >
-              <FileSpreadsheet className="w-4 h-4" />
-              <span>{t.dvp.exportExcel}</span>
-            </button>
-          </div>
         </div>
       </div>
 
@@ -304,38 +323,12 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
                 {Object.values(ISO_CLAUSES)
                   .filter(c => c.applicableTypes.includes(selectedType))
                   .map((clause) => {
-                    // Helper to get exact standard ISO 80369-7 Annex C reference connector
-                    let requiredRefId = 'C.1';
-                    if (selectedGender === 'male') {
-                      // Testing Male Luer product -> Requires Female Reference Connector (C.1, C.3, or C.5)
-                      if (selectedType === 'slip') {
-                        requiredRefId = 'C.5'; // Female Reference Luer Slip
-                      } else {
-                        requiredRefId = (clause.id === '6.4' || clause.id === '6.6') ? 'C.3' : 'C.1';
-                      }
-                    } else {
-                      // Testing Female Luer product -> Requires Male Reference Connector (C.2, C.4, or C.6)
-                      if (selectedType === 'slip') {
-                        requiredRefId = 'C.2'; // Male Reference Luer Slip
-                      } else {
-                        requiredRefId = (clause.id === '6.4' || clause.id === '6.6') ? 'C.6' : 'C.4';
-                      }
-                    }
-
-                    const requiredRef = getAnnexCFigure(requiredRefId);
-                    const refLabel = language === 'en'
-                      ? (requiredRefId === 'C.3' ? 'Female Worst-case 2.71mm'
-                        : requiredRefId === 'C.6' ? 'Male Worst-case'
-                        : requiredRefId === 'C.5' ? 'Female Slip Nominal'
-                        : requiredRefId === 'C.2' ? 'Male Slip Nominal'
-                        : requiredRefId === 'C.1' ? 'Female Lock Nominal 3.50mm'
-                        : 'Male Lock Nominal')
-                      : (requiredRefId === 'C.3' ? '母最壞情況 2.71mm'
-                        : requiredRefId === 'C.6' ? '公最壞情況'
-                        : requiredRefId === 'C.5' ? '母滑動標稱'
-                        : requiredRefId === 'C.2' ? '公滑動標稱'
-                        : requiredRefId === 'C.1' ? '母鎖定標稱 3.50mm'
-                        : '公鎖定標稱');
+                    // Annex C pairing is derived from ANNEX_C_FIGURES (see isoHelpers),
+                    // not restated here - the matrix, the drawer and the Excel export
+                    // all resolve the fixture through the same function.
+                    const requiredRef = getRequiredReferenceConnector(clause.id, selectedGender, selectedType);
+                    const requiredRefId = requiredRef?.id ?? '-';
+                    const refLabel = requiredRef ? getReferenceConnectorLabel(requiredRef, language === 'en') : '-';
 
                     const isActiveClause = clause.id === config.selectedClauseId;
                     return (
@@ -410,16 +403,16 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
           </div>
         </div>
       ) : (
-        /* View 2: ISO 80369-20 Section .5 Mandatory 14 Test Report Reporting Elements (a ~ n) Checklist */
+        /* View 2: ISO 80369-20:2024 Annex B.5 test report elements (a ~ n) checklist */
         <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-6">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-4 border-b border-slate-200">
             <div>
               <div className="flex items-center space-x-2">
                 <span className="bg-indigo-600 text-white font-mono font-bold text-xs px-2.5 py-0.5 rounded-md">
-                  ISO 80369-20:2024 Section .5
+                  ISO 80369-20:2024 B.5
                 </span>
                 <span className="bg-emerald-100 text-emerald-800 text-[12px] font-bold px-2 py-0.5 rounded-md border border-emerald-200">
-                  {language === 'en' ? 'Mandatory 14 Reporting Items (a ~ n)' : '法規強制 14 大必填欄位 (a ~ n)'}
+                  {language === 'en' ? 'Annex B.5 Reporting Items (a ~ n)' : 'Annex B.5 報告要件 (a ~ n)'}
                 </span>
               </div>
               <h2 className="text-xl font-extrabold text-slate-900 mt-1">
@@ -428,20 +421,79 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
               <p className="text-xs text-slate-500 mt-1">
                 {t.dvp.checklistDesc}
               </p>
+
+              {/* Dated normative reference: ISO 80369-7:2021 cites the 2015 edition */}
+              <div className="mt-3 rounded-xl border border-slate-200 bg-slate-50 p-3">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="bg-slate-700 text-white font-mono text-[10px] font-bold px-2 py-0.5 rounded">
+                    {ISO20_EDITION_NOTE.citedByIso7}
+                  </span>
+                  <span className="text-slate-400 text-[10px]">→</span>
+                  <span className="bg-blue-600 text-white font-mono text-[10px] font-bold px-2 py-0.5 rounded">
+                    {ISO20_EDITION_NOTE.presentedHere}
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-600 leading-snug">
+                  {language === 'en' ? ISO20_EDITION_NOTE.noteEn : ISO20_EDITION_NOTE.noteZh}
+                </p>
+              </div>
+
+              {/* Per-annex element counts - the number of report items is NOT uniform */}
+              <div className="mt-3 rounded-xl border border-amber-200 bg-amber-50/60 p-3">
+                <div className="text-[11px] font-bold text-amber-900 mb-1.5">
+                  {language === 'en'
+                    ? 'Report elements required by each ISO 80369-20:2024 annex'
+                    : 'ISO 80369-20:2024 各測試附錄實際要求之報告項數'}
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="text-[11px] border-collapse">
+                    <tbody>
+                      <tr>
+                        <td className="pr-2 py-0.5 font-bold text-amber-900 whitespace-nowrap">Annex</td>
+                        {ISO20_REPORT_ELEMENT_COUNTS.map(a => (
+                          <td key={a.annex} className="px-2 py-0.5 font-mono font-bold text-slate-800 text-center">{a.annex}</td>
+                        ))}
+                      </tr>
+                      <tr>
+                        <td className="pr-2 py-0.5 font-bold text-amber-900 whitespace-nowrap">
+                          {language === 'en' ? 'Items' : '項數'}
+                        </td>
+                        {ISO20_REPORT_ELEMENT_COUNTS.map(a => (
+                          <td
+                            key={a.annex}
+                            title={language === 'en' ? a.method : a.methodZh}
+                            className={`px-2 py-0.5 font-mono text-center ${a.count === 14 ? 'font-black text-emerald-700' : 'text-slate-600'}`}
+                          >
+                            {a.count}
+                          </td>
+                        ))}
+                      </tr>
+                      <tr>
+                        <td className="pr-2 py-0.5 font-bold text-amber-900 whitespace-nowrap">
+                          {language === 'en' ? 'Range' : '編號'}
+                        </td>
+                        {ISO20_REPORT_ELEMENT_COUNTS.map(a => (
+                          <td key={a.annex} className="px-2 py-0.5 font-mono text-slate-500 text-center">{a.range}</td>
+                        ))}
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
 
             <div className="flex flex-wrap items-center gap-2 shrink-0">
               <button
                 onClick={() => exportMedicalGradeExcelReport(config, language)}
-                className="flex items-center space-x-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-md transition-all cursor-pointer"
+                className="flex items-center space-x-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-sm font-bold shadow-md transition-all cursor-pointer"
               >
-                <FileSpreadsheet className="w-4 h-4" />
+                <FileSpreadsheet className="w-4.5 h-4.5" />
                 <span>{t.dvp.exportExcel}</span>
               </button>
 
               <button
                 onClick={exportReportChecklistCSV}
-                className="flex items-center space-x-2 px-3 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-all cursor-pointer border border-slate-200"
+                className="flex items-center space-x-2 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-sm font-bold transition-all cursor-pointer border border-slate-200"
               >
                 <Download className="w-4 h-4" />
                 <span>{t.dvp.exportCsv}</span>
@@ -458,14 +510,14 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
               <div>
                 <div className="flex items-center space-x-2">
                   <span className="font-extrabold text-sm text-blue-950">
-                    {language === 'en' ? 'Clause 4 / Section .2 Environmental Conditioning' : ISO20_ANNEX_A_PRECONDITIONING.titleZh}
+                    {language === 'en' ? 'Preconditioning & Environmental Test Conditions (X.2)' : ISO20_PRECONDITIONING.titleZh}
                   </span>
-                  <span className="bg-blue-600 text-white font-mono text-[11px] px-2 py-0.5 rounded font-bold">{ISO20_ANNEX_A_PRECONDITIONING.standard}</span>
+                  <span className="bg-blue-600 text-white font-mono text-[11px] px-2 py-0.5 rounded font-bold">{ISO20_PRECONDITIONING.standard}</span>
                 </div>
                 <p className="text-xs text-blue-900 mt-1 leading-relaxed">
                   {language === 'en' 
                     ? 'Prior to testing, test specimens shall be conditioned for not less than 24 h at (20 ± 5) °C and (50 ± 10) % relative humidity in accordance with ISO 80369-20:2024 Clause 4 and Section .2 (B.2, C.2, D.2, E.2, F.2, G.2, H.2).'
-                    : ISO20_ANNEX_A_PRECONDITIONING.descriptionZh}
+                    : ISO20_PRECONDITIONING.descriptionZh}
                 </p>
               </div>
             </div>

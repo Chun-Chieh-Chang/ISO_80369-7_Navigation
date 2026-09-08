@@ -26,8 +26,6 @@ export interface ISOClauseInfo {
   testTorqueNm?: { min: number; max: number };
   testForceN?: { min: number; max: number };
   holdTimeSec: { min: number; max: number };
-  requiredMaleRef: AnnexCFigureId;
-  requiredFemaleRef: AnnexCFigureId;
   passCriteria: string;
   passCriteriaZh: string;
   keyPhysics: string;

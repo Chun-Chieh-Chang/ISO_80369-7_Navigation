@@ -9,9 +9,9 @@ export const ISO_TOPICS: ISOTopic[] = [
     categoryZh: '洩漏與氣密',
     iconName: 'Droplets',
     shortSummaryZh: '評估 6% 魯爾錐面與螺紋在 300~330 kPa 加壓下的密封防漏能力 (水滴法無水滴 / 壓降法漏率 ≤ 0.005 Pa·m³/s)。',
-    detailedDescriptionZh: '正壓流體洩漏測試為醫療級魯爾接頭最基礎且核心的驗證項目。接頭在以規定之裝配扭矩（0.08~0.12 N·m）旋合於標準參考金屬夾具後，於 300 kPa 至 330 kPa 下驗證防漏安全性。若採用【氣壓壓降法 (Annex B)】，持壓 15~20 秒且極限洩漏率必須遵循 ≤ 0.005 Pa·m³/s 規定。根據 ISO 80369-20:2024 最新修訂，已取消洩漏率 Q 的計算公式，改為直接記錄測試期間的壓力變化值（壓降 ΔP），透過理想氣體狀態方程 ΔP_max = (Q_max × Δt) / V 進行物理換算；若採用【水壓滴落法 (Annex C)】，持壓 30~35 秒且目視不得有水滴形成或滴落。',
+    detailedDescriptionZh: '正壓流體洩漏測試為醫療級魯爾接頭最基礎且核心的驗證項目。接頭依標準預裝配程序（鎖定型先旋至 0.08~0.12 N·m 扭矩再施加 26.5~27.5 N 推力；滑動型先施加 26.5~27.5 N 推力再以 ≤0.10 N·m 扭矩微旋 ≤90°，維持 5~6 秒後釋放）旋合於標準參考金屬夾具後，於 300 kPa 至 330 kPa 下驗證防漏安全性。若採用【氣壓壓降法 (Annex B)】，持壓 15~20 秒且極限洩漏率必須遵循 ≤ 0.005 Pa·m³/s 規定。根據 ISO 80369-20:2024 最新修訂，已取消洩漏率 Q 的計算公式，改為直接記錄測試期間的壓力變化值（壓降 ΔP），透過理想氣體狀態方程 ΔP_max = (Q_max × Δt) / V 進行物理換算；若採用【水壓滴落法 (Annex C)】，持壓 30~35 秒且目視不得有水滴形成或滴落。',
     keyParameters: [
-      { label: '裝配扭矩 Assembly Torque', value: '0.08 - 0.12', unit: 'N·m' },
+      { label: '裝配扭矩 Assembly Torque', value: '0.08 - 0.12 (Lock) / ≤ 0.10 (Slip)', unit: 'N·m' },
       { label: '測試壓力 Test Pressure', value: '300 - 330', unit: 'kPa' },
       { label: '氣壓壓降極限 Max Leak Rate', value: '≤ 0.005', unit: 'Pa·m³/s' },
       { label: '水滴法持壓 Hold Time', value: '30 - 35', unit: '秒' },
@@ -113,7 +113,7 @@ export const ISO_TOPICS: ISOTopic[] = [
     shortSummaryZh: '在 80~88 kPa 真空負壓下保持 15~20 秒，驗證無空氣吸入管路（防氣栓危害）。',
     detailedDescriptionZh: '負壓空氣洩漏測試模擬抽吸藥液、體液引流或泵浦抽吸時管路內產生的負壓環境。若魯爾接頭氣密性不足，外部空氣會經由錐面縫隙被吸入輸液系統，可能引發靜脈空氣栓塞（Air Embolism）等重大醫療風險。ISO 80369-20:2024 最新新增 Annex K（抽吸過程水下氣泡目視檢驗法）。',
     keyParameters: [
-      { label: '裝配扭矩 Assembly Torque', value: '0.08 - 0.12', unit: 'N·m' },
+      { label: '裝配扭矩 Assembly Torque', value: '0.08 - 0.12 (Lock) / ≤ 0.10 (Slip)', unit: 'N·m' },
       { label: '真空負壓 Test Vacuum', value: '80.0 - 88.0', unit: 'kPa' },
       { label: '保持時間 Hold Time', value: '15 - 20', unit: '秒' },
       { label: '洩漏極限 Max Leak Rate', value: '≤ 0.005', unit: 'Pa·m³/s' }
@@ -238,7 +238,7 @@ export const ISO_TOPICS: ISOTopic[] = [
       { label: '鎖定型軸向力 Lock Force', value: '32 - 35', unit: 'N' },
       { label: '滑動型軸向力 Slip Force', value: '23 - 25', unit: 'N' },
       { label: '保持時間 Hold Time', value: '10 - 15', unit: '秒' },
-      { label: '預旋扭矩 Pre-Torque', value: '0.08 - 0.12', unit: 'N·m' }
+      { label: '預旋扭矩 Pre-Torque', value: '0.08 - 0.12 (Lock) / ≤ 0.10 (Slip)', unit: 'N·m' }
     ],
     relatedISO7Clauses: ['6.4'],
     relatedISO20Annexes: ['Annex F'],
@@ -363,12 +363,12 @@ export const ISO_TOPICS: ISOTopic[] = [
       { label: '最小配合長度 Min Length', value: '7.5', unit: 'mm' },
       { label: '標準耳翼寬度 Tab Width', value: '3.50 (C.1 標稱)', unit: 'mm' }
     ],
-    relatedISO7Clauses: ['Clause 5.1', 'Clause 5.2', 'Clause 5.3'],
+    relatedISO7Clauses: ['Clause 5'],
     relatedISO20Annexes: ['Annex A'],
     relatedRefConnectors: ['C.1', 'C.2', 'C.3', 'C.4', 'C.5', 'C.6'],
     engineeringRiskZh: '模具公差控管不當導致錐度偏離 6%，會造成配合時產生單點環狀接觸，引發氣密洩漏或應力過度集中。',
     auditFocusZh: '三次元三維量測儀（CMM）或光學影像投影儀光學量測報告，極限環規塞規驗證。',
-    tags: ['6%錐度', '尺寸', '5.1', '5.2', 'Annex A', 'CMM'],
+    tags: ['6%錐度', '尺寸', 'Clause 5', 'Annex B', 'CMM'],
     figures: [
       {
         id: 'ISO7-FIG-B1-B2',
@@ -413,8 +413,8 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureTypeZh: '接頭幾何 CAD 圖',
         descriptionZh: '呈現 ISO 80369-7 Figure B.7 母魯爾鎖定接頭【直角凸耳變體 B】之 CAD 幾何尺寸與切向圓角公差。規範耳翼外徑 (ØD 7.70~7.90mm)、耳翼厚度 (t 1.40~1.70mm) 與 360° 圓角細節。',
         descriptionEn: 'Presents the CAD geometry and tangential radius tolerances of ISO 80369-7 Figure B.7 female Luer lock connector Variant B (right-angle lugs). Specifies lug OD (ØD 7.70–7.90 mm), lug thickness (t 1.40–1.70 mm), and 360° radius details.',
-        selectionReasonZh: '🎯 [受測實體幾何規範] 入選原因：本圖為 ISO 80369-7 Fig.B.7 (母鎖定凸耳變體 B)，規範常見於射出成型藥液輸送管路接頭的倒角/圓角耳翼尺寸，提供 5.2 母鎖定接頭幾何檢驗依據。',
-        selectionReasonEn: '🎯 [Physical Connector Geometry Specification] Rationale: This is ISO 80369-7 Fig.B.7 (female lock lug Variant B), specifying the chamfered/radiused lug dimensions common in injection-molded IV line connectors, providing the Clause 5.2 female lock connector geometry inspection basis.',
+        selectionReasonZh: '🎯 [受測實體幾何規範] 入選原因：本圖為 ISO 80369-7 Fig.B.7 (母鎖定凸耳變體 B)，規範常見於射出成型藥液輸送管路接頭的倒角/圓角耳翼尺寸，提供 Clause 5 母鎖定接頭幾何檢驗依據。',
+        selectionReasonEn: '🎯 [Physical Connector Geometry Specification] Rationale: This is ISO 80369-7 Fig.B.7 (female lock lug Variant B), specifying the chamfered/radiused lug dimensions common in injection-molded IV line connectors, providing the Clause 5 female lock connector geometry inspection basis.',
         svgKey: 'ISO7-FIG-B7',
         keyCallouts: [
           { id: 'dia', labelZh: '耳翼外徑 ØD', labelEn: 'Lug OD ØD', valueZh: '7.70 ~ 7.90 mm', valueEn: '7.70 ~ 7.90 mm' },
@@ -431,8 +431,8 @@ export const ISO_TOPICS: ISOTopic[] = [
         figureTypeZh: '接頭幾何 CAD 圖',
         descriptionZh: '呈現 ISO 80369-7 Figure B.8 母魯爾鎖定接頭【直角凸耳變體 C】之 CAD 幾何尺寸與雙翼/外展圓弧公差。規範耳翼翼寬 (ØH 11.50~12.50mm) 與結構幾何加強區。',
         descriptionEn: 'Presents the CAD geometry and bilateral wing-arc tolerances of ISO 80369-7 Figure B.8 female Luer lock connector Variant C (right-angle lugs). Specifies wing span OD (ØH 11.50–12.50 mm) and structural reinforcement geometry.',
-        selectionReasonZh: '🎯 [受測實體幾何規範] 入選原因：本圖為 ISO 80369-7 Fig.B.8 (母鎖定凸耳變體 C)，規範翅膀翼型 (Winged) 便於臨床人員旋緊手握之大尺寸耳翼幾何，提供 5.2 母鎖定接頭幾何檢驗依據。',
-        selectionReasonEn: '🎯 [Physical Connector Geometry Specification] Rationale: This is ISO 80369-7 Fig.B.8 (female lock lug Variant C), specifying the winged lug geometry for clinical ease of grip during tightening, providing the Clause 5.2 female lock connector geometry inspection basis.',
+        selectionReasonZh: '🎯 [受測實體幾何規範] 入選原因：本圖為 ISO 80369-7 Fig.B.8 (母鎖定凸耳變體 C)，規範翅膀翼型 (Winged) 便於臨床人員旋緊手握之大尺寸耳翼幾何，提供 Clause 5 母鎖定接頭幾何檢驗依據。',
+        selectionReasonEn: '🎯 [Physical Connector Geometry Specification] Rationale: This is ISO 80369-7 Fig.B.8 (female lock lug Variant C), specifying the winged lug geometry for clinical ease of grip during tightening, providing the Clause 5 female lock connector geometry inspection basis.',
         svgKey: 'ISO7-FIG-B8',
         keyCallouts: [
           { id: 'wing_width', labelZh: '雙翼外徑 ØH', labelEn: 'Wing Span OD ØH', valueZh: '11.50 ~ 12.50 mm', valueEn: '11.50 ~ 12.50 mm' },
@@ -490,10 +490,10 @@ export const ISO_TOPICS: ISOTopic[] = [
     category: 'assembly',
     categoryZh: '夾具與金屬件',
     iconName: 'Sparkles',
-    shortSummaryZh: '規範所有性能測試前之標準預裝配程序：0.08~0.12 N·m 旋緊扭矩與 26.5~27.5 N 軸向推力結合。',
-    detailedDescriptionZh: 'ISO 80369-20 各附錄（B~I）統一規範了進行物理性能測試前的標準預裝配程序：鎖定型接頭須同時施加 26.5~27.5 N 軸向推力與 0.08~0.12 N·m 旋緊扭矩保持 5~6 秒。在業界與國際標竿實驗室中（如 Enersol S15A 裝置），採用了非常優雅聰明的「雙軸懸浮線性導軌與校正重錘/槓桿機構 (Dead-weight & Biaxial Spindle Mechanism)」，使 27.5 N 垂直軸向力經由低摩擦線性滑軌垂直壓下，同時透過高精度定扭矩盤旋轉，達成 100% 無偏心、零傾角且完全同時作用的極致裝配精確度。',
+    shortSummaryZh: '規範所有性能測試前之標準預裝配程序；鎖定型與滑動型施加順序相反：鎖定型先旋至 0.08~0.12 N·m 扭矩再施加 26.5~27.5 N 推力；滑動型先施加 26.5~27.5 N 推力再以 ≤0.10 N·m 扭矩微旋 ≤90°，維持 5~6 秒後釋放。',
+    detailedDescriptionZh: 'ISO 80369-20:2024 各測試附錄的 X.4 b) 規範了物理性能測試前的標準預裝配程序，鎖定型與滑動型是兩套順序相反的程序：【鎖定型】先將受測接頭套環旋至 0.08~0.12 N·m 扭矩，再於維持該扭矩下施加 26.5~27.5 N 軸向推力；【滑動型】先施加 26.5~27.5 N 軸向推力，再於維持該推力下以不超過 0.10 N·m 扭矩旋轉不超過 90°。兩者皆維持 5~6 秒後釋放。僅 Annex G（抗旋鬆）與 Annex H（抗過旋）為鎖定型專用而只定義鎖定分支。在業界與國際標竿實驗室中（如 Enersol S15A 裝置），採用了非常優雅聰明的「雙軸懸浮線性導軌與校正重錘/槓桿機構 (Dead-weight & Biaxial Spindle Mechanism)」，使 27.5 N 垂直軸向力經由低摩擦線性滑軌垂直壓下，同時透過高精度定扭矩盤旋轉，達成 100% 無偏心、零傾角且完全同時作用的極致裝配精確度。',
     keyParameters: [
-      { label: '標準裝配扭矩 Assembly Torque', value: '0.08 - 0.12', unit: 'N·m' },
+      { label: '標準裝配扭矩 Assembly Torque', value: '0.08 - 0.12 (Lock) / ≤ 0.10 (Slip)', unit: 'N·m' },
       { label: '裝配軸向推力 Axial Force', value: '26.5 - 27.5', unit: 'N' },
       { label: '裝配保持時間 Hold Time', value: '5 - 6', unit: '秒' },
       { label: '機構系統 Mechanism', value: '雙軸線性導軌重錘與定扭矩盤 (S15A 原理)' }
@@ -518,7 +518,7 @@ export const ISO_TOPICS: ISOTopic[] = [
         selectionReasonEn: '🛠️ [Physical Test Apparatus Blueprint] Rationale: This is the ISO 80369-20 general pre-assembly procedure biaxial simultaneous loading device (e.g., Enersol S15A concept). All performance tests require pre-assembly at 27.5 N axial force and 0.12 N·m torque for 5–6 s; this diagram provides the mechanism guidance.',
         svgKey: 'ISO20-FIG-J1',
         keyCallouts: [
-          { id: 'pre_t', labelZh: '預裝配扭矩 (Assembly Torque)', labelEn: 'Assembly Torque', valueZh: '0.08 ~ 0.12 N·m', valueEn: '0.08 ~ 0.12 N·m' },
+          { id: 'pre_t', labelZh: '預裝配扭矩 (Assembly Torque)', labelEn: 'Assembly Torque', valueZh: '鎖定型 0.08 ~ 0.12 N·m / 滑動型 ≤ 0.10 N·m (微旋 ≤90°)', valueEn: 'Lock 0.08 - 0.12 N·m / Slip <= 0.10 N·m (rotate <= 90 deg)' },
           { id: 'pre_f', labelZh: '預裝配軸向推力 (Axial Force)', labelEn: 'Axial Assembly Force', valueZh: '26.5 ~ 27.5 N', valueEn: '26.5 ~ 27.5 N' },
           { id: 'pre_hold', labelZh: '持壓穩定時間 (Hold Time)', labelEn: 'Hold Time', valueZh: '5 ~ 6 秒', valueEn: '5 ~ 6 s' },
           { id: 'pre_mech', labelZh: '機構設計 (Biaxial Mechanism)', labelEn: 'Biaxial Mechanism', valueZh: '無摩擦線性導軌 + 校正重錘', valueEn: 'Frictionless linear rail + calibrated dead-weight' }
@@ -641,7 +641,7 @@ export const PRE_ASSEMBLY_LOCK: PreAssemblyCondition = {
   assemblyTorqueNm: '0.08 N·m - 0.12 N·m',
   assemblyAxialForceN: '26.5 N - 27.5 N',
   holdTimeSec: '5 - 6 秒',
-  descriptionZh: '旋合時須同時施加 26.5~27.5 N 軸向推力與 0.08~0.12 N·m 扭矩，維持 5~6 秒後完全釋放 (Release)，確立 6% 錐面標準貼合。',
+  descriptionZh: '先將套環旋至 0.08~0.12 N·m 扭矩，再於維持該扭矩下施加 26.5~27.5 N 軸向推力，維持 5~6 秒後完全釋放 (Release)，確立 6% 錐面標準貼合。',
   apparatusZh: 'S15A 雙軸加載機構（扭矩+推力同動控制）'
 };
 
@@ -651,7 +651,7 @@ export const PRE_ASSEMBLY_SLIP: PreAssemblyCondition = {
   assemblyTorqueNm: '≤ 0.10 N·m (微旋)',
   assemblyAxialForceN: '26.5 N - 27.5 N',
   holdTimeSec: '5 - 6 秒',
-  descriptionZh: '軸向施加 26.5~27.5 N 推力同時微旋（不超過 90°），維持 5~6 秒後完全釋放 (Release)，確立錐度自鎖。',
+  descriptionZh: '先施加 26.5~27.5 N 軸向推力，再於維持該推力下以不超過 0.10 N·m 扭矩旋轉不超過 90°，維持 5~6 秒後完全釋放 (Release)，確立錐度自鎖。',
   apparatusZh: '定軸推力加載裝置'
 };
 
@@ -982,7 +982,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       '塑膠模具分模線毛邊（Parting Line Flash）導致錐面環狀密封點被切斷。',
       '射出成型保壓不足造成 6% 錐度縮水變形（Ovality/Sink marks）。'
     ],
-    regulatoryTipZh: 'FDA 510(k) 審查重點：須明確列出預裝配扭矩（0.08-0.12 N·m）與測試壓力數據，且測試樣本數一般要求 n ≥ 30。',
+    regulatoryTipZh: 'FDA 510(k) 審查重點：須明確列出預裝配條件（鎖定型 0.08-0.12 N·m 扭矩 + 26.5-27.5 N 推力；滑動型 26.5-27.5 N 推力 + ≤0.10 N·m 微旋 ≤90°）與測試壓力數據，且測試樣本數一般要求 n ≥ 30。',
     figureKey: 'ISO20-FIG-B2'
   },
   'iso20-annex-b': {
@@ -996,7 +996,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     objectiveZh: '提供使用空氣介質測量加壓系統壓力衰減（Pressure Decay）的量化標準實驗步驟。',
     appliesToZh: '所有符合 ISO 80369 及 ISO 18250 系列之小口徑連接器',
     quantitativeConditions: {
-      assemblyTorqueNm: '0.08 N·m - 0.12 N·m',
+      assemblyTorqueNm: '0.08 N·m - 0.12 N·m (Lock) / ≤ 0.10 N·m (Slip 微旋 ≤90°)',
       assemblyAxialForceN: '26.5 N - 27.5 N',
       testPressureKpa: '300 - 330 kPa',
       holdTimeSec: '15 - 20 秒',
@@ -1005,7 +1005,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     fixtureRequiredZh: '公鎖配 Fig.C.1 / 母鎖配 Fig.C.4 ｜ 公滑配 Fig.C.5 / 母滑配 Fig.C.2',
     testProcedureStepsZh: [
       '受測物於 20±5°C、相對濕度 50±10% 環境下預處理至少 24 小時（吸濕性材料）。',
-      '依標準程序施加 0.08~0.12 N·m 扭矩與 26.5~27.5 N 軸向推力旋合，保持 5~6 秒。',
+      '依標準預裝配程序旋合（鎖定型先旋至 0.08~0.12 N·m 扭矩再施加 26.5~27.5 N 推力；滑動型先施加 26.5~27.5 N 推力再以 ≤0.10 N·m 扭矩微旋 ≤90°，維持 5~6 秒後釋放）。',
       '注入空氣並加壓至 300~330 kPa，關閉閥門。',
       '記錄起始壓力，於 15~20 秒測試期結束時記錄終點壓力並計算壓降值 ΔP。'
     ],
@@ -1030,7 +1030,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     objectiveZh: '提供使用水介質目視觀察水滴滴落的標準流體洩漏實驗步驟。',
     appliesToZh: '所有小口徑連接器',
     quantitativeConditions: {
-      assemblyTorqueNm: '0.08 N·m - 0.12 N·m',
+      assemblyTorqueNm: '0.08 N·m - 0.12 N·m (Lock) / ≤ 0.10 N·m (Slip 微旋 ≤90°)',
       assemblyAxialForceN: '26.5 N - 27.5 N',
       testPressureKpa: '300 - 330 kPa',
       holdTimeSec: '30 - 35 秒',
@@ -1038,7 +1038,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     },
     fixtureRequiredZh: '公鎖配 Fig.C.1 / 母鎖配 Fig.C.4 ｜ 公滑配 Fig.C.5 / 母滑配 Fig.C.2',
     testProcedureStepsZh: [
-      '以 0.08~0.12 N·m 扭矩與 26.5~27.5 N 推力將受測物與參考夾具旋合。',
+      '依標準預裝配程序將受測物與參考夾具旋合（鎖定型先旋至 0.08~0.12 N·m 扭矩再施加 26.5~27.5 N 推力；滑動型先施加 26.5~27.5 N 推力再以 ≤0.10 N·m 扭矩微旋 ≤90°，維持 5~6 秒後釋放）。',
       '向系統內注滿水並徹底排出氣泡，保持組裝件軸線水平。',
       '加壓至 300~330 kPa，維持水平狀態 30~35 秒。',
       '目視檢查接頭縫隙是否有水滴形成或脫落。'
@@ -1062,14 +1062,14 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     objectiveZh: '驗證魯爾接頭在抽真空負壓下，外界空氣不致滲入管路內，防止氣栓事故。',
     appliesToZh: '所有血管與皮下注射用魯爾接頭',
     quantitativeConditions: {
-      assemblyTorqueNm: '0.08 N·m - 0.12 N·m',
+      assemblyTorqueNm: '0.08 N·m - 0.12 N·m (Lock) / ≤ 0.10 N·m (Slip 微旋 ≤90°)',
       assemblyAxialForceN: '26.5 N - 27.5 N',
       testPressureKpa: '80.0 kPa - 88.0 kPa (真空負壓)',
       holdTimeSec: '15 秒 - 20 秒'
     },
     fixtureRequiredZh: '公鎖配 Fig.C.1 / 母鎖配 Fig.C.4 ｜ 公滑配 Fig.C.5 / 母滑配 Fig.C.2',
     testProcedureStepsZh: [
-      '依 Annex J 旋緊裝配受測物與金屬夾具。',
+      '依 ISO 80369-20:2024 D.4 b) 標準預裝配程序旋緊裝配受測物與金屬夾具（鎖定型先旋至 0.08~0.12 N·m 扭矩再施加 26.5~27.5 N 推力；滑動型先施加 26.5~27.5 N 推力再以 ≤0.10 N·m 扭矩微旋 ≤90°，維持 5~6 秒後釋放）。',
       '連接真空抽氣系統，抽出內部空氣至 80.0~88.0 kPa 負壓。',
       '關閉閥門，持壓 15~20 秒，紀錄負壓衰減值。'
     ],
@@ -1218,7 +1218,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     objectiveZh: '確保魯爾接頭在承受強大軸向拉力時不被拉拔分離，保障輸液安全性。',
     appliesToZh: '鎖定型（L2, 32-35N）及滑動型（L1, 23-25N）接頭',
     quantitativeConditions: {
-      assemblyTorqueNm: '0.08 N·m - 0.12 N·m',
+      assemblyTorqueNm: '0.08 N·m - 0.12 N·m (Lock) / ≤ 0.10 N·m (Slip 微旋 ≤90°)',
       assemblyAxialForceN: '26.5 N - 27.5 N',
       testForceN: '32 N - 35 N (Lock) / 23 N - 25 N (Slip)',
       holdTimeSec: '10 秒 - 15 秒'
@@ -1337,14 +1337,14 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     objectiveZh: '評估使用者將接頭旋鬆拆卸時的最大峰值扭矩（Peak Torque），確保臨床易用性。',
     appliesToZh: '需要頻繁旋開拆卸之魯爾鎖定接頭',
     quantitativeConditions: {
-      assemblyTorqueNm: '0.08 N·m - 0.12 N·m',
+      assemblyTorqueNm: '0.08 N·m - 0.12 N·m (Lock) / ≤ 0.10 N·m (Slip 微旋 ≤90°)',
       assemblyAxialForceN: '26.5 N - 27.5 N',
       restTimeMin: '10 - 15 分鐘 (靜置貼合)',
       maxAllowedUnscrewingTorque: '按產品規格上限 (例: ≤ 0.24 N·m)'
     },
     fixtureRequiredZh: '公鎖配 Fig.C.1 (母標稱件) / 母鎖配 Fig.C.4 (公標稱件) (僅限鎖定型)',
     testProcedureStepsZh: [
-      '施加 0.08~0.12 N·m 扭矩與 26.5~27.5 N 軸向推力裝配接頭，靜置 10~15 分鐘使塑膠應力鬆弛穩定。',
+      '依標準預裝配程序裝配接頭（鎖定型先旋至 0.08~0.12 N·m 扭矩再施加 26.5~27.5 N 推力；滑動型先施加 26.5~27.5 N 推力再以 ≤0.10 N·m 扭矩微旋 ≤90°，維持 5~6 秒後釋放），靜置 10~15 分鐘使塑膠應力鬆弛穩定。',
       '以連續漸增扭矩旋鬆接頭，直至錐面分離脫開。',
       '記錄克服靜摩擦力之最大峰值扭矩（Peak Torque）。'
     ],
@@ -1367,14 +1367,14 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     objectiveZh: '評估小口徑連接器在標準裝配應力下於室溫空氣中靜置至少 48 小時後，是否因環向應力引發微龜裂，並依據母標準通過隨後之正壓流體洩漏測試。',
     appliesToZh: '所有塑膠成型小口徑連接器',
     quantitativeConditions: {
-      assemblyTorqueNm: '0.08 N·m - 0.12 N·m',
+      assemblyTorqueNm: '0.08 N·m - 0.12 N·m (Lock) / ≤ 0.10 N·m (Slip 微旋 ≤90°)',
       assemblyAxialForceN: '26.5 N - 27.5 N',
       holdTimeHours: '≥ 48 小時',
       temperatureC: '15°C - 30°C (建議 23 ± 2°C)'
     },
     fixtureRequiredZh: '公鎖配 Fig.C.1 / 母鎖配 Fig.C.4 ｜ 公滑配 Fig.C.5 / 母滑配 Fig.C.2',
     testProcedureStepsZh: [
-      '依標準程序施加 0.08~0.12 N·m 扭矩與 26.5~27.5 N 軸向推力（維持 5~6 秒後釋放）將受測物裝配於參考金屬接頭上。',
+      '依標準預裝配程序將受測物裝配於參考金屬接頭上（鎖定型先旋至 0.08~0.12 N·m 扭矩再施加 26.5~27.5 N 推力；滑動型先施加 26.5~27.5 N 推力再以 ≤0.10 N·m 扭矩微旋 ≤90°，維持 5~6 秒後釋放）。',
       '於 15°C~30°C 室溫空氣環境（建議標準 23 ± 2°C, 50% RH）下組裝靜置保持至少 48 小時。',
       '依母標準規定進行流體洩漏測試（如 ISO 80369-7 條文 6.1.1 正壓測試，對應 Annex B 氣壓衰減或 Annex C 正壓液體落滴）驗證密封性。'
     ],
@@ -1427,7 +1427,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     objectiveZh: '驗證塑膠魯爾接頭在維持標準裝配過盈應力下，於室溫空氣環境中靜置至少 48 小時後，能符合條文 6.1.1 正壓流體洩漏之密封性要求。',
     appliesToZh: '所有塑膠成型魯爾接頭 (PC, PP, Tritan, ABS 等)',
     quantitativeConditions: {
-      assemblyTorqueNm: '0.08 N·m - 0.12 N·m',
+      assemblyTorqueNm: '0.08 N·m - 0.12 N·m (Lock) / ≤ 0.10 N·m (Slip 微旋 ≤90°)',
       assemblyAxialForceN: '26.5 N - 27.5 N',
       holdTimeHours: '≥ 48 小時',
       temperatureC: '15°C - 30°C (建議 23 ± 2°C)',
@@ -1435,7 +1435,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     },
     fixtureRequiredZh: '公鎖配 Fig.C.1 / 母鎖配 Fig.C.4 ｜ 公滑配 Fig.C.5 / 母滑配 Fig.C.2',
     testProcedureStepsZh: [
-      '以 0.08~0.12 N·m 扭矩與 26.5~27.5 N 軸向推力（維持 5~6 秒後釋放）將受測物裝配於 Annex C 參考金屬夾具上。',
+      '依標準預裝配程序將受測物裝配於 Annex C 參考金屬夾具上（鎖定型先旋至 0.08~0.12 N·m 扭矩再施加 26.5~27.5 N 推力；滑動型先施加 26.5~27.5 N 推力再以 ≤0.10 N·m 扭矩微旋 ≤90°，維持 5~6 秒後釋放）。',
       '於 15°C~30°C 室溫空氣環境（建議標準 23 ± 2°C, 50% RH）下組裝靜置保持至少 48 小時。',
       '依條文 6.1.1 規定進行正壓流體洩漏測試（6.1.2 氣壓正壓衰減 或 6.1.3 正壓液體落滴）驗證密封性（註：法規嚴格排除 6.2 負壓測試，因負壓會使微裂紋閉合導致誤判）。'
     ],
@@ -1538,14 +1538,14 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     objectiveZh: '統一規範 Annex B~I 所有性能測試前之標準旋緊扭矩與軸向推力裝配步驟。',
     appliesToZh: '所有 ISO 80369-20 性能測試試驗',
     quantitativeConditions: {
-      assemblyTorqueNm: '0.08 - 0.12 N·m',
+      assemblyTorqueNm: '0.08 N·m - 0.12 N·m (Lock) / ≤ 0.10 N·m (Slip 微旋 ≤90°)',
       testForceN: '26.5 - 27.5 N (軸向推力)',
       holdTimeSec: '5 - 6 秒'
     },
     fixtureRequiredZh: '校正定扭矩起子 (0.08~0.12 N·m) & 軸向推力機構 (26.5~27.5 N)',
     testProcedureStepsZh: [
       '清潔受測物與金屬參考夾具錐面。',
-      '以 0.08–0.12 N·m 扭矩與 26.5–27.5 N 軸向推力結合。',
+      '鎖定型先旋至 0.08~0.12 N·m 扭矩再施加 26.5~27.5 N 推力；滑動型先施加 26.5~27.5 N 推力再以 ≤0.10 N·m 扭矩微旋 ≤90°，維持 5~6 秒後釋放。',
       '保持推力與扭矩 5–6 秒後鎖定測試狀態。'
     ],
     acceptanceCriteriaZh: [

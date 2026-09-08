@@ -10,8 +10,6 @@ export const ISO_CLAUSES: Record<string, ISOClauseInfo> = {
     assemblyTorqueNm: { min: 0.08, max: 0.12 },
     assemblyAxialForceN: { min: 26.5, max: 27.5 },
     holdTimeSec: { min: 15, max: 35 }, // 15-20s for pressure decay (6.1.2); 30-35s for falling drop (6.1.3)
-    requiredMaleRef: 'C.4', // For Female Lock
-    requiredFemaleRef: 'C.1', // For Male Lock
     passCriteria: 'Pneumatic method (6.1.2): Leakage rate shall not exceed 0.005 Pa·m³/s under 300 kPa–330 kPa over 15 s–20 s. Liquid method (6.1.3): No falling drop of water under 300 kPa–330 kPa over 30 s–35 s.',
     passCriteriaZh: '【氣壓衰減法 (6.1.2)】於 300 kPa–330 kPa 保持 15–20 秒，洩漏率 ≤ 0.005 Pa·m³/s。或【正壓液體落滴法 (6.1.3)】於 300 kPa–330 kPa 保持 30–35 秒，無足形成或滴落之水滴。',
     keyPhysics: 'Assesses 6% taper seal interface under standard pre-assembly.',
@@ -26,8 +24,6 @@ export const ISO_CLAUSES: Record<string, ISOClauseInfo> = {
     assemblyTorqueNm: { min: 0.08, max: 0.12 },
     assemblyAxialForceN: { min: 26.5, max: 27.5 },
     holdTimeSec: { min: 15, max: 20 },
-    requiredMaleRef: 'C.4',
-    requiredFemaleRef: 'C.1',
     passCriteria: 'Air leakage rate shall not exceed 0.005 Pa·m³/s at 80.0 kPa–88.0 kPa vacuum over 15s–20s.',
     passCriteriaZh: '在 80.0 kPa–88.0 kPa 負壓真空下保持 15–20 秒，空氣洩漏率不超過 0.005 Pa·m³/s (Annex D)。',
     keyPhysics: 'Ensures no air ingress into fluid lines under vacuum aspiration.',
@@ -42,8 +38,6 @@ export const ISO_CLAUSES: Record<string, ISOClauseInfo> = {
     assemblyTorqueNm: { min: 0.08, max: 0.12 },
     assemblyAxialForceN: { min: 26.5, max: 27.5 },
     holdTimeSec: { min: 172800, max: 172800 }, // 48 hours
-    requiredMaleRef: 'C.4',
-    requiredFemaleRef: 'C.1',
     passCriteria: 'Shall satisfy Clause 6.1.1 fluid leakage requirements after 48h assembly hold in air in accordance with ISO 80369-20 Annex E.',
     passCriteriaZh: '依 ISO 80369-20 Annex E 裝配於金屬參考接頭於室溫空氣中靜置至少 48 小時後，依 6.1.1 執行正壓流體洩漏測試並符合其要求（排除 6.2 負壓測試）。',
     keyPhysics: 'Verifies stress cracking resistance under sustained assembly hoop stress in air and subsequent positive-pressure fluid sealing capability (Clause 6.1.1).',
@@ -59,8 +53,6 @@ export const ISO_CLAUSES: Record<string, ISOClauseInfo> = {
     assemblyAxialForceN: { min: 26.5, max: 27.5 },
     testForceN: { min: 23, max: 35 }, // ISO 80369-7 Clause 6.4: Slip (23-25N), Lock (32-35N)
     holdTimeSec: { min: 10, max: 15 }, // ISO 80369-7 Clause 6.4: 10-15s
-    requiredMaleRef: 'C.6', // For Female Lock
-    requiredFemaleRef: 'C.3', // For Male Lock (Worst-case 2.71mm)
     passCriteria: 'Shall not separate when subjected to 23 N–25 N (Slip) or 32 N–35 N (Lock) axial tension for 10 s–15 s (ISO 80369-7 Clause 6.4 / ISO 80369-20 Annex F).',
     passCriteriaZh: '在 23 N–25 N（Slip滑動型）或 32 N–35 N（Lock鎖定型）軸向拉力下維持 10–15 秒，接頭不得脫開分離。',
     keyPhysics: 'Tests axial retention strength under tension: Lock connectors pair with worst-case fixtures (Male DUT to Fig.C.3; Female DUT to Fig.C.6 at 32-35 N); Slip connectors pair with nominal fixtures (Male DUT to Fig.C.5; Female DUT to Fig.C.2 at 23-25 N).',
@@ -76,8 +68,6 @@ export const ISO_CLAUSES: Record<string, ISOClauseInfo> = {
     assemblyAxialForceN: { min: 26.5, max: 27.5 },
     testTorqueNm: { min: 0.018, max: 0.020 }, // ISO 80369-7 Clause 6.5: 0.018-0.020 N·m
     holdTimeSec: { min: 10, max: 15 }, // ISO 80369-7 Clause 6.5: 10-15s
-    requiredMaleRef: 'C.4',
-    requiredFemaleRef: 'C.1',
     passCriteria: 'Shall not unscrew when subjected to a 0.018 N·m–0.020 N·m reverse torque for 10 s–15 s (ISO 80369-7 Clause 6.5 / ISO 80369-20 Annex G).',
     passCriteriaZh: '裝配後施加 0.018 N·m–0.020 N·m 的反向旋鬆扭矩維持 10–15 秒，接頭不得自行旋鬆脫開。',
     keyPhysics: 'Verifies frictional self-locking angle between taper and thread surface.',
@@ -93,8 +83,6 @@ export const ISO_CLAUSES: Record<string, ISOClauseInfo> = {
     assemblyAxialForceN: { min: 26.5, max: 27.5 },
     testTorqueNm: { min: 0.15, max: 0.17 },
     holdTimeSec: { min: 5, max: 10 },
-    requiredMaleRef: 'C.6', // For Female Lock
-    requiredFemaleRef: 'C.3', // For Male Lock (Worst-case 2.71mm)
     passCriteria: 'Shall not override threads when subjected to 0.15 N·m–0.17 N·m torque for 5 s–10 s (ISO 80369-7 Clause 6.6 / ISO 80369-20 Annex H).',
     passCriteriaZh: '施加 0.15 N·m–0.17 N·m 破壞性扭矩維持 5–10 秒，螺紋或耳翼不得越過滑脫（不滑牙），且接頭無歪斜 (No cocking)（ISO 80369-20 Annex H.4 d）。',
     keyPhysics: 'Tests hoop expansion, creep, and worst-case ear/thread shear limit under severe over-torque (Male tests with Fig.C.3, Female tests with Fig.C.6).',
@@ -521,14 +509,14 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
     annexGroup: 'ISO 80369-20',
     name: 'Standard Pre-assembly Torque & Thrust Rig',
     nameZh: '標準預裝配定扭矩起子與軸推力機構圖',
-    description: 'ISO 80369-20 pre-assembly standard procedure driver with 0.08~0.12 N·m torque and 27.5 N axial push.',
-    descriptionZh: 'ISO 80369-20 通用標準預裝配裝置圖，結合 0.08~0.12 N·m 扭矩與 26.5~27.5 N 軸向推力，保持 5~6 秒。',
+    description: 'ISO 80369-20:2024 X.4 b) pre-assembly rig. Lock: collar torque 0.08-0.12 N.m first, then 26.5-27.5 N axial force. Slip: 26.5-27.5 N axial force first, then rotate <= 90 deg with torque <= 0.10 N.m. Hold 5-6 s then release.',
+    descriptionZh: 'ISO 80369-20:2024 X.4 b) 標準預裝配裝置圖。鎖定型：先旋至 0.08~0.12 N·m 扭矩，再施加 26.5~27.5 N 軸向推力；滑動型：先施加 26.5~27.5 N 軸向推力，再以 ≤0.10 N·m 扭矩旋轉 ≤90°。兩者皆維持 5~6 秒後釋放。',
     intendedClauses: ['6.1', '6.2', '6.3', '6.4', '6.5'],
     isWorstCase: false,
     worstCaseReasonZh: '所有物理性能測試前之標準預裝配作業基準。',
     svgHighlights: [
-      { title: '預裝配扭矩', value: '0.08 ~ 0.12 N·m' },
-      { title: '預裝配軸推力', value: '26.5 ~ 27.5 N' },
+      { title: '預裝配扭矩', value: '鎖定型 0.08 ~ 0.12 N·m / 滑動型 ≤ 0.10 N·m' },
+      { title: '預裝配軸推力', value: '26.5 ~ 27.5 N (鎖定型後施加 / 滑動型先施加)' },
       { title: '保持時間', value: '5 ~ 6 秒' }
     ],
     svgKey: 'ISO20-FIG-J1'
@@ -696,25 +684,75 @@ export const FAILURE_MODES: FailureModeInfo[] = [
 ];
 
 /**
- * ISO 80369-20:2024 Annex A Standard Atmospheric Preconditioning Requirements
+ * Preconditioning and environmental test conditions.
+ *
+ * These are stated per test method, in subclause X.2 of each annex (B.2.1/B.2.2,
+ * C.2, D.2, E.2, F.2, G.2, H.2, I.2, K.2) and are identical across them - NOT in
+ * Clause 4, which only carries Table 1 (test method -> annex), and not in Annex A,
+ * which is rationale only.
  */
-export const ISO20_ANNEX_A_PRECONDITIONING = {
-  standard: 'ISO 80369-20:2024 Clause 4',
-  titleZh: 'Clause 4 預處理条件與測試環境',
-  // 預處理環境（依 ISO 80369-20:2024 原文 Clause 4 確認）
+export const ISO20_PRECONDITIONING = {
+  standard: 'ISO 80369-20:2024, X.2.1 / X.2.2 (each test-method annex)',
+  titleZh: '各測試附錄 X.2 預處理條件與測試環境',
+  // (20 ± 5) °C, (50 ± 10) % RH, not less than 24 h - ISO 80369-20:2024, B.2.1
   tempC: { target: 20, tolerance: 5 },       // (20 ± 5)°C
   rhPercent: { target: 50, tolerance: 10 },  // (50 ± 10)% RH
   minDurationHours: 24,
-  // 測試執行環境（依 ISO 80369-20:2024 各 Annex 确認）
+  // 15 °C to 30 °C, RH 10 % to 70 % - ISO 80369-20:2024, B.2.2
   testEnvTempCMin: 15,
   testEnvTempCMax: 30,
   testEnvRhPercentMin: 10,
   testEnvRhPercentMax: 70,
-  descriptionZh: '所有物理與機械試驗 (Clause 6.1~6.6) 執行前，受測樣品與金屬參考接頭必須在 (20 ± 5)°C 與 (50 ± 10)% RH 之標準大氣環境中至少靜置調節 24 小時。測試執行期間環境需維持 15°C – 30°C，相對濕度 10% – 70%。'
+  descriptionZh: '所有物理與機械試驗 (Clause 6.1~6.6) 執行前，受測樣品必須在 (20 ± 5)°C 與 (50 ± 10)% RH 之標準大氣環境中至少靜置調節 24 小時（非吸濕性材料可免除）。測試執行期間環境需維持 15°C – 30°C，相對濕度 10% – 70%。依 ISO 80369-20:2024 各測試附錄 X.2.1 / X.2.2。'
 };
 
 /**
- * ISO 80369-20:2024 Annex B.5 ~ G.5 Mandatory 14 Test Report Reporting Elements (a ~ n)
+ * Number of test-report elements required by each ISO 80369-20:2024 annex.
+ *
+ * These are NOT uniform. The widely-quoted "14 items (a~n)" belongs to Annex B
+ * alone: items k) "test volume used as defined in Figure B.1" and m) "pressure
+ * change ... according to Clause B.4 f)" exist only in the pressure-decay method.
+ * Counted directly from the standard.
+ */
+/**
+ * ISO 80369-7:2021, Clause 2 cites ISO 80369-20:**2015** as a DATED normative
+ * reference ("For dated references, only the edition cited applies"), while this
+ * tool presents the 2024 edition. Annex letters B to H, the test procedures and
+ * every quantitative value used here are unchanged between the two editions;
+ * 2024 adds Annex I, J and K. Surfaced in the UI so a report author cites correctly.
+ */
+export const ISO20_EDITION_NOTE = {
+  citedByIso7: 'ISO 80369-20:2015',
+  presentedHere: 'ISO 80369-20:2024',
+  noteEn:
+    'ISO 80369-7:2021, Clause 2 cites ISO 80369-20:2015 as a dated normative reference. This tool presents ISO 80369-20:2024; Annexes B-H and all quantitative test parameters are unchanged, and 2024 adds Annexes I, J and K. Note also that Annexes B-K of the 2024 edition are designated informative - the conformance obligation comes from ISO 80369-7:2021, Clause 6.',
+  noteZh:
+    'ISO 80369-7:2021 Clause 2 以「定版引用」方式引用 ISO 80369-20:2015（定版引用僅該版適用）。本系統呈現 ISO 80369-20:2024：Annex B~H 與所有定量測試參數兩版一致，2024 版另增 Annex I / J / K。另注意 2024 版 Annex B~K 標示為 informative（參考性），強制力來自 ISO 80369-7:2021 Clause 6 之「Check conformance by applying the tests of ISO 80369-20, Annex X」。'
+};
+
+export const ISO20_REPORT_ELEMENT_COUNTS: Array<{
+  annex: string;
+  method: string;
+  methodZh: string;
+  count: number;
+  range: string;
+}> = [
+  { annex: 'B', method: 'Leakage by pressure decay',                   methodZh: '氣壓衰減洩漏',       count: 14, range: 'a~n' },
+  { annex: 'C', method: 'Falling drop positive-pressure liquid leakage', methodZh: '正壓液體落滴洩漏',  count: 12, range: 'a~l' },
+  { annex: 'D', method: 'Subatmospheric-pressure air leakage',          methodZh: '負壓空氣洩漏',       count: 13, range: 'a~m' },
+  { annex: 'E', method: 'Stress cracking',                              methodZh: '應力龜裂',           count: 12, range: 'a~l' },
+  { annex: 'F', method: 'Resistance to separation from axial load',     methodZh: '抗軸向負載分離',     count: 10, range: 'a~j' },
+  { annex: 'G', method: 'Resistance to separation from unscrewing',     methodZh: '抗旋鬆分離',         count: 11, range: 'a~k' },
+  { annex: 'H', method: 'Resistance to overriding',                     methodZh: '抗過旋滑牙',         count: 12, range: 'a~l' },
+  { annex: 'I', method: 'Disconnection by unscrewing',                  methodZh: '旋鬆卸接',           count: 11, range: 'a~k' },
+  { annex: 'K', method: 'Air leakage during aspiration',                methodZh: '抽吸時空氣洩漏',     count: 13, range: 'a~m' }
+];
+
+/**
+ * ISO 80369-20:2024, B.5 - test report elements a) to n) for the leakage by
+ * pressure decay method. This is the longest of the nine report lists and is used
+ * here as the superset checklist; see ISO20_REPORT_ELEMENT_COUNTS for the items
+ * each other annex actually requires.
  */
 export interface MandatoryReportItem {
   id: string;
@@ -733,10 +771,10 @@ export const ISO20_MANDATORY_REPORT_ITEMS: MandatoryReportItem[] = [
     code: 'a)',
     titleEn: 'Reference Standard & Annex',
     titleZh: '引用標準與附錄',
-    descriptionZh: '明確聲明測試係嚴格遵循 ISO 80369-20:2024 之特定附錄 (如 Annex B/C/D/E/F/G) 執行。',
-    descriptionEn: 'Explicit statement that testing was performed strictly in accordance with ISO 80369-20:2024 specific Annex (e.g. Annex B/C/D/E/F/G/H).',
-    exampleValueZh: 'ISO 80369-20:2024, Annex B (正壓液體洩漏)',
-    exampleValueEn: 'ISO 80369-20:2024, Annex B (Positive pressure liquid leakage)'
+    descriptionZh: '明確聲明測試係嚴格遵循 ISO 80369-20:2024 之特定附錄執行 (Annex B 氣壓衰減 / C 正壓液體落滴 / D 負壓空氣 / E 應力龜裂 / F 抗軸向分離 / G 抗旋鬆 / H 抗過旋)。',
+    descriptionEn: 'Explicit statement that testing was performed strictly in accordance with the specific ISO 80369-20:2024 annex (B pressure decay / C falling drop / D subatmospheric air / E stress cracking / F axial load / G unscrewing / H overriding).',
+    exampleValueZh: 'ISO 80369-20:2024, Annex B (氣壓衰減洩漏法)',
+    exampleValueEn: 'ISO 80369-20:2024, Annex B (Leakage by pressure decay)'
   },
   {
     id: 'b',
@@ -795,8 +833,8 @@ export const ISO20_MANDATORY_REPORT_ITEMS: MandatoryReportItem[] = [
     titleZh: '實際施加物理負載',
     descriptionZh: '記載測試前置裝配扭矩/推力，以及實測施加之水壓、氣壓、拉力或過載扭矩。',
     descriptionEn: 'Record pre-assembly torque/axial force and applied hydraulic pressure, pneumatic pressure, tensile load or overriding torque.',
-    exampleValueZh: '裝配: 0.10 N·m + 27.0 N; 測試水壓: 315 kPa',
-    exampleValueEn: 'Pre-assembly: 0.10 N·m + 27.0 N; Test pressure: 315 kPa hydraulic'
+    exampleValueZh: '裝配: 0.10 N·m + 27.0 N; 測試氣壓: 315 kPa (Annex B 以空氣為介質)',
+    exampleValueEn: 'Pre-assembly: 0.10 N·m + 27.0 N; Applied pressure: 315 kPa (air, per Annex B)'
   },
   {
     id: 'h',

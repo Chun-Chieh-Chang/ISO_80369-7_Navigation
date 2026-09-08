@@ -1,7 +1,7 @@
 import ExcelJS from 'exceljs';
-import { ISO20_MANDATORY_REPORT_ITEMS, ISO20_ANNEX_A_PRECONDITIONING, ISO_CLAUSES } from '../data/isoData';
+import { ISO20_MANDATORY_REPORT_ITEMS, ISO20_PRECONDITIONING, ISO_CLAUSES } from '../data/isoData';
 import { TestConfigState } from '../types';
-import { getAnnexCFigure } from './isoHelpers';
+import { getRequiredReferenceConnector, formatPreAssembly } from './isoHelpers';
 
 /**
  * Configures A4 Landscape page setup, print margins, and single-page width scaling.
@@ -55,7 +55,7 @@ export const exportMedicalGradeExcelReport = async (config: TestConfigState, lan
   // ==========================================
   // SHEET 1: ISO 80369-20 Section .5 Mandatory 14 Test Report Items
   // ==========================================
-  const sheet1Name = isEn ? 'ISO20 Report 14 Items' : '14項法定報告檢核(Section .5)';
+  const sheet1Name = isEn ? 'ISO20 Annex B.5 Items' : 'Annex B.5 報告要件檢核';
   const ws1 = workbook.addWorksheet(sheet1Name);
   configureA4LandscapePageSetup(ws1);
 
@@ -74,8 +74,8 @@ export const exportMedicalGradeExcelReport = async (config: TestConfigState, lan
   ws1.mergeCells('A1:H1');
   const titleCell1 = ws1.getCell('A1');
   titleCell1.value = isEn
-    ? '  ISO 80369-20:2024 Section .5 Laboratory Test Report 14 Mandatory Reporting Elements Checklist'
-    : '  ISO 80369-20:2024 Section .5 實驗室正式測試報告 14 大法定必填項目檢核表 (A4 檢核頁面)';
+    ? '  ISO 80369-20:2024 Annex B.5 Laboratory Test Report Elements Checklist (a~n, 14 items; other annexes differ)'
+    : '  ISO 80369-20:2024 Annex B.5 實驗室測試報告要件檢核表 (a~n，共 14 項；其他附錄項數不同)';
   titleCell1.font = { name: 'Segoe UI', size: 12, bold: true, color: { argb: 'FFFFFF' } };
   titleCell1.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: '1E1B4B' } };
   titleCell1.alignment = { vertical: 'middle', horizontal: 'left' };
@@ -240,25 +240,11 @@ export const exportMedicalGradeExcelReport = async (config: TestConfigState, lan
     row.height = 42;
     const bgFill = idx % 2 === 0 ? 'FFFFFF' : 'F8FAFC';
 
-    let requiredRefId = 'C.1';
-    if (config.connectorGender === 'male') {
-      if (config.connectorType === 'slip') {
-        requiredRefId = 'C.5';
-      } else {
-        requiredRefId = (clause.id === '6.4' || clause.id === '6.6') ? 'C.3' : 'C.1';
-      }
-    } else {
-      if (config.connectorType === 'slip') {
-        requiredRefId = 'C.2';
-      } else {
-        requiredRefId = (clause.id === '6.4' || clause.id === '6.6') ? 'C.6' : 'C.4';
-      }
-    }
-
-    const requiredRef = getAnnexCFigure(requiredRefId);
-    const preAssemblyStr = isEn
-      ? 'Torque: 0.08–0.12 N·m + Axial Force: 26.5–27.5 N (Hold 5–6 s then Release)'
-      : '扭矩: 0.08–0.12 N·m + 軸向推力: 26.5–27.5 N (維持 5–6 秒後釋放)';
+    // Same Annex C resolution used by the on-screen matrix and the drawer.
+    const requiredRef = getRequiredReferenceConnector(clause.id, config.connectorGender, config.connectorType);
+    const requiredRefId = requiredRef?.id ?? '-';
+    // ISO 80369-20:2024 X.4 b): locking and slip connectors are assembled differently.
+    const preAssemblyStr = formatPreAssembly(config.connectorType, isEn);
 
     let activeLoadStr = 'N/A';
     if (clause.id === '6.1') activeLoadStr = isEn ? '300–330 kPa (Hydraulic or Pneumatic either/or)' : '300–330 kPa (水壓法或氣壓法二選一)';

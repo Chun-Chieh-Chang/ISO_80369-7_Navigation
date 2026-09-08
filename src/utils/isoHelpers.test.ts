@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { getClauseSvgKey, getAnnexCFigure } from './isoHelpers';
-import { ISO_CLAUSES, ANNEX_C_FIGURES, ISO20_MANDATORY_REPORT_ITEMS, ISO20_ANNEX_A_PRECONDITIONING } from '../data/isoData';
+import { ISO_CLAUSES, ANNEX_C_FIGURES, ISO20_MANDATORY_REPORT_ITEMS, ISO20_PRECONDITIONING } from '../data/isoData';
 import { ISO_TOPICS, STANDARD_CLAUSE_DETAILS } from '../data/isoTopicsData';
 import { exportMedicalGradeExcelReport } from './excelExporter';
 import { TRANSLATIONS } from '../i18n/translations';
@@ -143,7 +143,7 @@ describe('ISO 80369-7 & 20 Data & Helper Unit Tests', () => {
 
     expect(wb).toBeDefined();
     const sheetNames = wb.worksheets.map(w => w.name);
-    expect(sheetNames).toContain('ISO20 Report 14 Items');
+    expect(sheetNames).toContain('ISO20 Annex B.5 Items');
     expect(sheetNames).toContain('DVP Test Matrix');
     expect(sheetNames).toContain('Preconditioning Specs');
 
@@ -172,15 +172,15 @@ describe('ISO 80369-7 & 20 Data & Helper Unit Tests', () => {
   });
 
   it('should verify ISO 80369-20:2024 Clause 4 preconditioning SSOT values (20±5°C, 50±10% RH)', () => {
-    expect(ISO20_ANNEX_A_PRECONDITIONING.tempC.target).toBe(20);
-    expect(ISO20_ANNEX_A_PRECONDITIONING.tempC.tolerance).toBe(5);
-    expect(ISO20_ANNEX_A_PRECONDITIONING.rhPercent.target).toBe(50);
-    expect(ISO20_ANNEX_A_PRECONDITIONING.rhPercent.tolerance).toBe(10);
-    expect(ISO20_ANNEX_A_PRECONDITIONING.minDurationHours).toBe(24);
-    expect(ISO20_ANNEX_A_PRECONDITIONING.testEnvTempCMin).toBe(15);
-    expect(ISO20_ANNEX_A_PRECONDITIONING.testEnvTempCMax).toBe(30);
-    expect(ISO20_ANNEX_A_PRECONDITIONING.testEnvRhPercentMin).toBe(10);
-    expect(ISO20_ANNEX_A_PRECONDITIONING.testEnvRhPercentMax).toBe(70);
+    expect(ISO20_PRECONDITIONING.tempC.target).toBe(20);
+    expect(ISO20_PRECONDITIONING.tempC.tolerance).toBe(5);
+    expect(ISO20_PRECONDITIONING.rhPercent.target).toBe(50);
+    expect(ISO20_PRECONDITIONING.rhPercent.tolerance).toBe(10);
+    expect(ISO20_PRECONDITIONING.minDurationHours).toBe(24);
+    expect(ISO20_PRECONDITIONING.testEnvTempCMin).toBe(15);
+    expect(ISO20_PRECONDITIONING.testEnvTempCMax).toBe(30);
+    expect(ISO20_PRECONDITIONING.testEnvRhPercentMin).toBe(10);
+    expect(ISO20_PRECONDITIONING.testEnvRhPercentMax).toBe(70);
   });
 
   it('should verify ANNEX_C_FIGURES SSOT integrity across all standard figures', () => {

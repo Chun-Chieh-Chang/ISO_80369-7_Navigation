@@ -28,7 +28,7 @@ export interface FigureI18nData {
 export const TOPIC_I18N: Record<string, TopicI18nData> = {
   'fluid-leakage': {
     shortSummaryEn: 'Evaluates sealing integrity of 6% Luer taper and threads under 300-330 kPa positive pressure (Water method: no falling drop / Air decay: leak rate <= 0.005 Pa·m3/s).',
-    detailedDescriptionEn: 'Positive pressure fluid leakage testing is the fundamental cornerstone of medical Luer connector verification. After assembling to a standard metal reference fixture at mandated assembly torque (0.08 to 0.12 N·m), test connectors are evaluated under 300 kPa to 330 kPa hydraulic or pneumatic pressure. Under the Pressure Decay Method (Annex B), pressure is maintained for 15-20 s with a maximum allowable leak rate of 0.005 Pa·m3/s. Per ISO 80369-20:2024 revision, the formula for leak rate Q has been retired in favor of directly recording differential pressure change (Delta P), calculated via Delta P_max = (Q_max * Delta t) / V. Under the Falling Drop Method (Annex C), pressure is held for 30-35 s with zero liquid drop formation or release allowed.',
+    detailedDescriptionEn: 'Positive pressure fluid leakage testing is the fundamental cornerstone of medical Luer connector verification. After assembling to a standard metal reference fixture per ISO 80369-20:2024 X.4 b) (lock: collar torque 0.08-0.12 N.m then 26.5-27.5 N axial force; slip: 26.5-27.5 N axial force then rotation <= 90 deg at torque <= 0.10 N.m), test connectors are evaluated under 300 kPa to 330 kPa hydraulic or pneumatic pressure. Under the Pressure Decay Method (Annex B), pressure is maintained for 15-20 s with a maximum allowable leak rate of 0.005 Pa·m3/s. Per ISO 80369-20:2024 revision, the formula for leak rate Q has been retired in favor of directly recording differential pressure change (Delta P), calculated via Delta P_max = (Q_max * Delta t) / V. Under the Falling Drop Method (Annex C), pressure is held for 30-35 s with zero liquid drop formation or release allowed.',
     engineeringRiskEn: 'Insufficient surface roughness on the 6% taper (Ra > 0.8 um), micro-flash along the mold parting line, or part ovality from uneven mold shrinkage will compromise cone seal lines and cause immediate leakage under 300 kPa pressure.',
     auditFocusEn: 'Inspect pre-test conditioning documentation (23 +/- 2 deg C, 50 +/- 5% RH, >= 24 h). For pressure decay, audit whether test system internal volume V was calibrated per ISO 80369-20:2024 Figure B.1 and disclosed in Section .5.'
   },
@@ -75,9 +75,9 @@ export const TOPIC_I18N: Record<string, TopicI18nData> = {
     auditFocusEn: 'Audit fixture calibration certificates: verify hardness (>= 45 HRC for hardened grades), roughness Ra <= 0.8 um on sealing surfaces, and critical dimensions.'
   },
   'pre-assembly': {
-    shortSummaryEn: 'Standard pre-assembly procedure: simultaneously apply 0.08-0.12 N·m torque and 26.5-27.5 N axial push for 5-6 s, then release.',
-    detailedDescriptionEn: 'Per ISO 80369-20 Annex H.4 a) and Clause 5, standard pre-assembly requires simultaneous application of 0.08 to 0.12 N·m tightening torque and 26.5 to 27.5 N axial force, held for 5 to 6 s before load release. This procedure seats the 6% tapers uniformly and establishes consistent friction and preload prior to test challenge execution.',
-    engineeringRiskEn: 'Failure to simultaneously apply torque and axial force results in improper taper seating, causing variable and unrepeatable test results.',
+    shortSummaryEn: 'Standard pre-assembly, applied in the opposite order for the two connector styles: lock - collar torque 0.08-0.12 N.m then 26.5-27.5 N axial force; slip - 26.5-27.5 N axial force then rotate <= 90 deg with torque <= 0.10 N.m. Hold 5-6 s then release.',
+    detailedDescriptionEn: 'ISO 80369-20:2024 states the pre-assembly procedure at X.4 b) of each test-method annex, and the two connector styles use opposite orders. Locking: rotate the collar of the connector under test to a torque of 0.08 to 0.12 N.m, then, while continuing to apply that torque, apply an axial force of 26.5 to 27.5 N. Non-locking (slip): apply an axial force of 26.5 to 27.5 N, then, while continuing to apply it, rotate with a torque not exceeding 0.10 N.m to give a rotation not exceeding 90 degrees. Both hold for 5 to 6 s and then release. Only Annex G (unscrewing) and Annex H (overriding) are lock-only and define the locking branch alone.',
+    engineeringRiskEn: 'Applying the two loads in the wrong order, or torque-controlling a slip connector instead of limiting rotation to 90 degrees, seats the taper improperly and yields variable, unrepeatable test results.',
     auditFocusEn: 'Verify automated dual-axis pre-assembly apparatus calibration and ensure pre-assembly hold time was maintained strictly between 5 and 6 seconds.'
   },
   'non-interchangeability': {
@@ -926,8 +926,8 @@ export const getClauseTestProcedureSteps = (clause: any, isEn: boolean): string[
   const id = clause.id || '';
   if (id === 'iso7-6.1' || id === '6.1') {
     return [
-      'Condition connector at (20 ± 5) °C and (50 ± 10) % RH for not less than 24 h (ISO 80369-20 Clause 4).',
-      'Pre-assemble connector to reference connector simultaneously applying 0.08–0.12 N·m torque and 26.5–27.5 N axial push for 5–6 s, then release all loads.',
+      'Condition connector at (20 ± 5) °C and (50 ± 10) % RH for not less than 24 h (ISO 80369-20:2024, X.2.1).',
+      'Pre-assemble to the reference connector per ISO 80369-20:2024 X.4 b): lock - collar torque 0.08-0.12 N.m first, then 26.5-27.5 N axial force; slip - 26.5-27.5 N axial force first, then rotate <= 90 deg with torque <= 0.10 N.m. Hold 5-6 s then release.',
       'Connect assembled test specimen to pressure test apparatus and purge internal air (hydraulic) or connect to dry pneumatic circuit with known system volume V.',
       'Apply (300 to 330) kPa test pressure and maintain for designated hold time: 30–35 s for hydraulic falling drop or 15–20 s for pneumatic pressure decay.',
       'Inspect for falling drop of liquid or record differential pressure change ΔP and verify compliance with acceptance criteria.'
@@ -936,7 +936,7 @@ export const getClauseTestProcedureSteps = (clause: any, isEn: boolean): string[
   if (id === 'iso7-6.2' || id === '6.2') {
     return [
       'Condition test connectors at standard laboratory atmosphere for not less than 24 h.',
-      'Pre-assemble connector to standard reference connector applying 0.08–0.12 N·m torque and 26.5–27.5 N axial force for 5–6 s, then release.',
+      'Pre-assemble to the reference connector per ISO 80369-20:2024 X.4 b): lock - collar torque 0.08-0.12 N.m first, then 26.5-27.5 N axial force; slip - 26.5-27.5 N axial force first, then rotate <= 90 deg with torque <= 0.10 N.m. Hold 5-6 s then release.',
       'Connect specimen to vacuum decay test system (Annex D) or submersion aspiration apparatus (Annex K).',
       'Draw sub-atmospheric vacuum of (80.0 to 88.0) kPa and maintain for 15–20 s.',
       'Record vacuum decay rate ΔP or visually inspect for continuous bubble stream over 15–20 s.'
@@ -944,7 +944,7 @@ export const getClauseTestProcedureSteps = (clause: any, isEn: boolean): string[
   }
   if (id === 'iso7-6.3' || id === '6.3') {
     return [
-      'Pre-assemble polymer connector to metal reference connector applying standard torque (0.08–0.12 N·m) and axial force (26.5–27.5 N) for 5–6 s.',
+      'Pre-assemble to the reference connector per ISO 80369-20:2024 X.4 b): lock - collar torque 0.08-0.12 N.m first, then 26.5-27.5 N axial force; slip - 26.5-27.5 N axial force first, then rotate <= 90 deg with torque <= 0.10 N.m. Hold 5-6 s then release.',
       'Place assembled connector in environmental chamber maintained at (23 ± 2) °C in air for not less than 48 h per ISO 80369-20 Annex E.',
       'Immediately following 48 h conditioning, examine under optical magnification for micro-cracks.',
       'Subject assembled connection directly to Clause 6.1 leakage test at 300–330 kPa and verify compliance.'

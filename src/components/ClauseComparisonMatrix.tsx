@@ -2,9 +2,34 @@ import React, { useState } from 'react';
 import { ISO_TOPICS, STANDARD_CLAUSE_DETAILS } from '../data/isoTopicsData';
 import { ISO_CLAUSES } from '../data/isoData';
 import { ISOStandardFigureRenderer } from './ISOStandardFigureRenderer';
-import { getClauseSvgKey, getAnnexCFigure } from '../utils/isoHelpers';
+import { getClauseSvgKey, getAnnexCFigure, formatClauseFixtureMatrix, formatPreAssemblyForClause, formatPreAssemblyBothTypes } from '../utils/isoHelpers';
 import { useLanguage } from '../i18n/LanguageContext';
-import { Table, Search, Download, Filter, Info, CheckCircle2, AlertTriangle, ArrowUpDown, ChevronDown, ChevronUp, Eye, Sparkles } from 'lucide-react';
+import { ClauseDetailDrawer } from './ClauseDetailDrawer';
+import { useClauseDetailDrawer, findTopicForClause } from '../hooks/useClauseDetailDrawer';
+import { Table, Search, Download, Filter, Info, CheckCircle2, AlertTriangle, ArrowUpDown, ChevronDown, ChevronUp, Eye, Sparkles, BookOpen } from 'lucide-react';
+
+/** Shape of one derived comparison-matrix row (SSOT projection of ISO_CLAUSES). */
+interface MatrixClauseRow {
+  id: string;
+  title: string;
+  iso7: string;
+  iso20: string;
+  category: string;
+  categoryZh: string;
+  type: string;
+  assemblyTorque: string;
+  testPressure: string;
+  testForce: string;
+  testTorque: string;
+  holdTime: string;
+  fixture: string;
+  criteria: string;
+  risk: string;
+  /** Clause 6.4 carries two legal load levels (Slip/L1 vs Lock/L2) selected in-row. */
+  isClause64?: boolean;
+  /** Shown when the clause applies no direct load of its own (e.g. 6.3 conditions, then tests to 6.1.1). */
+  testLoadNote?: string;
+}
 
 export const ClauseComparisonMatrix: React.FC = () => {
   const { language, t } = useLanguage();
@@ -12,10 +37,12 @@ export const ClauseComparisonMatrix: React.FC = () => {
   const [filterType, setFilterType] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [expandedClauseId, setExpandedClauseId] = useState<string | null>(null);
-  const [selectedType, setSelectedType] = useState<'lock' | 'slip'>('lock');
+  const [selectedType64, setSelectedType64] = useState<'lock' | 'slip'>('lock');
+  // Tier 2 escalation: the same drawer the topic explorer opens.
+  const drawer = useClauseDetailDrawer();
 
   // Dynamically derive clausesList from Single Source of Truth (ISO_CLAUSES & STANDARD_CLAUSE_DETAILS)
-  const clausesList = React.useMemo(() => {
+  const clausesList = React.useMemo<MatrixClauseRow[]>(() => {
     const clause5Detail = STANDARD_CLAUSE_DETAILS['iso7-clause-5'];
     const c61Data = ISO_CLAUSES['6.1'];
     const c61Detail = STANDARD_CLAUSE_DETAILS['iso7-6.1'];
@@ -97,15 +124,15 @@ export const ClauseComparisonMatrix: React.FC = () => {
         category: 'assembly',
         categoryZh: isEn ? 'Assembly' : '裝配',
         type: isEn ? 'Lock & Slip' : 'Lock & Slip',
-        assemblyTorque: isEn ? 'Torque: 0.08–0.12 N·m + Axial Force: 26.5–27.5 N, hold 5–6 s then release' : '扭矩: 0.08–0.12 N·m + 軸向推力: 26.5–27.5 N，維持 5–6 秒後釋放',
+        assemblyTorque: formatPreAssemblyBothTypes(isEn),
         testPressure: '-',
         testForce: '-',
         testTorque: '-',
         holdTime: isEn ? '5 – 6 s' : '5 – 6 秒',
-        fixture: isEn ? 'Calibrated Torque Driver (0.08–0.12 N·m) & Axial Force Rig (26.5–27.5 N)' : '校正定扭矩起子 (0.08~0.12 N·m) & 軸向推力機構 (26.5~27.5 N)',
+        fixture: isEn ? 'Rig capable of simultaneously applying 27.5 N axial force and 0.12 N·m torque (ISO 80369-20:2024, X.3.3), plus rotation control to 90° for slip' : '可同時施加 27.5 N 軸向推力與 0.12 N·m 扭矩之加載機構 (ISO 80369-20:2024, X.3.3)，滑動型另需 90° 旋轉角度控制',
         criteria: isEn
-          ? 'Mandatory standard pre-assembly: simultaneously apply 0.08–0.12 N·m torque and 26.5–27.5 N axial force for 5–6 s, then release all loads prior to test'
-          : '性能測試前必須執行統一標準預裝配作業，旋合時須同時施加 0.08~0.12 N·m 扭矩與 26.5~27.5 N 軸向推力持壓 5~6s 確立 6% 錐面配合，然後完全釋放外力',
+          ? 'Pre-assembly per ISO 80369-20:2024 X.4 b), in opposite order per style: lock applies collar torque 0.08–0.12 N·m first then 26.5–27.5 N; slip applies 26.5–27.5 N first then rotates ≤90° with torque ≤0.10 N·m. Hold 5–6 s then release all loads prior to test.'
+          : '性能測試前必須依 ISO 80369-20:2024 X.4 b) 執行標準預裝配，鎖定型與滑動型順序相反：鎖定型先旋至 0.08~0.12 N·m 扭矩再加 26.5~27.5 N 推力；滑動型先加 26.5~27.5 N 推力再以 ≤0.10 N·m 扭矩微旋 ≤90°。兩者皆持壓 5~6s 確立 6% 錐面配合後完全釋放外力',
         risk: isEn ? 'Failure to perform quantitative pre-assembly causes false leakage' : '預裝配未定量加壓致使假洩漏或螺紋損傷'
       },
       {
@@ -133,14 +160,12 @@ export const ClauseComparisonMatrix: React.FC = () => {
         category: c61Data?.category || 'leakage',
         categoryZh: isEn ? 'Leakage' : '洩漏',
         type: 'Lock & Slip',
-        assemblyTorque: isEn ? `Torque: ${c61Data?.assemblyTorqueNm.min}–${c61Data?.assemblyTorqueNm.max} N·m + Axial Force: ${c61Data?.assemblyAxialForceN?.min}–${c61Data?.assemblyAxialForceN?.max} N, hold 5–6 s then release` : `扭矩: ${c61Data?.assemblyTorqueNm.min}–${c61Data?.assemblyTorqueNm.max} N·m + 軸向推力: ${c61Data?.assemblyAxialForceN?.min}–${c61Data?.assemblyAxialForceN?.max} N，維持 5–6 秒後釋放`,
+        assemblyTorque: formatPreAssemblyForClause('6.1', isEn),
         testPressure: '300–330 kPa',
         testForce: '-',
         testTorque: '-',
         holdTime: isEn ? 'Decay (6.1.2): 15–20 s / Liquid (6.1.3): 30–35 s' : '氣壓法 (6.1.2): 15–20 秒　/　水壓法 (6.1.3): 30–35 秒（二選一）',
-        fixture: isEn
-          ? 'Male Lock: Fig. C.1 / Female Lock: Fig. C.4 | Male Slip: Fig. C.5 / Female Slip: Fig. C.2'
-          : '公鎖配 Fig.C.1 / 母鎖配 Fig.C.4 ｜ 公滑配 Fig.C.5 / 母滑配 Fig.C.2',
+        fixture: formatClauseFixtureMatrix('6.1', isEn),
         criteria: isEn ? (c61Data?.passCriteria || 'Hydraulic (6.1.3): No falling drop of water over 30-35 s at 300-330 kPa. Pneumatic (6.1.2): Leakage rate <= 0.005 Pa*m3/s over 15-20 s at 300-330 kPa.') : (c61Data?.passCriteriaZh || '【正壓液體洩漏 (6.1.3 水壓法)】加壓 300~330 kPa 持壓 30~35s，目視無水滴滲漏滴落；【壓力衰減洩漏 (6.1.2 氣壓法)】加壓 300~330 kPa 持壓 15~20s 測 ΔP，洩漏率 ≤ 0.005 Pa·m³/s'),
         risk: isEn ? 'Molding flash or taper shrink deformation' : (c61Detail?.commonNonConformancesZh?.join('；') || '射出成型毛邊、6% 錐度縮水變形')
       },
@@ -152,14 +177,12 @@ export const ClauseComparisonMatrix: React.FC = () => {
         category: c62Data?.category || 'leakage',
         categoryZh: isEn ? 'Leakage' : '洩漏',
         type: 'Lock & Slip',
-        assemblyTorque: isEn ? `Torque: ${c62Data?.assemblyTorqueNm.min}–${c62Data?.assemblyTorqueNm.max} N·m + Axial Force: ${c62Data?.assemblyAxialForceN?.min}–${c62Data?.assemblyAxialForceN?.max} N, hold 5–6 s then release` : `扭矩: ${c62Data?.assemblyTorqueNm.min}–${c62Data?.assemblyTorqueNm.max} N·m + 軸向推力: ${c62Data?.assemblyAxialForceN?.min}–${c62Data?.assemblyAxialForceN?.max} N，維持 5–6 秒後釋放`,
+        assemblyTorque: formatPreAssemblyForClause('6.2', isEn),
         testPressure: isEn ? '80.0–88.0 kPa Vacuum' : '80.0–88.0 kPa 真空',
         testForce: '-',
         testTorque: '-',
         holdTime: isEn ? `${c62Data?.holdTimeSec.min}–${c62Data?.holdTimeSec.max} s` : `${c62Data?.holdTimeSec.min}–${c62Data?.holdTimeSec.max} 秒`,
-        fixture: isEn
-          ? 'Male Lock: Fig. C.1 / Female Lock: Fig. C.4 | Male Slip: Fig. C.5 / Female Slip: Fig. C.2'
-          : '公鎖配 Fig.C.1 / 母鎖配 Fig.C.4 ｜ 公滑配 Fig.C.5 / 母滑配 Fig.C.2',
+        fixture: formatClauseFixtureMatrix('6.2', isEn),
         criteria: isEn ? (c62Data?.passCriteria || 'Shall not exceed a leakage rate of 0.005 Pa*m3/s over 15-20 s at 80.0-88.0 kPa vacuum (Annex D)') : (c62Data?.passCriteriaZh || '在 80.0 kPa–88.0 kPa 負壓真空下保持 15–20 秒，空氣洩漏率不超過 0.005 Pa·m³/s (Annex D)'),
         risk: isEn ? 'Micro-void formation during vacuum causing air embolism' : (c62Detail?.commonNonConformancesZh?.join('；') || '負壓時錐面微幅收縮脫離產生微氣孔致氣栓')
       },
@@ -171,14 +194,13 @@ export const ClauseComparisonMatrix: React.FC = () => {
         category: c63Data?.category || 'durability',
         categoryZh: isEn ? 'Durability' : '耐久',
         type: 'Lock & Slip',
-        assemblyTorque: isEn ? `Torque: ${c63Data?.assemblyTorqueNm.min}–${c63Data?.assemblyTorqueNm.max} N·m + Axial Force: ${c63Data?.assemblyAxialForceN?.min}–${c63Data?.assemblyAxialForceN?.max} N, hold 5–6 s then release` : `扭矩: ${c63Data?.assemblyTorqueNm.min}–${c63Data?.assemblyTorqueNm.max} N·m + 軸向推力: ${c63Data?.assemblyAxialForceN?.min}–${c63Data?.assemblyAxialForceN?.max} N，維持 5–6 秒後釋放`,
+        assemblyTorque: formatPreAssemblyForClause('6.3', isEn),
         testPressure: '-',
         testForce: '-',
         testTorque: '-',
+        testLoadNote: isEn ? 'N/A — condition ≥ 48 h, then test to 6.1.1' : 'N/A — 靜置 ≥ 48 小時後依 6.1.1 測試',
         holdTime: isEn ? '≥ 48 Hours' : '≥ 48 小時',
-        fixture: isEn
-          ? 'Male Lock: Fig. C.1 / Female Lock: Fig. C.4 | Male Slip: Fig. C.5 / Female Slip: Fig. C.2'
-          : '公鎖配 Fig.C.1 / 母鎖配 Fig.C.4 ｜ 公滑配 Fig.C.5 / 母滑配 Fig.C.2',
+        fixture: formatClauseFixtureMatrix('6.3', isEn),
         criteria: isEn ? 'Meet the requirements of Clause 6.1.1 after 48 h assembly hold per ISO 80369-20 Annex E (No visual crack requirement in ISO standard)' : '依 6.1.1 執行洩漏測試並合格即可（法規無目視裂紋要求）',
         risk: isEn ? 'Residual injection stress causing delayed hoop cracking' : (c63Detail?.commonNonConformancesZh?.join('；') || 'PC/PMMA 材質射出殘留內應力高，受長效過盈應力作用發生爆裂')
       },
@@ -190,16 +212,15 @@ export const ClauseComparisonMatrix: React.FC = () => {
         category: c64Data?.category || 'mechanical',
         categoryZh: isEn ? 'Mechanical' : '機械',
         type: `Lock (${c64Data?.testForceN?.max || 35}N) / Slip (${c64Data?.testForceN?.min || 23}N)`,
-        assemblyTorque: isEn ? `Torque: ${c64Data?.assemblyTorqueNm.min}–${c64Data?.assemblyTorqueNm.max} N·m + Axial Force: ${c64Data?.assemblyAxialForceN?.min}–${c64Data?.assemblyAxialForceN?.max} N, hold 5–6 s then release` : `扭矩: ${c64Data?.assemblyTorqueNm.min}–${c64Data?.assemblyTorqueNm.max} N·m + 軸向推力: ${c64Data?.assemblyAxialForceN?.min}–${c64Data?.assemblyAxialForceN?.max} N，維持 5–6 秒後釋放`,
+        assemblyTorque: formatPreAssemblyForClause('6.4', isEn),
         testPressure: '-',
-        testForce: selectedType === 'slip' ? '23–25 N (Slip/L1)' : '32–35 N (Lock/L2)',
+        testForce: '23–25 N (Slip/L1) / 32–35 N (Lock/L2)',
         testTorque: '-',
         holdTime: isEn ? `${c64Data?.holdTimeSec.min}–${c64Data?.holdTimeSec.max} s` : `${c64Data?.holdTimeSec.min}–${c64Data?.holdTimeSec.max} 秒`,
-        fixture: isEn
-          ? 'Male Lock: Fig. C.3 (Worst-case) / Female Lock: Fig. C.6 (Worst-case) | Male Slip: Fig. C.5 / Female Slip: Fig. C.2'
-          : '公鎖配 Fig.C.3 (窄耳翼最壞) / 母鎖配 Fig.C.6 (淺牙最壞) ｜ 公滑配 Fig.C.5 / 母滑配 Fig.C.2',
+        fixture: formatClauseFixtureMatrix('6.4', isEn),
         criteria: isEn ? (c64Data?.passCriteria || 'Shall remain assembled without separation while subjected to axial load for 10-15 s.') : (c64Data?.passCriteriaZh || '在 23 N–25 N（Slip/L1）或 32 N–35 N（Lock/L2）軸向拉力下維持 10–15 秒，接頭不得脫開分離'),
-        risk: isEn ? 'Insufficient thread engagement depth leading to sheared lugs' : (c64Detail?.commonNonConformancesZh?.join('；') || '螺紋咬合深度不足，耳翼被直接剪切拉平')
+        risk: isEn ? 'Insufficient thread engagement depth leading to sheared lugs' : (c64Detail?.commonNonConformancesZh?.join('；') || '螺紋咬合深度不足，耳翼被直接剪切拉平'),
+        isClause64: true
       },
       {
         id: '6.5',
@@ -209,14 +230,12 @@ export const ClauseComparisonMatrix: React.FC = () => {
         category: c65Data?.category || 'mechanical',
         categoryZh: isEn ? 'Mechanical' : '機械',
         type: 'Lock only',
-        assemblyTorque: isEn ? `Torque: ${c65Data?.assemblyTorqueNm.min}–${c65Data?.assemblyTorqueNm.max} N·m + Axial Force: ${c65Data?.assemblyAxialForceN?.min}–${c65Data?.assemblyAxialForceN?.max} N, hold 5–6 s then release` : `扭矩: ${c65Data?.assemblyTorqueNm.min}–${c65Data?.assemblyTorqueNm.max} N·m + 軸向推力: ${c65Data?.assemblyAxialForceN?.min}–${c65Data?.assemblyAxialForceN?.max} N，維持 5–6 秒後釋放`,
+        assemblyTorque: formatPreAssemblyForClause('6.5', isEn),
         testPressure: '-',
         testForce: '-',
-        testTorque: `${c65Data?.testTorqueNm?.min || 0.018}–${c65Data?.testTorqueNm?.max || 0.020} N·m` + (isEn ? ' (Reverse)' : ' (反向)'),
+        testTorque: `${(c65Data?.testTorqueNm?.min ?? 0.018).toFixed(3)}–${(c65Data?.testTorqueNm?.max ?? 0.020).toFixed(3)} N·m` + (isEn ? ' (Reverse)' : ' (反向)'),
         holdTime: isEn ? `${c65Data?.holdTimeSec.min}–${c65Data?.holdTimeSec.max} s` : `${c65Data?.holdTimeSec.min}–${c65Data?.holdTimeSec.max} 秒`,
-        fixture: isEn
-          ? 'Male Lock: Fig. C.1 (Nominal) / Female Lock: Fig. C.4 (Nominal) (Lock only)'
-          : '公鎖配 Fig.C.1 (母標稱件) / 母鎖配 Fig.C.4 (公標稱件) (僅限鎖定型)',
+        fixture: formatClauseFixtureMatrix('6.5', isEn),
         criteria: isEn ? (c65Data?.passCriteria || 'Shall not separate from the reference connector when subjected to an unscrewing torque of between 0.018 N·m and 0.020 N·m for 10–15 s.') : (c65Data?.passCriteriaZh || '裝配後施加 0.018 N·m–0.020 N·m 的反向旋鬆扭矩維持 10–15 秒，接頭不得自行旋鬆脫開'),
         risk: isEn ? 'Excessive mold release agents causing self-loosening' : (c65Detail?.commonNonConformancesZh?.join('；') || '材料表面太滑（脫模劑/潤滑劑過量）致自鎖失敗')
       },
@@ -228,15 +247,13 @@ export const ClauseComparisonMatrix: React.FC = () => {
         category: c66Data?.category || 'mechanical',
         categoryZh: isEn ? 'Mechanical' : '機械',
         type: 'Lock only',
-        assemblyTorque: isEn ? `Torque: ${c66Data?.assemblyTorqueNm.min || 0.08}–${c66Data?.assemblyTorqueNm.max || 0.12} N·m + Axial Force: ${c66Data?.assemblyAxialForceN?.min || 26.5}–${c66Data?.assemblyAxialForceN?.max || 27.5} N, hold 5–6 s then release (ISO 80369-20 Annex H.4 a)` : `扭矩: ${c66Data?.assemblyTorqueNm.min || 0.08}–${c66Data?.assemblyTorqueNm.max || 0.12} N·m + 軸向推力: ${c66Data?.assemblyAxialForceN?.min || 26.5}–${c66Data?.assemblyAxialForceN?.max || 27.5} N，維持 5–6 秒後釋放`,
+        assemblyTorque: formatPreAssemblyForClause('6.6', isEn),
         testPressure: '-',
         testForce: '-',
         testTorque: `${c66Data?.testTorqueNm?.min || 0.15}–${c66Data?.testTorqueNm?.max || 0.17} N·m`,
         holdTime: isEn ? `${c66Data?.holdTimeSec.min}–${c66Data?.holdTimeSec.max} s` : `${c66Data?.holdTimeSec.min}–${c66Data?.holdTimeSec.max} 秒`,
-        fixture: isEn
-          ? 'Male Lock: Fig. C.3 (2.71mm Worst-case) / Female Lock: Fig. C.6 (Worst-case) (Lock only)'
-          : '公鎖配 Fig.C.3 (2.71mm 窄耳翼最壞) / 母鎖配 Fig.C.6 (淺牙螺紋最壞) (僅限鎖定型)',
-        criteria: isEn ? 'Threads/lugs shall not override reference connector and show no cocking under 0.15–0.17 N·m torque for 5–10 s (ISO 80369-20 Annex H.4 d)' : `${c66Data?.passCriteriaZh || '施加 0.15 N·m–0.17 N·m 破壞性扭矩維持 5–10 秒，螺紋或耳翼不得越過滑脫（不滑牙）'}，且接頭無歪斜 (No cocking)（ISO 80369-20 Annex H.4 d）`,
+        fixture: formatClauseFixtureMatrix('6.6', isEn),
+        criteria: isEn ? 'Threads/lugs shall not override reference connector and show no cocking under 0.15–0.17 N·m torque for 5–10 s (ISO 80369-20 Annex H.4 d)' : (c66Data?.passCriteriaZh || '施加 0.15 N·m–0.17 N·m 破壞性扭矩維持 5–10 秒，螺紋或耳翼不得越過滑脫（不滑牙），且接頭無歪斜 (No cocking)（ISO 80369-20 Annex H.4 d）'),
         risk: isEn ? 'Polymer hoop expansion leading to thread override' : (c66Detail?.commonNonConformancesZh?.join('；') || 'PP 等低剛性材料環向膨脹 (Hoop Expansion) 脫牙')
       },
       {
@@ -274,7 +291,7 @@ export const ClauseComparisonMatrix: React.FC = () => {
         risk: isEn ? 'Missing scientific justifications in risk management files' : '風險管理文件中漏引 Annex A 科學說明'
       }
     ];
-  }, [selectedType, language]);
+  }, [language]);
 
   const filteredClauses = clausesList.filter(c => {
     let matchesCat = false;
@@ -361,27 +378,6 @@ export const ClauseComparisonMatrix: React.FC = () => {
           </button>
         </div>
 
-        {/* Type filter for 6.4 L1/L2 differentiation */}
-        <div className="flex items-center gap-2 pt-2">
-          <span className="text-xs text-slate-500 font-semibold">{t.comparisonMatrix.filterTypeLabel}</span>
-          <button
-            onClick={() => setSelectedType('lock')}
-            className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all shrink-0 cursor-pointer min-h-[36px] flex items-center ${
-              selectedType === 'lock' ? 'bg-blue-600 text-white shadow-xs font-bold' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-            }`}
-          >
-            {t.comparisonMatrix.filterLock}
-          </button>
-          <button
-            onClick={() => setSelectedType('slip')}
-            className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all shrink-0 cursor-pointer min-h-[36px] flex items-center ${
-              selectedType === 'slip' ? 'bg-blue-600 text-white shadow-xs font-bold' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-            }`}
-          >
-            {t.comparisonMatrix.filterSlip}
-          </button>
-        </div>
-
         {/* Filter & Search */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-3 border-t border-slate-100/80">
           <div className="flex flex-wrap items-center gap-1.5 py-1 w-full sm:w-auto">
@@ -450,13 +446,26 @@ export const ClauseComparisonMatrix: React.FC = () => {
                     </h3>
                   </div>
 
-                  <button
-                    onClick={() => setExpandedClauseId(isExpanded ? null : clause.id)}
-                    className="p-2 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-xl text-xs font-bold shrink-0 flex items-center space-x-1 border border-blue-200 cursor-pointer min-h-[36px]"
-                  >
-                    <Eye className="w-3.5 h-3.5" />
-                    <span>{isExpanded ? t.comparisonMatrix.collapseDiagram : t.comparisonMatrix.viewDiagram}</span>
-                  </button>
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    <button
+                      onClick={() => setExpandedClauseId(isExpanded ? null : clause.id)}
+                      className="p-2 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-xl text-xs font-bold shrink-0 flex items-center space-x-1 border border-blue-200 cursor-pointer min-h-[36px]"
+                    >
+                      <Eye className="w-3.5 h-3.5" />
+                      <span className="hidden sm:inline">{isExpanded ? t.figureTier.quickClose : t.figureTier.quickLabel}</span>
+                      <span className="sm:hidden">{isExpanded ? t.figureTier.quickCloseShort : t.figureTier.quickLabelShort}</span>
+                    </button>
+                    {findTopicForClause(clause.id) && (
+                      <button
+                        onClick={() => drawer.openClause(clause.id)}
+                        title={t.figureTier.fullLabel}
+                        className="p-2 bg-indigo-600 text-white hover:bg-indigo-700 rounded-xl text-xs font-bold shrink-0 flex items-center space-x-1 cursor-pointer min-h-[36px]"
+                      >
+                        <BookOpen className="w-3.5 h-3.5" />
+                        <span className="hidden sm:inline">{t.figureTier.fullLabel}</span>
+                      </button>
+                    )}
+                  </div>
                 </div>
 
                 {/* Standard Mapping Info */}
@@ -479,7 +488,34 @@ export const ClauseComparisonMatrix: React.FC = () => {
                   </div>
                   <div className="bg-indigo-50/40 p-2.5 rounded-xl border border-indigo-100/80">
                     <span className="font-bold text-indigo-900 block text-[11px] mb-0.5">{language === 'en' ? 'Applied Test Load:' : '實測考驗負載:'}</span>
-                    <span className="font-mono text-slate-800">{clause.testPressure !== '-' ? (language === 'en' ? `Pressure ${clause.testPressure}` : `壓力 ${clause.testPressure}`) : clause.testForce !== '-' ? (language === 'en' ? `Force ${clause.testForce}` : `拉力 ${clause.testForce}`) : clause.testTorque !== '-' ? (language === 'en' ? `Torque ${clause.testTorque}` : `扭矩 ${clause.testTorque}`) : '-'}</span>
+                    {clause.isClause64 ? (
+                      <div className="space-y-1.5">
+                        <span className="block text-[10px] font-semibold text-slate-500">{t.comparisonMatrix.testTypeToggleLabel}</span>
+                        <div className="flex gap-1">
+                          <button
+                            onClick={() => setSelectedType64('lock')}
+                            aria-pressed={selectedType64 === 'lock'}
+                            className={`px-2 py-1 rounded-lg text-[10px] font-medium transition-all cursor-pointer ${
+                              selectedType64 === 'lock' ? 'bg-blue-600 text-white shadow-xs' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                            }`}
+                          >
+                            {t.comparisonMatrix.filterLock}
+                          </button>
+                          <button
+                            onClick={() => setSelectedType64('slip')}
+                            aria-pressed={selectedType64 === 'slip'}
+                            className={`px-2 py-1 rounded-lg text-[10px] font-medium transition-all cursor-pointer ${
+                              selectedType64 === 'slip' ? 'bg-cyan-600 text-white shadow-xs' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                            }`}
+                          >
+                            {t.comparisonMatrix.filterSlip}
+                          </button>
+                        </div>
+                        <span className="font-mono text-slate-800 block">{selectedType64 === 'slip' ? '23–25 N (Slip/L1)' : '32–35 N (Lock/L2)'}</span>
+                      </div>
+                    ) : (
+                      <span className="font-mono text-slate-800">{clause.testPressure !== '-' ? (language === 'en' ? `Pressure ${clause.testPressure}` : `壓力 ${clause.testPressure}`) : clause.testForce !== '-' ? (language === 'en' ? `Force ${clause.testForce}` : `拉力 ${clause.testForce}`) : clause.testTorque !== '-' ? (language === 'en' ? `Torque ${clause.testTorque}` : `扭矩 ${clause.testTorque}`) : (clause.testLoadNote || '—')}</span>
+                    )}
                   </div>
                   <div className="bg-amber-50/40 p-2.5 rounded-xl border border-amber-100/80">
                     <span className="font-bold text-amber-900 block text-[11px] mb-0.5">{language === 'en' ? 'Hold Time & Fixture:' : '持壓時間 & 金屬夾具:'}</span>
@@ -509,9 +545,12 @@ export const ClauseComparisonMatrix: React.FC = () => {
                 {isExpanded && (
                   <div className="pt-2 border-t border-slate-100">
                     <div className="bg-slate-50 p-3 rounded-2xl border border-slate-200 space-y-3">
-                      <div className="flex items-center space-x-2 text-xs font-bold text-slate-800">
-                        <Sparkles className="w-4 h-4 text-indigo-700" />
-                        <span>{clause.title} — {language === 'en' ? 'Standard CAD Blueprint' : '規範圖解'}</span>
+                      <div className="space-y-1">
+                        <div className="flex items-center space-x-2 text-xs font-bold text-slate-800">
+                          <Sparkles className="w-4 h-4 text-indigo-700" />
+                          <span>{clause.title} — {t.figureTier.quickHeading}</span>
+                        </div>
+                        <p className="text-[10px] text-slate-500 leading-snug">{t.figureTier.quickHint}</p>
                       </div>
                       <div className="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-2xs">
                         <ISOStandardFigureRenderer
@@ -588,9 +627,48 @@ export const ClauseComparisonMatrix: React.FC = () => {
                         {clause.assemblyTorque}
                       </td>
                       <td className="py-3 px-4 font-mono font-bold text-slate-900">
-                        {clause.testPressure !== '-' && <span className="text-blue-600">{clause.testPressure}</span>}
-                        {clause.testForce !== '-' && <span className="text-emerald-600">{clause.testForce}</span>}
-                        {clause.testTorque !== '-' && <span className="text-amber-600">{clause.testTorque}</span>}
+                        {clause.isClause64 ? (
+                          <div className="space-y-1.5">
+                            <div className="flex gap-1">
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setSelectedType64('lock');
+                                }}
+                                aria-pressed={selectedType64 === 'lock'}
+                                className={`px-2 py-1 rounded-lg text-[10px] font-medium transition-all cursor-pointer ${
+                                  selectedType64 === 'lock' ? 'bg-blue-600 text-white shadow-xs' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                                }`}
+                              >
+                                {t.comparisonMatrix.filterLock}
+                              </button>
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setSelectedType64('slip');
+                                }}
+                                aria-pressed={selectedType64 === 'slip'}
+                                className={`px-2 py-1 rounded-lg text-[10px] font-medium transition-all cursor-pointer ${
+                                  selectedType64 === 'slip' ? 'bg-cyan-600 text-white shadow-xs' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                                }`}
+                              >
+                                {t.comparisonMatrix.filterSlip}
+                              </button>
+                            </div>
+                            <span className={selectedType64 === 'slip' ? 'text-cyan-600' : 'text-blue-600'}>
+                              {selectedType64 === 'slip' ? '23–25 N (L1)' : '32–35 N (L2)'}
+                            </span>
+                          </div>
+                        ) : (
+                          <>
+                            {clause.testPressure !== '-' && <span className="text-blue-600">{clause.testPressure}</span>}
+                            {clause.testForce !== '-' && <span className="text-emerald-600">{clause.testForce}</span>}
+                            {clause.testTorque !== '-' && <span className="text-amber-600">{clause.testTorque}</span>}
+                            {clause.testPressure === '-' && clause.testForce === '-' && clause.testTorque === '-' && (
+                              <span className="text-slate-500 font-sans font-normal">{clause.testLoadNote || '—'}</span>
+                            )}
+                          </>
+                        )}
                       </td>
                       <td className="py-3 px-4 font-mono text-slate-800">
                         {clause.holdTime}
@@ -614,9 +692,21 @@ export const ClauseComparisonMatrix: React.FC = () => {
                           }`}
                         >
                           <Eye className="w-3.5 h-3.5" />
-                          <span>{isExpanded ? t.comparisonMatrix.collapseDiagram : t.comparisonMatrix.viewDiagram}</span>
+                          <span>{isExpanded ? t.figureTier.quickCloseShort : t.figureTier.quickLabelShort}</span>
                           {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                         </button>
+                        {findTopicForClause(clause.id) && (
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              drawer.openClause(clause.id);
+                            }}
+                            className="mt-1.5 px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1 mx-auto bg-indigo-50 text-indigo-700 hover:bg-indigo-600 hover:text-white border border-indigo-200 cursor-pointer"
+                          >
+                            <BookOpen className="w-3.5 h-3.5" />
+                            <span>{t.figureTier.fullLabel}</span>
+                          </button>
+                        )}
                       </td>
                     </tr>
 
@@ -627,6 +717,9 @@ export const ClauseComparisonMatrix: React.FC = () => {
                           <div className="bg-white rounded-2xl border border-slate-200/90 p-4 sm:p-5 shadow-lg space-y-4">
                             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pb-3 border-b border-slate-100">
                               <div className="flex items-center space-x-2">
+                                <span className="bg-amber-100 text-amber-800 font-bold text-xs px-2.5 py-1 rounded-md border border-amber-200 shrink-0">
+                                  {t.figureTier.quickLabel}
+                                </span>
                                 <span className="bg-indigo-100 text-indigo-800 font-mono font-bold text-xs px-2.5 py-1 rounded-md border border-indigo-200">
                                   {isEn ? `${clause.iso7} Embedded CAD Blueprint` : `${clause.iso7} 內嵌規範圖示 (SVG CAD / 3D Render)`}
                                 </span>
@@ -636,6 +729,8 @@ export const ClauseComparisonMatrix: React.FC = () => {
                                 {isEn ? 'R&D Risk: ' : '研發防呆風險: '}<strong className="text-rose-600 font-sans">{clause.risk}</strong>
                               </span>
                             </div>
+
+                            <p className="text-[11px] text-slate-500 leading-snug -mt-1">{t.figureTier.quickHint}</p>
 
                             {/* Embedded ISO Figure Renderer */}
                             <div className="w-full flex justify-center py-2">
@@ -661,6 +756,16 @@ export const ClauseComparisonMatrix: React.FC = () => {
           </table>
         </div>
       </div>
+
+      {/* Tier 2: same deep-dive drawer the topic explorer opens */}
+      <ClauseDetailDrawer
+        isOpen={drawer.isOpen}
+        onClose={drawer.close}
+        topic={drawer.topic}
+        relatedClauses={drawer.relatedClauses}
+        activeClauseId={drawer.activeClauseId}
+        setActiveClauseId={drawer.setActiveClauseId}
+      />
     </div>
   );
 };
