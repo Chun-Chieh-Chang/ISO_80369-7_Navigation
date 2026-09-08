@@ -38,7 +38,7 @@ ISO_80369-7_Navigation/
 npm install
 npm run dev          # localhost:3000
 npm run build        # production dist/
-npm run test         # vitest — 20 tests passing ✅
+npm run test         # vitest — 52 tests passing ✅
 npm run lint         # tsc --noEmit
 ```
 
@@ -105,8 +105,15 @@ GitHub Pages 自動部署（每次推送 main 分支後觸發）：
 npm run test
 ```
 
-- **20/20 tests passing** ✅
-- 涵蓋：Clause 6.1–6.6 數據校驗、i18n 字典完整性、Excel 匯出（zh/en）、ISO 80369-20 預條件規格、SSOT 圖資完整性、MECE 13 主題覆蓋率、零丟失條文關聯
+- **52/52 tests passing** ✅
+- `isoHelpers.test.ts` — Clause 6.1–6.6 數據校驗、i18n 字典完整性、Excel 匯出（zh/en）、預處理規格、SSOT 圖資完整性、MECE 13 主題覆蓋率、零丟失條文關聯
+- `isoConformance.test.ts` — 標準一致性防護：Annex C 六張參考接頭圖的性別／型式／適用條文逐字比對、夾具配對不得越出 ISO 80369-7 允許集合、鎖定型／滑動型預裝配雙序列、ISO 80369-20 各附錄報告項數、對照矩陣每列皆可開啟深度規格抽屜
+
+## 📖 使用指南
+
+功能域分工、兩層圖表檢視模式（🖼️ 快速預覽 / 📖 完整規格）、使用場景推薦、SSOT 資料來源，以及引用與版本注意事項（定版引用、附錄性質、報告項數差異、預裝配程序差異）：
+
+➜ [docs/USER_GUIDE.md](docs/USER_GUIDE.md)
 
 ---
 
