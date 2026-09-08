@@ -131,8 +131,8 @@ export const ClauseComparisonMatrix: React.FC = () => {
         holdTime: isEn ? '5 – 6 s' : '5 – 6 秒',
         fixture: isEn ? 'Rig capable of simultaneously applying 27.5 N axial force and 0.12 N·m torque (ISO 80369-20:2024, X.3.3), plus rotation control to 90° for slip' : '可同時施加 27.5 N 軸向推力與 0.12 N·m 扭矩之加載機構 (ISO 80369-20:2024, X.3.3)，滑動型另需 90° 旋轉角度控制',
         criteria: isEn
-          ? 'Pre-assembly per ISO 80369-20:2024 X.4 b), in opposite order per style: lock applies collar torque 0.08–0.12 N·m first then 26.5–27.5 N; slip applies 26.5–27.5 N first then rotates ≤90° with torque ≤0.10 N·m. Hold 5–6 s then release all loads prior to test.'
-          : '性能測試前必須依 ISO 80369-20:2024 X.4 b) 執行標準預裝配，鎖定型與滑動型順序相反：鎖定型先旋至 0.08~0.12 N·m 扭矩再加 26.5~27.5 N 推力；滑動型先加 26.5~27.5 N 推力再以 ≤0.10 N·m 扭矩微旋 ≤90°。兩者皆持壓 5~6s 確立 6% 錐面配合後完全釋放外力',
+          ? 'Pre-assembly per ISO 80369-20:2024 X.4 b): lock applies collar torque 0.08–0.12 N·m first (to engage threads), then adds 26.5–27.5 N axial force while maintaining torque; slip applies 26.5–27.5 N first, then rotates ≤90° at ≤0.10 N·m while maintaining axial force. Both loads held simultaneously for 5–6 s then fully released prior to test.'
+          : '性能測試前必須依 ISO 80369-20:2024 X.4 b) 執行標準預裝配，鎖定型與滑動型順序相反：鎖定型先旋至 0.08~0.12 N·m 扭矩（螺紋咬合），再於維持該扭矩下加 26.5~27.5 N 推力；滑動型先加 26.5~27.5 N 推力，再於維持推力下以 ≤0.10 N·m 扭矩微旋 ≤90°。兩力同時維持 5~6 秒確立 6% 錐面配合後完全釋放。',
         risk: isEn ? 'Failure to perform quantitative pre-assembly causes false leakage' : '預裝配未定量加壓致使假洩漏或螺紋損傷'
       },
       {

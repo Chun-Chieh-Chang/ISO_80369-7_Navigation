@@ -312,7 +312,7 @@ ${isEn ? 'Acceptance Criteria' : '法定允收標準'}: ${getClauseAcceptanceCri
                           </div>
                         </div>
                         <p className="text-[11px] text-blue-900/80 leading-relaxed">
-                          💡 {isEn ? (activeClause.preAssembly?.descriptionEn || 'Lock: collar torque 0.08-0.12 N.m first, then 26.5-27.5 N axial force. Slip: 26.5-27.5 N axial force first, then rotate <= 90 deg with torque <= 0.10 N.m. Hold 5-6 s then release.') : (activeClause.preAssembly?.descriptionZh || '鎖定型先旋至 0.08~0.12 N·m 扭矩再加 26.5~27.5 N 推力；滑動型先加 26.5~27.5 N 推力再以 ≤0.10 N·m 扭矩微旋 ≤90°，維持 5~6 秒後釋放。')}
+                          💡 {isEn ? (activeClause.preAssembly?.descriptionEn || 'Lock: collar torque 0.08–0.12 N·m first (to engage threads), then 26.5–27.5 N axial force while maintaining torque. Slip: 26.5–27.5 N axial force first, then rotate ≤90° at ≤0.10 N·m while maintaining axial force. Both loads held simultaneously for 5–6 s then fully released.') : (activeClause.preAssembly?.descriptionZh || '鎖定型：先旋至 0.08~0.12 N·m 扭矩（螺紋咬合），再於維持該扭矩下施加 26.5~27.5 N 推力。滑動型：先施加 26.5~27.5 N 推力，再於維持推力下以 ≤0.10 N·m 扭矩微旋 ≤90°。兩力同時維持 5~6 秒後完全釋放。')}
                         </p>
                       </div>
                     )}

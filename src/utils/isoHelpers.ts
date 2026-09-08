@@ -160,12 +160,12 @@ export const formatPreAssembly = (connectorType: ConnectorType, isEn: boolean): 
   const p = getPreAssemblySpec(connectorType);
   if (p.connectorType === 'slip') {
     return isEn
-      ? `Axial force ${p.axialForceN.min}-${p.axialForceN.max} N first, then rotate <= ${p.maxRotationDeg} deg with torque <= ${p.torqueNm.max.toFixed(2)} N·m; hold ${p.holdSec.min}-${p.holdSec.max} s then release`
-      : `先施加軸向推力 ${p.axialForceN.min}–${p.axialForceN.max} N，再以 ≤ ${p.torqueNm.max.toFixed(2)} N·m 扭矩旋轉 ≤ ${p.maxRotationDeg}°；維持 ${p.holdSec.min}–${p.holdSec.max} 秒後釋放`;
+      ? `Axial force ${p.axialForceN.min}-${p.axialForceN.max} N first, then rotate <= ${p.maxRotationDeg} deg with torque <= ${p.torqueNm.max.toFixed(2)} N·m while maintaining axial force; both held simultaneously for ${p.holdSec.min}-${p.holdSec.max} s then release`
+      : `先施加軸向推力 ${p.axialForceN.min}–${p.axialForceN.max} N，再於維持該推力下以 ≤ ${p.torqueNm.max.toFixed(2)} N·m 扭矩旋轉 ≤ ${p.maxRotationDeg}°；兩力同時維持 ${p.holdSec.min}–${p.holdSec.max} 秒後釋放`;
   }
   return isEn
-    ? `Collar torque ${p.torqueNm.min?.toFixed(2)}-${p.torqueNm.max.toFixed(2)} N·m first, then axial force ${p.axialForceN.min}-${p.axialForceN.max} N; hold ${p.holdSec.min}-${p.holdSec.max} s then release`
-    : `先將套環旋至 ${p.torqueNm.min?.toFixed(2)}–${p.torqueNm.max.toFixed(2)} N·m 扭矩，再施加軸向推力 ${p.axialForceN.min}–${p.axialForceN.max} N；維持 ${p.holdSec.min}–${p.holdSec.max} 秒後釋放`;
+    ? `Collar torque ${p.torqueNm.min?.toFixed(2)}-${p.torqueNm.max.toFixed(2)} N·m first (threads engaged), then axial force ${p.axialForceN.min}-${p.axialForceN.max} N while maintaining torque; both held simultaneously for ${p.holdSec.min}-${p.holdSec.max} s then release`
+    : `先將套環旋至 ${p.torqueNm.min?.toFixed(2)}–${p.torqueNm.max.toFixed(2)} N·m 扭矩（螺紋咬合），再於維持該扭矩下施加軸向推力 ${p.axialForceN.min}–${p.axialForceN.max} N；兩力同時維持 ${p.holdSec.min}–${p.holdSec.max} 秒後釋放`;
 };
 
 /**
