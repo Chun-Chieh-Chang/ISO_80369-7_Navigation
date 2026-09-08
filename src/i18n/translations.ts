@@ -22,7 +22,7 @@ export const TRANSLATIONS = {
       comparisonMatrix: '⚖️ 雙標準對照矩陣',
       connectors: '🔧 參考金屬夾具庫',
       dvpReport: '📋 設計驗證矩陣表',
-      presentation: '🎬 簡報演練',
+      presentation: '🎬 科普學堂',
     },
     explorer: {
       badge: '主題與條文檢索標靶',
@@ -231,7 +231,7 @@ export const TRANSLATIONS = {
       comparisonMatrix: '⚖️ Comparison Matrix',
       connectors: '🔧 Reference Fixtures',
       dvpReport: '📋 DVP Test Matrix',
-      presentation: '🎬 Presentation Slides',
+      presentation: '🎬 Science Classroom',
     },
     explorer: {
       badge: 'Topic & Clause Target Explorer',
