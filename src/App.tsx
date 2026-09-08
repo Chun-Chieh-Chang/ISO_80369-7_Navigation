@@ -31,12 +31,12 @@ function AppContent() {
   });
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans selection:bg-blue-600 selection:text-white antialiased">
+    <div className="min-h-screen bg-[#EFF2F6] text-slate-800 font-sans selection:bg-blue-600 selection:text-white antialiased">
       {/* Header Bar */}
       <Header activeTab={activeTab} setActiveTab={setActiveTab} config={config} setConfig={setConfig} />
 
       {/* Main Content Area */}
-      <main className="max-w-[1920px] w-[96%] mx-auto px-3 sm:px-5 lg:px-8 py-6">
+      <main className="max-w-[1920px] w-[96%] mx-auto px-3 sm:px-6 lg:px-10 py-6 sm:py-8">
         {activeTab === 'topic-explorer' && (
           <TopicClauseExplorer />
         )}

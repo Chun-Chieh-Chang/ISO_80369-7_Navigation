@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookOpen, Network, Table, Wrench, FileSpreadsheet, FileText, Globe, Presentation } from 'lucide-react';
+import { BookOpen, Network, Table, Wrench, FileSpreadsheet, FileText, Globe, Presentation, FlaskConical, ExternalLink } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageContext';
 import { TestConfigState } from '../types';
 
@@ -12,8 +12,8 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
   const { language, setLanguage, t } = useLanguage();
+  const isEn = language === 'en';
 
-  // Determine active primary hub based on activeTab
   const getActiveHub = (tab: string): 'explorer' | 'matrix' | 'workbench' => {
     if (tab === 'visual-map' || tab === 'topic-explorer') return 'explorer';
     if (tab === 'comparison-matrix') return 'matrix';
@@ -23,139 +23,111 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
 
   const activeHub = getActiveHub(activeTab);
 
-  // Primary Hub Definitions
   const primaryHubs = [
-    {
-      id: 'explorer',
-      label: t.nav.hubExplorer,
-      defaultTab: 'topic-explorer',
-      icon: BookOpen,
-      badge: '2 Sub-views',
-      badgeZh: '2 個維度'
-    },
-    {
-      id: 'matrix',
-      label: t.nav.hubMatrix,
-      defaultTab: 'comparison-matrix',
-      icon: Table,
-      badge: 'ISO 7 vs 20',
-      badgeZh: '雙標對照'
-    },
-    {
-      id: 'workbench',
-      label: t.nav.hubWorkbench,
-      defaultTab: 'connectors',
-      icon: Wrench,
-      badge: 'Fixtures & DVP',
-      badgeZh: '工程工具'
-    },
+    { id: 'explorer',   label: t.nav.hubExplorer,  defaultTab: 'topic-explorer',    icon: BookOpen },
+    { id: 'matrix',     label: t.nav.hubMatrix,    defaultTab: 'comparison-matrix', icon: Table },
+    { id: 'workbench',  label: t.nav.hubWorkbench, defaultTab: 'connectors',        icon: FlaskConical },
   ];
 
-  // Secondary Sub-tabs per Hub
   const subTabsMap: Record<string, Array<{ id: string; label: string; icon: React.ComponentType<{ className?: string }> }>> = {
     explorer: [
-      { id: 'topic-explorer', label: t.nav.subExplorerClauses, icon: FileText },
-      { id: 'visual-map', label: t.nav.subExplorerNetwork, icon: Network },
+      { id: 'topic-explorer', label: t.nav.subExplorerClauses,  icon: FileText },
+      { id: 'visual-map',     label: t.nav.subExplorerNetwork,  icon: Network },
     ],
     workbench: [
       { id: 'connectors', label: t.nav.subWorkbenchFixtures, icon: Wrench },
-      { id: 'dvp-report', label: t.nav.subWorkbenchDvp, icon: FileSpreadsheet },
+      { id: 'dvp-report', label: t.nav.subWorkbenchDvp,      icon: FileSpreadsheet },
     ],
   };
 
   const currentSubTabs = subTabsMap[activeHub];
 
   return (
-    <header className="bg-white/95 backdrop-blur-md border-b border-slate-200/80 sticky top-0 z-50 shadow-xs">
-      <div className="max-w-[1920px] w-[96%] mx-auto px-2.5 sm:px-5 lg:px-8">
-        
-        {/* Tier 1: Brand, ISO Meta Badges & Language Switcher */}
-        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between py-2 sm:py-3 gap-2 sm:gap-3">
-          {/* Brand & Main Title */}
-          <div className="flex items-center space-x-2.5 sm:space-x-3.5">
-            <div className="p-2 sm:p-2.5 bg-blue-600 text-white rounded-xl shadow-md shadow-blue-600/20 shrink-0">
-              <FileText className="w-5 h-5" />
+    <header className="sticky top-0 z-50">
+
+      {/* ── Brand bar: deep navy, calm authority ── */}
+      <div className="bg-[#0D1B2E] border-b border-white/[0.07]">
+        <div className="max-w-[1920px] w-[96%] mx-auto px-3 sm:px-6 lg:px-10 h-[52px] flex items-center justify-between gap-4">
+
+          {/* Brand */}
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="p-1.5 rounded-lg bg-sky-500/15 border border-sky-500/20 shrink-0">
+              <FileText className="w-4 h-4 text-sky-300" />
             </div>
-            <div>
-              <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-                <h1 className="text-sm sm:text-base lg:text-lg font-extrabold tracking-tight text-slate-900 leading-tight">
-                  {t.app.title}
-                </h1>
-                <span className="bg-blue-50 text-blue-800 text-[11px] sm:text-xs font-bold px-2 py-0.5 rounded-full border border-blue-200/80 shrink-0 shadow-2xs">
-                  {t.app.versionBadge}
-                </span>
-              </div>
-              <p className="text-[11px] sm:text-xs text-slate-500 font-normal hidden sm:block">
-                {t.app.subtitle}
+            <div className="min-w-0 leading-none">
+              <h1 className="text-[14px] font-semibold text-white tracking-tight truncate">
+                {t.app.title}
+              </h1>
+              <p className="text-[11px] text-slate-400 mt-0.5 hidden sm:block truncate">
+                ISO 80369-7:2021 · ISO 80369-20:2024
               </p>
             </div>
           </div>
 
-          {/* Quick Meta Badges, Presentation Slide & Language Switcher */}
-          <div className="flex items-center space-x-2 text-[11px] sm:text-xs font-mono shrink-0 self-end lg:self-auto">
-            <div className="bg-slate-50/90 border border-slate-200 px-2.5 py-1 rounded-xl flex items-center space-x-1.5 shadow-2xs">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span className="font-bold text-slate-800">ISO 80369-7:2021</span>
-              <span className="text-slate-300">|</span>
-              <span className="font-bold text-slate-800">ISO 80369-20:2024</span>
-            </div>
+          {/* Controls */}
+          <div className="flex items-center gap-2 shrink-0">
+            {/* Mouldex link — kept if translations include it */}
+            <a
+              href="https://mouldex.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-[12px] font-medium text-slate-300 hover:text-white hover:bg-white/8 border border-white/10 hover:border-white/20 transition-all whitespace-nowrap"
+            >
+              <ExternalLink className="w-3 h-3 opacity-60" />
+              <span>{isEn ? 'Mouldex' : '凱益 Mouldex'}</span>
+            </a>
 
-            {/* Slides External Link */}
             <a
               href={`${import.meta.env.BASE_URL}slides/index.html`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center space-x-1 px-2.5 py-1.5 rounded-xl font-bold transition whitespace-nowrap bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-200/80 shadow-2xs text-xs"
-              title="Open Presentation Slides"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-[12px] font-medium text-amber-300 hover:text-amber-200 bg-amber-400/10 hover:bg-amber-400/18 border border-amber-400/20 hover:border-amber-400/35 transition-all whitespace-nowrap"
             >
-              <Presentation className="w-3.5 h-3.5 text-amber-600" />
-              <span>{t.nav.presentation}</span>
+              <Presentation className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">{t.nav.presentation}</span>
             </a>
 
-            {/* Language Switcher */}
             <button
               onClick={() => setLanguage(language === 'zh' ? 'en' : 'zh')}
-              className="flex items-center space-x-1 px-2.5 py-1.5 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition shadow-2xs cursor-pointer min-h-[32px]"
-              title={language === 'zh' ? 'Switch to English' : '切換至繁體中文'}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-[12px] font-medium text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all cursor-pointer"
+              title={isEn ? '切換至繁體中文' : 'Switch to English'}
             >
-              <Globe className="w-3.5 h-3.5 text-blue-600" />
-              <span>{language === 'zh' ? 'English' : '繁體中文'}</span>
+              <Globe className="w-3.5 h-3.5" />
+              <span>{isEn ? '中文' : 'EN'}</span>
             </button>
           </div>
         </div>
+      </div>
 
-        {/* Tier 2: Primary Hub Navigation Bar */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between pb-2 pt-1 border-t border-slate-100 gap-2">
-          {/* Primary Workspaces */}
-          <nav className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-0.5">
+      {/* ── Primary navigation: clean white, underline active state ── */}
+      <div className="bg-white border-b border-slate-200 shadow-[0_1px_3px_rgba(0,0,0,0.06)]">
+        <div className="max-w-[1920px] w-[96%] mx-auto px-3 sm:px-6 lg:px-10 flex items-stretch justify-between gap-4 min-h-[44px]">
+
+          {/* Primary hub tabs */}
+          <nav className="flex items-stretch gap-0 overflow-x-auto no-scrollbar">
             {primaryHubs.map((hub) => {
               const Icon = hub.icon;
-              const isCurrentHub = activeHub === hub.id;
+              const isActive = activeHub === hub.id;
               return (
                 <button
                   key={hub.id}
                   onClick={() => setActiveTab(hub.defaultTab)}
-                  className={`flex items-center space-x-2 px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap shrink-0 min-h-[40px] cursor-pointer touch-target ${
-                    isCurrentHub
-                      ? 'bg-blue-600 text-white shadow-md shadow-blue-600/20 font-bold'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/80 bg-slate-50/50'
+                  className={`flex items-center gap-2 px-4 sm:px-5 text-[13px] font-medium transition-colors whitespace-nowrap border-b-2 cursor-pointer ${
+                    isActive
+                      ? 'text-blue-600 border-blue-600'
+                      : 'text-slate-500 hover:text-slate-800 border-transparent hover:border-slate-300'
                   }`}
                 >
-                  <Icon className={`w-4 h-4 ${isCurrentHub ? 'text-white' : 'text-slate-500'}`} />
+                  <Icon className={`w-[15px] h-[15px] shrink-0 ${isActive ? 'text-blue-500' : 'text-slate-400'}`} />
                   <span>{hub.label}</span>
-                  <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono font-medium ${
-                    isCurrentHub ? 'bg-blue-700/80 text-blue-100' : 'bg-slate-200/70 text-slate-500'
-                  }`}>
-                    {language === 'en' ? hub.badge : hub.badgeZh}
-                  </span>
                 </button>
               );
             })}
           </nav>
 
-          {/* Tier 3: Secondary Sub-tab Pills (Progressive Contextual Sub-navigation) */}
+          {/* Contextual sub-tabs */}
           {currentSubTabs && currentSubTabs.length > 0 && (
-            <div className="flex items-center gap-1 bg-slate-100/80 p-1 rounded-xl border border-slate-200/60 self-start sm:self-center shrink-0">
+            <div className="flex items-center gap-1 py-2 shrink-0">
               {currentSubTabs.map((sub) => {
                 const SubIcon = sub.icon;
                 const isSubActive = activeTab === sub.id;
@@ -163,13 +135,13 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
                   <button
                     key={sub.id}
                     onClick={() => setActiveTab(sub.id)}
-                    className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold transition cursor-pointer min-h-[30px] ${
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[12px] font-medium transition-colors cursor-pointer ${
                       isSubActive
-                        ? 'bg-white text-blue-700 font-bold shadow-xs border border-slate-200/80'
-                        : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+                        ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                        : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50 border border-transparent'
                     }`}
                   >
-                    <SubIcon className={`w-3.5 h-3.5 ${isSubActive ? 'text-blue-600' : 'text-slate-400'}`} />
+                    <SubIcon className={`w-[14px] h-[14px] ${isSubActive ? 'text-blue-500' : 'text-slate-400'}`} />
                     <span>{sub.label}</span>
                   </button>
                 );
@@ -177,8 +149,8 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
             </div>
           )}
         </div>
-
       </div>
+
     </header>
   );
 };

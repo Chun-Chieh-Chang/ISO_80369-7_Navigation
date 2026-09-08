@@ -35,9 +35,15 @@
 
   body {
     font-size: 14px;
-    line-height: 1.5;
-    background-color: #f8fafc;
-    color: #1e293b;
+    line-height: 1.6;
+    /* Slightly cooler, more deliberate background — not the Tailwind default f8fafc */
+    background-color: #EFF2F6;
+    color: #1a2535;
+  }
+
+  /* Tighten heading tracking for editorial precision */
+  h1, h2, h3 {
+    letter-spacing: -0.015em;
   }
 
   /* Min font-size defense rule */
@@ -60,14 +66,24 @@
 
 .premium-card {
   background-color: #ffffff;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid #dde3ec;
+  /* Disciplined single shadow — not scattered across every card */
+  box-shadow: 0 1px 2px 0 rgba(15, 23, 42, 0.06);
+  transition: box-shadow 0.18s ease, border-color 0.18s ease;
 }
 
 .premium-card:hover {
-  box-shadow: 0 6px 16px -4px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
-  border-color: #cbd5e1;
+  box-shadow: 0 4px 12px -3px rgba(15, 23, 42, 0.10), 0 1px 4px -1px rgba(15, 23, 42, 0.06);
+  border-color: #b8c4d4;
+}
+
+/* Technical data highlight — for measurements, only here should mono appear */
+.tech-value {
+  font-family: var(--font-mono, 'JetBrains Mono', 'SF Mono', Menlo, monospace);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #1d4ed8;
 }
 
 /* Custom Slim Scrollbars */
