@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookOpen, Network, Table, Wrench, FileSpreadsheet, FileText, Globe, Presentation, FlaskConical, ExternalLink } from 'lucide-react';
+import { BookOpen, Network, Table, Wrench, FileSpreadsheet, FileText, Globe, Presentation, FlaskConical } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageContext';
 import { TestConfigState } from '../types';
 
@@ -66,17 +66,6 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
 
           {/* Controls */}
           <div className="flex items-center gap-2 shrink-0">
-            {/* Mouldex link — kept if translations include it */}
-            <a
-              href="https://mouldex.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-[12px] font-medium text-slate-300 hover:text-white hover:bg-white/8 border border-white/10 hover:border-white/20 transition-all whitespace-nowrap"
-            >
-              <ExternalLink className="w-3 h-3 opacity-60" />
-              <span>{isEn ? 'Mouldex' : '凱益 Mouldex'}</span>
-            </a>
-
             <a
               href={`${import.meta.env.BASE_URL}slides/index.html`}
               target="_blank"
