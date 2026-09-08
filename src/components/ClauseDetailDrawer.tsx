@@ -263,10 +263,10 @@ ${isEn ? 'Acceptance Criteria' : '法定允收標準'}: ${getClauseAcceptanceCri
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                   
                   {/* Phase 1: Pre-assembly Condition */}
-                  <div className="bg-blue-50/50 border border-blue-100 rounded-xl p-3.5 space-y-2 flex flex-col justify-between">
+                  <div className={`${activeClause.preAssembly?.status === 'not_applicable' ? 'bg-slate-100/70 border border-slate-200' : 'bg-blue-50/50 border border-blue-100'} rounded-xl p-3.5 space-y-2 flex flex-col justify-between`}>
                     <div className="flex items-center justify-between">
-                      <span className="font-bold text-blue-900 flex items-center gap-1.5">
-                        <Wrench className="w-3.5 h-3.5 text-blue-600" />
+                      <span className={`font-bold flex items-center gap-1.5 ${activeClause.preAssembly?.status === 'not_applicable' ? 'text-slate-600' : 'text-blue-900'}`}>
+                        <Wrench className={`w-3.5 h-3.5 ${activeClause.preAssembly?.status === 'not_applicable' ? 'text-slate-400' : 'text-blue-600'}`} />
                         {isEn ? 'Phase 1: Pre-assembly' : '階段一：前置預裝配條件'}
                       </span>
                       {activeClause.preAssembly?.status === 'direct_overload' && (
@@ -279,11 +279,20 @@ ${isEn ? 'Acceptance Criteria' : '法定允收標準'}: ${getClauseAcceptanceCri
                           {isEn ? 'Standard' : '標準程序'}
                         </span>
                       )}
+                      {activeClause.preAssembly?.status === 'not_applicable' && (
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-200 text-slate-600 border border-slate-300">
+                          {isEn ? 'N/A' : '不適用'}
+                        </span>
+                      )}
                     </div>
 
                     {activeClause.preAssembly?.status === 'direct_overload' ? (
                       <p className="text-[11px] text-amber-900 leading-relaxed bg-white/80 p-2.5 rounded-lg border border-amber-200">
                         {isEn ? (activeClause.preAssembly.descriptionEn || 'Directly tighten to 0.15-0.17 N·m without 27.5 N pre-assembly push force.') : (activeClause.preAssembly.descriptionZh || '考核公套環極限抗滑牙能力，由未旋緊初始狀態直接連續旋緊至 0.15~0.17 N·m，不執行前置 27.5 N 軸向推力預裝配。')}
+                      </p>
+                    ) : activeClause.preAssembly?.status === 'not_applicable' ? (
+                      <p className="text-[11px] text-slate-500 leading-relaxed bg-white/70 p-2.5 rounded-lg border border-slate-200 italic">
+                        {isEn ? (activeClause.preAssembly.descriptionEn || 'This clause covers scope, references, dimensions, fixtures, or administrative requirements — no physical connector pre-assembly is required.') : (activeClause.preAssembly.descriptionZh || '此條文為適用範圍、引用文件、尺寸公差、金屬夾具或行政規範等項目，無需執行實體接頭前置預裝配作業。')}
                       </p>
                     ) : (
                       <div className="space-y-2">

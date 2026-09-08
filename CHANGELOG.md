@@ -2,6 +2,34 @@
 
 All notable changes to the ISO 80369-7 & ISO 80369-20 Navigation App will be documented in this file.
 
+## [v8.42.0] - 2026-09-08
+
+### Preassembly Fallback 描述漏洞全面修復 — Lock-only 條文與行政類條文 UI 修正
+
+#### P0 嚴重（同 iso7-6.6 同款 Bug）
+- **iso7-6.5（抗旋鬆分離）** 與 **iso20-annex-g（抗旋鬆測試方法）**：兩者 `appliesToZh` / `fixtureRequiredZh` 皆標示「僅限鎖定型」，但缺少 `preAssembly` 屬性導致 ClauseDetailDrawer 走 fallback 分支，誤顯滑動型預裝配流程。
+- **修正**：補齊 `preAssembly: PRE_ASSEMBLY_LOCK`（同 iso7-6.6 做法），drawer 階段一右上角顯示「標準程序」藍標 + Lock 專用 💡 描述。
+
+#### P1 體驗瑕疵（16 個行政/尺寸類條文）
+- iso7-clause-1~5、iso7-annex-a/b/c/d/e、iso20-clause-1~4、iso20-annex-a/j：本為適用範圍/引用文件/尺寸公差/防呆/統計類非性能條文，但因缺 `preAssembly` 屬性，UI 仍渲染錯誤的「階段一：前置預裝配條件」藍色參數卡片與 💡 描述。
+- **UI 層修正（ClauseDetailDrawer.tsx L266-L328）**：新增 `not_applicable` 分支 — 灰底背景 + 「不適用 / N/A」徽章 + 斜體說明文字，而非錯位的參數卡。
+- **數據層修正**：16 個條文補齊 `preAssembly: PRE_ASSEMBLY_NOT_APPLICABLE`。
+
+#### P2 中等（2 個 Annex 缺 assembly 參數卡片）
+- **iso20-annex-d**（負壓真空衰減法）與 **iso20-annex-k**：`quantitativeConditions` 缺少 `assemblyTorqueNm` + `assemblyAxialForceN`，階段一缺扭矩/推力卡片。
+- **修正**：補入 `assemblyTorqueNm: '0.08 N·m - 0.12 N·m (Lock) / ≤ 0.10 N·m (Slip 微旋 ≤90°)'` + `assemblyAxialForceN: '26.5 N - 27.5 N'`。
+
+#### 盤點與清理
+- **刪除死檔**：4 張孤兒 testing_blueprint PNG（test_page_1/3/6/11，全站零引用）。
+- **刪除本地資源**：`sync.ffs_db`（FreeFileSync 同步資料庫，已在 .gitignore）。
+- **版本跳躍**：package.json 8.41.0 → 8.42.0；CHANGELOG / README 同步更新。
+
+#### 驗收
+- `tsc --noEmit`：0 errors ✅
+- `vitest run`：52/52 PASS ✅
+- `vite build`：PASS ✅
+- Browser Console：0 error ✅
+
 ## [v8.41.0] - 2026-09-08
 
 ### UI/UX Redesign — Header, Excel Export Consolidation & Dead Code Cleanup

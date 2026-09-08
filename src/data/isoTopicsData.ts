@@ -664,6 +664,7 @@ export const PRE_ASSEMBLY_NOT_APPLICABLE: PreAssemblyCondition = {
 export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
   'iso7-clause-1': {
     id: 'iso7-clause-1',
+    preAssembly: PRE_ASSEMBLY_NOT_APPLICABLE,
     standard: 'ISO 80369-7:2021',
     clauseNumber: 'Clause 1',
     titleEn: 'Scope of ISO 80369-7',
@@ -688,6 +689,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
   },
   'iso7-clause-2': {
     id: 'iso7-clause-2',
+    preAssembly: PRE_ASSEMBLY_NOT_APPLICABLE,
     standard: 'ISO 80369-7:2021',
     clauseNumber: 'Clause 2',
     titleEn: 'Normative References',
@@ -711,6 +713,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
   },
   'iso7-clause-3': {
     id: 'iso7-clause-3',
+    preAssembly: PRE_ASSEMBLY_NOT_APPLICABLE,
     standard: 'ISO 80369-7:2021',
     clauseNumber: 'Clause 3',
     titleEn: 'Terms and Definitions',
@@ -734,6 +737,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
   },
   'iso7-annex-a': {
     id: 'iso7-annex-a',
+    preAssembly: PRE_ASSEMBLY_NOT_APPLICABLE,
     standard: 'ISO 80369-7:2021',
     clauseNumber: 'Annex A',
     titleEn: 'Rationale and Guidance',
@@ -757,6 +761,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
   },
   'iso7-annex-b': {
     id: 'iso7-annex-b',
+    preAssembly: PRE_ASSEMBLY_NOT_APPLICABLE,
     standard: 'ISO 80369-7:2021',
     clauseNumber: 'Annex B',
     titleEn: 'Dimensional Drawings for Luer Connectors',
@@ -782,6 +787,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
   },
   'iso7-annex-d': {
     id: 'iso7-annex-d',
+    preAssembly: PRE_ASSEMBLY_NOT_APPLICABLE,
     standard: 'ISO 80369-7:2021',
     clauseNumber: 'Annex D',
     titleEn: 'Assessment of Non-interchangeability',
@@ -808,6 +814,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
   },
   'iso7-annex-e': {
     id: 'iso7-annex-e',
+    preAssembly: PRE_ASSEMBLY_NOT_APPLICABLE,
     standard: 'ISO 80369-7:2021',
     clauseNumber: 'Annex E',
     titleEn: 'Summary of Testing Requirements',
@@ -831,6 +838,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
   },
   'iso20-clause-1': {
     id: 'iso20-clause-1',
+    preAssembly: PRE_ASSEMBLY_NOT_APPLICABLE,
     standard: 'ISO 80369-20:2024',
     clauseNumber: 'Clause 1',
     titleEn: 'Scope of Common Test Methods',
@@ -854,6 +862,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
   },
   'iso20-clause-2': {
     id: 'iso20-clause-2',
+    preAssembly: PRE_ASSEMBLY_NOT_APPLICABLE,
     standard: 'ISO 80369-20:2024',
     clauseNumber: 'Clause 2',
     titleEn: 'Normative References',
@@ -877,6 +886,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
   },
   'iso20-clause-3': {
     id: 'iso20-clause-3',
+    preAssembly: PRE_ASSEMBLY_NOT_APPLICABLE,
     standard: 'ISO 80369-20:2024',
     clauseNumber: 'Clause 3',
     titleEn: 'Terms and Definitions',
@@ -900,6 +910,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
   },
   'iso20-clause-4': {
     id: 'iso20-clause-4',
+    preAssembly: PRE_ASSEMBLY_NOT_APPLICABLE,
     standard: 'ISO 80369-20:2024',
     clauseNumber: 'Clause 4',
     titleEn: 'General Requirements & Test Conditions',
@@ -928,6 +939,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
   },
   'iso20-annex-j': {
     id: 'iso20-annex-j',
+    preAssembly: PRE_ASSEMBLY_NOT_APPLICABLE,
     standard: 'ISO 80369-20:2024',
     clauseNumber: 'Annex J',
     titleEn: 'Modifications to Test Methods',
@@ -1092,6 +1104,8 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     objectiveZh: '規範使用真空衰減法（Vacuum Decay）量測負壓漏氣量的實驗流程。',
     appliesToZh: '所有小口徑連接器',
     quantitativeConditions: {
+      assemblyTorqueNm: '0.08 N·m - 0.12 N·m (Lock) / ≤ 0.10 N·m (Slip 微旋 ≤90°)',
+      assemblyAxialForceN: '26.5 N - 27.5 N',
       testPressureKpa: '80.0 - 88.0 kPa (真空負壓)',
       holdTimeSec: '15 - 20 秒'
     },
@@ -1120,6 +1134,8 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     objectiveZh: '透過將接頭浸入透明水容器中並抽真空，目視檢查是否有連續氣泡冒出。',
     appliesToZh: '用於抽吸藥液與體液之小口徑連接器',
     quantitativeConditions: {
+      assemblyTorqueNm: '0.08 N·m - 0.12 N·m (Lock) / ≤ 0.10 N·m (Slip 微旋 ≤90°)',
+      assemblyAxialForceN: '26.5 N - 27.5 N',
       testPressureKpa: '80.0 - 88.0 kPa (負壓)',
       holdTimeSec: '指定測試時間',
       media: '透明水容器 (填充約 1/3 容量)'
@@ -1140,6 +1156,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
   },
   'iso7-6.6': {
     id: 'iso7-6.6',
+    preAssembly: PRE_ASSEMBLY_LOCK,
     standard: 'ISO 80369-7:2021',
     clauseNumber: '6.6',
     titleEn: 'Resistance to Overriding Requirement',
@@ -1271,6 +1288,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
   },
   'iso7-6.5': {
     id: 'iso7-6.5',
+    preAssembly: PRE_ASSEMBLY_LOCK,
     standard: 'ISO 80369-7:2021',
     clauseNumber: '6.5',
     titleEn: 'Resistance to Separation from Unscrewing Requirement',
@@ -1301,6 +1319,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
   },
   'iso20-annex-g': {
     id: 'iso20-annex-g',
+    preAssembly: PRE_ASSEMBLY_LOCK,
     standard: 'ISO 80369-20:2024',
     clauseNumber: 'Annex G',
     titleEn: 'Test Method for Resistance to Separation from Unscrewing',
@@ -1389,6 +1408,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
   },
   'iso7-annex-c': {
     id: 'iso7-annex-c',
+    preAssembly: PRE_ASSEMBLY_NOT_APPLICABLE,
     standard: 'ISO 80369-7:2021',
     clauseNumber: 'Annex C',
     titleEn: 'Reference Connectors (Fig.C.1 to C.6)',
@@ -1450,6 +1470,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
   },
   'iso7-clause-5': {
     id: 'iso7-clause-5',
+    preAssembly: PRE_ASSEMBLY_NOT_APPLICABLE,
     standard: 'ISO 80369-7:2021',
     clauseNumber: 'Clause 5',
     titleEn: 'Dimensional Requirements for Luer Connectors',
@@ -1477,6 +1498,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
   },
   'iso7-clause-4': {
     id: 'iso7-clause-4',
+    preAssembly: PRE_ASSEMBLY_NOT_APPLICABLE,
     standard: 'ISO 80369-7:2021',
     clauseNumber: 'Clause 4',
     titleEn: 'Non-interchangeability Requirements',
@@ -1502,6 +1524,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
   },
   'iso20-annex-a': {
     id: 'iso20-annex-a',
+    preAssembly: PRE_ASSEMBLY_NOT_APPLICABLE,
     standard: 'ISO 80369-20:2024',
     clauseNumber: 'Annex A',
     titleEn: 'Test Methods for Dimensional Attributes',

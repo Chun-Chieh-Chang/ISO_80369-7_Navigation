@@ -1,6 +1,71 @@
 # 開發日誌 (DEV_LOG)
 
 ---
+## 版本：v8.42.0 (Commit: TBD) Preassembly Fallback 描述漏洞全面修復 + 全面盤點清理 (2026-09-08)
+
+### 需求來源
+本次為上輪（v8.41.0 盤點）的延伸：經全面掃描後發現 `STANDARD_CLAUSE_DETAILS` 中仍有未處理的同構 fallback 漏洞，以及 16 個行政類條文的階段一誤渲染問題。使用者要求全數列明後確認再動。
+
+### 1. 診斷與根因 (RCA)
+
+```
+[P0：iso7-6.5 與 iso20-annex-g 同 iso7-6.6 同款 Bug]
+- 兩條文 fixtureRequiredZh 皆掛名「僅限鎖定型」
+- 但 STANDARD_CLAUSE_DETAILS 物件內未定義 preAssembly 屬性
+- ClauseDetailDrawer.tsx fallback 分支（L314-L316）硬塞 Lock+Slip 雙流程文字
+- 結果：使用者看到「滑動型…微旋 ≤90°」描述，與「僅限鎖定型」法規矛盾
+
+[P1：16 個行政/尺寸/防呆/統計類條文階段一誤渲染]
+- iso7-clause-1~5、iso7-annex-a/b/c/d/e、iso20-clause-1~4、iso20-annex-a/j
+- 本為「適用範圍、引用文件、尺寸公差、防呆設計、統計方法」等非性能條文
+- 但因缺 preAssembly，UI 仍渲染「階段一：前置預裝配條件」藍色卡片（扭矩/推力/保持時間）
+- 💡 描述段亦顯示 Slip 流程，完全驢唇不對馬嘴
+
+[P2：iso20-annex-d/k 缺 assembly 參數]
+- quantitativeConditions 無 assemblyTorqueNm / assemblyAxialForceN
+- 階段一僅顯示測試壓力/真空度卡片，缺扭矩/推力參數卡
+- 與 iso7-6.1/6.2 對照時視覺不一致
+
+[孤兒資源]
+- test_page_1/3/6/11.png：4 張testing_blueprint PNG 全站零引用（v8.40.6 曾標註 reserved for future topics，現確認無使用計畫）
+- sync.ffs_db：FreeFileSync 本地同步資料庫，已在 .gitignore，不需入库
+```
+
+### 2. 矯正與預防措施 (CAPA)
+
+#### v8.42.0 — Preassembly Fallback 漏洞全面修復
+- **iso7-6.5**（[isoTopicsData.ts#L1275](src/data/isoTopicsData.ts)）：補 `preAssembly: PRE_ASSEMBLY_LOCK`
+- **iso20-annex-g**（[isoTopicsData.ts#L1306](src/data/isoTopicsData.ts)）：補 `preAssembly: PRE_ASSEMBLY_LOCK`
+- **ClauseDetailDrawer.tsx L266-L328**：新增 `not_applicable` 分支 — 灰底背景 + 「不適用 / N/A」徽章 + 斜體說明
+- **16 個行政類條文**：全補 `preAssembly: PRE_ASSEMBLY_NOT_APPLICABLE`
+- **iso20-annex-d**（[isoTopicsData.ts#L1106-L1110](src/data/isoTopicsData.ts)）：補 `assemblyTorqueNm` + `assemblyAxialForceN`
+- **iso20-annex-k**（[isoTopicsData.ts#L1134-L1139](src/data/isoTopicsData.ts)）：同上
+- **刪除 4 張孤兒 PNG**：test_page_1/3/6/11
+- **刪除 sync.ffs_db**
+- **package.json**：8.41.0 → 8.42.0
+- **README / CHANGELOG**：版本與日期同步
+
+### 3. 驗收標準 (Acceptance Criteria)
+- [ ] `npm run lint`（tsc --noEmit）— 0 errors
+- [ ] `npm run test`（vitest run）— all PASS
+- [ ] `npm run build` — PASS
+- [ ] iso7-6.5 drawer：階段一顯示「標準程序」藍標 + Lock 專用 💡 描述（無 Slip 字眼）
+- [ ] iso20-annex-g drawer：同上
+- [ ] 行政類條文（卡片 7/8/10/11/12/13）：階段一顯示灰底 + 「不適用 / N/A」
+- [ ] iso20-annex-d/k drawer：階段一有扭矩 + 推力 + 測試參數 三張卡
+- [ ] package.json version === "8.42.0"
+- [ ] CHANGELOG / README 已同步
+- [ ] test_page_1/3/6/11.png 已刪除
+- [ ] Git commit 原子化，Push 至 GitHub
+
+### 4. 驗證結果 (Validation)
+- `npm run lint`（tsc --noEmit）— ✅ 0 errors
+- `npm run test`（vitest run）— ✅ 52/52 PASS
+- `npm run build`（vite build）— ✅ PASS
+- Browser Console：0 error ✅
+- 已開啟瀏覽器實測確認所有 3 類問題均已修正
+
+---
 ## 版本：v8.41.0 (Commit: TBD) UI/UX 全面重設計 + Excel 匯出整合 + 全面盤點清理 (2026-09-08)
 
 ### 需求來源
