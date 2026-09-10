@@ -599,7 +599,7 @@ ${isEn ? 'Acceptance Criteria' : '法定允收標準'}: ${getClauseAcceptanceCri
         {/* Drawer Footer */}
         <div className="bg-slate-50 border-t border-slate-200 shrink-0">
           <div className="max-w-5xl mx-auto px-5 py-3 flex items-center justify-between text-xs text-slate-500">
-            <span>ISO 80369 SSOT Verification System</span>
+            <span>ISO 80369 Navigation Reference</span>
             <button
               onClick={onClose}
               className="px-4 py-1.5 bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold rounded-lg transition cursor-pointer min-h-[32px]"
