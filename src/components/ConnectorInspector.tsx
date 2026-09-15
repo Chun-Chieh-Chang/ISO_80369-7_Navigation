@@ -35,8 +35,8 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
   return (
     <div className="space-y-6">
       {/* Top Banner */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-5 text-slate-900 shadow-sm">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+      <div className="neo-card rounded-2xl p-5 text-[var(--neo-text)]">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-4 border-b border-[var(--neo-border)]">
           <div>
             <div className="flex items-center space-x-2">
               <span className="bg-blue-100 text-blue-700 text-xs font-semibold px-2.5 py-0.5 rounded-full border border-blue-200">
@@ -50,7 +50,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
           </div>
 
           {/* Group Filter Tabs */}
-          <div className="flex flex-wrap items-center gap-1.5 text-xs bg-slate-50 p-1.5 rounded-xl border border-slate-200 w-full sm:w-auto">
+          <div className="neo-tray flex flex-wrap items-center gap-1.5 text-xs p-1.5 rounded-xl w-full sm:w-auto">
             {[
               { id: 'all', label: t.connectors.filterAll },
               { id: 'ISO 80369-7', label: t.connectors.filterIso7 },
@@ -64,7 +64,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
                 className={`px-3 py-1.5 rounded-lg font-medium transition whitespace-nowrap shrink-0 cursor-pointer min-h-[36px] flex items-center ${
                   selectedGroup === group.id
                     ? 'bg-blue-600 text-white shadow-xs font-bold'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200'
+                    : 'text-[var(--neo-muted)] hover:text-[var(--neo-text)]'
                 }`}
               >
                 {group.label}
@@ -84,7 +84,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
                 className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 border whitespace-nowrap shrink-0 cursor-pointer min-h-[38px] ${
                   isSelected
                     ? 'bg-blue-600 text-white border-blue-500 shadow-md shadow-blue-600/30'
-                    : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100 hover:text-slate-900'
+                    : 'neo-tray text-[var(--neo-muted)] border-transparent hover:text-[var(--neo-text)]'
                 }`}
               >
                 <span className="font-mono">{fig.figureNumber}</span>
@@ -131,8 +131,8 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
 
         {/* Right Column: Detailed ISO Specifications */}
         <div className="lg:col-span-5 space-y-4">
-          <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div className="neo-card rounded-2xl p-5 space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-[var(--neo-border)]">
               <div>
                 <div className="flex items-center gap-2">
                   <span className="text-xs font-bold bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-mono">
@@ -145,7 +145,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
               <Eye className="w-5 h-5 text-slate-400" />
             </div>
 
-            <div className="text-xs text-slate-700 leading-relaxed font-medium bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+            <div className="neo-tray text-xs text-[var(--neo-text)] leading-relaxed font-medium p-3.5 rounded-xl space-y-1.5">
               <div className="font-bold text-slate-900 flex items-center gap-1">
                 <Ruler className="w-3.5 h-3.5 text-blue-600" /> {isEn ? 'Drawing Function & Objective:' : '圖號功能與適用目的：'}
               </div>
@@ -155,7 +155,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
             {/* Key Specs Highlights */}
             <div className="grid grid-cols-2 gap-2 text-xs">
               {selectedFig.svgHighlights.map((hl, idx) => (
-                <div key={idx} className="bg-slate-100/80 p-2.5 rounded-xl border border-slate-200">
+                <div key={idx} className="neo-tray p-2.5 rounded-xl">
                   <div className="text-xs text-slate-500 font-medium">{isEn ? (hl.titleEn || translateHighlightText(hl.title, true)) : hl.title}</div>
                   <div className="font-bold text-slate-900 mt-0.5 font-mono">{isEn ? (hl.valueEn || translateHighlightText(hl.value, true)) : hl.value}</div>
                 </div>
@@ -203,8 +203,8 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
       </div>
 
       {/* Technical Standard Guide Card: ISO 80369-7:2021 Annex C.1 Manufacturing & Geometric Requirements */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-4">
-        <div className="flex items-center space-x-2 border-b border-slate-100 pb-3">
+      <div className="neo-card rounded-2xl p-5 space-y-4">
+        <div className="flex items-center space-x-2 border-b border-[var(--neo-border)] pb-3">
           <span className="bg-blue-600 text-white font-mono font-bold text-xs px-2.5 py-1 rounded-lg shadow-xs">
             ISO 80369-7:2021 Annex C.1
           </span>
@@ -214,7 +214,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
-          <div className="bg-slate-50 border border-slate-200 p-3.5 rounded-xl space-y-1.5">
+          <div className="neo-tray p-3.5 rounded-xl space-y-1.5">
             <strong className="text-blue-900 block font-bold text-[13px]">{isEn ? '1. Material & Hardening Requirements' : '1. 材質與硬化要求 (ISO vs 冶金學事實)'}</strong>
             <ul className="list-disc list-inside text-slate-600 space-y-1 leading-relaxed text-[11px]">
               <li><strong>{isEn ? 'ISO Statutory Requirement:' : 'ISO 條文法定規範：'}</strong> {isEn ? 'Corrosion-resistant rigid materials (E > 3,433 MPa, Ra ≤ 0.8 µm). In practice, hardened stainless steel is universally specified to resist wear & galling.' : '耐腐蝕剛性材料 (`corrosion-resistant rigid materials`，彈性模數 E > 3,433 MPa，關鍵面 Ra ≤ 0.8 μm)；工程實務唯一標配硬化不鏽鋼以防磨損與咬死。'}</li>
@@ -224,7 +224,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
             </ul>
           </div>
 
-          <div className="bg-slate-50 border border-slate-200 p-3.5 rounded-xl space-y-1.5">
+          <div className="neo-tray p-3.5 rounded-xl space-y-1.5">
             <strong className="text-indigo-900 block font-bold text-[13px]">{isEn ? '2. Surface Roughness Limits' : '2. 表面粗糙度極限'}</strong>
             <ul className="list-disc list-inside text-slate-600 space-y-1 leading-relaxed text-[11px]">
               <li><strong>{isEn ? 'Critical Surfaces:' : '關鍵表面 (Critical)：'}</strong> {isEn ? 'Taper and seal contact roughness Ra shall not exceed 0.8 µm.' : '錐面與密封接觸面粗糙度平均值 Ra 不得超過 0.8 μm。'}</li>
@@ -232,7 +232,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
             </ul>
           </div>
 
-          <div className="bg-slate-50 border border-slate-200 p-3.5 rounded-xl space-y-1.5">
+          <div className="neo-tray p-3.5 rounded-xl space-y-1.5">
             <strong className="text-amber-900 block font-bold text-[13px]">{isEn ? '3. Dimensions & Chamfers' : '3. 尺寸與倒角細節'}</strong>
             <ul className="list-disc list-inside text-slate-600 space-y-1 leading-relaxed text-[11px]">
               <li><strong>{isEn ? 'Edge Radii:' : '邊緣圓角：'}</strong> {isEn ? 'Outer edge radius between 0.15 mm and 0.20 mm.' : '外側邊緣圓角半徑需在 0.15 mm ~ 0.20 mm。'}</li>
@@ -242,7 +242,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
             </ul>
           </div>
 
-          <div className="bg-slate-50 border border-slate-200 p-3.5 rounded-xl space-y-1.5">
+          <div className="neo-tray p-3.5 rounded-xl space-y-1.5">
             <strong className="text-emerald-900 block font-bold text-[13px]">{isEn ? '4. Designated Test Figures' : '4. 測試項目指定圖樣'}</strong>
             <ul className="list-disc list-inside text-slate-600 space-y-1 leading-relaxed text-[11px]">
               <li><strong>{isEn ? 'Leak / Cracking / Unscrewing:' : '洩漏/應力龜裂/反旋：'}</strong> {isEn ? 'Male to Fig.C.1/C.5; Female to Fig.C.2/C.4.' : '公件配 Fig.C.1/C.5；母件配 Fig.C.2/C.4。'}</li>
@@ -252,7 +252,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
         </div>
 
         {/* Calibration & Certification Standard Section */}
-        <div className="mt-4 pt-4 border-t border-slate-200/80 space-y-3">
+        <div className="mt-4 pt-4 border-t border-[var(--neo-border)] space-y-3">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-blue-50/80 p-3 rounded-xl border border-blue-200/80 text-xs">
             <div className="flex items-center space-x-2">
               <span className="bg-blue-600 text-white font-mono font-bold px-2 py-0.5 rounded text-[11px]">
@@ -269,7 +269,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
             {/* Aspect 1 */}
-            <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+            <div className="neo-tray p-3.5 rounded-xl space-y-1.5">
               <h5 className="font-bold text-slate-900 text-[12px] flex items-center gap-1.5">
                 <Ruler className="w-3.5 h-3.5 text-blue-600" /> {isEn ? '1. Dimensional Verification' : '1. 幾何尺寸與公差校驗 (Dimensional Verification)'}
               </h5>
@@ -282,7 +282,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
             </div>
 
             {/* Aspect 2 */}
-            <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+            <div className="neo-tray p-3.5 rounded-xl space-y-1.5">
               <h5 className="font-bold text-slate-900 text-[12px] flex items-center gap-1.5">
                 <Eye className="w-3.5 h-3.5 text-indigo-700" /> {isEn ? '2. Surface Roughness Inspection' : '2. 表面粗糙度檢測 (Surface Roughness)'}
               </h5>
@@ -294,7 +294,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
             </div>
 
             {/* Aspect 3 */}
-            <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+            <div className="neo-tray p-3.5 rounded-xl space-y-1.5">
               <h5 className="font-bold text-slate-900 text-[12px] flex items-center gap-1.5">
                 <ShieldAlert className="w-3.5 h-3.5 text-amber-600" /> {isEn ? '3. Material & Hardness Verification' : '3. 材質與硬度確認 (Material & Hardness Verification)'}
               </h5>
@@ -321,8 +321,8 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
       </div>
 
       {/* Interactive Material Evaluation Matrix Card (8 Candidate Materials) */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-3">
+      <div className="neo-card rounded-2xl p-5 space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[var(--neo-border)] pb-3">
           <div className="flex items-center space-x-2">
             <span className="bg-slate-900 text-white font-mono font-bold text-xs px-2.5 py-1 rounded-lg shadow-xs">
               Material Science Matrix
@@ -346,10 +346,10 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
           {t.connectors.materialMatrixDesc}
         </p>
 
-        <div className="overflow-x-auto rounded-xl border border-slate-200">
+        <div className="overflow-x-auto rounded-xl border border-[var(--neo-border)]">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="bg-slate-50 text-slate-700 font-bold border-b border-slate-200">
+              <tr className="bg-[var(--neo-inset)] text-[var(--neo-text)] font-bold border-b border-[var(--neo-border)]">
                 <th className="p-2.5">{isEn ? 'P/P Rank' : 'CP 值排名'}</th>
                 <th className="p-2.5">{isEn ? 'Material & Grade' : '材料名稱 & 牌號'}</th>
                 <th className="p-2.5">{isEn ? 'Hardness' : '硬度 (Hardness)'}</th>
@@ -400,7 +400,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
               </tr>
 
               {/* Rank 3: AISI 440C */}
-              <tr className="hover:bg-slate-50/80 transition">
+              <tr className="hover:bg-[var(--neo-inset)]/80 transition">
                 <td className="p-2.5">
                   <span className="bg-indigo-100 text-indigo-900 border border-indigo-300 font-bold px-2 py-0.5 rounded text-[11px] font-mono">
                     {isEn ? '⚖️ No.3 Hard & Economical' : '⚖️ No.3 高硬度便宜'}
@@ -419,9 +419,9 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
               </tr>
 
               {/* Rank 4: Uddeholm Elmax SuperClean */}
-              <tr className="hover:bg-slate-50/80 transition">
+              <tr className="hover:bg-[var(--neo-inset)]/80 transition">
                 <td className="p-2.5">
-                  <span className="bg-slate-100 text-slate-700 border border-slate-300 font-bold px-2 py-0.5 rounded text-[11px] font-mono">
+                  <span className="bg-[var(--neo-inset)] text-[var(--neo-text)] border border-[var(--neo-border)] font-bold px-2 py-0.5 rounded text-[11px] font-mono">
                     {isEn ? '💎 No.4 Premium Powder Steel' : '💎 No.4 頂級粉末鋼'}
                   </span>
                 </td>
@@ -438,9 +438,9 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
               </tr>
 
               {/* Rank 5: Nitrided 316 */}
-              <tr className="hover:bg-slate-50/80 transition">
+              <tr className="hover:bg-[var(--neo-inset)]/80 transition">
                 <td className="p-2.5">
-                  <span className="bg-slate-100 text-slate-700 border border-slate-300 font-bold px-2 py-0.5 rounded text-[11px] font-mono">
+                  <span className="bg-[var(--neo-inset)] text-[var(--neo-text)] border border-[var(--neo-border)] font-bold px-2 py-0.5 rounded text-[11px] font-mono">
                     {isEn ? '🔧 No.5 High Process Cost' : '🔧 No.5 工藝費用高'}
                   </span>
                 </td>
@@ -457,7 +457,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
               </tr>
 
               {/* Rank 6: Free-Cutting Brass */}
-              <tr className="hover:bg-slate-50/80 transition bg-amber-50/20">
+              <tr className="hover:bg-[var(--neo-inset)]/80 transition bg-amber-50/20">
                 <td className="p-2.5">
                   <span className="bg-amber-100 text-amber-800 border border-amber-300 font-bold px-2 py-0.5 rounded text-[11px] font-mono">
                     {isEn ? '⚠️ No.6 Cheap but Soft' : '⚠️ No.6 便宜但質軟'}
@@ -476,7 +476,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
               </tr>
 
               {/* Rank 7: Titanium Grade 5 */}
-              <tr className="hover:bg-slate-50/80 transition bg-amber-50/20">
+              <tr className="hover:bg-[var(--neo-inset)]/80 transition bg-amber-50/20">
                 <td className="p-2.5">
                   <span className="bg-amber-100 text-amber-800 border border-amber-300 font-bold px-2 py-0.5 rounded text-[11px] font-mono">
                     {isEn ? '⚠️ No.7 Expensive & Galling Prone' : '⚠️ No.7 昂貴易咬死'}

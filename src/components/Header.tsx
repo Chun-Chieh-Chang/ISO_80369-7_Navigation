@@ -88,12 +88,12 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
         </div>
       </div>
 
-      {/* ── Primary navigation: clean white, underline active state ── */}
-      <div className="bg-white border-b border-slate-200 shadow-[0_1px_3px_rgba(0,0,0,0.06)]">
-        <div className="max-w-[1920px] w-[96%] mx-auto px-3 sm:px-6 lg:px-10 flex items-stretch justify-between gap-4 min-h-[44px]">
+      {/* ── Primary navigation: Inset Focus — neo-bg ground, pill tabs ── */}
+      <div className="bg-[var(--neo-bg)] border-b border-[var(--neo-border)]">
+        <div className="max-w-[1920px] w-[96%] mx-auto px-3 sm:px-6 lg:px-10 flex items-center justify-between gap-4 min-h-[48px] py-1.5">
 
-          {/* Primary hub tabs */}
-          <nav className="flex items-stretch gap-0 overflow-x-auto no-scrollbar">
+          {/* Primary hub tabs — pill tray style */}
+          <nav className="flex items-center gap-1 overflow-x-auto no-scrollbar">
             {primaryHubs.map((hub) => {
               const Icon = hub.icon;
               const isActive = activeHub === hub.id;
@@ -101,13 +101,13 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
                 <button
                   key={hub.id}
                   onClick={() => setActiveTab(hub.defaultTab)}
-                  className={`flex items-center gap-2 px-4 sm:px-5 text-[13px] font-medium transition-colors whitespace-nowrap border-b-2 cursor-pointer ${
+                  className={`flex items-center gap-2 px-4 py-1.5 text-[13px] font-medium transition-all whitespace-nowrap rounded-xl cursor-pointer ${
                     isActive
-                      ? 'text-blue-600 border-blue-600'
-                      : 'text-slate-500 hover:text-slate-800 border-transparent hover:border-slate-300'
+                      ? 'neo-pill-active text-blue-600 font-semibold'
+                      : 'text-[var(--neo-muted)] hover:text-[var(--neo-text)]'
                   }`}
                 >
-                  <Icon className={`w-[15px] h-[15px] shrink-0 ${isActive ? 'text-blue-500' : 'text-slate-400'}`} />
+                  <Icon className={`w-[15px] h-[15px] shrink-0 ${isActive ? 'text-blue-500' : 'text-[var(--neo-muted)]'}`} />
                   <span>{hub.label}</span>
                 </button>
               );
@@ -116,7 +116,7 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
 
           {/* Contextual sub-tabs */}
           {currentSubTabs && currentSubTabs.length > 0 && (
-            <div className="flex items-center gap-1 py-2 shrink-0">
+            <div className="neo-tray flex items-center gap-0.5 px-1 py-1 rounded-xl shrink-0">
               {currentSubTabs.map((sub) => {
                 const SubIcon = sub.icon;
                 const isSubActive = activeTab === sub.id;
@@ -124,13 +124,13 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
                   <button
                     key={sub.id}
                     onClick={() => setActiveTab(sub.id)}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[12px] font-medium transition-colors cursor-pointer ${
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] font-medium transition-all cursor-pointer ${
                       isSubActive
-                        ? 'bg-blue-50 text-blue-700 border border-blue-200'
-                        : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50 border border-transparent'
+                        ? 'neo-pill-active text-blue-600 font-semibold'
+                        : 'text-[var(--neo-muted)] hover:text-[var(--neo-text)]'
                     }`}
                   >
-                    <SubIcon className={`w-[14px] h-[14px] ${isSubActive ? 'text-blue-500' : 'text-slate-400'}`} />
+                    <SubIcon className={`w-[14px] h-[14px] ${isSubActive ? 'text-blue-500' : 'text-[var(--neo-muted)]'}`} />
                     <span>{sub.label}</span>
                   </button>
                 );

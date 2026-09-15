@@ -210,7 +210,7 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
   return (
     <div className="space-y-6 print:space-y-2">
       {/* Subtab Bar (Hidden when printing) */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-4 text-slate-900 shadow-sm print:hidden">
+      <div className="neo-card rounded-2xl p-4 text-[var(--neo-text)] print:hidden">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-2">
             <button
@@ -218,7 +218,7 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
               className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 cursor-pointer ${
                 activeSubTab === 'matrix'
                   ? 'bg-blue-600 text-white shadow-md'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  : 'neo-tray text-[var(--neo-muted)]'
               }`}
             >
               <FileSpreadsheet className="w-4 h-4" />
@@ -230,7 +230,7 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
               className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 cursor-pointer ${
                 activeSubTab === 'report_checklist'
                   ? 'bg-indigo-600 text-white shadow-md'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  : 'neo-tray text-[var(--neo-muted)]'
               }`}
             >
               <FileCheck className="w-4 h-4" />
@@ -242,8 +242,8 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
 
       {/* View 1: DVP Test Matrix */}
       {activeSubTab === 'matrix' ? (
-        <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-5 print:border-none print:shadow-none">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 pb-4 border-b border-slate-200">
+        <div className="neo-card rounded-2xl p-6 space-y-5 print:shadow-none">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 pb-4 border-b border-[var(--neo-border)]">
             <div>
               <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">{t.dvp.planTitle}</span>
               <h2 className="text-xl font-extrabold text-slate-900">
@@ -256,7 +256,7 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
               <select
                 value={selectedGender}
                 onChange={(e) => setSelectedGender(e.target.value as ConnectorGender)}
-                className="bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 font-semibold text-slate-800 focus:ring-2 focus:ring-blue-500 focus:outline-none cursor-pointer min-h-[42px] flex-1 sm:flex-initial"
+                className="neo-input rounded-xl px-3 py-2 font-semibold cursor-pointer min-h-[42px] flex-1 sm:flex-initial"
               >
                 <option value="male">{t.dvp.filterGenderMale}</option>
                 <option value="female">{t.dvp.filterGenderFemale}</option>
@@ -265,7 +265,7 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
               <select
                 value={selectedType}
                 onChange={(e) => setSelectedType(e.target.value as ConnectorType)}
-                className="bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 font-semibold text-slate-800 focus:ring-2 focus:ring-blue-500 focus:outline-none cursor-pointer min-h-[42px] flex-1 sm:flex-initial"
+                className="neo-input rounded-xl px-3 py-2 font-semibold cursor-pointer min-h-[42px] flex-1 sm:flex-initial"
               >
                 <option value="lock">{t.dvp.filterTypeLock}</option>
                 <option value="slip">{t.dvp.filterTypeSlip}</option>
@@ -277,7 +277,7 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="bg-slate-100 text-slate-800 font-bold">
+                <tr className="bg-[var(--neo-inset)] text-[var(--neo-text)] font-bold">
                   <th className="p-3 rounded-tl-xl border border-slate-200">{t.dvp.colClause}</th>
                   <th className="p-3 border border-slate-200">{t.dvp.colTestTitle}</th>
                   <th className="p-3 border border-slate-200">
@@ -310,7 +310,7 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
                         key={clause.id} 
                         onClick={() => setSelectedClause(clause.id as TestClauseId)}
                         className={`cursor-pointer transition ${
-                          isActiveClause ? 'bg-blue-50/90 font-semibold text-blue-900 border-l-4 border-l-blue-600' : 'hover:bg-slate-50'
+                          isActiveClause ? 'bg-blue-50/90 font-semibold text-blue-900 border-l-4 border-l-blue-600' : 'hover:bg-[var(--neo-inset)]'
                         }`}
                       >
                         <td className="p-3 font-bold text-blue-600 font-mono border border-slate-200">
@@ -346,7 +346,7 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
           </div>
 
           {/* Active Clause Embedded Diagram Section */}
-          <div className="mt-6 pt-4 border-t border-slate-200 space-y-3 print:hidden">
+          <div className="mt-6 pt-4 border-t border-[var(--neo-border)] space-y-3 print:hidden">
             <div className="flex items-center space-x-2">
               <span className="bg-blue-600 text-white font-mono font-bold text-xs px-2.5 py-1 rounded-md shadow-xs">
                 {language === 'en' ? `Clause ${config.selectedClauseId} Test Fixture Diagram` : `Clause ${config.selectedClauseId} 內嵌規範圖示 (SVG CAD)`}
@@ -369,7 +369,7 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
             </div>
           </div>
 
-          <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs text-slate-600 space-y-1">
+          <div className="neo-tray p-4 rounded-xl text-xs text-[var(--neo-muted)] space-y-1">
             <div className="font-bold text-slate-800">{t.dvp.auditNotesTitle}</div>
             <p>{t.dvp.auditNote1}</p>
             <p>{t.dvp.auditNote2}</p>
@@ -378,8 +378,8 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
         </div>
       ) : (
         /* View 2: ISO 80369-20:2024 Annex B.5 test report elements (a ~ n) checklist */
-        <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-6">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+        <div className="neo-card rounded-2xl p-6 space-y-6">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-4 border-b border-[var(--neo-border)]">
             <div>
               <div className="flex items-center space-x-2">
                 <span className="bg-indigo-600 text-white font-mono font-bold text-xs px-2.5 py-0.5 rounded-md">
@@ -397,7 +397,7 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
               </p>
 
               {/* Dated normative reference: ISO 80369-7:2021 cites the 2015 edition */}
-              <div className="mt-3 rounded-xl border border-slate-200 bg-slate-50 p-3">
+              <div className="mt-3 rounded-xl neo-tray p-3">
                 <div className="flex items-center gap-2 mb-1">
                   <span className="bg-slate-700 text-white font-mono text-[10px] font-bold px-2 py-0.5 rounded">
                     {ISO20_EDITION_NOTE.citedByIso7}
@@ -512,7 +512,7 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
             {ISO20_MANDATORY_REPORT_ITEMS.map((item) => (
               <div
                 key={item.id}
-                className="bg-white border border-slate-200/90 rounded-2xl p-4 space-y-2.5 shadow-2xs hover:border-indigo-300 transition-all"
+                className="neo-card rounded-2xl p-4 space-y-2.5 transition-all"
               >
                 <div className="flex items-center justify-between border-b border-slate-100 pb-2">
                   <div className="flex items-center space-x-2">
@@ -538,7 +538,7 @@ export const DvpGenerator: React.FC<DvpGeneratorProps> = ({ config, setConfig })
                   {language === 'en' ? (item.descriptionEn || item.descriptionZh) : item.descriptionZh}
                 </p>
 
-                <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-100 text-xs">
+                <div className="neo-tray p-2.5 rounded-xl text-xs">
                   <span className="font-bold text-slate-700 block mb-0.5 text-[11px]">
                     {language === 'en' ? '📝 Example Value / Compliance Format:' : '📝 報告填寫實例 / 範例說明:'}
                   </span>

@@ -143,59 +143,59 @@ export const TopicClauseExplorer: React.FC = () => {
   return (
     <div className="space-y-5">
       
-      {/* Level 1: Minimalist Control Bar & Dimension Filter Hub */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-xs space-y-3">
-        
+      {/* Level 1: Control Bar & Dimension Filter Hub */}
+      <div className="neo-card rounded-2xl p-4 space-y-3">
+
         {/* Row 1: Mode Switcher & Search Bar */}
         <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
-          
-          {/* View Mode Switcher */}
-          <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl border border-slate-200/80 shrink-0">
+
+          {/* View Mode Switcher — inset tray with elevated active pill */}
+          <div className="neo-tray flex items-center gap-1 p-1 rounded-xl shrink-0">
             <button
               onClick={() => setViewMode('topics')}
-              className={`flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer min-h-[36px] ${
+              className={`flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer min-h-[36px] ${
                 viewMode === 'topics'
-                  ? 'bg-white text-blue-700 shadow-xs border border-slate-200/80'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'neo-pill-active text-blue-700'
+                  : 'text-[var(--neo-muted)] hover:text-[var(--neo-text)]'
               }`}
             >
               <BookOpen className="w-4 h-4 text-blue-600" />
               <span>{t.explorer.tabTopics}</span>
-              <span className="text-[11px] font-mono font-bold px-1.5 py-0.2 rounded-full bg-blue-50 text-blue-800">
+              <span className="text-[11px] font-mono font-bold px-1.5 py-0.2 rounded-full bg-blue-100/60 text-blue-700">
                 {filteredTopics.length}
               </span>
             </button>
 
             <button
               onClick={() => setViewMode('annex_tree')}
-              className={`flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer min-h-[36px] ${
+              className={`flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer min-h-[36px] ${
                 viewMode === 'annex_tree'
-                  ? 'bg-white text-blue-700 shadow-xs border border-slate-200/80'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'neo-pill-active text-indigo-700'
+                  : 'text-[var(--neo-muted)] hover:text-[var(--neo-text)]'
               }`}
             >
-              <FolderTree className="w-4 h-4 text-indigo-600" />
+              <FolderTree className="w-4 h-4 text-indigo-500" />
               <span>{t.explorer.tabAnnexTree}</span>
-              <span className="text-[11px] font-mono font-bold px-1.5 py-0.2 rounded-full bg-indigo-50 text-indigo-800">
+              <span className="text-[11px] font-mono font-bold px-1.5 py-0.2 rounded-full bg-indigo-100/60 text-indigo-700">
                 {allStandardFigures.length}
               </span>
             </button>
           </div>
 
-          {/* Instant Search Bar */}
+          {/* Instant Search Bar — inset field */}
           <div className="relative flex-1 max-w-lg">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--neo-muted)]" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={t.explorer.searchPlaceholder}
-              className="w-full pl-10 pr-4 py-2 bg-slate-50 hover:bg-slate-100/80 focus:bg-white border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition min-h-[38px]"
+              className="neo-input w-full pl-10 pr-4 py-2 rounded-xl text-xs sm:text-sm transition min-h-[38px]"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs font-bold p-1 cursor-pointer"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--neo-muted)] hover:text-[var(--neo-text)] text-xs font-bold p-1 cursor-pointer"
               >
                 ✕
               </button>
@@ -204,9 +204,9 @@ export const TopicClauseExplorer: React.FC = () => {
 
         </div>
 
-        {/* Row 2: Dimension Categories Filter Pills (Topics Mode) */}
+        {/* Row 2: Dimension Category Filter Pills */}
         {viewMode === 'topics' && (
-          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pt-1 border-t border-slate-100">
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pt-1 border-t border-[var(--neo-border)]">
             {categories.map(cat => {
               const Icon = cat.icon;
               const isSelected = selectedCategory === cat.id;
@@ -214,13 +214,13 @@ export const TopicClauseExplorer: React.FC = () => {
                 <button
                   key={cat.id}
                   onClick={() => setSelectedCategory(cat.id)}
-                  className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition cursor-pointer shrink-0 min-h-[32px] ${
+                  className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer shrink-0 min-h-[32px] ${
                     isSelected
-                      ? 'bg-blue-600 text-white shadow-xs font-bold'
-                      : 'bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200/80'
+                      ? 'bg-[var(--neo-accent)] text-white shadow-sm font-bold'
+                      : 'neo-tray text-[var(--neo-muted)] hover:text-[var(--neo-text)]'
                   }`}
                 >
-                  {Icon && <Icon className={`w-3.5 h-3.5 ${isSelected ? 'text-white' : 'text-slate-500'}`} />}
+                  {Icon && <Icon className={`w-3.5 h-3.5 ${isSelected ? 'text-white' : 'text-[var(--neo-muted)]'}`} />}
                   <span>{cat.label}</span>
                 </button>
               );
@@ -234,17 +234,17 @@ export const TopicClauseExplorer: React.FC = () => {
       {viewMode === 'topics' ? (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           {filteredTopics.length === 0 ? (
-            <div className="col-span-full bg-white border border-slate-200 rounded-2xl p-12 text-center text-slate-500 space-y-2">
-              <Search className="w-8 h-8 text-slate-300 mx-auto" />
-              <p className="font-bold text-slate-700">{isEn ? 'No matching topics found' : '查無符合條件之測試主題'}</p>
-              <p className="text-xs text-slate-400">{isEn ? 'Try adjusting your search query or category filter' : '請嘗試清除搜尋關鍵字或切換類別分類'}</p>
+            <div className="col-span-full neo-card rounded-2xl p-12 text-center text-[var(--neo-muted)] space-y-2">
+              <Search className="w-8 h-8 text-[var(--neo-muted)] mx-auto opacity-40" />
+              <p className="font-bold text-[var(--neo-text)]">{isEn ? 'No matching topics found' : '查無符合條件之測試主題'}</p>
+              <p className="text-xs text-[var(--neo-muted)]">{isEn ? 'Try adjusting your search query or category filter' : '請嘗試清除搜尋關鍵字或切換類別分類'}</p>
             </div>
           ) : (
             filteredTopics.map((topic) => (
               <div
                 key={topic.id}
                 onClick={() => drawer.openTopic(topic)}
-                className="group bg-white hover:bg-blue-50/20 border border-slate-200 hover:border-blue-300 rounded-2xl p-4 sm:p-5 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between space-y-4 cursor-pointer relative"
+                className="group neo-card rounded-2xl p-4 sm:p-5 transition-all duration-200 flex flex-col justify-between space-y-4 cursor-pointer relative"
               >
                 {/* Topic Header: Icon, Category Badge & Title */}
                 <div className="space-y-2.5">
@@ -274,7 +274,7 @@ export const TopicClauseExplorer: React.FC = () => {
                 {topic.keyParameters.length > 0 && (
                   <div className="grid grid-cols-2 gap-2 text-xs font-mono">
                     {topic.keyParameters.slice(0, 2).map((param, pIdx) => (
-                      <div key={pIdx} className="bg-slate-50 group-hover:bg-white p-2 rounded-xl border border-slate-100 group-hover:border-slate-200 transition">
+                      <div key={pIdx} className="neo-tray p-2 rounded-xl transition">
                         <span className="text-[10px] text-slate-400 block font-sans truncate">
                           {isEn ? (param.labelEn || translateHighlightText(param.label, true)) : param.label}
                         </span>
@@ -287,7 +287,7 @@ export const TopicClauseExplorer: React.FC = () => {
                 )}
 
                 {/* Card Footer: Linked Clauses & Action CTA */}
-                <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs gap-2">
+                <div className="pt-3 border-t border-[var(--neo-border)] flex items-center justify-between text-xs gap-2">
                   <div className="flex flex-wrap items-center gap-1 overflow-hidden">
                     {topic.relatedISO7Clauses.map(c => (
                       <span key={c} className="bg-blue-50 text-blue-800 border border-blue-200 font-mono px-1.5 py-0.5 rounded text-[11px] font-bold shrink-0">
@@ -326,8 +326,8 @@ export const TopicClauseExplorer: React.FC = () => {
         /* Annex Standard Tree View */
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
           {/* Tree Navigation (5 cols) */}
-          <div className="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-4 space-y-3 max-h-[760px] overflow-y-auto">
-            <div className="flex items-center justify-between pb-2 border-b border-slate-100 text-xs">
+          <div className="lg:col-span-5 neo-card rounded-2xl p-4 space-y-3 max-h-[760px] overflow-y-auto">
+            <div className="flex items-center justify-between pb-2 border-b border-[var(--neo-border)] text-xs">
               <span className="font-bold text-slate-700 flex items-center gap-1.5">
                 <FolderTree className="w-4 h-4 text-blue-600" />
                 {isEn ? 'Standard Annex Figures Navigator' : '規範附件圖表導航樹'}
@@ -358,7 +358,7 @@ export const TopicClauseExplorer: React.FC = () => {
                   <div className="space-y-0.5">
                     <button
                       onClick={() => toggleNode('iso7-annex-a')}
-                      className="w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-slate-700 hover:bg-slate-100 text-xs font-bold cursor-pointer"
+                      className="w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-[var(--neo-muted)] hover:text-[var(--neo-text)] hover:bg-[var(--neo-inset)] text-xs font-bold cursor-pointer"
                     >
                       <span className="flex items-center gap-1">
                         {expandedNodes['iso7-annex-a'] ? <ChevronDown className="w-3.5 h-3.5 text-slate-400" /> : <ChevronRight className="w-3.5 h-3.5 text-slate-400" />}
@@ -376,7 +376,7 @@ export const TopicClauseExplorer: React.FC = () => {
                               className={`w-full text-left p-2 rounded-xl text-xs transition flex items-center justify-between border cursor-pointer ${
                                 isSelected 
                                   ? 'bg-blue-600 text-white font-bold border-blue-500 shadow-xs' 
-                                  : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200/60'
+                                  : 'bg-[var(--neo-inset)] hover:bg-[var(--neo-bg)] text-[var(--neo-muted)] border-[var(--neo-border)]'
                               }`}
                             >
                               <span className="flex items-center gap-1.5 truncate">
@@ -395,7 +395,7 @@ export const TopicClauseExplorer: React.FC = () => {
                   <div className="space-y-0.5 pt-1">
                     <button
                       onClick={() => toggleNode('iso7-annex-b')}
-                      className="w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-slate-700 hover:bg-slate-100 text-xs font-bold cursor-pointer"
+                      className="w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-[var(--neo-muted)] hover:text-[var(--neo-text)] hover:bg-[var(--neo-inset)] text-xs font-bold cursor-pointer"
                     >
                       <span className="flex items-center gap-1">
                         {expandedNodes['iso7-annex-b'] ? <ChevronDown className="w-3.5 h-3.5 text-slate-400" /> : <ChevronRight className="w-3.5 h-3.5 text-slate-400" />}
@@ -413,7 +413,7 @@ export const TopicClauseExplorer: React.FC = () => {
                               className={`w-full text-left p-2 rounded-xl text-xs transition flex items-center justify-between border cursor-pointer ${
                                 isSelected 
                                   ? 'bg-blue-600 text-white font-bold border-blue-500 shadow-xs' 
-                                  : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200/60'
+                                  : 'bg-[var(--neo-inset)] hover:bg-[var(--neo-bg)] text-[var(--neo-muted)] border-[var(--neo-border)]'
                               }`}
                             >
                               <span className="flex items-center gap-1.5 truncate">
@@ -432,7 +432,7 @@ export const TopicClauseExplorer: React.FC = () => {
                   <div className="space-y-0.5 pt-1">
                     <button
                       onClick={() => toggleNode('iso7-annex-c')}
-                      className="w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-slate-700 hover:bg-slate-100 text-xs font-bold cursor-pointer"
+                      className="w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-[var(--neo-muted)] hover:text-[var(--neo-text)] hover:bg-[var(--neo-inset)] text-xs font-bold cursor-pointer"
                     >
                       <span className="flex items-center gap-1">
                         {expandedNodes['iso7-annex-c'] ? <ChevronDown className="w-3.5 h-3.5 text-slate-400" /> : <ChevronRight className="w-3.5 h-3.5 text-slate-400" />}
@@ -450,7 +450,7 @@ export const TopicClauseExplorer: React.FC = () => {
                               className={`w-full text-left p-2 rounded-xl text-xs transition flex items-center justify-between border cursor-pointer ${
                                 isSelected 
                                   ? 'bg-blue-600 text-white font-bold border-blue-500 shadow-xs' 
-                                  : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200/60'
+                                  : 'bg-[var(--neo-inset)] hover:bg-[var(--neo-bg)] text-[var(--neo-muted)] border-[var(--neo-border)]'
                               }`}
                             >
                               <span className="flex items-center gap-1.5 truncate">
@@ -500,8 +500,8 @@ export const TopicClauseExplorer: React.FC = () => {
                         onClick={() => setSelectedFigureId(fig.id)}
                         className={`w-full text-left p-2 rounded-xl text-xs transition flex items-center justify-between border cursor-pointer ${
                           isSelected 
-                            ? 'bg-indigo-700 text-white font-bold border-indigo-500 shadow-xs' 
-                            : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200/60'
+                            ? 'bg-indigo-700 text-white font-bold border-indigo-500 shadow-xs'
+                            : 'bg-[var(--neo-inset)] hover:bg-[var(--neo-bg)] text-[var(--neo-muted)] border-[var(--neo-border)]'
                         }`}
                       >
                         <span className="flex items-center gap-1.5 truncate">
@@ -518,7 +518,7 @@ export const TopicClauseExplorer: React.FC = () => {
           </div>
 
           {/* Figure Preview & CAD Display (7 cols) */}
-          <div className="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-5 shadow-xs space-y-4">
+          <div className="lg:col-span-7 neo-card rounded-2xl p-5 space-y-4">
             {selectedFigure && (
               <>
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pb-3 border-b border-slate-100">
@@ -527,7 +527,7 @@ export const TopicClauseExplorer: React.FC = () => {
                       <span className="px-2.5 py-0.5 rounded-md text-xs font-mono font-bold bg-blue-100 text-blue-900 border border-blue-200">
                         {selectedFigure.standardOwner}
                       </span>
-                      <span className="px-2.5 py-0.5 rounded-md text-xs font-mono font-bold bg-slate-100 text-slate-700">
+                      <span className="px-2.5 py-0.5 rounded-md text-xs font-mono font-bold bg-[var(--neo-inset)] text-[var(--neo-text)]">
                         {selectedFigure.figureNumber}
                       </span>
                       {selectedFigure.isWorstCase && (
@@ -542,7 +542,7 @@ export const TopicClauseExplorer: React.FC = () => {
                   </div>
                 </div>
 
-                <p className="text-xs text-slate-600 leading-relaxed bg-slate-50 p-3 rounded-xl border border-slate-100">
+                <p className="text-xs text-[var(--neo-muted)] leading-relaxed neo-tray p-3 rounded-xl">
                   {isEn ? selectedFigure.description : (selectedFigure.descriptionZh || selectedFigure.description)}
                 </p>
 
@@ -567,9 +567,9 @@ export const TopicClauseExplorer: React.FC = () => {
                     </h4>
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs font-mono">
                       {selectedFigure.svgHighlights.map((hl, idx) => (
-                        <div key={idx} className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80">
-                          <span className="text-xs text-slate-400 block font-sans">{translateHighlightText(hl.title, isEn)}</span>
-                          <span className="font-bold text-slate-800 mt-0.5 block">{translateHighlightText(hl.value, isEn)}</span>
+                        <div key={idx} className="neo-tray p-2.5 rounded-xl">
+                          <span className="text-xs text-[var(--neo-muted)] block font-sans">{translateHighlightText(hl.title, isEn)}</span>
+                          <span className="font-bold text-[var(--neo-text)] mt-0.5 block">{translateHighlightText(hl.value, isEn)}</span>
                         </div>
                       ))}
                     </div>
@@ -577,7 +577,7 @@ export const TopicClauseExplorer: React.FC = () => {
                 )}
 
                 {/* CAD Blueprint Display */}
-                <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 flex justify-center">
+                <div className="neo-tray p-4 rounded-2xl flex justify-center">
                   <ISOStandardFigureRenderer
                     svgKey={selectedFigure.svgKey}
                     titleZh={selectedFigure.nameZh || selectedFigure.name}

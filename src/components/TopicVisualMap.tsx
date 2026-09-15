@@ -96,7 +96,7 @@ export const TopicVisualMap: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm space-y-4">
+      <div className="neo-card rounded-2xl p-5 space-y-4">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div>
             <div className="flex items-center space-x-2.5">
@@ -115,7 +115,7 @@ export const TopicVisualMap: React.FC = () => {
         </div>
 
         {/* Topic Selector Bar */}
-        <div className="mt-4 pt-3 border-t border-slate-100/80 flex flex-wrap items-center gap-2 pb-1 text-[13px]">
+        <div className="mt-4 pt-3 border-t border-[var(--neo-border)] flex flex-wrap items-center gap-2 pb-1 text-[13px]">
           <span className="font-bold text-slate-400 shrink-0">{t.visualMap.selectTopic}</span>
           {ISO_TOPICS.map(topic => (
             <button
@@ -124,7 +124,7 @@ export const TopicVisualMap: React.FC = () => {
               className={`px-3 py-1.5 rounded-xl font-semibold shrink-0 transition-all cursor-pointer min-h-[38px] flex items-center ${
                 selectedTopicId === topic.id
                   ? 'bg-blue-600 text-white shadow-xs font-bold'
-                  : 'bg-slate-100/80 text-slate-600 hover:bg-slate-200/80 hover:text-slate-900'
+                  : 'neo-tray text-[var(--neo-muted)] hover:text-[var(--neo-text)]'
               }`}
             >
               {isEn ? (topic.titleEn || topic.titleZh) : (topic.titleZh.split(' ')[1] || topic.titleZh)}
@@ -134,14 +134,14 @@ export const TopicVisualMap: React.FC = () => {
       </div>
 
       {/* Visual Flow Network Diagram */}
-      <div className="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm space-y-6 overflow-hidden">
+      <div className="neo-card rounded-2xl p-4 sm:p-6 space-y-6 overflow-hidden">
         
         {/* Node Columns Grid */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-5 relative">
           
           {/* Column 1: Topic Selected */}
           <div className="space-y-3">
-            <div className="flex items-center space-x-2 text-[13px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100 pb-2">
+            <div className="flex items-center space-x-2 text-[13px] font-bold text-slate-500 uppercase tracking-wider border-b border-[var(--neo-border)] pb-2">
               <span className="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
               <span>{t.visualMap.step1Title}</span>
             </div>
@@ -175,7 +175,7 @@ export const TopicVisualMap: React.FC = () => {
 
           {/* Column 2: ISO 80369-7 Requirements */}
           <div className="space-y-3">
-            <div className="flex items-center space-x-2 text-[13px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100 pb-2">
+            <div className="flex items-center space-x-2 text-[13px] font-bold text-slate-500 uppercase tracking-wider border-b border-[var(--neo-border)] pb-2">
               <span className="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
               <span>{t.visualMap.step2Title}</span>
             </div>
@@ -184,7 +184,7 @@ export const TopicVisualMap: React.FC = () => {
               {mappingNodes.iso7.map((item, idx) => (
                 <div
                   key={idx}
-                  className="bg-slate-50/90 border border-slate-200/90 rounded-2xl p-3.5 shadow-2xs space-y-2 hover:border-blue-400 transition-all duration-200"
+                  className="neo-card rounded-2xl p-3.5 space-y-2 transition-all duration-200"
                 >
                   <div className="flex items-center justify-between">
                     <span className="bg-blue-600 text-white font-mono font-bold text-[13px] px-2 py-0.5 rounded-md">
@@ -212,7 +212,7 @@ export const TopicVisualMap: React.FC = () => {
 
           {/* Column 3: ISO 80369-20 Test Annexes */}
           <div className="space-y-3">
-            <div className="flex items-center space-x-2 text-[13px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100 pb-2">
+            <div className="flex items-center space-x-2 text-[13px] font-bold text-slate-500 uppercase tracking-wider border-b border-[var(--neo-border)] pb-2">
               <span className="w-2.5 h-2.5 rounded-full bg-indigo-700"></span>
               <span>{t.visualMap.step3Title}</span>
             </div>
@@ -221,7 +221,7 @@ export const TopicVisualMap: React.FC = () => {
               {mappingNodes.iso20.map((item, idx) => (
                 <div
                   key={idx}
-                  className="bg-indigo-50/40 border border-indigo-200/80 rounded-2xl p-3.5 shadow-2xs space-y-2 hover:border-indigo-400 transition-all duration-200"
+                  className="neo-card rounded-2xl p-3.5 space-y-2 transition-all duration-200"
                 >
                   <div className="flex items-center justify-between">
                     <span className="bg-indigo-700 text-white font-mono font-bold text-[13px] px-2 py-0.5 rounded-md">
@@ -249,7 +249,7 @@ export const TopicVisualMap: React.FC = () => {
 
           {/* Column 4: Reference Fixtures & Pass Criteria */}
           <div className="space-y-3">
-            <div className="flex items-center space-x-2 text-[13px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100 pb-2">
+            <div className="flex items-center space-x-2 text-[13px] font-bold text-slate-500 uppercase tracking-wider border-b border-[var(--neo-border)] pb-2">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
               <span>{t.visualMap.step4Title}</span>
             </div>
@@ -314,7 +314,7 @@ export const TopicVisualMap: React.FC = () => {
         </div>
 
         {/* Detailed Relationship Connection Flow Bar */}
-        <div className="bg-slate-50/90 border border-slate-200/80 rounded-2xl p-4 flex flex-col md:flex-row items-center justify-between gap-3 text-[13px] text-slate-700 shadow-2xs">
+        <div className="neo-tray rounded-2xl p-4 flex flex-col md:flex-row items-center justify-between gap-3 text-[13px] text-[var(--neo-text)]">
           <div className="flex items-center space-x-2 font-bold text-slate-800">
             <Sparkles className="w-4 h-4 text-blue-600" />
             <span>{t.visualMap.chainTitle}:</span>

@@ -114,11 +114,11 @@ ${isEn ? 'Acceptance Criteria' : '法定允收標準'}: ${getClauseAcceptanceCri
         role="dialog"
         aria-modal="true"
         aria-label={isEn ? (topic.titleEn || topic.titleZh) : topic.titleZh}
-        className="relative w-full max-w-[1600px] bg-white shadow-2xl flex flex-col h-full z-10 border-x border-slate-200"
+        className="relative w-full max-w-[1600px] bg-[var(--neo-surface)] shadow-2xl flex flex-col h-full z-10 border-x border-[var(--neo-border)]"
       >
         
         {/* Drawer Header */}
-        <div className="bg-slate-50 border-b border-slate-200 shrink-0">
+        <div className="bg-[var(--neo-inset)] border-b border-[var(--neo-border)] shrink-0">
           <div className="max-w-5xl mx-auto px-5 py-4 flex items-center justify-between">
             <div className="flex items-center space-x-3 truncate">
               <div className="p-2 bg-blue-600 text-white rounded-xl shadow-xs shrink-0">
@@ -138,7 +138,7 @@ ${isEn ? 'Acceptance Criteria' : '法定允收標準'}: ${getClauseAcceptanceCri
             <div className="flex items-center space-x-2 shrink-0">
               <button
                 onClick={handleCopy}
-                className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 transition shadow-2xs cursor-pointer min-h-[34px]"
+                className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold neo-tray text-[var(--neo-text)] border border-[var(--neo-border)] transition cursor-pointer min-h-[34px]"
                 title="Copy details"
               >
                 {copied ? (
@@ -167,7 +167,7 @@ ${isEn ? 'Acceptance Criteria' : '法定允收標準'}: ${getClauseAcceptanceCri
 
         {/* Clause Selector Tabs (If multiple related clauses) */}
         {relatedClauses.length > 1 && (
-          <div className="bg-slate-100/80 border-b border-slate-200 shrink-0">
+          <div className="bg-[var(--neo-inset)] border-b border-[var(--neo-border)] shrink-0">
             <div className="max-w-5xl mx-auto px-5 py-2.5 flex items-center gap-1.5 overflow-x-auto no-scrollbar">
               <span className="text-xs font-bold text-slate-500 mr-1 shrink-0">
                 {isEn ? 'Linked Clauses:' : '相關連動條文:'}
@@ -181,7 +181,7 @@ ${isEn ? 'Acceptance Criteria' : '法定允收標準'}: ${getClauseAcceptanceCri
                     className={`px-3 py-1 rounded-lg text-xs font-bold transition flex items-center space-x-1.5 shrink-0 cursor-pointer min-h-[30px] ${
                       isActive
                         ? 'bg-blue-600 text-white shadow-xs'
-                        : 'bg-white text-slate-700 hover:bg-slate-200 border border-slate-200/80'
+                        : 'bg-[var(--neo-surface)] text-[var(--neo-text)] hover:bg-[var(--neo-inset)] border border-[var(--neo-border)]'
                     }`}
                   >
                     <span className="font-mono">{clause.standard.includes('80369-7') ? 'ISO 7' : 'ISO 20'}</span>
@@ -202,7 +202,7 @@ ${isEn ? 'Acceptance Criteria' : '法定允收標準'}: ${getClauseAcceptanceCri
             <section className="space-y-5">
               
               {/* Clause Title & Badges */}
-              <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2">
+              <div className="neo-tray p-4 rounded-2xl space-y-2">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <div className="flex items-center space-x-2">
                     <span className="px-2.5 py-0.5 rounded-md text-xs font-mono font-bold bg-blue-100 text-blue-900 border border-blue-200">
@@ -223,14 +223,14 @@ ${isEn ? 'Acceptance Criteria' : '法定允收標準'}: ${getClauseAcceptanceCri
 
               {/* Objective & Applies To */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1">
-                  <span className="text-xs font-bold text-slate-500 uppercase tracking-wide block">
+                <div className="neo-tray p-3.5 rounded-xl space-y-1">
+                  <span className="text-xs font-bold text-[var(--neo-muted)] uppercase tracking-wide block">
                     {isEn ? 'Standard Objective:' : '規範核心目的 (Objective):'}
                   </span>
                   <p className="text-slate-800 leading-relaxed">{getClauseObjective(activeClause, isEn)}</p>
                 </div>
-                <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1">
-                  <span className="text-xs font-bold text-slate-500 uppercase tracking-wide block">
+                <div className="neo-tray p-3.5 rounded-xl space-y-1">
+                  <span className="text-xs font-bold text-[var(--neo-muted)] uppercase tracking-wide block">
                     {isEn ? 'Applies To:' : '適用物件產品 (Applies To):'}
                   </span>
                   <p className="text-slate-800 leading-relaxed">{getClauseAppliesTo(activeClause, isEn)}</p>
@@ -287,18 +287,18 @@ ${isEn ? 'Acceptance Criteria' : '法定允收標準'}: ${getClauseAcceptanceCri
                     </div>
 
                     {activeClause.preAssembly?.status === 'direct_overload' ? (
-                      <p className="text-[11px] text-amber-900 leading-relaxed bg-white/80 p-2.5 rounded-lg border border-amber-200">
+                      <p className="text-[11px] text-amber-900 leading-relaxed bg-[var(--neo-pill)]/80 p-2.5 rounded-lg border border-amber-200">
                         {isEn ? (activeClause.preAssembly.descriptionEn || 'Directly tighten to 0.15-0.17 N·m without 27.5 N pre-assembly push force.') : (activeClause.preAssembly.descriptionZh || '考核公套環極限抗滑牙能力，由未旋緊初始狀態直接連續旋緊至 0.15~0.17 N·m，不執行前置 27.5 N 軸向推力預裝配。')}
                       </p>
                     ) : activeClause.preAssembly?.status === 'not_applicable' ? (
-                      <p className="text-[11px] text-slate-500 leading-relaxed bg-white/70 p-2.5 rounded-lg border border-slate-200 italic">
+                      <p className="text-[11px] text-slate-500 leading-relaxed bg-[var(--neo-pill)]/70 p-2.5 rounded-lg border border-[var(--neo-border)] italic">
                         {isEn ? (activeClause.preAssembly.descriptionEn || 'This clause covers scope, references, dimensions, fixtures, or administrative requirements — no physical connector pre-assembly is required.') : (activeClause.preAssembly.descriptionZh || '此條文為適用範圍、引用文件、尺寸公差、金屬夾具或行政規範等項目，無需執行實體接頭前置預裝配作業。')}
                       </p>
                     ) : (
                       <div className="space-y-2">
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 font-mono text-xs">
                           {(activeClause.preAssembly?.assemblyTorqueNm || activeClause.quantitativeConditions.assemblyTorqueNm) && (
-                            <div className="bg-white px-2 py-1.5 rounded-lg border border-blue-200">
+                            <div className="bg-[var(--neo-surface)] px-2 py-1.5 rounded-lg border border-blue-200">
                               <span className="text-[10px] text-slate-400 block font-sans">{isEn ? 'Torque:' : '裝配扭矩:'}</span>
                               <span className="font-bold text-slate-800">
                                 {translateQuantitativeCondition(activeClause.preAssembly?.assemblyTorqueNm || activeClause.quantitativeConditions.assemblyTorqueNm, isEn)}
@@ -306,14 +306,14 @@ ${isEn ? 'Acceptance Criteria' : '法定允收標準'}: ${getClauseAcceptanceCri
                             </div>
                           )}
                           {(activeClause.preAssembly?.assemblyAxialForceN || activeClause.quantitativeConditions.assemblyAxialForceN) && (
-                            <div className="bg-white px-2 py-1.5 rounded-lg border border-blue-200">
+                            <div className="bg-[var(--neo-surface)] px-2 py-1.5 rounded-lg border border-blue-200">
                               <span className="text-[10px] text-slate-400 block font-sans">{isEn ? 'Axial Force:' : '軸向推力:'}</span>
                               <span className="font-bold text-slate-800">
                                 {translateQuantitativeCondition(activeClause.preAssembly?.assemblyAxialForceN || activeClause.quantitativeConditions.assemblyAxialForceN, isEn)}
                               </span>
                             </div>
                           )}
-                          <div className="bg-white px-2 py-1.5 rounded-lg border border-blue-200">
+                          <div className="bg-[var(--neo-surface)] px-2 py-1.5 rounded-lg border border-blue-200">
                             <span className="text-[10px] text-slate-400 block font-sans">{isEn ? 'Hold Time:' : '保持時間:'}</span>
                             <span className="font-bold text-slate-800">
                               {translateQuantitativeCondition(activeClause.preAssembly?.holdTimeSec || (isEn ? '5 - 6 s' : '5 - 6 秒'), isEn)}
@@ -328,7 +328,7 @@ ${isEn ? 'Acceptance Criteria' : '法定允收標準'}: ${getClauseAcceptanceCri
                   </div>
 
                   {/* Phase 2: Test Challenge Load */}
-                  <div className="bg-slate-50 border border-slate-200 rounded-xl p-3.5 space-y-2 flex flex-col justify-between">
+                  <div className="neo-tray rounded-xl p-3.5 space-y-2 flex flex-col justify-between">
                     <div className="flex items-center justify-between">
                       <span className="font-bold text-slate-800 flex items-center gap-1.5">
                         <Gauge className="w-3.5 h-3.5 text-indigo-600" />
@@ -341,7 +341,7 @@ ${isEn ? 'Acceptance Criteria' : '法定允收標準'}: ${getClauseAcceptanceCri
 
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 font-mono text-xs">
                       {activeClause.quantitativeConditions.testPressureKpa && (
-                        <div className="bg-white px-2 py-1.5 rounded-lg border border-blue-200">
+                        <div className="bg-[var(--neo-surface)] px-2 py-1.5 rounded-lg border border-blue-200">
                           <span className="text-[10px] text-blue-600 block font-sans">{isEn ? 'Pressure:' : '測試壓力:'}</span>
                           <span className="font-bold text-blue-900">
                             {translateQuantitativeCondition(activeClause.quantitativeConditions.testPressureKpa, isEn)}
@@ -349,7 +349,7 @@ ${isEn ? 'Acceptance Criteria' : '法定允收標準'}: ${getClauseAcceptanceCri
                         </div>
                       )}
                       {activeClause.quantitativeConditions.testTorqueNm && (
-                        <div className="bg-white px-2 py-1.5 rounded-lg border border-amber-200">
+                        <div className="bg-[var(--neo-surface)] px-2 py-1.5 rounded-lg border border-amber-200">
                           <span className="text-[10px] text-amber-700 block font-sans">{isEn ? 'Torque:' : '測試扭矩:'}</span>
                           <span className="font-bold text-amber-900">
                             {translateQuantitativeCondition(activeClause.quantitativeConditions.testTorqueNm, isEn)}
@@ -357,7 +357,7 @@ ${isEn ? 'Acceptance Criteria' : '法定允收標準'}: ${getClauseAcceptanceCri
                         </div>
                       )}
                       {activeClause.quantitativeConditions.testForceN && (
-                        <div className="bg-white px-2 py-1.5 rounded-lg border border-emerald-200">
+                        <div className="bg-[var(--neo-surface)] px-2 py-1.5 rounded-lg border border-emerald-200">
                           <span className="text-[10px] text-emerald-700 block font-sans">{isEn ? 'Force:' : '測試拉力:'}</span>
                           <span className="font-bold text-emerald-900">
                             {translateQuantitativeCondition(activeClause.quantitativeConditions.testForceN, isEn)}
@@ -365,16 +365,16 @@ ${isEn ? 'Acceptance Criteria' : '法定允收標準'}: ${getClauseAcceptanceCri
                         </div>
                       )}
                       {activeClause.quantitativeConditions.holdTimeSec && (
-                        <div className="bg-white px-2 py-1.5 rounded-lg border border-slate-200">
-                          <span className="text-[10px] text-slate-400 block font-sans">{isEn ? 'Hold Time:' : '考驗時間:'}</span>
+                        <div className="bg-[var(--neo-surface)] px-2 py-1.5 rounded-lg border border-[var(--neo-border)]">
+                          <span className="text-[10px] text-[var(--neo-muted)] block font-sans">{isEn ? 'Hold Time:' : '考驗時間:'}</span>
                           <span className="font-bold text-slate-800">
                             {translateQuantitativeCondition(activeClause.quantitativeConditions.holdTimeSec, isEn)}
                           </span>
                         </div>
                       )}
                       {activeClause.quantitativeConditions.temperatureC && (
-                        <div className="bg-white px-2 py-1.5 rounded-lg border border-slate-200">
-                          <span className="text-[10px] text-slate-400 block font-sans">{isEn ? 'Temp:' : '溫度:'}</span>
+                        <div className="bg-[var(--neo-surface)] px-2 py-1.5 rounded-lg border border-[var(--neo-border)]">
+                          <span className="text-[10px] text-[var(--neo-muted)] block font-sans">{isEn ? 'Temp:' : '溫度:'}</span>
                           <span className="font-bold text-slate-800">
                             {translateQuantitativeCondition(activeClause.quantitativeConditions.temperatureC, isEn)}
                           </span>
@@ -394,7 +394,7 @@ ${isEn ? 'Acceptance Criteria' : '法定允收標準'}: ${getClauseAcceptanceCri
                   </span>
                   <div className="space-y-1.5">
                     {getClauseTestProcedureSteps(activeClause, isEn).map((step, idx) => (
-                      <div key={idx} className="flex items-start space-x-2 text-xs text-slate-700 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                      <div key={idx} className="flex items-start space-x-2 text-xs text-[var(--neo-text)] neo-tray p-2.5 rounded-xl">
                         <span className="w-5 h-5 rounded-full bg-blue-100 text-blue-800 font-mono text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
                           {idx + 1}
                         </span>
@@ -471,7 +471,7 @@ ${isEn ? 'Acceptance Criteria' : '法定允收標準'}: ${getClauseAcceptanceCri
                                 className={`px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center space-x-1 shrink-0 cursor-pointer ${
                                   isFigActive
                                     ? 'bg-blue-600 text-white shadow-xs'
-                                    : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200'
+                                    : 'neo-tray text-[var(--neo-muted)] border border-[var(--neo-border)]'
                                 }`}
                               >
                                 <span>{fig.svgKey === 'ISO20-FIG-B2' ? '📈' : '📐'}</span>
@@ -482,7 +482,7 @@ ${isEn ? 'Acceptance Criteria' : '法定允收標準'}: ${getClauseAcceptanceCri
                         </div>
                       )}
                     </div>
-                    <div className="bg-slate-50 p-3 rounded-2xl border border-slate-200 flex justify-center">
+                    <div className="neo-tray p-3 rounded-2xl flex justify-center">
                       <ISOStandardFigureRenderer
                         svgKey={effectiveFigureKey}
                         titleZh={figInfo?.nameZh || topicFig?.titleZh || getClauseTitle(activeClause, false)}
@@ -503,7 +503,7 @@ ${isEn ? 'Acceptance Criteria' : '法定允收標準'}: ${getClauseAcceptanceCri
                         </span>
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs font-mono">
                           {figInfo.svgHighlights.map((hl, idx) => (
-                            <div key={idx} className="bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                            <div key={idx} className="neo-tray p-2.5 rounded-xl">
                               <span className="text-[11px] text-slate-400 block font-sans">{translateHighlightText(hl.title, isEn)}</span>
                               <span className="font-bold text-slate-800 mt-0.5 block">{translateHighlightText(hl.value, isEn)}</span>
                             </div>
@@ -597,7 +597,7 @@ ${isEn ? 'Acceptance Criteria' : '法定允收標準'}: ${getClauseAcceptanceCri
         </div>
 
         {/* Drawer Footer */}
-        <div className="bg-slate-50 border-t border-slate-200 shrink-0">
+        <div className="bg-[var(--neo-inset)] border-t border-[var(--neo-border)] shrink-0">
           <div className="max-w-5xl mx-auto px-5 py-3 flex items-center justify-between text-xs text-slate-500">
             <span>ISO 80369 Navigation Reference</span>
             <button

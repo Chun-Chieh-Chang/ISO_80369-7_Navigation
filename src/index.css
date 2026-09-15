@@ -25,6 +25,30 @@
   --color-brand-900: #1e3a8a;
 }
 
+/* ── Inset Focus Design System ──────────────────────────────────────
+   凹凸光影設計系統
+   Ground: cool blue-gray field that frames elevated and inset surfaces.
+   Shadows: two-layer — a cool-tinted dark cast + a sharp white highlight.
+   ──────────────────────────────────────────────────────────────────── */
+:root {
+  /* Surface strata */
+  --neo-bg:       #e3e9f3;   /* page ground */
+  --neo-surface:  #ecf1f9;   /* elevated cards */
+  --neo-inset:    #d8e0ee;   /* sunken trays / inputs */
+  --neo-pill:     #f4f7fd;   /* active pill on a surface */
+
+  /* Two-layer shadow pair — dark cast + white highlight */
+  --neo-sd:       rgba(140, 158, 192, 0.48);
+  --neo-sl:       rgba(255, 255, 255, 0.90);
+
+  /* Accent & type */
+  --neo-accent:   #3764d7;
+  --neo-border:   rgba(182, 198, 222, 0.55);
+  --neo-text:     #17263c;
+  --neo-muted:    #62778f;
+}
+
+
 @layer base {
   html {
     font-size: 16px;
@@ -36,9 +60,8 @@
   body {
     font-size: 14px;
     line-height: 1.6;
-    /* Slightly cooler, more deliberate background — not the Tailwind default f8fafc */
-    background-color: #EFF2F6;
-    color: #1a2535;
+    background-color: var(--neo-bg);
+    color: var(--neo-text);
   }
 
   /* Tighten heading tracking for editorial precision */
@@ -56,7 +79,60 @@
   }
 }
 
-/* Custom UI Utility Classes */
+/* ── Neo Utility Classes ─────────────────────────────────────────── */
+
+/* Elevated card — floats above the page ground */
+.neo-card {
+  background-color: var(--neo-surface);
+  box-shadow:
+     6px  6px 15px var(--neo-sd),
+    -6px -6px 15px var(--neo-sl);
+  transition: box-shadow 0.22s ease;
+}
+.neo-card:hover {
+  box-shadow:
+     9px  9px 22px var(--neo-sd),
+    -9px -9px 22px var(--neo-sl);
+}
+
+/* Inset tray — sunken container for groups or tabs */
+.neo-tray {
+  background-color: var(--neo-inset);
+  box-shadow:
+    inset  3px  3px  8px var(--neo-sd),
+    inset -3px -3px  8px var(--neo-sl);
+}
+
+/* Active pill — elevated button sitting inside a tray or card */
+.neo-pill-active {
+  background-color: var(--neo-pill);
+  box-shadow:
+     3px  3px  8px var(--neo-sd),
+    -3px -3px  8px var(--neo-sl);
+}
+
+/* Inset input field */
+.neo-input {
+  background-color: var(--neo-inset);
+  color: var(--neo-text);
+  border: 1px solid var(--neo-border);
+  box-shadow:
+    inset  2px  2px  6px var(--neo-sd),
+    inset -2px -2px  6px var(--neo-sl);
+  transition: box-shadow 0.18s ease;
+}
+.neo-input::placeholder {
+  color: var(--neo-muted);
+}
+.neo-input:focus {
+  outline: none;
+  box-shadow:
+    inset  2px  2px  6px var(--neo-sd),
+    inset -2px -2px  6px var(--neo-sl),
+    0 0 0 2.5px rgba(55, 100, 215, 0.22);
+}
+
+/* ── Legacy aliases (kept for backward compat) ────────────────────── */
 .glass-panel {
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px);
@@ -65,16 +141,16 @@
 }
 
 .premium-card {
-  background-color: #ffffff;
-  border: 1px solid #dde3ec;
-  /* Disciplined single shadow — not scattered across every card */
-  box-shadow: 0 1px 2px 0 rgba(15, 23, 42, 0.06);
-  transition: box-shadow 0.18s ease, border-color 0.18s ease;
+  background-color: var(--neo-surface);
+  box-shadow:
+     6px  6px 15px var(--neo-sd),
+    -6px -6px 15px var(--neo-sl);
+  transition: box-shadow 0.22s ease;
 }
-
 .premium-card:hover {
-  box-shadow: 0 4px 12px -3px rgba(15, 23, 42, 0.10), 0 1px 4px -1px rgba(15, 23, 42, 0.06);
-  border-color: #b8c4d4;
+  box-shadow:
+     9px  9px 22px var(--neo-sd),
+    -9px -9px 22px var(--neo-sl);
 }
 
 /* Technical data highlight — for measurements, only here should mono appear */
