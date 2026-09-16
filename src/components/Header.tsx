@@ -45,14 +45,14 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
   return (
     <header className="sticky top-0 z-50">
 
-      {/* ── Brand bar: deep navy, calm authority ── */}
-      <div className="bg-[#0D1B2E] border-b border-white/[0.07]">
+      {/* ── Brand bar: 黛紫灰 deep purple, calm authority ── */}
+      <div className="bg-[#252035] border-b border-white/[0.07]">
         <div className="max-w-[1920px] w-[96%] mx-auto px-3 sm:px-6 lg:px-10 h-[52px] flex items-center justify-between gap-4">
 
           {/* Brand */}
           <div className="flex items-center gap-3 min-w-0">
-            <div className="p-1.5 rounded-lg bg-sky-500/15 border border-sky-500/20 shrink-0">
-              <FileText className="w-4 h-4 text-sky-300" />
+            <div className="p-1.5 rounded-lg bg-purple-400/15 border border-purple-400/25 shrink-0">
+              <FileText className="w-4 h-4 text-purple-300" />
             </div>
             <div className="min-w-0 leading-none">
               <h1 className="text-[14px] font-semibold text-white tracking-tight truncate">
@@ -103,11 +103,11 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
                   onClick={() => setActiveTab(hub.defaultTab)}
                   className={`flex items-center gap-2 px-4 py-1.5 text-[13px] font-medium transition-all whitespace-nowrap rounded-xl cursor-pointer ${
                     isActive
-                      ? 'neo-pill-active text-blue-600 font-semibold'
+                      ? 'neo-pill-active text-[var(--neo-accent)] font-semibold'
                       : 'text-[var(--neo-muted)] hover:text-[var(--neo-text)]'
                   }`}
                 >
-                  <Icon className={`w-[15px] h-[15px] shrink-0 ${isActive ? 'text-blue-500' : 'text-[var(--neo-muted)]'}`} />
+                  <Icon className={`w-[15px] h-[15px] shrink-0 ${isActive ? 'text-[var(--neo-accent)]' : 'text-[var(--neo-muted)]'}`} />
                   <span>{hub.label}</span>
                 </button>
               );
@@ -126,11 +126,11 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
                     onClick={() => setActiveTab(sub.id)}
                     className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] font-medium transition-all cursor-pointer ${
                       isSubActive
-                        ? 'neo-pill-active text-blue-600 font-semibold'
+                        ? 'neo-pill-active text-[var(--neo-accent)] font-semibold'
                         : 'text-[var(--neo-muted)] hover:text-[var(--neo-text)]'
                     }`}
                   >
-                    <SubIcon className={`w-[14px] h-[14px] ${isSubActive ? 'text-blue-500' : 'text-[var(--neo-muted)]'}`} />
+                    <SubIcon className={`w-[14px] h-[14px] ${isSubActive ? 'text-[var(--neo-accent)]' : 'text-[var(--neo-muted)]'}`} />
                     <span>{sub.label}</span>
                   </button>
                 );

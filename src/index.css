@@ -5,24 +5,24 @@
   --text-xs: 0.8125rem; /* 13px */
   --text-xs--line-height: 1.4;
   
-  /* Industrial Precision Morandi Color Palette */
-  --color-slate-50: #f8fafc;
-  --color-slate-100: #f1f5f9;
-  --color-slate-200: #e2e8f0;
-  --color-slate-300: #cbd5e1;
-  --color-slate-400: #94a3b8;
-  --color-slate-500: #64748b;
-  --color-slate-600: #475569;
-  --color-slate-700: #334155;
-  --color-slate-800: #1e293b;
-  --color-slate-900: #0f172a;
+  /* 黛紫灰–霧斯紫 Neumorphic Color Palette */
+  --color-slate-50: #f5f1ff;
+  --color-slate-100: #ede6fb;
+  --color-slate-200: #ddd4f4;
+  --color-slate-300: #c8bce8;
+  --color-slate-400: #a896cb;
+  --color-slate-500: #8a74b8;
+  --color-slate-600: #6e5a9e;
+  --color-slate-700: #53447e;
+  --color-slate-800: #362f5a;
+  --color-slate-900: #1e1a30;
 
-  --color-brand-50: #eff6ff;
-  --color-brand-100: #dbeafe;
-  --color-brand-500: #2563eb;
-  --color-brand-600: #1d4ed8;
-  --color-brand-700: #1e40af;
-  --color-brand-900: #1e3a8a;
+  --color-brand-50: #f3eeff;
+  --color-brand-100: #e4d9ff;
+  --color-brand-500: #7255c0;
+  --color-brand-600: #6244ae;
+  --color-brand-700: #52359e;
+  --color-brand-900: #362478;
 }
 
 /* ── Inset Focus Design System ──────────────────────────────────────
@@ -31,21 +31,21 @@
    Shadows: two-layer — a cool-tinted dark cast + a sharp white highlight.
    ──────────────────────────────────────────────────────────────────── */
 :root {
-  /* Surface strata */
-  --neo-bg:       #e3e9f3;   /* page ground */
-  --neo-surface:  #ecf1f9;   /* elevated cards */
-  --neo-inset:    #d8e0ee;   /* sunken trays / inputs */
-  --neo-pill:     #f4f7fd;   /* active pill on a surface */
+  /* Surface strata — 黛紫灰 #363247 × 霧斯紫 #A896CB */
+  --neo-bg:       #ddd4f0;   /* page ground — light purple-gray */
+  --neo-surface:  #e6ddf8;   /* elevated cards */
+  --neo-inset:    #cec6e4;   /* sunken trays / inputs */
+  --neo-pill:     #ede6ff;   /* active pill on a surface */
 
-  /* Two-layer shadow pair — dark cast + white highlight */
-  --neo-sd:       rgba(140, 158, 192, 0.48);
-  --neo-sl:       rgba(255, 255, 255, 0.90);
+  /* Two-layer shadow pair — 黛紫灰 dark cast + white highlight */
+  --neo-sd:       rgba(54, 50, 71, 0.42);
+  --neo-sl:       rgba(255, 255, 255, 0.88);
 
   /* Accent & type */
-  --neo-accent:   #3764d7;
-  --neo-border:   rgba(182, 198, 222, 0.55);
-  --neo-text:     #17263c;
-  --neo-muted:    #62778f;
+  --neo-accent:   #7255c0;
+  --neo-border:   rgba(120, 100, 175, 0.38);
+  --neo-text:     #1e1a30;
+  --neo-muted:    #6a5e88;
 }
 
 
@@ -159,7 +159,7 @@
   font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: -0.01em;
-  color: #1d4ed8;
+  color: #7255c0;
 }
 
 /* Custom Slim Scrollbars */
@@ -168,15 +168,15 @@
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #ddd4f0;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #c8bce8;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #a896cb;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
