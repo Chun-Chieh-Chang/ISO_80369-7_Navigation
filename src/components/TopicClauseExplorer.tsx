@@ -36,12 +36,12 @@ export const TopicClauseExplorer: React.FC = () => {
   // Figure Tree States
   const [selectedFigureId, setSelectedFigureId] = useState<string>('B.2');
   const [expandedNodes, setExpandedNodes] = useState<Record<string, boolean>>({
-    'iso7': true,
-    'iso7-annex-a': true,
-    'iso7-annex-b': true,
-    'iso7-annex-c': true,
-    'iso20': true,
-    'iso20-annexes': true
+    'iso7': false,
+    'iso7-annex-a': false,
+    'iso7-annex-b': false,
+    'iso7-annex-c': false,
+    'iso20': false,
+    'iso20-annexes': false
   });
 
   const toggleNode = (nodeKey: string) => {

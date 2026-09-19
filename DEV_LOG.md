@@ -1,6 +1,28 @@
 # 開發日誌 (DEV_LOG)
 
 ---
+## 版本：v8.42.1 (Commit: TBD) 規範附件圖表導航樹所有抽屜預設收合狀態優化 (2026-09-19)
+
+### 需求來源
+使用者進一步確認需求：「所有抽屜都預設為收合狀態」。包含最外層標準節點（ISO 80369-7 / ISO 80369-20）以及內層各附錄子抽屜（Annex A、Annex B、Annex C、Annexes），皆需統一預設為收合狀態。
+
+### 1. 診斷與根因 (RCA)
+- **初始狀態設計**：在 `src/components/TopicClauseExplorer.tsx` 中，`expandedNodes` 雖已將根節點改為收合，但其底下的各 Annex 子抽屜（`iso7-annex-a`、`iso7-annex-b`、`iso7-annex-c`、`iso20-annexes`）初值仍為 `true`。當使用者點開根目錄時，所有子抽屜立刻全部展開，未達到層級式收合（Collapsible Accordion）的極簡體驗。
+- **改善方向**：將 `expandedNodes` 中所有抽屜節點之布林初值全數設定為 `false`，實現所有層級抽屜預設全面收合。
+
+### 2. 矯正與預防措施 (CAPA)
+- **程式碼修訂**：在 `src/components/TopicClauseExplorer.tsx` 中，將 `expandedNodes` 內所有節點鍵值（`iso7`、`iso7-annex-a`、`iso7-annex-b`、`iso7-annex-c`、`iso20`、`iso20-annexes`）統一設為 `false`。
+- **階層式展開體驗**：使用者點擊展開 ISO 80369-7 根節點後，會先看到收合狀態的 Annex A、Annex B、Annex C 三個子抽屜，點選特定 Annex 才進一步展開對應圖表，層次清晰且垂直空間不膨脹。
+- **版本號維護**：`package.json` 版本為 8.42.1。
+
+### 3. 驗收標準 (Acceptance Criteria)
+- [x] `npm run lint`（tsc --noEmit）— 0 errors
+- [x] `npm run test`（vitest run）— 52/52 PASS
+- [x] `npm run build`（vite build）— PASS
+- [x] 瀏覽器實測驗證：進入「規範附件導航庫」時，所有抽屜（根節點及點開後之子抽屜 Annex A/B/C）均為折疊箭頭（`>`）收合狀態；點選任一子抽屜可平滑展開圖表清單，Fig. C.3 最壞情況接頭等藍圖預覽與參數運作完全正常。
+- [x] Console 零錯誤。
+
+---
 ## 版本：v8.42.0 (Commit: TBD) Preassembly Fallback 描述漏洞全面修復 + 全面盤點清理 (2026-09-08)
 
 ### 需求來源
