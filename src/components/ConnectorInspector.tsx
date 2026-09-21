@@ -105,7 +105,7 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
               <FileCode className="w-3.5 h-3.5 text-blue-400" /> CAD Drawing ID: ISO_80369_7_{selectedFig.annexGroup.replace(' ', '_')}_{selectedFig.id}
             </span>
             <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold ${
-              selectedFig.isWorstCase ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30' : 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
+              selectedFig.isWorstCase ? 'bg-rose-100 text-rose-800 border border-rose-300' : 'bg-blue-100 text-blue-800 border border-blue-300'
             }`}>
               {selectedFig.isWorstCase ? t.connectors.worstCaseBadge : (isEn ? `✅ ${selectedFig.annexGroup} Nominal Standard` : `✅ ${selectedFig.annexGroup} 標稱標準件`)}
             </span>
