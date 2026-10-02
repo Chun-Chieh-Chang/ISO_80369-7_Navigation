@@ -10,10 +10,10 @@ export const ISO_CLAUSES: Record<string, ISOClauseInfo> = {
     assemblyTorqueNm: { min: 0.08, max: 0.12 },
     assemblyAxialForceN: { min: 26.5, max: 27.5 },
     holdTimeSec: { min: 15, max: 35 }, // 15-20s for pressure decay (6.1.2); 30-35s for falling drop (6.1.3)
-    passCriteria: 'Pneumatic method (6.1.2): Leakage rate shall not exceed 0.005 Pa·m³/s under 300 kPa–330 kPa over 15 s–20 s. Liquid method (6.1.3): No falling drop of water under 300 kPa–330 kPa over 30 s–35 s.',
-    passCriteriaZh: '【氣壓衰減法 (6.1.2)】於 300 kPa–330 kPa 保持 15–20 秒，洩漏率 ≤ 0.005 Pa·m³/s。或【正壓液體落滴法 (6.1.3)】於 300 kPa–330 kPa 保持 30–35 秒，無足形成或滴落之水滴。',
-    keyPhysics: 'Assesses 6% taper seal interface under standard pre-assembly.',
-    keyPhysicsZh: '評估 6% 魯爾錐面在標準預裝配（鎖定型: 0.08–0.12 N·m + 26.5–27.5 N; 滑動型: 26.5–27.5 N 微旋 ≤90°）下的正壓密封性。法規明訂以氣壓衰減法 (6.1.2) 或液體落滴法 (6.1.3) 驗證。'
+    passCriteria: 'Either method per 6.1.1 (choose one). Pneumatic method (6.1.2, air, test procedure: ISO 80369-20 Annex B): Leakage rate shall not exceed 0.005 Pa·m³/s under 300 kPa–330 kPa over 15 s–20 s. Liquid method (6.1.3, water, test procedure: ISO 80369-20 Annex C): No falling drop of water under 300 kPa–330 kPa over 30 s–35 s. A greater applied pressure may be used. Test parameters and acceptance values are specified in ISO 80369-7, not in ISO 80369-20.',
+    passCriteriaZh: '依 6.1.1 擇一評估。【氣壓衰減法 (6.1.2，介質：空氣，測試程序：ISO 80369-20 Annex B)】於 300 kPa–330 kPa 保持 15–20 秒，洩漏率 ≤ 0.005 Pa·m³/s。或【正壓液體落滴法 (6.1.3，介質：水，測試程序：ISO 80369-20 Annex C)】於 300 kPa–330 kPa 保持 30–35 秒，無足以形成落滴之水滴洩漏。兩法皆可採用更高的施加壓力。壓力、時間與判定值由 ISO 80369-7 條文規定（非 ISO 80369-20 附錄）。',
+    keyPhysics: 'Assesses 6% taper seal interface under standard pre-assembly. Only the pneumatic method (6.1.2) is an air-tightness test; the liquid method (6.1.3) uses water.',
+    keyPhysicsZh: '評估 6% 魯爾錐面在標準預裝配（鎖定型: 0.08–0.12 N·m + 26.5–27.5 N; 滑動型: 26.5–27.5 N 微旋 ≤90°）下的正壓密封性。法規明訂以氣壓衰減法 (6.1.2，空氣，屬氣密測試) 或液體落滴法 (6.1.3，水，非氣密測試) 二擇一驗證。'
   },
   '6.2': {
     id: '6.2',
@@ -24,8 +24,8 @@ export const ISO_CLAUSES: Record<string, ISOClauseInfo> = {
     assemblyTorqueNm: { min: 0.08, max: 0.12 },
     assemblyAxialForceN: { min: 26.5, max: 27.5 },
     holdTimeSec: { min: 15, max: 20 },
-    passCriteria: 'Air leakage rate shall not exceed 0.005 Pa·m³/s at 80.0 kPa–88.0 kPa vacuum over 15s–20s.',
-    passCriteriaZh: '在 80.0 kPa–88.0 kPa 負壓真空下保持 15–20 秒，空氣洩漏率不超過 0.005 Pa·m³/s (Annex D)。',
+    passCriteria: 'Air leakage rate shall not exceed 0.005 Pa·m³/s at 80.0 kPa–88.0 kPa vacuum over 15s–20s (test procedure: ISO 80369-20 Annex D). A greater applied sub-atmospheric pressure may be used. Test parameters and acceptance values are specified in ISO 80369-7, not in ISO 80369-20.',
+    passCriteriaZh: '在 80.0 kPa–88.0 kPa 負壓真空下保持 15–20 秒，空氣洩漏率不超過 0.005 Pa·m³/s（測試程序：ISO 80369-20 Annex D）。可採用更高的負壓。壓力、時間與判定值由 ISO 80369-7 條文規定（非 ISO 80369-20 附錄）。',
     keyPhysics: 'Ensures no air ingress into fluid lines under vacuum aspiration.',
     keyPhysicsZh: '確保在抽吸或負壓狀態下，空氣不會經由錐面吸入輸液管路（預防氣栓）。'
   },

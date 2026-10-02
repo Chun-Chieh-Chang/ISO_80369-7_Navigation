@@ -9,7 +9,7 @@ export const ISO_TOPICS: ISOTopic[] = [
     categoryZh: '洩漏與氣密',
     iconName: 'Droplets',
     shortSummaryZh: '評估 6% 魯爾錐面與螺紋在 300~330 kPa 加壓下的密封防漏能力 (水滴法無水滴 / 壓降法漏率 ≤ 0.005 Pa·m³/s)。',
-    detailedDescriptionZh: '正壓流體洩漏測試為醫療級魯爾接頭最基礎且核心的驗證項目。接頭依標準預裝配程序（鎖定型先旋至 0.08~0.12 N·m 扭矩再施加 26.5~27.5 N 推力；滑動型先施加 26.5~27.5 N 推力再以 ≤0.10 N·m 扭矩微旋 ≤90°，維持 5~6 秒後釋放）旋合於標準參考金屬夾具後，於 300 kPa 至 330 kPa 下驗證防漏安全性。若採用【氣壓壓降法 (Annex B)】，持壓 15~20 秒且極限洩漏率必須遵循 ≤ 0.005 Pa·m³/s 規定。根據 ISO 80369-20:2024 最新修訂，已取消洩漏率 Q 的計算公式，改為直接記錄測試期間的壓力變化值（壓降 ΔP），透過理想氣體狀態方程 ΔP_max = (Q_max × Δt) / V 進行物理換算；若採用【水壓滴落法 (Annex C)】，持壓 30~35 秒且目視不得有水滴形成或滴落。',
+    detailedDescriptionZh: '正壓流體洩漏測試為醫療級魯爾接頭最基礎且核心的驗證項目。接頭依標準預裝配程序（鎖定型先旋至 0.08~0.12 N·m 扭矩再施加 26.5~27.5 N 推力；滑動型先施加 26.5~27.5 N 推力再以 ≤0.10 N·m 扭矩微旋 ≤90°，維持 5~6 秒後釋放）旋合於標準參考金屬夾具後，於 300 kPa 至 330 kPa 下驗證防漏安全性（可採用更高的施加壓力）。依 ISO 80369-7 6.1.1，須以下列兩法【擇一】評估：若採用【氣壓壓降法（6.1.2，介質為空氣，屬氣密測試，程序見 ISO 80369-20 Annex B）】，持壓 15~20 秒且極限洩漏率必須遵循 ≤ 0.005 Pa·m³/s 規定。根據 ISO 80369-20:2024 最新修訂，已取消洩漏率 Q 的計算公式，改為直接記錄測試期間的壓力變化值（壓降 ΔP），透過理想氣體狀態方程 ΔP_max = (Q_max × Δt) / V 進行物理換算；若採用【水壓滴落法（6.1.3，介質為水，非氣密測試，程序見 ISO 80369-20 Annex C）】，持壓 30~35 秒且目視不得有足以形成落滴之水滴洩漏。注意：壓力、持壓時間與判定值皆由 ISO 80369-7 條文規定，ISO 80369-20 的 Annex B / C 僅規範測試程序。',
     keyParameters: [
       { label: '裝配扭矩 Assembly Torque', value: '0.08 - 0.12 (Lock) / ≤ 0.10 (Slip)', unit: 'N·m' },
       { label: '測試壓力 Test Pressure', value: '300 - 330', unit: 'kPa' },
@@ -17,7 +17,8 @@ export const ISO_TOPICS: ISOTopic[] = [
       { label: '水滴法持壓 Hold Time', value: '30 - 35', unit: '秒' },
       { label: '壓降法持壓 Hold Time', value: '15 - 20', unit: '秒' },
       { label: '預處理環境 Preconditioning (ISO 80369-20)', value: '(20 ± 5)°C, (50 ± 10)% RH, ≥24h' },
-      { label: '測試執行環境 Test Environment', value: '15°C – 30°C, 10% – 70% RH' }
+      { label: '測試執行環境 Test Environment', value: '15°C – 30°C, 10% – 70% RH' },
+      { label: '判定值來源 Source of Values', value: 'ISO 80369-7:2021 6.1.2 (氣壓法 / Annex B) 或 6.1.3 (水壓法 / Annex C)，擇一 (6.1.1)' }
     ],
     relatedISO7Clauses: ['6.1'],
     relatedISO20Annexes: ['Annex B', 'Annex C'],
@@ -111,12 +112,13 @@ export const ISO_TOPICS: ISOTopic[] = [
     categoryZh: '洩漏與氣密',
     iconName: 'Wind',
     shortSummaryZh: '在 80~88 kPa 真空負壓下保持 15~20 秒，驗證無空氣吸入管路（防氣栓危害）。',
-    detailedDescriptionZh: '負壓空氣洩漏測試模擬抽吸藥液、體液引流或泵浦抽吸時管路內產生的負壓環境。若魯爾接頭氣密性不足，外部空氣會經由錐面縫隙被吸入輸液系統，可能引發靜脈空氣栓塞（Air Embolism）等重大醫療風險。ISO 80369-20:2024 最新新增 Annex K（抽吸過程水下氣泡目視檢驗法）。',
+    detailedDescriptionZh: '負壓空氣洩漏測試模擬抽吸藥液、體液引流或泵浦抽吸時管路內產生的負壓環境。若魯爾接頭氣密性不足，外部空氣會經由錐面縫隙被吸入輸液系統，可能引發靜脈空氣栓塞（Air Embolism）等重大醫療風險。依 ISO 80369-7 6.2，於 80.0~88.0 kPa 負壓下保持 15~20 秒，空氣洩漏率不得超過 0.005 Pa·m³/s（可採用更高的負壓），測試程序見 ISO 80369-20 Annex D；壓力、時間與判定值由 ISO 80369-7 條文規定。ISO 80369-20:2024 最新新增 Annex K（抽吸過程水下氣泡目視檢驗法）。',
     keyParameters: [
       { label: '裝配扭矩 Assembly Torque', value: '0.08 - 0.12 (Lock) / ≤ 0.10 (Slip)', unit: 'N·m' },
       { label: '真空負壓 Test Vacuum', value: '80.0 - 88.0', unit: 'kPa' },
       { label: '保持時間 Hold Time', value: '15 - 20', unit: '秒' },
-      { label: '洩漏極限 Max Leak Rate', value: '≤ 0.005', unit: 'Pa·m³/s' }
+      { label: '洩漏極限 Max Leak Rate', value: '≤ 0.005', unit: 'Pa·m³/s' },
+      { label: '判定值來源 Source of Values', value: 'ISO 80369-7:2021 6.2 (程序見 ISO 80369-20 Annex D)' }
     ],
     relatedISO7Clauses: ['6.2'],
     relatedISO20Annexes: ['Annex D', 'Annex K'],
@@ -969,7 +971,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     titleZh: '6.1 流體洩漏規範條文',
     type: 'requirement',
     typeZh: '法規要求條文',
-    objectiveZh: '驗證公母魯爾接頭在承受標準內部液壓時，配合錐面不應有水滴滲漏現象。',
+    objectiveZh: '驗證公母魯爾接頭在承受 300~330 kPa 內部正壓時不洩漏。依 6.1.1 以氣壓衰減法（6.1.2，空氣，屬氣密測試）或正壓液體落滴法（6.1.3，水，非氣密測試）【擇一】評估。',
     appliesToZh: '公鎖定（Male Lock）、母鎖定（Female Lock）、公滑動（Male Slip）、母滑動（Female Slip）',
     quantitativeConditions: {
       assemblyTorqueNm: '0.08 N·m - 0.12 N·m (Lock) / ≤ 0.10 N·m (Slip 微旋 ≤90°)',
@@ -987,8 +989,9 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       '維持壓力：水滴法 30–35 秒（目視無水滴形成或脫落）；壓降法 15–20 秒（記錄壓降換算洩漏率）。'
     ],
     acceptanceCriteriaZh: [
-      '【正壓水壓滴落法 (Annex C)】於 300 kPa–330 kPa 水壓持壓 30–35 秒，目視配合錐面與表面無水滴形成或滴落。',
-      '【正壓氣壓壓降法 (Annex B)】於 300 kPa–330 kPa 氣壓持壓 15–20 秒，壓力衰減量換算之極限洩漏率必須 ≤ 0.005 Pa·m³/s。'
+      '【6.1.3 正壓水壓滴落法（程序：ISO 80369-20 Annex C）】於 300 kPa–330 kPa 水壓持壓 30–35 秒，目視配合錐面與表面無足以形成落滴之水滴洩漏。',
+      '【6.1.2 正壓氣壓壓降法（程序：ISO 80369-20 Annex B）】於 300 kPa–330 kPa 氣壓持壓 15–20 秒，壓力衰減量換算之極限洩漏率必須 ≤ 0.005 Pa·m³/s。',
+      '兩法皆可採用更高的施加壓力；壓力、持壓時間與判定值由 ISO 80369-7 6.1.2 / 6.1.3 條文規定（非 ISO 80369-20 附錄）。'
     ],
     commonNonConformancesZh: [
       '塑膠模具分模線毛邊（Parting Line Flash）導致錐面環狀密封點被切斷。',
@@ -1086,7 +1089,8 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
       '關閉閥門，持壓 15~20 秒，紀錄負壓衰減值。'
     ],
     acceptanceCriteriaZh: [
-      '洩漏率不超過 0.005 Pa·m³/s。'
+      '洩漏率不超過 0.005 Pa·m³/s（程序：ISO 80369-20 Annex D）。',
+      '可採用更高的負壓；壓力、持壓時間與判定值由 ISO 80369-7 6.2 條文規定（非 ISO 80369-20 附錄）。'
     ],
     commonNonConformancesZh: [
       '軟質塑膠錐面在負壓吸力下內塌微幅脫離。'

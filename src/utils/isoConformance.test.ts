@@ -36,6 +36,42 @@ describe('ISO 80369-7:2021 Clause 6 - quantitative requirements', () => {
     expect(c.passCriteria).toContain('88.0');
   });
 
+  it('6.1 / 6.2 map to the correct ISO 80369-20 annexes and allow a greater pressure', () => {
+    const c61 = ISO_CLAUSES['6.1'];
+    const c62 = ISO_CLAUSES['6.2'];
+    for (const text of [c61.passCriteria, c61.passCriteriaZh]) {
+      expect(text).toContain('6.1.2');
+      expect(text).toContain('Annex B');
+      expect(text).toContain('6.1.3');
+      expect(text).toContain('Annex C');
+    }
+    expect(c61.passCriteria).toContain('greater applied pressure may be used');
+    expect(c61.passCriteriaZh).toContain('更高的施加壓力');
+    expect(c62.passCriteria).toContain('Annex D');
+    expect(c62.passCriteriaZh).toContain('Annex D');
+    expect(c62.passCriteria).toContain('greater applied sub-atmospheric pressure may be used');
+    expect(c62.passCriteriaZh).toContain('更高的負壓');
+  });
+
+  it('drawer clause details for 6.1 / 6.2 carry the same annex mapping and greater-pressure note', () => {
+    const d61 = STANDARD_CLAUSE_DETAILS['iso7-6.1'];
+    const d62 = STANDARD_CLAUSE_DETAILS['iso7-6.2'];
+    const a61 = d61.acceptanceCriteriaZh.join('\n');
+    const a62 = d62.acceptanceCriteriaZh.join('\n');
+    expect(d61.objectiveZh).toContain('擇一');
+    expect(a61).toContain('6.1.2');
+    expect(a61).toContain('Annex B');
+    expect(a61).toContain('6.1.3');
+    expect(a61).toContain('Annex C');
+    expect(a61).toContain('更高的施加壓力');
+    expect(a62).toContain('Annex D');
+    expect(a62).toContain('更高的負壓');
+  });
+
+  it('6.1 keyPhysics distinguishes air (6.1.2) from water (6.1.3)', () => {
+    expect(ISO_CLAUSES['6.1'].keyPhysicsZh).toContain('非氣密測試');
+  });
+
   it('6.3 stress cracking: assembled for not less than 48 h', () => {
     expect(ISO_CLAUSES['6.3'].holdTimeSec.min).toBe(48 * 3600);
   });
