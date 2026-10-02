@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState, useLayoutEffect } from 'react';
 import { BookOpen, Network, Table, Wrench, FileSpreadsheet, FileText, Globe, Presentation, FlaskConical } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageContext';
 import { TestConfigState } from '../types';
@@ -41,6 +41,43 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
   };
 
   const currentSubTabs = subTabsMap[activeHub];
+
+  // ── Sliding Pill: Hub Tabs ──────────────────────────────────
+  const hubButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const [hubSlider, setHubSlider] = useState({ left: 0, width: 0, visible: false });
+
+  useLayoutEffect(() => {
+    const measure = () => {
+      const activeIndex = primaryHubs.findIndex(h => h.id === activeHub);
+      const btn = hubButtonRefs.current[activeIndex];
+      if (btn) {
+        setHubSlider({ left: btn.offsetLeft, width: btn.offsetWidth, visible: true });
+      }
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, [activeHub]);
+
+  // ── Sliding Pill: Sub Tabs ──────────────────────────────────
+  const subButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const [subSlider, setSubSlider] = useState({ left: 0, width: 0, visible: false });
+
+  useLayoutEffect(() => {
+    if (!currentSubTabs) return;
+    const measure = () => {
+      const activeIndex = currentSubTabs.findIndex(s => s.id === activeTab);
+      const btn = subButtonRefs.current[activeIndex];
+      if (btn) {
+        setSubSlider({ left: btn.offsetLeft, width: btn.offsetWidth, visible: true });
+      } else {
+        setSubSlider(prev => ({ ...prev, visible: false }));
+      }
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, [activeTab, activeHub]);
 
   return (
     <header className="sticky top-0 z-50">
@@ -92,18 +129,26 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
       <div className="bg-[var(--neo-bg)] border-b border-[var(--neo-border)]">
         <div className="max-w-[1920px] w-[96%] mx-auto px-3 sm:px-6 lg:px-10 flex items-center justify-between gap-4 min-h-[48px] py-1.5">
 
-          {/* Primary hub tabs — pill tray style */}
-          <nav className="flex items-center gap-1 overflow-x-auto no-scrollbar">
-            {primaryHubs.map((hub) => {
+          {/* Primary hub tabs — sliding pill indicator */}
+          <nav className="relative flex items-center gap-1 overflow-x-auto no-scrollbar">
+            {/* Sliding pill background */}
+            {hubSlider.visible && (
+              <div
+                className="neo-pill-active pill-slider absolute rounded-xl"
+                style={{ left: hubSlider.left, width: hubSlider.width, top: 0, height: '100%', zIndex: 0 }}
+              />
+            )}
+            {primaryHubs.map((hub, idx) => {
               const Icon = hub.icon;
               const isActive = activeHub === hub.id;
               return (
                 <button
                   key={hub.id}
+                  ref={(el) => { hubButtonRefs.current[idx] = el; }}
                   onClick={() => setActiveTab(hub.defaultTab)}
-                  className={`flex items-center gap-2 px-4 py-1.5 text-[13px] font-medium transition-all whitespace-nowrap rounded-xl cursor-pointer ${
+                  className={`relative z-10 flex items-center gap-2 px-4 py-1.5 text-[13px] font-medium transition-colors whitespace-nowrap rounded-xl cursor-pointer ${
                     isActive
-                      ? 'neo-pill-active text-[var(--neo-accent)] font-semibold'
+                      ? 'text-[var(--neo-accent)] font-semibold'
                       : 'text-[var(--neo-muted)] hover:text-[var(--neo-text)]'
                   }`}
                 >
@@ -114,19 +159,27 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
             })}
           </nav>
 
-          {/* Contextual sub-tabs */}
+          {/* Contextual sub-tabs — sliding pill indicator */}
           {currentSubTabs && currentSubTabs.length > 0 && (
-            <div className="neo-tray flex items-center gap-0.5 px-1 py-1 rounded-xl shrink-0">
-              {currentSubTabs.map((sub) => {
+            <div className="neo-tray relative flex items-center gap-0.5 px-1 py-1 rounded-xl shrink-0">
+              {/* Sliding pill background */}
+              {subSlider.visible && (
+                <div
+                  className="neo-pill-active pill-slider absolute rounded-lg"
+                  style={{ left: subSlider.left, width: subSlider.width, top: 0, height: '100%', zIndex: 0 }}
+                />
+              )}
+              {currentSubTabs.map((sub, idx) => {
                 const SubIcon = sub.icon;
                 const isSubActive = activeTab === sub.id;
                 return (
                   <button
                     key={sub.id}
+                    ref={(el) => { subButtonRefs.current[idx] = el; }}
                     onClick={() => setActiveTab(sub.id)}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] font-medium transition-all cursor-pointer ${
+                    className={`relative z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] font-medium transition-colors cursor-pointer ${
                       isSubActive
-                        ? 'neo-pill-active text-[var(--neo-accent)] font-semibold'
+                        ? 'text-[var(--neo-accent)] font-semibold'
                         : 'text-[var(--neo-muted)] hover:text-[var(--neo-text)]'
                     }`}
                   >

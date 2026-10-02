@@ -37,25 +37,27 @@ function AppContent() {
 
       {/* Main Content Area */}
       <main className="max-w-[1920px] w-[96%] mx-auto px-3 sm:px-6 lg:px-10 py-6 sm:py-8">
-        {activeTab === 'topic-explorer' && (
-          <TopicClauseExplorer />
-        )}
+        <div key={activeTab} className="page-transition">
+          {activeTab === 'topic-explorer' && (
+            <TopicClauseExplorer />
+          )}
 
-        {activeTab === 'visual-map' && (
-          <TopicVisualMap />
-        )}
+          {activeTab === 'visual-map' && (
+            <TopicVisualMap />
+          )}
 
-        {activeTab === 'comparison-matrix' && (
-          <ClauseComparisonMatrix />
-        )}
+          {activeTab === 'comparison-matrix' && (
+            <ClauseComparisonMatrix />
+          )}
 
-        {activeTab === 'connectors' && (
-          <ConnectorInspector config={config} setConfig={setConfig} />
-        )}
+          {activeTab === 'connectors' && (
+            <ConnectorInspector config={config} setConfig={setConfig} />
+          )}
 
-        {activeTab === 'dvp-report' && (
-          <DvpGenerator config={config} setConfig={setConfig} />
-        )}
+          {activeTab === 'dvp-report' && (
+            <DvpGenerator config={config} setConfig={setConfig} />
+          )}
+        </div>
       </main>
 
       {/* Footer */}

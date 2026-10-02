@@ -87,9 +87,10 @@
   box-shadow:
      6px  6px 15px var(--neo-sd),
     -6px -6px 15px var(--neo-sl);
-  transition: box-shadow 0.22s ease;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
 .neo-card:hover {
+  transform: translateY(-4px);
   box-shadow:
      9px  9px 22px var(--neo-sd),
     -9px -9px 22px var(--neo-sl);
@@ -148,6 +149,7 @@
   transition: box-shadow 0.22s ease;
 }
 .premium-card:hover {
+  transform: translateY(-4px);
   box-shadow:
      9px  9px 22px var(--neo-sd),
     -9px -9px 22px var(--neo-sl);
@@ -192,6 +194,78 @@
 .touch-target {
   min-height: 44px;
   min-width: 44px;
+}
+
+/* ── Interaction Effect Animations ─────────────────────────────────
+   來源：Frontend-Terms VibeCoding 術語手冊
+   僅使用 transform + opacity（GPU 加速，避開 reflow）
+   ──────────────────────────────────────────────────────────────── */
+
+/* Phase 2: Stagger — 逐條入場 */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.stagger-card {
+  animation: fadeUp 0.5s ease-out backwards;
+}
+
+/* Phase 3: Page Transition — 頁面淡入轉場 */
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.page-transition {
+  animation: pageIn 0.4s ease-out;
+}
+
+/* Phase 4: Accordion — 樹狀節點展開過渡 */
+.tree-children {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+}
+.tree-children.expanded {
+  max-height: 800px;
+  opacity: 1;
+}
+.tree-chevron {
+  transition: transform 0.3s ease-out;
+}
+.tree-chevron.rotated {
+  transform: rotate(90deg);
+}
+
+/* Phase 5: Spotlight Hover — 聚光燈懸停 */
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+}
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    200px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(255, 248, 235, 0.22),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+@media (hover: hover) {
+  .spotlight-card:hover::before {
+    opacity: 1;
+  }
+}
+
+/* Phase 6: Sliding Pill — 導航滑動指示條 */
+.pill-slider {
+  transition: left 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* A4 Landscape Print Page Setup */
