@@ -1,17 +1,18 @@
 ---
-name: Industrial Precision Morandi
+name: Milk Tea Caramel Neumorphic (Inset Focus)
 colors:
-  primary: "#2563EB"
-  primary-light: "#DBEAFE"
-  primary-dark: "#1E40AF"
-  secondary: "#4338CA"
-  secondary-light: "#E0E7FF"
-  neutral-base: "#F8FAFC"
-  neutral-surface: "#FFFFFF"
-  neutral-border: "#E2E8F0"
-  neutral-text-primary: "#0F172A"
-  neutral-text-secondary: "#64748B"
-  semantic-success: "#059669"
+  brand-bar: "#252035"
+  neo-bg: "#e8d4b8"
+  neo-surface: "#f2e3cb"
+  neo-inset: "#dcc9a8"
+  neo-pill: "#f8edd8"
+  neo-accent: "#8b6840"
+  neo-border: "rgba(139, 104, 64, 0.32)"
+  neo-text: "#2c1a0e"
+  neo-muted: "#4a2e10"
+  shadow-dark: "rgba(92, 65, 35, 0.36)"
+  shadow-light: "rgba(255, 248, 235, 0.92)"
+  semantic-pass: "#059669"
   semantic-warning: "#D97706"
   semantic-error: "#E11D48"
 typography:
@@ -51,52 +52,72 @@ spacing:
 
 ## Overview
 
-**Industrial Precision with Monochrome Morandi Palette.** The UI evokes the calm authority of a certified medical testing laboratory — precise, trustworthy, and restrained. Every color decision serves a semantic purpose; decoration is secondary to clarity.
+**Milk-Tea Caramel Neumorphic — "Inset Focus".** The UI reads as a warm, tactile physical instrument panel: cards float above a milk-tea beige ground, trays and inputs are pressed into it. Elevation is expressed through a two-layer shadow pair (warm caramel dark cast + cream highlight), never through strokes or flat gray. Contrast values are audited for readability (see `contrast-audit-report.md`); muted text never drops below the readability floor.
+
+> SSOT note: the normative definitions of every variable below live in `src/index.css` (`:root` + `@theme`). This document describes intent; the CSS is the source of truth.
 
 ## Content Archetype
 
-This is an **Industrial / Tool** type product (ISO medical connector standard navigation system). The design language follows `industrial precision with monochrome palette`: slate-blue neutrals, monospace accents for data, clean gridlines, and high information density with disciplined whitespace.
+**Industrial / Tool** product (ISO 80369-7 & 80369-20 medical connector validation navigator). High information density, disciplined whitespace, monospace reserved strictly for measured values (`tech-value` semantics). The dark brand bar (`#252035`) carries calm authority; the beige field below it carries the working surfaces.
 
-## Colors
+## Color System
 
-The palette uses a **Monochromatic Blue-Slate** strategy with exactly 3 semantic accent colors.
+### Surface Strata (Neumorphic Foundation)
 
-### Brand & Standard Identification
+| Token | Value | Role |
+|---|---|---|
+| `--neo-bg` | `#e8d4b8` | Page ground — warm milk-tea beige |
+| `--neo-surface` | `#f2e3cb` | Elevated cards (`.neo-card`) |
+| `--neo-inset` | `#dcc9a8` | Sunken trays / inputs (`.neo-tray`, `.neo-input`) |
+| `--neo-pill` | `#f8edd8` | Active pill sitting on a surface (`.neo-pill-active`) |
 
-- **Primary (#2563EB, blue-600):** Royal Blue — the sole brand color. Used for active navigation tabs, CTA buttons, and primary interactive elements.
-- **Primary Dark (#1E40AF, blue-800):** Ocean Blue — used exclusively for ISO 80369-7 standard identification badges and clause number labels.
-- **Secondary (#4338CA, indigo-700):** Deep Indigo — used exclusively for ISO 80369-20 standard identification badges and Annex references. Provides visual differentiation from ISO-7 while remaining within the blue color family.
+### Two-Layer Shadow Pair
+
+Every elevation change uses the same pair — a warm-tinted dark caramel cast (`--neo-sd`) plus a soft cream highlight (`--neo-sl`), mirrored (dark bottom-right, light top-left):
+
+- **Base card:** `6px 6px 15px var(--neo-sd), -6px -6px 15px var(--neo-sl)`
+- **Inset tray:** `inset 3px 3px 8px var(--neo-sd), inset -3px -3px 8px var(--neo-sl)`
+- **Hover lift:** `translateY(-4px)` + shadows deepened to `9px 9px 22px`
+
+### Accent & Type
+
+- **Accent (`--neo-accent` `#8b6840`):** caramel brown — active tabs, CTA buttons, primary interactive states.
+- **Text (`--neo-text` `#2c1a0e`) / Muted (`--neo-muted` `#4a2e10`):** deep coffee tones, never pure black.
+- **Brand bar (`#252035` deep purple-gray):** header only. Inside it, slate/amber/purple Tailwind utilities are used against the dark ground (not the neo tokens).
+- **Standard identification:** blue family for ISO 80369-7 badges, indigo family for ISO 80369-20 badges (semantic continuity with earlier releases).
 
 ### Semantic Accents (Functional Only)
 
-- **Success (#059669, emerald-600):** Pass criteria, export confirmation, standard connectors.
-- **Warning (#D97706, amber-600):** Worst-case scenarios, regulatory warnings, safety notices.
-- **Error (#E11D48, rose-600):** Fail criteria, destructive overload, danger indicators.
+- **Success (#059669):** pass criteria, export confirmation.
+- **Warning (#D97706):** worst-case scenarios, regulatory warnings.
+- **Error (#E11D48):** fail criteria, danger indicators.
 
-### Neutrals
+## Interaction Motion (v8.44.0)
 
-- **Base (#F8FAFC, slate-50):** Cool gray page foundation, reduces eye fatigue.
-- **Surface (#FFFFFF, white):** Card and panel backgrounds, provides elevation.
-- **Border (#E2E8F0, slate-200):** Subtle dividers, never visually heavy.
-- **Text Primary (#0F172A, slate-900):** Headlines and primary content.
-- **Text Secondary (#64748B, slate-500):** Metadata, captions, helper text.
+All motion uses **only `transform` + `opacity`** (GPU-friendly, no reflow):
+
+| Effect | Class | Spec |
+|---|---|---|
+| Card hover lift | `.neo-card:hover` | `translateY(-4px)`, 0.25s ease-out |
+| Stagger entrance | `.stagger-card` | `fadeUp` 0.5s, `animationDelay: idx * 0.08s`, `backwards` fill |
+| Page transition | `.page-transition` | `pageIn` 0.4s ease-out (remount via `key={activeTab}`) |
+| Accordion expand | `.tree-children` | `max-height 0 → 800px` + opacity, 0.3s; chevron `rotate(90deg)` |
+| Sliding pill indicator | `.pill-slider` | measured `left/width`, 0.25s cubic-bezier, re-measured on resize |
+| Spotlight hover | `.spotlight-card` | radial gradient at `--mx/--my`, gated by `@media (hover: hover)` |
+
+Spotlight color derives from the cream highlight (`rgba(255, 248, 235, …)`) so the glow reads as the same physical light source as the neumorphic shadows. Touch devices get no hover-dependent effects.
 
 ## Anti-Patterns
 
 | Don't | Do Instead |
 |:---|:---|
-| Use `purple-*` for ISO-20 | Use `indigo-*` (same blue family) |
-| Use gradient backgrounds (`from-X to-Y`) for brand elements | Use solid `blue-600` |
-| Use more than 3 non-neutral hue families | Stick to blue + emerald + amber + rose |
-| Mix `bg-white` and `bg-slate-50` for same-level cards | Use `bg-white` for all card surfaces |
-| Use high-saturation candy colors | Use Morandi-tinted muted variants |
+| Use strokes/borders to fake elevation | Use the two-layer shadow pair on `--neo-bg` ground |
+| Hardcode shadow/highlight colors | Reference `--neo-sd` / `--neo-sl` variables |
+| Animate `width`/`height`/`margin` | Animate `transform` / `opacity` only |
+| Put `bg-white` cards on the beige ground | Use `.neo-card` (`--neo-surface`) |
+| Use high-saturation candy colors | Stay in the caramel/cream family; semantic accents excepted |
+| Blue UI chrome (`#2563eb` legacy) | Caramel accent `#8b6840`; blue/indigo only for standard-ID badges |
 
 ## Spacing
 
 All margin and padding values must be multiples of 4px (4, 8, 12, 16, 24, 32, 48, 64).
-
-## Shadows
-
-- **Level 1 (Card Base):** `0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)`
-- **Level 2 (Hover):** `0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04)`
-- **Level 3 (Floating):** `0 12px 32px rgba(0,0,0,0.10), 0 4px 8px rgba(0,0,0,0.04)`

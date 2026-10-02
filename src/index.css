@@ -133,37 +133,6 @@
     0 0 0 2.5px rgba(55, 100, 215, 0.22);
 }
 
-/* ── Legacy aliases (kept for backward compat) ────────────────────── */
-.glass-panel {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(226, 232, 240, 0.8);
-}
-
-.premium-card {
-  background-color: var(--neo-surface);
-  box-shadow:
-     6px  6px 15px var(--neo-sd),
-    -6px -6px 15px var(--neo-sl);
-  transition: box-shadow 0.22s ease;
-}
-.premium-card:hover {
-  transform: translateY(-4px);
-  box-shadow:
-     9px  9px 22px var(--neo-sd),
-    -9px -9px 22px var(--neo-sl);
-}
-
-/* Technical data highlight — for measurements, only here should mono appear */
-.tech-value {
-  font-family: var(--font-mono, 'JetBrains Mono', 'SF Mono', Menlo, monospace);
-  font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  color: #8b6840;
-}
-
 /* Custom Slim Scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
@@ -189,11 +158,6 @@
 .no-scrollbar {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
-}
-
-.touch-target {
-  min-height: 44px;
-  min-width: 44px;
 }
 
 /* ── Interaction Effect Animations ─────────────────────────────────

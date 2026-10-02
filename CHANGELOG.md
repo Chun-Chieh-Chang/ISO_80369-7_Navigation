@@ -2,6 +2,62 @@
 
 All notable changes to the ISO 80369-7 & ISO 80369-20 Navigation App will be documented in this file.
 
+## [v8.44.0] - 2026-10-02
+
+### 互動動效活化 + 全面盤點清理（SSOT / MECE 同步）
+
+#### 互動動效（per interaction-effects-plan，6 項全數到位）
+- **Hover Lift**：`.neo-card:hover` 加 `translateY(-4px)`，陰影同步加深（0.25s ease-out）。
+- **Stagger 入場**：Topic 卡片依序淡入上浮（`fadeUp` 0.5s、間隔 0.08s、`backwards` fill）。
+- **Page Transition**：`App.tsx` 以 `key={activeTab}` 觸發重掛載，內容區 `pageIn` 0.4s 淡入上浮。
+- **Accordion 展開**：附件圖表樹改常駐渲染，`max-height 0→800px` + opacity 過渡，箭頭 `rotate(90deg)`。
+- **Spotlight Hover**：Topic 卡片滑鼠徑向光斑（`--mx/--my` CSS 變數），`@media (hover: hover)` 閘控。
+- **Sliding Pill**：Header hub/sub-tabs 與 View Mode 切換器三處滑動指示條；`useLayoutEffect` 量測並於視窗 resize 時重量測。
+
+#### 修復
+- 附件圖表樹 JSX 清除 5 個多餘 `</div>`（先前變更未通過 tsc 即遺留）。
+- 三處滑動指示條修復 resize 後滑塊停留在舊座標的缺陷。
+
+#### 死碼與資源清理（手術刀式，逐一驗證 0 引用後移除）
+- **依賴**：移除 `xlsx`（0 import）與重複列出的 `vite`（dependencies 留 devDependencies）、`workbox-window`（build 驗證通過）。
+- **資料/工具死碼**：`PLASTIC_MATERIALS`、`FAILURE_MODES`（isoData.ts）、`PRE_ASSEMBLY_SLIP`（isoTopicsData.ts）、`getTopicEngineeringRisk`/`getTopicAuditFocus`（i18nHelpers.ts）。
+- **型別孤兒**：`PlasticMaterial`、`ComplianceAuditResult`、`FailureModeInfo`、`StandardMappingNode`、`StandardMappingEdge`。保留 `PreAssemblySpec`（getPreAssemblySpec 回傳型別，DvpGenerator/測試在用）與 `DeviceType`（TestConfigState 在用）。
+- **CSS**：移除 Legacy aliases（`.glass-panel`、`.premium-card`）與 0 使用的 `.tech-value`、`.touch-target`。
+- **靜態資源**：刪除 `public/assets/diagrams/` 13 張孤兒 PNG 與空目錄 `public/slides/assets/`、根目錄誤 commit 的 `upload_*.jpg` 與 `vite_dev.log`。
+- **匯出收緊**：`TOPIC_I18N`/`CLAUSE_I18N`/`FIGURE_I18N`/`TERM_DICTIONARY_EN`/`PRE_ASSEMBLY_LOCK`/`PRE_ASSEMBLY_NOT_APPLICABLE`/`ClauseDetailDrawerController` 降為模組私有。
+
+#### 文件 SSOT 同步
+- **DESIGN.md 全文重寫**：由過時的藍色 Morandi 系統改寫為現行奶茶–焦糖米 Neumorphic（Inset Focus）＋ v8.44.0 動效規範。
+- **README.md**：組件數 9、測試數 55、版本 v8.44.0、Slide 11/12 大綱對齊實際投影片。
+- **index.html / vite.config.ts**：title 補「& 20」雙標準；`theme-color`/manifest 由舊藍 `#2563eb` 改為品牌深紫 `#252035`／奶茶底 `#e8d4b8`。
+- **translations.ts**：UI 版本徽章 v8.17.0 → v8.44.0（落後 26 個版本的過時字串）。
+- 一次性稽核報告（MECE_AUDIT / contrast-audit / presentation-strategy-brief）移入 `docs/archive/`；已實作完畢之 `interaction-effects-plan.md` 移除（存於 git 歷史 deafaf4）。
+- `tsconfig.json` 補 `exclude`（node_modules/dist/scratch/scripts）。
+
+#### 驗收
+- `tsc --noEmit`：0 errors ✅
+- `vitest run`：55/55 PASS ✅
+- `vite build` + `build:standalone`：PASS ✅
+- Browser Console：0 error ✅；1440/768/375 三視口無水平溢出
+
+## [v8.43.0] - 2026-09-19
+
+### 科普學堂 Slide 11/12 研發/QC 技術培訓高密度文案脫油重構
+- Slide 11 重構為「工程全鏈路・R&D / QC / RA 協同實務」；Slide 12 重構為「培訓精華・技術第一性原理」，剔除感性公關文案。
+- 方案 B `[ISO 法定]` vs `[模具/品保/儀校實務]` 標籤解耦分流；Ra ≤ 0.8 µm 參考夾具表面粗糙度參數溯源修正；公接頭尖端外徑 Ød 3.970~4.035 mm 幾何名詞修正。
+- 詳細 RCA/CAPA 見 DEV_LOG.md v8.43.0 條目。
+
+## [v8.42.1] - 2026-09-19
+
+### 附件圖表樹預設收合與對比度校正
+- Annex figures tree 所有 drawer 節點預設收合（collapse all）。
+- 深化 slate-400/500 與 neo-muted 奶茶可讀性對比度；ConnectorInspector 徽章元素對比度修正。
+
+## [色系遷移里程碑] - 2026-09-15 ~ 2026-09-17
+
+### 色系遷移里程碑（記錄於此以免斷鏈）
+- `b85a74d` Inset Focus neumorphic 設計系統全面導入 → `49e5312` 黛紫灰–霧斯紫 → `ff4a62c` 奶茶–焦糖米（定案）→ `d4d68b6` muted 對比度深化。
+
 ## [v8.42.0] - 2026-09-08
 
 ### Preassembly Fallback 描述漏洞全面修復 — Lock-only 條文與行政類條文 UI 修正
