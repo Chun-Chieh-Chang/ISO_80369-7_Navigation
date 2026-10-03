@@ -22,7 +22,7 @@ ISO_80369-7_Navigation/
 │   ├── build_standalone.cjs    ← 靜態投影片離線打包工具（零 npm 依賴）
 │   └── generate_icons.cjs      ← PWA 圖示生成工具
 ├── .github/workflows/deploy.yml ← GitHub Pages 自動部署（Vite + PWA）
-├── package.json                ← v8.44.1
+├── package.json                ← v8.44.2
 ├── CHANGELOG.md                ← 完整版本歷程
 └── DEV_LOG.md                  ← 技術決策日誌
 ```
@@ -116,4 +116,4 @@ npm run test
 
 ---
 
-*Created by Wesley Chang, QC Dept. @Mouldex · v8.44.1 · 2026-10-03*
+*Created by Wesley Chang, QC Dept. @Mouldex · v8.44.2 · 2026-10-03*

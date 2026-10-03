@@ -1,6 +1,31 @@
 # 開發日誌 (DEV_LOG)
 
 ---
+## 版本：v8.44.2 依賴弱點修補（npm audit，不含破壞性升級）(2026-10-03)
+
+### 需求來源
+v8.44.1 推送後，`npm install` 持續顯示 `npm audit` 弱點警告，使用者要求處理。
+
+### 1. 診斷與根因 (RCA)
+- `npm audit` 回報 5 個弱點（2 高 / 3 中）：`brace-expansion`（DoS）、`fast-uri`（SSRF / host confusion）、`nanoid`（無限迴圈）、`vitest` / `@vitest/mocker`（路徑穿越）、`postcss`（讀取任意 .map）皆為傳遞依賴的版本落後，另有 `uuid <11.1.1` 經 `exceljs` 引入。
+- 4 項為開發工具鏈；僅 `uuid`（經 `exceljs@4.4.0`）位於正式依賴。
+
+### 2. 矯正與預防措施 (CAPA)
+- 執行 `npm audit fix`（僅更動 `package-lock.json`）：`vitest` / `@vitest/mocker` 4.1.10 → 4.1.11、`brace-expansion` → 5.0.12、`fast-uri` → 3.1.8、`nanoid` → 3.3.19、`postcss` → 8.5.28。弱點 5 → 2（皆中度，2 個高風險全數清除）。
+- **刻意不處理 `uuid`**：唯一修法 `npm audit fix --force` 會將 `exceljs` 由最新版 4.4.0 降至 3.4.0（破壞性降版，恐破壞 Excel 匯出）。該弱點僅影響「提供 `buf` 參數的 uuid v3/v5/v6」，`exceljs` 僅呼叫無參數 `uuid.v4()`（`cf-rule-ext-xform.js`），專案不可觸及；不採 `overrides` 強制升 uuid 11.x（`exceljs` 未測試之組合）。待 `exceljs` 上游更新依賴後再升。
+
+### 3. 讀取檔案 (MECE)
+1. [package-lock.json](package-lock.json)：[MODIFY] 依賴升級。
+2. [package.json](package.json)：[MODIFY] 版本 8.44.2（依賴宣告不變）。
+3. [CHANGELOG.md](CHANGELOG.md)、[README.md](README.md)：[MODIFY] 版本同步。
+
+### 4. 確認結果 (Validation)
+- `npm run lint` (`tsc --noEmit`)：0 錯誤 PASS
+- `npm run test` (`vitest run`)：56/56 PASS
+- `npm run build` (`vite build`)：PASS
+- `npm audit`：2 moderate（`uuid` / `exceljs`，同一弱點，已評估不可觸及）
+
+---
 ## 版本：v8.44.1 洩漏測試（6.1 / 6.2）條文對應與第 3 章術語描述查核修正 (2026-10-03)
 
 ### 需求來源
