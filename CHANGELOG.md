@@ -2,7 +2,7 @@
 
 All notable changes to the ISO 80369-7 & ISO 80369-20 Navigation App will be documented in this file.
 
-## [Unreleased] - 2026-10-03
+## [v8.44.1] - 2026-10-03
 
 ### 洩漏測試（6.1 / 6.2）條文對應與術語描述查核修正
 依 `isodoc/` 內 ISO 80369-7:2021 與 ISO 80369-20:2024 全文逐項比對後修正（`5028f62`、`f2288c3`、`33308ba`）。

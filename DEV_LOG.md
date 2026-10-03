@@ -1,6 +1,40 @@
 # 開發日誌 (DEV_LOG)
 
 ---
+## 版本：v8.44.1 洩漏測試（6.1 / 6.2）條文對應與第 3 章術語描述查核修正 (2026-10-03)
+
+### 需求來源
+使用者提供「正壓氣密測試＝ISO 80369-7 6.1.2 對應 ISO 80369-20 Annex B；負壓氣密測試＝6.2 對應 Annex D」之文件陳述，要求以 `isodoc/` 內 ISO 80369-7:2021、ISO 80369-20:2024 全文查核，並據以細化專案內容；後續追加 `leak rate` / `leakage rate` 用字查核與第 3 章術語描述修正。
+
+### 1. 診斷與根因 (RCA)
+- **對應關係查核**：6.1.2 → Annex B、6.2 → Annex D 正確；但「正壓氣密」並非只有 6.1.2——6.1.1 規定氣壓衰減法（6.1.2，空氣）與正壓液體落滴法（6.1.3，水 → Annex C）二擇一，且 6.1.3 為水、不屬氣密測試。
+- **內容缺口**：標準 6.1.2 / 6.1.3 / 6.2 皆載明「A greater applied pressure may be used」，專案全數遺漏；專案亦未標明壓力、持壓時間與判定值出自 ISO 80369-7 條文（ISO 80369-20:2024 Annex B / D 僅規範程序，數值交由應用部分指定）。
+- **用字不一**：標準全文僅用 `leakage rate`（80369-7 共 1 處、80369-20 共 6 處、`leak rate` 0 處），專案兩種寫法並存（`leak rate` 共 19 行）。
+- **術語描述不實**：ISO 80369-7 Clause 3 僅定義 8 個術語（auxiliary dimension、Luer connector、Luer slip connector、Luer lock connector、normal use、rated、rigid material、semi-rigid material）；ISO 80369-20:2024 Clause 3 僅定義 type test。專案卻將 `reference connector`、`leakage rate`、`Test sample`、`Assembly`、`Pre-assembly` 描述為標準定義術語。
+- **漏改風險（過程中發現）**：深度規格抽屜（`STANDARD_CLAUSE_DETAILS` 之 `iso7-6.1` / `iso7-6.2`）為另一組獨立資料，首輪修改未涵蓋，經瀏覽器實際檢視才發現。
+
+### 2. 矯正與預防措施 (CAPA)
+- 6.1 / 6.2 判定標準（中英文）補「可採更高壓力 / 負壓」、條文對 Annex 對應、介質（空氣 / 水）與數值出處；兩個專題頁新增「判定值來源」參數列；抽屜資料同步。
+- `leak rate` 統一為 `leakage rate`；`Max Leak Rate` 同為資料標籤、翻譯值與英文字典鍵，三處同步修改，`maxLeakRate` 識別字不動。
+- 第 3 章描述改為標準實際定義之術語，共 8 處。
+- **預防**：新增 4 項回歸測試（條文與 Annex 對應及更高壓力註記、6.1 氣密 / 非氣密區分、抽屜資料一致性、第 3 章不得列出未定義術語），資料日後偏離標準即建置失敗。
+
+### 3. 讀取檔案 (MECE)
+1. [src/data/isoData.ts](src/data/isoData.ts)、[src/data/isoTopicsData.ts](src/data/isoTopicsData.ts)：[MODIFY] 6.1 / 6.2 判定標準、專題頁、抽屜資料、第 3 章描述、用字。
+2. [src/i18n/translations.ts](src/i18n/translations.ts)、[src/utils/i18nHelpers.ts](src/utils/i18nHelpers.ts)：[MODIFY] `Max Leakage Rate` 標籤與字典鍵同步、英文描述。
+3. [src/components/ClauseComparisonMatrix.tsx](src/components/ClauseComparisonMatrix.tsx)：[MODIFY] 第 3 章對照列描述。
+4. [src/utils/isoConformance.test.ts](src/utils/isoConformance.test.ts)：[MODIFY] 新增 4 項回歸測試。
+5. [CHANGELOG.md](CHANGELOG.md)、[README.md](README.md)、[package.json](package.json)、[package-lock.json](package-lock.json)：[MODIFY] 版本 8.44.1、測試數 55 → 56。
+
+### 4. 確認結果 (Validation)
+- `npm run lint` (`tsc --noEmit`)：0 錯誤 PASS
+- `npm run test` (`vitest run`)：56/56 PASS
+- `npm run build` (`vite build`)：PASS
+- `src` 內 `leak rate` 殘留：0
+- 瀏覽器：深度規格抽屜新文字實際顯示，Console 0 error；使用者目視確認版面無問題（第 3 章術語修正後之對照矩陣版面未另行檢視）。
+- 推送過程：遠端領先 2 個提交（v8.44.0），以 merge 整合（0 衝突），合併後重跑 lint / test / build 全數通過再推送。
+
+---
 ## 版本：v8.44.0 (Commit: TBD) 互動動效活化六連發與全面盤點清理：SSOT/MECE 文件同步、死碼清零、可攜式重打包 (2026-10-02)
 
 ### 需求來源
