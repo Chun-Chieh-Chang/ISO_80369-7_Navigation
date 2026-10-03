@@ -13,7 +13,7 @@ export const ISO_TOPICS: ISOTopic[] = [
     keyParameters: [
       { label: '裝配扭矩 Assembly Torque', value: '0.08 - 0.12 (Lock) / ≤ 0.10 (Slip)', unit: 'N·m' },
       { label: '測試壓力 Test Pressure', value: '300 - 330', unit: 'kPa' },
-      { label: '氣壓壓降極限 Max Leak Rate', value: '≤ 0.005', unit: 'Pa·m³/s' },
+      { label: '氣壓壓降極限 Max Leakage Rate', value: '≤ 0.005', unit: 'Pa·m³/s' },
       { label: '水滴法持壓 Hold Time', value: '30 - 35', unit: '秒' },
       { label: '壓降法持壓 Hold Time', value: '15 - 20', unit: '秒' },
       { label: '預處理環境 Preconditioning (ISO 80369-20)', value: '(20 ± 5)°C, (50 ± 10)% RH, ≥24h' },
@@ -43,7 +43,7 @@ export const ISO_TOPICS: ISOTopic[] = [
           { id: 'p_test', labelZh: '測試壓力範圍', labelEn: 'Test Pressure Range', valueZh: '300 ~ 330 kPa', valueEn: '300 ~ 330 kPa' },
           { id: 'gauge_acc', labelZh: '感測器精度', labelEn: 'Sensor Accuracy', valueZh: '±0.3%', valueEn: '±0.3%' },
           { id: 'hold_time', labelZh: '氣壓持壓時間', labelEn: 'Pneumatic Hold Time', valueZh: '15 ~ 20 秒', valueEn: '15 ~ 20 s' },
-          { id: 'pass_criteria', labelZh: '判定基準', labelEn: 'Pass Criterion', valueZh: '洩漏率 ≤ 0.005 Pa·m³/s', valueEn: 'Leak rate ≤ 0.005 Pa·m³/s' }
+          { id: 'pass_criteria', labelZh: '判定基準', labelEn: 'Pass Criterion', valueZh: '洩漏率 ≤ 0.005 Pa·m³/s', valueEn: 'Leakage rate ≤ 0.005 Pa·m³/s' }
         ]
       },
       {
@@ -56,7 +56,7 @@ export const ISO_TOPICS: ISOTopic[] = [
         descriptionZh: '本附圖精確對照 ISO 80369-20 Annex B.4 條文，解構正壓氣壓衰減測試儀器執行的四個關鍵階段：充氣 (Fill 0~5s, 對應 B.4 c)、穩定 (Stabilize 5~15s, 熱平衡與材料蠕變隔離)、測試持壓 (Test 15~35s, 對應 B.4 d/e 量測 ΔP) 與排氣 (Exhaust 35s+)，並標示出 300~330 kPa 目標壓力視窗。',
         descriptionEn: 'Cross-referenced with ISO 80369-20 Annex B.4, this diagram deconstructs the four key phases of the pneumatic pressure decay test: Fill (0–5 s, per B.4 c), Stabilize (5–15 s, thermal equilibration and creep isolation), Test (15–35 s, per B.4 d/e measuring ΔP), and Exhaust (35 s+), with the 300–330 kPa target pressure window indicated.',
         selectionReasonZh: '📈 [數據曲線分析圖] 入選原因：本圖為 Annex B.4 測試執行的 4 階段時間-壓力動態響應曲線 (Fill-Stabilize-Test-Exhaust)，提供控制充氣持壓 15~20s 與評估 ΔP 壓降 (極限洩漏率 ≤ 0.005 Pa·m³/s) 之物理數據判讀依據。',
-        selectionReasonEn: '📈 [Data Curve Analysis] Rationale: This diagram shows the 4-phase time-pressure dynamic response curve (Fill-Stabilize-Test-Exhaust) for Annex B.4 test execution, providing the physical data interpretation basis for controlling the 15–20 s hold time and evaluating ΔP pressure drop (limiting leak rate ≤ 0.005 Pa·m³/s).',
+        selectionReasonEn: '📈 [Data Curve Analysis] Rationale: This diagram shows the 4-phase time-pressure dynamic response curve (Fill-Stabilize-Test-Exhaust) for Annex B.4 test execution, providing the physical data interpretation basis for controlling the 15–20 s hold time and evaluating ΔP pressure drop (limiting leakage rate ≤ 0.005 Pa·m³/s).',
         svgKey: 'ISO20-FIG-B2',
         keyCallouts: [
           { id: 'fill', labelZh: '1. 充氣 (Fill)', labelEn: '1. Fill', valueZh: '0~5s (對應 Annex B.4 c 施加壓力)', valueEn: '0–5 s (per Annex B.4 c — apply pressure)' },
@@ -117,7 +117,7 @@ export const ISO_TOPICS: ISOTopic[] = [
       { label: '裝配扭矩 Assembly Torque', value: '0.08 - 0.12 (Lock) / ≤ 0.10 (Slip)', unit: 'N·m' },
       { label: '真空負壓 Test Vacuum', value: '80.0 - 88.0', unit: 'kPa' },
       { label: '保持時間 Hold Time', value: '15 - 20', unit: '秒' },
-      { label: '洩漏極限 Max Leak Rate', value: '≤ 0.005', unit: 'Pa·m³/s' },
+      { label: '洩漏極限 Max Leakage Rate', value: '≤ 0.005', unit: 'Pa·m³/s' },
       { label: '判定值來源 Source of Values', value: 'ISO 80369-7:2021 6.2 (程序見 ISO 80369-20 Annex D)' }
     ],
     relatedISO7Clauses: ['6.2'],
@@ -895,7 +895,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     titleZh: 'Clause 3 通用測試術語與定義',
     type: 'test_method',
     typeZh: '實驗室測試方法',
-    objectiveZh: '定義 Test sample, Assembly, Leak rate, Pre-assembly 等測試專有名詞。',
+    objectiveZh: '定義 Test sample, Assembly, Leakage rate, Pre-assembly 等測試專有名詞。',
     appliesToZh: '實驗室測試報告與數據紀錄',
     quantitativeConditions: {},
     fixtureRequiredZh: '報告專有名詞審查',

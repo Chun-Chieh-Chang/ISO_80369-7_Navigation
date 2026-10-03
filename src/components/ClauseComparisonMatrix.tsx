@@ -113,8 +113,8 @@ export const ClauseComparisonMatrix: React.FC = () => {
         holdTime: '-',
         fixture: isEn ? 'DHF Nomenclature Glossary' : 'DHF 專有名詞對照表',
         criteria: isEn
-          ? 'Precise definitions for Luer connector, Luer slip, Luer lock, reference connector, leak rate'
-          : '精確定義 Luer connector、Luer slip、Luer lock、Reference connector、Leak rate 等法規專有名詞',
+          ? 'Precise definitions for Luer connector, Luer slip, Luer lock, reference connector, leakage rate'
+          : '精確定義 Luer connector、Luer slip、Luer lock、Reference connector、Leakage rate 等法規專有名詞',
         risk: isEn ? 'Inconsistent nomenclature causing regulatory RFIs' : '圖面名詞與國際標準歧異導致審查補件'
       },
       {

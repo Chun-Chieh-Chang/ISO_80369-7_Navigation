@@ -27,8 +27,8 @@ export interface FigureI18nData {
 
 export const TOPIC_I18N: Record<string, TopicI18nData> = {
   'fluid-leakage': {
-    shortSummaryEn: 'Evaluates sealing integrity of 6% Luer taper and threads under 300-330 kPa positive pressure (Water method: no falling drop / Air decay: leak rate <= 0.005 Pa·m3/s).',
-    detailedDescriptionEn: 'Positive pressure fluid leakage testing is the fundamental cornerstone of medical Luer connector verification. After assembling to a standard metal reference fixture per ISO 80369-20:2024 X.4 b) (lock: collar torque 0.08-0.12 N.m then 26.5-27.5 N axial force; slip: 26.5-27.5 N axial force then rotation <= 90 deg at torque <= 0.10 N.m), test connectors are evaluated under 300 kPa to 330 kPa hydraulic or pneumatic pressure. Under the Pressure Decay Method (Annex B), pressure is maintained for 15-20 s with a maximum allowable leak rate of 0.005 Pa·m3/s. Per ISO 80369-20:2024 revision, the formula for leak rate Q has been retired in favor of directly recording differential pressure change (Delta P), calculated via Delta P_max = (Q_max * Delta t) / V. Under the Falling Drop Method (Annex C), pressure is held for 30-35 s with zero liquid drop formation or release allowed.',
+    shortSummaryEn: 'Evaluates sealing integrity of 6% Luer taper and threads under 300-330 kPa positive pressure (Water method: no falling drop / Air decay: leakage rate <= 0.005 Pa·m3/s).',
+    detailedDescriptionEn: 'Positive pressure fluid leakage testing is the fundamental cornerstone of medical Luer connector verification. After assembling to a standard metal reference fixture per ISO 80369-20:2024 X.4 b) (lock: collar torque 0.08-0.12 N.m then 26.5-27.5 N axial force; slip: 26.5-27.5 N axial force then rotation <= 90 deg at torque <= 0.10 N.m), test connectors are evaluated under 300 kPa to 330 kPa hydraulic or pneumatic pressure. Under the Pressure Decay Method (Annex B), pressure is maintained for 15-20 s with a maximum allowable leakage rate of 0.005 Pa·m3/s. Per ISO 80369-20:2024 revision, the formula for leakage rate Q has been retired in favor of directly recording differential pressure change (Delta P), calculated via Delta P_max = (Q_max * Delta t) / V. Under the Falling Drop Method (Annex C), pressure is held for 30-35 s with zero liquid drop formation or release allowed.',
     engineeringRiskEn: 'Insufficient surface roughness on the 6% taper (Ra > 0.8 um), micro-flash along the mold parting line, or part ovality from uneven mold shrinkage will compromise cone seal lines and cause immediate leakage under 300 kPa pressure.',
     auditFocusEn: 'Inspect pre-test conditioning documentation (23 +/- 2 deg C, 50 +/- 5% RH, >= 24 h). For pressure decay, audit whether test system internal volume V was calibrated per ISO 80369-20:2024 Figure B.1 and disclosed in Section .5.'
   },
@@ -309,7 +309,7 @@ export const CLAUSE_I18N: Record<string, ClauseI18nData> = {
   },
   'iso20-clause-3': {
     titleEn: 'Terms and Definitions',
-    objectiveEn: 'Defines key testing terminology: Test sample, Assembly, Leak rate, Pre-assembly, and other standard-specific terms used throughout ISO 80369-20.',
+    objectiveEn: 'Defines key testing terminology: Test sample, Assembly, Leakage rate, Pre-assembly, and other standard-specific terms used throughout ISO 80369-20.',
     appliesToEn: 'Laboratory test reports and data records',
     typeEn: 'Test Method',
     fixtureRequiredEn: 'Test report terminology review checklist',
@@ -357,7 +357,7 @@ export const CLAUSE_I18N: Record<string, ClauseI18nData> = {
   },
   'iso7-clause-3': {
     titleEn: 'Terms and Definitions',
-    objectiveEn: 'Precisely defines core terminology: Luer connector, Luer slip, Luer lock, reference connector, leak rate, and other standard-specific terms.',
+    objectiveEn: 'Precisely defines core terminology: Luer connector, Luer slip, Luer lock, reference connector, leakage rate, and other standard-specific terms.',
     appliesToEn: 'All Luer connector technical documents and engineering drawings',
     typeEn: 'Requirement',
     fixtureRequiredEn: 'Specification document review',
@@ -594,10 +594,10 @@ export const TERM_DICTIONARY_EN: Record<string, string> = {
   '測試壓力 Test Pressure': 'Test Pressure',
   '測試壓力': 'Test Pressure',
   '感測器精度': 'Sensor Accuracy',
-  '氣壓降極限 Max Leak Rate': 'Max Leak Rate Limit',
-  '氣壓壓降極限 Max Leak Rate': 'Max Leak Rate Limit',
-  '洩漏極限 Max Leak Rate': 'Max Leak Rate Limit',
-  '洩漏極限': 'Leak Rate Limit',
+  '氣壓降極限 Max Leakage Rate': 'Max Leakage Rate Limit',
+  '氣壓壓降極限 Max Leakage Rate': 'Max Leakage Rate Limit',
+  '洩漏極限 Max Leakage Rate': 'Max Leakage Rate Limit',
+  '洩漏極限': 'Leakage Rate Limit',
   '負壓極限 Test Vacuum': 'Test Vacuum',
   '負壓範圍': 'Vacuum Range',
   '真空負壓 Test Vacuum': 'Test Vacuum',
