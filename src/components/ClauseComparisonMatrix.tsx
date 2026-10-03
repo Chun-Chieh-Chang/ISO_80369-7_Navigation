@@ -113,8 +113,8 @@ export const ClauseComparisonMatrix: React.FC = () => {
         holdTime: '-',
         fixture: isEn ? 'DHF Nomenclature Glossary' : 'DHF 專有名詞對照表',
         criteria: isEn
-          ? 'Precise definitions for Luer connector, Luer slip, Luer lock, reference connector, leakage rate'
-          : '精確定義 Luer connector、Luer slip、Luer lock、Reference connector、Leakage rate 等法規專有名詞',
+          ? 'Defines 8 terms: auxiliary dimension, Luer connector, Luer slip connector, Luer lock connector, normal use, rated, rigid material, semi-rigid material'
+          : '定義 auxiliary dimension、Luer connector、Luer slip connector、Luer lock connector、normal use、rated、rigid material、semi-rigid material 共 8 個術語',
         risk: isEn ? 'Inconsistent nomenclature causing regulatory RFIs' : '圖面名詞與國際標準歧異導致審查補件'
       },
       {

@@ -577,11 +577,11 @@ export const ISO_TOPICS: ISOTopic[] = [
     categoryZh: '通用法規與安全',
     iconName: 'BookOpen',
     shortSummaryZh: '明確界定 ISO 80369-7 血管與皮下注射小口徑魯爾連接器之適用領域，引用 ISO 80369-1 及 ISO 80369-20，並規範核心術語。',
-    detailedDescriptionZh: 'ISO 80369-7 Clause 1~3 奠定了血管應用小口徑連接器的法規基石。Clause 1 規定標準適用於血管（Intravascular）或皮下（Subcutaneous）輸液與注射設備之連接器；Clause 2 列出規範性引用文件（包含 ISO 80369-1 跨領域防錯與 ISO 80369-20 通用測試方法）；Clause 3 定義 Luer connector、Luer slip、Luer lock、reference connector 等法律與技術專有名詞。',
+    detailedDescriptionZh: 'ISO 80369-7 Clause 1~3 奠定了血管應用小口徑連接器的法規基石。Clause 1 規定標準適用於血管（Intravascular）或皮下（Subcutaneous）輸液與注射設備之連接器；Clause 2 列出規範性引用文件（包含 ISO 80369-1 跨領域防錯與 ISO 80369-20 通用測試方法）；Clause 3 定義 auxiliary dimension、Luer connector、Luer slip connector、Luer lock connector、normal use、rated、rigid material、semi-rigid material 共 8 個術語，其餘術語引用自 ISO 80369-1 及 ISO 14971 等標準。',
     keyParameters: [
       { label: '適用標準 Target Standard', value: 'ISO 80369-7 Clause 1~3 / ISO 80369-20 Clause 1~3' },
       { label: '引用規範 References', value: 'ISO 80369-1, ISO 80369-20' },
-      { label: '核心術語 Core Terms', value: 'Luer connector, Luer lock, Luer slip, Reference connector' }
+      { label: '核心術語 Core Terms', value: 'Luer connector, Luer lock, Luer slip, normal use, rated, rigid / semi-rigid material' }
     ],
     relatedISO7Clauses: ['Clause 1', 'Clause 2', 'Clause 3'],
     relatedISO20Annexes: ['Clause 1', 'Clause 2', 'Clause 3'],
@@ -722,7 +722,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     titleZh: 'Clause 3 術語與定義條文',
     type: 'requirement',
     typeZh: '法規要求條文',
-    objectiveZh: '精確界定 Luer connector、Luer slip、Luer lock、reference connector 等核心術語。',
+    objectiveZh: '定義 auxiliary dimension、Luer connector、Luer slip connector、Luer lock connector、normal use、rated、rigid material、semi-rigid material 共 8 個術語；其餘術語引用自 ISO 80369-1 及 ISO 14971 等標準。',
     appliesToZh: '所有魯爾連接器技術文件與圖面說明',
     quantitativeConditions: {},
     fixtureRequiredZh: '規格書審查',
@@ -895,7 +895,7 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     titleZh: 'Clause 3 通用測試術語與定義',
     type: 'test_method',
     typeZh: '實驗室測試方法',
-    objectiveZh: '定義 Test sample, Assembly, Leakage rate, Pre-assembly 等測試專有名詞。',
+    objectiveZh: '定義 type test（型式試驗，3.1）一詞；cone、socket、connector、test method 等其餘術語引用自 ISO 80369-1 及 ISO 14971。',
     appliesToZh: '實驗室測試報告與數據紀錄',
     quantitativeConditions: {},
     fixtureRequiredZh: '報告專有名詞審查',

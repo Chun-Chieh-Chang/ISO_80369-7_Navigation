@@ -88,7 +88,7 @@ export const TOPIC_I18N: Record<string, TopicI18nData> = {
   },
   'scope-normative-terms': {
     shortSummaryEn: 'Governs scope of application (intravascular/subcutaneous), referenced standard frameworks, and normative terminology definitions.',
-    detailedDescriptionEn: 'Defines scope of ISO 80369-7: small-bore connectors intended for use in intravascular or subcutaneous applications of medical devices and accessories. Establishes normative references (ISO 80369-1, ISO 80369-20, ISO 14971) and terminology definitions (Luer connector, Luer lock, Luer slip, reference connector).',
+    detailedDescriptionEn: 'Defines scope of ISO 80369-7: small-bore connectors intended for use in intravascular or subcutaneous applications of medical devices and accessories. Establishes normative references (ISO 80369-1, ISO 80369-20, ISO 14971) and defines 8 terms in Clause 3 (auxiliary dimension, Luer connector, Luer slip connector, Luer lock connector, normal use, rated, rigid material, semi-rigid material); other terms are taken from ISO 80369-1 and ISO 14971.',
     engineeringRiskEn: 'Misinterpreting scope limits or applying Luer fittings to excluded applications (e.g. enteral or breathing) violates international regulatory mandates.',
     auditFocusEn: 'Verify device intended use classification aligned with ISO 80369-7 scope in technical documentation and DVP design history files.'
   },
@@ -309,7 +309,7 @@ export const CLAUSE_I18N: Record<string, ClauseI18nData> = {
   },
   'iso20-clause-3': {
     titleEn: 'Terms and Definitions',
-    objectiveEn: 'Defines key testing terminology: Test sample, Assembly, Leakage rate, Pre-assembly, and other standard-specific terms used throughout ISO 80369-20.',
+    objectiveEn: 'Defines the term "type test" (3.1); other terms such as cone, socket, connector and test method are taken from ISO 80369-1 and ISO 14971.',
     appliesToEn: 'Laboratory test reports and data records',
     typeEn: 'Test Method',
     fixtureRequiredEn: 'Test report terminology review checklist',
@@ -357,7 +357,7 @@ export const CLAUSE_I18N: Record<string, ClauseI18nData> = {
   },
   'iso7-clause-3': {
     titleEn: 'Terms and Definitions',
-    objectiveEn: 'Precisely defines core terminology: Luer connector, Luer slip, Luer lock, reference connector, leakage rate, and other standard-specific terms.',
+    objectiveEn: 'Defines 8 terms: auxiliary dimension, Luer connector, Luer slip connector, Luer lock connector, normal use, rated, rigid material and semi-rigid material; other terms are taken from ISO 80369-1, ISO 14971 and other standards.',
     appliesToEn: 'All Luer connector technical documents and engineering drawings',
     typeEn: 'Requirement',
     fixtureRequiredEn: 'Specification document review',

@@ -68,6 +68,20 @@ describe('ISO 80369-7:2021 Clause 6 - quantitative requirements', () => {
     expect(a62).toContain('更高的負壓');
   });
 
+  it('Clause 3 descriptions list only terms the standards actually define', () => {
+    // ISO 80369-7:2021 Clause 3 defines 8 terms; ISO 80369-20:2024 Clause 3 defines only "type test".
+    // "reference connector", "leakage rate", "test sample", "assembly" and "pre-assembly" are not defined terms.
+    const undefinedTerms = /reference connector|leakage rate|test sample|pre-assembly|\bassembly\b/i;
+    const d7 = STANDARD_CLAUSE_DETAILS['iso7-clause-3'];
+    const d20 = STANDARD_CLAUSE_DETAILS['iso20-clause-3'];
+    expect(d7.objectiveZh).not.toMatch(undefinedTerms);
+    expect(d20.objectiveZh).not.toMatch(undefinedTerms);
+    for (const term of ['auxiliary dimension', 'normal use', 'rated', 'rigid material', 'semi-rigid material']) {
+      expect(d7.objectiveZh).toContain(term);
+    }
+    expect(d20.objectiveZh).toContain('type test');
+  });
+
   it('6.1 keyPhysics distinguishes air (6.1.2) from water (6.1.3)', () => {
     expect(ISO_CLAUSES['6.1'].keyPhysicsZh).toContain('非氣密測試');
   });
