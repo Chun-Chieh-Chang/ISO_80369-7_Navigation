@@ -2,6 +2,27 @@
 
 All notable changes to the ISO 80369-7 & ISO 80369-20 Navigation App will be documented in this file.
 
+## [Unreleased] - 2026-10-03
+
+### 洩漏測試（6.1 / 6.2）條文對應與術語描述查核修正
+依 `isodoc/` 內 ISO 80369-7:2021 與 ISO 80369-20:2024 全文逐項比對後修正（`5028f62`、`f2288c3`、`33308ba`）。
+
+#### 內容修正
+- **6.1 / 6.2 判定標準**：補上標準原文「可採用更高的施加壓力（A greater applied pressure may be used）」（中英文皆補，6.2 為更高負壓）。
+- **6.1.1 二擇一與條文對應明確化**：6.1.2 氣壓衰減法（空氣、屬氣密測試）→ ISO 80369-20 Annex B；6.1.3 正壓液體落滴法（水、非氣密測試）→ Annex C；6.2 負壓空氣洩漏 → Annex D。
+- **數值出處標示**：註明壓力、持壓時間與判定值由 ISO 80369-7 條文規定，ISO 80369-20 Annex B / C / D 僅規範測試程序；兩個專題頁新增「判定值來源」參數列。
+- **深度規格抽屜**（`iso7-6.1`、`iso7-6.2`）同步補齊上述說明。
+- **第 3 章術語描述不實**：ISO 80369-7 Clause 3 僅定義 8 個術語（auxiliary dimension、Luer connector、Luer slip connector、Luer lock connector、normal use、rated、rigid material、semi-rigid material）；ISO 80369-20:2024 Clause 3 僅定義 type test。原描述將 `reference connector`、`leakage rate`、`Test sample`、`Assembly`、`Pre-assembly` 誤稱為標準定義術語，共 8 處（isoTopicsData、i18nHelpers、ClauseComparisonMatrix）已改為與標準一致。
+
+#### 用字統一
+- `leak rate` → `leakage rate`（標準原文僅用 `leakage rate`），共 19 行。`Max Leak Rate` 同為資料標籤、翻譯值與英文字典鍵，三處同步修改；`maxLeakRate` 程式識別字不動。
+
+#### 驗收
+- `tsc --noEmit`：0 errors ✅
+- `vitest run`：56/56 PASS ✅（新增 4 項回歸測試：條文與 Annex 對應及更高壓力註記、6.1 氣密/非氣密區分、抽屜資料一致性、第 3 章不得列出未定義術語）
+- `vite build`：PASS ✅
+- 全 `src` 內 `leak rate` 殘留：0
+
 ## [v8.44.0] - 2026-10-02
 
 ### 互動動效活化 + 全面盤點清理（SSOT / MECE 同步）
