@@ -2,6 +2,13 @@
 
 All notable changes to the ISO 80369-7 & ISO 80369-20 Navigation App will be documented in this file.
 
+## [Unreleased] - 2026-10-03
+
+### 依賴弱點修補（npm audit）
+- 執行 `npm audit fix`（僅更動 `package-lock.json`，`package.json` 不變）：`vitest`/`@vitest/mocker` 4.1.10 → 4.1.11、`brace-expansion` → 5.0.12、`fast-uri` → 3.1.8、`nanoid` → 3.3.19、`postcss` → 8.5.28。弱點 5 個（2 高 / 3 中）→ 2 個（皆中度）。
+- **刻意不處理的 2 個**：`uuid <11.1.1`（GHSA-w5hq-g745-h8pq）經 `exceljs@4.4.0`（已是最新版）引入。唯一修法 `npm audit fix --force` 會將 `exceljs` 降至 3.4.0（破壞性降版）。該弱點僅影響「提供 `buf` 參數的 uuid v3/v5/v6」，而 `exceljs` 只呼叫無參數的 `uuid.v4()`（`cf-rule-ext-xform.js`），專案實際不可觸及，待 `exceljs` 上游更新依賴後再升。
+- 驗收：`tsc --noEmit` 0 errors；`vitest run` 56/56 PASS；`vite build` PASS。
+
 ## [v8.44.1] - 2026-10-03
 
 ### 洩漏測試（6.1 / 6.2）條文對應與術語描述查核修正
