@@ -17,3 +17,7 @@ scratch/
 # FreeFileSync temporary sync files
 *.ffs_tmp
 *.ffs_db
+
+# Local tool artifacts
+.playwright-cli/
+.workbuddy-ai/

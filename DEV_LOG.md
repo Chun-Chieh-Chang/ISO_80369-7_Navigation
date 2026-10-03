@@ -1,6 +1,45 @@
 # 開發日誌 (DEV_LOG)
 
 ---
+## 版本：v8.44.0 (Commit: TBD) 互動動效活化六連發與全面盤點清理：SSOT/MECE 文件同步、死碼清零、可攜式重打包 (2026-10-02)
+
+### 需求來源
+使用者兩階段指示：(1) 依據 `interaction-effects-plan.md`（源自 Frontend-Terms 術語手冊 70 詞條精選 6 項）執行 UI 交互動效活化，內容層零接觸；(2) 執行全面盤點與清理作業——整合過時文件、移除死碼與無效資源（手術刀式零功能 Regression 防護）、DEV_LOG/docs 文件 100% 對齊、建立程式碼還原基準點、重打包可攜式單檔、資安盤點後推送。
+
+### 1. 診斷與根因 (RCA)
+- **動效缺口**：Phase 1–5（Hover Lift / Stagger / Page Transition / Accordion / Spotlight）與 Header 滑動指示條已由前次 session 實作但從未通過建置驗證——附件圖表樹殘留 5 個多餘 `</div>`，`tsc` 直接編譯失敗；View Mode 切換器（Phase 6 後半）仍為 class 瞬間切換。
+- **滑塊 resize 缺陷**：三處 sliding pill 僅在狀態變化時量測一次，視窗縮放後滑塊停在舊座標突出容器（375px 實測重現）。
+- **死碼堆積**：`xlsx` 套件 0 import；`PLASTIC_MATERIALS`/`FAILURE_MODES`/`PRE_ASSEMBLY_SLIP` 及 5 個孤兒型別、2 個死 getter、4 個 0 使用 CSS class、13 張孤兒 PNG 全域零引用；`vite` 於 dependencies/devDependencies 重複列出。
+- **文件漂移**：DESIGN.md 仍描述已廢棄的藍色 Morandi 系統；README 組件數/測試數/版本號三處過時；CHANGELOG 落後 2 個正式版本；UI 版本徽章停在 v8.17.0（落後 26 個 minor）；index.html title/theme-color 未隨雙標準與色系遷移更新。
+
+### 2. 矯正與預防措施 (CAPA)
+- **動效收尾與修復**：View Mode 切換器改 sliding pill 結構；清除 5 個多餘 `</div>`；三處 pill slider 補 `resize` 事件重量測。
+- **手術刀式清理原則**：每一符號移除前先全 repo grep 確認 0 引用；代理報告中兩處誤判被複查攔截——`PreAssemblySpec`（`getPreAssemblySpec` 回傳型別，DvpGenerator 與測試在用）與 `DeviceType`（`TestConfigState` 在用）均**保留**。`engineeringRisk/auditFocus` 內容資料欄位為 `ISOTopic` 必填且餵養 13 主題，僅移除死 getter、內容零接觸。
+- **文件 SSOT 對齊**：DESIGN.md 全文重寫為奶茶–焦糖米 Neumorphic（Inset Focus）並新增 v8.44.0 動效規範表；README/CHANGELOG/index.html/vite.config.ts/translations.ts 版本徽章全數對齊 v8.44.0；一次性稽核報告歸檔至 `docs/archive/`（MECE：活動文件與歷史報告分層）。
+- **打包**：`build:standalone` 重編譯 `public/slides-standalone.html`（base64 內嵌無依賴單檔）並隨 `vite build` 落入 `dist/`。
+
+### 3. 變更檔案 (MECE)
+1. [src/index.css](file:///d:/Self-developed_Apps/G1/ISO_80369-7_Navigation/src/index.css)：[MODIFY] 動效 keyframes/滑塊類；移除 Legacy aliases 與 0 使用 class。
+2. [src/components/TopicClauseExplorer.tsx](file:///d:/Self-developed_Apps/G1/ISO_80369-7_Navigation/src/components/TopicClauseExplorer.tsx)：[MODIFY] View Mode sliding pill、JSX 修復、resize 重測。
+3. [src/components/Header.tsx](file:///d:/Self-developed_Apps/G1/ISO_80369-7_Navigation/src/components/Header.tsx)：[MODIFY] hub/sub 滑塊 resize 重測。
+4. [src/App.tsx](file:///d:/Self-developed_Apps/G1/ISO_80369-7_Navigation/src/App.tsx)：[MODIFY] `key={activeTab}` page transition。
+5. [src/types/index.ts](file:///d:/Self-developed_Apps/G1/ISO_80369-7_Navigation/src/types/index.ts)：[MODIFY] 移除 5 個孤兒型別。
+6. [src/data/isoData.ts](file:///d:/Self-developed_Apps/G1/ISO_80369-7_Navigation/src/data/isoData.ts)、[src/data/isoTopicsData.ts](file:///d:/Self-developed_Apps/G1/ISO_80369-7_Navigation/src/data/isoTopicsData.ts)：[MODIFY] 移除死資料常數、匯出收緊（內容文字零變更）。
+7. [src/utils/i18nHelpers.ts](file:///d:/Self-developed_Apps/G1/ISO_80369-7_Navigation/src/utils/i18nHelpers.ts)、[src/hooks/useClauseDetailDrawer.ts](file:///d:/Self-developed_Apps/G1/ISO_80369-7_Navigation/src/hooks/useClauseDetailDrawer.ts)：[MODIFY] 死 getter 移除、匯出收緊。
+8. [package.json](file:///d:/Self-developed_Apps/G1/ISO_80369-7_Navigation/package.json)、[package-lock.json](file:///d:/Self-developed_Apps/G1/ISO_80369-7_Navigation/package-lock.json)、[tsconfig.json](file:///d:/Self-developed_Apps/G1/ISO_80369-7_Navigation/tsconfig.json)：[MODIFY] 版本 8.44.0、依賴淨化、補 exclude。
+9. [index.html](file:///d:/Self-developed_Apps/G1/ISO_80369-7_Navigation/index.html)、[vite.config.ts](file:///d:/Self-developed_Apps/G1/ISO_80369-7_Navigation/vite.config.ts)、[src/i18n/translations.ts](file:///d:/Self-developed_Apps/G1/ISO_80369-7_Navigation/src/i18n/translations.ts)：[MODIFY] title/theme-color/manifest/版本徽章。
+10. [DESIGN.md](file:///d:/Self-developed_Apps/G1/ISO_80369-7_Navigation/DESIGN.md)、[README.md](file:///d:/Self-developed_Apps/G1/ISO_80369-7_Navigation/README.md)、[CHANGELOG.md](file:///d:/Self-developed_Apps/G1/ISO_80369-7_Navigation/CHANGELOG.md)、[docs/USER_GUIDE.md](file:///d:/Self-developed_Apps/G1/ISO_80369-7_Navigation/docs/USER_GUIDE.md)：[MODIFY] SSOT 同步。
+11. [public/assets/diagrams/](file:///d:/Self-developed_Apps/G1/ISO_80369-7_Navigation/public/assets/diagrams/)：[DELETE] 13 張孤兒 PNG；[DELETE] 根目錄 `upload_*.jpg`、`vite_dev.log`、`interaction-effects-plan.md`（已實作完畢，存於 git 歷史 deafaf4）。
+
+### 4. 確效結果 (Validation)
+- `npm run lint` (`tsc --noEmit`)：零錯誤 PASS
+- `npm run test` (`vitest run`)：55/55 PASS
+- `npm run build` (`vite build`) + `npm run build:standalone`：PASS
+- Browser Console：0 error；1440/768/375 三視口無文件級水平溢出；滑塊 resize 後仍在容器內
+- 資安盤點：`.env.example` 僅含非機密 `VITE_BASE_URL`；`isodoc/` 版權 PDF 確認未入 git；無 secrets/個資入庫
+
+---
+
 ## 版本：v8.43.0 (Commit: TBD) 科普學堂 Slide 11/12 研發/QC 技術培訓高密度文案脫油重構 (2026-09-19)
 
 ### 需求來源

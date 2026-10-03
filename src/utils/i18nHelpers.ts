@@ -25,7 +25,7 @@ export interface FigureI18nData {
   descriptionEn: string;
 }
 
-export const TOPIC_I18N: Record<string, TopicI18nData> = {
+const TOPIC_I18N: Record<string, TopicI18nData> = {
   'fluid-leakage': {
     shortSummaryEn: 'Evaluates sealing integrity of 6% Luer taper and threads under 300-330 kPa positive pressure (Water method: no falling drop / Air decay: leakage rate <= 0.005 Pa·m3/s).',
     detailedDescriptionEn: 'Positive pressure fluid leakage testing is the fundamental cornerstone of medical Luer connector verification. After assembling to a standard metal reference fixture per ISO 80369-20:2024 X.4 b) (lock: collar torque 0.08-0.12 N.m then 26.5-27.5 N axial force; slip: 26.5-27.5 N axial force then rotation <= 90 deg at torque <= 0.10 N.m), test connectors are evaluated under 300 kPa to 330 kPa hydraulic or pneumatic pressure. Under the Pressure Decay Method (Annex B), pressure is maintained for 15-20 s with a maximum allowable leakage rate of 0.005 Pa·m3/s. Per ISO 80369-20:2024 revision, the formula for leakage rate Q has been retired in favor of directly recording differential pressure change (Delta P), calculated via Delta P_max = (Q_max * Delta t) / V. Under the Falling Drop Method (Annex C), pressure is held for 30-35 s with zero liquid drop formation or release allowed.',
@@ -106,7 +106,7 @@ export const TOPIC_I18N: Record<string, TopicI18nData> = {
   }
 };
 
-export const CLAUSE_I18N: Record<string, ClauseI18nData> = {
+const CLAUSE_I18N: Record<string, ClauseI18nData> = {
   'iso7-6.1': {
     titleEn: 'Fluid Leakage by Pressure',
     objectiveEn: 'Verify that assembled Luer connectors exhibit no liquid leakage under 300-330 kPa positive pressure (Falling drop: no drop in 30-35 s / Pressure decay: rate <= 0.005 Pa·m3/s in 15-20 s).',
@@ -373,7 +373,7 @@ export const CLAUSE_I18N: Record<string, ClauseI18nData> = {
   }
 };
 
-export const FIGURE_I18N: Record<string, FigureI18nData> = {
+const FIGURE_I18N: Record<string, FigureI18nData> = {
   'A.1': {
     worstCaseReasonEn: 'Establishes normative cross-discipline physical lockout baseline, ensuring medical small-bore connectors from different clinical domains cannot misconnect.',
     descriptionEn: 'ISO 80369 Family non-interchangeability geometry matrix: vascular (Luer -7), enteral (ENFit -3), neuraxial (NRFit -6), and breathing (-2) isolation architecture.'
@@ -480,7 +480,7 @@ export const FIGURE_I18N: Record<string, FigureI18nData> = {
   }
 };
 
-export const TERM_DICTIONARY_EN: Record<string, string> = {
+const TERM_DICTIONARY_EN: Record<string, string> = {
   // Application Domains & Anatomical Classifications
   '血管應用 (-7)': 'Vascular App (-7)',
   '腸道應用 (-3)': 'Enteral App (-3)',
@@ -703,20 +703,6 @@ export const getTopicDetailedDescription = (topic: any, isEn: boolean): string =
   if (!isEn) return topic.detailedDescriptionZh || '';
   if (topic.detailedDescriptionEn) return topic.detailedDescriptionEn;
   return TOPIC_I18N[topic.id]?.detailedDescriptionEn || topic.detailedDescriptionZh || '';
-};
-
-export const getTopicEngineeringRisk = (topic: any, isEn: boolean): string => {
-  if (!topic) return '';
-  if (!isEn) return topic.engineeringRiskZh || '';
-  if (topic.engineeringRiskEn) return topic.engineeringRiskEn;
-  return TOPIC_I18N[topic.id]?.engineeringRiskEn || topic.engineeringRiskZh || '';
-};
-
-export const getTopicAuditFocus = (topic: any, isEn: boolean): string => {
-  if (!topic) return '';
-  if (!isEn) return topic.auditFocusZh || '';
-  if (topic.auditFocusEn) return topic.auditFocusEn;
-  return TOPIC_I18N[topic.id]?.auditFocusEn || topic.auditFocusZh || '';
 };
 
 export const getClauseObjective = (clause: any, isEn: boolean): string => {

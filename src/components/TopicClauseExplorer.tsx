@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useLayoutEffect } from 'react';
 import { ISO_TOPICS } from '../data/isoTopicsData';
 import { ANNEX_C_FIGURES } from '../data/isoData';
 import { AnnexCFigureInfo } from '../types';
@@ -10,7 +10,7 @@ import {
   Search, BookOpen, FileText, CheckCircle2, AlertTriangle, ShieldCheck, 
   ArrowRight, Copy, Check, Info, Sparkles, Filter, ExternalLink, RefreshCw,
   Droplets, Wind, Zap, ArrowDownUp, RotateCw, ShieldAlert, Ruler, Wrench, Layers3, Layers, Activity,
-  FolderTree, ChevronRight, ChevronDown, Tag, Eye, FileCode, Gauge, Maximize2
+  FolderTree, ChevronRight, Tag, Eye, FileCode, Gauge, Maximize2
 } from 'lucide-react';
 import { 
   getTopicShortSummary, 
@@ -29,6 +29,10 @@ export const TopicClauseExplorer: React.FC = () => {
   const [viewMode, setViewMode] = useState<'topics' | 'annex_tree'>('topics');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
+
+  // ── Sliding Pill: View Mode switcher ──────────────────────────
+  const viewModeRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const [viewSlider, setViewSlider] = useState({ left: 0, width: 0, visible: false });
   
   // Detail Drawer (Level 3 Deep Dive) - shared with the comparison matrix
   const drawer = useClauseDetailDrawer();
@@ -129,6 +133,19 @@ export const TopicClauseExplorer: React.FC = () => {
 
   const selectedFigure = allStandardFigures.find(f => f.id === selectedFigureId) || allStandardFigures[0];
 
+  useLayoutEffect(() => {
+    const measure = () => {
+      const activeIndex = viewMode === 'topics' ? 0 : 1;
+      const btn = viewModeRefs.current[activeIndex];
+      if (btn) {
+        setViewSlider({ left: btn.offsetLeft, width: btn.offsetWidth, visible: true });
+      }
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, [viewMode, filteredTopics.length, allStandardFigures.length]);
+
   // Category filter pills - MECE aligned with TopicCategory enum
   const categories = [
     { id: 'all', label: t.explorer.catAll },
@@ -149,34 +166,47 @@ export const TopicClauseExplorer: React.FC = () => {
         {/* Row 1: Mode Switcher & Search Bar */}
         <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
 
-          {/* View Mode Switcher — inset tray with elevated active pill */}
-          <div className="neo-tray flex items-center gap-1 p-1 rounded-xl shrink-0">
+          {/* View Mode Switcher — inset tray with elevated sliding pill */}
+          <div className="neo-tray relative flex items-center gap-1 p-1 rounded-xl shrink-0">
+            {/* Sliding pill background */}
+            {viewSlider.visible && (
+              <div
+                className="neo-pill-active pill-slider absolute rounded-lg"
+                style={{ left: viewSlider.left, width: viewSlider.width, top: 0, height: '100%', zIndex: 0 }}
+              />
+            )}
             <button
+              ref={(el) => { viewModeRefs.current[0] = el; }}
               onClick={() => setViewMode('topics')}
-              className={`flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer min-h-[36px] ${
+              className={`relative z-10 flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer min-h-[36px] ${
                 viewMode === 'topics'
-                  ? 'neo-pill-active text-blue-700'
+                  ? 'text-blue-700 font-extrabold'
                   : 'text-[var(--neo-muted)] hover:text-[var(--neo-text)]'
               }`}
             >
-              <BookOpen className="w-4 h-4 text-blue-600" />
+              <BookOpen className={`w-4 h-4 ${viewMode === 'topics' ? 'text-blue-600' : 'text-[var(--neo-muted)]'}`} />
               <span>{t.explorer.tabTopics}</span>
-              <span className="text-[11px] font-mono font-bold px-1.5 py-0.2 rounded-full bg-blue-100/60 text-blue-700">
+              <span className={`text-[11px] font-mono font-bold px-1.5 py-0.2 rounded-full ${
+                viewMode === 'topics' ? 'bg-blue-100/80 text-blue-700' : 'bg-[var(--neo-surface)]/60 text-[var(--neo-muted)]'
+              }`}>
                 {filteredTopics.length}
               </span>
             </button>
 
             <button
+              ref={(el) => { viewModeRefs.current[1] = el; }}
               onClick={() => setViewMode('annex_tree')}
-              className={`flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer min-h-[36px] ${
+              className={`relative z-10 flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer min-h-[36px] ${
                 viewMode === 'annex_tree'
-                  ? 'neo-pill-active text-indigo-700'
+                  ? 'text-indigo-700 font-extrabold'
                   : 'text-[var(--neo-muted)] hover:text-[var(--neo-text)]'
               }`}
             >
-              <FolderTree className="w-4 h-4 text-indigo-500" />
+              <FolderTree className={`w-4 h-4 ${viewMode === 'annex_tree' ? 'text-indigo-500' : 'text-[var(--neo-muted)]'}`} />
               <span>{t.explorer.tabAnnexTree}</span>
-              <span className="text-[11px] font-mono font-bold px-1.5 py-0.2 rounded-full bg-indigo-100/60 text-indigo-700">
+              <span className={`text-[11px] font-mono font-bold px-1.5 py-0.2 rounded-full ${
+                viewMode === 'annex_tree' ? 'bg-indigo-100/80 text-indigo-700' : 'bg-[var(--neo-surface)]/60 text-[var(--neo-muted)]'
+              }`}>
                 {allStandardFigures.length}
               </span>
             </button>
@@ -240,11 +270,17 @@ export const TopicClauseExplorer: React.FC = () => {
               <p className="text-xs text-[var(--neo-muted)]">{isEn ? 'Try adjusting your search query or category filter' : '請嘗試清除搜尋關鍵字或切換類別分類'}</p>
             </div>
           ) : (
-            filteredTopics.map((topic) => (
+            filteredTopics.map((topic, idx) => (
               <div
                 key={topic.id}
                 onClick={() => drawer.openTopic(topic)}
-                className="group neo-card rounded-2xl p-4 sm:p-5 transition-all duration-200 flex flex-col justify-between space-y-4 cursor-pointer relative"
+                className="group neo-card stagger-card spotlight-card rounded-2xl p-4 sm:p-5 transition-all duration-200 flex flex-col justify-between space-y-4 cursor-pointer relative"
+                style={{ animationDelay: `${idx * 0.08}s` }}
+                onMouseMove={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  e.currentTarget.style.setProperty('--mx', `${e.clientX - rect.left}px`);
+                  e.currentTarget.style.setProperty('--my', `${e.clientY - rect.top}px`);
+                }}
               >
                 {/* Topic Header: Icon, Category Badge & Title */}
                 <div className="space-y-2.5">
@@ -344,7 +380,7 @@ export const TopicClauseExplorer: React.FC = () => {
                 className="w-full flex items-center justify-between p-2.5 rounded-xl bg-blue-50/80 hover:bg-blue-100/80 text-blue-900 font-bold text-xs transition border border-blue-100 cursor-pointer"
               >
                 <span className="flex items-center gap-1.5">
-                  {expandedNodes['iso7'] ? <ChevronDown className="w-4 h-4 text-blue-600" /> : <ChevronRight className="w-4 h-4 text-blue-600" />}
+                  <ChevronRight className={`w-4 h-4 text-blue-600 tree-chevron ${expandedNodes['iso7'] ? 'rotated' : ''}`} />
                   📘 {isEn ? 'ISO 80369-7 Connector Figures' : 'ISO 80369-7 血管小口徑接頭規範圖表'}
                 </span>
                 <span className="bg-blue-200/80 text-blue-800 text-xs px-2 py-0.5 rounded-md font-mono font-bold">
@@ -352,8 +388,7 @@ export const TopicClauseExplorer: React.FC = () => {
                 </span>
               </button>
 
-              {expandedNodes['iso7'] && (
-                <div className="pl-2 space-y-1 border-l-2 border-blue-100 ml-2 pt-1">
+              <div className={`tree-children pl-2 space-y-1 border-l-2 border-blue-100 ml-2 pt-1 ${expandedNodes['iso7'] ? 'expanded' : ''}`}>
                   {/* Annex A */}
                   <div className="space-y-0.5">
                     <button
@@ -361,12 +396,11 @@ export const TopicClauseExplorer: React.FC = () => {
                       className="w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-[var(--neo-muted)] hover:text-[var(--neo-text)] hover:bg-[var(--neo-inset)] text-xs font-bold cursor-pointer"
                     >
                       <span className="flex items-center gap-1">
-                        {expandedNodes['iso7-annex-a'] ? <ChevronDown className="w-3.5 h-3.5 text-slate-400" /> : <ChevronRight className="w-3.5 h-3.5 text-slate-400" />}
+                        <ChevronRight className={`w-3.5 h-3.5 text-slate-400 tree-chevron ${expandedNodes['iso7-annex-a'] ? 'rotated' : ''}`} />
                         {isEn ? 'Annex A: Non-Interchangeability' : 'Annex A 防誤插幾何矩陣'}
                       </span>
                     </button>
-                    {expandedNodes['iso7-annex-a'] && (
-                      <div className="pl-3 space-y-1 border-l border-slate-200 ml-2">
+                    <div className={`tree-children pl-3 space-y-1 border-l border-slate-200 ml-2 ${expandedNodes['iso7-annex-a'] ? 'expanded' : ''}`}>
                         {filteredAnnexFigures.filter(f => f.annexGroup === 'Annex A').map(fig => {
                           const isSelected = selectedFigureId === fig.id;
                           return (
@@ -388,8 +422,7 @@ export const TopicClauseExplorer: React.FC = () => {
                           );
                         })}
                       </div>
-                    )}
-                  </div>
+                    </div>
 
                   {/* Annex B */}
                   <div className="space-y-0.5 pt-1">
@@ -398,12 +431,11 @@ export const TopicClauseExplorer: React.FC = () => {
                       className="w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-[var(--neo-muted)] hover:text-[var(--neo-text)] hover:bg-[var(--neo-inset)] text-xs font-bold cursor-pointer"
                     >
                       <span className="flex items-center gap-1">
-                        {expandedNodes['iso7-annex-b'] ? <ChevronDown className="w-3.5 h-3.5 text-slate-400" /> : <ChevronRight className="w-3.5 h-3.5 text-slate-400" />}
+                        <ChevronRight className={`w-3.5 h-3.5 text-slate-400 tree-chevron ${expandedNodes['iso7-annex-b'] ? 'rotated' : ''}`} />
                         {isEn ? 'Annex B: Product CAD Geometry' : 'Annex B 商業產品 CAD 尺寸'}
                       </span>
                     </button>
-                    {expandedNodes['iso7-annex-b'] && (
-                      <div className="pl-3 space-y-1 border-l border-slate-200 ml-2">
+                    <div className={`tree-children pl-3 space-y-1 border-l border-slate-200 ml-2 ${expandedNodes['iso7-annex-b'] ? 'expanded' : ''}`}>
                         {filteredAnnexFigures.filter(f => f.annexGroup === 'Annex B').map(fig => {
                           const isSelected = selectedFigureId === fig.id;
                           return (
@@ -425,8 +457,7 @@ export const TopicClauseExplorer: React.FC = () => {
                           );
                         })}
                       </div>
-                    )}
-                  </div>
+                    </div>
 
                   {/* Annex C */}
                   <div className="space-y-0.5 pt-1">
@@ -435,12 +466,11 @@ export const TopicClauseExplorer: React.FC = () => {
                       className="w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-[var(--neo-muted)] hover:text-[var(--neo-text)] hover:bg-[var(--neo-inset)] text-xs font-bold cursor-pointer"
                     >
                       <span className="flex items-center gap-1">
-                        {expandedNodes['iso7-annex-c'] ? <ChevronDown className="w-3.5 h-3.5 text-slate-400" /> : <ChevronRight className="w-3.5 h-3.5 text-slate-400" />}
+                        <ChevronRight className={`w-3.5 h-3.5 text-slate-400 tree-chevron ${expandedNodes['iso7-annex-c'] ? 'rotated' : ''}`} />
                         {isEn ? 'Annex C: Reference Gauges' : 'Annex C 測試參考金屬夾具'}
                       </span>
                     </button>
-                    {expandedNodes['iso7-annex-c'] && (
-                      <div className="pl-3 space-y-1 border-l border-slate-200 ml-2">
+                    <div className={`tree-children pl-3 space-y-1 border-l border-slate-200 ml-2 ${expandedNodes['iso7-annex-c'] ? 'expanded' : ''}`}>
                         {filteredAnnexFigures.filter(f => f.annexGroup === 'Annex C').map(fig => {
                           const isSelected = selectedFigureId === fig.id;
                           return (
@@ -469,11 +499,9 @@ export const TopicClauseExplorer: React.FC = () => {
                           );
                         })}
                       </div>
-                    )}
-                  </div>
+                    </div>
                 </div>
-              )}
-            </div>
+              </div>
 
             {/* ISO 80369-20 Root Node */}
             <div className="space-y-1 pt-2">
@@ -482,7 +510,7 @@ export const TopicClauseExplorer: React.FC = () => {
                 className="w-full flex items-center justify-between p-2.5 rounded-xl bg-indigo-50/80 hover:bg-indigo-100/80 text-indigo-900 font-bold text-xs transition border border-indigo-100 cursor-pointer"
               >
                 <span className="flex items-center gap-1.5">
-                  {expandedNodes['iso20'] ? <ChevronDown className="w-4 h-4 text-indigo-700" /> : <ChevronRight className="w-4 h-4 text-indigo-700" />}
+                  <ChevronRight className={`w-4 h-4 text-indigo-700 tree-chevron ${expandedNodes['iso20'] ? 'rotated' : ''}`} />
                   🔬 {isEn ? 'ISO 80369-20 Test Apparatus Figures' : 'ISO 80369-20 實驗室測試方法圖表'}
                 </span>
                 <span className="bg-indigo-200/80 text-indigo-800 text-xs px-2 py-0.5 rounded-md font-mono font-bold">
@@ -490,8 +518,7 @@ export const TopicClauseExplorer: React.FC = () => {
                 </span>
               </button>
 
-              {expandedNodes['iso20'] && (
-                <div className="pl-2 space-y-1 border-l-2 border-indigo-100 ml-2 pt-1">
+              <div className={`tree-children pl-2 space-y-1 border-l-2 border-indigo-100 ml-2 pt-1 ${expandedNodes['iso20'] ? 'expanded' : ''}`}>
                   {filteredAnnexFigures.filter(f => f.annexGroup === 'ISO 80369-20').map(fig => {
                     const isSelected = selectedFigureId === fig.id;
                     return (
@@ -513,9 +540,8 @@ export const TopicClauseExplorer: React.FC = () => {
                     );
                   })}
                 </div>
-              )}
+              </div>
             </div>
-          </div>
 
           {/* Figure Preview & CAD Display (7 cols) */}
           <div className="lg:col-span-7 neo-card rounded-2xl p-5 space-y-4">

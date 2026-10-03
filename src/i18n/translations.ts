@@ -5,7 +5,6 @@ export const TRANSLATIONS = {
     app: {
       title: 'ISO 80369-7 & 20 視覺化導航系統',
       subtitle: '醫療級魯爾連接器主題檢索、規範條文對照、實驗室測試細則與最壞情況夾具導航',
-      versionBadge: 'v8.17.0 零死角國際雙語版',
       standardInfo: 'ISO 80369-7:2021 | ISO 80369-20:2024',
       footer: '© 2026 ISO 80369-7 & 20 醫療器材連接器標準導航系統 | 依據 ISO 80369-7:2021 與 ISO 80369-20:2024 法規標準建置',
     },
@@ -213,7 +212,6 @@ export const TRANSLATIONS = {
     app: {
       title: 'ISO 80369-7 & 20 Navigation System',
       subtitle: 'Medical Luer Connector Topic Explorer, Dual-Standard Clause Matrix, Test Protocol & Worst-Case Fixture Guide',
-      versionBadge: 'v8.17.0 Zero-Blindspot Bilingual Edition',
       standardInfo: 'ISO 80369-7:2021 | ISO 80369-20:2024',
       footer: '© 2026 ISO 80369-7 & 20 Medical Small-Bore Connector Navigation System | Built in compliance with ISO 80369-7:2021 & ISO 80369-20:2024',
     },

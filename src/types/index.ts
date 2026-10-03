@@ -60,16 +60,6 @@ export interface AnnexCFigureInfo {
   svgKey?: string;
 }
 
-export interface PlasticMaterial {
-  id: string;
-  name: string;
-  flexuralModulusMpa: number;
-  yieldStrengthMpa: number;
-  creepResistanceScore: 'Low' | 'Medium' | 'High' | 'Very High';
-  recommendationZh: string;
-  recommendationEn?: string;
-}
-
 export interface TestConfigState {
   deviceType: DeviceType;
   connectorGender: ConnectorGender;
@@ -84,39 +74,6 @@ export interface TestConfigState {
   collarWallThicknessMm: number;
   collarOuterDiameterMm: number;
   tPortAsymmetryFactor: number;
-}
-
-export interface ComplianceAuditResult {
-  isCompliant: boolean;
-  statusLevel: 'compliant' | 'warning' | 'non-compliant' | 'wrong-connector';
-  overallScore: number;
-  clauseName: string;
-  correctRefConnector: AnnexCFigureId;
-  connectorMatch: boolean;
-  assemblyTorqueValid: boolean;
-  testTorqueValid: boolean;
-  testForceValid: boolean;
-  holdTimeValid: boolean;
-  materialStrengthValid: boolean;
-  calculatedHoopStressMpa: number;
-  calculatedSafetyFactor: number;
-  calculatedCreepRisk: 'Low' | 'Moderate' | 'High' | 'Critical (Override Imminent)';
-  issuesZh: string[];
-  issuesEn?: string[];
-  recommendationsZh: string[];
-  recommendationsEn?: string[];
-}
-
-export interface FailureModeInfo {
-  id: string;
-  title: string;
-  titleZh: string;
-  subtitleZh: string;
-  iconName: string;
-  mechanismZh: string;
-  visualMetaphorZh: string;
-  keyFormulaZh: string;
-  countermeasuresZh: string[];
 }
 
 export type TopicCategory = 'leakage' | 'mechanical' | 'durability' | 'dimensional' | 'assembly' | 'general';
@@ -213,18 +170,4 @@ export interface StandardClauseDetail {
   regulatoryTipZh: string;
   regulatoryTipEn?: string;
   figureKey?: string;
-}
-
-export interface StandardMappingNode {
-  id: string;
-  label: string;
-  standard: 'ISO 80369-7' | 'ISO 80369-20' | 'Topic' | 'Fixture';
-  category: string;
-  type: 'topic' | 'iso7_clause' | 'iso20_annex' | 'fixture';
-}
-
-export interface StandardMappingEdge {
-  source: string;
-  target: string;
-  relationshipZh: string;
 }

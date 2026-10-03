@@ -9,21 +9,20 @@
 ```
 ISO_80369-7_Navigation/
 ├── src/                        ← React SPA 主程式（Clause Explorer, DVP Generator …）
-│   ├── components/             ← 8 個互動組件
+│   ├── components/             ← 9 個互動組件（含 PWA 安裝提示）
 │   ├── data/                   ← ISO 標準條款資料（單一事實來源 SSOT）
 │   ├── i18n/                   ← 中英雙語翻譯字典
 │   └── utils/                  ← Excel 匯出、i18n 輔助、單元測試
 ├── public/
 │   ├── slides/
-│   │   ├── index.html          ← ✏️ 靜態投影片（SSOT，直接編輯）
-│   │   └── assets/             ← 投影片圖片資源
+│   │   └── index.html          ← ✏️ 靜態投影片（SSOT，直接編輯；圖片置於 ../assets/）
 │   ├── assets/                 ← React App 共用圖片資源
-│   └── slides-standalone.html  ← 📦 離線單檔（base64 內嵌，27 MB）
+│   └── slides-standalone.html  ← 📦 離線單檔（base64 內嵌，約 27 MB）
 ├── scripts/
 │   ├── build_standalone.cjs    ← 靜態投影片離線打包工具（零 npm 依賴）
 │   └── generate_icons.cjs      ← PWA 圖示生成工具
 ├── .github/workflows/deploy.yml ← GitHub Pages 自動部署（Vite + PWA）
-├── package.json                ← v8.42.0
+├── package.json                ← v8.44.0
 ├── CHANGELOG.md                ← 完整版本歷程
 └── DEV_LOG.md                  ← 技術決策日誌
 ```
@@ -38,7 +37,7 @@ ISO_80369-7_Navigation/
 npm install
 npm run dev          # localhost:3000
 npm run build        # production dist/
-npm run test         # vitest — 52 tests passing ✅
+npm run test         # vitest — 55 tests passing ✅
 npm run lint         # tsc --noEmit
 ```
 
@@ -84,8 +83,8 @@ GitHub Pages 自動部署（每次推送 main 分支後觸發）：
 | 8 | 密封雙子星：正壓漏液 vs 負壓漏氣 | 300 kPa 水壓防滲漏 vs 88 kPa 抽吸防氣栓 |
 | 9 | 機械三大極限：抗拉拔、抗鬆脫、耐滑牙 | 35 N 軸向拉脫、0.02 N·m 自鬆抵抗、0.17 N·m 粗暴抗滑牙 |
 | 10 | 時空大考：環境應力龜裂 vs 防呆互斥 | 48h 常溫常濕乾燥靜置 vs 條文 5 三維 CAD 空間干涉分析零互插 |
-| 11 | 產業閉環：從圖紙到病房的完整旅程 | 規格制定 ➔ 模具量產 ➔ 機台確效 ➔ 臨床護航全鏈路 |
-| 12 | 總結昇華：把安全刻在形狀裡的極致溫柔 | 幾何防呆的本質善意：用微米精準換來病床邊的一秒安心 |
+| 11 | 工程全鏈路・R&D / QC / RA 協同實務 | 4 階段流程（公差定錨 ➔ 極限驗證 ➔ 文件交付 ➔ Cpk 管制）＋ 3 大角色責任矩陣，`[ISO 法定]` / `[實務]` 標籤分流 |
+| 12 | 培訓精華・技術第一性原理 | 三大不可動搖法則：三維幾何物理防呆、母標準裁判與工具箱解耦、固體與流體力學真實機制 |
 
 ---
 
@@ -105,7 +104,7 @@ GitHub Pages 自動部署（每次推送 main 分支後觸發）：
 npm run test
 ```
 
-- **52/52 tests passing** ✅
+- **55/55 tests passing** ✅
 - `isoHelpers.test.ts` — Clause 6.1–6.6 數據校驗、i18n 字典完整性、Excel 匯出（zh/en）、預處理規格、SSOT 圖資完整性、MECE 13 主題覆蓋率、零丟失條文關聯
 - `isoConformance.test.ts` — 標準一致性防護：Annex C 六張參考接頭圖的性別／型式／適用條文逐字比對、夾具配對不得越出 ISO 80369-7 允許集合、鎖定型／滑動型預裝配雙序列、ISO 80369-20 各附錄報告項數、對照矩陣每列皆可開啟深度規格抽屜
 
@@ -117,4 +116,4 @@ npm run test
 
 ---
 
-*Created by Wesley Chang, QC Dept. @Mouldex · v8.40.6 · 2026-09-07*
+*Created by Wesley Chang, QC Dept. @Mouldex · v8.44.0 · 2026-10-02*

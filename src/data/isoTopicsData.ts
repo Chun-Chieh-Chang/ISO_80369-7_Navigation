@@ -637,7 +637,8 @@ export const ISO_TOPICS: ISOTopic[] = [
   }
 ];
 
-export const PRE_ASSEMBLY_LOCK: PreAssemblyCondition = {
+// Module-private SSOT constants — consumed only by STANDARD_CLAUSE_DETAILS below.
+const PRE_ASSEMBLY_LOCK: PreAssemblyCondition = {
   status: 'standard_lock',
   labelZh: '標準鎖定預裝配',
   assemblyTorqueNm: '0.08 N·m - 0.12 N·m',
@@ -647,17 +648,7 @@ export const PRE_ASSEMBLY_LOCK: PreAssemblyCondition = {
   apparatusZh: 'S15A 雙軸加載機構（扭矩+推力同動控制）'
 };
 
-export const PRE_ASSEMBLY_SLIP: PreAssemblyCondition = {
-  status: 'slip',
-  labelZh: '滑動推入預裝配',
-  assemblyTorqueNm: '≤ 0.10 N·m (微旋)',
-  assemblyAxialForceN: '26.5 N - 27.5 N',
-  holdTimeSec: '5 - 6 秒',
-  descriptionZh: '先施加 26.5~27.5 N 軸向推力，再於維持該推力下以不超過 0.10 N·m 扭矩旋轉不超過 90°，維持 5~6 秒後完全釋放 (Release)，確立錐度自鎖。',
-  apparatusZh: '定軸推力加載裝置'
-};
-
-export const PRE_ASSEMBLY_NOT_APPLICABLE: PreAssemblyCondition = {
+const PRE_ASSEMBLY_NOT_APPLICABLE: PreAssemblyCondition = {
   status: 'not_applicable',
   labelZh: '不適用預裝配',
   descriptionZh: '此為標準導引、尺寸規範或金屬夾具定義，無需執行前置預裝配。'

@@ -102,7 +102,7 @@ export const findTopicForClause = (clauseId: string): ISOTopic | undefined => {
   return ISO_TOPICS.find(t => t.relatedISO7Clauses.includes(clauseId));
 };
 
-export interface ClauseDetailDrawerController {
+interface ClauseDetailDrawerController {
   isOpen: boolean;
   topic: ISOTopic | null;
   activeClauseId: string | null;
