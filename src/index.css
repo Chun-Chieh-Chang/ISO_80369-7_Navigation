@@ -96,6 +96,19 @@
     -9px -9px 22px var(--neo-sl);
 }
 
+/* Opt-out: cards that host a full-screen overlay (position: fixed) or a large
+   blueprint canvas must stay optically still.
+   A hover `transform` makes the card the containing block of its fixed
+   descendants, so the overlay gets re-anchored + clipped to the card every time
+   :hover flips — and because the overlay itself sits under the pointer, :hover
+   then flips back, producing an endless ~30 Hz flash loop. */
+.neo-card.no-lift:hover {
+  transform: none;
+  box-shadow:
+     6px  6px 15px var(--neo-sd),
+    -6px -6px 15px var(--neo-sl);
+}
+
 /* Inset tray — sunken container for groups or tabs */
 .neo-tray {
   background-color: var(--neo-inset);

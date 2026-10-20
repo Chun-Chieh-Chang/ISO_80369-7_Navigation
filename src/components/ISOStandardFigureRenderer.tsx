@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { 
+import { createPortal } from 'react-dom';
+import {
   Zap, Info, Maximize2, ShieldAlert, CheckCircle2, Sliders, Droplets, Wind, 
   RotateCw, ArrowDownUp, Ruler, Sparkles, Eye, RefreshCw, Tag, HelpCircle, X, Activity, FileText
 } from 'lucide-react';
@@ -210,7 +211,7 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
   });
 
   return (
-    <div className={`neo-card rounded-2xl overflow-hidden text-[var(--neo-text)] ${className}`}>
+    <div className={`neo-card no-lift rounded-2xl overflow-hidden text-[var(--neo-text)] ${className}`}>
       {/* Fig.Header Bar */}
       <div className="bg-[var(--neo-inset)] border-b border-[var(--neo-border)] px-4 py-3 flex flex-wrap items-center justify-between gap-2 text-xs">
         <div className="flex items-center space-x-2.5">
@@ -540,9 +541,11 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
         )}
       </div>
 
-      {/* Fullscreen Zoom Modal for Blueprint or HD Image */}
-      {showZoomModal && (
-        <div className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex flex-col items-center justify-center p-4">
+      {/* Fullscreen Zoom Modal — portaled to <body> so it is a true viewport
+          overlay. Inside the card it would inherit the card's hover transform
+          as its containing block and get clipped/shifted on every :hover flip. */}
+      {showZoomModal && createPortal(
+        <div className="fixed inset-0 z-[100] bg-black/95 flex flex-col items-center justify-center p-4">
           <div className="absolute top-4 right-4 flex items-center gap-3 z-10">
             <span className="text-white text-xs font-mono bg-white/10 px-3 py-1 rounded-full border border-white/20">
               {zoomImageTitle || activeTitle} ({standard})
@@ -563,13 +566,13 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
               className="max-w-full max-h-[85vh] object-contain rounded-xl shadow-2xl border border-white/20 bg-slate-950" 
             />
           </div>
-        </div>
+        </div>, document.body
       )}
 
-      {/* Category Info Modal - Dynamic & Figure-Specific */}
-      {showCategoryModal && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="neo-card rounded-2xl max-w-xl w-full p-6 space-y-4 shadow-2xl relative text-[var(--neo-text)]">
+      {/* Category Info Modal - Dynamic & Figure-Specific (also portaled) */}
+      {showCategoryModal && createPortal(
+        <div className="fixed inset-0 z-[100] bg-black/70 flex items-center justify-center p-4">
+          <div className="neo-card no-lift rounded-2xl max-w-xl w-full p-6 space-y-4 shadow-2xl relative text-[var(--neo-text)]">
             <div className="flex items-center justify-between pb-3 border-b border-[var(--neo-border)]">
               <div className="flex items-center gap-2">
                 <Tag className="w-5 h-5 text-blue-600" />
@@ -700,7 +703,7 @@ export const ISOStandardFigureRenderer: React.FC<ISOStandardFigureRendererProps>
               </button>
             </div>
           </div>
-        </div>
+        </div>, document.body
       )}
     </div>
   );
