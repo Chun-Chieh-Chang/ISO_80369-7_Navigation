@@ -2,6 +2,27 @@
 
 All notable changes to the ISO 80369-7 & ISO 80369-20 Navigation App will be documented in this file.
 
+## [v8.44.3] - 2026-10-20
+
+### 修復：深度規格抽屜「全螢幕檢視 / 滑鼠懸浮圖片」畫面高頻閃爍
+
+#### 症狀
+點「📖 完整規格」開啟抽屜後，按下圖片右上角 ⛶ 放大全螢幕檢視，只要滑鼠在畫面內移動，整片黑色遮罩就在「全螢幕」與「卡片區域」之間以約 30 Hz 高速閃跳。
+
+#### 根因（已在瀏覽器實測重現）
+1. **全螢幕遮罩被渲染在 `.neo-card`（ISOStandardFigureRenderer 根節點）內部**，而該卡片同時帶有 `overflow-hidden` 與 `.neo-card:hover { transform: translateY(-4px) }`。父層的 `transform` 會讓 `position: fixed` 的後代改以該父層為 containing block，`overflow-hidden` 也隨之對其生效。
+2. 於是出現回授環：滑鼠在遮罩上 → 遮罩是卡片的後代 → 卡片進入 `:hover` 加上 transform → 遮罩被重新錨定並裁切成卡片範圍（實測由 `0,0,480,885` 塌縮為 `33,2148,408,1306`）→ 滑鼠落在卡片範圍外 → `:hover` 解除 → 遮罩彈回全螢幕 → 再次進入 `:hover` … 無限循環。
+3. 附帶問題：全螢幕遮罩 `backdrop-blur-md` 與抽屜根層 `backdrop-blur-xs` 形成巢狀 backdrop-filter；卡片 hover 位移又使該模糊區域持續重繪。
+
+#### 修正
+- `ISOStandardFigureRenderer.tsx`：全螢幕縮放 Modal 與圖別說明 Modal 改以 `createPortal(..., document.body)` 輸出，成為真正的視口覆蓋層，不再受卡片 hover transform 影響；`z-50` → `z-[100]`（確保蓋過 z-50 抽屜）；移除遮罩上無意義的巢狀 `backdrop-blur`。
+- `index.css`：新增 `.neo-card.no-lift:hover`（`transform: none`、陰影維持 hover 回饋），供內嵌覆蓋層或大型圖面的卡片停用 Hover Lift；圖面卡與圖別 Modal 內卡加上 `no-lift`，滑鼠滑過圖片時畫布不再位移 4px。其餘頁面卡片的 Hover Lift 設計不變。
+
+#### 驗收
+- `tsc --noEmit`：0 errors ✅
+- `vitest run`：56/56 PASS ✅
+- 瀏覽器實測：以 `requestAnimationFrame` 連續取樣 1.5 s（91 幀），修正前遮罩在 2 個狀態間來回切換；修正後僅 1 個狀態（`0,0,480,885`，等同視口），滑鼠在覆蓋層上移動不再觸發任何位移；圖片卡 hover 期間幾何固定為 `[33,247,408,1306]`，transform 恆為 `none`。
+
 ## [v8.44.2] - 2026-10-03
 
 ### 依賴弱點修補（npm audit）

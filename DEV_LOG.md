@@ -1,6 +1,34 @@
 # 開發日誌 (DEV_LOG)
 
 ---
+## 版本：v8.44.3 修復深度規格抽屜全螢幕檢視 / 滑鼠懸浮圖片高頻閃爍 (2026-10-20)
+
+### 需求來源
+使用者回報：點「📖 完整規格」開啟抽屜後，放大全螢幕檢視、或滑鼠懸浮在圖片上時，螢幕顯示一直跳閃不停。
+
+### 1. 診斷與根因 (RCA)
+以瀏覽器實測重現（`requestAnimationFrame` 逐幀取樣 1.5 s / 91 幀），確認是 **CSS containing block 回授環**，非效能或重繪問題：
+1. **全螢幕遮罩渲染在 `.neo-card` 內部**：`ISOStandardFigureRenderer` 的縮放 Modal 直接寫在元件 JSX，而元件根節點即 `neo-card`（`overflow-hidden`）。
+2. **hover 加上 `transform`**：`.neo-card:hover { transform: translateY(-4px) }`（v8.44.0 互動動效）。依 CSS 規範，祖先 `transform` 會使 `position: fixed` 後代改以該祖先為 containing block，`overflow-hidden` 亦隨之生效。
+3. **回授環成形**：滑鼠在遮罩上（遮罩是卡片後代）→ 卡片被 hover 加 transform → 遮罩被重新錨定並裁切為卡片範圍（實測 `0,0,480,885` → `33,2148,408,1306`）→ 指標落在卡片外 → `:hover` 解除 → 遮罩彈回全螢幕 → 再次 hover … 取樣所得 91 幀全在兩態間切換，等效約 30 Hz 閃爍。
+4. 附帶因素：遮罩 `backdrop-blur-md` 與抽屜根層 `backdrop-blur-xs` 形成巢狀 backdrop-filter，卡片位移時該模糊區持續重繪，加重閃跳感。
+
+### 2. 矯正與預防措施 (CAPA)
+- `ISOStandardFigureRenderer.tsx`：全螢幕縮放 Modal 與圖別說明 Modal 改以 `createPortal(..., document.body)` 輸出，成為真正視口覆蓋層，徹底脫離卡片座標系；`z-50` → `z-[100]`（覆蓋 z-50 抽屜）；移除遮罩上無視覺作用的巢狀 `backdrop-blur`。
+- `index.css`：新增 `.neo-card.no-lift:hover` 例外（`transform: none`，陰影維持 hover 回饋），供內嵌覆蓋層或大型圖面卡片停用 Hover Lift。**預防後續開發踩同一陷阱**：凡卡片內含 `position: fixed` 元素者，一律掛 `no-lift`。
+- 圖面卡與圖別 Modal 內卡套用 `no-lift`，滑鼠滑過圖片時畫布不再位移 4px；其餘頁面卡片 Hover Lift 設計不變。
+
+### 3. 讀取檔案 (MECE)
+1. [src/components/ISOStandardFigureRenderer.tsx](src/components/ISOStandardFigureRenderer.tsx)：[MODIFY] 兩個 Modal 改 portal 輸出、z-[100]、移除巢狀 backdrop-blur、根節點與內卡加 `no-lift`。
+2. [src/index.css](src/index.css)：[MODIFY] 新增 `.neo-card.no-lift:hover` 例外規則。
+3. [CHANGELOG.md](CHANGELOG.md)、[README.md](README.md)、[package.json](package.json)、[package-lock.json](package-lock.json)：[MODIFY] 版本同步 8.44.3。
+
+### 4. 確認結果 (Validation)
+- `npm run lint` (`tsc --noEmit`)：0 錯誤 PASS
+- `npm run test` (`vitest run`)：56/56 PASS
+- 瀏覽器實測（修正後）：Modal `parentElement === document.body`、幾何恆為視口大小；滑鼠在覆蓋層上移動 91 幀僅 1 個狀態，無任何位移；圖片卡 hover 期間 transform 恆為 `none`、幾何固定 `[33,247,408,1306]`。
+
+---
 ## 版本：v8.44.2 依賴弱點修補（npm audit，不含破壞性升級）(2026-10-03)
 
 ### 需求來源
