@@ -10,7 +10,7 @@ import {
   Search, BookOpen, FileText, CheckCircle2, AlertTriangle, ShieldCheck, 
   ArrowRight, Copy, Check, Info, Sparkles, Filter, ExternalLink, RefreshCw,
   Droplets, Wind, Zap, ArrowDownUp, RotateCw, ShieldAlert, Ruler, Wrench, Layers3, Layers, Activity,
-  FolderTree, ChevronRight, Tag, Eye, FileCode, Gauge, Maximize2
+  FolderTree, ChevronRight, ChevronDown, ChevronUp, Tag, Eye, FileCode, Gauge, Maximize2
 } from 'lucide-react';
 import { 
   getTopicShortSummary, 
@@ -36,6 +36,11 @@ export const TopicClauseExplorer: React.FC = () => {
   
   // Detail Drawer (Level 3 Deep Dive) - shared with the comparison matrix
   const drawer = useClauseDetailDrawer();
+
+  // Cards preview the first key parameters; the rest expand in place because the
+  // detail drawer does not repeat topic.keyParameters.
+  const PARAM_PREVIEW_COUNT = 2;
+  const [expandedParams, setExpandedParams] = useState<Record<string, boolean>>({});
 
   // Figure Tree States
   const [selectedFigureId, setSelectedFigureId] = useState<string>('B.2');
@@ -307,20 +312,46 @@ export const TopicClauseExplorer: React.FC = () => {
                 </div>
 
                 {/* Key Parameter Pills */}
-                {topic.keyParameters.length > 0 && (
-                  <div className="grid grid-cols-2 gap-2 text-xs font-mono">
-                    {topic.keyParameters.slice(0, 2).map((param, pIdx) => (
-                      <div key={pIdx} className="neo-tray p-2 rounded-xl transition">
-                        <span className="text-[10px] text-slate-400 block font-sans truncate">
-                          {isEn ? (param.labelEn || translateHighlightText(param.label, true)) : param.label}
-                        </span>
-                        <span className="font-bold text-slate-800 text-xs truncate block">
-                          {isEn ? (param.valueEn || translateHighlightText(param.value, true)) : param.value} <span className="font-normal text-[10px] text-slate-500">{formatUnit(param.unit, isEn)}</span>
-                        </span>
+                {topic.keyParameters.length > 0 && (() => {
+                  const isExpanded = Boolean(expandedParams[topic.id]);
+                  const hiddenCount = topic.keyParameters.length - PARAM_PREVIEW_COUNT;
+                  const shown = isExpanded ? topic.keyParameters : topic.keyParameters.slice(0, PARAM_PREVIEW_COUNT);
+                  return (
+                    <div className="space-y-2">
+                      <div className="grid grid-cols-2 gap-2 text-xs font-mono">
+                        {shown.map((param, pIdx) => (
+                          <div key={pIdx} className="neo-tray p-2 rounded-xl transition">
+                            {/* Wrap instead of truncating so no value is cut off mid-text. */}
+                            <span className="text-[10px] text-slate-400 block font-sans break-words">
+                              {isEn ? (param.labelEn || translateHighlightText(param.label, true)) : param.label}
+                            </span>
+                            <span className="font-bold text-slate-800 text-xs block break-words">
+                              {isEn ? (param.valueEn || translateHighlightText(param.value, true)) : param.value} <span className="font-normal text-[10px] text-slate-500">{formatUnit(param.unit, isEn)}</span>
+                            </span>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                )}
+                      {hiddenCount > 0 && (
+                        <button
+                          type="button"
+                          aria-expanded={isExpanded}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setExpandedParams(prev => ({ ...prev, [topic.id]: !isExpanded }));
+                          }}
+                          className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg border border-amber-300 bg-amber-50 text-amber-900 text-[13px] font-semibold hover:bg-amber-100 transition min-h-[32px]"
+                        >
+                          {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                          {isExpanded
+                            ? (isEn ? 'Show fewer parameters' : '收合參數')
+                            : (isEn
+                              ? `${hiddenCount} more parameter${hiddenCount > 1 ? 's' : ''} not shown — show all ${topic.keyParameters.length}`
+                              : `另有 ${hiddenCount} 項參數未顯示，點此展開全部 ${topic.keyParameters.length} 項`)}
+                        </button>
+                      )}
+                    </div>
+                  );
+                })()}
 
                 {/* Card Footer: Linked Clauses & Action CTA */}
                 <div className="pt-3 border-t border-[var(--neo-border)] flex items-center justify-between text-xs gap-2">
