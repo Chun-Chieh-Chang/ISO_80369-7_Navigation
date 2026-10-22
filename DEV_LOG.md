@@ -1,6 +1,38 @@
 # 開發日誌 (DEV_LOG)
 
 ---
+## 版本：v8.44.4 參考檢具與引用附錄對齊 ISO 80369-7:2021，主題卡片不再隱藏資訊 (2026-10-22)
+
+### 需求來源
+使用者回報：「條文橫向對照」中應力龜裂測試之檢具為 C.1、C.4、C.2、C.5，「規範探索中心」只列 C.1、C.4，要求查明何者正確並全盤檢查其他測試項目（影響品管人員合規測試）。後續要求修正檢查中發現之 4 項附錄引用問題，以及卡片參數未完整顯示時須提示。
+
+### 1. 診斷與根因 (RCA)
+以 `isodoc/ISO_80369-7_2021_en.pdf`、`isodoc/ISO_80369-20_2024_en.pdf` 抽出原文逐條比對：
+1. **條文對照正確、卡片錯誤**：6.3 原文為 "Figures C.1, C.2, C.4 and C.5, as appropriate"。
+2. **UI 截斷**：`TopicClauseExplorer` 卡片以 `relatedRefConnectors.slice(0, 2)`、`relatedISO20Annexes.slice(0, 1)`、`keyParameters.slice(0, 2)` 截斷且無提示，致 6.1/6.2/6.4 滑動型檢具、6.1 Annex C 與多數關鍵參數（如 6.1 持壓時間）被隱藏。完整規格抽屜不重複顯示 `keyParameters`，使用者無處得知。
+3. **資料漂移**：條文對照由 `ISO7_CLAUSE_REFERENCE_CONNECTORS`（已受測 SSOT）推導；卡片欄位為手寫且無測試，6.3、Clause 4、預裝配、Clause 1–3/5 皆與原文不符。
+4. **附錄誤引**：ISO 80369-7:2021 Clause 6 只引用 Annex B–H；Annex K、I 為 2024 版新增且需由應用標準提供參數，ISO 80369-7 未引用亦未規定，卻被列為 6.2/6.5 方法並附虛構判定值。ISO 80369-20 Annex A 實為 Rationale and guidance，卻被標為幾何量測法。6.3 英文含目視微裂紋判定，與 Annex E（僅以洩漏測試判定）及中文內容矛盾。
+
+### 2. 矯正與預防措施 (CAPA)
+- 卡片完整顯示檢具與附錄；關鍵參數加「另有 N 項參數未顯示」原地展開按鈕（`aria-expanded`、不觸發抽屜）；文字改換行不截斷。
+- 修正 `isoTopicsData.ts`、`isoData.ts`、`i18nHelpers.ts`、`ClauseComparisonMatrix.tsx`、`ConnectorInspector.tsx`、`TopicVisualMap.tsx` 中之檢具、附錄、公差與 6.3 判定內容；Annex A/I/J/K 頁面依原文改寫並補英文步驟與判定。
+- **預防**：`isoConformance.test.ts` 新增測試，強制「單一性能條文主題之檢具 = SSOT、附錄 = Clause 6 引用」，並鎖定 Annex I/K 非要求標示、Annex A 定義與 6.3 判定，日後資料漂移即建置失敗。
+
+### 3. 讀取檔案 (MECE)
+1. [src/components/TopicClauseExplorer.tsx](src/components/TopicClauseExplorer.tsx)：[MODIFY] 移除截斷、參數展開提示、文字換行。
+2. [src/data/isoTopicsData.ts](src/data/isoTopicsData.ts)：[MODIFY] 主題檢具/附錄、Annex A/D/G/I/J/K、6.3 相關內容。
+3. [src/data/isoData.ts](src/data/isoData.ts)：[MODIFY] C.2/C.5 說明、G.1/K.1 圖面。
+4. [src/utils/i18nHelpers.ts](src/utils/i18nHelpers.ts)：[MODIFY] 英文檢具、附錄與 6.3 內容。
+5. [src/components/ClauseComparisonMatrix.tsx](src/components/ClauseComparisonMatrix.tsx)、[src/components/ConnectorInspector.tsx](src/components/ConnectorInspector.tsx)、[src/components/TopicVisualMap.tsx](src/components/TopicVisualMap.tsx)：[MODIFY] 附錄欄、檢具指定圖樣、空清單顯示。
+6. [src/utils/isoConformance.test.ts](src/utils/isoConformance.test.ts)：[MODIFY] 新增 9 項防回歸測試。
+7. [CHANGELOG.md](CHANGELOG.md)、[README.md](README.md)、[package.json](package.json)、[package-lock.json](package-lock.json)：[MODIFY] 版本同步 8.44.4。
+
+### 4. 確認結果 (Validation)
+- `npm run lint` (`tsc --noEmit`)：0 錯誤 PASS
+- `npm run test` (`vitest run`)：65/65 PASS
+- 瀏覽器實測：13 張卡片檢具/附錄與條文對照一致；條文對照 Clause 5 / 6.2 / 6.5 附錄欄正確；參數展開提示 13 張皆正確，展開後完整顯示；Console 0 錯誤。
+
+---
 ## 版本：v8.44.3 修復深度規格抽屜全螢幕檢視 / 滑鼠懸浮圖片高頻閃爍 (2026-10-20)
 
 ### 需求來源
