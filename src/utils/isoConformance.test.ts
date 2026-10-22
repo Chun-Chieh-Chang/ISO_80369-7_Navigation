@@ -9,6 +9,7 @@ import {
   ISO7_CLAUSE_REFERENCE_CONNECTORS
 } from './isoHelpers';
 import { findTopicForClause, resolveTopicClauses, resolveDefaultClauseId } from '../hooks/useClauseDetailDrawer';
+import { getClauseTitle, getClauseObjective, getClauseTestProcedureSteps, getClauseAcceptanceCriteria } from './i18nHelpers';
 import { TestClauseId } from '../types';
 
 /**
@@ -206,6 +207,84 @@ describe('Reference connector resolution', () => {
     expect(formatClauseFixtureMatrix('6.5', true)).toContain('Lock only');
     expect(formatClauseFixtureMatrix('6.6', true)).toContain('Lock only');
     expect(formatClauseFixtureMatrix('6.4', true)).not.toContain('Lock only');
+  });
+});
+
+describe('ISO 80369-20 annexes cited by ISO 80369-7:2021 Clause 6', () => {
+  // "Check conformance by applying the tests of ISO 80369-20:2015, Annex X" - Annex I and K are never cited.
+  const CITED: Record<string, string[]> = {
+    '6.1': ['Annex B', 'Annex C'],
+    '6.2': ['Annex D'],
+    '6.3': ['Annex E'],
+    '6.4': ['Annex F'],
+    '6.5': ['Annex G'],
+    '6.6': ['Annex H']
+  };
+
+  it('a topic dedicated to one performance clause links only the annex that clause cites', () => {
+    Object.entries(CITED).forEach(([clause, annexes]) => {
+      const topic = findTopicForClause(clause);
+      expect(topic?.relatedISO7Clauses, clause).toEqual([clause]);
+      expect([...(topic?.relatedISO20Annexes ?? [])].sort(), `topic ${topic?.id}`).toEqual([...annexes].sort());
+    });
+  });
+
+  it('Annex I and Annex K are marked as not required by ISO 80369-7:2021', () => {
+    for (const id of ['iso20-annex-i', 'iso20-annex-k']) {
+      const d = STANDARD_CLAUSE_DETAILS[id];
+      expect(d.titleZh, id).toContain('非 ISO 80369-7:2021 要求');
+      expect(getClauseTitle(d, true), id).toContain('not required by ISO 80369-7:2021');
+    }
+  });
+
+  it('6.2 English text never offers Annex K as a conformance method', () => {
+    const d = STANDARD_CLAUSE_DETAILS['iso7-6.2'];
+    [...getClauseTestProcedureSteps(d, true), ...getClauseAcceptanceCriteria(d, true)]
+      .filter(line => line.includes('Annex K'))
+      .forEach(line => expect(line).toContain('not cited'));
+  });
+
+  it('ISO 80369-20 Annex A is the rationale annex, not a dimensional method, and Clause 5 cites no ISO 80369-20 annex', () => {
+    const a = STANDARD_CLAUSE_DETAILS['iso20-annex-a'];
+    expect(a.titleZh).toContain('原理與指引');
+    expect(getClauseTitle(a, true)).toContain('Rationale and Guidance');
+    expect(ISO_TOPICS.find(t => t.id === 'dimensional-taper')?.relatedISO20Annexes).toEqual([]);
+  });
+
+  it('6.3 is judged by the 6.1.1 leakage test only, in both languages', () => {
+    const d = STANDARD_CLAUSE_DETAILS['iso7-6.3'];
+    const en = [...getClauseTestProcedureSteps(d, true), ...getClauseAcceptanceCriteria(d, true), getClauseObjective(d, true)].join('\n');
+    expect(en).toContain('6.1.1');
+    expect(en).not.toMatch(/optical magnification|examine .* for micro-cracks|No evidence of stress cracking/i);
+  });
+});
+
+describe('Topic cards list the same reference connectors as the clause matrix', () => {
+  const performanceClauses = Object.keys(ISO7_CLAUSE_REFERENCE_CONNECTORS);
+
+  it('a topic citing only Clause 6 performance clauses lists exactly their Annex C figures', () => {
+    ISO_TOPICS
+      .filter(topic => topic.relatedISO7Clauses.length > 0 && topic.relatedISO7Clauses.every(c => performanceClauses.includes(c)))
+      .forEach(topic => {
+        const expected = new Set(topic.relatedISO7Clauses.flatMap(c => ISO7_CLAUSE_REFERENCE_CONNECTORS[c as TestClauseId]));
+        expect([...topic.relatedRefConnectors].sort(), `topic ${topic.id}`).toEqual([...expected].sort());
+      });
+  });
+
+  it('6.3 stress cracking covers slip connectors too (Figures C.1, C.2, C.4 and C.5)', () => {
+    const topic = ISO_TOPICS.find(t => t.id === 'stress-cracking');
+    expect([...(topic?.relatedRefConnectors ?? [])].sort()).toEqual(['C.1', 'C.2', 'C.4', 'C.5']);
+  });
+
+  it('Clauses 1-3 and Clause 5 cite no Annex C reference connector', () => {
+    ['dimensional-taper', 'scope-normative-terms'].forEach(id => {
+      expect(ISO_TOPICS.find(t => t.id === id)?.relatedRefConnectors, `topic ${id}`).toEqual([]);
+    });
+  });
+
+  it('Clause 4.1 non-interconnectable evaluation uses Figures C.1, C.2, C.4 and C.5', () => {
+    const topic = ISO_TOPICS.find(t => t.id === 'non-interchangeability');
+    expect([...(topic?.relatedRefConnectors ?? [])].sort()).toEqual(['C.1', 'C.2', 'C.4', 'C.5']);
   });
 });
 

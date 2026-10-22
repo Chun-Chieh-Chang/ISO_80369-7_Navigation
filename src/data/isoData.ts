@@ -256,7 +256,7 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
     gender: 'male',
     type: 'slip',
     description: 'Male 6% taper reference connector for female Luer slip testing and non-interconnectable evaluation.',
-    descriptionZh: '公魯爾滑動式（Slip）參考接頭 (Fig.C.2)，專門用於測試母滑動接頭（Female Slip, L1）的密封性與拉拔力。錐長具雙重標準：性能測試 ≥ 7.5 mm，防相互誤接試驗 ≥ 10.5 mm。',
+    descriptionZh: '公魯爾滑動式（Slip）參考接頭 (Fig.C.2)，專門用於測試母滑動接頭（Female Slip, L1）的 6.1/6.2 洩漏、6.3 應力龜裂、6.4 拉拔及防相互誤接。錐長具雙重標準：性能測試 ≥ 7.5 mm，防相互誤接試驗 ≥ 10.5 mm。',
     intendedClauses: ['6.1', '6.2', '6.3', '6.4'],
     isWorstCase: false,
     worstCaseReasonZh: '標準 6% 圓錐接頭，不具備旋緊鎖定螺紋，僅用於滑動錐面配合。',
@@ -318,7 +318,7 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
     gender: 'female',
     type: 'slip',
     description: 'Female 6% taper reference connector for male Luer slip testing and non-interconnectable characteristics.',
-    descriptionZh: '母魯爾滑動式（Slip）參考接頭 (Fig.C.5)，專門用於測試公滑動接頭（Male Slip, L1）。內孔深具雙重標準：性能測試 ≥ 7.5 mm，防相互誤接試驗 ≥ 10.5 mm。(註：套環外徑不可用於防誤接檢驗)',
+    descriptionZh: '母魯爾滑動式（Slip）參考接頭 (Fig.C.5)，專門用於測試公滑動接頭（Male Slip, L1）的 6.1/6.2 洩漏、6.3 應力龜裂、6.4 拉拔及防相互誤接。內孔深具雙重標準：性能測試 ≥ 7.5 mm，防相互誤接試驗 ≥ 10.5 mm。(註：套環外徑不可用於防誤接檢驗)',
     intendedClauses: ['6.1', '6.2', '6.3', '6.4'],
     isWorstCase: false,
     worstCaseReasonZh: '標準母錐面金屬接頭，無螺紋。',
@@ -472,14 +472,14 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
     annexGroup: 'ISO 80369-20',
     name: 'Unscrewing Torque Separation Apparatus',
     nameZh: '反向旋鬆扭矩與拆卸力雙軌測試示意圖',
-    description: 'ISO 80369-20 Annex G & Annex I reverse unscrewing torque (0.02 N·m) test rig.',
-    descriptionZh: 'ISO 80369-20 Annex G (0.02 N·m 反向旋鬆持壓 10s) 與 Annex I (拆卸扭矩) 雙軌試驗機構圖。',
+    description: 'ISO 80369-20 Annex G reverse unscrewing torque (0.018-0.020 N·m) test rig for ISO 80369-7 clause 6.5; Annex I (disconnection torque) shown for reference only.',
+    descriptionZh: 'ISO 80369-20 Annex G (0.018~0.020 N·m 反向旋鬆持壓 10~15 秒) 試驗機構圖，對應 ISO 80369-7 6.5；並列之 Annex I (拆卸扭矩) 僅供參考，非 ISO 80369-7 要求。',
     intendedClauses: ['6.5'],
     isWorstCase: false,
     worstCaseReasonZh: '考驗 6% 錐面摩擦自鎖性，防止震動自動鬆脫。',
     svgHighlights: [
-      { title: 'Annex G 反旋力', value: '0.02 N·m (持壓 10s)' },
-      { title: 'Annex I 拆卸峰值', value: '靜置 10~15 分鐘後量測' }
+      { title: 'Annex G 反旋力', value: '0.018 ~ 0.020 N·m (持壓 10~15 秒)', valueEn: '0.018 – 0.020 N·m (hold 10–15 s)' },
+      { title: 'Annex I 拆卸峰值 (僅供參考)', titleEn: 'Annex I Peak Disconnection Torque (reference only)', value: '靜置 10~15 分鐘後量測；ISO 80369-7 未規定', valueEn: 'Measured after 10–15 min dwell; not specified by ISO 80369-7' }
     ],
     svgKey: 'ISO20-FIG-G1'
   },
@@ -528,14 +528,15 @@ export const ANNEX_C_FIGURES: Record<string, AnnexCFigureInfo> = {
     annexGroup: 'ISO 80369-20',
     name: 'Submerged Air Leakage During Aspiration Test Setup',
     nameZh: '抽吸過程水下氣泡法氣密測試裝置圖',
-    description: 'ISO 80369-20:2024 Annex K underwater bubble stream inspection under 80~88 kPa vacuum aspiration.',
-    descriptionZh: 'ISO 80369-20:2024 最新 Annex K 抽吸試驗，組件沉浸於水槽底層，上方抽真空 80~88 kPa 觀察連續氣泡流。',
-    intendedClauses: ['6.2'],
+    description: 'ISO 80369-20:2024 Annex K air leakage during aspiration (bubble stream) apparatus. Not cited by ISO 80369-7:2021, which sets no vacuum level, period or criterion for it; clause 6.2 conformance uses Annex D.',
+    descriptionZh: 'ISO 80369-20:2024 新增 Annex K 抽吸過程空氣洩漏試驗，充水接頭連接上方透明水槽，抽負壓後觀察連續氣泡流。ISO 80369-7:2021 未引用本法、未規定負壓/期間/判定值；6.2 符合性應依 Annex D。',
+    // Not cited by any ISO 80369-7:2021 Clause 6 requirement.
+    intendedClauses: [],
     isWorstCase: false,
-    worstCaseReasonZh: '目視水下氣泡流法負壓氣密檢驗裝置。',
+    worstCaseReasonZh: '目視水下氣泡流法負壓氣密檢驗裝置 (補充參考)。',
     svgHighlights: [
-      { title: '測試方法', value: '水下沉浸目視氣泡法' },
-      { title: '負壓範圍', value: '80.0 ~ 88.0 kPa' },
+      { title: '測試方法', value: '水下目視氣泡法 (補充參考)', valueEn: 'Visual bubble-stream method (supplementary)' },
+      { title: '負壓範圍', value: '依應用標準 (ISO 80369-7 未規定)', valueEn: 'Per application standard (not specified by ISO 80369-7)' },
       { title: '合格標準', value: '無連續產生氣泡流' }
     ],
     svgKey: 'ISO20-FIG-K1'

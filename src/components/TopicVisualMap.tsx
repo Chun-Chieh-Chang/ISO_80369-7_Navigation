@@ -330,11 +330,13 @@ export const TopicVisualMap: React.FC = () => {
             </span>
             <ArrowRight className="w-4 h-4 text-slate-400" />
             <span className="bg-indigo-700 text-white px-2.5 py-1 rounded-lg font-bold shadow-2xs">
-              ISO 80369-20 {activeTopic.relatedISO20Annexes.join(', ')}
+              ISO 80369-20 {activeTopic.relatedISO20Annexes.length > 0 ? activeTopic.relatedISO20Annexes.join(', ') : (isEn ? 'N/A' : '不適用')}
             </span>
             <ArrowRight className="w-4 h-4 text-slate-400" />
             <span className="bg-amber-600 text-white px-2.5 py-1 rounded-lg font-bold shadow-2xs">
-              {isEn ? `Fixtures ${activeTopic.relatedRefConnectors.join(', ')}` : `夾具 ${activeTopic.relatedRefConnectors.join(', ')}`}
+              {activeTopic.relatedRefConnectors.length > 0
+                ? (isEn ? `Fixtures ${activeTopic.relatedRefConnectors.join(', ')}` : `夾具 ${activeTopic.relatedRefConnectors.join(', ')}`)
+                : (isEn ? 'No Annex C fixture' : '無附錄 C 夾具')}
             </span>
           </div>
         </div>

@@ -245,8 +245,10 @@ export const ConnectorInspector: React.FC<ConnectorInspectorProps> = ({ config, 
           <div className="neo-tray p-3.5 rounded-xl space-y-1.5">
             <strong className="text-emerald-900 block font-bold text-[13px]">{isEn ? '4. Designated Test Figures' : '4. 測試項目指定圖樣'}</strong>
             <ul className="list-disc list-inside text-slate-600 space-y-1 leading-relaxed text-[11px]">
-              <li><strong>{isEn ? 'Leak / Cracking / Unscrewing:' : '洩漏/應力龜裂/反旋：'}</strong> {isEn ? 'Male to Fig.C.1/C.5; Female to Fig.C.2/C.4.' : '公件配 Fig.C.1/C.5；母件配 Fig.C.2/C.4。'}</li>
-              <li><strong>{isEn ? 'Axial / Override:' : '抗拉拔/過載滑牙：'}</strong> {isEn ? 'Male to Fig.C.3 (2.71mm worst-case); Female to Fig.C.6.' : '公件配 Fig.C.3 (2.71mm 最壞情況)；母件配 Fig.C.6。'}</li>
+              <li><strong>{isEn ? 'Leak / Cracking (6.1–6.3):' : '洩漏/應力龜裂 (6.1–6.3)：'}</strong> {isEn ? 'Male lock to Fig.C.1, male slip to Fig.C.5; female lock to Fig.C.4, female slip to Fig.C.2.' : '公鎖配 Fig.C.1、公滑配 Fig.C.5；母鎖配 Fig.C.4、母滑配 Fig.C.2。'}</li>
+              <li><strong>{isEn ? 'Unscrewing (6.5, lock only):' : '抗旋鬆 (6.5，僅鎖定型)：'}</strong> {isEn ? 'Male to Fig.C.1; Female to Fig.C.4.' : '公件配 Fig.C.1；母件配 Fig.C.4。'}</li>
+              <li><strong>{isEn ? 'Axial (6.4):' : '抗拉拔 (6.4)：'}</strong> {isEn ? 'Male lock to Fig.C.3 (2.71mm worst-case), female lock to Fig.C.6; male slip to Fig.C.5, female slip to Fig.C.2.' : '公鎖配 Fig.C.3 (2.71mm 最壞情況)、母鎖配 Fig.C.6；公滑配 Fig.C.5、母滑配 Fig.C.2。'}</li>
+              <li><strong>{isEn ? 'Override (6.6, lock only):' : '過載滑牙 (6.6，僅鎖定型)：'}</strong> {isEn ? 'Male to Fig.C.3 (2.71mm worst-case); Female to Fig.C.6.' : '公件配 Fig.C.3 (2.71mm 最壞情況)；母件配 Fig.C.6。'}</li>
             </ul>
           </div>
         </div>

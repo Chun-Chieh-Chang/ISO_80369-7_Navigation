@@ -140,7 +140,8 @@ export const ClauseComparisonMatrix: React.FC = () => {
         id: 'Clause 5',
         title: isEn ? 'Clause 5 Dimensional Requirements (6% Taper)' : 'Clause 5 幾何尺寸與 6% 圓錐度驗證 (Dimensional Requirements)',
         iso7: 'Clause 5 (Figures B.1~B.6)',
-        iso20: isEn ? 'Annex A (Geometric Measurement)' : 'Annex A (幾何量測法)',
+        // ISO 80369-20 has no dimensional method; its Annex A is "Rationale and guidance".
+        iso20: isEn ? 'N/A (verify against ISO 80369-7 Annex B)' : '不適用 (依 ISO 80369-7 Annex B 圖表驗證)',
         category: 'dimensional',
         categoryZh: isEn ? 'Dimensions' : '尺寸',
         type: 'Lock & Slip',
@@ -174,7 +175,8 @@ export const ClauseComparisonMatrix: React.FC = () => {
         id: '6.2',
         title: isEn ? '6.2 Sub-atmospheric Air Leakage (Vacuum)' : '6.2 負壓空氣洩漏 (Sub-atmospheric Air Leakage)',
         iso7: 'Clause 6.2',
-        iso20: isEn ? 'Annex D (Vacuum Decay) / Annex K (Submerged Air Bubble)' : 'Annex D (負壓衰減) / Annex K (抽吸水下氣泡)',
+        // ISO 80369-7:2021 6.2 cites Annex D only (Annex K is not a conformance route).
+        iso20: isEn ? 'Annex D (Vacuum Decay)' : 'Annex D (負壓衰減)',
         category: c62Data?.category || 'leakage',
         categoryZh: isEn ? 'Leakage' : '洩漏',
         type: 'Lock & Slip',
@@ -227,7 +229,8 @@ export const ClauseComparisonMatrix: React.FC = () => {
         id: '6.5',
         title: isEn ? '6.5 Resistance to Separation from Unscrewing' : '6.5 抗旋鬆分離 (Resistance to Separation from Unscrewing)',
         iso7: 'Clause 6.5',
-        iso20: isEn ? 'Annex G (Unscrewing) / Annex I (Removal Force)' : 'Annex G (反旋) / Annex I (拆卸力)',
+        // ISO 80369-7:2021 6.5 cites Annex G only (Annex I is not a conformance route).
+        iso20: isEn ? 'Annex G (Unscrewing)' : 'Annex G (反旋)',
         category: c65Data?.category || 'mechanical',
         categoryZh: isEn ? 'Mechanical' : '機械',
         type: 'Lock only',

@@ -330,12 +330,13 @@ export const TopicClauseExplorer: React.FC = () => {
                         §{c}
                       </span>
                     ))}
-                    {topic.relatedISO20Annexes.slice(0, 1).map(a => (
+                    {/* Render every annex and fixture: truncating hides required test methods / reference connectors. */}
+                    {topic.relatedISO20Annexes.map(a => (
                       <span key={a} className="bg-indigo-50 text-indigo-800 border border-indigo-200 font-mono px-1.5 py-0.5 rounded text-[11px] font-bold shrink-0">
                         {a.replace('Annex ', 'Anx.')}
                       </span>
                     ))}
-                    {topic.relatedRefConnectors.slice(0, 2).map(r => (
+                    {topic.relatedRefConnectors.map(r => (
                       <span key={r} className="bg-amber-50 text-amber-800 border border-amber-200 font-mono px-1.5 py-0.5 rounded text-[11px] font-bold shrink-0">
                         {r}
                       </span>

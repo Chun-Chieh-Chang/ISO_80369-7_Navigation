@@ -34,8 +34,8 @@ export const ISO_TOPICS: ISOTopic[] = [
         standard: 'ISO 80369-20:2024 Annex B',
         figureType: 'apparatus',
         figureTypeZh: '測試裝置示意圖',
-        descriptionZh: '本圖展示 ISO 80369-20 Annex B 氣壓衰減洩漏試驗架構，包含加壓源、精密調壓閥 (±0.3% 精度感測器)、截止閥 S1、金屬參考夾具 (Fig.C.1/C.4) 與受測魯爾接頭。加壓至 300~330 kPa 保持 15~20 秒量測壓力衰減量 ΔP。',
-        descriptionEn: 'Illustrates the ISO 80369-20 Annex B pneumatic pressure decay leakage test apparatus, including the pressure source, precision pressure regulator (±0.3% accuracy sensor), stop valve S1, metal reference fixture (Fig.C.1/C.4), and the Luer connector under test. Pressurized to 300–330 kPa and held for 15–20 s to measure pressure drop ΔP.',
+        descriptionZh: '本圖展示 ISO 80369-20 Annex B 氣壓衰減洩漏試驗架構，包含加壓源、精密調壓閥 (±0.3% 精度感測器)、截止閥 S1、金屬參考夾具 (Fig.C.1/C.2/C.4/C.5，依受測件公母與鎖定/滑動型擇一) 與受測魯爾接頭。加壓至 300~330 kPa 保持 15~20 秒量測壓力衰減量 ΔP。',
+        descriptionEn: 'Illustrates the ISO 80369-20 Annex B pneumatic pressure decay leakage test apparatus, including the pressure source, precision pressure regulator (±0.3% accuracy sensor), stop valve S1, metal reference fixture (Fig.C.1/C.2/C.4/C.5, as appropriate to the connector under test), and the Luer connector under test. Pressurized to 300–330 kPa and held for 15–20 s to measure pressure drop ΔP.',
         selectionReasonZh: '🛠️ [物理測試架設藍圖] 入選原因：本圖為 ISO 80369-20 Annex B 氣壓衰減洩漏測試之實體儀器與管路架構圖。正壓流體洩漏 (6.1) 可採用此方法進行高精度自動化定量判定，故納入作為試驗設備與閥門控制指引。',
         selectionReasonEn: '🛠️ [Physical Test Apparatus Blueprint] Rationale: This is the physical instrument and piping schematic for ISO 80369-20 Annex B pneumatic pressure decay leakage testing. Positive-pressure fluid leakage (Clause 6.1) can be quantitatively verified with high precision using this method, making it the definitive reference for test equipment and valve control.',
         svgKey: 'ISO20-FIG-B1',
@@ -106,13 +106,13 @@ export const ISO_TOPICS: ISOTopic[] = [
   },
   {
     id: 'sub-atmospheric-air-leakage',
-    titleZh: '2. 負壓空氣與抽吸洩漏測試 (Sub-atmospheric Air Leakage & Aspiration)',
+    titleZh: '2. 負壓空氣洩漏測試 (Sub-atmospheric Air Leakage)',
     titleEn: 'Air Leakage under Vacuum',
     category: 'leakage',
     categoryZh: '洩漏與氣密',
     iconName: 'Wind',
     shortSummaryZh: '在 80~88 kPa 真空負壓下保持 15~20 秒，驗證無空氣吸入管路（防氣栓危害）。',
-    detailedDescriptionZh: '負壓空氣洩漏測試模擬抽吸藥液、體液引流或泵浦抽吸時管路內產生的負壓環境。若魯爾接頭氣密性不足，外部空氣會經由錐面縫隙被吸入輸液系統，可能引發靜脈空氣栓塞（Air Embolism）等重大醫療風險。依 ISO 80369-7 6.2，於 80.0~88.0 kPa 負壓下保持 15~20 秒，空氣洩漏率不得超過 0.005 Pa·m³/s（可採用更高的負壓），測試程序見 ISO 80369-20 Annex D；壓力、時間與判定值由 ISO 80369-7 條文規定。ISO 80369-20:2024 最新新增 Annex K（抽吸過程水下氣泡目視檢驗法）。',
+    detailedDescriptionZh: '負壓空氣洩漏測試模擬抽吸藥液、體液引流或泵浦抽吸時管路內產生的負壓環境。若魯爾接頭氣密性不足，外部空氣會經由錐面縫隙被吸入輸液系統，可能引發靜脈空氣栓塞（Air Embolism）等重大醫療風險。依 ISO 80369-7 6.2，於 80.0~88.0 kPa 負壓下保持 15~20 秒，空氣洩漏率不得超過 0.005 Pa·m³/s（可採用更高的負壓），測試程序見 ISO 80369-20 Annex D；壓力、時間與判定值由 ISO 80369-7 條文規定。注意：ISO 80369-20:2024 新增之 Annex K（抽吸過程水下氣泡目視檢驗法）未被 ISO 80369-7:2021 6.2 引用，且 ISO 80369-7 未規定其負壓、測試時間與判定值，故 Annex K 不可作為 6.2 符合性證據，僅能作為輸送液體產品之補充評估。',
     keyParameters: [
       { label: '裝配扭矩 Assembly Torque', value: '0.08 - 0.12 (Lock) / ≤ 0.10 (Slip)', unit: 'N·m' },
       { label: '真空負壓 Test Vacuum', value: '80.0 - 88.0', unit: 'kPa' },
@@ -121,11 +121,12 @@ export const ISO_TOPICS: ISOTopic[] = [
       { label: '判定值來源 Source of Values', value: 'ISO 80369-7:2021 6.2 (程序見 ISO 80369-20 Annex D)' }
     ],
     relatedISO7Clauses: ['6.2'],
-    relatedISO20Annexes: ['Annex D', 'Annex K'],
+    // ISO 80369-7:2021 6.2 cites Annex D only; Annex K (new in ISO 80369-20:2024) is not a conformance route.
+    relatedISO20Annexes: ['Annex D'],
     relatedRefConnectors: ['C.1', 'C.4', 'C.2', 'C.5'],
     engineeringRiskZh: '軟質塑膠在負壓下發生錐面向內微幅收縮變形，導致配合面局部脫離產生微氣孔吸氣。',
     auditFocusZh: '負壓量測衰減法（Vacuum Decay, Annex D）中的儀器容積校正與溫度穩定度。注意：真空衰減法與正壓衰減法（Annex B.4）在儀器動作控制上皆具備「充/抽氣-穩定-測試-排/復壓」四階段邏輯，但 Annex D 施加條件為 80~88 kPa 負壓真空，以避免外界空氣吸入。',
-    tags: ['80kPa', '負壓', '真空', '氣栓', '6.2', 'Annex D', 'Annex K'],
+    tags: ['80kPa', '負壓', '真空', '氣栓', '6.2', 'Annex D'],
     figures: [
       {
         id: 'ISO20-FIG-D1',
@@ -134,27 +135,27 @@ export const ISO_TOPICS: ISOTopic[] = [
         standard: 'ISO 80369-20:2024 Annex D',
         figureType: 'apparatus',
         figureTypeZh: '測試裝置示意圖',
-        descriptionZh: '忠實還原 ISO 80369-20 Figure D.1 官方線圖。管路與組件於【乾燥狀態】下運作。標示：1. 密封端件、2. 受測接頭、3. 金屬參考件 (C.2/C.4)、4. 隔離閥 (stop-valve)、5. 真空源 (-88.0 kPa)、6. 壓力計 (manometer)、7. 測試體積、8. 體積達成裝置。透由壓力計數值衰減進行定量驗證 (≤ 0.005 Pa·m³/s)。',
-        descriptionEn: 'Faithfully reproduces the official ISO 80369-20 Figure D.1 line drawing. System operates in a dry state. Labeled components: 1. End cap, 2. Connector under test, 3. Metal reference connector (C.2/C.4), 4. Stop valve, 5. Vacuum source (−88.0 kPa), 6. Manometer, 7. Test volume, 8. Volume-setting device. Quantitative leakage verification (≤ 0.005 Pa·m³/s) is performed by monitoring the manometer reading decay.',
+        descriptionZh: '忠實還原 ISO 80369-20 Figure D.1 官方線圖。管路與組件於【乾燥狀態】下運作。標示：1. 密封端件、2. 受測接頭、3. 金屬參考件 (C.1/C.2/C.4/C.5，依受測件擇一)、4. 隔離閥 (stop-valve)、5. 真空源 (-88.0 kPa)、6. 壓力計 (manometer)、7. 測試體積、8. 體積達成裝置。透由壓力計數值衰減進行定量驗證 (≤ 0.005 Pa·m³/s)。',
+        descriptionEn: 'Faithfully reproduces the official ISO 80369-20 Figure D.1 line drawing. System operates in a dry state. Labeled components: 1. End cap, 2. Connector under test, 3. Metal reference connector (C.1/C.2/C.4/C.5, as appropriate), 4. Stop valve, 5. Vacuum source (−88.0 kPa), 6. Manometer, 7. Test volume, 8. Volume-setting device. Quantitative leakage verification (≤ 0.005 Pa·m³/s) is performed by monitoring the manometer reading decay.',
         selectionReasonZh: '🛠️ [物理測試架設藍圖 - 乾式定量壓力計] 入選原因：本圖為 ISO 80369-20 Annex D Figure D.1 官方原圖。測試介質為純空氣（乾燥狀態），透由壓力計 (標示 6) 精密記錄負壓絕對變化量，屬於定量驗證 (Variable Test)。',
         selectionReasonEn: '🛠️ [Physical Test Apparatus Blueprint — Dry Quantitative Manometer] Rationale: This is the official Figure D.1 from ISO 80369-20 Annex D. The test medium is pure air (dry state); the manometer (item 6) precisely records the absolute negative-pressure change as a quantitative (variable) verification.',
         svgKey: 'ISO20-FIG-D1',
         keyCallouts: [
           { id: 'key_1_2', labelZh: '1-2. 受測接頭與密封', labelEn: 'Items 1–2: End Cap & DUT', valueZh: 'Key 1 (Sealing) & Key 2 (Connector Under Test)', valueEn: 'Key 1 (Sealing) & Key 2 (Connector Under Test)' },
-          { id: 'key_3', labelZh: '3. 參考金屬件', labelEn: 'Item 3: Reference Connector', valueZh: 'Key 3 (Reference Connector C.2 / C.4)', valueEn: 'Key 3 (Reference Connector C.2 / C.4)' },
+          { id: 'key_3', labelZh: '3. 參考金屬件', labelEn: 'Item 3: Reference Connector', valueZh: 'Key 3 (Reference Connector C.1 / C.2 / C.4 / C.5)', valueEn: 'Key 3 (Reference Connector C.1 / C.2 / C.4 / C.5)' },
           { id: 'key_4_5', labelZh: '4-5. 隔離閥與真空源', labelEn: 'Items 4–5: Stop Valve & Vacuum', valueZh: 'Key 4 (Stop-valve) & Key 5 (Vacuum Source)', valueEn: 'Key 4 (Stop-valve) & Key 5 (Vacuum Source)' },
           { id: 'key_6_8', labelZh: '6-8. 壓力計與測試體積', labelEn: 'Items 6–8: Manometer & Volume', valueZh: 'Key 6 (Manometer) & Key 7/8 (Test Volume Device)', valueEn: 'Key 6 (Manometer) & Key 7/8 (Test Volume Device)' }
         ]
       },
       {
         id: 'ISO20-FIG-K1',
-        titleZh: '抽吸過程水下氣泡法氣密測試裝置圖 (Figure K.1 — 濕式定性目視氣泡流原圖)',
-        titleEn: 'Air Leakage During Aspiration Test Apparatus (ISO 80369-20 Figure K.1)',
+        titleZh: '【補充參考，非 6.2 符合性方法】抽吸過程水下氣泡法氣密測試裝置圖 (Figure K.1)',
+        titleEn: '[Supplementary — not a 6.2 conformance method] Air Leakage During Aspiration Test Apparatus (ISO 80369-20 Figure K.1)',
         standard: 'ISO 80369-20:2024 Annex K',
         figureType: 'apparatus',
         figureTypeZh: '測試裝置示意圖',
-        descriptionZh: '忠實還原 ISO 80369-20 Figure K.1 官方線圖。受測件內部【注滿水】。標示：1. 密封端件、2. 注水受測接头、3. 注水參考接頭、4. 透明圓筒水槽容器 (填充 1/3 水)、5. 壓力計、6. 快速閥門、7. 真空幫浦。抽真空 20 秒目視水槽內是否有連續氣泡流 (定性驗證)。',
-        descriptionEn: 'Faithfully reproduces the official ISO 80369-20 Figure K.1 line drawing. Connectors under test are filled with water. Labeled components: 1. End cap, 2. Water-filled DUT connector, 3. Water-filled reference connector, 4. Transparent cylindrical water vessel (filled to 1/3), 5. Manometer, 6. Quick-acting valve, 7. Vacuum pump. Vacuum is applied for 20 s while visually inspecting for continuous bubble streams inside the vessel (qualitative pass/fail).',
+        descriptionZh: '忠實還原 ISO 80369-20 Figure K.1 官方線圖。受測件內部【注滿水】。標示：1. 密封端件、2. 注水受測接头、3. 注水參考接頭、4. 透明圓筒水槽容器 (填充 1/3 水)、5. 壓力計、6. 快速閥門、7. 真空幫浦。先等待最多 20 秒待初始氣泡停止，再於指定測試期間目視水槽內是否有連續氣泡流 (定性驗證)。負壓、測試期間與判定值須由適用之應用標準規定；ISO 80369-7:2021 未引用 Annex K、亦未規定上述參數，故本法不可取代 6.2 Annex D 之法定測試。',
+        descriptionEn: 'Faithfully reproduces the official ISO 80369-20 Figure K.1 line drawing. Connectors under test are filled with water. Labeled components: 1. End cap, 2. Water-filled DUT connector, 3. Water-filled reference connector, 4. Transparent cylindrical water vessel (filled to 1/3), 5. Manometer, 6. Quick-acting valve, 7. Vacuum pump. After waiting up to 20 s for any initial bubble stream to stop, the vessel is visually inspected for a continuous bubble stream during the specified test period (qualitative pass/fail). Vacuum level, test period and acceptance criterion must come from the relevant application standard; ISO 80369-7:2021 does not cite Annex K or specify these values, so this method cannot replace the clause 6.2 Annex D test.',
         selectionReasonZh: '🛠️ [物理測試架設藍圖 - 濕式水下目視氣泡] 入選原因：本圖為 ISO 80369-20 Annex K Figure K.1 官方原圖。核心特徵為接頭內部注滿水 (Key 2/3)，並垂直連接上方透明圓筒水槽 (Key 4)，以目視氣泡流判定 Pass/Fail (定性測試)，貼合臨床液體抽吸情境。',
         selectionReasonEn: '🛠️ [Physical Test Apparatus Blueprint — Wet Visual Bubble Inspection] Rationale: This is the official Figure K.1 from ISO 80369-20 Annex K. The key feature is that both connectors are water-filled (items 2/3) and vertically connected to the overhead transparent cylindrical vessel (item 4), with pass/fail determined by visible bubble flow — a qualitative test closely mirroring clinical fluid aspiration scenarios.',
         svgKey: 'ISO20-FIG-K1',
@@ -162,7 +163,7 @@ export const ISO_TOPICS: ISOTopic[] = [
           { id: 'key_1_3', labelZh: '1-3. 注水接頭組裝', labelEn: 'Items 1–3: Water-filled Assembly', valueZh: 'Key 1 (Sealing) & Key 2/3 (Connectors Filled with Water)', valueEn: 'Key 1 (Sealing) & Key 2/3 (Connectors Filled with Water)' },
           { id: 'key_4', labelZh: '4. 透明圓筒水槽', labelEn: 'Item 4: Transparent Vessel', valueZh: 'Key 4 (Cylindrical Vessel Filled 1/3 Capacity with Water)', valueEn: 'Key 4 (Cylindrical Vessel Filled 1/3 with Water)' },
           { id: 'key_5_6', labelZh: '5-6. 壓力計與快速閥', labelEn: 'Items 5–6: Manometer & Quick Valve', valueZh: 'Key 5 (Manometer) & Key 6 (Stop Valve)', valueEn: 'Key 5 (Manometer) & Key 6 (Stop Valve)' },
-          { id: 'key_7', labelZh: '7. 真空幫浦源', labelEn: 'Item 7: Vacuum Pump', valueZh: 'Key 7 (Vacuum Pump Source — -88.0 kPa)', valueEn: 'Key 7 (Vacuum Pump Source — −88.0 kPa)' }
+          { id: 'key_7', labelZh: '7. 真空幫浦源', labelEn: 'Item 7: Vacuum Pump', valueZh: 'Key 7 (Vacuum Pump Source — 負壓值依應用標準)', valueEn: 'Key 7 (Vacuum Pump Source — level per application standard)' }
         ]
       }
     ]
@@ -284,27 +285,28 @@ export const ISO_TOPICS: ISOTopic[] = [
       { label: '物理機制 Physics', value: '6% 錐面摩擦自鎖力 (Self-locking taper)' }
     ],
     relatedISO7Clauses: ['6.5'],
-    relatedISO20Annexes: ['Annex G', 'Annex I'],
+    // ISO 80369-7:2021 6.5 cites Annex G only; Annex I (new in ISO 80369-20:2024) is not a conformance route.
+    relatedISO20Annexes: ['Annex G'],
     relatedRefConnectors: ['C.1', 'C.4'],
     engineeringRiskZh: '塑膠材料表面太滑（過度添加潤滑劑或脫模劑），造成靜摩擦係數過低而容易旋鬆。',
     auditFocusZh: '反向扭矩計微量程精度（0.001 N·m 分辨率），裝配後靜置時間控制。',
-    tags: ['0.02Nm', '旋鬆', '自鎖', '6.5', 'Annex G', 'Annex I'],
+    tags: ['0.02Nm', '旋鬆', '自鎖', '6.5', 'Annex G'],
     figures: [
       {
         id: 'ISO20-FIG-G1',
-        titleZh: '反向旋鬆扭矩與拆卸力雙軌測試示意圖',
-        titleEn: 'Unscrewing Torque & Disconnection Torque Apparatus',
-        standard: 'ISO 80369-20:2024 Annex G & Annex I',
+        titleZh: '反向旋鬆扭矩測試示意圖 (Annex G；Annex I 僅供參考)',
+        titleEn: 'Unscrewing Torque Apparatus (Annex G; Annex I for reference only)',
+        standard: 'ISO 80369-20:2024 Annex G',
         figureType: 'apparatus',
         figureTypeZh: '測試裝置示意圖',
-        descriptionZh: '對比 ISO 80369-20 Annex G (反向旋鬆 0.02 N·m 防振動解鎖) 與 Annex I (拆卸扭矩峰值量測) 雙軌規範。解析 6% 錐度摩擦自鎖力學與臨床人因易拆性之平衡。',
-        descriptionEn: 'Compares the dual-track normative requirements of ISO 80369-20 Annex G (reverse unscrewing at 0.02 N·m — vibration-induced self-loosening prevention) and Annex I (peak disconnection torque measurement). Analyzes the balance between 6% taper friction self-locking mechanics and clinical ergonomic ease of disconnection.',
-        selectionReasonZh: '🛠️ [物理測試架設藍圖] 入選原因：本圖對比 ISO 80369-20 Annex G (反向旋鬆 0.02 N·m 防振動解鎖) 與 Annex I (拆卸扭矩峰值) 雙軌試驗架構。6.5 抗旋鬆測試評估 6% 圓錐靜摩擦自鎖力，本圖提供試驗指引。',
-        selectionReasonEn: '🛠️ [Physical Test Apparatus Blueprint] Rationale: This diagram compares the ISO 80369-20 Annex G (reverse unscrewing at 0.02 N·m — vibration-induced self-loosening prevention) and Annex I (peak disconnection torque) dual-track test apparatus. Clause 6.5 unscrewing resistance evaluates 6% taper static-friction self-locking, and this diagram provides the test setup reference.',
+        descriptionZh: 'ISO 80369-7:2021 6.5 僅引用 ISO 80369-20 Annex G（施加 0.018~0.020 N·m 反向旋鬆扭矩維持 10~15 秒，不得分離）。圖中並列之 Annex I（旋鬆拆卸峰值扭矩）為 2024 版新增方法，ISO 80369-7:2021 未引用亦未規定其上限，不屬於 6.5 符合性測試，僅供易拆性之補充評估。',
+        descriptionEn: 'ISO 80369-7:2021 clause 6.5 cites ISO 80369-20 Annex G only (apply 0.018–0.020 N·m unscrewing torque for 10–15 s; no separation). Annex I (peak disconnection torque), shown alongside, is a method added in the 2024 edition; ISO 80369-7:2021 neither cites it nor sets a limit for it, so it is not part of 6.5 conformance and serves only as a supplementary ease-of-disconnection evaluation.',
+        selectionReasonZh: '🛠️ [物理測試架設藍圖] 入選原因：本圖展示 6.5 抗旋鬆測試之 Annex G 試驗架構，評估 6% 圓錐靜摩擦自鎖力；Annex I 部分僅供參考，非 ISO 80369-7 要求。',
+        selectionReasonEn: '🛠️ [Physical Test Apparatus Blueprint] Rationale: This diagram shows the Annex G test setup for clause 6.5 unscrewing resistance, which evaluates 6% taper static-friction self-locking. The Annex I portion is for reference only and is not required by ISO 80369-7.',
         svgKey: 'ISO20-FIG-G1',
         keyCallouts: [
           { id: 'annex_g', labelZh: 'Annex G 反旋扭矩', labelEn: 'Annex G Reverse Torque', valueZh: '0.018 ~ 0.020 N·m', valueEn: '0.018 ~ 0.020 N·m' },
-          { id: 'annex_i', labelZh: 'Annex I 拆卸靜置', labelEn: 'Annex I Disconnection Dwell', valueZh: '10 ~ 15 分鐘後量測峰值', valueEn: 'Measure peak torque after 10–15 min dwell' }
+          { id: 'annex_i', labelZh: 'Annex I 拆卸靜置 (僅供參考)', labelEn: 'Annex I Disconnection Dwell (reference only)', valueZh: '10 ~ 15 分鐘後量測峰值；ISO 80369-7 未規定上限', valueEn: 'Peak torque after 10–15 min dwell; no limit set by ISO 80369-7' }
         ]
       }
     ]
@@ -325,7 +327,7 @@ export const ISO_TOPICS: ISOTopic[] = [
     ],
     relatedISO7Clauses: ['6.3'],
     relatedISO20Annexes: ['Annex E'],
-    relatedRefConnectors: ['C.1', 'C.4'],
+    relatedRefConnectors: ['C.1', 'C.4', 'C.2', 'C.5'],
     engineeringRiskZh: 'PC 或 Polycarbonate 材料對過盈裝配應力較為敏感，若射出成型殘留內應力過高，極易在 24–48 小時內發生應力開裂爆破。',
     auditFocusZh: '6.1.1 正壓流體洩漏（氣壓衰減或水壓落滴）為法定唯一合格判定依據；殘留應力可輔以偏光儀分析。',
     tags: ['48小時', '15-30°C空氣', '應力龜裂', '6.3', 'Annex E'],
@@ -366,8 +368,10 @@ export const ISO_TOPICS: ISOTopic[] = [
       { label: '標準耳翼寬度 Tab Width', value: '3.50 (C.1 標稱)', unit: 'mm' }
     ],
     relatedISO7Clauses: ['Clause 5'],
-    relatedISO20Annexes: ['Annex A'],
-    relatedRefConnectors: ['C.1', 'C.2', 'C.3', 'C.4', 'C.5', 'C.6'],
+    // Clause 5 is verified against Annex B dimensions; ISO 80369-20 has no measurement annex
+    // (its Annex A is "Rationale and guidance"), and no Annex C reference connector applies.
+    relatedISO20Annexes: [],
+    relatedRefConnectors: [],
     engineeringRiskZh: '模具公差控管不當導致錐度偏離 6%，會造成配合時產生單點環狀接觸，引發氣密洩漏或應力過度集中。',
     auditFocusZh: '三次元三維量測儀（CMM）或光學影像投影儀光學量測報告，極限環規塞規驗證。',
     tags: ['6%錐度', '尺寸', 'Clause 5', 'Annex B', 'CMM'],
@@ -500,9 +504,9 @@ export const ISO_TOPICS: ISOTopic[] = [
       { label: '裝配保持時間 Hold Time', value: '5 - 6', unit: '秒' },
       { label: '機構系統 Mechanism', value: '雙軸線性導軌重錘與定扭矩盤 (S15A 原理)' }
     ],
-    relatedISO7Clauses: ['6.1', '6.2', '6.3', '6.4', '6.5'],
+    relatedISO7Clauses: ['6.1', '6.2', '6.3', '6.4', '6.5', '6.6'],
     relatedISO20Annexes: ['General Test Procedure'],
-    relatedRefConnectors: ['C.1', 'C.2', 'C.4', 'C.5'],
+    relatedRefConnectors: ['C.1', 'C.2', 'C.3', 'C.4', 'C.5', 'C.6'],
     engineeringRiskZh: '人工裝配無法精確同時施加軸向力與扭矩，易產生歪斜傾角（Cocked Assembly）導致密封面受力不均產生假洩漏或螺紋滑牙。',
     auditFocusZh: '檢視實驗室裝配裝置是否具備 27.5N 垂直重錘/線性滑軌與 0.12N·m 扭矩雙軸獨立運作結構，防範手持夾具之偏心誤差。',
     tags: ['0.12Nm', '裝配扭矩', '預裝配', '27.5N', 'S15A', '同時施加軸推力與扭力'],
@@ -544,7 +548,7 @@ export const ISO_TOPICS: ISOTopic[] = [
     ],
     relatedISO7Clauses: ['Clause 4'],
     relatedISO20Annexes: ['ISO 80369-1 General Requirements'],
-    relatedRefConnectors: ['C.1', 'C.4'],
+    relatedRefConnectors: ['C.1', 'C.4', 'C.2', 'C.5'],
     engineeringRiskZh: '設計衍生自魯爾接頭的非標零件時，外型尺寸無意中符合了腸胃道（-3）接頭，通過法規審查時會被要求補測 cross-misconnection。',
     auditFocusZh: 'ISO 14971 醫療器材風險管理文件中對於 Misconnection 的危害分析與 3D 幾何碰撞模擬紀錄。',
     tags: ['防錯對接', 'Misconnection', 'Clause 4', 'ISO 80369-1', '患者安全'],
@@ -585,7 +589,7 @@ export const ISO_TOPICS: ISOTopic[] = [
     ],
     relatedISO7Clauses: ['Clause 1', 'Clause 2', 'Clause 3'],
     relatedISO20Annexes: ['Clause 1', 'Clause 2', 'Clause 3'],
-    relatedRefConnectors: ['C.1', 'C.4'],
+    relatedRefConnectors: [],
     engineeringRiskZh: '產品範疇誤劃分（如將腸胃道餵食接頭誤申報為 ISO 80369-7 血管魯爾），致使法規審查全盤退件。',
     auditFocusZh: '確認醫療器材標籤（Labeling）與使用說明書（IFU）聲稱之預期用途（Intended Use）符合 Clause 1 範疇。',
     tags: ['Clause 1', 'Clause 2', 'Clause 3', 'Scope', '引用標準', '術語定義']
@@ -621,19 +625,20 @@ export const ISO_TOPICS: ISOTopic[] = [
     category: 'general',
     categoryZh: '通用法規與安全',
     iconName: 'FileText',
-    shortSummaryZh: '彙整 ISO 80369-7 Annex A 原理技術背景、Annex D 跨領域非互換性評估、Annex E 測試要求矩陣及 ISO 80369-20 Annex J 修訂說明。',
-    detailedDescriptionZh: '本單元彙整兩份 ISO 規範之附錄說明性章節：ISO 80369-7 Annex A 提供各項性能測試參數（如 300~330 kPa 水壓、32~35 N (Slip 23~25 N) 軸向拉力、0.15~0.17 N·m 扭矩）之科學原理與臨床設計背景；Annex D 詳細規範防誤接物理試驗與 CAD 包絡面評估流程；Annex E 提供完整的測試矩陣彙總；ISO 80369-20 Annex J 則記載通用試驗方法之歷年修訂說明。',
+    shortSummaryZh: '彙整 ISO 80369-7 Annex A 原理技術背景、Annex D 跨領域非互換性評估、Annex E 測試要求矩陣，以及 ISO 80369-20 Annex A 原理說明與 2024 版新增之 Annex I / K（非 ISO 80369-7:2021 要求）。',
+    detailedDescriptionZh: '本單元彙整兩份 ISO 規範之附錄說明性章節：ISO 80369-7 Annex A 提供各項性能測試參數（如 300~330 kPa 水壓、32~35 N (Slip 23~25 N) 軸向拉力、0.15~0.17 N·m 扭矩）之科學原理與臨床設計背景；Annex D 詳細規範防誤接物理試驗與 CAD 包絡面評估流程；Annex E 提供完整的測試矩陣彙總。ISO 80369-20 Annex A 為各試驗方法之原理與指引 (Rationale and guidance)；2024 版新增 Annex I（旋鬆拆卸）與 Annex K（抽吸過程空氣洩漏）兩個試驗方法，但 ISO 80369-7:2021 Clause 6 未引用、亦未規定其試驗參數與判定值，故不可作為 ISO 80369-7 符合性證據。',
     keyParameters: [
-      { label: '原理附錄 Rationale Annex', value: 'ISO 80369-7 Annex A' },
+      { label: '原理附錄 Rationale Annex', value: 'ISO 80369-7 Annex A / ISO 80369-20 Annex A' },
       { label: '評估附錄 Assessment Annex', value: 'ISO 80369-7 Annex D' },
-      { label: '測試矩陣 Summary Matrix', value: 'ISO 80369-7 Annex E / ISO 80369-20 Annex J' }
+      { label: '測試矩陣 Summary Matrix', value: 'ISO 80369-7 Annex E' },
+      { label: '非 ISO 80369-7 要求 Not cited', labelEn: 'Not cited by ISO 80369-7', value: 'ISO 80369-20 Annex I / Annex K' }
     ],
     relatedISO7Clauses: ['Annex A', 'Annex D', 'Annex E'],
-    relatedISO20Annexes: ['Annex J'],
+    relatedISO20Annexes: ['Annex A', 'Annex I', 'Annex K'],
     relatedRefConnectors: ['C.1', 'C.3', 'C.4', 'C.6'],
     engineeringRiskZh: '進行醫療器材風險管理時未引用 Annex A 原理說明，無法向認證機構（NB）證明測試參數之充足合理性。',
     auditFocusZh: '確認法規檢驗報告中的測試項目覆蓋率符合 Annex E 彙整矩陣要求。',
-    tags: ['Annex A', 'Annex D', 'Annex E', 'Annex J', '原理說明', '測試矩陣']
+    tags: ['Annex A', 'Annex D', 'Annex E', 'Annex I', 'Annex K', '原理說明', '測試矩陣']
   }
 ];
 
@@ -935,24 +940,35 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     preAssembly: PRE_ASSEMBLY_NOT_APPLICABLE,
     standard: 'ISO 80369-20:2024',
     clauseNumber: 'Annex J',
-    titleEn: 'Modifications to Test Methods',
-    titleZh: '附錄 J 試驗方法修訂歷史與背景說明',
+    titleEn: 'Modification of the Test Methods to Generate Variable Data for Statistical Analysis',
+    titleZh: '附錄 J 試驗方法修改為變量數據以進行統計分析',
     type: 'test_method',
     typeZh: '實驗室測試方法',
-    objectiveZh: '記載從 2015 版升級至 2024 版之試驗方法增修內容（如新增 Annex K 抽吸水下氣泡法）。',
-    appliesToZh: '新舊版本標準數據比對與轉版驗證',
+    objectiveZh: '將原本屬性 (Pass/Fail) 之試驗方法修改為量測至失效之變量數據方法，計算統計容許限 (UTL/LTL) 以證明符合應用標準之判定值。',
+    appliesToZh: '可修改為變量數據之試驗方法 (J.2.1~J.2.7：Annex B、C、D、F、G、H、I；不含 Annex E)',
     quantitativeConditions: {},
-    fixtureRequiredZh: '標準修訂對照表',
+    fixtureRequiredZh: '同各原試驗方法之裝置；統計計算工具',
     testProcedureStepsZh: [
-      '對比 2015 與 2024 版差異，評估報告更新需求。'
+      '依 J.2 對應之試驗方法量測至失效或量測實際值（如壓降、分離力、扭矩）。',
+      '依 J.3 計算平均值、標準差與容許限係數 k，求得單側容許限。'
     ],
     acceptanceCriteriaZh: [
-      '轉版驗證數據符合最新版要求。'
+      '統計容許限 (UTL/LTL) 符合應用標準（如 ISO 80369-7 Clause 6）規定之判定值。'
     ],
     commonNonConformancesZh: [
-      '未補測最新版新增之 Annex K 條文。'
+      '未驗證數據常態性即套用容許限係數 k。'
     ],
-    regulatoryTipZh: 'ISO 80369-20:2024 轉版過渡期必備參考。'
+    regulatoryTipZh: '變量數據通常可用較少樣本達到與屬性測試相同之統計檢定力。',
+    testProcedureStepsEn: [
+      'Run the matching J.2 test method to failure or to a measured value (e.g. pressure change, separation force, torque).',
+      'Per J.3, calculate the mean, standard deviation and tolerance-limit factor k to obtain the one-sided tolerance limit.'
+    ],
+    acceptanceCriteriaEn: [
+      'The statistical tolerance limit (UTL/LTL) meets the acceptance value of the application standard (e.g. ISO 80369-7 Clause 6).'
+    ],
+    commonNonConformancesEn: [
+      'Applying the tolerance factor k without verifying normality of the data.'
+    ]
   },
   'iso7-6.1': {
     id: 'iso7-6.1',
@@ -1116,38 +1132,53 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     commonNonConformancesZh: [
       '真空幫浦管路接頭自身洩漏。'
     ],
-    regulatoryTipZh: '若傳輸液體產品，亦可選用 2024 版新增之 Annex K（水下氣泡法）評估。'
+    regulatoryTipZh: 'ISO 80369-7:2021 6.2 僅引用 Annex D；2024 版新增之 Annex K（水下氣泡法）未被引用，不可取代本測試，僅可作為輸送液體產品之補充評估。'
   },
   'iso20-annex-k': {
     id: 'iso20-annex-k',
     standard: 'ISO 80369-20:2024',
     clauseNumber: 'Annex K',
-    titleEn: 'Air Leakage During Aspiration Test Method',
-    titleZh: '附錄 K 抽吸過程氣密測試方法實施細則 (2024最新新增)',
+    titleEn: 'Air Leakage During Aspiration Test Method (new in 2024; not required by ISO 80369-7:2021)',
+    titleZh: '附錄 K 抽吸過程氣密測試方法 (2024 新增；非 ISO 80369-7:2021 要求)',
     type: 'test_method',
-    typeZh: '實驗室測試方法',
-    objectiveZh: '透過將接頭浸入透明水容器中並抽真空，目視檢查是否有連續氣泡冒出。',
-    appliesToZh: '用於抽吸藥液與體液之小口徑連接器',
+    typeZh: '實驗室測試方法 (補充參考)',
+    objectiveZh: '將充水之受測接頭與參考接頭連接於上方透明水容器，施加負壓後目視檢查是否有連續氣泡流。注意：ISO 80369-7:2021 Clause 6 未引用本附錄，亦未規定其負壓、測試期間與判定值，故不可作為 ISO 80369-7 符合性證據。',
+    appliesToZh: '輸送液體之小口徑連接器（僅限應用標準有規定時）；ISO 80369-7 魯爾接頭之 6.2 法定測試為 Annex D',
     quantitativeConditions: {
       assemblyTorqueNm: '0.08 N·m - 0.12 N·m (Lock) / ≤ 0.10 N·m (Slip 微旋 ≤90°)',
       assemblyAxialForceN: '26.5 N - 27.5 N',
-      testPressureKpa: '80.0 - 88.0 kPa (負壓)',
-      holdTimeSec: '指定測試時間',
+      testPressureKpa: '依應用標準規定 (ISO 80369-7:2021 未規定)',
+      holdTimeSec: '依應用標準規定 (ISO 80369-7:2021 未規定)',
       media: '透明水容器 (填充約 1/3 容量)'
     },
     fixtureRequiredZh: '透明圓柱形水容器與真空幫浦系統',
     testProcedureStepsZh: [
-      '接頭充水裝配後連接至水容器下方。',
-      '施加 80~88 kPa 負壓真空。',
-      '等待最多 20 秒待初始氣泡停止，隨後開始計時觀察水容器內是否有持續氣泡產生。'
+      '封閉受測接頭貫通孔，依預裝配程序乾式裝配於參考接頭。',
+      '於受測接頭與參考接頭內注水，連接至水容器下方 (Figure K.1)。',
+      '施加應用標準規定之負壓，達到後維持並記錄。',
+      '等待最多 20 秒待初始氣泡停止，隨後於規定測試期間觀察水容器內是否有持續氣泡產生。'
     ],
     acceptanceCriteriaZh: [
-      '測試期間無連續產生的氣泡流。'
+      '測試期間無連續產生的氣泡流，且初始氣泡流須停止（判定期間與負壓由應用標準規定）。'
     ],
     commonNonConformancesZh: [
-      '水中溶解氣體在負壓下釋放產生微小氣泡干擾判讀。'
+      '水中溶解氣體在負壓下釋放產生微小氣泡干擾判讀。',
+      '誤以 Annex K 取代 ISO 80369-7 6.2 規定之 Annex D 負壓衰減測試。'
     ],
-    regulatoryTipZh: '2024 年版新增之目視水下氣泡法，非常適合輸液管路與抽吸針筒之直觀驗證。'
+    regulatoryTipZh: 'ISO 80369-20 A.2.13 指出輸送液體時 Annex K 可能比 Annex D 更合適，但 ISO 80369-7:2021 6.2 只引用 Annex D；提交法規時仍須以 Annex D 結果證明 6.2 符合性。',
+    testProcedureStepsEn: [
+      'Seal the through bore of the connector under test and dry-assemble it to the reference connector using the standard pre-assembly.',
+      'Fill the connector under test and the reference connector with water and connect them below the water vessel (Figure K.1).',
+      'Apply the sub-atmospheric pressure specified by the application standard; once reached, maintain and record it.',
+      'Wait up to 20 s for any initial bubble stream to stop, then inspect the vessel for a continuous bubble stream during the specified test period.'
+    ],
+    acceptanceCriteriaEn: [
+      'No continuous bubble stream during the test period, and the initial bubble stream stops (pressure and period are set by the application standard).'
+    ],
+    commonNonConformancesEn: [
+      'Dissolved gas released under vacuum forms small bubbles that confuse the reading.',
+      'Using Annex K in place of the Annex D sub-atmospheric pressure test required by ISO 80369-7 clause 6.2.'
+    ]
   },
   'iso7-6.6': {
     id: 'iso7-6.6',
@@ -1338,37 +1369,50 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     commonNonConformancesZh: [
       '測試時夾持施力不勻產生側面彎矩。'
     ],
-    regulatoryTipZh: '與 Annex I（旋鬆拆卸力測試）互為對照。'
+    regulatoryTipZh: 'ISO 80369-7:2021 6.5 僅引用本 Annex G；2024 版新增之 Annex I（旋鬆拆卸峰值扭矩）性質不同（量測拆卸易用性），不可取代本測試。'
   },
   'iso20-annex-i': {
     id: 'iso20-annex-i',
     standard: 'ISO 80369-20:2024',
     clauseNumber: 'Annex I',
-    titleEn: 'Disconnection by Unscrewing Test Method',
-    titleZh: '附錄 I 旋鬆拆卸力測試方法實施細則',
+    titleEn: 'Disconnection by Unscrewing Test Method (new in 2024; not required by ISO 80369-7:2021)',
+    titleZh: '附錄 I 旋鬆拆卸測試方法 (2024 新增；非 ISO 80369-7:2021 要求)',
     type: 'test_method',
-    typeZh: '實驗室測試方法',
-    objectiveZh: '評估使用者將接頭旋鬆拆卸時的最大峰值扭矩（Peak Torque），確保臨床易用性。',
-    appliesToZh: '需要頻繁旋開拆卸之魯爾鎖定接頭',
+    typeZh: '實驗室測試方法 (補充參考)',
+    objectiveZh: '確認每日需多次連接/拆卸之接頭能被使用者順利旋開：施加漸增旋鬆扭矩至分離並記錄峰值扭矩。注意：ISO 80369-7:2021 Clause 6 未引用本附錄、未規定扭矩上限與參考接頭，故不可作為 6.5 或其他 ISO 80369-7 條文之符合性證據（6.5 抗旋鬆分離應依 Annex G）。',
+    appliesToZh: '鎖定型與滑動型接頭皆可（僅限應用標準有規定時）；ISO 80369-7 魯爾接頭未規定',
     quantitativeConditions: {
       assemblyTorqueNm: '0.08 N·m - 0.12 N·m (Lock) / ≤ 0.10 N·m (Slip 微旋 ≤90°)',
       assemblyAxialForceN: '26.5 N - 27.5 N',
       restTimeMin: '10 - 15 分鐘 (靜置貼合)',
-      maxAllowedUnscrewingTorque: '按產品規格上限 (例: ≤ 0.24 N·m)'
+      maxAllowedUnscrewingTorque: '依應用標準規定 (ISO 80369-7:2021 未規定；0.24 N·m 為 I.3.4 量測設備最低量程，非判定值)'
     },
-    fixtureRequiredZh: '公鎖配 Fig.C.1 (母標稱件) / 母鎖配 Fig.C.4 (公標稱件) (僅限鎖定型)',
+    fixtureRequiredZh: '依應用標準指定之參考接頭 (ISO 80369-7:2021 未指定)',
     testProcedureStepsZh: [
       '依標準預裝配程序裝配接頭（鎖定型先旋至 0.08~0.12 N·m 扭矩再施加 26.5~27.5 N 推力；滑動型先施加 26.5~27.5 N 推力再以 ≤0.10 N·m 扭矩微旋 ≤90°，維持 5~6 秒後釋放），靜置 10~15 分鐘使塑膠應力鬆弛穩定。',
       '以連續漸增扭矩旋鬆接頭，直至錐面分離脫開。',
       '記錄克服靜摩擦力之最大峰值扭矩（Peak Torque）。'
     ],
     acceptanceCriteriaZh: [
-      '峰值拆卸扭矩未超過規定之上限值（確保醫護人員能順利以手拆卸）。'
+      '峰值拆卸扭矩未超過應用標準規定之上限值（ISO 80369-7:2021 未規定此上限）。'
     ],
     commonNonConformancesZh: [
-      '錐面過度緊咬造成卡死，拆卸扭矩過大（> 0.35 N·m）致護理人員無法徒手旋開。'
+      '錐面過度緊咬造成卡死，拆卸扭矩過大致使用者無法徒手旋開。',
+      '誤以 Annex I（拆卸峰值扭矩）取代 ISO 80369-7 6.5 規定之 Annex G 抗旋鬆分離測試。'
     ],
-    regulatoryTipZh: '人因工程（Usability Engineering IEC 62366）評估的重要指標。'
+    regulatoryTipZh: '可作為人因工程（IEC 62366）易拆性之補充證據；ISO 80369-7:2021 6.5 符合性仍須以 Annex G 結果證明。',
+    testProcedureStepsEn: [
+      'Dry-assemble the connector under test to the reference connector using the standard pre-assembly (lock: 0.08–0.12 N·m collar torque, then 26.5–27.5 N axial force; slip: 26.5–27.5 N axial force, then rotate ≤ 90° at ≤ 0.10 N·m; hold 5–6 s and release), then let it sit 10–15 min.',
+      'Apply an increasing unscrewing torque until the connection separates, with no supplementary force in other directions.',
+      'Record the peak torque at which the connector begins to loosen (sampling fast enough to capture the static-friction peak).'
+    ],
+    acceptanceCriteriaEn: [
+      'Peak unscrewing torque does not exceed the limit set by the application standard (ISO 80369-7:2021 sets none).'
+    ],
+    commonNonConformancesEn: [
+      'Over-tight taper engagement makes the connector hard to unscrew by hand.',
+      'Using Annex I (peak disconnection torque) in place of the Annex G test required by ISO 80369-7 clause 6.5.'
+    ]
   },
   'iso20-annex-e': {
     id: 'iso20-annex-e',
@@ -1522,28 +1566,33 @@ export const STANDARD_CLAUSE_DETAILS: Record<string, StandardClauseDetail> = {
     preAssembly: PRE_ASSEMBLY_NOT_APPLICABLE,
     standard: 'ISO 80369-20:2024',
     clauseNumber: 'Annex A',
-    titleEn: 'Test Methods for Dimensional Attributes',
-    titleZh: '附錄 A 幾何尺寸量規驗證實施細則',
-    type: 'test_method',
-    typeZh: '實驗室測試方法',
-    objectiveZh: '規範使用量規 (Gauges) 與三次元精密量測設備驗證幾何尺寸之標準量測條件。',
-    appliesToZh: '所有 ISO 80369 系列連接器',
-    quantitativeConditions: {
-      temperatureC: '20°C ± 2°C (標準計量室溫)'
-    },
-    fixtureRequiredZh: '三次元 CMM / 6% 光學投影儀 / 通止規 (無附錄 C 夾具)',
+    titleEn: 'Rationale and Guidance',
+    titleZh: '附錄 A 原理與指引 (Rationale and guidance，參考性)',
+    type: 'general_principle',
+    typeZh: '原理說明 (參考性附錄)',
+    objectiveZh: '說明 ISO 80369-20 各試驗方法（Annex B~K）之設計原理與沿革，供未參與標準制定者理解各要求之背景；本附錄不含任何試驗程序或尺寸量測方法。',
+    appliesToZh: '理解 ISO 80369-20 各試驗方法之背景（非試驗方法）',
+    quantitativeConditions: {},
+    fixtureRequiredZh: '不適用（說明性附錄，無試驗裝置）',
     testProcedureStepsZh: [
-      '將試驗品於 20°C 計量室靜置恒溫平衡。',
-      '使用光學探針量測錐度 6% 斜率與軸向深度。',
-      '使用螺紋環規進行通止規 (Go/No-Go) 檢驗。'
+      '閱讀 A.2 各附錄之原理說明（如 A.2.11 Annex I、A.2.13 Annex K），作為選用與解讀試驗方法之依據。'
     ],
     acceptanceCriteriaZh: [
-      '量測數據精確符合 ISO 80369-7 尺寸公差矩陣。'
+      '不適用（本附錄不設判定值；判定值由應用標準如 ISO 80369-7 Clause 6 規定）。'
     ],
     commonNonConformancesZh: [
-      '環境溫差過大造成塑膠熱脹冷縮偏離尺寸。'
+      '誤將 ISO 80369-20 Annex A 當作尺寸量測方法引用；ISO 80369-7 Clause 5 尺寸應依 ISO 80369-7 Annex B 圖表驗證。'
     ],
-    regulatoryTipZh: '建議量測儀器儀校系統隨附 ISO 17025 追溯證明。'
+    regulatoryTipZh: '尺寸符合性 (ISO 80369-7 Clause 5) 之依據為 ISO 80369-7 Annex B 圖表，而非 ISO 80369-20 Annex A。',
+    testProcedureStepsEn: [
+      'Read the A.2 rationale for each annex (e.g. A.2.11 Annex I, A.2.13 Annex K) when selecting and interpreting test methods.'
+    ],
+    acceptanceCriteriaEn: [
+      'Not applicable: this annex sets no acceptance values; they come from the application standard (e.g. ISO 80369-7 Clause 6).'
+    ],
+    commonNonConformancesEn: [
+      'Citing ISO 80369-20 Annex A as a dimensional measurement method; ISO 80369-7 Clause 5 dimensions are verified against ISO 80369-7 Annex B.'
+    ]
   },
   'iso20-general-procedure': {
     id: 'iso20-general-procedure',
